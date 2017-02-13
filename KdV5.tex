@@ -78,7 +78,7 @@ The procedure is as follows:
 	\item Choose parameter $b$ first. Sanstede (2015) suggests that to have multipulses we need to choose $b > 2$, so we initially take $b = 2.5$ (admittedly an arbitrary choice). Interestingly, Chapneys and Groves (1997) show multipulses in many different parameter regimes, including $b = -0.5, c = 1$ (figure 3, p 210); and $b = 0.5, c = 2$ (figure 22, p. 224). These may be work exploring at some point.
 	\item Start with known solution $u_*(x)$ with $c = c_*(2.5) = 1.8$.
 	\item Use Fourier spectral methods with periodic BCs on interval $[-L, L]$. There is a tradeoff between making the domain large enough so the pulses do not interact with the (periodic) boundary and small enough so that the code can run on my computer. Large numbers of grid points, in particular, are wasteful since the solution is zero for most of the domain. It might be interesting to try an adaptive mesh at some point. For now, we chose $L = 20$ and $N = 2048$. The Fourier differentiation operator does introduce small oscillations at the base of the pulse (just try $D*u_*$), but for $N = 2048$ this is manageable. I tried filtering briefly, but it made things worse.
-	\item Use continuation to increase $c$ so that we have complex eigenvalues $\lambda$ for the linearization about $u_* = 0$. Resulting pulse has tail oscillations, as expected, whose angular frequency is given (roughly) by the 
+	\item Use continuation to increase $c$ so that we have complex eigenvalues $\lambda$ for the linearization about $u_* = 0$. Resulting pulse has tail oscillations, as expected, whose angular frequency is given (roughly) by the imaginary part of $\lambda$.
 	\item Construct double pulses from the single pulse by gluing together the single pulses at the appropriate places. These turn out to be:
 		\begin{enumerate}
 			\item First min (visible dip below baseline)
@@ -95,7 +95,7 @@ From previous numerical experiments, all our double pulses had a pair of real ei
 
 \subsubsection*{Initial trial}
 Using a fixed $b = 2.5$, we ran the continuation code until $c =  238.7352
-$. This was likely massive overkill, but larger $c$ makes the eigenvalues larger (less risk of numerical error) and makes the pulses closer to the center (higher frequency oscillations), making the domain size matter less. It also makes the max/mins more prominent. Let's look at the graphs and the eigenvalues of the linearization about the solution. These are the eigenvalues of the 5th order ODE (not the integrated version). If we have real eigenvalues, eigenfunctions are also shown.
+$. This was likely massive overkill, but larger $c$ makes the eigenvalues larger (less risk of numerical error) and makes the pulses closer to the center (higher frequency oscillations), making the domain size matter less. It also makes the max/mins more prominent. Let's look at the graphs and the eigenvalues of the linearization about the solution. These are the eigenvalues of the 5th order ODE (not the integrated version). If we have real eigenvalues, eigenfunctions are also shown. All solutions converged with fsolve.
 
 \begin{enumerate}
 	\item Single pulse
@@ -105,7 +105,7 @@ $. This was likely massive overkill, but larger $c$ makes the eigenvalues larger
 	\end{figure}
 	
 
-	\item Double pulse 1: joined at 1st min
+	\item Double pulse 1: joined at 1st min, $\lambda = \pm 313.4005$.
 	\begin{figure}[H]
 	\includegraphics[width=8.5cm]{1double1.eps}
 	\includegraphics[width=8.5cm]{1double1zoom.eps}
@@ -124,7 +124,7 @@ $. This was likely massive overkill, but larger $c$ makes the eigenvalues larger
 	\includegraphics[width=8.5cm]{1double2eig.eps}
 	\end{figure}
 
-	\item Double pulse 3: joined at 1st max
+	\item Double pulse 3: joined at 1st max, $\lambda = \pm 6.2449$
 	\begin{figure}[H]
 	\includegraphics[width=8.5cm]{1double3.eps}
 	\includegraphics[width=8.5cm]{1double3zoom.eps}
@@ -180,7 +180,7 @@ Since this looks hopeful, does this work for the 5th order KdV equation. We repe
 	\includegraphics[width=8.5cm]{KdVdouble0eig.eps}
 	\end{figure}
 
-	\item Double pulse 1: joined at 1st min
+	\item Double pulse 1: joined at 1st min, $\lambda = \pm 0.0120$
 	\begin{figure}[H]
 	\includegraphics[width=8.5cm]{KdVdouble1.eps}
 	\includegraphics[width=8.5cm]{KdVdouble1zoom.eps}
@@ -211,6 +211,48 @@ D2     & between & -3.0600e-12        & -4.0249e-06       & -1.8484           & 
 \end{tabular}
 \end{figure}
 As above, the paired eigenvalue near 0 flips sides appropriately. All other observations carry over.
+
+\subsubsection*{Repeat KdV for higher c}
+Here we repeated the above using the 5th order KdV equation for $c = 6.2848$. With higher $c$, we can see more double pulses before the boundary becomes an issue since the frequency is higher. The same pattern of eigenvalues is observed, so we are even more confident that this is correct. Also, the eigenvalues are larger, so less risk of numerical error.
+
+\begin{enumerate}
+	\item Single pulse
+	\begin{figure}[H]
+	\includegraphics[width=8.5cm]{2single.eps}
+	\includegraphics[width=8.5cm]{2singleeig.eps}
+	\end{figure}
+
+	\item Double pulse 0: joined between origin and 1st min
+	\begin{figure}[H]
+	\includegraphics[width=8.5cm]{2double0}
+	\includegraphics[width=8.5cm]{2double0eig.eps}
+	\end{figure}
+
+	\item Double pulse 1: joined at 1st min, $\lambda = \pm 0.02029$
+	\begin{figure}[H]
+	\includegraphics[width=8.5cm]{2double1.eps}
+	\includegraphics[width=8.5cm]{2double1eig.eps}
+	\end{figure}
+
+	\item Double pulse 2: joined between 1st min and 1st max
+	\begin{figure}[H]
+	\includegraphics[width=8.5cm]{2double2.eps}
+	\includegraphics[width=8.5cm]{2double2eig.eps}
+	\end{figure}
+
+	\item Double pulse 3: joined at 1st max, $\lambda = \pm 0.0043$
+	\begin{figure}[H]
+	\includegraphics[width=8.5cm]{2double3.eps}
+	\includegraphics[width=8.5cm]{2double3eig.eps}
+	\end{figure}
+
+	\item Double pulse 4: joined between 1st max and 2nd min
+	\begin{figure}[H]
+	\includegraphics[width=8.5cm]{2double4.eps}
+	\includegraphics[width=8.5cm]{2double4eig.eps}
+	\end{figure}
+
+\end{enumerate}
 
 \end{document}
 
