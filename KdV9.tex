@@ -89,7 +89,7 @@ For reference, here are the eigenfunctions for the pair of real eigenvalues for 
 \includegraphics[width=8.5cm]{1double1fouriereigenfnplus}
 \includegraphics[width=8.5cm]{1double1fouriereigenfnminus}
 \end{figure}
-
+Note that these are not symmetric about the y-axis. The eigenfunctions look the same no matter which method or grid size we use.
 
 \subsubsection*{Double Pulse 2}
 Here we do the same thing we did last time. We use an exponentially weighted space with weight $a = 0.2$ to separate the eigenvalues from the absolute spectrum. First, we use finite difference methods with periodic BCs. The eigenvalue pattern looks exactly the same as it did with $L = 100$, i.e. we have a Left Eigenvalue which appears to be converging to a nonzero value on the imaginary axis, and a Right Eigenvalue which appears to be converging to 0. The eigenfunction of the Right Eigenvalue appears to be an exponentially weighted version of the derivative of the double pulse, so that is good. Here are the eigenvalues. We use grid points from 1000 to 10000 in increments of 1000. Above 10000 or so grid points, it's hard to get good results from \texttt{fsolve}.
@@ -152,13 +152,94 @@ We see that by the time we get to 2048 grid points, the \texttt{fsolve}d eigenve
 \includegraphics[width=8.5cm]{1double2eigenfnreal}
 \includegraphics[width=8.5cm]{1double2eigenfnimag}
 \end{figure}
-We can convert the eigenfunction back to the unweighted space by multiplying it by $e^{-ax}$, where $a = 0.2$ here. Here is the real and imaginary parts of the unweighted eigenfunctions.
+We can convert the eigenfunction back to the unweighted space by multiplying it by $e^{-ax}$, where $a = 0.2$ here. Here are the real and imaginary parts of the unweighted eigenfunctions.
 \begin{figure}[H]
 \includegraphics[width=8.5cm]{1double2eigenfnrealunweighted}
 \includegraphics[width=8.5cm]{1double2eigenfnimagunweighted}
 \end{figure}
 
+\subsubsection*{Double Pulse 3}
+Here we use Fourier spectral methods with 1024 grid points. We already know we have a pair of real eigenvalues ($\lambda = \pm 0.1176$), but we want to see the eigenfunctions.
 
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{1double3fouriereigenfnplus}
+\includegraphics[width=8.5cm]{1double3fouriereigenfnminus}
+\end{figure}
+The two eigenfunctions are again reflections of each other about the y-axis. They are very close to symmetric about the y-axis, but not quite. The two peaks are not the same height; for the positive eigenvalue, the left peak is higher both for Double Pulse 3 and Double Pulse 1. I'm not sure what this means, but it is consistent, so that is good.
+
+\subsubsection*{Double Pulse 4}
+Finite difference methods do not do well here (probably because the eigenvalues are too small), so we will use Fourier. Given what we learned from Double Pulse 2, this should be fine. Another advantage of Fourier is that the differentiation matrices are always small enough to use \texttt{eig} instead of \texttt{eigs}. We will focus only on the Left Eigenvalue, since that's the one we are interested in. Here is a table of the Left Eigenvalue, together with the max error of the eigenvalue problem before and after \texttt{fsolve}.
+
+\begin{figure}[H]
+\begin{tabular}{l|lll}
+  $N$   & left eigenvalue &  $\max J -\lambda f$ before \texttt{fsolve}  &  $\max J -\lambda f$ after \texttt{fsolve} \\ \hline
+  256   &  -1.5832e-11 + 0.0215i &  6.7141e-11  &  1.3100e-11   \\ 
+  512   &   7.1199e-10 + 0.0215i &  1.3103e-09  &  7.2288e-10   \\ 
+  1024  &  -1.4488e-08 + 0.0215i &  4.7470e-08  &  2.2036e-08 \\
+\end{tabular}
+\end{figure}
+
+Again, for the pre-\texttt{fsolve} version, the real parts are very close to 0, and the max error decreases (for all numbers of grid points we tried) after we use \texttt{fsolve} to make the real part of the eigenvalue 0. The real and imaginary parts of the eigenfunction (after \texttt{fsolve}) are plotted below.
+
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{1double4eigenfnreal}
+\includegraphics[width=8.5cm]{1double4eigenfnimag}
+\end{figure}
+Doing exactly what we did above, here are the real and imaginary parts of the unweighted eigenfunctions.
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{1double4eigenfnrealunweighted}
+\includegraphics[width=8.5cm]{1double4eigenfnimagunweighted}
+\end{figure}
+
+\section*{10 March 2017}
+\subsection*{Shallow water equation}
+This is the following 5th order PDE:
+\[
+u_t + \partial _x\left( \frac{2}{15}u_{xxxx} - b u_{xx} + \frac{3}{2}u^2 + \frac{1}{2}u_x^2 + u u_{xx} \right) = 0
+\]
+As usual, we take a traveling wave solution $u = u(x + ct)$. We showed before that we can construct double pulses with eigenvalue patterns identical to that of the 5th order KdV equation. Now we repeat what we did above with this equation. We take $b = 2.5$ since Sanstede (2015) suggests that to have multipulses we need to choose $b > 2$. For this value of $b$, we have a known solution for $c = c_*(b) = 1.8$. Somewhere above $c = 10$, the eigenvalues of the eigenvalues of the linearization about the zero-solution become complex, so we run continuation code in the parameter $c$ until we reach $c = 20.4414$. \\
+
+We then construct double pulses. For this equation, finite difference are not accurate enough, and in fact we cannot get \texttt{fsolve} to converge for $N > 5000$ or so. Thus we will use Fourier spectral methods. Given what we observed above, this is a good choice. Continuation code is run with $N = 512$ grid points and domain length $L = 15$. It looks like we need at least $N = 512$ grid points with Fourier to get good results.
+
+\subsubsection*{Double Pulse 1}
+As expected, we get two real eigenvalues which are negatives of each other.
+\begin{figure}[H]
+\begin{tabular}{l|ll}
+$N$    & Positive real eigenvalue      &  Difference      \\ \hline
+  512  &        11.3090  &        \\ 
+  1024 &        11.3090  &      8.2311e-07  \\
+\end{tabular}
+\end{figure}
+These values are close, so we did not go to higher numbers of grid points. The corresponding eigenfunctions are reflections of each other about the y-axis, as expected. They are also qualitatively similar to the eigenfunctions for Double Pulse 1 of the KdV equation.
+
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{Sh1double1eigenfnplus}
+\includegraphics[width=8.5cm]{Sh1double1eigenfnminus}
+\end{figure}
+
+\subsubsection*{Double Pulse 2}
+As expected, if we take an exponentially weighted space ($a = 0.2$, same as for KdV, provides good separation from the absolute spectrum), we get a pair of complex conjugate eigenvalues which are approximatley on the imaginary axis, and a pair of eigenvalues near 0. The pair near 0 have eigenfunctions which look like the derivative of the double pulse, as expected, so we will ignore them for now and focus on the other pair. We only take the eigenvalue with positive imaginary part, since the two make a complex conjugate pair. As with the KdV equation, we can successfully run the eigenfunction through \texttt{fsolve} to get rid of the real part of the eigenvalue. For the \texttt{fsolve}, we are now requiring the norm of the eigenfunction to be 1 (\texttt{eig} and \texttt{eigs} output normalized eigenfunctions, so this makes sure we don't accidentally converge to the 0 function; not sure how much diffence it really makes, but certainly does not hurt).
+
+\begin{figure}[H]
+\begin{tabular}{l|lll}
+  $N$   & Eigenvalue &  $\max J -\lambda f$ before \texttt{fsolve}  &  $\max J -\lambda f$ after \texttt{fsolve} \\ \hline
+  512   &   4.6663e-07 +  0.1533i &   2.6353e-09  &  5.6233e-10   \\ 
+  768   &   4.4082e-07 +  0.1534i &   7.1376e-08  &  4.9443e-09   \\
+\end{tabular}
+\end{figure}
+
+For more grid points, it was taking \texttt{fsolve} a while to converge. Since the results look good, didn't feel the need to go to more grid points at this time.\\
+
+The real and imaginary parts of the eigenfunction (after \texttt{fsolve}) are plotted below.
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{Sh1double2eigenfnreal}
+\includegraphics[width=8.5cm]{Sh1double2eigenfnimag}
+\end{figure}
+Doing exactly what we did above, here are the real and imaginary parts of the unweighted eigenfunctions.
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{Sh1double2eigenfnrealunweighted}
+\includegraphics[width=8.5cm]{Sh1double2eigenfnimagunweighted}
+\end{figure}
 
 \end{document}
 
