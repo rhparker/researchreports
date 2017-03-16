@@ -89,7 +89,59 @@ For reference, here are the eigenfunctions for the pair of real eigenvalues for 
 \includegraphics[width=8.5cm]{1double1fouriereigenfnplus}
 \includegraphics[width=8.5cm]{1double1fouriereigenfnminus}
 \end{figure}
-Note that these are not symmetric about the y-axis. The eigenfunctions look the same no matter which method or grid size we use.
+Note that these are not symmetric about the y-axis. The eigenfunctions look the same no matter which method or grid size we use.\\
+
+We can also look at the integral of the eigenfunction. We expect it to be 0. Using Fourier spectral methods and the trapezoid rule for numerical integration:
+
+\begin{figure}[H]
+\begin{tabular}{lll}
+$N$    & Positive real eigenvalue      &  Integral     \\ \hline
+  128  &        3.5072  &  -1.3941e-05 \\ 
+  256  &        3.4990  &  4.9595e-06  \\ 
+  512  &        3.4990  &  -1.7755e-06 \\ 
+  1024 &        3.4990  &  6.2412e-07  \\
+  2048 &        3.4990  &  -2.7434e-07 \\ 
+\end{tabular}
+\end{figure}
+A plot of the log of the absolute value of the integral versus the log of the mesh size gives a nice straight line, suggesting convergence to 0; however, I have no idea what the order of convergence (about 1.5) means in this case since we have to consider convergence of the Fourier spectral method as well as convergence of the numerical integration scheme.
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{1double1fouriereigenfnintegralN}
+\end{figure}
+
+We can also look at the effect of the domain size $L$ on the integral. Here we keep the mesh size constant, so we double the number of grid points when we double the domain size.
+
+\begin{figure}[H]
+\begin{tabular}{llll}
+$N$    & $L$    & Positive real eigenvalue      &  Integral     \\ \hline
+  256  &  25    &   3.4990  &  4.9595e-06  \\ 
+  512  &  50    &   3.4990  &  -5.7404e-07 \\ 
+  1024 &  100   &   3.4990  &  -7.9850e-09 \\
+  2048 &  200   &   3.4990  &  -7.3953e-12 \\ 
+\end{tabular}
+\end{figure}
+
+These integrals also appear to be converging to 0, which is nice, although we cannot get a nice linear fit on either a log-log or a semilog plot. \\
+
+Finally, we can look at the effect of the domain size $L$ on the integral with the number of grid points $N$ fixed. For this, we use $N = 2048$.
+
+\begin{figure}[H]
+\begin{tabular}{llll}
+$N$    & $L$    & Positive real eigenvalue  &  Integral     \\ \hline
+       &        &           &  1.0e6 *     \\
+  2048 &  25    &   3.4990  &      0.1678 \\ 
+  2048 &  50    &   3.4990  &     -0.0700 \\ 
+  2048 &  75    &   3.4990  &      0.0156 \\
+  2048 &  100   &   3.4990  &      0.0025 \\
+  2048 &  125   &   3.4990  &     -0.0005 \\ 
+  2048 &  150   &   3.4990  &     -0.0001 \\
+\end{tabular}
+\end{figure}
+
+On a semi-log plot, we get a nice best-fit straight line, suggesting exponential convergence to 0.
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{1double1fouriereigenfnintegralL2048}
+\end{figure}
+
 
 \subsubsection*{Double Pulse 2}
 Here we do the same thing we did last time. We use an exponentially weighted space with weight $a = 0.2$ to separate the eigenvalues from the absolute spectrum. First, we use finite difference methods with periodic BCs. The eigenvalue pattern looks exactly the same as it did with $L = 100$, i.e. we have a Left Eigenvalue which appears to be converging to a nonzero value on the imaginary axis, and a Right Eigenvalue which appears to be converging to 0. The eigenfunction of the Right Eigenvalue appears to be an exponentially weighted version of the derivative of the double pulse, so that is good. Here are the eigenvalues. We use grid points from 1000 to 10000 in increments of 1000. Above 10000 or so grid points, it's hard to get good results from \texttt{fsolve}.
@@ -158,6 +210,53 @@ We can convert the eigenfunction back to the unweighted space by multiplying it 
 \includegraphics[width=8.5cm]{1double2eigenfnimagunweighted}
 \end{figure}
 
+Now that we know what we are looking for, we can try to fish out this eigenvalue from the essential spectrum in the unweighted space. (The essential spectrum in the nondiscretized world is the entire imaginary axis, which makes this difficult.) As above, we can use \texttt{fsolve} to get rid of the tiny real part of the eigenvalue and give us a pure imaginary eigenvalue. Here is a table of the results.
+
+\begin{figure}[H]
+\begin{tabular}{l|lll}
+  $N$   & eigenvalue &  $\max J -\lambda f$ before \texttt{fsolve}  &  $\max J -\lambda f$ after \texttt{fsolve} \\ \hline
+  256   &  1.6239e-11 + 0.6423i  & 7.6305e-11   &    1.1220e-11  \\ 
+  512   & -3.2265e-10 + 0.6423i  &  2.0980e-09  &   3.0428e-10  \\ 
+  1024  &  8.7075e-09 + 0.6423i  &  4.4871e-08  &  1.7600e-08 \\
+\end{tabular}
+\end{figure}
+Now let's look at the corresponding eigenfunction and compare to what we got but ``unweighting'' the weighted eigenfunction. They are very similar, which is good.
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{1double2a0eigenfnreal}
+\includegraphics[width=8.5cm]{1double2a0eigenfnimag}
+\end{figure}
+It it interesting to note what eigenvalues we have on the imaginary axis between $-0.6423i$ and $0.6423i$. There are two eigenvalues at 0 (to numerical precision) whose eigenfunctions are the derivative of the double pulse. There are also two eigenvalues at 0 whose eigenfunctions are essentially nonlocalized garbage.\\
+
+We can also look at the integrals of these eigenfunctions. We use the eigenfunctions found in the unweighted space (after \texttt{fsolve}) and integrate using trapezoid rule (\texttt{trapz}). 
+\begin{figure}[H]
+\begin{tabular}{l|lll}
+  $N$   & eigenvalue &  Integral of Eigenfunction & Abs Value of Integral \\ \hline
+  256   & 0.6423i  &  6.9713e-07 + 1.0313e-08i & 6.9721e-07 \\ 
+  512   & 0.6423i  &  2.4639e-07 + 7.3560e-09i & 2.4650e-07 \\ 
+  768   & 0.6423i  &  1.3369e-07 + 7.0911e-09i & 1.3388e-07 \\
+  1024  & 0.6423i  &  9.0563e-08 + 1.4987e-08i & 9.1795e-08 \\
+\end{tabular}
+\end{figure}
+
+Looking the table, the integral of the imaginary part does not have a nice convergence trend to 0. However if we plot the log absolute value of the integral versus the log of the mesh size, we get a nice straight line, so this is good.
+
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{1double2fouriereigenfnabsintegralN}
+\end{figure}
+
+The order of convergence is roughly 1.5, which is about the same as for the eigenfunction of Double Pulse 1, but I have no idea what this means. We can also vary the domain length $L$, keeping the mesh size constant.
+
+\begin{figure}[H]
+\begin{tabular}{l|llll}  
+  $N$  & $L$    &  Eigenvalue &  Integral of Eigenfunction  & Abs Value of Integral   \\ \hline
+  256  &  25    &   0.6423i   &  6.9713e-07 + 1.0313e-08i & 6.9721e-07 \\ 
+  512  &  50    &   0.6423i   &  3.6105e-07 + 5.5240e-09i & 3.6109e-07 \\ 
+  768  &  75    &   0.6243i   & -2.7143e-07 - 4.2293e-09i & 2.7146e-07 \\
+  1024 &  100   &   0.6423i   &  2.4759e-07 + 3.8597e-09i & 2.4762e-07 \\
+\end{tabular}
+\end{figure}
+The real part and the absolute value of the integral are both getting smaller, although we don't have a nice relation like we for the mesh size.
+
 \subsubsection*{Double Pulse 3}
 Here we use Fourier spectral methods with 1024 grid points. We already know we have a pair of real eigenvalues ($\lambda = \pm 0.1176$), but we want to see the eigenfunctions.
 
@@ -191,6 +290,14 @@ Doing exactly what we did above, here are the real and imaginary parts of the un
 \includegraphics[width=8.5cm]{1double4eigenfnimagunweighted}
 \end{figure}
 
+We can do the same thing we did for Double Pulse 2, and fish out these eigenvalues from the absolute spectrum in the unweighted space. If we do that, we find two eigenvalues on the imaginary axis at $\pm 0.0215$, just as we expected. (They have real parts of order of magnitude $1e-9$ which can be eliminated with \texttt{fsolve}). If we plot the corresponding eigenfunctions, we get:
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{1double4a0eigenfnreal}
+\includegraphics[width=8.5cm]{1double4a0eigenfnimag}
+\end{figure}
+This is the negative of the version we found when we ``unweighted'' the weighted eigenfunction, but that's ok since eigenfunctions are only defined up to a constant multiple. Also multiplying by -1 doesn't change the norm, and these are all normalized.
+
+
 \section*{10 March 2017}
 \subsection*{Shallow water equation}
 This is the following 5th order PDE:
@@ -206,7 +313,7 @@ As expected, we get two real eigenvalues which are negatives of each other.
 \begin{figure}[H]
 \begin{tabular}{l|ll}
 $N$    & Positive real eigenvalue      &  Difference      \\ \hline
-  512  &        11.3090  &        \\ 
+  512  &        11.3090  &                  \\ 
   1024 &        11.3090  &      8.2311e-07  \\
 \end{tabular}
 \end{figure}
@@ -240,6 +347,26 @@ Doing exactly what we did above, here are the real and imaginary parts of the un
 \includegraphics[width=8.5cm]{Sh1double2eigenfnrealunweighted}
 \includegraphics[width=8.5cm]{Sh1double2eigenfnimagunweighted}
 \end{figure}
+
+\section*{14 March 2017}
+\subsection*{Chardard}
+I took a look at the Chardard papers to see where they reference double pulse Eigenvalues for KdV5. If we look at Chardard, 2009 (Computational aspects of the Maslov index of solitary waves), this topic is discussed in Section 15.1 (p. 39):
+\begin{quote}
+The Maslov index does not give any information about the purely imaginary eigenvalues, and so to determine their number, a calculation of the spectral problem is necessary. Some results on this are reported by Chardard [15]. There it is found that when l is odd, there are eigenvalues with non-zero imaginary part, but they appear to have very small real parts. Further results are necessary to be certain about the spectral stability of 2 pulse solitary waves when l is odd.
+\end{quote}
+The reference is to Chardard's doctoral thesis \textit{Stabilite des ondes solitaires} (2009). This is freely available on his website and is (fortunately) in English. Chapter 3 deals with the Kawahara equation, which is a generalization of the 5th order KdV. The steady-state form, for traveling waves of speed $c$, after integrating once, is:
+\[
+u_{xxxx} - Pu_{xx} + cu - u^{q+1} = 0
+\]
+Our 5th order equation is the special case of $P =1, q = 1$. Multipulse solutions should exist for $P \geq -2$, so we are good. Our double pulses look qualitatively like those in Figure 3.7 (p. 68), although this figure is for $P = -1.5$. Note that our Double Pulse 0 is labeled pulse 1 in that figure.\\
+
+In section 3.6 (p. 76), Chardard finds the eigenvalues of the linearized 5th order operator by numerically computing and finding zeros of the Evans function. Two-pulse solutions with an odd index (I believe this is the Maslov index, but this corresponds to our odd-numbered double pulses above) should have an unstable real eigenvalues; Chardard found that with his numerics, and we found that too. For two-pulse solutions with even index, however, Chardard (2009) says (p.77):
+\begin{quote}
+However, we find for most cases that there is a pair of complex eigenvalues with a small real
+part associated to each even index. Dividing by two the step and multiplying by two the length
+of the interval did not shift significantly the eigenvalue.
+\end{quote}
+So, basically Chardard's numerics give a different result from our numerics. His small real parts don't go away, whereas we can get ours to go away either using \texttt{fsolve} or by a convergence argument. At this point, I'm not sure who is correct, since if there were a real part to these eigenvalues, it would be tiny.
 
 \end{document}
 
