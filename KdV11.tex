@@ -212,7 +212,8 @@ Again, everything looks better after \texttt{fsolve}. Let's do one more value of
 $\max|Lv(x) - \lambda v(x)|$  & 5.7609e-11 & 5.3622e-12 \\ 
 $\max|u(x) - u(-x) |$         & 8.8770e-05 & 2.3131e-13 \\
 $\max|w(x) + w(-x) |$         & 0.0041     & 1.5354e-11 \\
-$\max|w(x) + (1/\beta)Lu(x)|$  & 9.4213e-10 & 1.2168e-10 \\
+$\max|w(x) + (1/\beta)Lu(x)|$ & 9.4213e-10 & 1.2168e-10 \\
+$|\int v(x) dx|$              & 2.8938e-07 & 2.8937e-07 \\
 \end{tabular}
 \end{figure}
 
@@ -222,11 +223,12 @@ $\max|w(x) + (1/\beta)Lu(x)|$  & 9.4213e-10 & 1.2168e-10 \\
 $\max|Lv(x) - \lambda v(x)|$  & 3.3100e-11 & 9.4437e-12 \\ 
 $\max|u(x) - u(-x) |$         & 8.8770e-05 & 1.2434e-11 \\
 $\max|w(x) + w(-x) |$         & 2.4242e-04 & 2.0247e-10 \\
-$\max|w(x) + (1/\beta)Lu(x)|$  & 2.1726e-05 & 7.2353e-09 \\
+$\max|w(x) + (1/\beta)Lu(x)|$ & 2.1726e-05 & 7.2353e-09 \\
+$|\int v(x) dx|$              & 2.9558e-09 & 2.5906e-09 \\
 \end{tabular}
 \end{figure}
 
-Once again, this looks good. Conclusion: the theoretical results are verified numerically. For the eigenfunction corresponding to a purely imaginary eigenvalue, we have a nice symmetry relationship: the real part is an even function and the imaginary part is an odd function.
+Once again, this looks good. Conclusion: the theoretical results are verified numerically. For the eigenfunction corresponding to a purely imaginary eigenvalue, we have a nice symmetry relationship: the real part is an even function and the imaginary part is an odd function. For this example, we also included the absolute value of the integral of the eigenfunction (should be 0). This was essentially unaffected by \texttt{fsolve} and has about the same order of magnitude it did before. If we like, we can also increase the number of grid points, but this is really slow. (The split real/imaginary \texttt{fsolve}) is the bottleneck; we could probably make it faster by using its Jacobian, but I don't think we need to). In any case, we get the same results with more grid points.
 
 \end{document}
 
