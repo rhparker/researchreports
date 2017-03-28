@@ -54,7 +54,21 @@ Let's look at the exponential decay rate of the various pulses and see if it's w
 \includegraphics[width=8.5cm]{logsingle326.eps}
 \end{figure}
 
-The slopes match $\mu$ well in all cases, which is good. Unsurprisingly, this holds for our constructed double pulses as well (not shown).
+The slopes match $\mu$ well in all cases, which is good. Unsurprisingly, this holds for our constructed double pulses as well (not shown).\\
+
+Although it's nice that the above works, we are actually interested in the exponential decay rates of the eigenfunctions corresponding to the pure imaginary eigenvalues (the ones we get from even-numbered double pulses). What do we expect to get? If we take the spatial eigenvalues of the asymptotic matrix $A(\lambda)$ corresponding to the linearized eigenvalue problem, the real part of the negative eigenvalue with real part closest to 0 (slowest decay rate) should correspond to the decay rate of the eigenfunction. The eigenvalues of the asymptotic matrix are the roots of the characteristic polynomial $\lambda - c t + t^3 - t^5$. Let $\mu$ be the real part of the negative eigenvalue with real part closest to 0. Let's look at semilog plots of the eigenfunctions for four different values of $c$.
+
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{decay1.eps}
+\includegraphics[width=8.5cm]{decay2.eps}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{decay3.eps}
+\includegraphics[width=8.5cm]{decay4.eps}
+\end{figure}
+
+The decay rate (slope of line) matches pretty well with the predicted decay rate ($\mu$). That being said, we are fitting a straight line to something with a linear trend but which is not linear due to the presence of oscillations. If we could figure out the approximate frequency of the oscillations, we might be able to get rid of them and then fit a better line. Not sure if this is necessary, though.
 
 
 \subsection*{Symmetry of Solutions}
@@ -134,20 +148,58 @@ Now let's use the fact that $\bar{\lambda} = -\lambda = -i \beta$ as well as the
 	L( u(-x) + i w(-x) ) &= i \beta ( u(-x) + i w(-x) )
 \end{align*} 
 So we have two distinct eigenfunctions corresponding to the same eigenvalue. Now assume that the eigenspace $E_\lambda$ is one-dimensional, i.e. the eigenvalue $\lambda$ is simple. I believe we know this is the case, but I'll look up the reference later. If that is true, than these two eigenfunctions are linearly dependent, so one must be a constant (nonzero) multiple of the other.
+\begin{align*}
+\bar{v}(x) &= k v(-x) \\
+u(x) - i w(x) &= k( u(-x) + i w(-x) )
+\end{align*}
+where $k$ is complex. Write $k = re^{i\theta}$. First we show that $k$ must be a unit complex number, i.e. $r = 1$. There are many ways we can do this. One way is to look at the following three equations. The first is just our relation above, which is true for all $x$. For the second, we take $x \rightarrow -x$. For the third, we start with the second and take the complex conjugate of both sides.
+\begin{align*}
+\bar{v}(x) &= k v(-x) \\
+\bar{v}(-x) &= k v(x) \\
+v(-x) &= \bar{k} \bar{v}(x) 
+\end{align*}
+Substituting the third into the first, we get
 \[
-u(x) - i w(x) = k( u(-x) + i w(-x) )
+\bar{v}(x) = k \bar{k} \bar{v}(x) = |k|^2\bar{v}(x)
 \]
-where $k$ is real. Separating real and imaginary parts, we get the two equations
+for all $x$. Since $v$ is not the zero function, $\bar{v}(x)$ must be nonzero for at least one $x$, so we can cancel it from both sides to get $|k|^2 = 1$. Thus $k$ is a unit complex number, i.e. $k = e^{i\theta}$. Alternatively, we can multiply the two equations:
+\begin{align*}
+\bar{v}(x) &= k v(-x) \\
+v(x) &= \bar{k} \bar{v}(-x)
+\end{align*}
+to get $|v(x)|^2 = |k|^2 |v(-x)|^2$. Integrating both sides over $\R$, since the eigenfunctions are in $L^2$ and the $L^2$ norms of $v(x)$ and $v(-x)$ are the same (and nonzero, since $v(x)$ is an eigenfunction), we get the same result. We are left with
+\[
+\bar{v}(x) = e^{i\theta}v(-x)
+\]
+Recall that both sides of this equation are eigenfunctions corresponding to eigenvalue $-i \beta$. Now multiply both sides by $e^{-i\theta/2}$. 
+\[
+e^{-i\theta/2}\bar{v}(x) = e^{i\theta/2}v(-x)
+\]
+Since we multiplied by a constant, both sides are still eigenfunctions corresponding to eigenvalue $-i \beta$. Let $v_*(x) = e^{i\theta/2} v(x)$. Since $\bar{v_*}(x) = e^{-i\theta/2} \bar{v}(x)$, our equation becomes
+\[
+\bar{v_*}(x) = v_*(-x)
+\]
+We finally have what we want, i.e. two identical eigenfunctions corresponding to eigenvalue $-i \beta$. Writing $v_*(x) = u_*(x) + i w_*(x)$, we get 
+\[
+ u_*(x) - i w_*(x) =  u_*(-x) + i w_*(-x)
+\]
+Finally, we equate real and imaginary parts to get
 \[ \begin{cases}
-u(x) = k u(-x)\\
--w(x) = k w(-x)
+u_*(-x) = u_*(x)&\text{real part $u_*(x)$ is even}\\
+w_*(-x) = -w_*(x)&\text{imaginary part $w_*(x)$ is odd}
 \end{cases}\]
-If we take $x \rightarrow -x$ in the first equation, we also have $u(-x) = k u(x)$, so $u(x) = k^2 u(x)$, i.e. $k^2 = 1$. Since $k$ is real, the only options are $k = \pm 1$. In principle we could have either one; from the numerics it looks like the real part $u(x)$ is close to an even function, so we will take $k = 1$. This finally gives us the symmetry relationships we are looking for:
-\[ \begin{cases}
-u(-x) = u(x)&\text{real part u(x) is even}\\
-w(-x) = -w(x)&\text{imaginary part w(x) is odd}
-\end{cases}\]
-This looks great. Can we show this numerically?
+We can write explicit formulas for $u_*(-x)$ and $w_*(-x)$ in terms of $u(-x)$ and $w(-x)$ and $\theta$.
+\begin{align*}
+v_*(x) &= e^{i\theta/2} v(x) \\
+&= \cos(\theta/2) + i\sin(\theta/2)(u(x) + i w(x))\\
+&= \left( u(x) \cos(\theta/2) - w(x) \sin(\theta/2) \right) + i \left( u(x) \sin(\theta/2) + w(x) \cos(\theta/2)\right)
+\end{align*}
+Comparing real and imaginary parts, we get
+\begin{align*}
+u_*(x) &= u(x) \cos(\theta/2) - w(x) \sin(\theta/2) \\
+w_*(x) &= u(x) \sin(\theta/2) + w(x) \cos(\theta/2)
+\end{align*}
+Since $v_*(x) = e^{i\theta/2} v(x)$ is just multiplication of an eigenfunction by a constant (essentially a rotation), we have constructed an eigenfunction corresponding to $i \beta$ which has an even real part and an odd imaginary part. Can we show this numerically?
 
 \subsection*{Symmetry of Eigenfunctions, Numerics}
 We redo the numerics using our more-symmetric double pulses which we construct using the additional phase condition described above. Since the symmetry of the stationary solution $u^*(x)$ is essential to our argument above, it is important that our constructed double pulse be as symmetric as possible. We run the following experiement.
@@ -190,7 +242,7 @@ The real part looks even, and is much more even when we zoom in. The imaginary p
 $\max|Lv(x) - \lambda v(x)|$  & 3.6193e-11 & 6.8845e-12 \\ 
 $\max|u(x) - u(-x) |$         & 2.1030e-04 & 3.0855e-10 \\
 $\max|w(x) + w(-x) |$         &  0.0067    & 9.6587e-12 \\
-$\max|w(x) + (1/\beta)Lu(x)|$  &  8.0953e-11& 2.0272e-11 \\
+$\max|w(x) + (1/\beta)Lu(x)|$ &  8.0953e-11& 2.0272e-11 \\
 \end{tabular}
 \end{figure}
 This looks good. By all measures, the post-\texttt{fsolve} solution is better. In addition, its real part is even and its imaginary part is odd to order $1e-10$ numerically. Thus we have verified our theoretical result numerically. Just to be safe, we should try this for another value of $c$. How about something much smaller? The plots (not shown) look similar to those above, so here is the quantitative comparison.
@@ -228,7 +280,35 @@ $|\int v(x) dx|$              & 2.9558e-09 & 2.5906e-09 \\
 \end{tabular}
 \end{figure}
 
-Once again, this looks good. Conclusion: the theoretical results are verified numerically. For the eigenfunction corresponding to a purely imaginary eigenvalue, we have a nice symmetry relationship: the real part is an even function and the imaginary part is an odd function. For this example, we also included the absolute value of the integral of the eigenfunction (should be 0). This was essentially unaffected by \texttt{fsolve} and has about the same order of magnitude it did before. If we like, we can also increase the number of grid points, but this is really slow. (The split real/imaginary \texttt{fsolve}) is the bottleneck; we could probably make it faster by using its Jacobian, but I don't think we need to). In any case, we get the same results with more grid points.
+Once again, this looks good. Conclusion: the theoretical results are verified numerically. For the eigenfunction corresponding to a purely imaginary eigenvalue, we can construct an eigenfunction with a nice symmetry relationship: the real part is an even function and the imaginary part is an odd function. For this example, we also included the absolute value of the integral of the eigenfunction (should be 0). This was essentially unaffected by \texttt{fsolve} and has about the same order of magnitude it did before. If we like, we can also increase the number of grid points, but this is really slow. (The split real/imaginary \texttt{fsolve}) is the bottleneck; we could probably make it faster by using its Jacobian, but I don't think we need to). In any case, we get the same results with more grid points.\\
+
+After revising the theoretical section above, I came up with another way of constructing an eigenfunction with desired symmetry. Let $v(x)$ be the eigenfunction produced by \texttt{eig}. Then we can use \texttt{fsolve} to find $\theta$ such that the real part of $v_*(x) = e^{-i \theta/2} v(x)$ is an even function, i.e. the discrete $L^2$ norm of $v_*(x) - v*(-x)$ is as close to 0 as possible. Let's try this for Double Pulse 2, $c = 9.4812$. Here are the real and imaginary parts of the eigenfunction corresponding to $\lambda = 0.0629i$ which are produced by \texttt{eig}.
+
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{2eigenfnreal.eps}
+\includegraphics[width=8.5cm]{2eigenfnimag.eps}
+\end{figure}
+
+Here are the real and imaginary parts of the eigenfunction corresponding to $\lambda = 0.0629i$ after we use \texttt{fsolve} to rotate them by an angle $\theta$ so that the real part is an even function.
+
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{2eigenfnrealafter.eps}
+\includegraphics[width=8.5cm]{2eigenfnimagafter.eps}
+\end{figure}
+
+These certainly look much better. Let's look at the numbers. After we do the rotation, we do a second \texttt{fsolve} to remove the small real part of the eigenvalue.
+
+\begin{figure}[H]
+\begin{tabular}{l|l|l|l}
+ Dbl P, $c = 9.4812, \lambda=0.0629i$  & Output from \texttt{eig} & After Rotation \texttt{fsolve} & After Second \texttt{fsolve}\\\hline
+$\max|Lv(x) - \lambda v(x)|$  & 5.7609e-11 & 5.8482e-11 & 5.9202e-12 \\ 
+$\max|u(x) - u(-x) |$         & 8.8770e-05 & 3.2920e-09 & 3.2727e-09 \\
+$\max|w(x) + w(-x) |$         & 0.0041     & 1.3023e-07 & 1.3021e-07 \\
+$|\int v(x) dx|$              & 2.8938e-07 & 2.8938e-07 & 2.8938e-07 \\
+\end{tabular}
+\end{figure}
+
+Although the symmetry is not quite as good as when we enforced it manually above by averaging, these results are pretty good and are consistent with our theory. 
 
 \end{document}
 
