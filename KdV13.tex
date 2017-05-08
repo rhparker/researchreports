@@ -1,0 +1,170 @@
+% \documentclass{book}
+
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\graphicspath{ {images12/} }
+
+\begin{document}
+
+\section*{19 April 2017}
+
+\subsection*{Integrated Eigenfunction Construction}
+For the 5th order KdV equation (written in traveling frame), assume for a specific value of $c$ (which we know is greater than 1/4) we have constructed a 2-pulse $q_2(x)$. Then by Theorem 1 in Sandstede (1998), we can find a real number $T_1$ so that we can write $q_2(x)$ piecewise as:\[
+\begin{cases}
+q^-(x) + r_1^-(x) & \text{on } (-\infty, 0] \\
+q^+(x) + r_1^+(x) & \text{on } [0, T_1] \\
+q^-(x) + r_2^-(x) & \text{on } [-T_1, 0] \\
+q^+(x) + r_2^+(x) & \text{on } [0, \infty) \\ 
+\end{cases}
+\]
+where the pieces are spliced together one after the other so that $\pm T_1$ correspond to 0. The functions $q^\pm(x)$ are perturbations of the homoclinic orbit $q(x)$ for the 1-pulse, when the parameter $c$ is modified slightly to $c_2$.\\
+
+Now take the integrated eigenvalue problem as before. Linearizing about the solution $q_2$ we get the eigenvalue problem $\partial_x H v = \lambda v$, where 
+\[
+H = \partial_x^4 - \partial_x^2 + c_2 - 2 q_2
+\]
+where the parameter $c_2$ is near our speed $c$. Integrate both sides of $\partial_x H v = \lambda v$ from $x\geq 0$ to infinity. Assume we have a solution $v(x)$ which is defined on $[0, \infty)$ and satisfies this integrated equation. Assume further that $v(x)$ and its derivatives decay sufficiently fast (e.g. exponentially fast) at infinity. Then since the boundary term at $\infty$ is zero, $v(x)$ satisfies the equation:
+\begin{align*}
+v_{xxxx} - v_{xx} + c_2 v - 2 q_2 v = -\lambda \int_x^\infty v(y) dy && x \geq 0
+\end{align*}
+We can write this as a first-order system:
+\[
+\begin{pmatrix}v\\v_x\\v_{xx}\\v_{xxx}\end{pmatrix}_x = 
+\begin{pmatrix}0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 1 \\ 2q_2 - c_2 & 0 & 1 & 0\end{pmatrix}
+\begin{pmatrix}v\\v_x\\v_{xx}\\v_{xxx}\end{pmatrix} - \lambda
+\begin{pmatrix}0\\0\\0\\\int_x^\infty v(y) dy\end{pmatrix}
+\]
+Write our integrated eigenvalue problem as
+\[
+V_x = A(q_2, c_2)V - \lambda B K V
+\]
+where $B$ is the matrix
+\[
+\begin{pmatrix}0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \\1 & 0 & 0 & 0 \end{pmatrix}
+\]
+
+which moves the first component to fourth and gets rid of everything else, and $K$ is an integration operator, which in this case is given by:
+\[
+(KV)(x) = \int_x^\infty V(y) dy
+\]
+where we integrate the function $V$ componentwise. We could reverse $B$ and $K$ since it doesn't matter if we move components around or integrate first. Note that capital letters represent the system version, and small letters represent the real-valued functions. We will keep this convention throughout.\\
+
+Now take $\lambda = i \beta$, i.e. pure imaginary eigenvalue. Split $V$ into two real functions, i.e. $V = U + i W$. Then the integrated eigenvalue problem becomes:
+\begin{align*}
+U_x &= A(q_2, c_2)U - \beta B K W \\
+W_x &= A(q_2, c_2)W + \beta B K U
+\end{align*}
+
+We want the real part to be even (i.e. extend $U$ to an even function on the entire real line), so we need even BCs, i.e. the first and third derivatives to be 0 at $x = 0$. Similary, we want the imaginary part to be odd, so we need odd BCs for it, i.e. the function and second derivatives to be 0 at $x = 0$. For our system, we thus have the following equations for our BCs.
+\begin{align*}
+J_e U(0) &= 0 \\
+J_o W(0) &= 0
+\end{align*}
+where 
+\begin{align*}
+J_e = \begin{pmatrix}0&&&\\&1&&\\&&0&\\&&&1\end{pmatrix}&& J_o\begin{pmatrix}1&&&\\&0&&\\&&1&\\&&&0\end{pmatrix}&
+\end{align*}
+
+Now we proceed as in Sandstede (1998), Theorem 2. In our first-order system, we write $q_2$ as $Q_2$ in the usual way like we did with $v$ and $V$ above. Then the piecewise version of our 2-pulse is $Q_2 = Q^\pm + R_i^\pm$, $i = 1, 2$. Since we know the derivative $(Q_2)_x$ is an eigenfunction with eigenvalue 0, we look for perturbations of this, as in the paper. Thus we will write the real and imaginary parts $U$ and $V$ as
+\begin{align*}
+U^\pm_i &= ( Q^\pm_x + (R^\pm_i)_x) d_i + S^\pm_i \\
+W^\pm_i &= ( Q^\pm_x + (R^\pm_i)_x) \tilde{d}_i + \tilde{S}^\pm_i
+\end{align*}
+all functions above are real-valued; $d_i$ and $\tilde{d}_i$ are constants. \\
+
+Since we have a 2-pulse and will be taking even and odd extensions, we only need to consider when $i = 2$ since the functions when $i = 1$ are constructed from these. \\
+
+If we plug these into the integrated eigenvalue problem, after cancellation and simplification we get the system (this is what I had in my notebook):
+
+\begin{align*}
+(S^\pm_2)_x &= A(Q^\pm + R^\pm_2) S^\pm_2 - \beta B K^\pm_2 ( [ Q^\pm_x + (R^\pm_2)_x]\tilde{d}_2 + \tilde{S}^\pm_2 ) \\
+(\tilde{S}^\pm_2)_x &= A(Q^\pm + R^\pm_2) \tilde{S}^\pm_2 + \beta B K^\pm_2 ( [ Q^\pm_x + (R^\pm_2)_x]\tilde{d}_2 + S^\pm_2 ) \\
+\end{align*}
+where $B$ is the matrix from above and $K^\pm_2$ are integration operators to be discussed below. \\
+
+Boundary conditions are given as above. Since the derivative of the double pulse is already odd, we require only that the deviation $\tilde(S)_2$ has odd BCs. The point $x = 0$ corresponds to $-T_1$ in our minus-piece. Thus we have for BCs:
+
+\begin{align*}
+J_e (  [Q^-_x(-T_1) + (R^-_2)_x]d_2 + S^-_2(-T_1) ) &= 0 \\
+J_o \tilde{S}_2^-(-T_1) &= 0
+\end{align*}
+
+We have a condition that the pieces need to match at 0.
+\begin{align*}
+S^-_2(0) &= S^+_2(0) \\
+\tilde{S}^-_2(0) &= \tilde{S}^+_2(0) \\
+\end{align*}
+Finally we have our condition
+\begin{align*}
+S^-_2(0), \tilde{S}^-_2(0) \in \R \Psi_1(0) \oplus Y^+ \oplus Y^-
+\end{align*}
+
+So if we can find a solution to this, and if we can show the appropriate 4th derivative condition, i.e. the 4th derivative of the imaginary part at 0 is 0 (it's the one we want to do the odd extension on), then we should be good, assuming we can do what was done in Sandstede (1998).\\
+
+Let's look at the form of the integration operator in the piecewise world. Since we integrate from $x$ to infinity, we will often have to involve the other piece. Assuming we have a function $F_2$ which has pieces $F_2^\pm$ defined on the same intervals as above, then our integration operator $K$ is defined by:
+\begin{align*}
+(KF_2^-)(x) &= \int_x^0 F_2^-(y) dy + \int_0^\infty F_2^+(y) dy && x \in [-T_1, 0] \\
+(KF_2^+)(x) &= \int_x^\infty F_2^+(y) dy && x \in [0, \infty)\\
+\end{align*}
+
+Now let's extract our integral condition from this mess. Note that:
+\begin{enumerate}
+	\item We only need the bottom row of the matrix equations, since the other rows just tell us that each row of our vector is the derivative of the previous row (as we want it to be). The integral operator (together with the matrix $B$) only gives us something in the bottom row.
+	\item Since we want to look at what happens at $x = 0$, we want to use the minus-piece at $x = -T_1$, which corresponds to this.
+	\item We are looking for an integral involving the real part (in particular, $\int_0^\infty u(y) dy$), so we want to look at the equation for $\tilde{S}_2^-$.
+\end{enumerate}
+
+Taking the 4th row of the $\tilde{S}_2^-$ at $-T_1$, and using our integration operator (going back to small letters, since these are real-valued functions), this becomes
+\begin{align*}
+(\tilde{s}_2^-)_{xxxx}(-T_1) &= 2[ q^-(-T_1) + r_2^-(-T_1)]\tilde{s}_2^-(-T_1) - c_2 \tilde{s}_2^-(-T_1) + (\tilde{s}_2^-)_{xx}(-T_1) \\
+&\:\:\:\: + \beta \int_{-T_1}^0 ([q^-_x(y) + (r_2^-)_x(y)]d_2 + s_2^-(y))dy \\
+&\:\:\:\: + \beta \int_0^\infty ([q^+_x(y) + (r_2^+)_x(y)]d_2 + s_2^+(y))dy 
+\end{align*}
+
+Taking a look at this, we note the following:
+\begin{enumerate}
+	\item From the odd BCs on $\tilde{s}_2^-$, the function and even derivatives are 0 at $T_1$, so $\tilde{s}_2^-(-T_1) = 0$ and $(\tilde{s}_2^-)_{xx}(-T_1) = 0$. All the terms on the RHS are thus 0 except for the two integrals.
+	\item If we look at the piecewise version of the real part of our eigenfunction, that is what we are integrating on the RHS with those two integrals. So both integrals together are equal to $\beta \int_0^\infty u(y) dy$.
+\end{enumerate}
+Thus this whole thing reduces to:
+\[
+(\tilde{s}_2^-)_{xxxx}(-T_1) = \beta \int_0^\infty u(y) dy
+\]
+So the integral we want to be 0 is equal to the 4th derivative of the imaginary part at the boundary, which we also want to be 0. We have unfortunately gained nothing by doing all of this.\\
+
+We could look at the other equation at the boundary (the one for $s_2^-(-T_1)$), but that gives us an equation involving the integral of the imaginary part, which is not helpful; since we are doing an odd extension of the imaginary part, it's integral over the whole real line will always be 0.
+
+\end{document}

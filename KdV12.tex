@@ -1,0 +1,194 @@
+% \documentclass{book}
+
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\graphicspath{ {images12/} }
+
+\begin{document}
+
+\section*{28 March 2017}
+
+\subsection*{Integrated Eigenvalue Problem}
+
+As before, we look at the eigenvalue problem for the linearized 5th order problem about a stationary solution $u^*(x)$. Write the linearized 5th order problem about $u^*(x)$ as $Lv = \partial_x Hv = \lambda v$, where
+\[
+L = \partial_x( \partial_x^4 - \partial_x^2 + c - 2u^*)
+\]
+So we have 
+\[
+H = \partial_x^4 - \partial_x^2 + c - 2u^*
+\]
+First, integrate both sides of $\partial_x Hv = \lambda v$ from $x\geq 0$ to infinity. Assume we have a solution $v^+(x)$ which is defined on $[0, \infty)$ and satisfies this integrated equation. Assume further that $v^+(x)$ and its derivatives decay sufficiently fast (exponentially fast would work) at infinity. Then since the boundary term at $\infty$ is zero, $v^+(x)$ satisfies the following equation:
+\begin{align*}
+-(Hv^+)(x) = \lambda \int_x^\infty v^+(y) dy && x \geq 0
+\end{align*}
+Similary, integrate both sides of $\partial_x Hv = \lambda v$ from $-\infty$ to $x \leq 0$. Assume we have a solution $v^-(x)$ which is defined on $(-\infty,0]$ and satisfies this integrated equation. Again, assume that $v^-(x)$ and its derivatives decay sufficiently fast (exponentially fast would work) at $-\infty$. Then since the boundary term at $-\infty$ is zero, $v^-(x)$ satisfies the following equation:
+\begin{align*}
+(Hv^-)(x) = \lambda \int_{-\infty}^x v^-(y) dy && x \leq 0
+\end{align*}
+If we assume that $v^\pm(x)$ and its first three derivatives agree at 0, then if we add the two equations above and use the definition of $H$, we get the relation
+\[
+\partial_x^4 v^-(0) - \partial_x^4 v^+(0) = \lambda \int_{-\infty}^\infty v(y) dy
+\]
+where 
+\[
+v(y) = \begin{cases}
+v^+(y) & y \geq 0 \\
+v^-(y) & y < 0
+\end{cases}
+\]
+In other words, as long as $\lambda$ is not 0 and $v^+(x)$ and $v^-(x)$ agree at 0 up to the third derivative, the fourth derivatives of $v^+(x)$ and $v^-(x)$ agree at 0 if and only if the above integral is 0. \\
+
+For now we are not assuming any agreement of $v^+(x)$ and $v^-(x)$ at 0 (or anything else, like symmetry). Let's look at the case where $\lambda = i\beta$, i.e. pure imaginary $\lambda$. Writing $v^\pm(x) = u^\pm(x) + i w^\pm(x)$, substituting it into the equation above, and equating real and imaginary parts, we get the following two sets of equations.
+
+\[
+\begin{cases}
+(Hu^+)(x) =  \beta \int_x^\infty w^+(y) dy & x \geq 0 \\
+(Hw^+)(x) = -\beta \int_x^\infty u^+(y) dy & x \geq 0
+\end{cases}
+\]
+\[
+\begin{cases}
+(Hu^-)(x) = -\beta \int_{-\infty}^x w^-(y) dy & x \leq 0 \\
+(Hw^-)(x) = \beta \int_{-\infty}^x  u^-(y) dy & x \leq 0
+\end{cases}
+\]
+These sets are identical except for the location of the negative sign.\\
+
+\subsection*{Symmetry}
+Using what we have above, we will say that a function $v^+(x)$ solves the integrated eigenvalue problem (associated with eigenvalue $\lambda$) on $[0,\infty)$ if 
+\begin{align*}
+(Hv^+)(x) = -\lambda \int_x^\infty v^+(y) dy && x \geq 0
+\end{align*}
+where we assume $v^+(x)$ decays sufficiently quickly at $\infty$ so that the integral in this definition exists. This is the same as what we have above, except we moved the negative sign to the RHS for convenience.\\
+
+Similarly, we will say that a function $v^-(x)$ solves the integrated eigenvalue problem on $(-\infty, 0]$ if 
+\begin{align*}
+(Hv^-)(x) = \lambda \int_{-\infty}^x v^-(y) dy && x \leq 0
+\end{align*}
+where again we assume $v^-(x)$ decays sufficiently quickly at $-\infty$ so that the integral in this definition exists. This one does not have a negative sign. \\
+
+Suppose we have a function $v^+(x)$ which solves the integrated eigenvalue problem on $[0,\infty)$. Can we construct a function $v^-(x)$ which solves the integrated eigenvalue problem on $(-\infty, 0]$? The obvious thing to try is symmetry, so let's do that.
+
+\subsubsection*{Even Extension}
+We actually expect this will not work, but it's a good exercise to verify what we think is going to happen. A function which satisfies the nonintegrated eigenvalue problem will also satisfy the integrated eigenvalue problem. If we look at the eigenfunction corresponding to the positive eigenvalue $\lambda$ for Double Pulse 1 (from any of the double pulses we constructed), we see that if we take an even or odd extension of the right half, we will get something that looks like the left half of the eigenfunction corresponding to $-\lambda$. Let's show that this indeed is the case.\\
+
+Let $v^+(x)$ solve the integrated eigenvalue problem on $[0,\infty)$, and define even extension $v^-(x) = v^+(-x)$ for $x \leq 0$. Then, integrating like we did above, for $x \leq 0$ we have:
+\begin{align*}
+	\int_{-\infty}^x [\partial_y H v^-(y)]dy &= (Hv^-)(x) - lim_{a\rightarrow\-\infty}Hv^-(a) = (Hv^-)(x) = (Hv^+)(-x) \\
+	&= -\lambda \int_{-x}^\infty v^+(y) dy = -\lambda \int_{-x}^\infty v^-(-y) dy \\
+	&= -\lambda \int_x^{-\infty}v^-(y)(-dy) = -\lambda \int_{-\infty}^x v^-(y)dy
+\end{align*}
+where we used the fact that $v^+(x)$ solves the integrated eigenvalue problem on $[0,\infty)$ and changed variables $y\rightarrow -y$ at the end. Putting this all together, we get
+\[
+(Hv^-)(x) = (-\lambda) \int_{-\infty}^x v^-(y)dy
+\]
+so even extension $v^-(x) = v^+(-x)$ solves the integrated eigenvalue problem with eigenvalue $-\lambda$ (not $\lambda$) on $(-\infty, 0]$.
+
+\subsubsection*{Odd Extension}
+Let $v^+(x)$ solve the integrated eigenvalue problem on $[0,\infty)$, and define odd extension $v^-(x) = -v^+(-x)$ for $x \leq 0$. We expect to get the exact same result as for the odd extension. To see this, we argue exactly as above and note that we will introduce an extra negative sign when we go from $v^-$ to $v^+$ and will get rid of that negative sign when we go back from $v^+$ to $v^-$. Thus an odd extension $v^-(x) = -v^+(-x)$ also solves the integrated eigenvalue problem with eigenvalue $-\lambda$ on $(-\infty, 0]$.\\
+
+In particular, this means that we can't just make an odd extension and therefore get an eigenfunction on $\R$ whose integral is automatically 0.
+
+\subsubsection*{Complex Conjugation}
+Once again, let $v^+(x)$ solve the integrated eigenvalue problem on $[0,\infty)$, and define the extension 
+\[
+v^-(x) = \overline{v^+}(-x)
+\]
+Essentially, this is an even extension, except we also take the complex conjugate. This is motivated by what we did earlier with the eigenvalue problem with purely imaginary eigenvalues. If we write $v^\pm = u^\pm + i w^\pm$, then we have
+\[
+u^-(-x) + i w^-(-x) = v^-(x) = \overline{v^+}(-x) = u^+(-x) - i w^+(-x)
+\]
+so the real part is an even extension and the imaginary part is an odd extension. Let's see what this gets us. Integrating as before, for $x \leq 0$ we have:
+\begin{align*}
+	\int_{-\infty}^x [\partial_y H v^-(y)]dy &= (Hv^-)(x) - lim_{a\rightarrow\-\infty}Hv^-(a) = (Hv^-)(x) = (H\bar{v}^+)(-x) = \overline{Hv^+(-x)}\\
+	&= \overline{-\lambda \int_{-x}^\infty v^+(y) dy} = -\bar{\lambda} \int_{-x}^\infty \overline{v^+}(y) dy = -\bar{\lambda} \int_{-x}^\infty v^-(-y) dy\\
+	&= -\bar{\lambda} \int_x^{-\infty}v^-(y)(-dy) = (-\bar{\lambda}) \int_{-\infty}^x v^-(y)dy
+\end{align*}
+where we used the fact that $v^+(x)$ solves the integrated eigenvalue problem on $[0,\infty)$, the fact that the operator $H$ is real, and changed variables $y\rightarrow -y$ at the end. Putting this all together, we get
+\[
+(Hv^-)(x) = (-\bar{\lambda}) \int_{-\infty}^x v^-(y)dy
+\]
+So our extension $v^-(x) = \overline{v^+}(-x)$ solves the integrated eigenvalue problem with eigenvalue $-\bar{\lambda}$ on $(-\infty, 0]$.\\
+
+For the special case $\lambda = i \beta$, where $\beta$ is real (pure imaginary eigenvalue), $-\bar{\lambda} = -(-i\beta) = i \beta = \lambda$, so we have
+\[
+(Hv^-)(x) = i \beta \int_{-\infty}^x v^-(y)dy
+\]
+In this case, our extension $v^-(x) = \overline{v^+}(-x)$ solves the integrated eigenvalue problem on $(-\infty, 0]$ with the same eigenvalue $i \beta$.\\
+
+As before, we could have also taken $v^-(x) = -\overline{v^+}(-x)$ (i.e. real part is odd extension and imaginary part is even extension). We would have gotten the exact same result since this change introduces negative signs in two places, which cancel out.\\
+
+\subsubsection*{Other Stuff}
+We are interested in matching these at $x = 0$, so what happens if we plug in $x = 0$ (and use our complex conjugate extension $v^-(x) = \overline{v^+}(-x)$)?
+\begin{align*}
+(Hv^+)(0) &= -\lambda \int_0^\infty v^+(y) dy \\
+(Hv^-)(0) &= (-\bar{\lambda}) \int_{-\infty}^0 v^-(y)dy = (-\bar{\lambda}) \int_{-\infty}^0 \overline{v^+}(-y)dy = (-\bar{\lambda}) \int_0^\infty \overline{v^+}(y)dy\\
+\end{align*}
+If we subtract these, we get
+\[
+(Hv^-)(0) - (Hv^+)(0) = (-\bar{\lambda}) \int_0^\infty \overline{v^+}(y)dy + \lambda \int_0^\infty v^+(y) dy
+\]
+Now take the special case where $\lambda = i \beta$. Since $-\bar{\lambda} = i \beta$ as well, writing $v^+ = u^+ + i w^+$, we get
+\begin{align*}
+(Hv^-)(0) - (Hv^+)(0) &= i \beta \int_0^\infty (u^+(y) - i w^+(y))dy + i \beta \int_0^\infty (u^+(y) + i w^+(y)) dy \\
+&= 2 i \beta \int_0^\infty u^+(y) dy
+\end{align*}
+This looks nice, but it is no different from the integral condition we had at the beginning since with our complex conjugate extension the real part (of the joined eigenvector) $u(x)$ is even and the imaginary part is odd. Since the imaginary part always integrates to 0 (over $\R$), the integral condition is that the integral of the real part from 0 to $\infty$ is 0.\\
+
+So other than the fact that a similar construction is possible with the integrated eigenvalue problem, I'm not sure what this has gotten us.
+
+\subsection*{What Chugunova (2007) did}
+In Table II (p. 794) of Chugonova (2007), they compute eigenvalues numerically for linearizations about double pulse solutions. They do this for $H$ and $L_aH$, where $L_aH = \partial_x H$ taken in the space $L^2_a$, i.e. exponentially weighted space with weight $a$. They use something called the Petviashvili method. They use $c = 1$. For their numerics, they use $L = 100$ (this is their $d$). Since their $h = 0.01$, they use $N = 200 / 0.01 = 20000$ grid points. \\
+
+We will attempt to replicate what they did, except we will use $L = 25$ and $N = 256$, which has worked for us in the past. We will also use an unweighted space, since we know what we are looking for. Here are our results. Note that Chugunova's numbering scheme is one greater than ours. We also look at Double Pulse 0 for the first time, since they did as well. Chugunova does not plot eigenvectors. The only plots they have are showing the eigenvalues for two different double pulses.
+
+\begin{figure}[H]
+\begin{tabular}{l|l|l|l}
+  & Double Pulse 0: $\phi_1(z)$ & Double Pulse 1: $\phi_2(z)$ & Double Pulse 2: $\phi_3(z)$  \\ \hline
+``Zero'' EV of $H$             & -1.2316e-12    & -9.9289e-13  & -1.3825e-12 \\
+Small EV of $H$                & -1.7822e-02    & 7.6659e-05  & -3.3284e-07 \\
+Small EV of $\partial_x H$     & -1.3860e-11 + 5.0185e-02i & 3.2830e-03   & 8.0437e-12 + 2.1633e-04i \\ 
+\end{tabular}
+\end{figure}
+
+These results are very close to the ones in Chugunova (2007). Here are the differences: weirdly, they have no signs on the real eigenvalues, which was intentional but removing them doesn't show the nice alternating sign pattern for $H$; they got a small imaginary part of order 1e-8 for the eigenvalue we know is real (Double Pulse 1); and their real part was order 1e-5 for the eigenvalue which should be on the imaginary axis (Double Pulse 2). Once again, we were able to use \texttt{fsolve} to eliminate this small real part. We also note that Double Pulse 0 behaves like Double Pulse 2, which is interesting but not suprising.\\
+
+One more observation. For the double pulses with imaginary eigenvalues (0 and 2), if we find the eigenvalues in the weighted space, the small real part is significantly larger (order 1e-6 or so) than if we find the same eigenvalues in the unweighted space. Given that they should be the same, this is likely due to numerical error and might explain why Chugunova has a larger real part there than we do.
+
+\end{document}
+
+
