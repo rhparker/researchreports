@@ -1,0 +1,458 @@
+% \documentclass{book}
+
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+% \usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{amssymb}               
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\newtheorem{theorem}{Theorem}
+
+\DeclareMathOperator{\spn}{span}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\graphicspath{ {kreinimages/} }
+
+\begin{document}
+
+\section{Krein Matrix, theory (27 June 2017)}
+
+This is based primarily on Kapitula et al (2012), although some details are clearer in Kapitula (2010). Recall that we are interested in two eigenvalue problems for our 5th order KdV equation:
+
+\begin{enumerate}\label{eigenvalueproblems}
+	\item $H v = \lambda v$
+	\item $L v = \lambda v$
+\end{enumerate}
+
+where $H$ is the Hessian of the energy, and $L = \partial_x H$. 
+\begin{equation}\label{linear4th}
+H = E''(u) = \partial_x^4 - \partial_x^2 + c - 2 u^*
+\end{equation}
+
+\begin{equation}\label{linear5th}
+L = \partial_x^5 - \partial_x^3 + (c - 2 u^*) \partial_x - 2 u^*_x
+\end{equation}
+
+Both of these operators result from linearization about a stationary solution $u^*(x)$. We note that $H$ is symmetric and $\partial_x$ is skew-symmetric.\\
+
+Kapitula (2012) looks at the two eigenvalue problems:
+
+\begin{enumerate}
+	\item $H v = \lambda v$
+	\item $J H v = \lambda v$
+\end{enumerate}
+where I have renamed $L$ in the paper to $H$ to be consistent with my notation. Here, $J$ is skew-symmetric, bounded, and has a bounded inverse, while $H$ is symmetric with compact resolvent. We cannot apply this directly to what we have above since, among other things, the operator $\partial_x$ is not bounded. However, we can apply it to our numerics, since there everything is finite dimensional and we are okay. So that is what we are going to do.\\
+
+We will write our two numerical eigenvalue problems as \eqref{eigenvalueproblems}, where this time $H$ and $L$ are the Fourier collocation matrix discretizations of $H$ and $L$ above. If we represent the Fourier differentiation matrices by $D, D^2, D^3, \dots$, note that we do not have an exact equality $L = D*H$ since, for example, $D^2 \neq D*D$. They are, however, very close, so we are not going to worry about this for now. The Fourier differentiation matrix $D$ (which is equivalent to $J$ in Kapitula) is skew symmetric and not invertible, since the constant function is in the kernel.\\
+
+\subsection{Kernels and Generalized Kernels}
+
+As in Kapitula (2012), we first look at the kernel of $H$. We did this in our numerics report when we looked at its eigenvalues. I believe we know that the kernel of $H$ is one-dimensional and is spanned by $u^*_x$. We found this numerically, since we have one eigenvalue which is (really close to) zero, and the corresponding eigenfunction is the derivative of the stationary solution. So we have $\ker H = \spn\{ u^*_x \}$. This is also contained in $\ker L$.\\
+
+Now we look at the generalized kernel of $L$ (not the generalized kernel of $H$; we know this since in Kapitula there is a $J$ involved). To do this, we solve $H\psi = D^{-1} \phi$, where $\phi$ is an element of the kernel of $H$. Since there is only once such element, we must have $\phi = u^*_x$. This doesn't make sense for the original (nondiscrete) problem, since the differentiation operator does not have an inverse, but we can always write this as $L\psi = \phi$, which makes sense in both worlds.\\
+
+We can solve this for $\psi$ numerically in Matlab, although the output isn't great, i.e. $\psi$ looks noisy:
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{solvedpsi.eps}
+\end{figure}
+
+We do know a little more in this case, however. If we plug the stationary solution $u^*(x)$ into the original 5th order KdV equation and differentiate with respect to the speed $c$, after a little algebra we get
+
+\begin{equation}
+L(-u^*_c) = u^*_x
+\end{equation}
+
+so we actually know what the generalized kernel function is in this case, i.e. $\psi = -u^*_c$. We can compute this with finite differences. Using a 1st order centered difference method with step size 0.01, we have the following plot for $u_c$:
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{fdpsi.eps}
+\end{figure}
+
+This looks less noisy, which is good. It also looks essentially the same for different step sizes. If we take $\phi = u^*_x$ (instead of the eigenfunction found with \texttt{eig}), then:
+\begin{enumerate}
+	\item For $\psi$ found by solving $L \psi = \phi$, $\max{|L \psi - \phi|} = 5.0213e-10$ 
+	\item For $\psi$ found by computing $\psi = -u_c$ by finite differences $\max{|L \psi - \phi|} = 8.4471e-07$
+\end{enumerate}
+
+\subsection{Hamilton-Krein Index}
+
+Now we look at the ``matrix'' $D$ which is defined on the top of p. 1371 in Kapitula (2012). It is actually 1x1, i.e. a scalar, since the kernel of $H$ is one-dimensional, so will will call it $d$ to avoid confusion with the Fourier differentiation operator. This scalar is defined as:
+\begin{align}
+d &= <\psi, H \psi>\\
+&= <-u^*_c, H (-u^*_c) >\\
+&= <u^*_c, H u^*_c>
+\end{align}
+
+We can simplify this a little since we know that $L(u^*_c) = -u^*_x$, i.e. $\partial_x H(u^*_c) = -u^*_x$. Integrating this once (using the fact that our pulses and all their derivatives decay to 0 at $\pm \infty$), we get $H(u^*_c) = -u^*$. Substituting this above, we obtain:
+\[
+d = -<u^*_c, u^*>
+\]
+
+We want this to be negative to be consistent with what we know. (Will explain why below). Maybe there's a way to show this analytically, but I haven't thought of or found it. We can compute this numerically, though. Using \texttt{eig}, we can find $\phi$ (alternatively, we can just take the derivative of the pulse). We can then solve the equation $L \psi = \phi$, although Matlab complains that the system is badly conditioned. We can then compute:
+\[
+d = <\psi, u^*>
+\]
+where $u^*$ is our pulse solution (that we found numerically). If we do this for Double Pulse 2(3), speed $c = 10$, Fourier spectral methods, $N = 256$, domain size $L = 25$, we get:
+
+\begin{enumerate}
+	\item $d = -296.1853$ for $\psi$ found by solving $L \psi = \phi$.
+	\item $d = -292.5693$ for $\psi$ found by computing $\psi = -u_c$ by finite differences.
+\end{enumerate}
+
+This is negative (and is pretty close for both versions), so it's what we want.\\
+
+Why do we want this to be negative? From Kapitula p. 1371-1372, we have
+\begin{equation}
+K_{ham} = n(H) - n(d) = k_r + 2 k_c + 2 k_i^i
+\end{equation}
+where $n(H)$ is the number of negative eigenvalues of $H$ and $n(d)$ is the number of negative ``eigenvalues'' of $d$, i.e. is 1 if $d$ is negative and 0 otherwise. The three things on the RHS are: the number of positive real eigenvalues of $L$ ($k_r$); the number of complex eigenvalues of $L$ with positive real and imaginary parts ($k_c$); and the number of eigenvalues of $L$ on the positive imaginary axis which have negative Krein signature $k_i^-$. \\
+
+From our numerics, we know $n(H)$.
+\begin{enumerate}
+	\item $n(H) = 3$ for ``stable'' double pulses (eigenvalues of $L$ at or on imaginary axis)
+	\item $n(H) = 2$ for ``unstable'' double pulses (eigenvalues of $L$ on real axis)
+\end{enumerate}
+
+If $K_{ham}$ is odd, the we must have $k_r > 0$. We know this is the case for ``unstable'' double pulses but not for ``stable'' double pulses. If $n(d) = 1$, then we get the values of $K_{ham}$ which we see numerically, i.e.
+
+\begin{enumerate}
+	\item $K_{ham} = 2$ for ``stable'' double pulses
+	\item $K_{ham} = 1$ for ``unstable'' double pulses
+\end{enumerate}
+
+We understand the ``unstable`` case. For the ``stable'' case, we could get $K_{ham} = 2$ either from an eigenvalue $\alpha + i \beta$, $\alpha, \beta > 0$ (we do not think this is the case) or an eigenvalues $\beta i$, $\beta > 0$ which has negative Krein signature. The numerics suggest the second possibility.
+
+\subsection{Krein Matrix}
+
+Kapitula next defines the Krein Matrix. The derivation makes a little more sense in Kapitula (2010) since he has more intermediate steps, but I'm still not sure of a few things. In any case, the rough idea makes sense to me, but in his version the operator $J$ is boundedly invertible, whereas in our case, $J = \partial_x$ is not. We will ``pretend'' that it is invertible for now and go through the derivation formally to see if we get anything useful or meaningful.\\
+
+We consider the eigenvalue problem
+\[
+J H u = \lambda u
+\]
+where $H$ is defined above, and $J = \partial_x$. (Kapitula uses $L$ instead of $H$, but this notation is consistent with our prior work.) Let's pretend that $J$ is invertible, and define $v = J^{-1}u$. For example, $Ju = u_x$ and $J^{-1}u_x = u$. We are basically ignoring that $J$ has a one-dimensional kernel consisting of constant functions. Define the operators
+\begin{align}
+H_+ &= H \\
+H_- &= -JHJ
+\end{align}
+Then both of $H_+$ and $H_-$ are self-adjoint, and the eigenvalue problem becomes
+\begin{align}
+H_+ u &= \lambda v \\
+H_- v &= -JHu = -\lambda u
+\end{align}
+Now we want to write an equivalent eigenvalue problem for which the two operators $H_+$ and $H_-$ have a trivial kernel. Since $\ker H_+ = \ker H = \spn \{u^*_x\}$, the kernel of $H_+$ is one-dimensional. We would also like the kernel of $H_-$ to be one-dimensional, as in Kapitula, where we have $\ker H_- = J^{-1} \ker H_+$. It is easy to see that $u^* \in \ker H_-$. However, we the kernel of $H_-$ also contains the one-dimensional subspace of constant functions, so in fact $\ker H_- = \spn \{u^*, 1\}$. In the discrete setting, this will be a little different, as will be discussed below.\\
+
+Note also that:
+\[
+<u^*, u^*_x> = \int_{-\infty}^{\infty}u^* u^*_x dx = \int_{-\infty}^{\infty} \left(\frac{1}{2} (u^*)^2\right)_x dx = 0 
+\]
+since the solution $u^*$ decays to 0 at $\pm \infty$.\\
+
+Let $Z = \{u^*, u^*_x\}^\perp$ and let $\Pi: X \rightarrow Z$ be the orthogonal projection onto $Z$. Then for nonzero eigenvalues, our eigenvalue problem is (according to a source Kapitula cites, which may or may not apply here) equivalent to 
+\begin{align}
+\Pi H_+ \Pi u &= \lambda v \\
+\Pi H_- \Pi &= -JHu = -\lambda u
+\end{align}
+The operators $\Pi H_\pm \Pi$ are self-adjoint, and since $d \neq 0$, each one is nonsingular on $Z$. Thus we can define the invertible, self-adjoint operators on $Z$
+\begin{align}
+R &= \Pi H_+ \Pi  \\
+S^{-1} &= \Pi H_- \Pi
+\end{align}
+Substituting these into the eigenvalue problem, we get
+\begin{align}
+R u &= \lambda v \\
+S^{-1} v &= -\lambda u
+\end{align}
+Now we rewrite this, as in Kapitula, by multiplying the second equation by $S$ to get $v = -\lambda S u$ and substituting this into the first to get the equation in $\lambda^2$ (quadratic pencil)
+\[
+(R + \lambda^2 S)u = 0
+\]
+So solving the original eigenvalue problem is equivalent to solving
+\[
+(R - zS)u = 0
+\]
+where $z = \lambda^2$, $-\pi/2 < \arg \lambda \leq pi/2$. The Krein matrix is a matrix-valued function which is singular precisely for the nonzero values of $z$ for which $(R - zS)u = 0$.\\
+
+To construct this, we follow Kapitula (2010) as well. Let $\{\phi_j\}$ be an orthonormal eigenfunction basis for $S$ with corresponding eigenvalues $\lambda_j$. Then since $S$ is nonsingular, there are no zero eigenvalues. It was shown that $S$ has exactly $K_{ham}$ negative eigenvalues, and in our case (stable double pulse), $K_{ham} = 2$. Thus we can write the eigenvalues as $\lambda_1 \leq \lambda_2 < 0 < \lambda_3 \leq \lambda_4 \leq \cdots$. Let $N(S)$ be the 2-dimensional negative subspace of $S$. Let $P$ be the orthogonal projection on $N(S)^\perp$ and $Q = I - P$ be the orthogonal projection on $N(S)$, i.e.
+\begin{align}
+Pu &= u - <u,\phi_1>\phi_1 - <u, \phi_2>\phi_2 = u - \sum_{j=1}^2 <u, \phi_j>\phi_j\\
+Qu &= <u,\phi_1>\phi_1 + <u, \phi_2>\phi_2 = \sum_{j=1}^2 <u, \phi_j>\phi_j
+\end{align}
+Define the operators
+\begin{align}
+R_2 &= PRP \\
+S_2 &= PSP
+\end{align}
+Letting $p = Pu$, write $u = p + \sum_{j=1}^2 \alpha_j \phi_j \in N(S)^\perp \oplus N(S)$ for some constants $\alpha_j$. Then substitute this into the eigenvalue problem $(R - zS)u = 0$ and apply the projection $P$ to the left to get
+\begin{align}
+0 = P(R - zS)u &= P(R - zS)(p + \sum_{j=1}^2 \alpha_j \phi_j) \\
+&= P(R - zS)Pp + P(R - zS)\sum_{j=1}^2 \alpha_j \phi_j \\
+&= (R_2 - z S_2)p + \sum_{j=1}^2 \alpha_j P R \phi_j
+\end{align}
+where we use the fact that $P^2 = P$ since $P$ is a projection and the fact that the $\phi_j$ are eigenfunctions for $S$, so $P S\phi_j = 0$ for $j = 1, 2$.\\
+
+We can also apply the projection $Q$ to our eigenvalue problem $(R - zS)u = 0$.
+
+\begin{align}
+0 = Q(R - zS)u &= Q(R - zS)(p + \sum_{j=1}^2 \alpha_j \phi_j) \\
+&= QRp + \sum_{j=1}^2 \alpha_j Q(R - zS) \phi_j \\
+&= QRp + \sum_{j=1}^2 \alpha_j Q R \phi_j - \sum_{j=1}^2 \alpha_j z \lambda_j Q \phi_j \\
+&= QRp + \sum_{j=1}^2 \alpha_j Q R \phi_j - \sum_{j=1}^2 \alpha_j z \lambda_j \phi_j \\
+\end{align}
+where we used the fact that the projection $Q$ acts as the identity on $N(S)$ and the fact that $Sp \in N(S)^\perp$ (invariance of eigenspaces), so that $QSp = 0$. Now we take the inner product of this with $\phi_l$ for $l = 1, 2$, i.e. for $\phi_1, \phi_2$.
+
+\begin{align}
+0 &= <QRp, \phi_l> + \sum_{j=1}^2 \alpha_j <Q R \phi_j, \phi_l> - \sum_{j=1}^2 \alpha_j z \lambda_j <\phi_j, \phi_l>
+\end{align}
+Using the fact that the projection $Q$ is self-adjoint, $Q \phi_j = \phi_j$ for $j = 1, 2$ (since $Q$ acts as the identity on $N(S)$), and the fact that the basis $\{phi_j\}$ is orthonormal, we get for $l = 1, 2$
+\begin{align}
+<Rp, Q\phi_l> + \sum_{j=1}^2 \alpha_j <R \phi_j, Q\phi_l> &= \sum_{j=1}^2 \alpha_j z \lambda_j <\phi_j, \phi_l> \\
+<Rp, \phi_l> + \sum_{j=1}^2 \alpha_j <R \phi_j, \phi_l> &= \alpha_l z \lambda_l
+\end{align}
+So we have the following system of equations to deal with
+
+\begin{align}\label{system}
+(R_2 - z S_2)p + \sum_{j=1}^2 \alpha_j P R \phi_j &= 0 \\
+<Rp, \phi_l> + \sum_{j=1}^2 \alpha_j <R \phi_j, \phi_l> &= \alpha_l z \lambda_l && l = 1, 2
+\end{align}
+
+The idea is that we will solve for $p$ in the first equation and substitute that into the second equation. This is slightly crazy, and I don't understand all the details, but it can be done as follows. Since $S_2$ is positive definite (by construction), $S_2 = S_2^{1/2} S_2^{1/2}$ is well-defined. By using this and doing a little algebra, we get
+\begin{align}
+R_2 - z S_2 &= S_2^{1/2} S_2^{-1/2} R_2 S_2^{-1/2} S_2^{1/2} - S_2^{1/2} z S_2^{1/2} \\
+&= S_2^{1/2} ( S_2^{-1/2} R_2 S_2^{-1/2} - z I ) S_2^{1/2} \\
+&= S_2^{1/2} ( \tilde{R} - z I ) S_2^{1/2} 
+\end{align}
+where $\tilde{R} = S_2^{-1/2} R_2 S_2^{-1/2}$, and $\tilde{R}: N(S)^\perp \rightarrow N(S)^\perp$ since $R_2, S_2: X \rightarrow N(S)^\perp$ and $S_2$ is invariant on $S_2^\perp$. $\tilde{R}$ is self-adjoint since it is the product of self-adjoint operators. $\tilde{R}$ and $R_2$ also have the same sized negative eigenspace, I think because multiplying by a positive definite operator on both sides does not affect this. $\tilde{R}$ also apparently has compact resolvent, so as long as $z$ is not in the spectrum of $\tilde{R}$, the operator $( \tilde{R} - z I )^{-1}$ is well defined and is bounded. In any case, we have an expression for $R_2 - zS_2$, so we can substitute this into the first equation of \eqref{system} to get
+\[
+S_2^{1/2} ( \tilde{R} - z I ) S_2^{1/2} p + \sum_{j=1}^2 \alpha_j P R \phi_j = 0 
+\]
+I will admit that I don't really understand what goes on next, i.e. how we go about inverting this. In any case, after a bunch of steps where the various cases are considered, we wind up defining the Krein matrix on the bottom of p.1253 in Kapitula (2010). The nice thing is that it is 2x2 in our case, so it should not be hard to deal with, assuming we can compute it numerically to any degree of accuracy. We define the following three matrices, for $j, l = 1, 2$:
+
+\begin{align}
+\hat{R}_{jl} &= <\phi_j, R \phi_l> \\
+D &= \textrm{diag}(\lambda_1, \lambda_2) \\
+C(z)_{jl} &= <S_2^{-1/2}(\tilde{R} - zI)^{-1} S_2^{-1/2} P R \phi_j, P R \phi_l>
+\end{align}
+The first two are straightforward enough. The last one is less so. In any case, the Krein matrix is defined by 
+\begin{equation}\label{kreinmatrix}
+K(z) = \hat{R} - zD - C(z)
+\end{equation}
+
+I'm not sure why Kapitula introduces the $\tilde{R}$, but we can simplify things a bunch by getting rid of it, since
+\begin{align}
+S_2^{-1/2}(\tilde{R} - zI)^{-1} S_2^{-1/2} &= (S_2^{1/2})^{-1}(\tilde{R} - zI)^{-1} (S_2^{1/2})^{-1} \\
+&= ( S_2^{1/2} ( \tilde{R} - zI ) S_2^{1/2} )^{-1} \\
+&= ( S_2^{1/2} ( S_2^{-1/2} R_2 S_2^{-1/2} - zI ) S_2^{1/2} )^{-1} \\
+&= ( R_2 - z S_2 )^{-1}
+\end{align}
+
+Thus the definition of the Krein matrix becomes
+
+\begin{align}\label{kreinmatrixsimple}
+\hat{R}_{jl} &= <\phi_j, R \phi_l> \\
+D &= \textrm{diag}(\lambda_1, \lambda_2) \\
+C(z)_{jl} &= < ( R_2 - zS_2 )^{-1} P R \phi_j, P R \phi_l> \\
+K(z) &= \hat{R} - zD - C(z)
+\end{align}
+
+This is much easier to compute, so I can only assume Kapitula introduced the $\tilde{R}$ to assist with the proof.\\
+
+What does all of this mean? First, note the correspondence between the eigenvalue $z$ of the problem $(R - zS)u = 0$ and our original eigenvalue problem $JLu = \lambda u$. We only care about the potentially unstable eigenvalues $\lambda$ here, which is why, say, $\lambda \in \R^-$ is not involved.
+\begin{enumerate}
+	\item $\lambda \in \R^+ \iff z \in \R^-$
+	\item $\textrm{Im} \lambda \neq 0$ and $\textrm{Re} \lambda > 0 \iff \textrm{Im} z \neq 0$
+	\item $\lambda \in i\R^+ \iff z \in \R^+$  
+\end{enumerate}
+Note that $\lambda \in i\R^-$ is not included here, but that's ok by symmetry since if $\lambda$ is an eigenvalue, so is its complex conjugate. Given all this, I believe the following statements are true about the Krein matrix. 
+\begin{enumerate}
+	\item If $\textrm{Im} z \neq 0$, then $\det K(z) = 0 \iff z$ is an eigenvalue (complex eigenvalue with positive real part, nonzero imaginary part).
+	\item If $z \in \R^+$ with negative Krein signature, then $\det K(z) = 0$ (eigenvalue on the positive imaginary axis).
+	\item We don't have to care about the case when $z \in \R^-$ since that corresponds to a positive real eigenvalue $\lambda$, and we know that is not the case for our unstable double pulse.
+\end{enumerate}
+
+\section{Krein Matrix, computations (22 July 2017)}
+
+Now that we know how the Krein matrix could be defined in our context, we will (attempt to) compute it numerically using Matlab. First we note the following difference between the (nonrigorous) theoretical work above. The differentiation operator $\partial_x$ has the as its kernel the constant functions $\spn \{1 \}$. This is periodic for any period, so this does not change with periodic BCs. Interestingly, the kernel of the discrete Fourier collocation operator $D$ is two-dimensional. Here is a plot of the two kernel elements.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{kerD}
+\end{figure}
+
+It's a little hard to see, since the oscillations are the maximum frequency we can have on a grid of this size, but the two oscillatory functions are identical except they are shifted 1 grid point horizontally relative to each other. In any case, if we take the space spanned by these functions as $\ker D$, then we get the result we want, so we will do that. Thus we have:
+\begin{align}
+\ker H_+ &= \spn \{ u^*_x \} \\
+\ker H_- &= \spn \{u^*\} \oplus \ker D
+\end{align}
+Letting $\Pi$ be the orthogonal projection onto $(\ker H_+ \oplus \ker H_-)^\perp$, the rest follows as above.\\
+
+Once we remembered how to do linear algebra, computing the Krein matrix is relatively straightforward. First, we will do this for the first ``stable'' double pulse, i.e. double pulse 2(3). We use Fourier spectral methods, wave speed $c = 10$, $N = 256$, $L = 50$. \\
+
+After computing the operator $S$ as in the previous section, we look at the negative eigenspace of $S$. As predicted, $S$ has 2 negative eigenvalues. The corresponding eigenfunctions $\phi_1, \phi_2$ are shown below. One is even, and one is odd, which is what we wanted to occur (although I'm not sure why we thought this would be the case).
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2vNeg}
+	\caption{Eigenfunctions corresponding to negative eigenvalues of the operator S. Double pulse 2(3), wave speed $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$.}
+\end{figure}
+
+The eigenfunctions corresponding to $\nu = -2.47e+03$ is odd and the eigenfunction corresponding to $\nu=-2.70e-01$ is even.\\
+
+Using these eigenfunctions, we can compute the Krein matrix $K(z)$. Note that since one eigenfunction is even and one eigenfunction is odd, and since the operators $R$ and $R_2 - zS_2 )^{-1}$ are self-adjoint, the Krein matrix is diagonal, which is really nice. (The Krein matrix is symmetric, so this is a special case of that.)\\
+
+We computed earlier that the eigenvalue on (or near) the positive imaginary axis is $\lambda = 0.0691i$; $z = \lambda^2 = 0.0048$, and for this value of $z$, $\det K(z) = -3.9567e-16$, which is essentially 0, so the Krein matrix is in fact singular at our eigenvalue, supporting our hypothesis that this eigenvalue is in fact on the imaginary axis and has negative Krein signature. \\
+
+As in Kapitula (2013), we can look at the Krein eigenvalues, which are the eigenvalues of the Krein matrix. (Conveniently, since the Krein matrix is diagonal, these are just the diagonal entries). It is instructive to plot these as a function of $z \in \R$ (we only really care about $z \in R^+$, since that corresponds to eigenvalues $\lambda$ which are on the positive imaginary axis, but it does not hurt to do this for a symmetric interval about 0). Below is a plot of the two Krein eigenvalues for $z \in [-0.1, 0.1]$.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineig1}
+	\caption{Krein eigenvalues. Double pulse 2(3), $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$. }
+\end{figure}
+
+Note that both Krein eigenvalues appear to be a linear function of $z$, so we also included a plot of the least squares linear interpolation of the two Krein eigenvalues on the graph. The red line has a large positive slope (2474), and crosses 0 at a single point. The blue line (Krein eigenvalue 2) actually has a small positive slope (0.2082), which is hard to see on this graph, but is apparant when graphed separately.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineig2}
+	\caption{Krein eigenvalue 2 only. Double pulse 2(3), $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$. }
+\end{figure}
+
+We can see from the plots that the two lines cross. If we zoom in on the crossing, we can see that the two lines cross each other at the same values of $z$ for which they each cross 0!
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineig1zoom}
+	\includegraphics[width=8.5cm]{dp2kreineig2zoom}
+	\caption{Krein eigenvalues, zoom on crossing. Double pulse 2(3), $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$.}
+\end{figure}
+
+We can compute this crossing point numerically, which is $z = 0.0048$, and $\sqrt{z} = 0.0691$, which is the imaginary part of our interaction eigenvalue $\lambda$. At the crossing point, both eigenvalues are of order $1e-9$, which is essentially zero, and the determinant of the Krein matrix is $-1.0165e-18$, which is also essentially zero. All of this provides more evidence that we have a purely imaginary eigenvalue on the positive imaginary axis of negative Krein signature at $\lambda = 0.0691i$.\\
+
+Of course, all of this is for nothing if we cannot reproduce these results in other situations. So let's do that. First, let's try double pulse 2(5) for the same wave speed $c = 10$, i.e. the next ``stable'' double pulse. We will not show the negative eigenfunctions of $S$, since they look similar to those above. We will go straight to the Krein eigenvalues.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp4kreineig1}
+	\caption{Krein eigenvalues. Double pulse 2(5), $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$. }
+\end{figure}
+
+We once again have two straight lines with upward slope. They cross each other and zero (roughly, the numbers are getting tiny!) at $z = 4.1790e-06$, which corresponds to $\lambda = 0.0020i$, which is the interaction eigenvalue we found before.\\
+
+There is no reason to suspect this will not work for another speed $c$, but let's do it anyway. Here we repeat this for double pulse 2(3) and $c = 7.5$.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2_75kreineig1}
+	\caption{Krein eigenvalues. Double pulse 2(3), $c = 7.5$, Fourier spectral methods, $N = 256$, $L = 50$. }
+\end{figure}
+
+Plot is similar to the two above. The crossing point for the two lines (and zero) is at $z = 0.0017$, which corresponds to the interaction eigenvalue of $\lambda = 0.0413i$, which is what we found earlier.\\
+
+Since the Krein matrix also counts positive real eigenvalues, we should be able to use this for the unstable double pulses as well. Let's try it on double pulse 2(2), $c = 10$. For the unstable double pulses, $K_{ham} = 1$, which implies that we have to have one positive, real eigenvalue. Details are in Kapitula (2013). Thus the matrix $S$ will only have one negative eigenvalue, and so the Krein matrix will be 1x1, i.e. a scalar. Repeating all of this for the unstable double pulse 2(2), this is in fact what we see. Here is a plot of that single eigenfunction. Note that it is an even function.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp1vNeg}
+	\caption{Eigenfunction corresponding to negative eigenvalue of the operator S. Double pulse 2(2), wave speed $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$.}
+\end{figure}
+
+To find the interaction eigenvalue, all we have to do is see where the single Krein eigenvalue (which is the entire Krein matrix) crosses 0. This is shown in the plot below. Note once again the Krein eigenvalue is a linear function of $z$. 
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp1kreineig1}
+	\caption{Krein eigenvalue. Double pulse 2(2), $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$. }
+\end{figure}
+
+The Krein eigenvalue crosses 0 at -0.1894, corresponding to an interaction eigenvalue of $\lambda = 0.4352$, which is exactly what we observed before.\\
+
+In conclusion, even though our setup is different from that in Kapitula (2013), i.e. the operator $J$ in our case is not invertible, we can follow the same steps and construct the Krein matrix. In all cases we have tried, the Krein matrix identifies exactly the interaction eigenvalues which we found before using \texttt{eig} on the discretized operator.\\
+
+What about the essential spectrum? We should be able to find it using the Krein matrix as well. Let's go back to double pulse 2(3), $c = 10$, $N = 256$, $L = 50$. Looking at the positive imaginary axis, the interaction eigenvalue is at $0.0691i$, and the first three eigenvalues of the essential spectrum are at $1.4164i, 2.8558i, 4.3473i$. So we need to look at higher values of $z$. This plot shows the Krein eigenvalues for $z$ ranging from 0 to 10.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineig3.eps}
+	\caption{Krein eigenvalues, $z \in [0, 10]$. Double pulse 2(3), $c = 10$, Fourier spectral methods, $N =  256$, $L = 50$. }
+\end{figure}
+
+Krein eigenvalue 1 (red line) at first glance appears to increase linearly with $z$. This will turn out not to be the case, as there are very narrow singularities there, but let's first take a closer look at Krein eigenvalue 2 (blue line). 
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineig4.eps}
+	\caption{Krein eigenvalue 2, $z \in [0, 10]$. Double pulse 2(3), $c = 10$, Fourier spectral methods, $N =  256$, $L = 50$. }
+\end{figure}
+
+It looks like something interesting is happening around $z = 2$ and around $z = 9$. Let's first look at the interval $z \in [0, 2]$.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineig0-2.eps}
+	\caption{Krein eigenvalue 2, $z \in [0, 2]$. Double pulse 2(3), $c = 10$, Fourier spectral methods, $N =  256$, $L = 50$.}
+\end{figure}
+
+Note that the curve for Krein eigenvalue 2 starts with an upward slope. At $z = 0$, Krein eigenvalue 2 is negative, and the first crossing of 0 occurs at $z = 0.0048$, which is so far to the left of this graph that we really can't see it (this is clearly shown on the relevant plot above). After continuing upward until about $z = 1.75$, the curve turns downwards. There is another crossing of 0 somewhere around 2 before the curve continues to head down towards what looks like a vertical asymptote/singularity. We can zoom in around $z = 2$ to get a better look at this.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineigzoomsing2.eps}
+	\caption{Krein eigenvalue 2, zoom around $z = 2$. Double pulse 2(3), $c = 10$, Fourier spectral methods, $N =  256$, $L = 50$. }
+\end{figure}
+
+The curve for Krein eigenvalue 2 crosses 0 at $z = 2.0063$, which corresponds to the value $\lambda = 1.4164i$, which is the smallest (positive) point on the essential spectrum. Now that we know where this occurs, let's look at both Krein eigenvalues. First let's take a look on the interval $z \in [2.0, 2.1]$
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineigsingnear2.eps}
+	\caption{Krein eigenvalues 1 and 2, interval $z \in [2.0, 2.1]$, Double pulse 2(3), $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$. }
+\end{figure}
+
+Because of the scale on the y-axis, we cannot see the crossing of Krein eigenvalue 2 at $z = 2.0063$. What we can see is a singularity in Krein eigenvalue 2 after this crossing, at about $z = 2.07$. Interestingly, there is also a singularity in Krein eigenvalue 1 which is located right about where Krein eigenvalue 1 crosses 0. Before this singularity, Krein eigenvalue 1 will also cross zero. The question is whether the two crossings are at the same point. To see that, let's zoom in on both eigenvalues right near the crossing at $z = 2.0063$.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineigsingnear2diffy.eps}
+	\caption{Krein eigenvalues 1 and 2, zoom near $z = 2.0063$, different scales on $y$-axis for the two Krein eigenvalues, Double pulse 2(3), $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$. }
+\end{figure}
+
+The scales on the two $y$-axes are wildly different, but the plot plus a numerical computation of the intersection of the two curves suggest that they intersect each other and zero at this crossing point, just like we had for the interaction eigenvalue. \\
+
+The same holds for the next eigenvalue in the essential spectrum. Looking at a plot of Krein eigenvalue 2 on the interval $z \in [8.1, 8.2]$, we find that the eigenvalue crosses 0 at $z = 8.1556$, which corresponds to $\lambda = 2.8558i$, the next point in the essential spectrum.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineigsingnear8.eps}
+	\caption{Krein eigenvalue 2, interval $z \in [8.1, 8.2]$, different scales on $y$-axis for the two Krein eigenvalues, Double pulse 2(3), $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$. }
+\end{figure}
+
+If we zoom in on the crossing at $z = 8.1556$ and use different $y$-axis scales for the two Krein eigenvalues, we get a similar plot as with the first point on the essential spectrum. This plus a numerical computation of the intersection of the curves suggests that the two curves intersect each other and zero at this crossing point.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2kreineigsingnear8diffy.eps}
+	\caption{Krein eigenvalues 1 and 2, zoom near $z = 8.1556$, different scales on $y$-axis for the two Krein eigenvalues, Double pulse 2(3), $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$. }
+\end{figure}
+
+Putting this all together, we can make a badly drawn cartoon.
+
+\begin{figure}[H]
+	\includegraphics[width=15cm]{kreineigcartoon3.png}
+	\caption{Cartoon of Krein eigenvalues. Red is Krein eigenvalue 1, Blue is Krein eigenvalue 2. Intersections are on the x-axis, as we showed numerically above. Black circle is interaction eigenvalue, which has negative Krein signature, maybe because slopes of both eigenvalue lines are positive? (this is consistent with Kapitula). Black squares are the first two essential spectrum eigenvalues, which have positive Krein signature (slopes of both eigenvalue lines are negative.}
+\end{figure}
+
+
+\end{document}
