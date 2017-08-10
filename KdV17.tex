@@ -1,0 +1,178 @@
+% \documentclass{book}
+
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\graphicspath{ {images17/} }
+
+\begin{document}
+
+\section*{3 August 2017}
+
+\subsection*{Integrated Eigenfunction Construction}
+For the 5th order KdV equation (written in traveling frame), assume for a specific value of $c$ (which we know is greater than 1/4) we have constructed a 2-pulse $q_2(x)$. The 1-pulse is given by $q_1(x)$. Then by Theorem 1 in Sandstede (1998), we can find a real number $X_1$ so that we can write $q_2(x)$ piecewise as:
+\begin{equation}\label{q2piecewise}
+\begin{cases}
+q^-(x) + r_1^-(x) & \text{on } (-\infty, 0] \\
+q^+(x) + r_1^+(x) & \text{on } [0, X_1] \\
+q^-(x) + r_2^-(x) & \text{on } [-X_1, 0] \\
+q^+(x) + r_2^+(x) & \text{on } [0, \infty) \\ 
+\end{cases}
+\end{equation}
+
+where the pieces are spliced together one after the other so that $\pm X_1$ corresponds to 0 and the resulting function (and all derivatives) are continuous at the splice points. The functions $q^\pm(x)$ are perturbations of the homoclinic orbit $q_1(x)$ for the 1-pulse, when the parameter $c$ is modified slightly to $c_2$. As a result of this perturbation, the homoclinic orbit $q_1(x)$ breaks. \\
+
+Consider the eigenvalue problem as before. Linearizing about the solution $q_2(x)$ we get the eigenvalue problem $\partial_x H v = \lambda v$, where 
+\begin{equation}\label{hamiltonian}
+H = \partial_x^4 - \partial_x^2 + c_2 - 2 q_2(x)
+\end{equation}
+where the parameter $c_2$ is near our speed $c$. \\
+
+Now integrate both sides of the eigenvalue problem from $\infty$ to $x$. (This is the integrated eigenvalue problem). We will assume that any solution $v$ is localized, so that $v(x)$ and all its derivatives decay to 0 (exponentially) as $x \rightarrow \pm \infty$. Thus the integrated eigenvalue problem becomes
+
+\begin{equation}\label{inteigproblem}
+Hv(x) = v_{xxxx} - v_{xx} + c_2 v - 2 q_2 v = \lambda \int_{-\infty}^x v(y) dy
+\end{equation}
+
+We want to construct a solution to this problem by similar means to Sandstede (1998). We can write this as a first-order system:
+\[
+\begin{pmatrix}v\\v_x\\v_{xx}\\v_{xxx}\end{pmatrix}_x = 
+\begin{pmatrix}0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 2q_2 - c_2 & 0 & 1 & 0\end{pmatrix}
+\begin{pmatrix}v\\v_x\\v_{xx}\\v_{xxx}\end{pmatrix} + \lambda
+\begin{pmatrix}0\\0\\0\\\int_{-\infty}^x v(y) dy\end{pmatrix}
+\]
+Write our integrated eigenvalue problem in matrix form as
+\[
+V_x = A(q_2, c_2)V + \lambda B K V
+\]
+where $A(q_2, c_2)$ is the first matrix on the RHS above, and $B$ is the matrix
+\[
+\begin{pmatrix}0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \\1 & 0 & 0 & 0 \end{pmatrix}
+\]
+
+which moves the first component to fourth and gets rid of everything else. $K$ is an integration operator, which in this case is given by:
+\[
+(KV)(x) = \int_{-\infty}^x V(y) dy
+\]
+where we integrate the function $V$ componentwise. We could reverse $B$ and $K$ since it doesn't matter if we move components around or integrate first. Capital letters represent the variables in the fourth-order system, and small letters represent the real-valued functions. We will keep this convention throughout. This is in the same format at (3.1) in Sandstede (1998), except we have an additional integration operator $K$ thrown into the mix.\\
+
+Before we keep going, we need to write \eqref{q2piecewise} in system form (with capital letters) as
+\begin{equation}\label{q2piecewisesystem}
+\begin{cases}
+Q^-(x) + R_1^-(x) & \text{on } (-\infty, 0] \\
+Q^+(x) + R_1^+(x) & \text{on } [0, X_1] \\
+Q^-(x) + R_2^-(x) & \text{on } [-X_1, 0] \\
+Q^+(x) + R_2^+(x) & \text{on } [0, \infty) \\ 
+\end{cases}
+\end{equation}
+where $Q^\pm = (q^\pm, q^\pm_x, q^\pm_{xx}, q^\pm_{xxx})^T$ and similar for $R_j^\pm$. The pieced-together version of this will be called $Q_2(x)$, where as above $x = 0$ corresponds to $\pm X_1$.\\
+
+
+We will split up our solution $V$ in the same way, where again the parts are joined together as we did with $Q_2)$
+\begin{equation}
+\begin{cases}
+V_1^-(x) & \text{on } (-\infty, 0] \\
+V_1^+(x) & \text{on } [0, X_1] \\
+V_2^-(x) & \text{on } [-X_1, 0] \\
+V_2^+(x) & \text{on } [0, \infty) \\ 
+\end{cases}
+\end{equation}
+
+We can now write the integrated eigenvalue problem in the form of (3.3) in Sandstede (1998). We have suppressed the dependence on $c_2$ since the notation is getting out of hand.
+
+\begin{align*}
+V_1'^-(x) &= A(Q^-(x) + R_1^-(x))V_1^-(x) + \lambda B (K_1^- V_1^-)(x) && x \in (-\infty, 0] \\
+V_1'^+(x) &= A(Q^+(x) + R_1^+(x))V_1^+(x) + \lambda B [(K_1^+ V_1^+)(x) + G_1^- V_1^-] && x \in [0, X_1] \\
+V_2'^-(x) &= A(Q^-(x) + R_2^-(x))V_2^-(x) + \lambda B [(K_2^- V_2^-)(x) + G_1^- V_1^- + G_1^+ V_1^+) && x \in [-X_1, 0] \\
+V_2'^+(x) &= A(Q^+(x) + R_2^+(x))V_2^+(x) + \lambda B [(K_2^+ V_2^+)(x) + G_1^- V_1^- + G_1^+ V_1^+ + G_2^- V_2^-) && x \in [0, \infty) \\ 
+\end{align*}
+together with the matching conditions
+\begin{align*}
+V_1^-(0) &= V_1^+(0) \\
+V_2^-(0) &= V_2^+(0) \\
+V_1^+(X_1) &= V_2^-(-X_1)
+\end{align*}
+
+The $K_j^\pm$ are the integration operators (dependent on $x$)
+\begin{align*}
+(K_1^- U)(x) &= \int_{-\infty}^x U(y) dy && x \in (-\infty, 0] \\
+(K_1^+ U)(x) &= \int_0^x U(y) dy && x \in [0, X_1] \\
+(K_2^- U)(x) &= \int_{-X_1}^x U(y) dy && x \in [-X_1, 0] \\
+(K_2^+ U)(x) &= \int_0^x U(y) dy && x \in [0, \infty) \\
+\end{align*}
+
+And the $G_j^\pm$ are the integration operators (independent of $x$)
+\begin{align*}
+G_1^- U &= \int_{-\infty}^0 U dy \\
+G_1^+ U &= \int_0^{X_1} U dy \\
+G_2^- U &= \int_{-X_1}^0 U dy \\
+\end{align*}
+
+
+
+The idea now is that $V(x)$ is a small perturbation of $Q_2'(x)$, so we will write, as in (3.5) in Sandstede (1998)
+\begin{equation}
+V_i^\pm(x) = (Q'^\pm(x) + R_i'^\pm(x))d_i + W_i^\pm(x)
+\end{equation}
+
+Since $Q_2'$ solves the original eigenvalue problem with $\lambda = 0$, if we plug this into the integrated eigenvalue problem, we get equations for the $W_i^\pm$:
+
+\begin{equation}
+W_1'^-(x) = A(Q^-(x) + R_1^-(x))W_1^-(x) + \lambda B [K_1^- (Q'^- + R_1'^-)d_1](x) + \lambda B (K_1^- W_1^-)(x)
+\end{equation}
+
+\begin{multline}
+W_1'^+(x) = A(Q^+(x) + R_1^+(x))W_1^+(x) + \lambda B [K_1^+ (Q'^+ + R_1'^+)d_1](x) + \lambda B (K_1^+ W_1^+)(x)\\
++ \lambda B ( G_1^-(Q'^- + R_1'^-)d_1 + \lambda B G_1^- W_1^-
+\end{multline}
+
+\begin{multline}
+W_2'^-(x) = A(Q^-(x) + R_2^-(x))W_2^-(x) + \lambda B [K_2^- (Q'^- + R_2'^-)d_2](x) + \lambda B (K_2^- W_2^-)(x)\\
++ \lambda B ( G_1^-(Q'^- + R_1'^-)d_1 + \lambda B G_1^- W_1^-\\
++ \lambda B ( G_1^+(Q'^+ + R_1'^+)d_1 + \lambda B G_1^+ W_1^+
+\end{multline}
+
+\begin{multline}
+W_2'^+(x) = A(Q^+(x) + R_2^+(x))W_2^+(x) + \lambda B [K_2^+ (Q'^+ + R_2'^+)d_2](x) + \lambda B (K_2^+ W_2^+)(x)\\
++ \lambda B ( G_1^-(Q'^- + R_1'^-)d_1 + \lambda B G_1^- W_1^-\\
++ \lambda B ( G_1^+(Q'^+ + R_1'^+)d_1 + \lambda B G_1^+ W_1^+\\
++ \lambda B ( G_2^-(Q'^- + R_2'^-)d_2 + \lambda B G_2^- W_2^-
+\end{multline}
+
+Note that each equation involves all the $W_i^\pm$ from the previous equations via the integration operators $G_i^\pm$. 
+
+
+
+\end{document}

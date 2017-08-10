@@ -325,7 +325,23 @@ After computing the operator $S$ as in the previous section, we look at the nega
 
 The eigenfunctions corresponding to $\nu = -2.47e+03$ is odd and the eigenfunction corresponding to $\nu=-2.70e-01$ is even.\\
 
-Using these eigenfunctions, we can compute the Krein matrix $K(z)$. Note that since one eigenfunction is even and one eigenfunction is odd, and since the operators $R$ and $R_2 - zS_2 )^{-1}$ are self-adjoint, the Krein matrix is diagonal, which is really nice. (The Krein matrix is symmetric, so this is a special case of that.)\\
+We can also plot the derivatives of these eigenfunctions. From this we can see that neither negative eigenfunction is the derivative of the other.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{dp2dvNeg}
+	\caption{Normalized derivatives of eigenfunctions corresponding to negative eigenvalues of the operator S. Double pulse 2(3), wave speed $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$.}
+\end{figure}
+
+
+
+Using these eigenfunctions, we can compute the Krein matrix $K(z)$. Note that since one eigenfunction is even and one eigenfunction is odd, and since the operators $R$ and $R_2 - zS_2 )^{-1}$ are self-adjoint, the Krein matrix is diagonal, which is really nice. (The Krein matrix is known to be symmetric, so what we have here is a special case of that.) As an example, for $z = 1$, the Krein matrix (for the same conditions as above) is:
+
+\[
+K(1) = \begin{bmatrix}
+2.4618e+03 & -9.9711e-10 \\ -1.0294e-09 & 0.1978
+\end{bmatrix}
+\]
+which (to numerical accuracy) is diagonal.
 
 We computed earlier that the eigenvalue on (or near) the positive imaginary axis is $\lambda = 0.0691i$; $z = \lambda^2 = 0.0048$, and for this value of $z$, $\det K(z) = -3.9567e-16$, which is essentially 0, so the Krein matrix is in fact singular at our eigenvalue, supporting our hypothesis that this eigenvalue is in fact on the imaginary axis and has negative Krein signature. \\
 
@@ -447,12 +463,229 @@ If we zoom in on the crossing at $z = 8.1556$ and use different $y$-axis scales 
 	\caption{Krein eigenvalues 1 and 2, zoom near $z = 8.1556$, different scales on $y$-axis for the two Krein eigenvalues, Double pulse 2(3), $c = 10$, Fourier spectral methods, $N = 256$, $L = 50$. }
 \end{figure}
 
-Putting this all together, we can make a badly drawn cartoon.
+Putting this all together, we can make a badly drawn cartoon. Note that the zeros of the two Krein eigenvalue curves coincide, but the singularities do not. The singularity for Krein eigenvalue 1 occurs before the singularity for Krein eigenvalue 2, at least as far as we have gone with the plot.
 
 \begin{figure}[H]
 	\includegraphics[width=15cm]{kreineigcartoon3.png}
 	\caption{Cartoon of Krein eigenvalues. Red is Krein eigenvalue 1, Blue is Krein eigenvalue 2. Intersections are on the x-axis, as we showed numerically above. Black circle is interaction eigenvalue, which has negative Krein signature, maybe because slopes of both eigenvalue lines are positive? (this is consistent with Kapitula). Black squares are the first two essential spectrum eigenvalues, which have positive Krein signature (slopes of both eigenvalue lines are negative.}
 \end{figure}
+
+It would be useful to repeat this for the case were the interaction eigenvalue and the smallest essential spectrum eigenvalue cross. From what we showed before, this does not produce a Krein collision, although we would normally expect one to occur at the crossing. As we did when we looked at the crossing, we use double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$. The interaction eigenvalues is independent of domain length, while the location of the essential spectrum eigenvalues depends on domain length.\\
+
+First, consider the domain length $L = 115$. For these parameters, we found previously that the interaction eigenvalue is $3.9859i$, and the first two eigenvalues of the essential spectrum of $4.1454i$ and $8.2914i$.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_115_krein1.eps}
+	\includegraphics[width=8.5cm]{1500F_dp2_115_krein2.eps}
+	\caption{Krein eigenvalues 1 and 2 (left) and Krein eigenvalue 2 (right), interval $z \in [15, 24]$, double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 115$. }
+\end{figure}
+
+The two Krein eigenvalues lines cross each other and zero at $z = 15.8875$, which corresponds to $\lambda = 3.9859i$, which is the interaction eigenvalue. We don't see a crossing for the essential spectrum eigenvalue here, but we see what looks like singularies in the two eigenvalue curves around $z = 17$, so we will look there. We also expect the first essential spectrum eigenvalue to correspond to $z = 17.1843$.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_115_kreinzoom1.eps}
+	\includegraphics[width=8.5cm]{1500F_dp2_115_kreinzoom2}
+	\caption{Krein eigenvalues 1 and 2 (left) and Krein eigenvalue 2 (right), interval $z \in [17, 17.3]$, double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 115$. }
+\end{figure}
+
+Zooming into the interval $z \in [17, 17.3]$, we see both eigenfunctions will have singularities around $z = 17.18$, but we cannot yet see the crossing of zero. More zoom is needed. (As for why we didn't start by taking a finer mesh, we are inverting a 1024x1024 matrix each time we compute the Krein matrix, and that is slow.) Finally, we zoom in on the interval $z \in [17.18, 17.19]$.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_115_kreinzoom3.eps}
+	\includegraphics[width=8.5cm]{1500F_dp2_115_kreinzoom4}
+	\caption{Krein eigenvalues 1 and 2 (left) and Krein eigenvalue 2 (right), interval $z \in [17.18, 17.19]$, double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 115$. }
+\end{figure}
+
+We see both crossings here of zero, and can compute numerically that the two Krein eigenvalue curves cross each other and zero at $z = 17.1847$, which corresponds to $\lambda = 4.1454i$, the first point on the essential spectrum. We also can see the two singularies, and it looks like the singularity for Krein eigenvalue 1 occurs before that of Krein eigenvalue 2, which is what we observed before.\\
+
+All of this is exactly as we expect, i.e. no different from the earlier case, since the crossing has not yet occurred. We have another badly drawn cartoon for this, which looks like the previous one.
+
+\begin{figure}[H]
+	\includegraphics[width=15cm]{kreincartoonbeforecrossing.png}
+	\caption{Cartoon of Krein eigenvalues (before crossing). Red is Krein eigenvalue 1, Blue is Krein eigenvalue 2. Intersections are on the x-axis, as we showed numerically above. Black circle is interaction eigenvalue, which has negative Krein signature. Black square is the first essential spectrum eigenvalues, which has positive Krein signature. Double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 115$.}
+\end{figure}
+
+Now let's look after the crossing. $L = 125$ is after that, so we will use that domain length. The rest of the parameters will be the same. For these parameters, we found previously that the interaction eigenvalue is $3.9859i$ (unchanged, as expected), and the first eigenvalue of the essential spectrum is $3.8106i$, which is below the interaction eigenvalue on the imaginary axis. First, we look at the interval $z \in [14, 16]$.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_125_krein1.eps}
+	\includegraphics[width=8.5cm]{1500F_dp2_125_krein2.eps}
+	\caption{Krein eigenvalues 1 and 2 (left) and Krein eigenvalue 2 (right), interval $z \in [14, 16]$, double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 125$. }
+\end{figure}
+
+On the right side, we see the crossing around $z = 15.8$ which will correspond to the interaction eigenvalue. On the left, we see the singularities around which we will have the crossing corresponding to the essential spectrum eigenvalue. We can basically see what is going to happen from this alone, but for completeness we will zoom in on the relevant regions. First we locate the interaction eigenvalue by looking at the interval $z \in [15.8, 15.9]$. We see the two Krein eigenvalue curves cross each other and zero at $z = 15.8844$, corresponding to $\lambda = 3.9855i$, which is really close to the interaction eigenvalue we found before.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_125_kreinzoom1.eps}
+	\includegraphics[width=8.5cm]{1500F_dp2_125_kreinzoom2.eps}
+	\caption{Krein eigenvalues 1 and 2 (left) and Krein eigenvalue 2 (right), interval $z \in [15.8, 15.9]$, double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 125$. }
+\end{figure}
+
+Now we try to see what is happening near the essential spectrum eigenvalue. Looking at the interval $z \in [14.5, 14.6]$ we see that what will happen here is that the right side of the singularity will shoot down and cross zero from above. The plots below show that it is what is going to happen, but we don't yet have enough zoom to see it happen.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_125_kreinzoom3.eps}
+	\includegraphics[width=8.5cm]{1500F_dp2_125_kreinzoom4.eps}
+	\caption{Krein eigenvalues 1 and 2 (left) and Krein eigenvalue 2 (right), interval $z \in [15.8, 15.9]$, double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 125$. }
+\end{figure}
+
+If we zoom in on the interval $z \in [14.51, 14.53]$, we can see the crossing corresponding to the essential spectrum eigenvalue. This occurs at $z = 14.5203$, which corresponds to the lowest essential spectrum eigenvalue of $\lambda = 3.8106i$. As before, it appears that Krein eigenvalue 1 has a singularity slightly  before that of Krein eigenvalue 2.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_125_kreinzoom5.eps}
+	\includegraphics[width=8.5cm]{1500F_dp2_125_kreinzoom6.eps}
+	\caption{Krein eigenvalues 1 and 2 (left) and Krein eigenvalue 2 (right), interval $z \in [15.8, 15.9]$, double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 125$. }
+\end{figure}
+
+We can illustrate this in another badly drawn cartoon. (I did check to make sure the segment between 0 and 14 is correct in the cartoon).
+
+\begin{figure}[H]
+	\includegraphics[width=15cm]{kreincartoonaftercrossing.png}
+	\caption{Cartoon of Krein eigenvalues (after crossing). Red is Krein eigenvalue 1, Blue is Krein eigenvalue 2. Intersections are on the x-axis, as we showed numerically above. Black circle is interaction eigenvalue, which has negative Krein signature. Black square is the first essential spectrum eigenvalues, which has positive Krein signature. Double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 125$.}
+\end{figure}
+
+We can get a good picture just after the Krein crossing. For $L = 120$, the essential spectrum eigenvalue is $3.9731i$ and the interaction eigenvalue is $3.9835i$. We can see the two curves crossing each other and zero at both of these points. Note that as in the other cases, the singularity in Krein eigenvalue 1 appears before that of Krein eigenvalue 2 (we can see where this happens on the left of the plot).
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_120_krein1.eps}
+	\caption{Krein eigenvalues 1 and 2 (left) and Krein eigenvalue 2 (right), double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 120$. }
+\end{figure}
+
+We can also get a good picture just before the Krein crossing. For $L = 119$, the essential spectrum eigenvalue is $4.0032i$ and the interaction eigenvalue is $3.9870i$. Here is the plot of the two Krein eigenvalue curves for that case.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_119_krein1.eps}
+	\caption{Krein eigenvalues 1 and 2 (left) and Krein eigenvalue 2 (right), double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 119$. }
+\end{figure}
+
+We would like to see what happens exactly at the Krein crossing, so we need to essentially split the difference between the above. Let's try $L = 119.5$. Using Matlab's \texttt{eig}, we have a Krein quartet of eigenvalues at $\pm0.0050 \pm 3.9867i$. The question is whether or not we believe this, since the domain size is huge relative to the width of the double pulse. For now, let's run with it and see what happens. First, we can look at the corresponding eigenfunctions. 
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_1195_eigposreal}
+	\includegraphics[width=8.5cm]{1500F_dp2_1195_eigposimag}
+	\caption{Real and imaginary parts of eigenfunctions of Krein quartet eigenvalues with positive real part, double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 119.5$. }
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_1195_eignegreal}
+	\includegraphics[width=8.5cm]{1500F_dp2_1195_eignegimag}
+	\caption{Real and imaginary parts of eigenfunctions of Krein quartet eigenvalues with positive real part, double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 119.5$. }
+\end{figure}
+
+These look about how we would expect (i.e. have the correct symmetries). For some reason the real parts decay to 0 at the ends (as we expect) but the imaginary parts do not (even if we look at the entire domain), so this is a little fishy.\\
+
+Let's look at the Krein eigenvalues. Since the imaginary part of the quartet is $3.9867i$, we will look at the interval $z \in [15.8, 16.0]$. Note that we have two singularities (Krein eigenvalue 1 has one first, as before), but neither curve crosses 0, suggesting that there are no eigenvalues on the imaginary axis near there.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{1500F_dp2_1195_krein1.eps}
+	\includegraphics[width=8.5cm]{1500F_dp2_1195_krein2.eps}
+	\caption{Krein eigenvalues 1 and 2 (left) and Krein eigenvalue 2 (right), double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 119.5$. }
+\end{figure}
+
+Since $\lambda = 0.0050 + 3.9867i$ is in the first quadrant, the Krein matrix should be singular at $z = -\lambda^2 = 15.8934 - 0.0397i$. If we take the determinant of the Krein matrix at this value of $z$, we get $\det K(z) = -3.0678e-04 + 1.2304e-05i$ which is small, zero. Again, this is a little fishy, and we will return to this point later.\\
+
+Finally, we by looking different values of $L$, we can actually see the alleged Krein collision take place. The eigenvalues collide and form a Krein quartet, which then collapses back to the imaginary axis. Here is a table showing this.
+
+\begin{table}[H]
+\begin{tabular}{l|l}
+Domain length (L) & Eigenvalues \\ \hline
+119.25 & $\pm 3.9924i, \pm 3.9894i$ \\
+119.28 & $\pm 0.0017 \pm 3.9904i$\\ 
+119.30 & $\pm 0.0024 \pm 3.9900i$\\
+119.35 & $\pm 0.0036 \pm 3.9892i$\\
+119.40 & $\pm 0.0043 \pm 3.9884i$\\
+119.45 & $\pm 0.0047 \pm 3.9875i$\\
+119.50 & $\pm 0.0050 \pm 3.9867i$\\
+119.55 & $\pm 0.0051 \pm 3.9858i$\\
+119.60 & $\pm 0.0051 \pm 3.9850i$\\
+119.65 & $\pm 0.0049 \pm 3.9841i$\\
+119.70 & $\pm 0.0046 \pm 3.9833i$\\
+119.75 & $\pm 0.0041 \pm 3.9825i$\\
+119.80 & $\pm 0.0033 \pm 3.9816i$\\
+119.85 & $\pm 0.0018 \pm 3.9808i$\\
+119.90 & $\pm 3.9776i, \pm 3.9823i$\\
+\end{tabular}
+\end{table}
+
+We would like to know if this Krein collision is actually taking place, or whether this is just numerical error. It seems weird that the we would have a Krein collision producing a quartet which then collapses back to the imaginary axis. We would expect that once the quartet formed, it would persist for all higher values of $L$. As a verification, assume that we have an eigenvalue in the first quadrant of the complex plane, i.e. $\lambda = \alpha + \beta i$, with $\alpha, \beta > 0.$ Then the Krein matrix $K(z)$ should be singular at $z = -\lambda^2$. The value of $z$ we used above gave us a determinant which was small but not zero. Perhaps we could use \texttt{fsolve} to find this zero.\\
+
+To to this, we first adapt the Krein matrix generation as follows. Since inverting large matrices is slow, we do not want to calculate $(R_2 - zS_2)^{-1}$ every time we take another step. We can speed things up by (approximately) a factor of 3 by doing the following two things:
+\begin{enumerate}
+	\item Since we know the Krein matrix is diagonal, only compute the diagonal entries.
+	\item Instead of inverting $(R_2 - zS_2)^{-1}$ to compute $y = (R_2 - zS_2)^{-1} x$, use Matlab's linear solver to solve $x = (R_2 - zS_2) y$, where here $x = P R \phi_j$ 
+\end{enumerate}
+
+Before we do this, we would like to note that using \texttt{fsolve} for finding eigenvalues works really well. We can confirm our results above by doing this (not shown). Interesting things to note (for our initial case of double pulse 2(3), $c = 10$, $L = 25$, Fourier spectral methods, $N = 256$:
+\begin{enumerate}
+	\item Unless we start really near one of the essential spectrum eigenvalues, \texttt{fsolve} will give us the interaction eigenvalue. We can start just about anywhere (zero, large positive and negative numbers), and \texttt{fsolve} will give us the interaction eigenvalue. In this case, both Krein eigenvalues are tiny (order 1e-10 or smaller).
+	\item If we want to get the essential spectrum eigenvalue, we have to start quite near it. Note from the cartoon and plots above, Krein eigenvalue 1 crosses zero on the way down to a singularity, while Krein eigenvalue 2 crosses on a gentle downslope. Thus if we want to show that both Krein eigenvalues are zero (to reasonable accuracy), we need to start the solver on the left side since the solver does not cross the singularity. The best way to do this is to use the solver on Krein eigenvalue 1, rather than the determinant. If we do this, we get that Krein eigenvalue 1 is order 1e-6 and Krein eigenvalue 2 is order 1e-8, and the Krein matrix has determinant of order 1e-13.
+\end{enumerate} 
+
+So we have found that the Krein matrix (via its determinant) is highly effective for finding the interaction eigenvalues, and also is effective in finding the essential spectrum eigenvalues, as long as we know roughly where they are so we can start the solver at the right initial point.\\
+
+Now we return to our alleged Krein quartet. Recall that for double pulse 2(3), $c = 150$, $L = 119.5$, Fourier spectral methods, $N = 1024$ Matlab's \texttt{eig} gives us a quartet of eigenvalues at $\pm 0.0050 \pm 3.9867i$. We want the eigenvalue in the first quadrant, which corresponds to $z = 15.8938 - 0.0399i$. Let's see how \texttt{fsolve} does with this. Recall that for the initial guess from \texttt{eig}, we have $|\det K(z) =  3.0811e-04$.
+
+\begin{table}[H]
+\begin{tabular}{l|lll}
+Initial guess & Output & $|\det K(z)|$ & Krein eigenvalues \\ \hline
+15.8938 - 0.0399i & 15.8663 - 0.0399i & 2.6442e-04 & -0.4523 - 0.6969i, -1.3452e-04 - 2.8846e-04i \\
+15.8938 & 15.8606 & 1.5988e-04 & -0.7343, -2.1773e-04 \\
+\end{tabular}
+\end{table}
+
+Even with \texttt{fsolve}, we can hardly improve $|\det K(z)|$ when starting at the value suggested by \texttt{eig}. In fact, we get a slightly better value for $|\det K(z)|$ if we start with the real part of $z$, i.e. $\lambda$ is pure imaginary. We still do not get better than order 1e-4. Since the Krein matrix usually does much better than this, we conclude that it is unlikely that this quartet actually occurs.\\
+
+Let's look at the eigenfunctions corresponding to the essential spectrum eigenvalues and the interaction eigenvalues before and after the collision.\\
+
+First, we look before the collision, i.e. double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 119$. Here is a plot of the two eigenfunctions (for positive imaginary part only).
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{eigbeforecollision1.eps}
+	\includegraphics[width=8.5cm]{eigbeforecollision2.eps}
+	\caption{Real part of eigenfunctions corresponding to the essential spectrum eigenvalues and the interaction eigenvalues before the collision. Left shows center, right shows tails. Double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 119$. }
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{eigbeforecollisionimag1.eps}
+	\caption{Imaginary part of eigenfunctions corresponding to the essential spectrum eigenvalues and the interaction eigenvalues before the collision. Double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 119$. }
+\end{figure}
+
+
+Integrating numerically from $-L$ to $L$ (using the discrete norm or left Riemann sum, i.e. summing up the function values at the grid points and multiplying by the grid size) we have -3.2925e-13 + 7.4925e-13i (essential spectrum eigenfunction) and 1.0050e-13 - 3.2640e-13i (interaction eigenfunction).\\
+
+Now we look after the collision, i.e. double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 120$. Below is the plot of the two eigenfunctions.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{eigaftercollision1.eps}
+	\includegraphics[width=8.5cm]{eigaftercollision2.eps}
+	\caption{Real part of eigenfunctions corresponding to the essential spectrum eigenvalues and the interaction eigenvalues after the collision. Left shows center, right shows tails. Double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 120$. }
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{eigaftercollisionimag1.eps}
+	\caption{Imaginary part of eigenfunctions corresponding to the essential spectrum eigenvalues and the interaction eigenvalues after the collision. Double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 120$. }
+\end{figure}
+
+Integrating numerically from $-L$ to $L$ we have 7.4441e-13 - 3.1641e-12i (essential spectrum eigenfunction) and f-1.0170e-13 - 3.0413e-12i (interaction eigenfunction).\\
+
+The interaction eigenfunction looks unchanged, whereas the gap between the two (asymmetric) peaks in the essential spectrum eigenfunction has narrowed significantly. For the imaginary part of the interaction eigenfunction, we should be able to multiply it by a unit complex number to ``rotate'' it so that the imaginary part is odd and the real part is even. We should be able to do that for the essential eigenfunction as well. So let's do it. Here are the eigenfunctions before the collision after ``rotation''.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{eigbeforecollisionrealrotate1.eps}
+	\includegraphics[width=8.5cm]{eigbeforecollisionimagrotate1.eps}
+	\caption{Real and imaginary parts of eigenfunctions corresponding to the essential spectrum eigenvalues and the interaction eigenvalues before the collision. Plots are after ``rotation'' by unit complex number so that real part is even and imaginary part is odd. Norm of both eigenfunctions is 1. Double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 119$. }
+\end{figure}
+
+Here are the eigenfunctions after the collision after ``rotation''.
+
+\begin{figure}[H]
+	\includegraphics[width=8.5cm]{eigaftercollisionrealrotate1.eps}
+	\includegraphics[width=8.5cm]{eigaftercollisionimagrotate1.eps}
+	\caption{Real and imaginary parts of eigenfunctions corresponding to the essential spectrum eigenvalues and the interaction eigenvalues after the collision. Plots are after ``rotation'' by unit complex number so that real part is even and imaginary part is odd. Norm of both eigenfunctions is 1. Double pulse 2(3), $c = 150$, Fourier spectral methods, $N = 1024$, $L = 120$. }
+\end{figure}
+
+These look very similar (in the center of the plot range; the tails still look different as we see in the tail plot above). The real parts especially look similar. The two eigenfunctions can be distinguished if you look at the contours of the imaginary parts around 0. All the eigenfunctions plotted above have norm of 1.
+
 
 
 \end{document}
