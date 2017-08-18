@@ -1,0 +1,110 @@
+% \documentclass{book}
+
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\begin{document}
+
+\section*{Integrated Eigenvalue Problem (simplified version)}
+The idea here is to look at a simple version of the integrated eigenvalue problem and see what we can do about matching, etc. Consider the eigenvalue problem on $\R$. We want $u(x)$ to be localized, so let's consider the problem posed on $L^2(\R)$
+
+\begin{equation}\label{eigp}
+	u_{xx} = \lambda u
+\end{equation}
+
+In this case, $u \in H^2(\R)$, which is dense in $L^2(\R)$. In particular, $u(x) \rightarrow 0$ as $x \rightarrow \pm \infty$. \\
+
+Now, let's integrate both sides from $\infty$ to $x$. (This is just to get an idea of why we care about the integrated eigenvalue problem.) Since we are assuming that $u$ will decay at $-\infty$, we get
+
+\begin{equation}\label{inteigp}
+	u'(x) = \lambda \int_{-\infty}^x u(y) dy
+\end{equation}
+This is an example of an integrated eigenvalue problem. Imagine that we have found a solution $u(x)$ to this problem. Ignoring all the function spaces for now, for this to mean anything, $u(x)$ has to at least be differentiable so that the LHS is defined. It also has to be integrable so that the integral on the RHS is defined. Note that the RHS is differentiable, and it's derivative is $\lambda u(x)$. Thus our function $u(x)$ actually solves the eigenvalue problem \eqref{eigp}. So the idea here is that we can get a solution to \eqref{eigp} by solving \eqref{inteigp} and differentiating. Or at least I think that's the idea. They key is that $u(x)$ has to be differentiable.
+
+\subsection*{Two pieces}
+Of course, the above problem is not what we care about. We are interested in the case where the domain is chopped up into one (or more) pieces. We will solve the problem on each piece and will place conditions on the individual pieces so that when they are joined, the resulting function is differentiable (probably $C^1$, actually). Then we can play the same game as above and differentiate our solution to get a solution to the original (nonintegrated) eigenvalue problem.\\
+
+First, we take the simplest case and look at the problem on two pieces: $(-\infty, 0]$ and $[0,\infty)$. The idea is to integrate \eqref{eigp} on these two pieces and then look for conditions for the solutions on the two pieces to match in the middle. There are a bunch of ways we can set this up, since the lower limit of integration is something we get to choose, so let's look at some of them.
+
+\subsubsection*{Lower limits at plus/minus infinity}
+One way to do this is to chose the lower limits to be $\pm \infty$ on the two pieces. Thus since $u$ decays to 0 at $\pm \infty$ the two-piece problem becomes
+
+\begin{align}
+u_1'(x) &= \lambda \int_{-\infty}^x u_1(y) dy && x \in (-\infty, 0] \\
+u_2'(x) &= \lambda \int_{\infty}^x u_2(y) dy && x \in [0, \infty)
+\end{align}
+We seek a solution to this system together with conditions that the two pieces match at the connection point $x = 0$. Note that if we send $x \rightarrow \pm \infty$ we get $u_i'(x) \rightarrow 0$ since we are assuming that $u_1$ and $u_2$ are integrable over $(-\infty, 0]$ and $[0, \infty)$ (respectively). We want that to be the case, so that is good. \\
+
+Now let's look at our matching conditions. Since we are going to piece together $u_1$ and $u_2$ at $x = 0$, we require $u_1(0) = u_2(0)$. We also need the derivatives to match at 0. For this to be the case, we require
+
+\begin{align*}
+0 = u_1'(0) - u_2'(0) &= \lambda \int_{-\infty}^0 u_1(y) dy - \lambda \int_{\infty}^0 u_2(y) dy \\
+&= \lambda \left( \int_{-\infty}^0 u_1(y) dy + \int_0^{\infty} u_2(y)dy \right)
+\end{align*}
+This is similar to the mean-zero integral condition we have encountered before. For $\lambda \neq 0$, either the two integrals above have to be equal magnitude with opposite signs, or they both have to be zero.\\
+
+\subsubsection*{Integrate from Left to Right}
+There's no particular reason why we integrated the way we did in the previous section, other than that we want our solution to decay at $\pm \infty$. We could also integrate each piece from left to right, which would get us
+
+\begin{align}
+u_1'(x) &= \lambda \int_{-\infty}^x u_1(y) dy && x \in (-\infty, 0] \\
+u_2'(x) &= u_2'(0) + \lambda \int_0^x u_2(y) dy && x \in [0, \infty)
+\end{align}
+
+Let's look at our matching conditions here. As above, we require $u_1(0) = u_2(0)$. If we plug $x = 0$ into the second equation, we have a trivial equality, so we only have the first equation to use for matching the derivatives. If we plug $x = 0$ into the first equation, we have:
+
+\[
+u_1'(0) = \lambda \int_{-\infty}^0 u_1(y) dy
+\]
+Since this has to also be equal to $u_2(0)$, we can substitute this into the second equation to get
+\[
+u_2'(x) = \lambda \left( \int_{-\infty}^0 u_1(y) dy + \int_0^x u_2(y) dy \right)
+\]
+We don't like this, since this equation involves $u_1$.
+
+\subsubsection*{What's weird about this}
+
+Suppose we could solve one of the above problems together with the matching condition. Then we would paste them together to get a function $u(x)$ which was continuous (since functions match at 0) and differentiable (since derivatives match at 0). At this point we could differentiate the solution $u(x)$ to get a function which satisfies the original (nonintegrated) eigenvalue problem. Note that $u(x)$ vanishes at $\pm \infty$ since it is integrable (both pieces $u_1$ and $u_2$ are integrable on their respective domains). The issue here is that we know what the eigenfunctions are for this problem. We can solve the original ODE \eqref{eigp} to get 
+
+\[
+u(x) = c_1 e^{\sqrt{\lambda}x} + c_2 e^{-\sqrt{\lambda}x}
+\]
+If $\lambda > 0$, then in order to be localized (decay to 0 at $\pm \infty$) we must have $c_1 = c_2 = 0$, so $u$ is the zero function, which is not an eigenfunction. If $\lambda < 0$, then we get sines and cosines, which are not integrable over either half-line. If $\lambda = 0$, then we get a linear function, which also does not work. In other words, on the infinite domain, we don't have any localized eigenfunctions. \\
+
+So either we can't actually do this for this problem, or (more likely) I still don't understand what this is all about. I did try pasting together various potential candidate eigenfunctions (for higher order linear systems) and was not able to get enough derivatives to match at 0.
+
+
+
+\end{document}

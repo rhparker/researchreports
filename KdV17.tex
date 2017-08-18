@@ -37,6 +37,9 @@
 
 \graphicspath{ {images17/} }
 
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+
 \begin{document}
 
 \section*{3 August 2017}
@@ -52,7 +55,15 @@ q^+(x) + r_2^+(x) & \text{on } [0, \infty) \\
 \end{cases}
 \end{equation}
 
-where the pieces are spliced together one after the other so that $\pm X_1$ corresponds to 0 and the resulting function (and all derivatives) are continuous at the splice points. The functions $q^\pm(x)$ are perturbations of the homoclinic orbit $q_1(x)$ for the 1-pulse, when the parameter $c$ is modified slightly to $c_2$. As a result of this perturbation, the homoclinic orbit $q_1(x)$ breaks. \\
+where the pieces are spliced together one after the other so that $\pm X_1$ corresponds to 0 and the resulting function (and all derivatives) are continuous at the splice points. In other words, we have the matching conditions
+
+\begin{align*}
+q^-(0) + r_1^-(0) &= q^+(0) + r_1^+(0) \\
+q^+(X_1) + r_1^+(X_1) &= q^-(X_1) + r_2^-(-X_1) \\
+q^-(0) + r_2^-(0) &= q^+(0) + r_2^+(0) \\
+\end{align*}
+
+The matching conditions hold for all derivatives as well. The functions $q^\pm(x)$ are perturbations of the homoclinic orbit $q_1(x)$ for the 1-pulse, when the parameter $c$ is modified slightly to $c_2$. As a result of this perturbation, the homoclinic orbit $q_1(x)$ breaks. \\
 
 Consider the eigenvalue problem as before. Linearizing about the solution $q_2(x)$ we get the eigenvalue problem $\partial_x H v = \lambda v$, where 
 \begin{equation}\label{hamiltonian}
@@ -60,11 +71,19 @@ H = \partial_x^4 - \partial_x^2 + c_2 - 2 q_2(x)
 \end{equation}
 where the parameter $c_2$ is near our speed $c$. \\
 
-Now integrate both sides of the eigenvalue problem from $\infty$ to $x$. (This is the integrated eigenvalue problem). We will assume that any solution $v$ is localized, so that $v(x)$ and all its derivatives decay to 0 (exponentially) as $x \rightarrow \pm \infty$. Thus the integrated eigenvalue problem becomes
+Now integrate both sides of the eigenvalue problem from $\infty$ to $x$. (This is the integrated eigenvalue problem). We will assume that any solution $v$ is localized, i.e. we will see solutions $v(x)$ such that the function and all its derivatives decay to 0 exponentially as $x \rightarrow \pm \infty$. There's probably a nice function space with this property, but we won't worry about that for now. Thus the integrated eigenvalue problem becomes
 
 \begin{equation}\label{inteigproblem}
 Hv(x) = v_{xxxx} - v_{xx} + c_2 v - 2 q_2 v = \lambda \int_{-\infty}^x v(y) dy
 \end{equation}
+
+Asssuming that $v(x)$ has the decay properties we mentioned above, if we let $x \rightarrow \infty$ (using the DCT on the integral on the RHS since $v$ is integrable), we get
+
+\[
+\lambda \int_{-\infty}^\infty v(y) dy = 0
+\]
+So the eigenfunction has mean 0 if the eigenvalue is nonzero. As per our discussion in the periodic case, I don't think this actually gets us anything new.\\
+
 
 We want to construct a solution to this problem by similar means to Sandstede (1998). We can write this as a first-order system:
 \[
@@ -114,9 +133,9 @@ We can now write the integrated eigenvalue problem in the form of (3.3) in Sands
 
 \begin{align*}
 V_1'^-(x) &= A(Q^-(x) + R_1^-(x))V_1^-(x) + \lambda B (K_1^- V_1^-)(x) && x \in (-\infty, 0] \\
-V_1'^+(x) &= A(Q^+(x) + R_1^+(x))V_1^+(x) + \lambda B [(K_1^+ V_1^+)(x) + G_1^- V_1^-] && x \in [0, X_1] \\
-V_2'^-(x) &= A(Q^-(x) + R_2^-(x))V_2^-(x) + \lambda B [(K_2^- V_2^-)(x) + G_1^- V_1^- + G_1^+ V_1^+) && x \in [-X_1, 0] \\
-V_2'^+(x) &= A(Q^+(x) + R_2^+(x))V_2^+(x) + \lambda B [(K_2^+ V_2^+)(x) + G_1^- V_1^- + G_1^+ V_1^+ + G_2^- V_2^-) && x \in [0, \infty) \\ 
+V_1'^+(x) &= A(Q^+(x) + R_1^+(x))V_1^+(x) + \lambda B [(K_1^+ V_1^+)(x) + (K_1^- V_1^-)(0)] && x \in [0, X_1] \\
+V_2'^-(x) &= A(Q^-(x) + R_2^-(x))V_2^-(x) + \lambda B [(K_2^- V_2^-)(x) + (K_1^- V_1^-)(0) + (K_1^+ V_1^+)(X_1)] && x \in [-X_1, 0] \\
+V_2'^+(x) &= A(Q^+(x) + R_2^+(x))V_2^+(x) + \lambda B [(K_2^+ V_2^+)(x) + (K_1^- V_1^-)(0) + (K_1^+ V_1^+)(X_1) + (K_2^- V_2^-)(0)] && x \in [0, \infty) \\ 
 \end{align*}
 together with the matching conditions
 \begin{align*}
@@ -133,15 +152,6 @@ The $K_j^\pm$ are the integration operators (dependent on $x$)
 (K_2^+ U)(x) &= \int_0^x U(y) dy && x \in [0, \infty) \\
 \end{align*}
 
-And the $G_j^\pm$ are the integration operators (independent of $x$)
-\begin{align*}
-G_1^- U &= \int_{-\infty}^0 U dy \\
-G_1^+ U &= \int_0^{X_1} U dy \\
-G_2^- U &= \int_{-X_1}^0 U dy \\
-\end{align*}
-
-
-
 The idea now is that $V(x)$ is a small perturbation of $Q_2'(x)$, so we will write, as in (3.5) in Sandstede (1998)
 \begin{equation}
 V_i^\pm(x) = (Q'^\pm(x) + R_i'^\pm(x))d_i + W_i^\pm(x)
@@ -155,24 +165,159 @@ W_1'^-(x) = A(Q^-(x) + R_1^-(x))W_1^-(x) + \lambda B [K_1^- (Q'^- + R_1'^-)d_1](
 
 \begin{multline}
 W_1'^+(x) = A(Q^+(x) + R_1^+(x))W_1^+(x) + \lambda B [K_1^+ (Q'^+ + R_1'^+)d_1](x) + \lambda B (K_1^+ W_1^+)(x)\\
-+ \lambda B ( G_1^-(Q'^- + R_1'^-)d_1 + \lambda B G_1^- W_1^-
++ \lambda B ( [K_1^-(Q'^- + R_1'^-)](0) d_1 + \lambda B (K_1^- W_1^-)(0)
 \end{multline}
 
 \begin{multline}
 W_2'^-(x) = A(Q^-(x) + R_2^-(x))W_2^-(x) + \lambda B [K_2^- (Q'^- + R_2'^-)d_2](x) + \lambda B (K_2^- W_2^-)(x)\\
-+ \lambda B ( G_1^-(Q'^- + R_1'^-)d_1 + \lambda B G_1^- W_1^-\\
-+ \lambda B ( G_1^+(Q'^+ + R_1'^+)d_1 + \lambda B G_1^+ W_1^+
+  \lambda B ( [K_1^-(Q'^- + R_1'^-)](0) d_1 + \lambda B (K_1^- W_1^-)(0) \\
++ \lambda B ( [K_1^+(Q'^+ + R_1'^+)](X_1) d_1 + \lambda B (K_1^+ W_1^+(X_1)
 \end{multline}
 
 \begin{multline}
 W_2'^+(x) = A(Q^+(x) + R_2^+(x))W_2^+(x) + \lambda B [K_2^+ (Q'^+ + R_2'^+)d_2](x) + \lambda B (K_2^+ W_2^+)(x)\\
-+ \lambda B ( G_1^-(Q'^- + R_1'^-)d_1 + \lambda B G_1^- W_1^-\\
-+ \lambda B ( G_1^+(Q'^+ + R_1'^+)d_1 + \lambda B G_1^+ W_1^+\\
-+ \lambda B ( G_2^-(Q'^- + R_2'^-)d_2 + \lambda B G_2^- W_2^-
+  \lambda B ( [K_1^-(Q'^- + R_1'^-)](0) d_1 + \lambda B (K_1^- W_1^-)(0) \\
++ \lambda B ( [K_1^+(Q'^+ + R_1'^+)](X_1) d_1 + \lambda B (K_1^+ W_1^+(X_1) \\
++ \lambda B ( [K_2^-(Q'^- + R_2'^-)](0) d_2 + \lambda B (K_2^- W_2^-)(0)
 \end{multline}
 
-Note that each equation involves all the $W_i^\pm$ from the previous equations via the integration operators $G_i^\pm$. 
+Note that each equation involves all the $W_i^\pm$ from the previous equations via the integration operators $G_i^\pm$. The matching conditions for the $W_i^\pm$ are
 
+\begin{align*}
+W_1^-(0) &= W_1^+(0) \\
+W_2^-(0) &= W_2^+(0) \\
+W_2^-(-X_1) &= W_1^-(X_1) = D_1 d
+\end{align*}
+where
+\begin{align*}
+D_1 d &= [Q'^-(-X_1) + R_2'^-(-X_1)]d_2 - [Q'^+(X_1) + R_1'^+(X_1)]d_1
+\end{align*}
+We also have the condition
+\[
+W_i^\pm(0) \in \C \Psi_1(0) \oplus Y^+ \oplus Y^-
+\]
 
+We would like these four equations to (more-or-less) ``look the same'', as in Sandstede (1998). The cumulative integration makes this annoying, but we can at least do this. We write the system as
+
+\begin{align}\label{system}
+W_i'^\pm(x) = A(Q^\pm(x))W_i^\pm(x) + G_i^\pm(x)W_i^\pm(x) + \lambda d_i H_i^\pm + \lambda B (K_i^\pm W_i^\pm)(x) + \lambda C_i^\pm
+\end{align}
+
+where
+\begin{align*}
+G_i^\pm(x) &= A(Q^\pm(x) + R_i^\pm(x)) - A(Q^\pm(x)) \\
+H_i^\pm &= B[ K_i^\pm(Q'^\pm + R_i'^\pm)(x)]
+\end{align*}
+
+and
+\begin{align*}
+C_1^- &= 0 \\
+C_1^+ &= B[ K_1^-(Q'^- + R_1'^-)(0)] d_1 + B(K_1^- W_1^-)(0) \\
+C_2^- &= C_1^+ + B[ K_1^+(Q'^- + R_1'^+)(X_1)] d_1 + B(K_1^+ W_1^+)(X_1) \\
+C_2^+ &= C_2^- + B[ K_2^-(Q'^- + R_2'^-)(0)] d_2 + B(K_2^- W_2^-)(0) \\
+\end{align*}
+
+Next, note that in the $H_i^\pm$ and the $C_i^\pm$, we are integrating derivatives, so we should be able to use the fundamental theorem of calculus to simplify things there. Recall that we are seeking solutions which decay exponentially to 0 at $\pm \infty$, so we can assume our various functions have that property. So we have for the $H_i^\pm$:
+
+\begin{align*}
+H_1^- &= B[ K_1^-(Q'^- + R_1^-)(x)] = B[Q^-(x) + R_1^-(x)] \\
+H_1^+ &= B[ K_1^+(Q'^+ + R_1^+)(x)] = B[(Q^+(x) + R_1^+(x)) - (Q^+(0) + R_1^+(0)) ] \\
+H_2^- &= B[ K_2^-(Q'^- + R_2^-)(x)] = B[(Q^-(x) + R_2^-(x)) - (Q^-(-X_1) + R_2^-(-X_1)) ] \\
+H_2^+ &= B[ K_2^+(Q'^+ + R_2^+)(x)] = B[(Q^+(x) + R_2^+(x)) - (Q^+(0) + R_2^+(0)) ]
+\end{align*}
+
+We can do something similar with the $C_i^\pm$.
+
+\begin{align*}
+C_1^- &= 0 \\
+C_1^+ &= B[ Q^-(0) + R_1^-(0)] d_1 + B(K_1^- W_1^-)(0) \\
+C_2^- &= C_1^+ + B[ (Q^+(X_1) + R_1^+(X_1)) - (Q^+(0) + R_1^+(0))  ] d_1 + B(K_1^+ W_1^+)(X_1) \\
+C_2^+ &= C_2^- + B[ (Q^-(0) + R_2^-(0) - (Q^-(-X_1) + R_2^-(-X_1)) ] d_2 + B(K_2^- W_2^-)(0) \\
+\end{align*}
+
+So at this point, the only integration operators we have left involve the $W_i^\pm$. We will not be able to get rid of those. What we can do, however, is move the constant terms from the $d_i H_i^\pm$ over into the $C_i^\pm$, which will let us write the $H_i^\pm$ in a nicer form. If we do this, we will have for the $H_i^\pm$
+
+\[
+H_i^\pm(x) = B[Q^\pm(x) + R_i^\pm(x)]
+\]
+
+And for the $C_i^\pm$, we have
+
+\begin{align*}
+C_1^- &= 0 \\
+C_1^+ &= B[ Q^-(0) + R_1^-(0)] d_1 - B[Q^+(0) + R_1^+(0)] d_1 + B(K_1^- W_1^-)(0) \\
+C_2^- &= C_1^+ + B[ (Q^+(X_1) + R_1^+(X_1)) - (Q^+(0) + R_1^+(0))  ] d_1 \\
+&\:\:\:- B[Q^-(-X_1) + R_2^-(-X_1)]d_2 + B(K_1^+ W_1^+)(X_1) \\
+C_2^+ &= C_2^- + B[ (Q^-(0) + R_2^-(0) - (Q^-(-X_1) + R_2^-(-X_1)) ] d_2 - B[Q^+(0) + R_2^+(0)]d_2 + B(K_2^- W_2^-)(0) \\
+\end{align*}
+
+From our matching conditions on the original double pulse, we have $Q^-(0) + R_i^-(0) = Q^+(0) + R_i^+(0)$. Thus we have some cancelation in the $C_i^\pm$ and we have:
+
+\begin{align*}
+C_1^- &= 0 \\
+C_1^+ &= B(K_1^- W_1^-)(0) \\
+C_2^- &= B[ (Q^+(X_1) + R_1^+(X_1)) d_1 - (Q^-(-X_1) + R_2^-(-X_1)) d_2 ] \\
+&\:\:\:+ B(K_1^- W_1^-)(0) + B(K_1^+ W_1^+)(X_1) \\
+C_2^+ &= B[ (Q^+(X_1) + R_1^+(X_1)) d_1 - (Q^-(-X_1) + R_2^-(-X_1)) d_2 ] \\
+&\:\:\:+ B(K_1^- W_1^-)(0) + B(K_1^+ W_1^+)(X_1) + B(K_2^- W_2^-)(0) \\
+\end{align*}
+
+Since $C_2^-$ and $C_2^+$ contain a common constant, let's give that a name.
+
+\[
+\tilde{C} = B[ (Q^+(X_1) + R_1^+(X_1)) d_1 - (Q^-(-X_1) + R_2^-(-X_1)) d_2 ]
+\]
+
+So we have
+
+\begin{align*}
+C_1^- &= 0 \\
+C_1^+ &= B(K_1^- W_1^-)(0) \\
+C_2^- &= \tilde{C} + B(K_1^- W_1^-)(0) + B(K_1^+ W_1^+)(X_1) \\
+C_2^+ &= \tilde{C} + B(K_1^- W_1^-)(0) + B(K_1^+ W_1^+)(X_1) + B(K_2^- W_2^-)(0) \\
+\end{align*}
+
+Note that we do not expect $d_1 = d_2$. In fact, from the numerics, we are expecting something like $d_1 = -d_2$. If we had $d_1 = d_2$, then both $\tilde{C}$ and $D_1 d$ would be 0, which will not happen here.\\
+
+So we have it all in one place, here is the system we have so far.
+
+\begin{align*}
+W_i'^\pm(x) &= A(Q^\pm(x))W_i^\pm(x) + G_i^\pm(x)W_i^\pm(x) + \lambda d_i H_i^\pm + \lambda B (K_i^\pm W_i^\pm)(x) + \lambda C_i^\pm \\
+W_1^-(0) &= W_1^+(0) \\
+W_2^-(0) &= W_2^+(0) \\
+W_2^-(-X_1) &= W_1^-(X_1) = D_1 d
+\end{align*}
+
+where
+
+\begin{align*}
+G_i^\pm(x) &= A(Q^\pm(x) + R_i^\pm(x)) - A(Q^\pm(x)) \\
+H_i^\pm(x) &= B[Q^\pm(x) + R_i^\pm(x)] \\
+\tilde{C} &= B[ (Q^+(X_1) + R_1^+(X_1)) d_1 - (Q^-(-X_1) + R_2^-(-X_1)) d_2 ] \\
+C_1^- &= 0 \\
+C_1^+ &= B(K_1^- W_1^-)(0) \\
+C_2^- &= \tilde{C} + B(K_1^- W_1^-)(0) + B(K_1^+ W_1^+)(X_1) \\
+C_2^+ &= \tilde{C} + B(K_1^- W_1^-)(0) + B(K_1^+ W_1^+)(X_1) + B(K_2^- W_2^-)(0) \\
+D_1 d &= [Q'^-(-X_1) + R_2'^-(-X_1)]d_2 - [Q'^+(X_1) + R_1'^+(X_1)]d_1
+\end{align*}
+
+In order to keep going, we will need some estimates like in Lemma 3.1 in Sandstede (1998)
+
+\begin{lemma}We have the estimates
+\begin{align*}
+|G_i^\pm(x)| &\leq C|R_i^\pm(x)| \leq C \sup_{x \geq X_1} \left( |Q^+(x)| + |Q^-(-x)| \right)\\
+|H_i^\pm(x) - H(x)| &\leq C\left(|c_2 - c| + \sup_{x \geq X_1} \left( |Q^+(x)| + |Q^-(-x)| \right) \right)\\
+D_1 d &= (Q'^+(X_1) - Q'^-(-X_1))(d_2 - d_1) \\
+&\:\:\: =\mathcal{O}\left( e^{-\alpha X_1} |d| \sup_{x \geq X_1} \left( |Q^+(x)| + |Q^-(-x)| \right) \right)
+\end{align*}
+where
+\[
+H(x) = B[Q_1(x)]
+\]
+and $\alpha > 0$ is defined as on pages 432 and 434 of Sandstede (1998).
+\begin{proof}
+The first estimate is exactly the same as in Sandstede (1998), and follows from the smoothness of $A$ together with (2.6)(i) in Sandstede (1998). The second estimate should be true since it's the same as in Lemma 3.1 of Sandstede (1998), except we've replaced the derivatives of the various functions with the functions themselves. In any case, I think this or something similar should hold. The third estimate is exactly as in Lemma 3.1 of Sandstede (1998).
+\end{proof}
+\end{lemma}
 
 \end{document}
