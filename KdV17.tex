@@ -64,28 +64,37 @@ w = -\frac{1}{\beta}(Lu - \alpha u)
 \]
 
 
-
-
-
 \subsection*{Integrated Eigenfunction Construction (revised yet again)}
 For the 5th order KdV equation (written in traveling frame), assume for a specific value of $c$ (which we know is greater than 1/4) we have constructed a 2-pulse $q_2(x)$. The 1-pulse is given by $q(x)$. Then we can find a real number $L$ so that we can write $q_2(x)$ piecewise as:
+
 \begin{equation}\label{q2piecewise}
 \begin{cases}
-q(x) + r_1(x) & \text{on } (-\infty, L] \\
-q(x) + r_2(x) & \text{on } [-L, \infty)
+q(x) + r_1^-(x) & \text{on } (-\infty, 0] \\
+q(x) + r_1^+(x) & \text{on } [0, L] \\
+q(x) + r_2^-(x) & \text{on } [-L, 0] \\
+q(x) + r_2^+(x) & \text{on } [0, \infty) \\ 
 \end{cases}
 \end{equation}
 
-where the two pieces are spliced together one after the other so that $\pm L$ corresponds to 0 and the resulting function (and all derivatives) are continuous at the splice point. Note that this a special case of Theorem 1 in Sandstede (1998), since we are not varying a parameter to break a homoclinic orbit, but rather are perturbing that homoclinic orbit directly. This has the advantage that we only have one splice point, rather than the case in Sandsted e (1998) where we break the homoclinic orbit into two pieces $q^-$ and $q^+$ by altering a parameter $\mu$.
+where the two pieces are spliced together one after the other so that $\pm L$ corresponds to 0 and the resulting function (and all derivatives) are continuous at the splice point. Note that this a special case of Theorem 1 in Sandstede (1998), since we are not varying a parameter to break a homoclinic orbit, but rather are perturbing that homoclinic orbit directly. Thus the two pieces $q^-$ and $q^+$ from Sandstede (1998) are both the homoclinic orbit $q(x)$. Although we are not breaking the orbit, we still need to perform joints at 0.
 \\
 
-We have the single matching condition
+We have the matching conditions
 
 \begin{align*}
-q(L) + r_1(L) &= q(-L) + r_2(-L)
+q(0) + r_1^-(0) &= q(0) + r_1^+(0) \\
+q(L) + r_1^+(L) &= q(-L) + r_2^-(-L) \\
+q(0) + r_2^-(0) &= q(0) + r_2^+(0)
 \end{align*}
 
-In our case, we know the single pulse is an even function, so $q(L) = q(-L)$. Thus the matching condition reduces to $r_1(L) = r_2(-L)$. The matching condition holds for all derivatives as well. \\
+Since $q(x)$ is even, $q(L) = q(-L)$, and this simplifes to
+
+\begin{align}\label{q2match}
+r_1^-(0) &= r_1^+(0) \\
+r_1^+(L) &= r_2^-(-L) \\
+r_2^-(0) &= r_2^+(0)
+\end{align}
+
 
 Consider the eigenvalue problem as before. Linearizing about the solution $q_2(x)$ we get the eigenvalue problem $\partial_x H v = \lambda v$, where 
 \begin{equation}\label{hamiltonian}
@@ -109,112 +118,255 @@ We want to write this as a first-order system, but before we do that, we will sp
 
 We split up $v(x)$ as follows:
 
-\begin{equation}
+\begin{equation}\label{splitv}
 \begin{cases}
-v_1(x) & \text{on } (-\infty, L]  \\
-v_2(x) & \text{on } [-L, \infty)
+v_1^-(x) & \text{on } (-\infty, 0]  \\
+v_1^+(x) & \text{on } [0, L]  \\
+v_2^-(x) & \text{on } [-L, 0] \\
+v_2^+(x) & \text{on } [0, \infty) 
 \end{cases}
 \end{equation}
 
-where we have a matching condition $v_1(L) = v_2(-L)$. Again, this matching condition must hold for all derivaties which exist. \\
+where we have similar matching conditions to before:
 
-Now we write the integrated eigenvalue problem for each piece. Since we seek solutions which decay at $\pm \infty$, we will use those as the endpoints $a$ for our integration, so $(Hv)(a) = 0$ in those cases.
+\begin{align}\label{match}
+v_1^-(0) &= v_1^+(0) \\
+v_1^+(L) &= v_2^-(-L) \\
+v_2^-(0) &= v_2^+(0)
+\end{align}
+
+Now we write the integrated eigenvalue problem for each piece. Since we seek solutions which decay at $\pm \infty$, we will use those as the endpoints $a$ for two of the pieces, so $(Hv)(a) = 0$ in those cases. For the other two, we will integrate from $\pm L$. (We may also try integrating from 0 later.)
 
 \begin{equation}
 \begin{cases}
-(Hv_1)(x) = \lambda \int_{-\infty}^x v_1(y) dy & x \in (-\infty, L] \\
-(Hv_2)(x) = \lambda \int_{\infty}^x v_2(y) dy & x \in [-L, \infty) \\ 
+(Hv_1^-)(x) = \lambda \int_{-\infty}^x v_1^-(y) dy & x \in (-\infty, L] \\
+(Hv_1^+)(x) = (Hv_1^+)(L) + \lambda \int_{L}^x v_1^+(y) dy & x \in [0, L] \\
+(Hv_2^-)(x) = (Hv_2^-)(-L) + \lambda \int_{-L}^x v_2^-(y) dy & x \in [-L, 0] \\ 
+(Hv_2^+)(x) = \lambda \int_{\infty}^x v_2^+(y) dy & x \in [-L, \infty) \\ 
 \end{cases}
 \end{equation}
 
-Now we can write these piecewise equations as a first-order system:
+We want to write these piecewise equations as a first-order system. The terms $(Hv_1^+)(L)$ and $(Hv_2^-)(-L)$ are annoying boundary terms, but there is nothing we can do about them for now. We define the family of evaluation operators $f_a(u)$ by
+
 \[
-\begin{pmatrix}v_i\\(v_i)_x\\(v_i)_{xx}\\(v_i)_{xxx}\end{pmatrix}_x = 
+f_a(u) = (Hu)(a)
+\]
+Since $H$ is a linear operator, these operators are linear as well. Employing these for our problem above, we obtain
+
+\begin{equation}
+\begin{cases}
+(Hv_1^-)(x) = f_{-\infty}(v_1^-) + \lambda \int_{-\infty}^x v_1^-(y) dy & x \in (-\infty, L] \\
+(Hv_1^+)(x) = f_L(v_1^+) + \lambda \int_{L}^x v_1^+(y) dy & x \in [0, L] \\
+(Hv_2^-)(x) = f_{-L}(v_2^-) + \lambda \int_{-L}^x v_2^-(y) dy & x \in [-L, 0] \\ 
+(Hv_2^+)(x) = f_{\infty}(v_2^+) + \lambda \int_{\infty}^x v_2^+(y) dy & x \in [-L, \infty) \\ 
+\end{cases}
+\end{equation}
+
+where $f_{\pm \infty}$ refer to the appropriate limiting operation, and in both cases above these evaluate to 0. The idea in doing this is to get the four equations to ``look the same''. With that in mind, we define the integration endpoints by
+
+\[
+(a_1^-, a_1^+, a_2^-, a_2^+) = (-\infty, L, -L, \infty)
+\]
+
+We then can write the four equations in the form
+
+\begin{equation}
+(Hv_i^\pm)(x) = \lambda \int_{a_i^\pm}^x v_i^{\pm} dy + f_{a_i^\pm}(v_i^\pm)
+\end{equation}
+
+Finally, we can write this as a first-order system.
+
+\[
+\begin{pmatrix}v_i^\pm\\(v_i^\pm)_x\\(v_i^\pm)_{xx}\\(v_i^\pm)_{xxx}\end{pmatrix}_x = 
 \begin{pmatrix}0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 2q_2 - c & 0 & 1 & 0\end{pmatrix}
-\begin{pmatrix}v_i\\(v_i)_x\\(v_i)_{xx}\\(v_i)_{xxx}\end{pmatrix} + \lambda
-\begin{pmatrix}0\\0\\0\\\int_{a}^x v_i(y) dy\end{pmatrix}
+\begin{pmatrix}v_i^\pm\\(v_i)_x\\(v_i^\pm)_{xx}\\(v_i^\pm)_{xxx}\end{pmatrix} + \lambda 
+\begin{pmatrix}0\\0\\0\\ \int_{a_i^\pm}^x v_i^\pm(y) dy\end{pmatrix} + 
+\begin{pmatrix}0\\0\\0\\f_{a_i^\pm}(v_i^\pm)\end{pmatrix}
 \]
-Write our integrated eigenvalue problem in matrix form as
+
+In matrix form, this becomes
 \[
-V_i' = A(q_2) V_i + \lambda B K_i V_i
+(V_i^\pm)' = A(q_2) V_i^\pm + \lambda K_i^\pm B V_i^\pm + F_i^\pm B V_i^\pm
 \]
-where $A(q_2)$ is the first matrix on the RHS above, and $B$ is the matrix
+
+where $V_i^\pm = (v_i^\pm, (v_i^\pm)_x, (v_i^\pm)_{xx}, (v_i^\pm)_{xxx})^T$ and $A(q_2)$ is the first matrix on the RHS above.
+
+$B$ is the matrix
 \[
 \begin{pmatrix}0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \\1 & 0 & 0 & 0 \end{pmatrix}
 \]
 
-which moves the first component to fourth and gets rid of everything else. The $K_i$ are integration operators, which are given by:
+which moves the first component to fourth and gets rid of everything else. In particular, $B V_i^\pm = (0, 0,0, v_i^\pm)^T$, which is the context in which we will use it.\\
+
+The $K_i^\pm$ are integration operators, which are given by:
 
 \begin{align*}
-(K_1 U)(x) &= \int_{-\infty}^x U(y) dy && x \in (-\infty, L] \\
-(K_2 U)(x) &= \int_{\infty}^x U(y) dy && x \in [-L, \infty) \\
+(K_i^\pm U)(x) = \int_{a_i^\pm}^x U(y) dy
+\end{align*}
+where the integration on $U$ is carried out component-wise (doesn't really matter since $B$ makes all but one component 0).\\
+
+The $F_i^\pm$ are evaluation operators, which are given by
+
+\begin{align*}
+F_i^\pm U = f_{a_i^\pm}(U)
+\end{align*}
+where the evaluation is carried out component-wise (again, doesn't really matter since $B$ makes all but one component 0).\\
+
+The matching conditions are:
+
+\begin{align*}
+V_i^-(0) &= V_i^+(0) \\
+V_1^+(L) &= V_2^-(-L)
 \end{align*}
 
-We have the matching condition as before: $V_1(L) = V_2(-L)$, which matches $v_1(L)$ and $v_2(-L)$ up to the third derivative. Assuming we have done that, the condition to match the fourth derivative is the familiar mean-zero condition (recall how the splicing is done, i.e. the integrals below are the left and the right piece of the integrated eigenfunction):
+which ensure that matching occurs up to the third derivative.\\
 
+Now we recall that the derivative of the double pulse $Q_2'(x)$ is an eigenfunction with eigenvalue 0, so for small $\lambda$, our eigenfunction should be a small perturbation of this. As in (3.5) in Sandstede (1998), we write
+
+\begin{align}
+V_i^\pm(x) &= d_i Q_2'(x) + W_i^\pm(x) = d_i (Q'(x) + (R_i^\pm)'(x)) + W_i^\pm(x) && d_i \in \C
+\end{align}
+
+Plug this into the integrated eigenvalue problem to get equations for the $W_i$. We use the fact that $Q_2'$ solves the original eigenvalue problem with $\lambda = 0$. We have removed the dependence on $x$ for convenience
+
+\begin{align*}
+(d_i Q_2' + W_i^\pm)' &= A(Q_2) (d_i Q_2' + W_i^\pm) + \lambda K_i^\pm B (d_i Q_2' + W_i^\pm) + F_i^\pm B (d_i Q_2' + W_i^\pm)  \\
+(W_i^\pm)' &= A(Q_2) W_i^\pm + \lambda d_i K_i^\pm B Q_2' + \lambda K_i^\pm B W_i^\pm + d_i F_i^\pm B Q_2' + F_i^\pm B W_i^\pm \\
+&= A(Q + R_i^\pm) W_i^\pm + \lambda d_i K_i^\pm B Q_2' + \lambda K_i^\pm B W_i^\pm + d_i F_i^\pm B Q_2' + F_i^\pm B W_i^\pm  \\
+&= A(Q) W_i^\pm + G_i^\pm W_i^\pm + \lambda d_i K_i^\pm B Q_2' + \lambda K_i^\pm B W_i^\pm + d_i F_i^\pm B Q_2' + F_i^\pm B W_i^\pm 
+\end{align*}
+
+where
 \[
-(v_1)_{xxxx}(L) - (v_2)_{xxxx}(-L) = \lambda \left( \int_{-\infty}^L v_1(y) dy + \int_{-L}^\infty v_2(y)dy \right)
+G_i^\pm(x) = A(Q(x) + R_i^\pm(x)) - A(Q(x)) \\
 \]
 
-We recall that the derivative of the double pulse $Q_2'(x)$ is an eigenfunction with eigenvalue 0, so for small $\lambda$, our eigenfunction should be a small perturbation of this. As in (3.5) in Sandstede (1998), we write
-
-\begin{equation}
-V_i(x) = d_i Q_2'(x) + W_i(x) = d_i (Q'(x) + R_i'(x)) + W_i(x)
-\end{equation}
-
-Now we plug this into the integrated eigenvalue problem to get equations for the $W_i$. We use the fact that $Q_2'$ solves the original eigenvalue problem with $\lambda = 0$. We have removed the dependence on $x$ for convenience
-
+We have matching conditions
 \begin{align*}
-(d_i Q_2' + W_i)' &= A(Q_2) (d_i Q_2' + W_i) + \lambda B K_i (d_i Q_2' + W_i) \\
-W_i' &= A(Q_2) W_i + \lambda d_i B K_i Q_2' + \lambda B K_i W_i \\
-&= A(Q + R_i) W_i + \lambda d_i B K_i Q_2' + \lambda B K_i W_i \\
-&= A(Q) W_i + A(Q + R_i) W_i  - A(Q) W_i + \lambda d_i B K_i Q_2' + \lambda B K_i W_i 
-\end{align*}
-
-This is basically in the format we want, although we can integrate the derivative $Q_2'$ to make things simpler. By the fundamental theorem of calculus and the fact that $q_2$ decays at $\pm \infty$ we have
-
-\begin{align*}
-(K_1 Q_2')(x) &= Q_2(x) \\
-(K_2 Q_2')(x) &= Q_2(x)
-\end{align*}
-
-Substituting these into the above, we get
-
-\begin{align*}
-W_i' &= A(Q) W_i + G_i W_i + \lambda d_i B Q_2 + \lambda B K_i W_i
+W_i^-(0) &= W_i^+(0) \\
+W_1^+(L) - W_2^-(-L) &= D_1 d
 \end{align*}
 
 where
 
-\[
-G_i(x) = A(Q(x) + R_i(x))  - A(Q(x)) \\
-\]
-For the matching condition, we have
-
-\begin{align*}
-W_1(L) - W_2(-L) = D_1 d
-\end{align*}
-
-where
 \begin{align*}
 D_1 d &= d_2 Q_2'(-L) - d_1 Q_2'(L)\\
 &= d_2 [ Q'(-L) + R_2'(-L)] - d_1 [ Q'(L) + R_1'(L) ]
 \end{align*}
 
-Putting all this together, here is our system.
 
-\begin{align}\label{system}
-W_i'(x) &= A(Q(x)) W_i(x) + G_i(x) W_i(x) + \lambda B K_i(x) W_i(x) + \lambda d_i B Q_2(x)  \\
-W_1(L) - W_2(-L) &= D_1 d
-\end{align}
+This is basically in the format we want, although we can make a few simplifications. First, we can integrate the derivative $Q_2'$. By the fundamental theorem of calculus, we have
+
+\begin{align*}
+(K_i^\pm B Q_2')(x) &= B( Q_2(x) - Q_2(a_i^\pm) )
+\end{align*}
+
+Note that $q_2'(x)$ is an odd function (the double pulse $q_2(x)$ is an even function), so $q_2'$ itself and all its even derivatives (i.e. the odd derivatives of $q_2$) vanish at $\pm L$ (corresponds to 0 for the non-piecewise function). This means that since $H$ involves only the function and its even derivatives, $Hq_2(x)$ vanishes at $\pm L$ as well as at the endpoints $\pm \infty$. Thus the term $F_i^\pm B Q_2'$ is zero (recall our definition of $B$).\\
+
+With these two simplifications, we have our system:
+
+\begin{align*}
+(W_i^\pm)'(x) &= A(Q) W_i^\pm(x) + G_i^\pm W_i^\pm(x) + \lambda d_i B[ Q_2(x) - Q_2(a_i^\pm) ] + \lambda K_i^\pm B W_i^\pm(x) + F_i^\pm B W_i^\pm \\
+W_i^-(0) &= W_i^+(0) \\
+W_1^+(L) - W_2^-(-L) &= D_1 d \\
+W_i^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
+W_i^+(0) - W_i^-(0) &\in \C \psi(0) 
+\end{align*}
 
 where
-\begin{align}
-G_i(x) &= A(Q(x) + R_i(x)) - A(Q(x)) \\
+\begin{align*}
+G_i^\pm(x) &= A(Q(x) + R_i^\pm(x)) - A(Q(x)) \\
 D_1 d &= d_2 [ Q'(-L) + R_2'(-L)] - d_1 [ Q'(L) + R_1'(L) ]
+\end{align*}
+
+\subsection*{Special Cases}
+Here we look at some special cases of this. Recall that the parameter $L$ determines which double pulse we have constructed. Roughly, $L$ is an integer multiple (to leading order) of a phase parameter. Every other multiple is an unstable double pulse, where the interaction eigenvalues are real and negatives of each other. The remaining multiples we hypothesize are stable, where the interaction eigenvalues are pure imaginary.\\
+
+\subsection*{Unstable Double Pulses}
+For values of $L$ leading to unstable double pulses, we know that $\lambda$ is real and so the eigenfunctions must be real as well. Thus the above system should have a solution, with the only modification that all functions are real-values, and that:
+\begin{align*}
+W_i^+(0) - W_i^-(0) &\in \R \psi(0) \\
+d_i &\in \R
+\end{align*}
+
+\subsection*{Potentially Stable Double Pulses}
+For values of $L$ leading to potentially stable double pulses, we hypothesize that the $\lambda$ is pure imaginary, i.e. $\lambda = \beta i$, where $\beta > 0$. We showed in \texttt{KdV11} that in this case, we can always ``rotate'' our eigenfunction by multiplying by a unit complex number so that the real part is even and the imaginary part is odd. (That was for actual eigenfunctions, not for integrated eigenfunctions, but since we want these to be the same, that is ok.)\\
+
+Write our eigenfunction $v(x)$ as $v = u + i \tilde{u}$. Then, with $L = \partial_x H$ as usual, we showed in \texttt{KdV11} that the eigenvalue problem can be written as
+
+\[ \begin{cases}
+Lu = -\beta \tilde{u} \\
+L\tilde{u} = \beta u
+\end{cases}
+\]
+Also, for actual eigenfunctions, we showed that the imaginary and real part are related by
+\[
+\tilde{u} = -\frac{1}{\beta}Lu
+\]
+Thus if we can find, say, the real part, we are done. To set this up, we look at our piecewise construction of the eigenfunction $V$
+
+\begin{align}
+V_i^\pm(x) &= d_i Q_2'(x) + W_i^\pm(x) = d_i (Q'(x) + (R_i^\pm)'(x)) + W_i^\pm(x) && d_i \in \C
 \end{align}
 
-Note that this is very similar to the system (3.7), (3.8) in Sandstde (1998). The main differences are (i) a much simpler system, since only two equations and one join; and (ii) the presence of an integration operator.\\
+Since $Q_2'(x)$ is a real function but $V(x)$ is complex, we will split up into real and imaginary parts as follows. We will write $d_i$ as $d_i + i \tilde{d}_i$ and $W_i^\pm$ as $W_i^\pm + i \tilde{W}_i^\pm$. The notation is not ideal, but we are running out of letters, so the convention here is that the tilde represents the imaginary part. Taking $\lambda = i \beta$ above and making the real/imaginary split, we have
+
+\begin{align*}
+(W_i^\pm + i \tilde{W}_i^\pm)'(x) &= A(Q) (W_i^\pm + i \tilde{W}_i^\pm)(x) + G_i^\pm (W_i^\pm + i \tilde{W}_i^\pm)(x) \\
+ &\:\:\:\:+ i \beta (d_i + i \tilde{d}_i) B[ Q_2(x) - Q_2(a_i^\pm) ] + i \beta K_i^\pm B (W_i^\pm + i \tilde{W}_i^\pm)(x) + F_i^\pm B (W_i^\pm + i \tilde{W}_i^\pm) \\
+ &= A(Q) (W_i^\pm + i \tilde{W}_i^\pm)(x) + G_i^\pm (W_i^\pm + i \tilde{W}_i^\pm)(x) \\
+ &\:\:\:\:+ \beta (-\tilde{d}_i + i d_i) B[ Q_2(x) - Q_2(a_i^\pm) ] + \beta K_i^\pm B ( -\tilde{W}_i^\pm + i W_i^\pm)(x) + F_i^\pm B (W_i^\pm + i \tilde{W}_i^\pm)
+\end{align*}
+
+Equating real and imaginary parts, this becomes
+
+\begin{align*}
+(W_i^\pm)'(x) &= A(Q) W_i^\pm(x) + G_i^\pm W_i^\pm(x) -\beta \tilde{d}_i B[ Q_2(x) - Q_2(a_i^\pm) ] - \beta K_i^\pm B \tilde{W}_i^\pm(x) + F_i^\pm B W_i^\pm \\
+(\tilde{W}_i^\pm)'(x) &= A(Q) \tilde{W}_i^\pm(x) + G_i^\pm \tilde{W}_i^\pm(x) + \beta d_i B[ Q_2(x) - Q_2(a_i^\pm) ] + \beta K_i^\pm B W_i^\pm(x) + F_i^\pm B \tilde{W}_i^\pm \\
+\end{align*}
+
+The nice thing about looking for a pure imaginary eigenvalue is that we know that if we can find a solution, we can find one where the real part is even and the imaginary part is odd. Thus we only have to solve for the first two pieces $(-\infty, 0]$ and $[0, L]$ with the appropriate BCs at $x = L$. Note that the BCs are on $V$ not on $W$.\\
+
+For the first two pieces, the real part of the eigenfunction is given by $d_1 Q_2' + W_1^\pm$. We want this to have even BCs at $x = L$, so this means that the first and third derivatives at $x = L$ must be 0. The double pulse $q_2$ is even, so its derivative $q_2'$ is odd, so we don't get any extra help there. The BCs we want are
+
+\begin{align*}
+B_e [d_1 Q_2'(L) + W_1^+(L)] &= 0  && B_e = \textrm{Diag}(0, 1, 0, 1)
+\end{align*}
+
+For the the first two pieces, the imaginary part of the eigenfunction is given by $\tilde{d}_1 Q_2' + \tilde{W}_1^\pm$. We want this to have odd BCs at $x = L$, so this means that the function and secondd derivatives at $x = L$ must be 0. Since the derivative $q_2'$ is already odd, we can ignore that, so the BCs we want are
+
+\begin{align*}
+B_o \tilde{W}_1^+(L) &= 0  && B_o = \textrm{Diag}(1, 0, 1, 0)
+\end{align*}
+
+Putting all of this together, we have for the pure imaginary eigenvalue case the following system:
+
+\begin{align*}
+(W_1^\pm)'(x) &= A(Q) W_1^\pm(x) + G_i^\pm W_1^\pm(x) -\beta \tilde{d}_1 B[ Q_2(x) - Q_2(a_1^\pm) ] - \beta K_1^\pm B \tilde{W}_1^\pm(x) + F_1^\pm B W_1^\pm \\
+(\tilde{W}_1^\pm)'(x) &= A(Q) \tilde{W}_1^\pm(x) + G_i^\pm \tilde{W}_1^\pm(x) + \beta d_1 B[ Q_2(x) - Q_2(a_1^\pm) ] + \beta K_1^\pm B W_1^\pm(x) + F_1^\pm B \tilde{W}_1^\pm \\
+\end{align*}
+
+with boundary and matching conditions
+
+\begin{align*}
+B_e [d_1 Q_2'(L) + W_1^+(L)] &= 0  && B_e = \textrm{Diag}(0, 1, 0, 1) \\
+B_o \tilde{W}_1^+(L) &= 0  && B_o = \textrm{Diag}(1, 0, 1, 0) \\
+W_1^-(0) &= W_1^+(0) \\
+\tilde{W}_1^-(0) &= \tilde{W}_1^+(0) \\
+W_i^\pm(0), \tilde{W}_i^\pm(0) &\in \R \psi(0) \oplus Y^+ \oplus Y^- \\
+W_i^+(0) - W_i^-(0) &\in \C \psi(0)  \\
+\tilde{W}_i^+(0) - \tilde{W}_i^-(0) &\in \R \psi(0)
+\end{align*}
+
+where
+\begin{align*}
+G_i^\pm(x) &= A(Q(x) + R_i^\pm(x)) - A(Q(x)) \\
+\end{align*}
+
+
+
+\subsection*{Estimates}
+Ignore this for now, was based on the previous version.\\
 
 In order to keep going, we will need some estimates like in Lemma 3.1 in Sandstede (1998)
 
