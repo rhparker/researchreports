@@ -63,7 +63,6 @@ We considered before the special case where $\alpha = 0$. The real and imaginary
 w = -\frac{1}{\beta}(Lu - \alpha u)
 \]
 
-
 \subsection*{Integrated Eigenfunction Construction (revised yet again)}
 For the 5th order KdV equation (written in traveling frame), assume for a specific value of $c$ (which we know is greater than 1/4) we have constructed a 2-pulse $q_2(x)$. The 1-pulse is given by $q(x)$. Then we can find a real number $L$ so that we can write $q_2(x)$ piecewise as:
 
@@ -135,7 +134,7 @@ v_1^+(L) &= v_2^-(-L) \\
 v_2^-(0) &= v_2^+(0)
 \end{align}
 
-Now we write the integrated eigenvalue problem for each piece. Since we seek solutions which decay at $\pm \infty$, we will use those as the endpoints $a$ for two of the pieces, so $(Hv)(a) = 0$ in those cases. For the other two, we will integrate from $\pm L$. (We may also try integrating from 0 later.)
+Now we write the integrated eigenvalue problem for each piece. Since we seek solutions which decay at $\pm \infty$, we will use those as the endpoints $a$ for two of the pieces, so $(Hv)(a) = 0$ in those cases. For the other two, we will integrate from $\pm L$. (We could also try integrating from 0, but this will lead to less cancellation.)
 
 \begin{equation}
 \begin{cases}
@@ -146,23 +145,9 @@ Now we write the integrated eigenvalue problem for each piece. Since we seek sol
 \end{cases}
 \end{equation}
 
-We want to write these piecewise equations as a first-order system. The terms $(Hv_1^+)(L)$ and $(Hv_2^-)(-L)$ are annoying boundary terms, but there is nothing we can do about them for now. We define the family of evaluation operators $f_a(u)$ by
+We want to write these piecewise equations as a first-order system. The terms $(Hv_1^+)(L)$ and $(Hv_2^-)(-L)$ are annoying boundary terms, but there is nothing we can do about them for now, so we will work them into our system as best we can.\\
 
-\[
-f_a(u) = (Hu)(a)
-\]
-Since $H$ is a linear operator, these operators are linear as well. Employing these for our problem above, we obtain
-
-\begin{equation}
-\begin{cases}
-(Hv_1^-)(x) = f_{-\infty}(v_1^-) + \lambda \int_{-\infty}^x v_1^-(y) dy & x \in (-\infty, L] \\
-(Hv_1^+)(x) = f_L(v_1^+) + \lambda \int_{L}^x v_1^+(y) dy & x \in [0, L] \\
-(Hv_2^-)(x) = f_{-L}(v_2^-) + \lambda \int_{-L}^x v_2^-(y) dy & x \in [-L, 0] \\ 
-(Hv_2^+)(x) = f_{\infty}(v_2^+) + \lambda \int_{\infty}^x v_2^+(y) dy & x \in [-L, \infty) \\ 
-\end{cases}
-\end{equation}
-
-where $f_{\pm \infty}$ refer to the appropriate limiting operation, and in both cases above these evaluate to 0. The idea in doing this is to get the four equations to ``look the same''. With that in mind, we define the integration endpoints by
+The idea is to get these four equations to ``look the same''. With that in mind, we define the integration endpoints by
 
 \[
 (a_1^-, a_1^+, a_2^-, a_2^+) = (-\infty, L, -L, \infty)
@@ -171,22 +156,34 @@ where $f_{\pm \infty}$ refer to the appropriate limiting operation, and in both 
 We then can write the four equations in the form
 
 \begin{equation}
-(Hv_i^\pm)(x) = \lambda \int_{a_i^\pm}^x v_i^{\pm} dy + f_{a_i^\pm}(v_i^\pm)
+(Hv_i^\pm)(x) = (Hv_i^\pm)(a_i^\pm) + \lambda \int_{a_i^\pm}^x v_i^{\pm} dy
 \end{equation}
 
-Finally, we can write this as a first-order system.
+We would like to write this as a first-order system. Before we do that, it is helpful to expand $H$.
 
-\[
-\begin{pmatrix}v_i^\pm\\(v_i^\pm)_x\\(v_i^\pm)_{xx}\\(v_i^\pm)_{xxx}\end{pmatrix}_x = 
-\begin{pmatrix}0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 2q_2 - c & 0 & 1 & 0\end{pmatrix}
-\begin{pmatrix}v_i^\pm\\(v_i)_x\\(v_i^\pm)_{xx}\\(v_i^\pm)_{xxx}\end{pmatrix} + \lambda 
-\begin{pmatrix}0\\0\\0\\ \int_{a_i^\pm}^x v_i^\pm(y) dy\end{pmatrix} + 
-\begin{pmatrix}0\\0\\0\\f_{a_i^\pm}(v_i^\pm)\end{pmatrix}
-\]
+\begin{align*}
+\partial_x^4 v_i^\pm(x) - \partial_x^2 v_i^\pm(x) + (c - 2 q_2(x))v_i^\pm(x) &= \partial_x^4 v_i^\pm(a_i^\pm) - \partial_x^2 v_i^\pm(a_i^\pm) + (c - 2 q_2(a_i^\pm))v_i^\pm(a_i^\pm) + \lambda \int_{a_i^\pm}^x v_i^{\pm} dy
+\end{align*}
+
+We can move everything not involving 4th derivatives to the RHS.
+
+
+\begin{align*}
+\partial_x^4 v_i^\pm(x) - \partial_x^4 v_i^\pm(a_i^\pm) &= [\partial_x^2 v_i^\pm(x) - \partial_x^2 v_i^\pm(a_i^\pm)] + [(2 q_2(x) - c )v_i^\pm(x) - (2 q_2(a_i^\pm) - c)v_i^\pm(a_i^\pm)] + \lambda \int_{a_i^\pm}^x v_i^{\pm} dy
+\end{align*}
+
+\begin{align*}
+\begin{pmatrix}v_i^\pm(x)\\(v_i^\pm)_x(x)\\(v_i^\pm)_{xx}(x)\\(v_i^\pm)_{xxx}(x)\end{pmatrix}_x &- \begin{pmatrix}(v_i^\pm)_x(a_i^\pm)\\(v_i^\pm)_{xx}(a_i^\pm)\\(v_i^\pm)_{xxx}(a_i^\pm)\\(v_i^\pm)_{xxxx}(a_i^\pm)\end{pmatrix}
+= \begin{pmatrix}0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 2q_2(x) - c & 0 & 1 & 0\end{pmatrix}
+\begin{pmatrix}v_i^\pm(x) \\(v_i)_x(x) \\(v_i^\pm)_{xx}(x) \\(v_i^\pm)_{xxx}(x) \end{pmatrix}\\
+&-\begin{pmatrix}0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 2q_2(a_i^\pm) - c & 0 & 1 & 0\end{pmatrix}
+\begin{pmatrix}v_i^\pm(a_i^\pm) \\(v_i)_x(a_i^\pm) \\(v_i^\pm)_{xx}(a_i^\pm) \\(v_i^\pm)_{xxx}(a_i^\pm)\end{pmatrix} + \lambda 
+\begin{pmatrix}0\\0\\0\\ \int_{a_i^\pm}^x v_i^\pm(y) dy\end{pmatrix}
+\end{align*}
 
 In matrix form, this becomes
 \[
-(V_i^\pm)' = A(q_2) V_i^\pm + \lambda K_i^\pm B V_i^\pm + F_i^\pm B V_i^\pm
+(V_i^\pm)'(x) - (V_i^\pm)'(a_i^\pm) = A(q_2(x)) V_i^\pm(x) - A(q_2(a_i^\pm)) V_i^\pm(a_i^\pm) + \lambda (K_i^\pm B V_i^\pm)(x)
 \]
 
 where $V_i^\pm = (v_i^\pm, (v_i^\pm)_x, (v_i^\pm)_{xx}, (v_i^\pm)_{xxx})^T$ and $A(q_2)$ is the first matrix on the RHS above.
@@ -204,13 +201,6 @@ The $K_i^\pm$ are integration operators, which are given by:
 (K_i^\pm U)(x) = \int_{a_i^\pm}^x U(y) dy
 \end{align*}
 where the integration on $U$ is carried out component-wise (doesn't really matter since $B$ makes all but one component 0).\\
-
-The $F_i^\pm$ are evaluation operators, which are given by
-
-\begin{align*}
-F_i^\pm U = f_{a_i^\pm}(U)
-\end{align*}
-where the evaluation is carried out component-wise (again, doesn't really matter since $B$ makes all but one component 0).\\
 
 The matching conditions are:
 
@@ -230,16 +220,42 @@ V_i^\pm(x) &= d_i Q_2'(x) + W_i^\pm(x) = d_i (Q'(x) + (R_i^\pm)'(x)) + W_i^\pm(x
 Plug this into the integrated eigenvalue problem to get equations for the $W_i$. We use the fact that $Q_2'$ solves the original eigenvalue problem with $\lambda = 0$. We have removed the dependence on $x$ for convenience
 
 \begin{align*}
-(d_i Q_2' + W_i^\pm)' &= A(Q_2) (d_i Q_2' + W_i^\pm) + \lambda K_i^\pm B (d_i Q_2' + W_i^\pm) + F_i^\pm B (d_i Q_2' + W_i^\pm)  \\
-(W_i^\pm)' &= A(Q_2) W_i^\pm + \lambda d_i K_i^\pm B Q_2' + \lambda K_i^\pm B W_i^\pm + d_i F_i^\pm B Q_2' + F_i^\pm B W_i^\pm \\
-&= A(Q + R_i^\pm) W_i^\pm + \lambda d_i K_i^\pm B Q_2' + \lambda K_i^\pm B W_i^\pm + d_i F_i^\pm B Q_2' + F_i^\pm B W_i^\pm  \\
-&= A(Q) W_i^\pm + G_i^\pm W_i^\pm + \lambda d_i K_i^\pm B Q_2' + \lambda K_i^\pm B W_i^\pm + d_i F_i^\pm B Q_2' + F_i^\pm B W_i^\pm 
+[d_i Q_2'(x) + W_i^\pm(x)'] &- [d_i Q_2'(a_i^\pm) + W_i^\pm(a_i^\pm)'] = A(q_2(x)) (d_i Q_2'(x) + W_i^\pm(x)) \\
+&- A(q_2(a_i^\pm)) (d_i Q_2'(a_i^\pm) + W_i^\pm(a_i^\pm)) + \lambda [K_i^\pm B (d_i Q_2' + W_i^\pm)](x)\\
 \end{align*}
 
-where
+First, use the fact that $Q_2'$ solves the original eigenvalue problem with $\lambda = 0$ to get
+
+\begin{align*}
+W_i^\pm(x)' &- W_i^\pm(a_i^\pm)' = A(q(x) + r_i^\pm(x)) W_i^\pm(x)) - A(q(a_i^\pm) + r_i^\pm(a_i^\pm)) W_i^\pm(a_i^\pm)) \\
+&+ \lambda [K_i^\pm B (d_i Q_2' + W_i^\pm)](x) \\
+\end{align*}
+
+This is annoying enough that we will deal with each term in turn. First, let
 \[
-G_i^\pm(x) = A(Q(x) + R_i^\pm(x)) - A(Q(x)) \\
+G_i^\pm(x) = A(q(x) + r_i^\pm(x)) - A(q(x))
 \]
+Then we can write
+
+\begin{align*}
+W_i^\pm(x)' &- W_i^\pm(a_i^\pm)' = A(q(x)) W_i^\pm(x) + G_i^\pm(x) W_i^\pm(x)
+ - [A(q(a_i^\pm)) W_i^\pm(a_i^\pm)) + G_i^\pm(a_i^\pm) W_i^\pm(a_i^\pm)] \\
+&+ \lambda [K_i^\pm B (d_i Q_2' + W_i^\pm)](x) \\
+\end{align*}
+
+Next we can integrate the derivative $Q_2'$. By the fundamental theorem of calculus, we have
+
+\begin{align*}
+(K_i^\pm B Q_2')(x) &= B( Q_2(x) - Q_2(a_i^\pm) )
+\end{align*}
+
+Substituting, this in, we get
+
+\begin{align*}
+W_i^\pm(x)' &- W_i^\pm(a_i^\pm)' = A(q(x)) W_i^\pm(x) + G_i^\pm(x) W_i^\pm(x)
+ - [A(q(a_i^\pm)) W_i^\pm(a_i^\pm) + G_i^\pm(a_i^\pm) W_i^\pm(a_i^\pm)] \\
+&+ \lambda d_i B[ Q_2(x) - Q_2(a_i^\pm) ] + \lambda K_i^\pm B W_i^\pm(x)
+\end{align*}
 
 We have matching conditions
 \begin{align*}
@@ -254,19 +270,12 @@ D_1 d &= d_2 Q_2'(-L) - d_1 Q_2'(L)\\
 &= d_2 [ Q'(-L) + R_2'(-L)] - d_1 [ Q'(L) + R_1'(L) ]
 \end{align*}
 
-
-This is basically in the format we want, although we can make a few simplifications. First, we can integrate the derivative $Q_2'$. By the fundamental theorem of calculus, we have
-
-\begin{align*}
-(K_i^\pm B Q_2')(x) &= B( Q_2(x) - Q_2(a_i^\pm) )
-\end{align*}
-
-Note that $q_2'(x)$ is an odd function (the double pulse $q_2(x)$ is an even function), so $q_2'$ itself and all its even derivatives (i.e. the odd derivatives of $q_2$) vanish at $\pm L$ (corresponds to 0 for the non-piecewise function). This means that since $H$ involves only the function and its even derivatives, $Hq_2(x)$ vanishes at $\pm L$ as well as at the endpoints $\pm \infty$. Thus the term $F_i^\pm B Q_2'$ is zero (recall our definition of $B$).\\
-
-With these two simplifications, we have our system:
+So we have our system
 
 \begin{align*}
-(W_i^\pm)'(x) &= A(Q) W_i^\pm(x) + G_i^\pm W_i^\pm(x) + \lambda d_i B[ Q_2(x) - Q_2(a_i^\pm) ] + \lambda K_i^\pm B W_i^\pm(x) + F_i^\pm B W_i^\pm \\
+W_i^\pm(x)' &- W_i^\pm(a_i^\pm)' = [A(q(x)) W_i^\pm(x) + G_i^\pm(x) W_i^\pm(x)]
+ - [A(q(a_i^\pm)) W_i^\pm(a_i^\pm) + G_i^\pm(a_i^\pm) W_i^\pm(a_i^\pm)] \\
+&+ \lambda d_i B[ Q_2(x) - Q_2(a_i^\pm) ] + \lambda K_i^\pm B W_i^\pm(x) \\
 W_i^-(0) &= W_i^+(0) \\
 W_1^+(L) - W_2^-(-L) &= D_1 d \\
 W_i^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
@@ -275,11 +284,109 @@ W_i^+(0) - W_i^-(0) &\in \C \psi(0)
 
 where
 \begin{align*}
-G_i^\pm(x) &= A(Q(x) + R_i^\pm(x)) - A(Q(x)) \\
+G_i^\pm(x) &= A(q(x) + r_i^\pm(x)) - A(q(x)) \\
 D_1 d &= d_2 [ Q'(-L) + R_2'(-L)] - d_1 [ Q'(L) + R_1'(L) ]
 \end{align*}
 
+The only term in $W_i^\pm(a_i^\pm)'$ which really matters is the fourth component (the 4th derivative). All the other components cancel something on the RHS. I'm not sure if this the right idea or not. We could move this term to the RHS and call it a constant $C_i^\pm$, but I see no way to get rid of it if we are setting up the problem this way.
+
+\subsection*{Alternate Setups}
+
+
+I can think of at least two alternate setups. (Spoilers: they are actually the same.) One of these may be more useful that what we have above.
+
+\subsubsection*{Use the other limit for integral of center pieces}
+
+Here, all we do is change the lower limit of integration to
+
+\[
+(a_1^-, a_1^+, a_2^-, a_2^+) = (-\infty, 0, 0, \infty)
+\]
+
+The system looks exactly like we have above, but we can use the matching condition to deal with the boundary terms remaining on the LHS. As an example, we write out the first two pieces explicitly. For the first piece, the boundary terms disappear since all functions in the function space in question decay at $\pm \infty$
+
+\begin{align*}
+W_1^-(x)' &= A(q(x)) W_1^-(x) + G_1^-(x) W_1^-(x) + \lambda d_1 B Q_2(x) + \lambda (K_1^- B W_1^-)(x) \\
+W_1^+(x)' &= W_1^+(0)' + [A(q(x)) W_1^+(x) + G_1^+(x) W_1^+(x)]
+ - [A(q(0)) W_1^+(0) + G_1^+(0) W_1^+(0)] \\
+&+ \lambda d_1 B[ Q_2(x) - Q_2(0) ] + \lambda (K_1^+ B W_1^+)(x)
+\end{align*}
+
+Let's write $W_1^+(0)'$ as a constant $C_1^+$. From the matching condition, we know that $W_1^-(0) = W_1^+(0)$. The same should hold for their derivatives (or at least we want it to!), so our half-system becomes:
+
+\begin{align*}
+W_1^-(x)' &= A(q(x)) W_1^-(x) + G_1^-(x) W_1^-(x) + \lambda d_1 B Q_2(x) + \lambda (K_1^- B W_1^-)(x) \\
+W_1^+(x)' &= C_1^+ + [A(q(x)) W_1^+(x) + G_1^+(x) W_1^+(x)] - [A(q(0)) W_1^+(0) + G_1^+(0) W_1^+(0)] \\
+&+ \lambda d_1 B[ Q_2(x) - Q_2(0) ] + \lambda (K_1^+ B W_1^+)(x) \\
+C_1^+ &= W_1^-(0)'
+\end{align*}
+
+If we want, we can actualy make the substitution and see what happens. Using the matching conditions, this is what we get.
+
+\begin{align*}
+W_1^+(x)' &= A(q(0)) W_1^-(0) + G_1^-(0) W_1^-(0) + \lambda d_1 B Q_2(0) + \lambda (K_1^- B W_1^-)(0) \\
+&+ [A(q(x)) W_1^+(x) + G_1^+(x) W_1^+(x)] - [A(q(0)) W_1^+(0) + G_1^+(0) W_1^+(0)] \\
+&+ \lambda d_1 B[ Q_2(x) - Q_2(0) ] + \lambda (K_1^+ B W_1^+)(x) \\
+&= [A(q(0)) W_1^+(0) + G_1^+(0) W_1^+(0)] + \lambda d_1 B Q_2(0) + \lambda (K_1^- B W_1^-)(0) \\
+&+ [A(q(x)) W_1^+(x) + G_1^+(x) W_1^+(x)] - [A(q(0)) W_1^+(0) + G_1^+(0) W_1^+(0)] \\
+&+ \lambda d_1 B[ Q_2(x) - Q_2(0) ] + \lambda (K_1^+ B W_1^+)(x) \\ 
+\end{align*}
+
+We get lots of cancellation, so the the end, our system becomes
+\begin{align*}
+W_1^-(x)' &= A(q(x)) W_1^-(x) + G_1^-(x) W_1^-(x) + \lambda d_1 B Q_2(x) + \lambda (K_1^- B W_1^-)(x) \\
+W_1^+(x)' &= A(q(x)) W_1^+(x) + G_1^+(x) W_1^+(x) + \lambda d_1 B Q_2(x) + \lambda (K_1^+ B W_1^+)(x) + \lambda (K_1^- B W_1^-)(0)  
+\end{align*}
+
+Using symmetry (for the other end), we can complete the system as follows.
+
+\begin{equation}
+W_i^\pm(x)' = A(q(x)) W_i^\pm(x) + G_i^\pm(x) W_i^\pm(x) + \lambda d_1 B Q_2(x) + \lambda (K_i^\pm B )W_i^\pm(x) + \lambda C_i^\pm
+\end{equation}
+
+where 
+\begin{align*}
+C_1^- &= 0 \\
+C_1^+ &= (K_1^- B W_1^-)(0) \\
+C_2^- &= (K_1^- B W_2^+)(0) \\
+C_2^+ &= 0
+\end{align*}
+
+So if we make the substitution, we have an extra integral term in two of the equations, but the extra term is fixed. It depends on integration of a different piece, but it does not depend on $x$. Whether this is easy to bound/deal with remains to be seen.
+
+\subsubsection*{Always integrate from the ends}
+
+Here we integrate the two left pieces from $-\infty$ and the two right pices from $\infty$. The main drawback is that now we have the center two pieces contain an integral from the outer two pieces. The main advantage is that the boundary term dies. Tradeoffs. I won't go through all the gory detail again, but the system should look like this:
+
+\begin{equation}
+\begin{cases}
+(Hv_1^-)(x) = \lambda \int_{-\infty}^x v_1^-(y) dy & x \in (-\infty, L] \\
+(Hv_1^+)(x) = \lambda \int_{-\infty}^0 v_1^-(y) dy + \lambda \int_{0}^x v_1^+(y) dy & x \in [0, L] \\
+(Hv_2^-)(x) = \lambda \int_{\infty}^0 v_2^+(y) + \lambda \int_{0}^x v_2^-(y) dy & x \in [-L, 0] \\ 
+(Hv_2^+)(x) = \lambda \int_{\infty}^x v_2^+(y) dy & x \in [-L, \infty) \\ 
+\end{cases}
+\end{equation}
+
+The lower limits of integration here are 
+
+\[
+(a_1^-, a_1^+, a_2^-, a_2^+) = (-\infty, 0, 0, \infty)
+\]
+
+Using the same matrix notation as above, this becomes:
+
+\[
+(V_i^\pm)'(x) = A(q_2(x)) V_i^\pm(x) + \lambda (K_i^\pm B V_i^\pm)(x) + C_i^\pm
+\]
+
+where $C_1^- = C_2^+ = 0$, $C_1^+ = (K_1^- B V_1^-)(0)$ and $C_2^- = (K_2^+ B V_2^+)(0)$.\\ 
+
+We can then write $V_i^\pm$ as a perturbation of $Q_2$ as above. If we do this, we get the exact same thing as in the case above. So essentially the only choice we have is what limits to use for the middle two pieces. 
+
 \subsection*{Special Cases}
+
+I HAVE NOT CHANGED ANYTHING PAST HERE \\
+
 Here we look at some special cases of this. Recall that the parameter $L$ determines which double pulse we have constructed. Roughly, $L$ is an integer multiple (to leading order) of a phase parameter. Every other multiple is an unstable double pulse, where the interaction eigenvalues are real and negatives of each other. The remaining multiples we hypothesize are stable, where the interaction eigenvalues are pure imaginary.\\
 
 \subsection*{Unstable Double Pulses}
@@ -383,6 +490,83 @@ The first estimate is the same as in Sandstede (1998) with $Q$ replacing $Q^+$ a
 \end{proof}
 \end{lemma}
 
+\subsection*{Reduction}
+This corresponds to section 3.2 in Sandstede (1998). What we will do first is consider (3.9)(i) in the paper, except we replace the $B_i^\pm$ with an integration operator.\\
 
+Consider the ODE system:
+
+\[
+W_i^\pm(x)' = A(q(x)) W_i^\pm(x) + G_i^\pm(x) W_i^\pm(x) + \lambda d_i B Q_2(x) + \lambda (K_i^\pm B )W_i^\pm(x)
+\]
+
+where we have the bounds
+\begin{align*}
+|G_i^\pm(x)| \leq \delta \\
+|Q_2(x) - Q(x) | \leq \delta \\
+|\lambda| \leq \delta \\
+\end{align*}
+
+The matrix $B$ is the same one as above. We do everything that was done in Lemma 3.2. In order to keep going, we will need to work in exponentially weighted spaces, since we have an extra integral involved. Given an exponential weight $\eta > 0$, we define the following exponentially weighted spaces.
+
+\begin{align*}
+C^0_\eta[-a, 0] &= \{ f \in C^0[-a, 0] : \sup_{x \in [-a, 0]} |e^{-\eta x} f(x) | < \infty \} && a \geq 0 \\
+C^0_\eta[0, a] &= \{ f \in C^0[0, a] : \sup_{x \in [0, a]} |e^{\eta x} f(x) | < \infty \} && a \geq 0 
+\end{align*}
+
+Since we want our functions in this space to decay exponentially at $\pm \infty$, we use the negative weight for $x \leq 0$ and the positive weight for $x \geq 0$. The corresponding norms are 
+
+\begin{align*}
+|| f ||_\eta &= \sup_{x \in [-a, 0]} |e^{-\eta x} f(x) | && f \in C^0_\eta[-a, 0] \\
+|| f ||_\eta &= \sup_{x \in [0, a]} |e^{\eta x} f(x) | && f \in C^0_\eta[0, a] \\
+\end{align*}
+
+Now, following (3.14) in Sandstede (1998) we write our ODE system as the fixed point equation
+
+\begin{align*}
+W_i^- &= \Phi^s_-(x, -X_{i-1})a^-_{i-1} + \Phi^u_-(x, 0)b_i^- \\
+&+ \int_0^x \Phi^u_-(x, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^- B W_i^-)(y) + \lambda d_i B Q_2(y) ] dy \\
+&+ \int_{-X_{i-1}}^x \Phi^s_-(x, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^-B W_i^-)(y) + \lambda d_i B Q_2(y) ] dy \\
+W_i^+(x) &= \Phi^u_+(x, X_i)a^+_{i} + \Phi^s_+(x, 0)b_i^+ \\
+&+ \int_0^x \Phi^s_+(x, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y) + \lambda d_i B Q_2(y) ] dy \\
+&+ \int_{X_{i}}^x \Phi^u_+(x, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y) + \lambda d_i B Q_2(y) ] dy
+\end{align*}
+
+The idea is that we integrate L to R along stable projection and from R to L along unstable projection. The $X_i^\pm$ are the appropriate interval endpoints, as we have above.\\
+
+Now we will look for an analog of Lemma 3.3, except for a map between exponentially weighted spaces. \\
+
+Define a linear operator $L_1(\lambda)$ (piecewise from our exponentially weighted space to itself) by
+
+\begin{align*}
+(L_1(\lambda)W)_i^-)(x) = \int_0^x &\Phi^u_-(x, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^- B W_i^-)(y) ] dy \\
+&+ \int_{-X_{i-1}}^x \Phi^s_-(x, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^-B W_i^-)(y) ] dy \\
+(L_1(\lambda)W)_i^+)(x) = \int_0^x &\Phi^s_+(x, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y)] dy \\
+&+ \int_{X_{i}}^x \Phi^u_+(x, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y) ] dy
+\end{align*}
+
+We will now show this operator is bounded in the weighted supremum norm. We do this on each piece. The key is that the bounds do not depend on the $X_i^\pm$. First, we do the negative piece. Note that when taking the absolute value we have to integrate in the positive direction.
+
+\begin{align*}
+|e^{-\eta x} & (L_1(\lambda)W)_i^-)(x) | \leq \delta e^{-\eta x} \int_x^0 |\Phi^u_-(x, y)|[|W_i^-(y)| + |(K_i^- B W_i^-)(y)| ] dy \\
+&+ \delta e^{-\eta x} \int_{-X_{i-1}}^x |\Phi^u_-(x, y)|[|W_i^-(y)| + |(K_i^- B W_i^-)(y)| ] dy \\
+&\leq \delta \left( \int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy 
++ \int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy  \right) \\
+&+ \delta \left( \int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy 
++ \int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy  \right) \\ 
+\end{align*}
+
+The two terms not involving the integration operator are similar to those in Sandstede (1998), so let's take care of those first.
+
+\begin{align*}
+\int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy &= \int_x^0 e^{(\alpha^u - \eta) (x-y)}|e^{-\eta y} W_i^-(y)| dy \\
+&\leq ||W_i^-||_\eta \frac{1 - e^{(\alpha^u - \eta)x}}{\alpha^u - \eta}
+\end{align*}
+We need the RHS of this to be positive, which is true when $\eta < \alpha^u$.\\
+
+\begin{align*}
+\int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy &= \int_{-X_{i-1}}^x e^{(-\alpha^s - \eta) (x-y)}|e^{-\eta y} W_i^-(y)| dy \\
+&\leq ||W_i^-||_\eta \int_{-\infty}^x e^{(-\alpha^s - \eta) (x-y)} dy = \frac{1}{\alpha^s + \eta}
+\end{align*}
+So this has a nice bound independent of the $X_i$. The RHS is always positive, so this doesn't give us any extra conditions on $\eta$.
 
 \end{document}
