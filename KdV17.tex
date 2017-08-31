@@ -538,16 +538,16 @@ Now we will look for an analog of Lemma 3.3, except for a map between exponentia
 Define a linear operator $L_1(\lambda)$ (piecewise from our exponentially weighted space to itself) by
 
 \begin{align*}
-(L_1(\lambda)W)_i^-)(x) = \int_0^x &\Phi^u_-(x, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^- B W_i^-)(y) ] dy \\
+(L_1(\lambda)W_i^-)(x) = \int_0^x &\Phi^u_-(x, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^- B W_i^-)(y) ] dy \\
 &+ \int_{-X_{i-1}}^x \Phi^s_-(x, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^-B W_i^-)(y) ] dy \\
-(L_1(\lambda)W)_i^+)(x) = \int_0^x &\Phi^s_+(x, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y)] dy \\
+(L_1(\lambda)W_i^+)(x) = \int_0^x &\Phi^s_+(x, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y)] dy \\
 &+ \int_{X_{i}}^x \Phi^u_+(x, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y) ] dy
 \end{align*}
 
 We will now show this operator is bounded in the weighted supremum norm. We do this on each piece. The key is that the bounds do not depend on the $X_i^\pm$. First, we do the negative piece. Note that when taking the absolute value we have to integrate in the positive direction.
 
 \begin{align*}
-|e^{-\eta x} & (L_1(\lambda)W)_i^-)(x) | \leq \delta e^{-\eta x} \int_x^0 |\Phi^u_-(x, y)|[|W_i^-(y)| + |(K_i^- B W_i^-)(y)| ] dy \\
+|e^{-\eta x} & (L_1(\lambda)W_i^-)(x) | \leq \delta e^{-\eta x} \int_x^0 |\Phi^u_-(x, y)|[|W_i^-(y)| + |(K_i^- B W_i^-)(y)| ] dy \\
 &+ \delta e^{-\eta x} \int_{-X_{i-1}}^x |\Phi^u_-(x, y)|[|W_i^-(y)| + |(K_i^- B W_i^-)(y)| ] dy \\
 &\leq \delta \left( \int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy 
 + \int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy  \right) \\
@@ -561,12 +561,130 @@ The two terms not involving the integration operator are similar to those in San
 \int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy &= \int_x^0 e^{(\alpha^u - \eta) (x-y)}|e^{-\eta y} W_i^-(y)| dy \\
 &\leq ||W_i^-||_\eta \frac{1 - e^{(\alpha^u - \eta)x}}{\alpha^u - \eta}
 \end{align*}
-We need the RHS of this to be positive, which is true when $\eta < \alpha^u$.\\
+We need the RHS of this to be positive, which is true when $\eta < \alpha^u$. Provided this is the case, we have the bound
+\begin{align*}
+\int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy &\leq ||W_i^-||_\eta \frac{1}{\alpha^u - \eta}
+\end{align*}
+
+For the other one:
 
 \begin{align*}
 \int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy &= \int_{-X_{i-1}}^x e^{(-\alpha^s - \eta) (x-y)}|e^{-\eta y} W_i^-(y)| dy \\
-&\leq ||W_i^-||_\eta \int_{-\infty}^x e^{(-\alpha^s - \eta) (x-y)} dy = \frac{1}{\alpha^s + \eta}
+&\leq ||W_i^-||_\eta \int_{-\infty}^x e^{(-\alpha^s - \eta) (x-y)} dy = ||W_i^-||_\eta \frac{1}{\alpha^s + \eta}
 \end{align*}
-So this has a nice bound independent of the $X_i$. The RHS is always positive, so this doesn't give us any extra conditions on $\eta$.
+So this has a nice bound independent of the $X_i$. The RHS is always positive, so this doesn't give us any extra conditions on $\eta$. \\
+
+So far, all of this would have worked without the exponential weight. Where we need it is in the terms involving the integration operator. Let's do those terms now. Recall that because of the operator $B$ we are only integrating the scalar function $w_i^\pm$
+
+\begin{align*}
+\int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy &\leq \int_x^0 e^{(\alpha^u - \eta)(x-y)}e^{-\eta y} \int_{a_i^-}^y |w_i^-(u)| du dy \\
+&= \int_x^0 e^{(\alpha^u - \eta)(x-y)}e^{-\eta y} \int_{a_i^-}^y e^{\eta u} |e^{-\eta u} w_i^-(u)| du dy \\
+&\leq ||W_i^-||_\eta \int_x^0 e^{(\alpha^u - \eta)(x-y)}e^{-\eta y} \int_{-\infty}^y e^{\eta u} du dy \\
+&= \frac{||W_i^-||_\eta}{\eta} \int_x^0 e^{(\alpha^u - \eta)(x-y)}e^{-\eta y} e^{\eta y} dy \\
+&= \frac{||W_i^-||_\eta}{\eta} \frac{1 - e^{(\alpha^u - \eta)x}}{\alpha^u - \eta} 
+\end{align*}
+
+We need the RHS of this to be positive, which is true when $\eta < \alpha^u$. We had that condition from before, so that is good. Note that we changed the lower limit of the inner integral from $a_i^-$ to $-\infty$. This assumes that the integration opetator $K_i^-$ integrates from L to R. This is not the case in our alternate version above (where $K_2^-$ integrates from 0 to $-L$). We can handle that case as well; we just get a more restrictive condition on our exponential weight. In fact, what we have below handles any lower limit of integration $a_i^-$ within our interval $[-X_{i-1}, 0]$.
+
+\begin{align*}
+\int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy &\leq \int_x^0 e^{(\alpha^u - \eta)(x-y)}e^{-\eta y} \int_{a_i^-}^y e^{\eta u} |e^{-\eta u} w_i^-(u)| du dy \\
+&\leq ||W_i^-||_\eta \int_x^0 e^{(\alpha^u - \eta)(x-y)}e^{-\eta y} \int_{-\infty}^0 e^{\eta u} du dy \\
+&= \frac{||W_i^-||_\eta}{\eta} \int_x^0 e^{(\alpha^u - \eta)(x-y)}e^{-\eta y} dy \\
+&= \frac{||W_i^-||_\eta}{\eta} \int_x^0 e^{(\alpha^u - \eta)(x-y)}e^{-\eta y} dy \\
+&\leq \frac{||W_i^-||_\eta}{\eta} \int_x^0 e^{(\alpha^u - \eta)(x-y)}e^{-\eta x}e^{-\eta y} dy \\
+&=\frac{||W_i^-||_\eta}{\eta} \int_x^0 e^{(\alpha^u - \eta)(x-y)}e^{-\eta(x+y)} dy \\
+&=\frac{||W_i^-||_\eta}{\eta} \int_x^0 e^{(\alpha^u - 2 \eta)(x-y)} dy \\
+&= \frac{||W_i^-||_\eta}{\eta} \frac{1 - e^{(\alpha^u - 2 \eta)x}}{\alpha^u - 2 \eta} 
+\end{align*}
+
+Where in the 5th line we multipled by $e^{-\eta x} \geq 1$ since $x \leq 0$. This gives us the condition$\eta < \alpha^u/2$. If we require this, we can handle the above case as well.\\
+
+Here is the other integral term. First we do the case where the integral operator $K_i^-$ integrates from L to R.
+
+\begin{align*}
+\int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy &\leq \int_{-X_{i-1}}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} \int_{a_i^-}^y |w_i^-(u)| du dy \\
+&= \int_{-X_{i-1}}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} \int_{a_i^-}^y e^{\eta u} |e^{-\eta u} w_i^-(u)| du dy \\
+&\leq ||W_i^-||_\eta \int_{-\infty}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} \int_{-\infty}^y e^{\eta u} du dy \\
+&= \frac{||W_i^-||_\eta}{\eta} \int_{-\infty}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} e^{\eta y} dy \\
+&= \frac{||W_i^-||_\eta}{\eta} \frac{1}{\alpha^s + \eta}
+\end{align*}
+
+This also has a nice bound independent of the $X_i$. The RHS is always positive, so this doesn't give us any extra conditions on $\eta$.\\
+
+We can do the same thing we did above to handle the case where we integrate in the other direction of from another starting point.
+
+\begin{align*}
+\int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy &\leq \int_{-X_{i-1}}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} \int_{a_i^-}^y |w_i^-(u)| du dy \\
+&= \int_{-X_{i-1}}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} \int_{a_i^-}^y e^{\eta u} |e^{-\eta u} w_i^-(u)| du dy \\
+&\leq ||W_i^-||_\eta \int_{-\infty}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} \int_{-\infty}^0 e^{\eta u} du dy \\
+&\leq \frac{||W_i^-||_\eta}{\eta} \int_{-\infty}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta(x-y)} dy \\
+&\leq \frac{||W_i^-||_\eta}{\eta} \int_{-\infty}^x e^{(-\alpha^s - 2\eta)(x-y)} dy \\
+&= \frac{||W_i^-||_\eta}{\eta} \frac{1}{\alpha^s + 2\eta}
+\end{align*}
+
+This RHS is also always positive, so we are still good.\\
+
+So far we have the condition $\eta < \alpha^u$ (or $\eta < \alpha^u / 2$. We expect to also have the condition $\eta < \alpha^s$ (or $\eta < \alpha^s/2$). We should get that from using the ``+'' equations. We will show that now. Recall here that since $x \geq 0$, we have to multiply by $e^{\eta x}$ to get the weighted norm. We also must integrate from L to R when taking the absolute value.\\
+
+Here we do the ``+'' equations. This is similar to the ``-'' equations.
+
+\begin{align*}
+|e^{\eta x} & (L_1(\lambda)W)_i^+)(x) | \leq \delta e^{\eta x} \int_0^x |\Phi^s_+(x, y)|[|W_i^+(y)| + |(K_i^+ B W_i^+)(y)| ] dy \\
+&+ \delta e^{\eta x} \int_{X_i}^x |\Phi^u_+(x, y)|[|W_i^+(y)| + |(K_i^+ B W_i^+)(y)| ] dy \\
+&\leq \delta \left( \int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy 
++ \int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} (K_i^+ B W_i^+)(y)| dy  \right) \\
+&+ \delta \left( \int_x^{X_i} e^{\alpha^u (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy 
++ \int_x^{X_i} e^{\alpha^u (x-y)}e^{\eta(x-y)}|e^{\eta y} (K_i^+ B W_i^+)(y)| dy  \right) \\ 
+\end{align*}
+
+We do the same thing we did above.
+
+\begin{align*}
+\int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy &= \int_0^x e^{(-\alpha^s + \eta) (x-y)}|e^{\eta y} W_i^-(y)| dy \\
+&\leq ||W_i^+||_\eta \frac{1 - e^{-(\alpha^s - \eta)x} }{\alpha^s - \eta}
+\end{align*}
+
+We need the RHS of this to be positive, which is true when $\eta < \alpha^s$. (This is the condition we were expecting). In that case, we have the bound
+
+\begin{align*}
+\int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy &\leq ||W_i^+||_\eta \frac{1}{\alpha^s - \eta}
+\end{align*}
+
+For the other one:
+
+\begin{align*}
+\int_x^{X_i} e^{\alpha^u (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy &= \int_x^{X_i} e^{(\alpha^u + \eta) (x-y)}|e^{\eta y} W_i^+(y)| dy \\
+&\leq ||W_i^+||_\eta \int_x^{\infty} e^{(\alpha^u + \eta) (x-y)} dy = ||W_i^+||_\eta \frac{1}{\alpha^u + \eta}
+\end{align*}
+Again, this has nice bound independent of the $X_i$. The RHS is always positive, so this doesn't give us any extra conditions on $\eta$. \\
+
+Now we do the integral terms. First we do this assuming that our integration operators $K_i^+$ integrate from R to L. Again, when we take the absolute value, we need to change our limits so we are integrating from L to R.
+
+\begin{align*}
+\int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} (K_i^+ B W_i^+)(y)| dy &\leq \int_0^x e^{(-\alpha^s + \eta)(x-y)}e^{\eta y} \int_y^{a_i^+} |w_i^+(u)| du dy \\
+&= \int_0^x e^{(-\alpha^s + \eta)(x-y)}e^{\eta y} \int_y^{a_i^+} e^{-\eta u} |e^{\eta u} w_i^+(u)| du dy \\
+&\leq ||W_i^+||_\eta \int_0^x e^{(-\alpha^s + \eta)(x-y)}e^{\eta y} \int_y^\infty e^{-\eta u} du dy \\
+&= \frac{||W_i^+||_\eta}{\eta} \int_0^x e^{(-\alpha^s + \eta)(x-y)}e^{\eta y} e^{-\eta y} dy \\
+&= \frac{||W_i^+||_\eta}{\eta} \frac{1 - e^{-(\alpha^s - \eta)x}}{\alpha^s - \eta} 
+\end{align*}
+
+We need the RHS of this to be positive, which is true when $\eta < \alpha^s$. We had that condition from before, so that is good. As above, we can do the case where the integration operator integrates from L to R. In that case, we have the following.
+
+\begin{align*}
+\int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} (K_i^+ B W_i^+)(y)| dy &\leq \int_0^x e^{(-\alpha^s + \eta)(x-y)}e^{\eta y} \int_y^{a_i^+} |w_i^+(u)| du dy \\
+&= \int_0^x e^{(-\alpha^s + \eta)(x-y)}e^{\eta y} \int_y^{a_i^+} e^{-\eta u} |e^{\eta u} w_i^+(u)| du dy \\
+&\leq ||W_i^+||_\eta \int_0^x e^{(-\alpha^s + \eta)(x-y)}e^{\eta y} \int_0^\infty e^{-\eta u} du dy \\
+&= \frac{||W_i^+||_\eta}{\eta} \int_0^x e^{(-\alpha^s + \eta)(x-y)}e^{\eta y} dy \\
+&= \frac{||W_i^+||_\eta}{\eta} \frac{1 - e^{-(\alpha^s - \eta)x}}{\alpha^s - \eta} 
+\end{align*}
+
+\begin{align*}
+\int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy &\leq \int_{-X_{i-1}}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} \int_{a_i^-}^y |w_i^-(u)| du dy \\
+&= \int_{-X_{i-1}}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} \int_{-\infty}^y e^{\eta u} |e^{-\eta u} w_i^-(u)| du dy \\
+&\leq ||W_i^-||_\eta \int_{-\infty}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} \int_{-\infty}^y e^{\eta u} du dy \\
+&= \frac{||W_i^-||_\eta}{\eta} \int_{-\infty}^x e^{(-\alpha^s - \eta)(x-y)}e^{-\eta y} e^{\eta y} dy \\
+&= \frac{||W_i^-||_\eta}{\eta} \frac{1}{\alpha^s + \eta}
+\end{align*}
+
 
 \end{document}
