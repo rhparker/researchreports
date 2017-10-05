@@ -53,10 +53,10 @@ as well as the integrated equation
 \begin{equation}\label{4thorder}
 u_{xxxx} - u_{xx} + c u - u^2 = 0
 \end{equation}
-where we can take the constant of integration to be 0 since the pulse decays to 0 at $\pm \infty$. If we write \eqref{4thorder} as a first-order system and linearize about the equilibrium solution at 0, we obtain the constant-coefficient matrix system $U' = A(0) U$, where
+where we can take the constant of integration to be 0 since the pulse decays to 0 at $\pm \infty$. If we write \eqref{4thorder} as a first-order system and linearize about the equilibrium solution at 0, we obtain the constant-coefficient matrix system $U' = A(0; c) U$, where
 
 \[
-A(0) = 
+A(0; c) = 
 \begin{pmatrix}
 0 & 1 & 0 & 0 \\
 0 & 0 & 1 & 0 \\
@@ -65,7 +65,7 @@ A(0) =
 \end{pmatrix}
 \]
 
-The eigenvalues of $A(0)$ are
+The eigenvalues of $A(0; c)$ are
 \[
 \nu = \pm \sqrt{ \frac{1 \pm \sqrt{1 - 4c} }{2}}
 \]
@@ -77,64 +77,150 @@ For $c < 1/4$, all four eigenvalues are real (two positive and two negative), an
 \nu_2^s(c) &= \sqrt{ \frac{1 - \sqrt{1 - 4c} }{2}}
 \end{align*}
 
-The corresponding eigenvectors are $v_1^s(c)$ and $v_2^s(c)$ (these can be written down exactly, but it's a mess). The unstable eigenvalues are $\nu_1^u(c)$ and $\nu_2^u(c)$, with corresponding eigenvectors $v_1^u(c)$ and $v_2^u(c)$. The stable and unstable eigenspaces are $E^s(c) = \text{span}\{ v_1^s(c), v_2^s(c) \}$ and $E^u(c) = \text{span}\{ v_1^u(c), v_2^u(c) \}$
+The corresponding eigenvectors are $v_1^s(c)$ and $v_2^s(c)$ (these can be written down exactly, but it's a mess). The unstable eigenvalues are $\nu_1^u(c)$ and $\nu_2^u(c)$, with corresponding eigenvectors $v_1^u(c)$ and $v_2^u(c)$. The stable and unstable eigenspaces are $E^s(c) = \text{span}\{ v_1^s(c), v_2^s(c) \}$ and $E^u(c) = \text{span}\{ v_1^u(c), v_2^u(c) \}$.\\
+
+We can also write the nonlinear equation as a first-order system
+\begin{equation}\label{nonlinearsystem}
+U' = A(0; c) U + N(U)
+\end{equation}
+where $U = (u_1, u_2, u_3, u_4) = (u, u', u'', u''')$ and $N(U) = N(u_1, u_2, u_3, u_4) = (0, 0, 0, u_1^2)$. Note that we have separated the equation in to a linear and a nonlinear part, and that for the nonlinear part, $N(0) = DN(0) = 0$.\\
+
+We would like to show that we can take the derivative of our single pulse $q(x)$ with respect to the wave speed $c$, and that the derivative $q_c(x)$ with respect to $c$ is exponentially localized. For this to be the case, we need the following assumption.
+
+\begin{assumption}For some $c_0 > 0$, the stable manifold $W^s(0; c_0)$ and the unstable manifold $W^u(0; c_0)$ for the equilibrium solution $u = 0$ intersect transversely at the point $q(x; c)$.
+\end{assumption}
 
 \begin{lemma}\label{qc}
-For the stationary, single-pulse solution $q(x; c)$ to the 5th order KdV equation in a frame moving with velocity $c$, the derivative $q_c(x)$ of the pulse with respect to the speed $c$ is exponentially localized, thus $q_c(x) \in L^2(\R)$.
+For the stationary, single-pulse solution $q(x; c)$ to the 5th order KdV equation in a frame moving with velocity $c$, the derivative $q_c(x)$ of the pulse with respect to the speed $c$ exists and is exponentially localized, thus $q_c(x) \in L^2(\R)$.
 \begin{proof}
-Recall that near the equilibrium at 0, the stable manifold $W^s(0)$ is given by 
-\[
-W^s(0) = \{ (u, h(u)) : u \in E_s(c) \text{ near } 0 \}
-\]
-and $h: E^s(c) \rightarrow E^u(c)$ is smooth (should be $C^\infty$ since our nonlinearity is a simple quadratic nonlinearity). From the construction of the single pulse $q(x, c)$, we know that it lies on the stable manifold (as $x \rightarrow \infty$). Thus for large $x$, we can write $q(x; c)$ as
-
-\begin{equation}\label{qstable}
-q(x; c) = q_1(x; c) v_1^s(c) + q_2(x; c) v_2^s(c) + h( q_1(x; c), q_2(x; c) )
-\end{equation}
-
-By the stable manifold theorem, $q(x; c) \rightarrow 0$ exponentially as $x \rightarrow \infty$. In other words, $q_1(x; c)$ and $q_2(x; c)$ go to 0 exponentially as $x \rightarrow \infty$ with decay rates given by the real parts of the eigenvalues $\nu_1^s(c)$ and $\nu_2^s(c)$ (these are negative). Since $h$ is smooth (Lipschitz continuity is enough here, I think), that term goes to 0 exponentially as well.\\
-
-We want to look at the derivative with respect to $c$. First, let's take the last term on the RHS of \eqref{qstable}. Writing $h$ as $h(s, t)$:
-\begin{align}
-\frac{\partial}{\partial_c} h( q_1(x; c), q_2(x; c) ) &= 
-\frac{\partial h}{\partial s}(  q_1(x; c), q_2(x; c) )\frac{\partial}{\partial_c}q_1(x; c) +
-\frac{\partial h}{\partial t}(  q_1(x; c), q_2(x; c) )\frac{\partial}{\partial_c}q_2(x; c)
-\end{align}
-Since $h$ is smooth (here we need $C^1$, I think), $\frac{\partial h}{\partial s}(  q_1(x; c), q_2(x; c) )$ and $\frac{\partial h}{\partial t}(  q_1(x; c), q_2(x; c) )$ decay exponentially as $x \rightarrow \infty$ since $q_1(x; c)$ and $q_2(x; c)$ do. Thus as long as $\frac{\partial}{\partial_c}q_1(x; c)$ and $\frac{\partial}{\partial_c}q_2(x; c)$ decay exponentially, we are all set. So it suffices to show that the first two terms on the RHS of \eqref{qstable} decay exponentially. Since they are similar, we only need to deal with one of them.\\
-
-Let $\alpha_1(c) = \text{Re } \nu_1^s(c)$. Since $q_1(x; c)$ decays exponentially with rate $\alpha_1(c)$, for fixed $c$ and sufficiently large $x$ we can write it as
-\begin{equation}
-q_1(x; c) = C_1 \tilde{q}_1(x; c) e^{\alpha_1(c) x}
-\end{equation}
-where $\tilde{q}_1(x; c)$ is bounded. It would great if $\tilde{q}_1(x; c)$ were uniformly bounded in $c$ for $x$ sufficiently large. That is unlikely to be true, but we should be able to do without it. \\
-
-I believe the following is true:
+We proceed in steps.
 \begin{enumerate}
-	\item $q(x; c)$ is continuously differentiable in $c$. This should follow from continuous dependence on parameters. (It should be smooth in $c$, but we don't need that).
-	\item $\tilde{q}_1(x; c)$ is continuously differentiable in $c$.
-	\item Given $c_0 > 0$, we can find an $M > 0$, an $R > 0$, and a $\delta > 0$ so that for all $x \geq M$, $|\tilde{q}_1(x; c)| \leq R$ and $|\frac{\partial}{\partial_c}\tilde{q}_1(x; c)| \leq R$ for all $x \geq M$ and for all $c \in (c_0 - \delta, c_0 + \delta)$.
+
+\item For $c$ near $c_0$, the transverse intersection of manifolds is preserved. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$.
+
+\item $q(x; c)$ is differentiable in $c$ for all $c$ near $c_0$ and for all $x$. \\
+
+Let $\Phi(x; c)$ be the solution operator for \eqref{nonlinearsystem}, where the initial condition is given at $x = 0$. Taking the initial condition to be $q(0; c)$, by the property of the solution operator, for $c$ near $c_0$, $q(x; c) = \Phi(x; c)q(0; c)$. If we differentiate this expression with respect to $c$ (assuming we can do it), we get
+
+\begin{equation}\label{diffat0}
+q_c(x; c) = \left[ \frac{\partial}{\partial_c} \Phi(x; c) \right] q(0; c) + \Phi(x; c) \frac{\partial}{\partial_c} q(0; c)
+\end{equation}
+
+By the existence and uniqueness theorem, we note that the RHS of \eqref{nonlinearsystem} is $C^\infty$ in $c$ (since $A(0; c)$ is a linear function of $c$ and $N(u)$ does not involve $c$ at all), thus the solution is as well. Thus the first term on the RHS of \eqref{diffat0} always exists, so all we need to show is that the second term exists, i.e. that $q(x; c)$ is differentiable in $c$ at $x = 0$.\\
+
+Somehow we get this from the robustness of transverse intersection.
+
+\item Now that we know $q_c(x)$ exists, we need to show that it is exponentially localized.\\
+
+We proceed as in the proof of the stable manifold theorem (parameter-dependent version). We use an exponentially weighted function space $X_\eta$, defined in the usual way by 
+
+\[
+X_\eta = \{ f \in C^0([0, \infty), \R^n) : \sup_{x \in [0, \infty)} |e^{\eta x} f(x)| < \infty 
+\]
+
+where the norm is given by
+
+\[
+||f||_\eta = \sup_{x \in [0, \infty)} |e^{\eta x} f(x)|
+\]
+
+The exponential weight $\eta$ will be chosen later, but it will be positive since we are on the interval $[0, \infty)$.\\
+
+Next we write \eqref{nonlinearsystem} in integrated form. For convenience, let $A(c) = A(0; c)$, so that the matrix exponential $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$. Let $P(c)^s$ and $P(c)^u$ be the stable and unstable projections onto the stable and unstable eigenspaces of $A(c)$. Then as long as $|U(x)|$ is uniformly bounded for $x \geq 0$, say $|U(x)| \leq \rho$ for $x \geq 0$, then $U(x)$ is given by
+
+\[
+U(x) = e^{A(c)x}a + \int_\infty^x e^{A(c)(x - y)}P(c)^u N(U(y))dy + \int_0^x e^{A(c)(x - y)}P(c)^s N(U(y))dy
+\]
+
+where $a = P(c)^s u_0$, the stable projection of the initial condition. 
+
+First we define the spaces
+\begin{align*}
+B_1 &= (c_0 - \delta, c_0 + \delta) \\
+B_2 &= \{ a \in E(c)^s : c \in B_1 \text{ and } |a| \leq \rho/2M \} \\
+D &= { u \in X_\eta : ||u||_\eta \leq \rho }
+\end{align*}
+
+Next define
+\[
+L_\eta(\rho) = \max \{ || DN(u) || : ||u||_\eta \leq \rho \}
+\]
+
+Note that since we are on the domain $[0, \infty)$ and $\eta > 0$, $|u(x)| \leq |u(x)e^{\eta x}|$ and so $||u|| \leq ||u||_\eta$. Since $N \in C^1$ and $||u|| \leq \rho$, $L(\rho)$ is well-defined and finite. (In this case, we know exactly what $N$ is. The Jacobian matrix $DN$ consists entirely of zeros except for one entry which is $2 u_1$, so here we have $L(\rho) \leq 2 \rho$.) From this, we can get a bound on $|N(u)|$ for $u$ with $||u||_\eta \leq \rho$. Since $N \in C^1$ and $N(0) = 0$,
+
+\begin{align*}
+|N(u)| &= |N(u) - N(0)| \\
+&= | \int_0^1 DN(t u) tu du | \\
+&\leq | \int_0^1 ||DN(tu)|| |u| t dt \\
+&\leq L(\rho) |u|
+\end{align*}
+
+Multiplying both sides by $e^{\eta x}$ gives us $|N(u) e^{\eta x}| \leq L(\rho) e^{\eta x}$, and taking the supremum in $x$ gives us the bound
+
+\[
+||N(U)||_\eta \leq L(\rho) ||U||_\eta
+\]
+
+Note that since $DN(0) = 0$ and $N \in C^1$, $DN(u) \rightarrow 0$ as $u \rightarrow 0$, thus by the definition of $L(\rho)$, $L(\rho) \rightarrow 0$ as $\rho \rightarrow 0$.\\
+
+Since for $c > 0$ the matrix $A(c)$ is hyperbolic and since the eigenvalues of $A(c)$ are continuous functions of $c$, we can find $\alpha^s, \alpha^u > 0$ such that for all $c \in B_1$, all eigenvalues of $A(c)$ lie outside the open interval $(-\alpha^2, \alpha^u)$. For $c \in B$, we have the estimates
+
+\begin{align*}
+||e^{A(c)x}P(c)^s|| &\leq Me^{-\alpha^s x} && x \geq 0\\
+||e^{A(c)x}P(c)^u|| &\leq Me^{\alpha^u x} && x \leq 0
+\end{align*}
+
+Now we define the mapping $F: D x B_2 x B_1 \rightarrow X_\eta$ by
+
+\begin{equation}\label{F}
+[F(U, a, c)](x) = e^{A(c)x}a + \int_\infty^x e^{A(c)(x - y)}P(c)^u N(U(y))dy + \int_0^x e^{A(c)(x - y)}P(c)^s N(U(y))dy
+\end{equation}
+
+First we show that $F$ is well-defined, i.e. it actually maps into $X_\eta$. We will look at each term on the RHS separately. Recall that since the domain of $F$ is $D$, we always have $||U||_\eta \leq \rho$.
+
+\begin{align*}
+|e^{\eta x} e^{A(c)x }a| &\leq M e^{\eta x} e^{-\alpha^s x} |a|\\
+&= M e^{(\eta - \alpha^s)x} |a|
+\end{align*}
+For this to be uniformly bounded in $x$, we require $\eta \leq \alpha^s$, in which case we have $||e^{A(c)x}a ||_\eta \leq M|a|$.
+
+\begin{align*}
+\left| e^{\eta x} \int_\infty^x e^{A(c)(x - y)}P(c)^u N(U(y))dy \right| &= \left| \int_\infty^x e^{\eta x} e^{A(c)(x - y)}P(c)^u N(U(y))dy \right|\\
+&\leq \int_x^\infty M e^{\eta x}e^{\alpha^u(x -y)}|N(U(y))|dy \\
+&= M \int_x^\infty e^{\eta (x - y)}e^{\alpha^u(x -y)}| e^{\eta y} N(U(y))|dy \\
+&\leq M \int_x^\infty e^{(\eta+\alpha^u)(x - y)} || N(U)||_\eta dy \\
+&\leq M L(\rho) ||U||_\eta \int_x^\infty e^{(\eta+\alpha^u)(x - y)} dy \\
+&= M L(\rho) ||U||_\eta \frac{1}{\eta+\alpha^u}
+\end{align*}
+
+Since $\eta$ and $\alpha^u$ are both positive, this imposes no additional restrictions on $\eta$.
+
+\begin{align*}
+\left| e^{\eta x} \int_0^x e^{A(c)(x - y)}P(c)^s N(U(y)) \right| &= \left| \int_0^x e^{\eta x} e^{A(c)(x - y)}P(c)^s N(U(y)) \right|\\
+&\leq \int_0^x M e^{\eta x}e^{-\alpha^s(x -y)}|N(U(y))|dy \\
+&= M \int_0^x e^{\eta (x - y)}e^{-\alpha^s(x -y)}| e^{\eta y} N(U(y))|dy \\
+&\leq M \int_0^x e^{(\eta-\alpha^s)(x - y)} || N(U)||_\eta dy \\
+&\leq M L(\rho) ||U||_\eta \int_0^x e^{(\eta-\alpha^s)(x - y)} dy \\
+&= M L(\rho) ||U||_\eta \frac{1 - e^{(\eta-\alpha^s)x} }{\eta-\alpha^s}
+\end{align*}
+
+Since $x \geq 0$, as long as $\eta < \alpha^s$ (we have this condition from above), $0 < e^{(\eta-\alpha^s)x} < 1$, thus we have
+
+\[
+\left| e^{\eta x} \int_0^x e^{A(c)(x - y)}P(c)^s N(U(y)) \right| \leq M L(\rho) ||U||_\eta \frac{1}{\eta-\alpha^s}
+\]
+
+Putting all of this together and taking the supremum over $x \in [0, \infty)$, we have for $||U||_\eta \leq \rho$
+
+\begin{equation}
+||F(U, a, c)](x)||_\eta \leq M |a| + M L(\rho) \left( \frac{1}{\eta+\alpha^u}+\frac{1}{\eta-\alpha^s} \right) ||U||_\eta
+\end{equation}
+
+Since everything on the RHS is finite, we have shown that the codomain of $F$ is in fact $X_\eta$, so $F$ is well-defined. Since $a \in B_2$, $|a| \leq \rho/2M$. Since $L(\rho) \rightarrow 0$ as $\rho \rightarrow 0$, we can choose $\rho$ sufficiently small so that $L(\rho) < \frac{1}{2} \left( \frac{1}{\eta+\alpha^u}+\frac{1}{\eta-\alpha^s} \right)$. Having done this, and using the fact that $||U||_\eta \leq \rho$, we obtain the bound $||F(U, a, c)](x)||_\eta \leq \rho$. Thus for this choice of $\rho$ we actually have $F: D x B_2 x B_1 \rightarrow D$, which is what we want.
+
+
+
 \end{enumerate}
-
-What we need to show is that the derivative with respect to $c$ at $c = c_0$ of first term on the RHS of \eqref{qstable} decays exponentially. Because
-
-\begin{align*}
-\frac{\partial}{\partial_c} q_1(x; c) v_1^s(c) = \left[ \frac{\partial}{\partial_c} q_1(x; c) \right] v_1^s(c) + q_1(x; c) \frac{\partial}{\partial_c} v_1^s(c)
-\end{align*}
-
-all we need to show is that $\frac{\partial}{\partial_c}q_1(x; c)$ at $c = c_0$ decays exponentially, since we already know $q_1(x; c)$ decays exponentially and the derivative with respect to $c$ of the eigenvector $v_1^s(c)$ is some other constant vector. Taking this derivative,
-
-\begin{align*}
-\frac{\partial}{\partial_c}q_1(x; c)\Big|_{c = c_0} &= C_1 \frac{\partial}{\partial_c}\left[ \tilde{q}_1(x; c) e^{\alpha_1(c) x} \right]_{c = c_0} \\
-&= C_1 \left( \frac{\partial}{\partial_c}\tilde{q}_1(x; c) \Big|_{c = c_0} e^{\alpha_1(c_0) x} + \tilde{q}_1(x; c_0) \alpha_1'(c_0) e^{\alpha_1(c_0) x} \right)
-\end{align*}
-
-Taking the absolute value, we get for $x \geq M$
-\begin{align*}
-\lvert \frac{\partial}{\partial_c}q_1(x; c)\Big|_{c = c_0} \rvert &\leq C_1 R ( 1 + \alpha_1'(c_0))e^{\alpha_1(c_0) x}
-\end{align*}
-Since $\alpha_1'(c_0)$ is a constant, and so are $R$ and $C_1$, we have shown that $\frac{\partial}{\partial_c}q_1(x; c)$ at $c = c_0$ decays exponentially as $x \rightarrow \infty$.\\
-
-A similar result hold as $x \rightarrow -\infty$, proving the lemma.
 
 \end{proof}
 \end{lemma}
