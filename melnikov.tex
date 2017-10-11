@@ -111,9 +111,9 @@ What does this assumption get us?
 We will show that $q_c(x)$ exists and is exponentially localized in a series of lemmas.\\
 
 \begin{lemma}\label{transverseint}
-For $c$ near $c_0$, the transverse intersection of manifolds is preserved. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$.
+For $c$ near $c_0$, the transverse intersection of manifolds is preserved. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$, i.e. for $c \in (c_0 - \delta, c_0 + \delta)$ for some $\delta > 0$.
 \begin{proof}
-This will use either stuff from differential topology or the implicit function theorem. 
+This will use either stuff from differential topology or the implicit function theorem. Haven't figured out how yet.
 \end{proof}
 \end{lemma}
 
@@ -128,7 +128,7 @@ q_c(x; c) = \left[ \frac{\partial}{\partial_c} \Phi(x; c) \right] q(0; c) + \Phi
 
 By the existence and uniqueness theorem, we note that the RHS of \eqref{nonlinearsystem} is $C^\infty$ in $c$ (since $A(0; c)$ is a linear function of $c$ and $N(u)$ does not involve $c$ at all), thus the solution is as well. Thus the first term on the RHS of \eqref{diffat0} always exists, so all we need to show is that the second term exists, i.e. that $q(x; c)$ is differentiable in $c$ at $x = 0$.\\
 
-Somehow we get this from the robustness of transverse intersection.
+Somehow we get this from the robustness of transverse intersection (previous lemma), but don't know how that gives us differentiability.
 \end{proof}
 \end{lemma}
 
@@ -157,7 +157,9 @@ Next we write \eqref{nonlinearsystem} in integrated form. For convenience, let $
 U(x) = e^{A(c)x}a + \int_\infty^x e^{A(c)(x - y)}P(c)^u N(U(y))dy + \int_0^x e^{A(c)(x - y)}P(c)^s N(U(y))dy
 \]
 
-where $a = P(c)^s u_0$, the stable projection of the initial condition. 
+where $a = P(c)^s u_0$, the stable projection of the initial condition. \\
+
+NOTE: I DON'T THINK THE DEFINITIONS OF THE SPACE $B_1$ AND THE MAP $F$ ARE EXACTLY WHAT WE WANT. I HAVE LEFT IT THIS WAY TO SHOW WHAT I WAS THINKING. AFTER ALL OF THIS, I REVISIT THIS AND REDEFINE THEM SLIGHTLY TO WHAT I THINK WE WANT. IN ANY CASE, EVERYTHING SHOULD STILL HOLD WITH THE SMALL MODIFICATION MENTIONED BELOW.\\
 
 First we define the spaces
 \begin{align*}
@@ -166,7 +168,7 @@ B_2 &= \{ a \in E(c)^s : c \in B_1 \text{ and } |a| \leq \rho/2M \} \\
 D &= \{ u \in X_\eta : ||u||_\eta \leq \rho \}
 \end{align*}
 
-Next define
+where $\delta$ is the constant from Lemma \ref{transverseint}. Next define
 \[
 L_\eta(\rho) = \max \{ || DN(u) || : ||u||_\eta \leq \rho \}
 \]
