@@ -61,7 +61,27 @@ The energy of the system is given by
 E(u) = -\int_{-\infty}^{\infty} \left( \frac{1}{2}u_{xx}^2 + \frac{1}{2}u_x^2 + \frac{1}{2}cu^2 - \frac{1}{3}u^3 \right) dx
 \end{equation}
 
-and it can be shown that this quantity is conserved.\\
+and the full KdV5 equation (time-dependent, nonstationary) can be written as $u_t = \partial_x E'(u)$. It can be shown that this quantity is conserved (in time).\\
+
+For a stationary solution $u$, we have $u_t = 0$, which implies $\partial_x E'(u(x)) = 0$, i.e. $E'(u(x))$ is constant. Since our homoclinic orbit connects the equilibrium at 0 to itself, and since $E'(0) = 0$, we can take this constant to be 0, which is the equation \eqref{4thorder} above. \\
+
+We also have a Hamiltonian $H$ for the equilibrium ODE, which is (Champneys, 1998)
+
+\begin{equation}\label{Hamiltonian}
+H(u, u', u'', u''') = u'u''' - \frac{1}{2}(u'^2) - \frac{1}{2}(u'')^2 + \frac{c}{2}u^2 - \frac{1}{3}u^3 
+\end{equation}
+
+We can show this is conserved, i.e. independent of $x$
+
+\begin{align*}
+\frac{\partial H}{\partial x} &= u'u'''' + u''u''' - u'u'' - u''u''' + c u u' - u^2 u' \\
+&= u'( u'''' - u'' + cu - u^2 ) \\
+&= 0
+\end{align*}
+
+where in the last line we substituted in the 4th order stationary equation $\eqref{4thorder}$.\\
+
+
 
 If we write \eqref{4thorder} as a first-order system and linearize about the equilibrium solution at 0, we obtain the constant-coefficient matrix system $U' = A(0; c) U$, where
 
@@ -95,49 +115,7 @@ U' = A(0; c) U + N(U)
 \end{equation}
 where $U = (u_1, u_2, u_3, u_4) = (u, u', u'', u''')$ and $N(U) = N(u_1, u_2, u_3, u_4) = (0, 0, 0, u_1^2)$. Note that we have separated the equation in to a linear and a nonlinear part, and that for the nonlinear part, $N(0) = DN(0) = 0$.\\
 
-We would like to show that we can take the derivative of our single pulse $q(x)$ with respect to the wave speed $c$, and that the derivative $q_c(x)$ is exponentially localized. For this to be the case, we will need the following assumption.
-
-\begin{assumption}For some $c_0 > 0$, the stable manifold $W^s(0; c_0)$ and the unstable manifold $W^u(0; c_0)$ for the equilibrium solution $u = 0$ intersect transversely in $E^{-1}(0)$ at the point $q(0; c_0)$, where $E$ is the energy \eqref{energy}.
-\end{assumption}
-
-Since numerics show that a single pulse solution exists for a wide range of speeds $c$, this assumption is reasonable.\\
-
-What does this assumption get us?
-\begin{enumerate}
-	\item A single pulse solution $q(x; c)$ exists for $c = c_0$. Since energy is conserved and the energy at $U = 0$ is zero, any pulse solution must be contained in the set $E^{-1}(0)$. Furthermore, the stable and unstable manifolds $W^s(0; c_0)$ and $W^u(0; c_0)$ must be contained in $E^{-1}(0)$ since these contain trajectories which approach $U = 0$ as $x \rightarrow \pm \infty$. Any pulse solution must leave 0 via the unstable manifold and approach 0 by the stable manifold.	Since a pulse solution is continuous, the stable and unstable manifolds must intersect somewhere along the pulse. We might as well take that point of intersection to happen when $x = 0$, i.e. at the point $q(0, c_0)$. Note that existence of a pulse solution does not require transverse intersection, only intersection.
-	\item Transverse intersection makes it likely (although we still need to prove it) that the intersection of stable and unstable manifolds persists for $c$ near $c_0$. Numerics suggests that this is indeed the case.
-\end{enumerate}
-
-We will show that $q_c(x)$ exists and is exponentially localized in a series of lemmas.\\
-
-\begin{lemma}\label{transverseint}
-For $c$ near $c_0$, the transverse intersection of manifolds is preserved. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$, i.e. for $c \in (c_0 - \delta, c_0 + \delta)$ for some $\delta > 0$.
-\begin{proof}
-This will use either stuff from differential topology or the implicit function theorem. Haven't figured out how yet.
-\end{proof}
-\end{lemma}
-
-\begin{lemma}\label{qcexists}
-$q(x; c)$ is differentiable in $c$ for all $c$ near $c_0$ and for all $x$. 
-\begin{proof}
-Let $\Phi(x; c)$ be the solution operator for \eqref{nonlinearsystem}, where the initial condition is given at $x = 0$. Taking the initial condition to be $q(0; c)$, by the property of the solution operator, for $c$ near $c_0$, $q(x; c) = \Phi(x; c)q(0; c)$. If we differentiate this expression with respect to $c$ (assuming we can do it), we get
-
-\begin{equation}\label{diffat0}
-q_c(x; c) = \left[ \frac{\partial}{\partial_c} \Phi(x; c) \right] q(0; c) + \Phi(x; c) \frac{\partial}{\partial_c} q(0; c)
-\end{equation}
-
-By the existence and uniqueness theorem, we note that the RHS of \eqref{nonlinearsystem} is $C^\infty$ in $c$ (since $A(0; c)$ is a linear function of $c$ and $N(u)$ does not involve $c$ at all), thus the solution is as well. Thus the first term on the RHS of \eqref{diffat0} always exists, so all we need to show is that the second term exists, i.e. that $q(x; c)$ is differentiable in $c$ at $x = 0$.\\
-
-Somehow we get this from the robustness of transverse intersection (previous lemma), but don't know how that gives us differentiability.
-\end{proof}
-\end{lemma}
-
-\begin{lemma}\label{qc}
-For the stationary, single-pulse solution $q(x; c)$ to the 5th order KdV equation in a frame moving with velocity $c$, the derivative $q_c(x)$ of the pulse with respect to $c$ is exponentially localized, thus $q_c(x) \in L^2(\R)$.
-\begin{proof}
-$q_c(x)$ exists for $c$ near $c_0$ by Lemma \ref{qcexists}, so we need to show that it is exponentially localized.\\
-
-We proceed as in the proof of the stable manifold theorem (parameter-dependent version). We use an exponentially weighted function space $X_\eta$, defined in the usual way by 
+We will also be working in an exponentially weighted function space $X_\eta$, defined in the usual way by 
 
 \[
 X_\eta = \{ f \in C^0([0, \infty), \R^n) : \sup_{x \in [0, \infty)} |e^{\eta x} f(x)| < \infty 
@@ -149,22 +127,196 @@ where the norm is given by
 ||f||_\eta = \sup_{x \in [0, \infty)} |e^{\eta x} f(x)|
 \]
 
-The exponential weight $\eta$ will be chosen later, but it will be positive since we are on the interval $[0, \infty)$.\\
+This space is known to be a Banach space, and the weight $\eta > 0$ will be chosen later.\\
 
-Next we write \eqref{nonlinearsystem} in integrated form. For convenience, let $A(c) = A(0; c)$, so that the matrix exponential $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$. Let $P(c)^s$ and $P(c)^u$ be the stable and unstable projections onto the stable and unstable eigenspaces of $A(c)$. Then as long as $|U(x)|$ is uniformly bounded for $x \geq 0$, say $|U(x)| \leq \rho$ for $x \geq 0$, then $U(x)$ is given by
+We would like to show that we can take the derivative of our single pulse $q(x)$ with respect to the wave speed $c$, and that the derivative $q_c(x)$ is exponentially localized. For this to be the case, we will need the following assumption.
+
+\begin{assumption}\label{transverseint}
+For some $c_0 > 0$, the stable manifold $W^s(0; c_0)$ and the unstable manifold $W^u(0; c_0)$ for the equilibrium solution $u = 0$ intersect transversely in $H^{-1}(0)$ at a point $q(0; c_0)$, where $H$ is the Hamiltonian for the ODE.
+\end{assumption}
+
+This assumption is reasonable for the following two reasons.
+\begin{enumerate}
+	\item Numerics show that a single pulse solution exists for a wide range of speeds $c$.
+	\item We know that $\dim W^s(0) = \dim E^s = 2$ and $\dim W^u(0) = \dim E^u = 2$. Since we are in $\R^4$, $\dim H^{-1}(0) = 3$. Since the intersection $W^s(0) \cap W^u(0)$ must contain $q'(0; c_0)$, the derivative of the pulse, it must have at least dimension 1. Since $W^s(0) + W^u(0) \in \dim H^{-1}(0)$, we have
+	\begin{align*}
+	\dim( W^s(0) + W^u(0) ) &= \dim W^s(0) + \dim W^u(0) - \dim W^s(0) \cap W^u(0) \\
+	&= 2 + 2 - 1 = 3 \leq \dim H^{-1}(0)
+	\end{align*}
+\end{enumerate}
+
+What does this assumption get us?
+\begin{enumerate}
+	\item A single pulse solution $q(x; c)$ exists for $c = c_0$. Since energy is conserved and the energy at $U = 0$ is zero, any pulse solution must be contained in the set $H^{-1}(0)$. Furthermore, the stable and unstable manifolds $W^s(0; c_0)$ and $W^u(0; c_0)$ must be contained in $H^{-1}(0)$ since these contain trajectories which approach $U = 0$ as $x \rightarrow \pm \infty$. Any pulse solution must leave 0 via the unstable manifold and approach 0 by the stable manifold.	Since a pulse solution is continuous, the stable and unstable manifolds must intersect somewhere along the pulse. We might as well take that point of intersection to happen when $x = 0$, i.e. at the point $q(0, c_0)$. Note that existence of a pulse solution does not require transverse intersection, only intersection.
+	\item Transverse intersection makes it likely (although we still need to prove it) that the intersection of stable and unstable manifolds persists for $c$ near $c_0$. Numerics suggests that this is indeed the case.
+\end{enumerate}
+
+The next assumption allows us to define a manifold locally in $H^{-1}(0)$ at $q(0; c_0)$. 
+
+\begin{assumption}\label{DHnonzero}
+For the speed $c_0$ from above, and the Hamiltonian \eqref{Hamiltonian}, $DH(q(0; c_0)) \neq 0$.
+\end{assumption}
+
+We might not actually need this assumption since we actually have the Hamiltonian in explicit form. Since $H$ is a function of $(u, u', u'', u''')$, its total derivative is
 
 \[
-U(x) = e^{A(c)x}a + \int_\infty^x e^{A(c)(x - y)}P(c)^u N(U(y))dy + \int_0^x e^{A(c)(x - y)}P(c)^s N(U(y))dy
+DH = (cu - u^2, u''' - u', -u'', u')
 \]
 
-where $a = P(c)^s u_0$, the stable projection of the initial condition. \\
+To evaluate this at $q(0; c_0)$, note that this point is the peak (maximum) of the single pulse and the single pulse is an even function, so all odd derivatives are zero there. Letting $q_0 = q(0; c_0)$ for convenience, we have
 
-NOTE: I DON'T THINK THE DEFINITIONS OF THE SPACE $B_1$ AND THE MAP $F$ ARE EXACTLY WHAT WE WANT. I HAVE LEFT IT THIS WAY TO SHOW WHAT I WAS THINKING. AFTER ALL OF THIS, I REVISIT THIS AND REDEFINE THEM SLIGHTLY TO WHAT I THINK WE WANT. IN ANY CASE, EVERYTHING SHOULD STILL HOLD WITH THE SMALL MODIFICATION MENTIONED BELOW.\\
+\[
+DH(q_0) = (q_0(c -q_0), 0, -q_0'', 0)
+\]
+Since $q_0$ is a local maximum, the second derivative cannot be 0, so this must be nonzero.\\
+
+\begin{lemma}The zero level set of the Hamiltonian $H^{-1}(0)$ contains a 3-dimensinal manifold in a neighborhood of $q(0; c_0)$.
+\begin{proof}
+By Assumption \ref{DHnonzero} (or our argument after that), $DH(q(0; c_0)) \neq 0$. Since $H$ is a scalar function of $(u_1, u_2, u_3, u_4)$, this implies that one of the four components of $DH(q(0; c_0))$ is nonzero, say the $u_4$ component. Then by the IFT, we can write $u_4$ locally as a graph over $(u_1, u_2, u_3)$. Let $q(0; c_0) = (q_1, q_2, q_3, q_4)$. Then there exists a unique $C^1$ function $g: U \rightarrow \R$, where $U$ is an open neighborhood of $(q_1, q_2, q_3)$, such that $g(q_1, q_2, q_3) = q^4$ and $H(q_1, q_2, q_3, g(q_1, q_2, q_3) ) = 0$ on $U$. The three-dimensional surface:
+
+\[
+\{ (q_1, q_2, q_3, g(q_1, q_2, q_3)) (q_1, q_2, q_3) \in U \}
+\]
+
+is our desired manifold, which is contained in $H^{-1}(0)$.
+
+\end{proof}
+\end{lemma}
+
+We will show that $q_c(x)$ exists and is exponentially localized in a series of lemmas.\\
+
+\begin{lemma}\label{transverseint}
+For $c$ near $c_0$, the transverse intersection of manifolds is preserved. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$, i.e. for $c \in (c_0 - \delta, c_0 + \delta)$ for some $\delta > 0$. 
+\begin{proof}
+By Assumption \ref{transverseint}, $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at the point $q(0; c_0)$. For convenience, let $q_0 = q(0; c_0)$. By the prior lemma, the level set $H^{-1}(0)$ contains a 3-dimensional manifold $M(c_0)$ in a neighborhood of this intersection point. Since $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at this intersection point, this means that
+
+\[
+T_{q_0} W^u(0; c_0) + T_{q_0} W^s(0; c_0) = T_{q_0} M
+\]
+
+The intersection of the tangent spaces of the manifolds $W^u(0; c_0)$ and $W^s(0; c_0)$ is thus one-dimensional, and is the span of the single vector $w(c_0) = q'(0; c_0)$. This leaves each tangent space with another linearly independent vector. Let $v^u(c_0)$ and $v^s(c_0)$ be these vectors. Note that $v(c_0)$, $v^u(c_0)$, and $v^s(c_0)$ are linearly independent.
+\\
+
+I think the rough idea is as follows.
+\begin{enumerate}
+	\item We perturb $c_0$ a small amount to $c$.
+	\item Since our system is smooth, the stable and unstable manifolds vary smoothy with $c$. 
+	\item Perturbing the stable manifold perturbs $v^s(c_0)$ to $v^s(c)$ and $w(c_0)$ to $w^s(c)$. As long as the perturbation is small enough, these will remain linearly independent by continuity.
+	\item Perturbing the unstable manifold perturbs $v^u(c_0)$ to $v^u(c)$ and $w(c_0)$ to $w^u(c)$. As long as the perturbation is small enough, these will remain linearly independent by continuity.
+	\item As long as the perturbation is small enough, $v^s(c)$ and $v^u(c)$ will remain linearly independent, and $w^u(c)$ and $w^s(c)$ will remain linearly independent from them, again by continuity.
+	\item All four of these vectors must be contained in a 3-dimensional space, sice $H^{-1}(0)$ is 3-dimensional, which forces $w^u(c)$ and $w^s(c)$ to be linearly dependent.
+	\item This means the transverse intersection is preserved.
+\end{enumerate} 
+
+Of course, this is not at all precise. So let's try to fix that.\\
+
+The (parameter-dependent) stable manifold theorem says that for \eqref{nonlinearsystem} we can find constants $\rho > 0$, $M \geq 1$, and $\delta > 0$ and a smooth map (since \eqref{nonlinearsystem} is smooth) 
+\[
+h: \{ u_0 \in E^s(c_0) : |u_0| \leq \rho / 2M \} \times (c_0 - \delta, c_0 + \delta) \rightarrow E^u(c_0) 
+\]
+such that the local stable manifold $W^s_{loc}(0; c)$ is the graph of $h$ (with domain where $h$ is defined). We can do the same thing with the local unstable manifold. The key here is that this depends smootly on $c$.\\
+
+THIS IS ALL A LITTLE SKETCHY. Let $\Phi(x; c)$ be the solution operator for \eqref{nonlinearsystem}, which depends smoothly on $c$. We can find $\tilde{x}$ such that $\tilde{F} q_0 = \Phi(\tilde{x}, c_0) q_0 \in W^s_{loc}(c_0)$. Thus $\Phi(\tilde{x}, c_0)$ is a smooth map from $M$ to $W^s_{loc}(c_0)$, so the differential $D\tilde{F}$ should be a linear map between the two tangent spaces $T_{q_0}M$ and $T_{\tilde{F} q_0} W^s_{loc}(c_0)$. We should have another smooth map $\tilde{G}$ between $W^s_{loc}(c_0)$ and $W^s_{loc}(c)$ which should be something like $\tilde{G}(x) = h( h^{-1}(x; c_0), c)$. So then $D\tilde{G}$ should be a linear map between the relevant tangent spaces. Finally we have another smooth map which sends us backwards on the stable manifold, something like $\tilde{H} = \Phi^{-1}(\tilde{y},c)$, where I don't think $\tilde{y} = \tilde{x}$ necessarily but can be chosen so that we get back to $x = 0$. So the smooth map we want should be the composition of these three maps.
+
+\end{proof}
+\end{lemma}
+
+\begin{lemma}\label{qcexists}
+$q(x; c)$ is differentiable in $c$ for all $c$ near $c_0$ and for all $x$. 
+\begin{proof}
+Let $\Phi(x; c)$ be the solution operator for \eqref{nonlinearsystem}, where the initial condition is given at $x = 0$. Taking the initial condition to be $q(0; c)$, by the property of the solution operator, for $c$ near $c_0$, $q(x; c) = \Phi(x; c)q(0; c)$.\\
+
+By the existence and uniqueness theorem, $\Phi(x; c)$ is smooth in $c$ since the the RHS of \eqref{nonlinearsystem} is $C^\infty$ in $c$ (since $A(0; c)$ is a linear function of $c$ and $N(u)$ does not involve $c$ at all). By Lemma 1, $q(0; c)$ is smooth in $c$.
+\end{proof}
+\end{lemma}
+
+\begin{lemma}\label{derivatives}
+For $c_0 > 0$, $c_0 \neq 1/4$, the functions $e^{A(c)x}P^s(c)$ and $e^{A(c)x}P^u(c)$ are differentiable with respect to the speed $c$ at $c = c_0$. $A(c) = A(0; c)$, $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$, and $P^s(c)$ and $P^u(c)$ are the stable and unstable projections onto the stable and unstable eigenspaces of $A(c)$. 
+\begin{proof}
+We will only show this for $e^{A(c)x}P^s$, since the other is similar. We will find the derivatives of the two functions separately and then use the product rule, which is valid for Frechet derivatives. Since $e^{A(c)x}$ and $P^s(c)$ are both matrices, this should work fine.\\
+
+For the matrix exponential, we can write it as:
+\[
+e^{A(c)x} = e^{(A(0) + Bc)x} = e^{A(0)x}e^{Bcx}
+\]
+where 
+\[
+B = \begin{pmatrix}0&0&0&0\\0&0&0&0\\0&0&0&0\\-1&0&0&0\end{pmatrix}
+\]
+Thus the derivative with respect to $c$ is
+\[
+\frac{\partial}{\partial c} e^{A(c)x} = e^{A(0)x}e^{Bcx}Bx = e^{A(c)x} Bx
+\]
+Thus $e^{A(c)x}$ is differentiable for all values of $c$. I am not sure whether this shows the Frechet derivative exists in the weighted space $X_\eta$ ($\eta$ to be chosen), but we can show that directly.
+
+\begin{align*}
+\lim_{|h| \rightarrow 0} &\left| \frac{e^{\eta x}}{h} \left( e^{A(c+h)x} - e^{A(c)x} - h e^{A(c)x} Bx  \right) \right|  \\
+&= e^{\eta x} e^{A(0)x}\lim_{|h| \rightarrow 0} \left| \frac{1}{h} \left( e^{B(c+h)x} - e^{Bcx} - h e^{Bcx} Bx  \right) \right| \\
+&= e^{\eta x} e^{A(0)x}e^{Bcx}\lim_{|h| \rightarrow 0} \left| \frac{1}{h} \left( e^{Bhx} - 1 - h Bx  \right) \right| \\ 
+&= e^{\eta x} e^{A(c)x} \lim_{|h| \rightarrow 0} \left| \frac{1}{h} \left( e^{Bhx} - 1 - h Bx  \right) \right| 
+\end{align*}
+
+If we choose $\eta$ such that $0 < \eta < \text{Re} \lambda$ for all stable eigenvalues $\lambda$ of $A(c)$, $e^{\eta x} e^{A(c)x}$ is uniformly bounded in $x$. (This will be the case when we choose $\eta$ below.) Since the limit on the RHS is bounded, we have shown that $e^{A(c)x} Bx$ is the Frechet derivative in the weighted space $X_\eta$.\\
+
+The projection is a little trickier. Since it does not depend on $x$, we don't have to worry about Frechet derivatives or exponentially weighted spaces. First, write the stable projecion $P^s(c)$ as
+
+\[
+P^s(c) = P^1(c) + P^2(c)
+\]
+
+where $P^1(c)$ + $P^2(c)$ are the projections onto the eigenspaces spanned $v_1^s(c)$ and $v_2^s(c)$, respectively. We are assuming $c \neq 1/4$, so these vectors are linearly independent since the corresponding eigenvalues are distinct. It suffices to show differentiability at $c_0$ for $P^1(c)$ since $P^2(c)$ is similar. Following Kato (1976), we will look at small perturbations of the operator $A(c_0)$:
+
+\[
+T(h) = A(c_0) + h B
+\]
+
+where $h \in R$ is small. This only perturbs the speed, which is what we want. The unperturbed operator is $T(0) = A(c_0)$. Let $\lambda = \nu^1(c_0)$, and let $\Gamma$ be a positively-oriented circle enclosing no other eigenvalues of $A(c_0)$. Since $c_0 \neq 1/4$, the eigenvalues of $A(c_0)$ are distinct, so we can always so this. For sufficiently small $h$, by (1.16) on p. 67 in Kato (1976), the eigenprojection onto $v_1^s(c_0 + h)$ is given by 
+
+\[
+P(h) = -\frac{1}{2 \pi i} \int_\Gamma R(\zeta, h) d \zeta
+\]
+
+where $R(\zeta, h) = (T(h) - \zeta)^{-1}$ is the resolvent operator and exists on $\Gamma$ or sufficiently small $h$. Since $T(h)$ is differentiable at $h = 0$ ($T'(h) = B$), by Theorem 5.4 on p. 111 of Kato (1976), $P(h)$ is differentiable at $h = 0$, and the derivative is given by
+\[
+P'(0) = -P T'(0) S - S T'(0) P = -P B S - S B P
+\]
+where $P = P^1(c_0)$ is the unperturbed projection and $S$ is the reduced resolvent of $T$ for $\lambda$ (defined on p. 40 of Kato. I think to get this you take the Laurent series for the resolvent and ditch the terms with negative powers. Since this is just some matrix, I think we are all set).\\
+
+By construction, the derivative of $P^1(c)$ with respect to $c$ at $c = c_0$ is equal to $P'(0)$, thus $(P^1)'(c_0)$ exists. Similarly,$(P^2)'(c_0)$ exists, and so $(P^s)'(c_0)$ exists, with
+\[
+(P^s)'(c_0) = (P^1)'(c_0) + (P^2)'(c_0)
+\]
+
+By the product rule,
+
+\begin{align*}
+\frac{\partial}{\partial c} e^{A(c)x}P^s(c)\Big|_{c = c_0} &= e^{A(c_0)x} B x P^s(c_0) + e^{A(c_0)x} (P^s)'(c_0) \\
+&= e^{A(c_0)x} ( BxP^s(c_0) + (P^s)'(c_0) )
+\end{align*}
+
+\end{proof}
+\end{lemma}
+
+\begin{lemma}\label{qc}
+For the stationary, single-pulse solution $q(x; c)$ to the 5th order KdV equation in a frame moving with velocity $c$, the derivative $q_c(x)$ of the pulse with respect to $c$ is exponentially localized, thus $q_c(x) \in L^2(\R)$.
+\begin{proof}
+$q_c(x)$ exists for $c$ near $c_0$ by Lemma \ref{qcexists}, so we need to show that it is exponentially localized.\\
+
+We proceed as in the proof of the stable manifold theorem (parameter-dependent version). We use an exponentially weighted function space $X_\eta$, defined above, and the exponential weight $\eta > 0$ will be chosen later.\\
+
+Next we write \eqref{nonlinearsystem} in integrated form. For convenience, let $A(c) = A(0; c)$, so that the matrix exponential $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$. Let $P^s(c)$ and $P^u(c)$ be the stable and unstable projections onto the stable and unstable eigenspaces of $A(c)$. Then as long as $|U(x)|$ is uniformly bounded for $x \geq 0$, say $|U(x)| \leq \rho$ for $x \geq 0$, then $U(x)$ is given by
+
+\[
+U(x) = e^{A(c)x} P^s(c) a + \int_\infty^x e^{A(c)(x - y)}P^u(c) N(U(y))dy + \int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy
+\]
+
+where $a$ is the initial condition. Note that $U$ will depend on $c$, but that (our specific case), $N$ does not.\\
 
 First we define the spaces
+
 \begin{align*}
 B_1 &= (c_0 - \delta, c_0 + \delta) \\
-B_2 &= \{ a \in E(c)^s : c \in B_1 \text{ and } |a| \leq \rho/2M \} \\
+B_2 &= \{ a \in \R^n : |P^s(c) a| \leq \rho/2M \text{ for all } c \in B_1\} \\
 D &= \{ u \in X_\eta : ||u||_\eta \leq \rho \}
 \end{align*}
 
@@ -173,20 +325,28 @@ where $\delta$ is the constant from Lemma \ref{transverseint}. Next define
 L_\eta(\rho) = \max \{ || DN(u) || : ||u||_\eta \leq \rho \}
 \]
 
-Note that since we are on the domain $[0, \infty)$ and $\eta > 0$, $|u(x)| \leq |u(x)e^{\eta x}|$ and so $||u|| \leq ||u||_\eta$. Since $N \in C^1$ and $||u|| \leq \rho$, $L(\rho)$ is well-defined and finite. (In this case, we know exactly what $N$ is. The Jacobian matrix $DN$ consists entirely of zeros except for one entry which is $2 u_1$, so here we have $L(\rho) \leq 2 \rho$.) From this, we can get a bound on $|N(u)|$ for $u$ with $||u||_\eta \leq \rho$. Since $N \in C^1$ and $N(0) = 0$,
+Note that since we are on the domain $[0, \infty)$ and $\eta > 0$, $|u(x)| \leq |u(x)e^{\eta x}|$ and so $||u|| \leq ||u||_\eta$. Since $N \in C^1$ and $||u|| \leq \rho$, $L(\rho)$ is well-defined and finite. (In this case, we know exactly what $N$ is. The Jacobian matrix $DN$ consists entirely of zeros except for one entry which is $2 u_1$, so here we have $L(\rho) \leq 2 \rho$.) From this, we can get a bound on $|N(U(x))|$ for $U$ with $||U||_\eta \leq \rho$. Let $U \in D$ and fix $x \geq 0. $Since $N \in C^1$ and $N(0) = 0$,
 
 \begin{align*}
-|N(u)| &= |N(u) - N(0)| \\
-&= \left| \int_0^1 DN(t u) tu du \right| \\
-&\leq  \int_0^1 ||DN(tu)|| \: |u| t dt \\
-&\leq L(\rho) |u|
+|N(U(x))| &= |N(U(x)) - N(0)| \\
+&= \left| \int_0^1 DN(t U(x)) t U(x) du \right| \\
+&\leq  \int_0^1 ||DN(tU(x))|| \: |U(x)| t dt \\
+&\leq L(\rho) |U(x)|
 \end{align*}
 
-Multiplying both sides by $e^{\eta x}$ gives us $|N(u) e^{\eta x}| \leq L(\rho) e^{\eta x}$, and taking the supremum in $x$ gives us the bound
+Multiplying both sides by $e^{\eta x}$ gives us the bound (pointwise in $x$, for $x \geq 0$)
 
 \[
-||N(U)||_\eta \leq L(\rho) ||U||_\eta
+|N(U(x)) e^{\eta x}| \leq L(\rho)|U(x) e^{\eta x}|
 \]
+
+taking the supremum in $x$ gives us the bound
+
+\[
+||N(U)||_\eta \leq L(\rho) ||U||_\eta \leq L(\rho) \rho
+\]
+
+where everything is finite since we are assuming $U \in D$.\\
 
 Note that since $DN(0) = 0$ and $N \in C^1$, $DN(u) \rightarrow 0$ as $u \rightarrow 0$, thus by the definition of $L(\rho)$, $L(\rho) \rightarrow 0$ as $\rho \rightarrow 0$. We also have for $U, V$ with $||U||_\eta, ||V||_\eta \leq \rho$
 
@@ -198,63 +358,63 @@ which is a consequence of the mean value inequality.\\
 Since for $c > 0$ the matrix $A(c)$ is hyperbolic and since the eigenvalues of $A(c)$ are continuous functions of $c$, we can find $\alpha^s, \alpha^u > 0$ such that for all $c \in B_1$, all eigenvalues of $A(c)$ lie outside the open interval $(-\alpha^s, \alpha^u)$. For $c \in B$, we have the estimates
 
 \begin{align*}
-||e^{A(c)x}P(c)^s|| &\leq Me^{-\alpha^s x} && x \geq 0\\
-||e^{A(c)x}P(c)^u|| &\leq Me^{\alpha^u x} && x \leq 0
+||e^{A(c)x}P^s(c)|| &\leq Me^{-\alpha^s x} && x \geq 0\\
+||e^{A(c)x}P^u(c)|| &\leq Me^{\alpha^u x} && x \leq 0
 \end{align*}
 
 Now we define the map $F: D \times B_1 \times B_2 \rightarrow X_\eta$ by
 
 \begin{equation}\label{F}
-[F(U, c, a)](x) = e^{A(c)x}a + \int_\infty^x e^{A(c)(x - y)}P(c)^u N(U(y))dy + \int_0^x e^{A(c)(x - y)}P(c)^s N(U(y))dy
+[F(U, c, a)](x) = e^{A(c)x} P^s(c) a + \int_\infty^x e^{A(c)(x - y)}P^u(c) N(U(y))dy + \int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy
 \end{equation}
 
 First we show that $F$ is well-defined, i.e. it actually maps into $X_\eta$. We will look at each term on the RHS separately. Recall that since the domain of $F$ is $D$, we always have $||U||_\eta \leq \rho$.
 
 \begin{align*}
-|e^{\eta x} e^{A(c)x }a| &\leq M e^{\eta x} e^{-\alpha^s x} |a|\\
-&= M e^{(\eta - \alpha^s)x} |a|
+|e^{\eta x} e^{A(c)x } P^s(c) a | &\leq M e^{\eta x} e^{-\alpha^s x} | P^s(c) a |\\
+&= M e^{(\eta - \alpha^s)x} | P^s(c) a|
 \end{align*}
-For this to be uniformly bounded in $x$, we require $\eta \leq \alpha^s$, in which case we have $||e^{A(c)x}a ||_\eta \leq M|a|$.
+For this to be uniformly bounded in $x$, we require $\eta \leq \alpha^s$, in which case we have $||e^{A(c)x}a ||_\eta \leq M| P^s(c) a |$.
 
 \begin{align*}
-\left| e^{\eta x} \int_\infty^x e^{A(c)(x - y)}P(c)^u N(U(y))dy \right| &= \left| \int_\infty^x e^{\eta x} e^{A(c)(x - y)}P(c)^u N(U(y))dy \right|\\
+\left| e^{\eta x} \int_\infty^x e^{A(c)(x - y)}P^u(c) N(U(y))dy \right| &= \left| \int_\infty^x e^{\eta x} e^{A(c)(x - y)}P^u(c) N(U(y))dy \right|\\
 &\leq \int_x^\infty M e^{\eta x}e^{\alpha^u(x -y)}|N(U(y))|dy \\
 &= M \int_x^\infty e^{\eta (x - y)}e^{\alpha^u(x -y)}| e^{\eta y} N(U(y))|dy \\
 &\leq M \int_x^\infty e^{(\eta+\alpha^u)(x - y)} || N(U)||_\eta dy \\
 &\leq M L(\rho) ||U||_\eta \int_x^\infty e^{(\eta+\alpha^u)(x - y)} dy \\
-&= M L(\rho) ||U||_\eta \frac{1}{\eta+\alpha^u}
+&= M L(\rho) ||U||_\eta \frac{1}{\alpha^u + \eta}
 \end{align*}
 
 Since $\eta$ and $\alpha^u$ are both positive, this imposes no additional restrictions on $\eta$.
 
 \begin{align*}
-\left| e^{\eta x} \int_0^x e^{A(c)(x - y)}P(c)^s N(U(y)) \right| &= \left| \int_0^x e^{\eta x} e^{A(c)(x - y)}P(c)^s N(U(y)) dy \right|\\
+\left| e^{\eta x} \int_0^x e^{A(c)(x - y)}P^s(c) N(U(y)) \right| &= \left| \int_0^x e^{\eta x} e^{A(c)(x - y)}P^s(c) N(U(y)) dy \right|\\
 &\leq \int_0^x M e^{\eta x}e^{-\alpha^s(x -y)}|N(U(y))|dy \\
 &= M \int_0^x e^{\eta (x - y)}e^{-\alpha^s(x -y)}| e^{\eta y} N(U(y))|dy \\
 &\leq M \int_0^x e^{(\eta-\alpha^s)(x - y)} || N(U)||_\eta dy \\
 &\leq M L(\rho) ||U||_\eta \int_0^x e^{(\eta-\alpha^s)(x - y)} dy \\
-&= M L(\rho) ||U||_\eta \frac{1 - e^{(\eta-\alpha^s)x} }{\eta-\alpha^s}
+&= M L(\rho) ||U||_\eta \frac{1 - e^{(\eta-\alpha^s)x} }{\alpha^s - \eta}
 \end{align*}
 
 Since $x \geq 0$, as long as $\eta < \alpha^s$ (we have this condition from above), $0 < e^{(\eta-\alpha^s)x} < 1$, thus we have
 
 \[
-\left| e^{\eta x} \int_0^x e^{A(c)(x - y)}P(c)^s N(U(y)) \right| \leq M L(\rho) ||U||_\eta \frac{1}{\eta-\alpha^s}
+\left| e^{\eta x} \int_0^x e^{A(c)(x - y)}P^s(c) N(U(y)) \right| \leq M L(\rho) ||U||_\eta \frac{1}{\alpha^s - \eta}
 \]
 
 Putting all of this together and taking the supremum over $x \in [0, \infty)$, we have for $||U||_\eta \leq \rho$
 
 \begin{equation}
-||F(U, c, a)](x)||_\eta \leq M |a| + M L(\rho) \left( \frac{1}{\eta+\alpha^u}+\frac{1}{\eta-\alpha^s} \right) ||U||_\eta
+||F(U, c, a)](x)||_\eta \leq M |a| + M L(\rho) \left( \frac{1}{\alpha^u+\eta}+\frac{1}{\alpha^s-\eta} \right) ||U||_\eta
 \end{equation}
 
-Since everything on the RHS is finite, we have shown that the codomain of $F$ is in fact $X_\eta$, so $F$ is well-defined. Since $a \in B_2$, $|a| \leq \rho/2M$. Since $L(\rho) \rightarrow 0$ as $\rho \rightarrow 0$, we can choose $\rho$ sufficiently small so that $L(\rho) < \frac{1}{2M} \left( \frac{1}{\eta+\alpha^u}+\frac{1}{\eta-\alpha^s} \right)^{-1}$. Having done this, and using the fact that $||U||_\eta \leq \rho$, we obtain the bound $||F(U, a, c)](x)||_\eta \leq \rho$. Thus for this choice of $\rho$ we actually have $F: D \times B_2 \times B_1 \rightarrow D$, which is what we want.\\
+Since everything on the RHS is finite, we have shown that the codomain of $F$ is in fact $X_\eta$, so $F$ is well-defined. Since $a \in B_2$, $|P^s(c) a| \leq \rho/2M$. Since $L(\rho) \rightarrow 0$ as $\rho \rightarrow 0$, we can choose $\rho$ sufficiently small so that $L(\rho) < \frac{1}{2M} \left( \frac{1}{\eta+\alpha^u}+\frac{1}{\eta-\alpha^s} \right)^{-1}$. Having done this, and using the fact that $||U||_\eta \leq \rho$, we obtain the bound $||F(U, a, c)](x)||_\eta \leq \rho$. Thus for this choice of $\rho$ we actually have $F: D \times B_2 \times B_1 \rightarrow D$, which is what we want.\\
 
 Now we need to show that $F: D \times B_2 \times B_1 \rightarrow D$ is a uniform contraction. For $U, V \in D$, following what we did above, 
 
 \begin{align*}
 | &e^{\eta x} ( F(U, c, a) - F(V, c, a) ) | \\
-&= \left| \int_\infty^x e^{\eta x} e^{A(c)(x - y)}P(c)^u [N(U(y)) - N(V(y))]dy + \int_0^x e^{\eta x} e^{A(c)(x - y)}P(c)^s[N(U(y)- N(V(y))]dy \right| \\
+&= \left| \int_\infty^x e^{\eta x} e^{A(c)(x - y)}P^u(c) [N(U(y)) - N(V(y))]dy + \int_0^x e^{\eta x} e^{A(c)(x - y)}P^s(c)[N(U(y)- N(V(y))]dy \right| \\
 &\leq M L(\rho) \left( \int_x^\infty e^{(\eta + \alpha^u)(x-y)}||U - V||_\eta dy + \int_0^x e^{(\eta - \alpha^s)(x-y)}||U - V||_\eta dy \right) \\
 &= ML(\rho)||U - V||_\eta \left( \frac{1}{\eta + \alpha^u}+\frac{1}{\eta-\alpha^s} \right) \\
 &\leq \frac{1}{2} ||U - V||_\eta 
@@ -265,7 +425,7 @@ where in the last line we used our choice of $\rho$ from above. Since this is in
 What does this get us? We note the following
 
 \begin{enumerate}
-	\item For each speed $c \in B_1$ and initial condition $a \in B_2$, $u(x) = G(c, a)(x)$ is the unique solution on $[0, \infty)$ to KdV5 with speed $c$ and initial condition $P(c)^s u(0) = a$ (this is actually the projection of the IC on the stable eigenspace).
+	\item For each speed $c \in B_1$ and initial condition $a \in B_2$, $u(x) = G(c, a)(x)$ is the unique solution on $[0, \infty)$ to KdV5 with speed $c$ and initial condition $a$.
 
 	\item $G(c, a)(x) \in D$, which implies $\sup_{x \in [0, \infty)} |e^{\eta x} G(c, a)(x)| \leq \rho$. In other words, for all $c \in B_1$, $a \in B_2$, and $x \geq 0$
 	\begin{equation}
@@ -276,65 +436,39 @@ What does this get us? We note the following
 	\item $G(c, a)$ is as smooth as $F$ in $c$ and $a$.
 \end{enumerate}
 
-The key (I think) is this last property (smoothness). We would like the map $G$ to be differentiable in $c$. For now, let's assume $G$ is differentiable in $c$, and make sure that gives us the result we want. Note that the codomain of $G$ is $D$ (not $\R$), so when we say ``differentiable in $c$'', we mean the Frechet derivative. So let's write that down at $c = c_0$. Note that if we keep $a$ fixed, we have a map from (a subset of) $\R$ to $D$. Then the following limit exists
+The key is this last property (smoothness). We would like the map $G$ to be differentiable in $c$. Let's first show that is indeed what we want. Then we will show that $F$ is smooth in $c$, implying $G$ is as well.\\
 
-\begin{align*}
-\lim_{h \rightarrow 0} \frac{1}{|h|} || G(c_0 + h, a) - G(c_0, a) - f(h)||_\eta = 0
-\end{align*}
+Recall that for $c = c_0$, a homoclinic orbit $q(x; c_0)$ exists. By the stable manifold theorem, since $q(x; c_0)$ is contained in the stable manifold $W^s(0; c_0)$, we can find $\tilde{x} \geq 0$ such that $q(x; c_0) \leq \rho$ for all $x \geq \tilde{x}$. Let $a_0 = q(\tilde{x}; c_0)$ be our initial condition. Then by uniqueness of the map $G$, we have 
 
-where $f: B_1 \subset \R \rightarrow D$ is a bounded linear operator. This is equivalent (I believe, since we are in a metric space and the distance function is continuous) to 
-\begin{align*}
-\lim_{h \rightarrow 0} \frac{1}{|h|} || G(c_0 + h, a) - G(c_0, a)||_\eta &= \lim_{h \rightarrow 0} \frac{||f(h)||_\eta}{|h|} \\
-&\leq \lim_{h \rightarrow 0} \frac{R|h|}{|h|} = R
-\end{align*}
-where in the last line we used the fact that $f$ is a bounded linear operator.\\
+\[
+G(c_0, a_0)(x) = q(\tilde{x} + x; c_0)
+\]
 
-In particular, since the RHS is the supremum over $x \geq 0$, this holds for all $x$. Thus for all $x \geq 0$, 
+Taking the derivative with respect to $c$,
 
-\begin{align*}
-\lim_{h \rightarrow 0} \frac{1}{|h|} |G(c_0 + h, a)(x) - G(c_0, a)(x)| e^{\eta x} &\leq R \\
-\lim_{h \rightarrow 0} \frac{1}{|h|} |G(c_0 + h, a)(x) - G(c_0, a)(x)| &\leq R e^{-\eta x} \\
-\end{align*}
+\[
+G_c(c_0, a_0)(x) = q_c(\tilde{x} + x; c_0)
+\]
 
-The limit on the LHS looks like the derivative with respect to $c$ at $c_0$. \\
+For fixed $a_0$, $G$ maps $B_1 \rightarrow X_\eta$. The Frechet derivative $G_c$ is a bounded linear map from the tangent space of $B_1$ (which is $\R$, since $B_1 \subset \R$) to the tangent space of $X_\eta$ (which is isomorphic to $X_\eta$ itself since $X_\eta$ is a Banach space). We thus have for a perturbation $h \in R$
 
-But we have a problem here (I think). Recall that we set the problem up in such a way that the initial condition $a$ lives on $E(c)^s$, but if with start with $a \in E(c_0)^s$ and change to $c$ near $c_0$, we do not expect $a \in E(C)^s$. So we need to make some modifications to the above so that the initial condition $a$ makes sense. Here is one possibility.\\
+\[
+G_c(c_0, a_0)h = q_c(\tilde{x} + \cdot \: ; c_0) h
+\]
 
-Redefine our spaces as follows.
+Thus since $G_c(c_0, a_0)$ is a bounded linear operator, $q_c(\tilde{x} + \cdot \: ; c_0) \in X_\eta$, and so the function $q_c(\tilde{x} + x ; c_0)$ decays exponentially in $x$. Since all we care about is asymptotic behavior, we conclude that $q_c(x ; c_0)$ decays exponentially in $x$.\\
 
-\begin{align*}
-B_1 &= (c_0 - \delta, c_0 + \delta) \\
-B_2 &= \{ a \in \R^n : |P(c)^s a| \leq \rho/2M \text{ for all } c \in B_1\} \\
-D &= \{ u \in X_\eta : ||u||_\eta \leq \rho \}
-\end{align*}
+All we need to do to complete the proof is show that the map $F$ is smooth in $c$. For convenience, we restate the definition of the map $F$.\\
 
-Then redefine the map $F: D \times B_1 \times B_2 \rightarrow X_\eta$ by
-
-\begin{equation}\label{F}
-[F(U, c, a)](x) = e^{A(c)x} P(c)^s a + \int_\infty^x e^{A(c)(x - y)}P(c)^u N(U(y))dy + \int_0^x e^{A(c)(x - y)}P(c)^s N(U(y))dy
+\begin{equation}
+[F(U, c, a)](x) = e^{A(c)x} P^s(c) a + \int_\infty^x e^{A(c)(x - y)}P^u(c) N(U(y))dy + \int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy
 \end{equation}
 
-This should work since the initial condition now gets projected onto the correct stable eigenspace. Everything above still holds since the estimates are exactly the same. So now we should be okay and can continue where we left off.\\
+From Lemma \ref{derivatives}, $e^{A(c)x} P^s(c)$ is differentiable at $c = c_0$, thus we are all set with the first term on the RHS. For the second two terms, $N(U(y))$ does not depend on $c$, so we have the same two terms $e^{A(c)x} P^s(c)$ and $e^{A(c)x} P^u(c)$ inside the integral, both of which are differentiable at $c = c_0$ by Lemma \ref{derivatives}. Thus all we have to do is make sure we can pass the derivative inside the integral sign. Since these are Frechet derivatives in a weighted Banach space, I'm not exactly sure how this works, but my guess is that since both integrands are bounded (when multiplied by the exponential weight) by an integrable function (as we showed above when we found a bound for $||F||^\eta$), we have an analogue of the DCT and can do this.\\
 
-Recall that for $c = c_0$ a homoclinic orbit $q(x; c_0)$ exists. By the stable manifold theorem, since $q(x; c_0)$ is contained in the stable manifold $W^s(0; c_0)$, we can find $\tilde{x} \geq 0$ such that $q(x; c_0) \leq \rho$ for all $x \geq \tilde{x}$. Let $a = q(\tilde{x}; c_0)$ be our initial condition. Then by uniqueness of the map $G$, we have $G(c_0, a)(x) = q(\tilde{x} + x; c_0)$. Thus we have
+Thus we have (I think) shown that $F$ is differerentiable in $c$.
 
-\begin{align*}
-\left| \lim_{h \rightarrow 0} \frac{q(\tilde{x} + x; c_0 + h) - q(\tilde{x} + x; c_0)}{h} \right| &\leq R e^{-\eta x} \\
-\end{align*}
-
-We proved above that the derivative $q_c(x)$ exists at $c = c_0$. The limit on the LHS is therefore this derivative, and so we have
-
-\begin{align*}
-\left| \frac{\partial}{\partial c}q(\tilde{x} + x)\Big|_{c = c_0} \right| &\leq R e^{-\eta x} \\
-\end{align*}
-
-which shows that $q_c(x)$ at $c = c_0$ decays exponentially as $x \rightarrow \infty$.\\
-
-All we need to do to complete the proof is show that the map $F$ is differentiable with respect to $c$.\\
-
-FILL IN DETAILS HERE.\\
-
-We can similarly show (by, say, replacing $x$ with $-x$), that $q_c(x)$ at $c = c_0$ decays exponentially as $x \rightarrow -\infty$. From this, we have the additional condition that $\eta < \alpha^u$. Thus as long as $0 < \eta < \alpha^s, \alpha^u$, we are all set.
+We can similarly show (by, say, replacing $x$ with $-x$), that $q_c(x)$ at $c = c_0$ decays exponentially as $x \rightarrow -\infty$. From this, we will have the additional condition that $\eta < \alpha^u$. Thus as long as $0 < \eta < \alpha^s, \alpha^u$, we are all set.
 
 \end{proof}
 \end{lemma}
