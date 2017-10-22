@@ -4,7 +4,7 @@
 \usepackage[shortalphabetic]{amsrefs}%
 \usepackage{amsmath}
 \usepackage{enumerate}
-\usepackage{enumitem}
+% \usepackage{enumitem}
 \usepackage{amssymb}                
 \usepackage{amsmath}                
 \usepackage{amsfonts}
@@ -178,7 +178,7 @@ This space is known to be a Banach space, and the weight $\eta > 0$ will be chos
 We would like to show that we can take the derivative of our single pulse $q(x)$ with respect to the wave speed $c$, and that the derivative $q_c(x)$ is exponentially localized. For this to be the case, we will need the following assumption.
 
 \begin{assumption}\label{transverseint}
-For some $c_0 > 0$, the stable manifold $W^s(0; c_0)$ and the unstable manifold $W^u(0; c_0)$ for the equilibrium solution $u = 0$ intersect transversely in $H^{-1}(0)$ at a point $Q(0; c_0)$, where $H$ is the Hamiltonian for the ODE. Since $H^{-1}(0)$ is a manifold in a neighborhood of $Q(0; c_0)$, this assumption makes sense.
+For some $c_0 > 0$, the stable manifold $W^s(0; c_0)$ and the unstable manifold $W^u(0; c_0)$ for the equilibrium solution $u = 0$ intersect transversely in $H^{-1}(0)$ at a point $Q(0; c_0)$, where $H$ is the Hamiltonian for the ODE. Since by Lemma \eqref{manifoldinH0} $H^{-1}(0)$ is a manifold in a neighborhood of $Q(0; c_0)$, this assumption makes sense.
 \end{assumption}
 
 This assumption is reasonable for the following two reasons.
@@ -198,9 +198,9 @@ What does this assumption get us? Although the existence of a pulse solution doe
 We will show that $q_c(x)$ exists and is exponentially localized in a series of lemmas.\\
 
 \begin{lemma}\label{transverseint}
-For $c$ near $c_0$, the transverse intersection of manifolds is preserved. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$, i.e. for $c \in (c_0 - \delta, c_0 + \delta)$ for some $\delta > 0$. 
+For $c$ near $c_0$, there is a unique intersection the stable and unstable manifolds $W^s(0; c_0)$ and $W^u(0; c_0)$. This intersection is transverse. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$, i.e. for $c \in (c_0 - \delta, c_0 + \delta)$ for some $\delta > 0$. 
 \begin{proof}
-By Assumption \ref{transverseint}, $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at the point $q(0; c_0)$. For convenience, let $q_0 = q(0; c_0)$. By the prior lemma, the level set $H^{-1}(0)$ contains a 3-dimensional manifold $M(c_0)$ in a neighborhood of this intersection point. Since $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at this intersection point, this means that
+By Assumption \ref{transverseint}, $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at the point $q(0; c_0)$. For convenience, let $q_0 = q(0; c_0)$. By Lemma \ref{manifoldinH0}, the level set $H^{-1}(0)$ contains a 3-dimensional manifold $M(c_0)$ in a neighborhood of this intersection point. Since $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at this intersection point, this means that
 
 \[
 T_{q_0} W^u(0; c_0) + T_{q_0} W^s(0; c_0) = T_{q_0} M
@@ -242,12 +242,10 @@ By the existence and uniqueness theorem, $\Phi(x; c)$ is smooth in $c$ since the
 \end{proof}
 \end{lemma}
 
-\begin{lemma}\label{derivatives}
-For $c_0 > 0$, $c_0 \neq 1/4$, the functions $e^{A(c)x}P^s(c)$ and $e^{A(c)x}P^u(c)$ are differentiable with respect to the speed $c$ at $c = c_0$. $A(c) = A(0; c)$, $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$, and $P^s(c)$ and $P^u(c)$ are the stable and unstable projections onto the stable and unstable eigenspaces of $A(c)$. 
+\begin{lemma}\label{derivatives1}
+For $c > 0$, the functions $e^{A(c)x}$, $P^s(c)$ and $P^u(c)$ are differentiable with respect to $c$. $A(c) = A(0; c)$, $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$, and $P^s(c)$ and $P^u(c)$ are the stable and unstable projections onto the stable and unstable eigenspaces of $A(c)$. These are the standard partial derivatives of functions from $\R$ or $\R \times \R$ to $\R^4$.
 \begin{proof}
-We will only show this for $e^{A(c)x}P^s$, since the other is similar. We will find the derivatives of the two functions separately and then use the product rule, which is valid for Frechet derivatives. Since $e^{A(c)x}$ and $P^s(c)$ are both matrices, this should work fine.\\
-
-For the matrix exponential, we can write it as:
+We can write the matrix exponential as:
 \[
 e^{A(c)x} = e^{(A(0) + Bc)x} = e^{A(0)x}e^{Bcx}
 \]
@@ -256,33 +254,23 @@ where
 B = \begin{pmatrix}0&0&0&0\\0&0&0&0\\0&0&0&0\\-1&0&0&0\end{pmatrix}
 \]
 Thus the derivative with respect to $c$ is
-\[
+\begin{equation}\label{partialEAx_c}
 \frac{\partial}{\partial c} e^{A(c)x} = e^{A(0)x}e^{Bcx}Bx = e^{A(c)x} Bx
-\]
-Thus $e^{A(c)x}$ is differentiable for all values of $c$. I am not sure whether this shows the Frechet derivative exists in the weighted space $X_\eta$ ($\eta$ to be chosen), but we can show that directly.
+\end{equation}
 
-\begin{align*}
-\lim_{|h| \rightarrow 0} &\left| \frac{e^{\eta x}}{h} \left( e^{A(c+h)x} - e^{A(c)x} - h e^{A(c)x} Bx  \right) \right|  \\
-&= e^{\eta x} e^{A(0)x}\lim_{|h| \rightarrow 0} \left| \frac{1}{h} \left( e^{B(c+h)x} - e^{Bcx} - h e^{Bcx} Bx  \right) \right| \\
-&= e^{\eta x} e^{A(0)x}e^{Bcx}\lim_{|h| \rightarrow 0} \left| \frac{1}{h} \left( e^{Bhx} - 1 - h Bx  \right) \right| \\ 
-&= e^{\eta x} e^{A(c)x} \lim_{|h| \rightarrow 0} \left| \frac{1}{h} \left( e^{Bhx} - 1 - h Bx  \right) \right| 
-\end{align*}
-
-If we choose $\eta$ such that $0 < \eta < \text{Re} \lambda$ for all stable eigenvalues $\lambda$ of $A(c)$, $e^{\eta x} e^{A(c)x}$ is uniformly bounded in $x$. (This will be the case when we choose $\eta$ below.) Since the limit on the RHS is bounded, we have shown that $e^{A(c)x} Bx$ is the Frechet derivative in the weighted space $X_\eta$.\\
-
-The projection is a little trickier. Since it does not depend on $x$, we don't have to worry about Frechet derivatives or exponentially weighted spaces. First, write the stable projecion $P^s(c)$ as
+The projections are a little trickier. For the stable projection, we write $P^s(c)$ as
 
 \[
 P^s(c) = P^1(c) + P^2(c)
 \]
 
-where $P^1(c)$ + $P^2(c)$ are the projections onto the eigenspaces spanned $v_1^s(c)$ and $v_2^s(c)$, respectively. We are assuming $c \neq 1/4$, so these vectors are linearly independent since the corresponding eigenvalues are distinct. It suffices to show differentiability at $c_0$ for $P^1(c)$ since $P^2(c)$ is similar. Following Kato (1976), we will look at small perturbations of the operator $A(c_0)$:
+where $P^1(c)$ + $P^2(c)$ are the projections onto the eigenspaces spanned $v_1^s(c)$ and $v_2^s(c)$, respectively. It suffices to show differentiability at $c$ for $P^1(c)$ since $P^2(c)$ is similar. Following Kato (1976), we will look at small perturbations of the operator $A(c)$:
 
 \[
-T(h) = A(c_0) + h B
+T(h) = A(c) + h B
 \]
 
-where $h \in R$ is small. This only perturbs the speed, which is what we want. The unperturbed operator is $T(0) = A(c_0)$. Let $\lambda = \nu^1(c_0)$, and let $\Gamma$ be a positively-oriented circle enclosing no other eigenvalues of $A(c_0)$. Since $c_0 \neq 1/4$, the eigenvalues of $A(c_0)$ are distinct, so we can always so this. For sufficiently small $h$, by (1.16) on p. 67 in Kato (1976), the eigenprojection onto $v_1^s(c_0 + h)$ is given by 
+where $h \in R$ is small. This only perturbs the speed, which is what we want. The unperturbed operator is $T(0) = A(c)$. Let $\lambda = \nu^1(c)$, and let $\Gamma$ be a positively-oriented circle enclosing no other eigenvalues of $A(c)$. Since $c_0 \neq 1/4$, the eigenvalues of $A(c)$ are distinct, so we can always so this. For sufficiently small $h$, by (1.16) on p. 67 in Kato (1976), the eigenprojection onto $v_1^s(c + h)$ is given by 
 
 \[
 P(h) = -\frac{1}{2 \pi i} \int_\Gamma R(\zeta, h) d \zeta
@@ -292,22 +280,63 @@ where $R(\zeta, h) = (T(h) - \zeta)^{-1}$ is the resolvent operator and exists o
 \[
 P'(0) = -P T'(0) S - S T'(0) P = -P B S - S B P
 \]
-where $P = P^1(c_0)$ is the unperturbed projection and $S$ is the reduced resolvent of $T$ for $\lambda$ (defined on p. 40 of Kato. I think to get this you take the Laurent series for the resolvent and ditch the terms with negative powers. Since this is just some matrix, I think we are all set).\\
+where $P = P^1(c)$ is the unperturbed projection and $S$ is the reduced resolvent of $T$ for $\lambda$ (defined on p. 40 of Kato. I think to get this you take the Laurent series for the resolvent and ditch the terms with negative powers. Since this is just some matrix, I think we are all set).\\
 
-By construction, the derivative of $P^1(c)$ with respect to $c$ at $c = c_0$ is equal to $P'(0)$, thus $(P^1)'(c_0)$ exists. Similarly,$(P^2)'(c_0)$ exists, and so $(P^s)'(c_0)$ exists, with
+By construction, the derivative of $P^1(c)$ with respect to $c$ is equal to $P'(0)$, thus $(P^1)'(c)$ exists. Similarly,$(P^2)'(c)$ exists, and so $(P^s)'(c)$ exists, with
 \[
-(P^s)'(c_0) = (P^1)'(c_0) + (P^2)'(c_0)
+(P^s)'(c) = (P^1)'(c) + (P^2)'(c)
 \]
 
-By the product rule,
+The derivative of the unstable projection $P^u(c)$ is similar.
+
+\end{proof}
+\end{lemma}
+
+While this is fun and all, this is not enough for our purposes. We need to show that certain functions, like $e^{A(c)x} P^s(c)$ have Frechet derivatives on $X_\eta$. Note that we would not, for example, expect $e^{A(c)x}$ to have a Frechet derivative on $X_\eta$, since it grows exponentially with $x$ if the initial condition has a component in $E^u(c)$. Thus the presence of the projection operator is key. Now that we have a sense of what we need to do, we will prove the following lemma.
+
+\begin{lemma}\label{derivatives2}
+For $c > 0$, the following are Frechet differentiable with respect to $c$ at $c = c_0$ on $X_\eta$:
+\begin{enumerate}[(i)]
+	\item $e^{A(c)x} P^s(c)$
+\end{enumerate}
+In all these cases, we come up with candidate for the Frechet derivative using regular differentiation, and then show that it is also the Frechet derivative using the definition of the Frechet derivative.\\
+
+As in Lemma \ref{derivatives1}, $A(c) = A(0; c)$, $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$, and $P^s(c)$ is the stable projection onto the stable eigenspaces $E^s(c)$ of $A(c)$.
+\begin{proof}
+Recall that in the definition of $X_\eta$, the domain of the functions is $[0, \infty)$.\\
+
+For (i), our candidate for the Frechet derivative is $e^{A(c)x} Bx P^s(c) + e^{A(c)x} (P^s)'(c)$, which we get from Lemma \ref{derivatives1} and the product rule. Unfortunately, we have no reason to think that this is even in $X_\eta$ since the output of $Bx P^s(c)$ and $(P^s)'(c)$ does not necessarily have to be in the stable subspace $E^(c)$. Thus we will rewrite (i) as follows:
 
 \begin{align*}
-\frac{\partial}{\partial c} e^{A(c)x}P^s(c)\Big|_{c = c_0} &= e^{A(c_0)x} B x P^s(c_0) + e^{A(c_0)x} (P^s)'(c_0) \\
-&= e^{A(c_0)x} ( BxP^s(c_0) + (P^s)'(c_0) )
+e^{A(c)x} P^s(c) &= \left( \sum_{n = 0}^\infty \frac{ A(c)^n x^n }{n!} \right) P^s(c) \\
+&= \sum_{n = 0}^\infty \frac{ A(c)^n P^s(c) x^n}{n!} \\
+&= \sum_{n = 0}^\infty \frac{ [A(c) P^s(c) x]^n }{n!} \\
+&= e^{A(c) P^s(c) x}
+\end{align*}
+
+where we used the fact that for any projection $P$, $P^2 = P$. Taking the standard partial derivative using the product rule, we get
+
+\begin{align*}
+\frac{\partial}{\partial c}e^{A(c)x} P^s(c) &= \frac{\partial}{\partial c} e^{A(c) P^s(c) x} \\
+&= e^{A(c) P^s(c) x}[ B P^s(c) + A(c)(P^s)'(c)]x \\
+&= e^{A(c) x}P^s(c)[ B P^s(c) + A(c)(P^s)'(c)]x
+\end{align*}
+
+Since the stable projection operator occurs right before we apply the matrix exponential, this now looks like it is in 
+
+\[
+\lim_{h \rightarrow 0} \frac{1}{|h|} || e^{A(c+h)x}P^s(c+h) - e^{A(c)x}P^s(c) - [e^{A(c)x} (BxP^s(c) + (P^s)'(c)] h ||_\eta = 0 
+\]
+
+where $B$ is defined in Lemma \ref{derivatives1}.
+
+\begin{align*}
+\frac{1}{|h|} &e^{-\eta x} | e^{A(c+h)x}P^s(c+h) - e^{A(c)x}P^s(c) - [e^{A(c)x} (BxP^s(c) + (P^s)'(c)] h | \\
 \end{align*}
 
 \end{proof}
 \end{lemma}
+
 
 \begin{lemma}\label{qc}
 For the stationary, single-pulse solution $q(x; c)$ to the 5th order KdV equation in a frame moving with velocity $c$, the derivative $q_c(x)$ of the pulse with respect to $c$ is exponentially localized, thus $q_c(x) \in L^2(\R)$.
