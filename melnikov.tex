@@ -115,7 +115,7 @@ If $q_0''(0) = 0$, this implies $q_0''''(0)$ = 0. In other words, the constant s
 Before we continue, we will write $\eqref{4thorder}$ as a 4th order system. Note that we are following our usual notational convention, where capital letters represent vectors in the 4th order system, while small letters represent their scalar counterparts. As a 4th-order system, we have
 
 \begin{equation}\label{nonlinearsystem}
-U' = A(0; c) U + N(U)
+U' = F(U; c) = A(0; c) U + N(U)
 \end{equation}
 
 where $U = (u_1, u_2, u_3, u_4) = (u, u', u'', u''')$ and $N(U) = N(u_1, u_2, u_3, u_4) = (0, 0, 0, u_1^2)$. Note that we have separated the equation in to a linear and a nonlinear part, and that for the nonlinear part, $N(0) = DN(0) = 0$. \\
@@ -198,37 +198,132 @@ What does this assumption get us? Although the existence of a pulse solution doe
 We will show that $q_c(x)$ exists and is exponentially localized in a series of lemmas.\\
 
 \begin{lemma}\label{transverseint}
-For $c$ near $c_0$, there is a unique intersection the stable and unstable manifolds $W^s(0; c_0)$ and $W^u(0; c_0)$. This intersection is transverse. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$, i.e. for $c \in (c_0 - \delta, c_0 + \delta)$ for some $\delta > 0$. 
+For $c$ near $c_0$, there is a unique intersection the stable and unstable manifolds $W^s(0; c_0)$ and $W^u(0; c_0)$. This intersection is transverse. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$, i.e. for $c \in (c_0 - \delta, c_0 + \delta)$ for some $\delta > 0$. This homoclinic orbit $Q(x; c)$ is differentiable with respect to $c$ at $c = c_0$.
 \begin{proof}
-By Assumption \ref{transverseint}, $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at the point $q(0; c_0)$. For convenience, let $q_0 = q(0; c_0)$. By Lemma \ref{manifoldinH0}, the level set $H^{-1}(0)$ contains a 3-dimensional manifold $M(c_0)$ in a neighborhood of this intersection point. Since $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at this intersection point, this means that
+
+By Assumption \ref{transverseint}, $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at the point $Q_0 = Q(0; c_0)$. By Lemma \ref{manifoldinH0}, the level set $H^{-1}(0)$ contains a 3-dimensional manifold $M(c_0)$ in a neighborhood of this intersection point. Since $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at this intersection point, this means that
 
 \[
-T_{q_0} W^u(0; c_0) + T_{q_0} W^s(0; c_0) = T_{q_0} M
+T_{Q_0} W^u(0; c_0) + T_{Q_0} W^s(0; c_0) = T_{Q_0} M
 \]
 
-The intersection of the tangent spaces of the manifolds $W^u(0; c_0)$ and $W^s(0; c_0)$ is thus one-dimensional, and is the span of the single vector $w(c_0) = q'(0; c_0)$. This leaves each tangent space with another linearly independent vector. Let $v^u(c_0)$ and $v^s(c_0)$ be these vectors. Note that $v(c_0)$, $v^u(c_0)$, and $v^s(c_0)$ are linearly independent.
-\\
+The intersection of the tangent spaces of the manifolds $W^u(0; c_0)$ and $W^s(0; c_0)$ is thus one-dimensional, and is the span of the single vector $v^c = F(Q_0; c_0)$, where $F$ is the RHS of \eqref{nonlinearsystem} (i.e. the derivative of the homoclinic orbit put into a 4-dimensional system). Since the tangent spaces of stable and unstable manifolds are two-dimensional, each contains another basis vector (in addition to $v_c$.) Thus we have vectors $v^s$ and $v^u$ in $\R^3$ such that
 
-I think the rough idea is as follows.
-\begin{enumerate}
-	\item We perturb $c_0$ a small amount to $c$.
-	\item Since our system is smooth, the stable and unstable manifolds vary smoothy with $c$. 
-	\item Perturbing the stable manifold perturbs $v^s(c_0)$ to $v^s(c)$ and $w(c_0)$ to $w^s(c)$. As long as the perturbation is small enough, these will remain linearly independent by continuity.
-	\item Perturbing the unstable manifold perturbs $v^u(c_0)$ to $v^u(c)$ and $w(c_0)$ to $w^u(c)$. As long as the perturbation is small enough, these will remain linearly independent by continuity.
-	\item As long as the perturbation is small enough, $v^s(c)$ and $v^u(c)$ will remain linearly independent, and $w^u(c)$ and $w^s(c)$ will remain linearly independent from them, again by continuity.
-	\item All four of these vectors must be contained in a 3-dimensional space, sice $H^{-1}(0)$ is 3-dimensional, which forces $w^u(c)$ and $w^s(c)$ to be linearly dependent.
-	\item This means the transverse intersection is preserved.
-\end{enumerate} 
+\begin{align*}
+T^s &= T_{Q_0} W^s(0; c_0) = \text{span}\{ v^s, v^c \} \\
+T^u &= T_{Q_0} W^u(0; c_0) = \text{span}\{ v^u, v^c \} \\
+\end{align*}
 
-Of course, this is not at all precise. So let's try to fix that.\\
+For convenience, for these three basis vectors let $V^i = \text{span }\{v^i\}$. Since in a neighborhood of $Q_0$, $M = H^{-1}(0)$ is a manifold, $M$ is isomorphic (via a smooth bijection with smooth inverse) to $R^3$. Thus we can without loss of generality take $M$ to be $R^3$ with basis given by $\{v^s, v^u, v^c\}$. \\
 
-The (parameter-dependent) stable manifold theorem says that for \eqref{nonlinearsystem} we can find constants $\rho > 0$, $M \geq 1$, and $\delta > 0$ and a smooth map (since \eqref{nonlinearsystem} is smooth) 
+Now let $\Sigma$ be the plane passing through $Q_0$ normal to $v^c$. In other words, 
+
 \[
-h: \{ u_0 \in E^s(c_0) : |u_0| \leq \rho / 2M \} \times (c_0 - \delta, c_0 + \delta) \rightarrow E^u(c_0) 
+\Sigma = Q_0 + \text{span}\{ v^s, v^u \} = Q_0 + \text{span}\{v_c\}^\perp
 \]
-such that the local stable manifold $W^s_{loc}(0; c)$ is the graph of $h$ (with domain where $h$ is defined). We can do the same thing with the local unstable manifold. The key here is that this depends smootly on $c$.\\
 
-THIS IS ALL A LITTLE SKETCHY. Let $\Phi(x; c)$ be the solution operator for \eqref{nonlinearsystem}, which depends smoothly on $c$. We can find $\tilde{x}$ such that $\tilde{F} q_0 = \Phi(\tilde{x}, c_0) q_0 \in W^s_{loc}(c_0)$. Thus $\Phi(\tilde{x}, c_0)$ is a smooth map from $M$ to $W^s_{loc}(c_0)$, so the differential $D\tilde{F}$ should be a linear map between the two tangent spaces $T_{q_0}M$ and $T_{\tilde{F} q_0} W^s_{loc}(c_0)$. We should have another smooth map $\tilde{G}$ between $W^s_{loc}(c_0)$ and $W^s_{loc}(c)$ which should be something like $\tilde{G}(x) = h( h^{-1}(x; c_0), c)$. So then $D\tilde{G}$ should be a linear map between the relevant tangent spaces. Finally we have another smooth map which sends us backwards on the stable manifold, something like $\tilde{H} = \Phi^{-1}(\tilde{y},c)$, where I don't think $\tilde{y} = \tilde{x}$ necessarily but can be chosen so that we get back to $x = 0$. So the smooth map we want should be the composition of these three maps.
+Next we show that $W^u(0; c) \cap \Sigma$ is a smooth one-dimensional manifold for $c$ near $c_0$. To do this, we first note that $W^u(0; c)$ is a smooth two-dimensional manifold near $Q_0$. This follows from the following two facts:
+\begin{enumerate} 
+\item By the stable manifold theorm, the local unstable manifold $W^u_{loc}(0; c)$ has the same smoothness in $U$ and $c$ as $F$ does. Since $F$ is smooth ($C^\infty)$ in $U$ and $c$, so is $W^u_{loc}(0; c)$.
+\item The evolution operator $\Phi(x; c)$ for \eqref{nonlinearsystem} has the same smoothness in $x$ and $c$ as $F$ does, thus $\Phi(x; c)$ is smooth in $c$.
+\item The unstable manifold is the forward evolution of the local unstable manifold in $x$ under the evolution operator $\Phi(x; c)$.
+\item Thus since both $W^u_{loc}(0; c)$ and $\Phi(x; c)$ are smooth, so is $W^u(0; c)$.
+\end{enumerate}
+
+Next, for $c \in (c_0 - \delta, c_0 + \delta)$, we write $W^u(0; c)$ over the tangent space $T^u$. Note that $T^u$ is the tangent space of $W^u(0; c)$ at $Q_0$, i.e. $c$ is fixed at $c_0$. Since $W^u(0; c)$ depends smoothly on $c$, we can find $R > 0$, $\delta > 0$, and a smooth function $h^u: T^u \times (c_0 - \delta, c_0 + \delta) \rightarrow V^s$ such that for $c \in (c_0 - \delta, c_0 + \delta)$
+
+\begin{align*}
+W^u(0; c) = Q_0 + \{ (u, h^u(u; c)) : u \in T^u \text{ with } |u| \leq R \}
+\end{align*}
+
+Note that if we take $c = c_0$ we have 
+
+\begin{align*}
+h^u(0; c_0) &= 0 \\
+Dh^u(0; c_0) &= 0
+\end{align*}
+
+where the derivative is 0 since at $c = c_0$ we have written the manifold $W^u(0; c)$ as a graph over its own tangent space. \\
+
+Now we want to restrict this map to our planar section $\Sigma$. Since the map $(x, y) \mapsto x$ from $V^s \times V^c$ to $V^s$ is smooth, $W^u(0; c) \cap \Sigma$ is a smooth manifold which we can write as
+
+\[
+W^u(0; c) \cap \Sigma = Q_0 + \{ (u, h^u(u; c)) : u \in V^u \text{ with } |u| \leq R \}
+\]
+
+We can repeat all of the above for the unstable manifold and obtain a similar smooth function $h^s: T^s \times (c_0 - \delta, c_0 + \delta) \rightarrow V^u$. We then have for the intersection $W^s(0; c) \cap \Sigma$
+
+\[
+W^s(0; c) \cap \Sigma = Q_0 + \{ (h^s(v; c), v) : v \in V^s \text{ with } |u| \leq R \}
+\]
+
+Note that we have ordered the coordinates in $\Sigma$ as $(u, v)$, where $u \in V^u$ and $v \in V^s$.\\
+
+Recall that for $c = c_0$, $W^s(0; c_0) \cap W^u(0; c_0) \cap \Sigma$ is the single point $Q_0$. All that is left is to show that for $c$ near $c_0$ we still have a point of intersection in $W^s(0; c) \cap W^u(0; c) \cap \Sigma$. In other words, for $c$ near $c_0$, we seek a point $(u, v) \in V^u \times V^s$ such that $(u, v)$ is contained in both $W^u(0; c) \cap \Sigma$ and $W^s(0; c) \cap \Sigma$. Using the expressions above, this is equivalent to
+
+\[
+Q_0 + (u, h^u(u; c)) = Q_0 = (h^s(v; c), v)
+\]
+
+which is satisfied if
+
+\begin{align*}
+u &= h^s(v; c) \\
+v &= h^u(u; c)
+\end{align*}
+
+Define a function $K: V^u \times V^s \times (c_0 - \delta, c_0 + \delta) \rightarrow V^u \times V^s$ by
+\[
+K(u, v, c) = (u - h^s(v; c), v - h^u(u; c))
+\]
+
+Note that $K(0, 0, c_0) = (0, 0)$. We will now use the IFT to either write $u$ as a function of $v$ and $c$ or to write $v$ as a function of $u$ and $c$. Doing the former, the Jacobian matrix $J_u$ with respect to the variables $v$ and $c$ is
+
+\[
+J_u = \begin{pmatrix}
+-h^s_v(v; c) & -h^s_c(v; c) \\
+1 - h^u_v(v; c) & -h^u_c(v; c) \\
+\end{pmatrix}
+\]
+
+Evaluating this at $(u, v, c) = (0, 0, c_0)$ and recalling that $Dh^u(0; c_0) = 0$ we get
+
+\[
+J_u\Big|_{(0, 0, c_0)} = \begin{pmatrix}
+0 & -h^s_c(0; c_0) \\
+1 & -h^u_c(0; c_0) \\
+\end{pmatrix}
+\]
+
+which is invertible as long as $h^s_c(0; c_0) \neq 0$. We could just as easily looked at the Jacobian matrix $J_v$ with respect to the variables $u$ and $c$. Evaluating this at $(u, v, c) = (0, 0, c_0)$ yields
+
+\[
+J_v\Big|_{(0, 0, c_0)} = \begin{pmatrix}
+1 & -h^s_c(0; c_0) \\
+0 & -h^u_c(0; c_0) \\
+\end{pmatrix}
+\]
+
+which is invertible as long as $h^u_c(0; c_0) \neq 0$.\\
+
+In other words, as long as at least one of $h^u_c(0; c_0), h^s_c(0; c_0)$ is nonzero, we are all set to use the IFT. WE WILL ASSUME THIS IS TRUE FOR NOW AND REVISIT IS LATER. \\
+
+Suppose $J_u$ is invertible. Then there exists a $\tilde{\delta}$ with $0 < \tilde{\delta} \leq \delta$, $\tilde{R}$ with $0 \leq \tilde{R} \leq R$, and smooth function $g: \{v \in V^s : |v| \leq \tilde{R} \} \times (c_0 - \tilde{\delta}, c_0 + \tilde{\delta}) \rightarrow V_u$ such that:
+
+\begin{align*}
+g(0, c_0) &= 0 \\
+K(g(v, c), v, c) &= (0, 0)
+\end{align*}
+
+For $c \in (c_0 - \tilde{\delta}, c_0 + \tilde{\delta})$, $Q_0 + (g(c, v), v) \in \Sigma$ is the unique intersection point of $W^s(0; c_0) \cap W^u(0; c_0) \cap \Sigma$.\\
+
+Since we have a unique intersection of the stable and unstable manifolds, for $c$ near $c_0$ we have a unique homoclinic orbit $Q(x; c)$ defined by
+
+\[
+Q(x; c) = \begin{cases}
+
+\end{cases}
+\]
 
 \end{proof}
 \end{lemma}
@@ -305,7 +400,7 @@ As in Lemma \ref{derivatives1}, $A(c) = A(0; c)$, $e^{A(c)x}$ is the fundamental
 \begin{proof}
 Recall that in the definition of $X_\eta$, the domain of the functions is $[0, \infty)$.\\
 
-For (i), our candidate for the Frechet derivative is $e^{A(c)x} Bx P^s(c) + e^{A(c)x} (P^s)'(c)$, which we get from Lemma \ref{derivatives1} and the product rule. Unfortunately, we have no reason to think that this is even in $X_\eta$ since the output of $Bx P^s(c)$ and $(P^s)'(c)$ does not necessarily have to be in the stable subspace $E^(c)$. Thus we will rewrite (i) as follows:
+For (i), our candidate for the Frechet derivative is $e^{A(c)x} Bx P^s(c) + e^{A(c)x} (P^s)'(c)$, which we get from Lemma \ref{derivatives1} and the product rule. $B$ is defined in Lemma \ref{derivatives1}. Unfortunately, we have no reason to think that this is even in $X_\eta$ since the output of $Bx P^s(c)$ and $(P^s)'(c)$ does not necessarily have to be in the stable subspace $E^(c)$. Thus we will rewrite (i) as follows:
 
 \begin{align*}
 e^{A(c)x} P^s(c) &= \left( \sum_{n = 0}^\infty \frac{ A(c)^n x^n }{n!} \right) P^s(c) \\
@@ -322,13 +417,11 @@ where we used the fact that for any projection $P$, $P^2 = P$. Taking the standa
 &= e^{A(c) x}P^s(c)[ B P^s(c) + A(c)(P^s)'(c)]x
 \end{align*}
 
-Since the stable projection operator occurs right before we apply the matrix exponential, this now looks like it is in 
+Since the stable projection operator occurs right before we apply the matrix exponential, this now looks like it is in $X_\eta$. To prove that this is in fact the Frechet derivative, we need to show the following:
 
 \[
-\lim_{h \rightarrow 0} \frac{1}{|h|} || e^{A(c+h)x}P^s(c+h) - e^{A(c)x}P^s(c) - [e^{A(c)x} (BxP^s(c) + (P^s)'(c)] h ||_\eta = 0 
+\lim_{h \rightarrow 0} \frac{1}{|h|} || e^{A(c+h)x}P^s(c+h) - e^{A(c)x}P^s(c) - e^{A(c) x}P^s(c)[ B P^s(c) + A(c)(P^s)'(c)]x h ||_\eta = 0 
 \]
-
-where $B$ is defined in Lemma \ref{derivatives1}.
 
 \begin{align*}
 \frac{1}{|h|} &e^{-\eta x} | e^{A(c+h)x}P^s(c+h) - e^{A(c)x}P^s(c) - [e^{A(c)x} (BxP^s(c) + (P^s)'(c)] h | \\
