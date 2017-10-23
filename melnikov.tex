@@ -272,43 +272,34 @@ u &= h^s(v; c) \\
 v &= h^u(u; c)
 \end{align*}
 
-Define a function $K: V^u \times V^s \times (c_0 - \delta, c_0 + \delta) \rightarrow V^u \times V^s$ by
-\[
-K(u, v, c) = (u - h^s(v; c), v - h^u(u; c))
-\]
-
-Note that $K(0, 0, c_0) = (0, 0)$. We will now use the IFT to either write $u$ as a function of $v$ and $c$ or to write $v$ as a function of $u$ and $c$. Doing the former, the Jacobian matrix $J_u$ with respect to the variables $v$ and $c$ is
+What we would like to do is use the IFT on this to get the $(u, v)$ coordinates of the unique intersection of $W^s(0; c_0) \cap \Sigma$ and $W^u(0; c_0) \cap \Sigma$ as a function of $c$ for $c$ near $c_0$. To to this, we will eliminate either $u$ or $v$ in the pair of equations above. Since it doesn't matter which way we do it, let's eliminate $v$ to get our condition for intersection
 
 \[
-J_u = \begin{pmatrix}
--h^s_v(v; c) & -h^s_c(v; c) \\
-1 - h^u_v(v; c) & -h^u_c(v; c) \\
-\end{pmatrix}
+u = h^s(h^u(u; c); c)
 \]
 
-Evaluating this at $(u, v, c) = (0, 0, c_0)$ and recalling that $Dh^u(0; c_0) = 0$ we get
 
+Define a function $K: V^u \times (c_0 - \delta, c_0 + \delta) \rightarrow V^u$ by
 \[
-J_u\Big|_{(0, 0, c_0)} = \begin{pmatrix}
-0 & -h^s_c(0; c_0) \\
-1 & -h^u_c(0; c_0) \\
-\end{pmatrix}
+K(u, c) = u - h^s(h^u(u; c); c)
 \]
 
-which is invertible as long as $h^s_c(0; c_0) \neq 0$. We could just as easily looked at the Jacobian matrix $J_v$ with respect to the variables $u$ and $c$. Evaluating this at $(u, v, c) = (0, 0, c_0)$ yields
+and note that $K(0, c_0) = 0$. Taking the partial derivative with respect to $c$,
 
-\[
-J_v\Big|_{(0, 0, c_0)} = \begin{pmatrix}
-1 & -h^s_c(0; c_0) \\
-0 & -h^u_c(0; c_0) \\
-\end{pmatrix}
-\]
+\begin{align*}
+\frac{\partial}{\partial c} K(u, c) &= - \frac{\partial}{\partial c} h^s(h^u(u; c); c) \\
+&= -h^s_v(h^u(u; c); c) h^u_c(u; c) - h^s_c(h^u(u; c); c)
+\end{align*}
 
-which is invertible as long as $h^u_c(0; c_0) \neq 0$.\\
+Evaluating this at $(u, c) = (0, c_0)$
 
-In other words, as long as at least one of $h^u_c(0; c_0), h^s_c(0; c_0)$ is nonzero, we are all set to use the IFT. WE WILL ASSUME THIS IS TRUE FOR NOW AND REVISIT IS LATER. \\
+\begin{align*}
+\frac{\partial}{\partial c} K(u, c)\Big|_{(0, c_0)} &= -h^s_v(h^u(0; c_0); c_0) h^u_c(0; c_0) - h^s_c(h^u(0; c_0); c_0) \\
+&= -h^s_v(0; c_0) h^u_c(0; c_0) - h^s_c(0; c_0) \\
+&= -h^s_c(0; c_0) 
+\end{align*}
 
-Suppose $J_u$ is invertible. Then there exists a $\tilde{\delta}$ with $0 < \tilde{\delta} \leq \delta$, $\tilde{R}$ with $0 \leq \tilde{R} \leq R$, and smooth function $g: \{v \in V^s : |v| \leq \tilde{R} \} \times (c_0 - \tilde{\delta}, c_0 + \tilde{\delta}) \rightarrow V_u$ such that:
+where we used the fact that $Dh^s(0; c_0) &= 0$. As long as $h^s_c(0; c_0)$ is nonzero, we can use the IFT to write $u$ as a function of $c$. Assuming that is true, there exists a smooth function $g: $
 
 \begin{align*}
 g(0, c_0) &= 0 \\
