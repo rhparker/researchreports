@@ -198,7 +198,7 @@ What does this assumption get us? Although the existence of a pulse solution doe
 We will show that $q_c(x)$ exists and is exponentially localized in a series of lemmas.\\
 
 \begin{lemma}\label{transverseint}
-For $c$ near $c_0$, there is a unique intersection the stable and unstable manifolds $W^s(0; c_0)$ and $W^u(0; c_0)$. This intersection is transverse. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$, i.e. for $c \in (c_0 - \delta, c_0 + \delta)$ for some $\delta > 0$. This homoclinic orbit $Q(x; c)$ is differentiable with respect to $c$ at $c = c_0$.
+There exists a constant $\delta > 0$ such that $c \in (c - \delta, c + \delta)$, there is a unique intersection of the stable and unstable manifolds $W^s(0; c)$ and $W^u(0; c)$. This intersection is transverse. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$. This homoclinic orbit $Q(x; c)$ is differentiable with respect to $c$ at $c = c_0$.
 \begin{proof}
 
 By Assumption \ref{transverseint}, $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at the point $Q_0 = Q(0; c_0)$. By Lemma \ref{manifoldinH0}, the level set $H^{-1}(0)$ contains a 3-dimensional manifold $M(c_0)$ in a neighborhood of this intersection point. Since $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at this intersection point, this means that
@@ -284,52 +284,72 @@ Define a function $K: V^u \times (c_0 - \delta, c_0 + \delta) \rightarrow V^u$ b
 K(u, c) = u - h^s(h^u(u; c); c)
 \]
 
-and note that $K(0, c_0) = 0$. Taking the partial derivative with respect to $c$,
+and note that $K(0, c_0) = 0$. In order to use the IFT to write $u$ as a function of $c$, we need to check the partial derivative with respect to $u$ at $(0, c_0)$.
 
 \begin{align*}
-\frac{\partial}{\partial c} K(u, c) &= - \frac{\partial}{\partial c} h^s(h^u(u; c); c) \\
-&= -h^s_v(h^u(u; c); c) h^u_c(u; c) - h^s_c(h^u(u; c); c)
+\frac{\partial}{\partial u} K(u, c) &= 1 - h^s_v(h^u(u; c); c) h^u_u(u; c) 
 \end{align*}
 
 Evaluating this at $(u, c) = (0, c_0)$
 
 \begin{align*}
-\frac{\partial}{\partial c} K(u, c)\Big|_{(0, c_0)} &= -h^s_v(h^u(0; c_0); c_0) h^u_c(0; c_0) - h^s_c(h^u(0; c_0); c_0) \\
-&= -h^s_v(0; c_0) h^u_c(0; c_0) - h^s_c(0; c_0) \\
-&= -h^s_c(0; c_0) 
+\frac{\partial}{\partial u} K(u, c)\Big|_{(0, c_0)} &= 1 - h^s_v(h^u(0; c_0); c_0) h^u_u(0; c_0) \\
+&= 1 - h^s_v(0; 0) h^u_u(0; c_0) \\
+&= 1
 \end{align*}
 
-where we used the fact that $Dh^s(0; c_0) &= 0$. As long as $h^s_c(0; c_0)$ is nonzero, we can use the IFT to write $u$ as a function of $c$. Assuming that is true, there exists a smooth function $g: $
+where we used the fact that $Dh^s(0; c_0) = 0$. Thus by the IFT we can find an open intertal $U = (c_0 - \tilde{\delta}, c_0 + \tilde{\delta})$ with $0 < \tilde{\delta} \leq \delta$ and a unique smooth function $g: U \rightarrow V_u$
 
 \begin{align*}
-g(0, c_0) &= 0 \\
-K(g(v, c), v, c) &= (0, 0)
+g(c_0) &= 0 \\
+K(g(c), c) &= 0 \text{ for all } c \in U
 \end{align*}
 
-For $c \in (c_0 - \tilde{\delta}, c_0 + \tilde{\delta})$, $Q_0 + (g(c, v), v) \in \Sigma$ is the unique intersection point of $W^s(0; c_0) \cap W^u(0; c_0) \cap \Sigma$.\\
+For $c \in U$, $P(c) = Q_0 + (g(c), h^u(g(c); c))$ is the unique intersection point of $W^s(0; c) \cap W^u(0; c) \cap \Sigma$. (Uniqueness comes from the fact that this is a unique function of $c$, so for $c$ near $c_0$, there is exactly one $u = g(c)$ for which $K(g(c),c) = 0$). This intersection is transverse in $H(c)^{-1}(0)$ by uniqueness as well, since a single point of intersection in $\Sigma$ means that the intersection of $W^s(0; c)$ and $W^u(0; c)$ at $P(c)$ is one-dimensional. Since each manifold has one more dimension, the sum of their tangent spaces is three-dimensional.\\
 
-Since we have a unique intersection of the stable and unstable manifolds, for $c$ near $c_0$ we have a unique homoclinic orbit $Q(x; c)$ defined by
+Since we have a unique intersection of the stable and unstable manifolds for $c$ near $c_0$ at the point $P(c)$, we have a unique homoclinic orbit $Q(x; c)$ connecting the equilibrium at $U = 0$ to itself, which we can define by
 
 \[
-Q(x; c) = \begin{cases}
-
-\end{cases}
+Q(x; c) = \Phi(x; c) P(c)
 \]
+
+where $\Phi(x; c)$ is the evolution operator of \eqref{nonlinearsystem}.\\
+
+To show differentiability of $Q(0, c)$ at $c = c_0$, we note that near $c = c_0$,
+
+\[
+Q(0; c) = Q_0 + (g(c), h^u(g(c); c))
+\]
+
+which is smooth in $c$ since $g(c)$ and $h^u(u, c)$ are smooth in $c$.
 
 \end{proof}
 \end{lemma}
 
 \begin{lemma}\label{qcexists}
-$q(x; c)$ is differentiable in $c$ for all $c$ near $c_0$ and for all $x$. 
+$Q(x; c)$ is differentiable in $c$ for all $c$ near $c_0$ and for all $x$. 
 \begin{proof}
-Let $\Phi(x; c)$ be the solution operator for \eqref{nonlinearsystem}, where the initial condition is given at $x = 0$. Taking the initial condition to be $q(0; c)$, by the property of the solution operator, for $c$ near $c_0$, $q(x; c) = \Phi(x; c)q(0; c)$.\\
+Let $\Phi(x; c)$ be the solution operator for \eqref{nonlinearsystem}, where the initial condition is given at $x = 0$. Taking the initial condition to be $Q(0; c)$, by the property of the solution operator, for $c$ near $c_0$, $Q(x; c) = \Phi(x; c)Q(0; c)$.\\
 
-By the existence and uniqueness theorem, $\Phi(x; c)$ is smooth in $c$ since the the RHS of \eqref{nonlinearsystem} is $C^\infty$ in $c$ (since $A(0; c)$ is a linear function of $c$ and $N(u)$ does not involve $c$ at all). By Lemma 1, $q(0; c)$ is smooth in $c$.
+By the existence and uniqueness theorem, $\Phi(x; c)$ is smooth in $c$ since the the RHS of \eqref{nonlinearsystem} is $C^\infty$ in $c$ (since $A(0; c)$ is a linear function of $c$ and $N(u)$ does not involve $c$ at all). By Lemma 1, $Q(0; c)$ is smooth in $c$.
 \end{proof}
 \end{lemma}
 
+Next we note some estimates which will be useful later.\\
+
+Let $A(c) = A(0; c)$. Then $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$. Let $P^s(c)$ and $P^u(c)$ are the stable and unstable projections onto the stable and unstable eigenspaces of $A(c)$.\\
+
+Since for $c > 0$ the matrix $A(c)$ is hyperbolic and since the eigenvalues of $A(c)$ are continuous functions of $c$ (in fact, we have explicit formulas for them above), we can find $\alpha^s, \alpha^u > 0$ such that for all $c \in (c - \delta, c + \delta)$, where $\delta$ is the constant from Lemma \ref{transverseint}, all eigenvalues of $A(c)$ lie outside the open interval $(-\alpha^s, \alpha^u)$. For $c \in (c - \delta, c + \delta)$, we thus have the estimates
+
+\begin{align*}
+||e^{A(c)x}P^s(c)|| &\leq Me^{-\alpha^s x} && x \geq 0\\
+||e^{A(c)x}P^u(c)|| &\leq Me^{\alpha^u x} && x \leq 0
+\end{align*}
+
+In the next set of lemma, we evaluate some derivatives which will be useful later.
+
 \begin{lemma}\label{derivatives1}
-For $c > 0$, the functions $e^{A(c)x}$, $P^s(c)$ and $P^u(c)$ are differentiable with respect to $c$. $A(c) = A(0; c)$, $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$, and $P^s(c)$ and $P^u(c)$ are the stable and unstable projections onto the stable and unstable eigenspaces of $A(c)$. These are the standard partial derivatives of functions from $\R$ or $\R \times \R$ to $\R^4$.
+For $c > 0$, the functions $e^{A(c)x}$, $P^s(c)$ and $P^u(c)$ are differentiable with respect to $c$. These are the standard partial derivatives of functions from $\R$ or $\R \times \R$ to $\R^4$.
 \begin{proof}
 We can write the matrix exponential as:
 \[
@@ -385,13 +405,15 @@ For $c > 0$, the following are Frechet differentiable with respect to $c$ at $c 
 \begin{enumerate}[(i)]
 	\item $e^{A(c)x} P^s(c)$
 \end{enumerate}
-In all these cases, we come up with candidate for the Frechet derivative using regular differentiation, and then show that it is also the Frechet derivative using the definition of the Frechet derivative.\\
 
 As in Lemma \ref{derivatives1}, $A(c) = A(0; c)$, $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$, and $P^s(c)$ is the stable projection onto the stable eigenspaces $E^s(c)$ of $A(c)$.
 \begin{proof}
+In all these cases, we come up with candidate for the Frechet derivative using regular differentiation, and then show that it is also the Frechet derivative using the definition of the Frechet derivative.\\
+
+
 Recall that in the definition of $X_\eta$, the domain of the functions is $[0, \infty)$.\\
 
-For (i), our candidate for the Frechet derivative is $e^{A(c)x} Bx P^s(c) + e^{A(c)x} (P^s)'(c)$, which we get from Lemma \ref{derivatives1} and the product rule. $B$ is defined in Lemma \ref{derivatives1}. Unfortunately, we have no reason to think that this is even in $X_\eta$ since the output of $Bx P^s(c)$ and $(P^s)'(c)$ does not necessarily have to be in the stable subspace $E^(c)$. Thus we will rewrite (i) as follows:
+For (i), our candidate for the Frechet derivative is $e^{A(c)x} Bx P^s(c) + e^{A(c)x} (P^s)'(c)$, which we get from Lemma \ref{derivatives1} and the product rule. $B$ is defined in Lemma \ref{derivatives1}. Unfortunately, we have no reason to think that this is even in $X_\eta$ since the output of $Bx P^s(c)$ and $(P^s)'(c)$ does not necessarily have to be in the stable subspace $E^s(c)$. Thus we will rewrite (i) as follows:
 
 \begin{align*}
 e^{A(c)x} P^s(c) &= \left( \sum_{n = 0}^\infty \frac{ A(c)^n x^n }{n!} \right) P^s(c) \\
@@ -408,7 +430,18 @@ where we used the fact that for any projection $P$, $P^2 = P$. Taking the standa
 &= e^{A(c) x}P^s(c)[ B P^s(c) + A(c)(P^s)'(c)]x
 \end{align*}
 
-Since the stable projection operator occurs right before we apply the matrix exponential, this now looks like it is in $X_\eta$. To prove that this is in fact the Frechet derivative, we need to show the following:
+Since the stable projection operator occurs right before we apply the matrix exponential, this is now a bounded linear operator from $\R$ to $X_\eta$ since
+
+\begin{align*}
+|| e^{A(c) x} &P^s(c)[ B P^s(c) + A(c)(P^s)'(c)]x h ||_\eta \\
+&= || e^{\eta x} e^{A(c) x} P^s(c)[ B P^s(c) + A(c)(P^s)'(c)]x || | h | \\
+&\leq e^{\eta x} e^{-\alpha^s x} x || P^s(c)[ B P^s(c) + A(c)(P^s)'(c)] || | h | \\
+&\leq C e^{(\eta - \alpha^s) x} x |h|
+\end{align*}
+
+where $C = || P^s(c)[ B P^s(c) + A(c)(P^s)'(c)] ||$ is a constant since all these are constant matrices. As long as we choose $\eta < \alpha^s$, $e^{(\eta - \alpha^s) x} x $ is bounded by a constant, thus we have a bounded linear operator from $\R$ to $X_\eta$. \\
+
+To prove that this is in fact the Frechet derivative, we need to show the following:
 
 \[
 \lim_{h \rightarrow 0} \frac{1}{|h|} || e^{A(c+h)x}P^s(c+h) - e^{A(c)x}P^s(c) - e^{A(c) x}P^s(c)[ B P^s(c) + A(c)(P^s)'(c)]x h ||_\eta = 0 
@@ -479,13 +512,6 @@ Note that since $DN(0) = 0$ and $N \in C^1$, $DN(u) \rightarrow 0$ as $u \righta
 ||N(U) - N(V)||_\eta \leq L(\rho)(||U||_\eta - ||V||_\eta) 
 \]
 which is a consequence of the mean value inequality.\\
-
-Since for $c > 0$ the matrix $A(c)$ is hyperbolic and since the eigenvalues of $A(c)$ are continuous functions of $c$, we can find $\alpha^s, \alpha^u > 0$ such that for all $c \in B_1$, all eigenvalues of $A(c)$ lie outside the open interval $(-\alpha^s, \alpha^u)$. For $c \in B$, we have the estimates
-
-\begin{align*}
-||e^{A(c)x}P^s(c)|| &\leq Me^{-\alpha^s x} && x \geq 0\\
-||e^{A(c)x}P^u(c)|| &\leq Me^{\alpha^u x} && x \leq 0
-\end{align*}
 
 Now we define the map $F: D \times B_1 \times B_2 \rightarrow X_\eta$ by
 
@@ -589,7 +615,7 @@ All we need to do to complete the proof is show that the map $F$ is smooth in $c
 [F(U, c, a)](x) = e^{A(c)x} P^s(c) a + \int_\infty^x e^{A(c)(x - y)}P^u(c) N(U(y))dy + \int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy
 \end{equation}
 
-From Lemma \ref{derivatives}, $e^{A(c)x} P^s(c)$ is differentiable at $c = c_0$, thus we are all set with the first term on the RHS. For the second two terms, $N(U(y))$ does not depend on $c$, so we have the same two terms $e^{A(c)x} P^s(c)$ and $e^{A(c)x} P^u(c)$ inside the integral, both of which are differentiable at $c = c_0$ by Lemma \ref{derivatives}. Thus all we have to do is make sure we can pass the derivative inside the integral sign. Since these are Frechet derivatives in a weighted Banach space, I'm not exactly sure how this works, but my guess is that since both integrands are bounded (when multiplied by the exponential weight) by an integrable function (as we showed above when we found a bound for $||F||^\eta$), we have an analogue of the DCT and can do this.\\
+From Lemma \ref{derivatives1}, $e^{A(c)x} P^s(c)$ is differentiable at $c = c_0$, thus we are all set with the first term on the RHS. For the second two terms, $N(U(y))$ does not depend on $c$, so we have the same two terms $e^{A(c)x} P^s(c)$ and $e^{A(c)x} P^u(c)$ inside the integral, both of which are differentiable at $c = c_0$ by Lemma \ref{derivatives1}. Thus all we have to do is make sure we can pass the derivative inside the integral sign. Since these are Frechet derivatives in a weighted Banach space, I'm not exactly sure how this works, but my guess is that since both integrands are bounded (when multiplied by the exponential weight) by an integrable function (as we showed above when we found a bound for $||F||^\eta$), we have an analogue of the DCT and can do this.\\
 
 Thus we have (I think) shown that $F$ is differerentiable in $c$.
 
