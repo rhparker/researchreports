@@ -339,7 +339,7 @@ Next we note some estimates which will be useful later.\\
 
 Let $A(c) = A(0; c)$. Then $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$. Let $P^s(c)$ and $P^u(c)$ are the stable and unstable projections onto the stable and unstable eigenspaces of $A(c)$.\\
 
-Since for $c > 0$ the matrix $A(c)$ is hyperbolic and since the eigenvalues of $A(c)$ are continuous functions of $c$ (in fact, we have explicit formulas for them above), we can find $\alpha^s, \alpha^u > 0$ such that for all $c \in (c - \delta, c + \delta)$, where $\delta$ is the constant from Lemma \ref{transverseint}, all eigenvalues of $A(c)$ lie outside the open interval $(-\alpha^s, \alpha^u)$. For $c \in (c - \delta, c + \delta)$, we thus have the estimates
+Since for $c > 0$ the matrix $A(c)$ is hyperbolic and since the eigenvalues of $A(c)$ are continuous functions of $c$ (in fact, we have explicit formulas for them, we can find $\alpha^s, \alpha^u > 0$ such that for all $c \in (c - \delta, c + \delta)$, where $\delta$ is the constant from Lemma \ref{transverseint}, all eigenvalues of $A(c)$ lie outside the open interval $(-\alpha^s, \alpha^u)$. For $c \in (c - \delta, c + \delta)$, we thus have the estimates
 
 \begin{align*}
 ||e^{A(c)x}P^s(c)|| &\leq Me^{-\alpha^s x} && x \geq 0\\
@@ -364,13 +364,13 @@ Thus the derivative with respect to $c$ is
 \frac{\partial}{\partial c} e^{A(c)x} = e^{A(0)x}e^{Bcx}Bx = e^{A(c)x} Bx
 \end{equation}
 
-The projections are a little trickier. For the stable projection, we write $P^s(c)$ as
+The projections are a little trickier. If $c \neq 1/4$, the stable eigenvalues are distinct, so their corresponding eigenspaces are linearly indepenedent. For the stable projection, we write $P^s(c)$ as
 
 \[
 P^s(c) = P^1(c) + P^2(c)
 \]
 
-where $P^1(c)$ + $P^2(c)$ are the projections onto the eigenspaces spanned $v_1^s(c)$ and $v_2^s(c)$, respectively. It suffices to show differentiability at $c$ for $P^1(c)$ since $P^2(c)$ is similar. Following Kato (1976), we will look at small perturbations of the operator $A(c)$:
+where $P^1(c)$ + $P^2(c)$ are the projections onto the eigenspaces spanned by $v_1^s(c)$ and $v_2^s(c)$, respectively. It suffices to show differentiability at $c$ for $P^1(c)$ since $P^2(c)$ is similar. Following Kato (1976), we will look at small perturbations of the operator $A(c)$:
 
 \[
 T(h) = A(c) + h B
@@ -393,6 +393,8 @@ By construction, the derivative of $P^1(c)$ with respect to $c$ is equal to $P'(
 (P^s)'(c) = (P^1)'(c) + (P^2)'(c)
 \]
 
+If we are unlucky and have $c = 1/4$, we can take a contour $\Gamma$ which encloses both stable eigenvalues but not either unstable eigenvalue. Since the real part of the stable eigenvalues is negative while the real part of the unstable eigenvalues is positive, such a contour can always be found. We proceed similary, following Kato (1976), to find the derivative of the stable projection.\\
+
 The derivative of the unstable projection $P^u(c)$ is similar.
 
 \end{proof}
@@ -404,12 +406,13 @@ While this is fun and all, this is not enough for our purposes. We need to show 
 For $c > 0$, the following are Frechet differentiable with respect to $c$ at $c = c_0$ on $X_\eta$:
 \begin{enumerate}[(i)]
 	\item $e^{A(c)x} P^s(c)$
+	\item $\int_\infty^x e^{A(c)(x - y)}P^u(c) N(U(y))dy$
+	\item $\int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy$
 \end{enumerate}
+where $N(y)$ is the nonlinear part of our system \eqref{nonlinearsystem}.
 
-As in Lemma \ref{derivatives1}, $A(c) = A(0; c)$, $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$, and $P^s(c)$ is the stable projection onto the stable eigenspaces $E^s(c)$ of $A(c)$.
 \begin{proof}
 In all these cases, we come up with candidate for the Frechet derivative using regular differentiation, and then show that it is also the Frechet derivative using the definition of the Frechet derivative.\\
-
 
 Recall that in the definition of $X_\eta$, the domain of the functions is $[0, \infty)$.\\
 
@@ -930,14 +933,16 @@ B_1(\lambda)| &\leq C|\lambda|\\
 Now we look at the jump as before. 
 
 \begin{align*}
-\langle \Psi(0), W^+(0) &- W^-(0) \rangle = \langle \Psi(0), \Phi^u_-(0, 0)b^- + \int_{-\infty}^0 \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + (K^- B Q_c)(y)] dy  \\
+\langle \Psi(0), W^-(0) &- W^+(0) \rangle = \langle \Psi(0), \Phi^u_-(0, 0)b^- + \int_{-\infty}^0 \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + (K^- B Q_c)(y)] dy  \\
 &- \Phi^s_+(0, 0)b^+ - \int_\infty^0 \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + (K^+ B Q_c)(y) ] dy \rangle \\
 &= \langle \Psi(0), b^- - b^+\rangle + \int_{-\infty}^0 \langle \Psi(0), \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + (K^- B Q_c)(y) ] \rangle dy  \\
 &- \int_\infty^0 \langle \Psi(0), \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + (K^+ B Q_c)(y) ] \rangle dy  \\
 &= \int_{-\infty}^0 \langle \Psi(y), \lambda (K^- B W^-)(y) + (K^- B Q_c)(y) \rangle dy \\
 &- \int_\infty^0 \langle \Psi(y), \lambda (K^+ B W^+)(y) + (K^+ B Q_c)(y) \rangle dy \\
-&= \int_{-\infty}^0 \langle \Psi(y), (K^- B Q_c)(y) \rangle dy + \int_{\infty}^0 \langle \Psi(y), (K^+ B Q_c)(y) \rangle dy  \\
+&= \int_{-\infty}^0 \langle \Psi(y), (K^- B Q_c)(y) \rangle dy - \int_{\infty}^0 \langle \Psi(y), (K^+ B Q_c)(y) \rangle dy  \\
 &+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy - \int_\infty^0 \langle \Psi(y), (K^+ B W^+)(y) \rangle dy \right) \\
+&= \int_{-\infty}^0 \langle \Psi(y), (K^- B Q_c)(y) \rangle dy + \int_0^{\infty} \langle \Psi(y), (K^+ B Q_c)(y) \rangle dy  \\
+&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K^+ B W^+)(y) \rangle dy \right) \\
 \end{align*}
 
 We are interested in the terms not involving $\lambda$. (If we recall what we did above, these will correspond to the coefficient of $\lambda^2$ in the expansion \eqref{eigenfntosecondorder} of the eigenfunction.) Recall that we defined $\psi$ above as the 4th component of $\Psi$. 
@@ -960,9 +965,15 @@ To make this look nicer, we define the piecewise function
 \end{cases}
 \]
 
-Numerics suggests that $q_c$ is even, so this is almost certainly not continuous at $x = 0$. Note that the derivative of $\tilde{q}$ is equal to $q_c$ except at $x = 0$ where it does not exist.\\
+The derivative $q_c(x; c)$ is a even function, since we have
+\begin{align*}
+q_c(x; c) &= \lim_{h \rightarrow 0}\frac{q(x; c+h) - q(x; c)}{h} \\
+&= \lim_{h \rightarrow 0}\frac{q(-x; c+h) - q(-x; c)}{h} \\
+&= q_c(-x; c)
+\end{align*}
+where we used the fact that $q(x)$ is an even function (in $x$). Since $q_c(x)$ is even, it is almost certainly not continuous at $x = 0$. Note that the derivative of $\tilde{q}$ is equal to $q_c$ except at $x = 0$ where it does not exist.\\
 
-We can rewrite $M$ using $\tilde{q}(x)$
+To make things look nice, we can rewrite $M$ using $\tilde{q}(x)$
 
 \[
 M = \int_{-\infty}^0 q'(y) \tilde{q}(y) dy + \int_0^\infty q'(y) \tilde{q}(y) dy = \int_{-\infty}^\infty q'(y) \tilde{q}(y) dy = \langle q', \tilde{q} \rangle_{L^2(\R)}
@@ -989,7 +1000,7 @@ We can rewrite this as
 M = \int_{-\infty}^\infty [q(0) - q(y)] q_c(y) dy
 \end{equation}
 
-but I'm not sure if that buys us anything.\\
+but I'm not sure if that buys us anything. We would, naturally, like the first term to not be there. If we repeat all this using the known symmetry of $q$, $q'$, and $q_c$, we get the same thing.
 
 We can use our estimates to get something resembling (3.56) in Sandstede (1998), ALTHOUGH I DO NOT KNOW IF THIS IS USEFUL SINCE WE HAVE THE EQUIVALENT TO THE MELNIKOV INTEGRAL. We use here the estimate (3.50) in Sandstede (1998) $|\Psi(x)| \leq C e^{-\alpha_* |x|}$. (We use $\alpha_*$ here for the constant to distinguish it from the $\alpha$ we chose above.) We also use the estimate $||W|| = ||W_3(\lambda)||_\alpha \leq C|\lambda|$ for our chosen $\alpha < \alpha_s, \alpha_u$. For the last one, recall that the exponentially weighted norm is defined by
 
