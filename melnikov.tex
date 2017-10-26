@@ -38,6 +38,7 @@
 \newtheorem{lemma}{Lemma}
 \newtheorem{definition}{Definition}
 \newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
 
 \begin{document}
 
@@ -91,10 +92,11 @@ Since we know the form of the Hamiltonian explicitly, we can compute its total d
 DH(u, u', u'', u''') = (cu - u^2, u''' - u', -u'', u') = (u(c - u), u''' - u', -u'', u') 
 \end{equation}
 
-We are interested in the derivative of the Hamiltonian at the peak of a single pulse solution. We make the following assumption about the existence of a single-pulse solution (although this might have been proved in the literature; we will look this up)
+We are interested in the derivative of the Hamiltonian at the peak of a single pulse solution. We make the following hypothesis about the existence of a single-pulse solution (although this might have been proved in the literature; we will look this up)
 
-\begin{assumption}For a speed $c_0 > 0$, a single pulse solution $q_0(x) = q(x; c_0)$ exists to \eqref{4thorder}. This single pulse solution is a homoclinic orbit connecting the equilibrium at $u = 0$ to itself and is exponentially localized.
-\end{assumption}
+\begin{hypothesis}
+For a speed $c_0 > 0$, a single pulse solution $q_0(x) = q(x; c_0)$ exists to \eqref{4thorder}. This single pulse solution is a homoclinic orbit connecting the equilibrium at $u = 0$ to itself and is exponentially localized.
+\end{hypothesis}
 
 We want to evaluate $DH$ at $q_0(0)$. Note that this point is the peak (maximum) of the single pulse and the single pulse is an even function, so all odd derivatives are zero. Thus we have
 
@@ -175,13 +177,13 @@ where the norm is given by
 
 This space is known to be a Banach space, and the weight $\eta > 0$ will be chosen later. Since we wish our functions to decay exponentially at $+\infty$, we want the weight to be positive.\\
 
-We would like to show that we can take the derivative of our single pulse $q(x)$ with respect to the wave speed $c$, and that the derivative $q_c(x)$ is exponentially localized. For this to be the case, we will need the following assumption.
+We would like to show that we can take the derivative of our single pulse $q(x)$ with respect to the wave speed $c$, and that the derivative $q_c(x)$ is exponentially localized. For this to be the case, we will need the following hypothesis.
 
-\begin{assumption}\label{transverseint}
-For some $c_0 > 0$, the stable manifold $W^s(0; c_0)$ and the unstable manifold $W^u(0; c_0)$ for the equilibrium solution $u = 0$ intersect transversely in $H^{-1}(0)$ at a point $Q(0; c_0)$, where $H$ is the Hamiltonian for the ODE. Since by Lemma \eqref{manifoldinH0} $H^{-1}(0)$ is a manifold in a neighborhood of $Q(0; c_0)$, this assumption makes sense.
-\end{assumption}
+\begin{hypothesis}\label{transverseint}
+For some $c_0 > 0$, the stable manifold $W^s(0; c_0)$ and the unstable manifold $W^u(0; c_0)$ for the equilibrium solution $u = 0$ intersect transversely in $H^{-1}(0)$ at a point $Q(0; c_0) \neq 0$, where $H$ is the Hamiltonian for the ODE. Since by Lemma \eqref{manifoldinH0} $H^{-1}(0)$ is a manifold in a neighborhood of $Q(0; c_0)$, this hypothesis makes sense.
+\end{hypothesis}
 
-This assumption is reasonable for the following two reasons.
+This hypothesis is reasonable for the following two reasons.
 \begin{enumerate}
 	\item Numerics show that a single pulse solution exists for a wide range of speeds $c$.
 	\item We know that $\dim W^s(0) = \dim E^s = 2$ and $\dim W^u(0) = \dim E^u = 2$. Since we are in $\R^4$, $\dim H^{-1}(0) = 3$. Since the intersection $W^s(0) \cap W^u(0)$ must contain $q'(0; c_0)$, the derivative of the pulse, it must have at least dimension 1. Since $W^s(0) + W^u(0) \in \dim H^{-1}(0)$, we have
@@ -193,15 +195,15 @@ This assumption is reasonable for the following two reasons.
 	and $H^{-1}(0)$ is a 3-dimensional manifold near $Q(0; c_0)$.
 \end{enumerate}
 
-What does this assumption get us? Although the existence of a pulse solution does not require transverse intersection (any type of intersection is sufficient), transverse intersection makes it likely (although we still need to prove it) that the intersection of stable and unstable manifolds persists for $c$ near $c_0$. If the intersection were not transverse, we could have a solution for $c = c_0$, but the manifolds could separate when $c$ is perturbed away from $c_0$, in which case we would not have a solution for $c$ near $c_0$.\\
+What does this hypothesis get us? Although the existence of a pulse solution does not require transverse intersection (any type of intersection is sufficient), transverse intersection makes it likely (although we still need to prove it) that the intersection of stable and unstable manifolds persists for $c$ near $c_0$. If the intersection were not transverse, we could have a solution for $c = c_0$, but the manifolds could separate when $c$ is perturbed away from $c_0$, in which case we would not have a solution for $c$ near $c_0$.\\
 
 We will show that $q_c(x)$ exists and is exponentially localized in a series of lemmas.\\
 
 \begin{lemma}\label{transverseint}
-There exists a constant $\delta > 0$ such that $c \in (c - \delta, c + \delta)$, there is a unique intersection of the stable and unstable manifolds $W^s(0; c)$ and $W^u(0; c)$. This intersection is transverse. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$. This homoclinic orbit $Q(x; c)$ is differentiable with respect to $c$ at $c = c_0$.
+Assume Hypothesis \ref{transverseint} is met. Then there exists a constant $\delta > 0$ such that $c \in (c - \delta, c + \delta)$, there is a unique intersection of the stable and unstable manifolds $W^s(0; c)$ and $W^u(0; c)$. This intersection is transverse. Thus we still have a single-pulse (homoclinic orbit) for $c$ near $c_0$. This homoclinic orbit $Q(x; c)$ is differentiable with respect to $c$ at $c = c_0$.
 \begin{proof}
 
-By Assumption \ref{transverseint}, $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at the point $Q_0 = Q(0; c_0)$. By Lemma \ref{manifoldinH0}, the level set $H^{-1}(0)$ contains a 3-dimensional manifold $M(c_0)$ in a neighborhood of this intersection point. Since $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at this intersection point, this means that
+By Hypothesis \ref{transverseint}, $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at the point $Q_0 = Q(0; c_0)$. By Lemma \ref{manifoldinH0}, the level set $H^{-1}(0)$ contains a 3-dimensional manifold $M(c_0)$ in a neighborhood of this intersection point. Since $W^u(0; c_0)$ and $W^s(0; c_0)$ intersect transversely in $H^{-1}(0)$ at this intersection point, this means that
 
 \[
 T_{Q_0} W^u(0; c_0) + T_{Q_0} W^s(0; c_0) = T_{Q_0} M
@@ -240,7 +242,7 @@ Note that if we take $c = c_0$ we have
 
 \begin{align*}
 h^u(0; c_0) &= 0 \\
-Dh^u(0; c_0) &= 0
+D_u h^u(0; c_0) &= 0
 \end{align*}
 
 where the derivative is 0 since at $c = c_0$ we have written the manifold $W^u(0; c)$ as a graph over its own tangent space. \\
@@ -262,7 +264,7 @@ Note that we have ordered the coordinates in $\Sigma$ as $(u, v)$, where $u \in 
 Recall that for $c = c_0$, $W^s(0; c_0) \cap W^u(0; c_0) \cap \Sigma$ is the single point $Q_0$. All that is left is to show that for $c$ near $c_0$ we still have a point of intersection in $W^s(0; c) \cap W^u(0; c) \cap \Sigma$. In other words, for $c$ near $c_0$, we seek a point $(u, v) \in V^u \times V^s$ such that $(u, v)$ is contained in both $W^u(0; c) \cap \Sigma$ and $W^s(0; c) \cap \Sigma$. Using the expressions above, this is equivalent to
 
 \[
-Q_0 + (u, h^u(u; c)) = Q_0 = (h^s(v; c), v)
+Q_0 + (u, h^u(u; c)) = Q_0 + (h^s(v; c), v)
 \]
 
 which is satisfied if
@@ -272,40 +274,40 @@ u &= h^s(v; c) \\
 v &= h^u(u; c)
 \end{align*}
 
-What we would like to do is use the IFT on this to get the $(u, v)$ coordinates of the unique intersection of $W^s(0; c_0) \cap \Sigma$ and $W^u(0; c_0) \cap \Sigma$ as a function of $c$ for $c$ near $c_0$. To to this, we will eliminate either $u$ or $v$ in the pair of equations above. Since it doesn't matter which way we do it, let's eliminate $v$ to get our condition for intersection
+What we would like to do is use the IFT on this to get the $(u, v)$ coordinates of the unique intersection of $W^s(0; c_0) \cap \Sigma$ and $W^u(0; c_0) \cap \Sigma$ as a function of $c$ for $c$ near $c_0$. To to this, define a function $K: V^u \times V^s \times (c_0 - \delta, c_0 + \delta) \rightarrow V^u \times V^s$ by
 
-\[
-u = h^s(h^u(u; c); c)
-\]
+\begin{equation}
+K(u, v, c) = \begin{pmatrix}
+u - H^s(v; c) \\ v - h^u(u; c)
+\end{pmatrix}
+\end{equation}
 
-
-Define a function $K: V^u \times (c_0 - \delta, c_0 + \delta) \rightarrow V^u$ by
-\[
-K(u, c) = u - h^s(h^u(u; c); c)
-\]
-
-and note that $K(0, c_0) = 0$. In order to use the IFT to write $u$ as a function of $c$, we need to check the partial derivative with respect to $u$ at $(0, c_0)$.
+and note that $K(0, 0, c_0) = 0$. In order to use the IFT to write $(u, v)$ as a function of $c$, we need to check that the Jacobian matrix in the $(u, v)$ variables is invertible at $(u, v, c) = (0, 0, c_0)$.
 
 \begin{align*}
-\frac{\partial}{\partial u} K(u, c) &= 1 - h^s_v(h^u(u; c); c) h^u_u(u; c) 
+D_{(u, v)}K(u, v, c) = \begin{pmatrix}
+1 & -h^s_v(v; c) \\
+-h^u_u(u; c) & 1
+\end{pmatrix}
 \end{align*}
 
-Evaluating this at $(u, c) = (0, c_0)$
+Evaluating this at $(u, c) = (0, c_0)$ we get the invertible matrix
 
 \begin{align*}
-\frac{\partial}{\partial u} K(u, c)\Big|_{(0, c_0)} &= 1 - h^s_v(h^u(0; c_0); c_0) h^u_u(0; c_0) \\
-&= 1 - h^s_v(0; 0) h^u_u(0; c_0) \\
-&= 1
+D_{(u, v)}K(0, 0, c_0) = \begin{pmatrix}
+1 & 0 \\
+0 & 1
+\end{pmatrix}
 \end{align*}
 
-where we used the fact that $Dh^s(0; c_0) = 0$. Thus by the IFT we can find an open intertal $U = (c_0 - \tilde{\delta}, c_0 + \tilde{\delta})$ with $0 < \tilde{\delta} \leq \delta$ and a unique smooth function $g: U \rightarrow V_u$
+where we used the fact that $D_v h^s(0; c_0) = D_u h^s(0; c_0) = 0$. Thus by the IFT we can find an open intertal $U = (c_0 - \tilde{\delta}, c_0 + \tilde{\delta})$ with $0 < \tilde{\delta} \leq \delta$ and a unique smooth function $g: U \rightarrow V_u \times V_s$ such that
 
 \begin{align*}
 g(c_0) &= 0 \\
 K(g(c), c) &= 0 \text{ for all } c \in U
 \end{align*}
 
-For $c \in U$, $P(c) = Q_0 + (g(c), h^u(g(c); c))$ is the unique intersection point of $W^s(0; c) \cap W^u(0; c) \cap \Sigma$. (Uniqueness comes from the fact that this is a unique function of $c$, so for $c$ near $c_0$, there is exactly one $u = g(c)$ for which $K(g(c),c) = 0$). This intersection is transverse in $H(c)^{-1}(0)$ by uniqueness as well, since a single point of intersection in $\Sigma$ means that the intersection of $W^s(0; c)$ and $W^u(0; c)$ at $P(c)$ is one-dimensional. Since each manifold has one more dimension, the sum of their tangent spaces is three-dimensional.\\
+For $c \in U$, $P(c) = Q_0 + g(c)$ is the unique intersection point of $W^s(0; c) \cap W^u(0; c) \cap \Sigma$. (Uniqueness comes from the fact that this is a unique function of $c$, so for $c$ near $c_0$, there is exactly one $u = g(c)$ for which $K(g(c),c) = 0$). This intersection is transverse in $H(c)^{-1}(0)$ by uniqueness as well, since a single point of intersection in $\Sigma$ means that the intersection of $W^s(0; c)$ and $W^u(0; c)$ at $P(c)$ is one-dimensional. Since each manifold has one more dimension, the sum of their tangent spaces is three-dimensional.\\
 
 Since we have a unique intersection of the stable and unstable manifolds for $c$ near $c_0$ at the point $P(c)$, we have a unique homoclinic orbit $Q(x; c)$ connecting the equilibrium at $U = 0$ to itself, which we can define by
 
@@ -627,9 +629,9 @@ We can similarly show (by, say, replacing $x$ with $-x$), that $q_c(x)$ at $c = 
 \end{proof}
 \end{lemma}
 
-We will also need the following assumptions. Numerics suggest that these assumptions are reasonable.
+We will also need the following hypotheses. Numerics suggest that these are reasonable.
 
-\begin{assumption}\label{1dkernel}
+\begin{hypothesis}\label{1dkernel}
 The kernels of $H$, $\partial_x H$, and $H \partial_x$ are all one-dimensional. Thus we have
 \begin{align*}
 \ker H &= \text{span}\{ q' \} \\
@@ -637,11 +639,11 @@ The kernels of $H$, $\partial_x H$, and $H \partial_x$ are all one-dimensional. 
 \ker H \partial_x &= \text{span}\{ q \}
 \end{align*}
 Note that these only apply on the unbounded domain. For a bounded domain, for example, $\ker H \partial_x$ also contains the constant functions.
-\end{assumption}
+\end{hypothesis}
 
-\begin{assumption}\label{qcIP}
+\begin{hypothesis}\label{qcIP}
 $\langle q, q_c\rangle_{L^2(\R)} \neq 0$
-\end{assumption}
+\end{hypothesis}
 Note that by Cauchy-Schwarz, $\langle q, q_c\rangle_{L^2(\R)} \leq ||q||_{L^2(\R)} ||q_c|_{L^2(\R)}$. Since the single pulse $q$ is exponentially localized, $q \in L^2(\R)$. By Lemma \ref{qc}, $q_c \in L^2(\R)$. Thus this inner product is well-defined.
 
 \subsection*{First Construction}
@@ -875,13 +877,13 @@ Since $\ker(\partial_x H)^* = H^* (\partial_x)^* = -H \partial_x$ (recall that $
 \langle q_c, \phi \rangle \neq 0 \text{ for some }\phi \in \ker(H \partial_x)
 \]
 
-By Assumption \ref{1dkernel}, $\ker(H \partial_x) = \textrm{span} \{q \}$, so this is equivalent to
+By Hypothesis \ref{1dkernel}, $\ker(H \partial_x) = \textrm{span} \{q \}$, so this is equivalent to
 
 \[
-\langle q_c, q \rangle
+\langle q_c, q \rangle \neq 0
 \]
 
-which is Assumption \ref{qcIP}.\\
+which is Hypothesis \ref{qcIP}.\\
 
 Let's look at what we have done so far. For the linearization about a single pulse, we have written our eigenfunction as an expansion in $\lambda$ to 2nd order.
 
@@ -895,7 +897,7 @@ We have the following equation for $w$
 \partial_x H w = -q_c + \lambda w 
 \]
 
-where Assumption \ref{qcIP} assures that the leading-order problem $\partial_x H w = -q_c$ does not have a solution.\\
+where Hypothesis \ref{qcIP} assures that the leading-order problem $\partial_x H w = -q_c$ does not have a solution.\\
 
 From here, we integrate both sides, just as we did earlier, to get the integrated eigenvalue problem. Our lower limit is written here as $a$, which is either $\pm \infty$ to avoid boundary terms. This gives us
 
@@ -951,7 +953,7 @@ We are interested in the terms not involving $\lambda$. (If we recall what we di
 M = \int_{-\infty}^0 \psi(y) \int_{-\infty}^y q_c(z) dz dy + \int_0^\infty \psi(y) \int_{\infty}^y q_c(z) dz dy 
 \end{equation}
 
-We showed above that $\psi \in \ker H$. By Assumption \ref{1dkernel}, $\psi = q'$, so $M$ becomes
+We showed above that $\psi \in \ker H$. By Hypothesis \ref{1dkernel}, $\psi = q'$, so $M$ becomes
 
 \begin{equation}\label{defM}
 M = \int_{-\infty}^0 q'(y) \int_{-\infty}^y q_c(z) dz dy + \int_0^\infty q'(y) \int_{\infty}^y q_c(z) dz dy
@@ -992,7 +994,7 @@ M &= \int_{-\infty}^0 q'(y) \int_{-\infty}^y q_c(z) dz dy + \int_0^\infty q'(y) 
 &= q(0) \int_{-\infty}^\infty q_c(y) dy - \langle q, q_c \rangle
 \end{align*}
 
-The second term on the RHS is nonzero by Assumption \ref{qcIP}. The first term on the RHS comes from the integration-by-parts boundary. The maximum of $q$ occurs at 0, so $q(0) \neq 0$, and numerics suggests that $q_c$ does not have mean 0, thus the first term is almost certainly nonzero.
+The second term on the RHS is nonzero by Hypothesis \ref{qcIP}. The first term on the RHS comes from the integration-by-parts boundary. The maximum of $q$ occurs at 0, so $q(0) \neq 0$, and numerics suggests that $q_c$ does not have mean 0, thus the first term is almost certainly nonzero.
 
 We can rewrite this as
 
