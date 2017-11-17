@@ -300,7 +300,7 @@ D_{(u, v)}K(0, 0, c_0) = \begin{pmatrix}
 \end{pmatrix}
 \end{align*}
 
-where we used the fact that $D_v h^s(0; c_0) = D_u h^s(0; c_0) = 0$. Thus by the IFT we can find an open intertal $U = (c_0 - \tilde{\delta}, c_0 + \tilde{\delta})$ with $0 < \tilde{\delta} \leq \delta$ and a unique smooth function $g: U \rightarrow V_u \times V_s$ such that
+where we used the fact that $D_v h^s(0; c_0) = D_u h^s(0; c_0) = 0$. Thus by the IFT we can find an open interval $U = (c_0 - \tilde{\delta}, c_0 + \tilde{\delta})$ with $0 < \tilde{\delta} \leq \delta$ and a unique smooth function $g: U \rightarrow V_u \times V_s$ such that
 
 \begin{align*}
 g(c_0) &= 0 \\
@@ -348,75 +348,7 @@ Since for $c > 0$ the matrix $A(c)$ is hyperbolic and since the eigenvalues of $
 ||e^{A(c)x}P^u(c)|| &\leq Me^{\alpha^u x} && x \leq 0
 \end{align*}
 
-In the next set of lemma, we evaluate some derivatives which will be useful later.
-
-\begin{lemma}\label{derivatives1}
-For $c > 0$, the functions $e^{A(c)x}$, $P^s(c)$ and $P^u(c)$ are differentiable with respect to $c$. These are the standard partial derivatives of functions from $\R$ or $\R \times \R$ to $\R^4$.
-\begin{proof}
-We can write the matrix exponential as:
-\[
-e^{A(c)x} = e^{(A(0) + Bc)x} = e^{A(0)x}e^{Bcx}
-\]
-where 
-\[
-B = \begin{pmatrix}0&0&0&0\\0&0&0&0\\0&0&0&0\\-1&0&0&0\end{pmatrix}
-\]
-Thus the derivative with respect to $c$ is
-\begin{equation}\label{partialEAx_c}
-\frac{\partial}{\partial c} e^{A(c)x} = e^{A(0)x}e^{Bcx}Bx = e^{A(c)x} Bx
-\end{equation}
-
-The projections are a little trickier. There are two way we can do this. The first follows Kato (1976). If $c \neq 1/4$, the stable eigenvalues are distinct, so their corresponding eigenspaces are linearly independent. For the stable projection, we write $P^s(c)$ as
-
-\[
-P^s(c) = P^1(c) + P^2(c)
-\]
-
-where $P^1(c)$ + $P^2(c)$ are the projections onto the eigenspaces spanned by $v_1^s(c)$ and $v_2^s(c)$, respectively. It suffices to show differentiability at $c$ for $P^1(c)$ since $P^2(c)$ is similar. Following Kato (1976), we will look at small perturbations of the operator $A(c)$:
-
-\[
-T(h) = A(c) + h B
-\]
-
-where $h \in R$ is small. This only perturbs the speed, which is what we want. The unperturbed operator is $T(0) = A(c)$. Let $\lambda = \nu^1(c)$, and let $\Gamma$ be a positively-oriented circle enclosing no other eigenvalues of $A(c)$. Since $c_0 \neq 1/4$, the eigenvalues of $A(c)$ are distinct, so we can always so this. For sufficiently small $h$, by (1.16) on p. 67 in Kato (1976), the eigenprojection onto $v_1^s(c + h)$ is given by 
-
-\[
-P(h) = -\frac{1}{2 \pi i} \int_\Gamma R(\zeta, h) d \zeta
-\]
-
-where $R(\zeta, h) = (T(h) - \zeta)^{-1}$ is the resolvent operator and exists on $\Gamma$ or sufficiently small $h$. Since $T(h)$ is differentiable at $h = 0$ ($T'(h) = B$), by Theorem 5.4 on p. 111 of Kato (1976), $P(h)$ is differentiable at $h = 0$, and the derivative is given by
-\[
-P'(0) = -P T'(0) S - S T'(0) P = -P B S - S B P
-\]
-where $P = P^1(c)$ is the unperturbed projection and $S$ is the reduced resolvent of $T$ for $\lambda$ (defined on p. 40 of Kato. I think to get this you take the Laurent series for the resolvent and ditch the terms with negative powers. Since this is just some matrix, I think we are all set).\\
-
-By construction, the derivative of $P^1(c)$ with respect to $c$ is equal to $P'(0)$, thus $(P^1)'(c)$ exists. Similarly,$(P^2)'(c)$ exists, and so $(P^s)'(c)$ exists, with
-\[
-(P^s)'(c) = (P^1)'(c) + (P^2)'(c)
-\]
-
-If we are unlucky and have $c = 1/4$, we can take a contour $\Gamma$ which encloses both stable eigenvalues but not either unstable eigenvalue. Since the real part of the stable eigenvalues is negative while the real part of the unstable eigenvalues is positive, such a contour can always be found. We proceed similary, following Kato (1976), to find the derivative of the stable projection.\\
-
-For another way to do this, choose a contour $\Gamma$ such that for all $c$ in an open interval $U$ containing $c_0$, $\Gamma$ encloses the stable eigenvalues of $A(c)$ (i.e. those with negative real part). Then the projection onto the stable eigenspcae $E^s(c)$ is given by the contour integral
-
-\begin{equation}\label{projintegral}
-P(c) = \frac{1}{2 \pi i} \int_\Gamma (A(c) - \lambda I)^{-1} d \lambda
-\end{equation} 
-
-Since the resolvent operator $R(\lambda; c) = (A(c) - \lambda I)^{-1}$ is defined along the contour $\Gamma$ for all $c \in U$, this integral is well-defined. Let $G: GL(n, \R) \rightarrow GL(n, \R)$ be the inverse operator on $GL(n, \R)$, i.e. $G(A) = A^{-1}$. This operator is known to be differentiable. Then we can write the projection operator \eqref{projintegral} as
-
-\begin{equation}
-P(c) = \frac{1}{2 \pi i} \int_\Gamma G(A(c) - \lambda I) d \lambda
-\end{equation} 
-
-Since $A(c)$ is differentiable in $c$ (its derivative is $B$) and $G$ is differentiable, the integrand is the composition of two differentiable functions, thus is differentiable in $c$, and we let $P'(c)$ be this derivative.
-
-The derivative of the unstable projection $P^u(c)$ is similar.
-
-\end{proof}
-\end{lemma}
-
-While this is fun and all, this is not enough for our purposes. We need to show that certain functions, like $e^{A(c)x} P^s(c)$ have Frechet derivatives on $X_\eta$. Note that we would not, for example, expect $e^{A(c)x}$ to have a Frechet derivative on $X_\eta$, since it grows exponentially with $x$ if the initial condition has a component in $E^u(c)$. Thus the presence of the projection operator is key. Now that we have a sense of what we need to do, we will proceed.\\
+Next we need to show that certain functions, like $e^{A(c)x} P^s(c)$ have Frechet derivatives on $X_\eta$. Note that we would not, for example, expect $e^{A(c)x}$ to have a Frechet derivative on $X_\eta$, since it grows exponentially with $x$ if the initial condition has a component in $E^u(c)$. Thus the presence of the projection operator is key.\\
 
 First, we prove the following lemma about Frechet derivatives in exponentially weighted spaces with respect to a parameter under a change of variables dependent on that parameter. I'm sure this is known, but stuff on Frechet derivatives is hard to find.\\
 
@@ -424,13 +356,13 @@ First, we prove the following lemma about Frechet derivatives in exponentially w
 Let $F(c): \R \rightarrow X_\eta$, where $X_\eta$ is the weighted exponential space
 
 \[
-X_\eta = \{ F \in C^0([0, \infty), \R^n) : \sup_{x \in [0, \infty)} |e^{\eta x} F(x)| < \infty 
+X_\eta = \{ f \in C^0([0, \infty), \R^n) : \sup_{x \in [0, \infty)} |e^{\eta x} f(x)| < \infty 
 \]
 
 with norm given by
 
 \[
-||F||_\eta = \sup_{x \in [0, \infty)} |e^{\eta x} F(x)|
+||f||_\eta = \sup_{x \in [0, \infty)} |e^{\eta x} f(x)|
 \]
 
 Suppose $F$ has a Frechet derivative $L$ at parameter value $c$, i.e. $L$ is a bounded linear operator from $\R \rightarrow X_\eta$ such that 
@@ -483,7 +415,27 @@ where we used the fact that $F$ is continuous as a function from $\R$ to $X_\eta
 For (ii), the proof is similar. For (iii), take $T(c) = S^{-1}(c)$ in (i), then use (ii).
 
 \end{proof}
+\end{lemma}
 
+In the next lemma, we exhibit a property of 
+
+\begin{lemma}\label{expproj}
+If $A$ is an $n \times n$ matrix and $P$ is a projection on $\R^n$, 
+\[
+e^{Ax} P = e^{APx} P 
+\]
+Note that this does not require $P$ to commute with $A$.
+\begin{proof} 
+Using the fact that for a projection $P^2 = P$, thus $P^n = P$ for all $n$,
+\begin{align*}
+e^{Ax} P &= \left( \sum_{n = 0}^\infty \frac{ A^n x^n }{n!} \right) P \\
+&= \left(1 + Ax + \frac{A^2 x^2}{2!} + \cdots \right) P \\
+&= \left(P + AP^2 x + \frac{A^2 P^3 x^2}{2!} + \cdots \right)\\
+&= \left(1 + AP x + \frac{A^2 P^2 x^2}{2!} + \cdots \right) P \\
+&= \left( \sum_{n = 0}^\infty \frac{ [ A P x]^n}{n!} \right) P \\
+&= e^{AP x} P
+\end{align*}
+\end{proof}
 \end{lemma}
 
 This next lemma, although it seems irrelevant, will be useful in the proof of the lemma following it.
@@ -521,6 +473,8 @@ These all make sense visually, but a rigorous proof follows.
 \end{enumerate}
 \end{proof}
 \end{lemma}
+
+Now we are in the position to show Frechet differentiability of three functions.
 
 \begin{lemma}\label{derivatives2}
 For $c > 0$, the following are Frechet differentiable with respect to $c$ at $c = c_0$ on $X_\eta$:
