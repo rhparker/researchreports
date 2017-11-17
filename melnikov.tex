@@ -486,45 +486,11 @@ For $c > 0$, the following are Frechet differentiable with respect to $c$ at $c 
 where $N(y)$ is the nonlinear part of our system \eqref{nonlinearsystem}.
 
 \begin{proof}
-In all these cases, we come up with candidate for the Frechet derivative using regular differentiation, and then show that it is also the Frechet derivative using the definition of the Frechet derivative.\\
+In all cases, we come up with candidate for the Frechet derivative using regular differentiation, and then show that it is also the Frechet derivative using the definition of the Frechet derivative.\\
 
 Recall that in the definition of $X_\eta$, the domain of the functions is $[0, \infty)$.\\
 
-For (i), our candidate for the Frechet derivative is $e^{A(c)x} Bx P^s(c) + e^{A(c)x} (P^s)'(c)$, which we get from Lemma \ref{derivatives1} and the product rule. $B$ is defined in Lemma \ref{derivatives1}. Unfortunately, we have no reason to think that this is even in $X_\eta$ since the output of $Bx P^s(c)$ and $(P^s)'(c)$ does not necessarily have to be in the stable subspace $E^s(c)$. Thus we will rewrite (i) as follows:
-
-\begin{align*}
-e^{A(c)x} P^s(c) &= \left( \sum_{n = 0}^\infty \frac{ A(c)^n x^n }{n!} \right) P^s(c) \\
-&= \left(1 + A(c)x + \frac{A(c)^2 x^2}{2!} + \cdots \right) P^s(c) \\
-&= \left(P^s(c) + A(c)P^s(c)^2 x + \frac{A(c)^2 P^s(c)^3 x^2}{2!} + \cdots \right)\\
-&= \left(1 + A(c)P^s(c) x + \frac{A(c)^2 P^s(c)^2 x^2}{2!} + \cdots \right) P^s(c) \\
-&= \left( \sum_{n = 0}^\infty \frac{ [ A(c) P^s(c) x]^n}{n!} \right) P^s(c) \\
-&= e^{A(c) P^s(c) x} P^s(c)
-\end{align*}
-
-where we used the fact that for any projection $P$, $P^2 = P$. We are going to need the partial derivative of $e^{A(c) P^s(c) x}$ respect to $c$, so let's do that first. Note that since matrix exponentials are weird, we are leery of just using the chain rule so will to resort to the power series definition of the matrix exponential.
-
-\begin{align*}
-\frac{\partial}{\partial c}e^{A(c) P^s(c) x} &= \frac{\partial}{\partial c}\left( \sum_{n = 0}^\infty \frac{ [ A(c) P^s(c) x]^n}{n!} \right)\\
-&= \sum_{n = 0}^\infty \frac{ n [ A(c) P^s(c) x]^{n-1} [A(c) P^s(c)' + B P^s(c) ] } {n!} \\
-&= \left( \sum_{n = 1}^\infty \frac{ [ A(c) P^s(c) x]^{n-1} } {(n-1)!} \right) [A(c) P^s(c)' + B P^s(c) ] \\
-&= \left( \sum_{n = 0}^\infty \frac{ [ A(c) P^s(c) x]^{n} } {n!} \right) [A(c) P^s(c)' + B P^s(c) ] \\
-&= e^{A(c) P^s(c) x} [A(c) P^s(c)' + B P^s(c) ]
-\end{align*}
-
-Interestingly enough, the chain rule worked in this case. (I think this actually works in general, but is irrelevant here.)\\
-
-Now we can take the standard partial derivative of $e^{A(c)x} P^s(c)$.
-
-\begin{align*}
-\frac{\partial}{\partial c}\left( e^{A(c)x} P^s(c) \right) &= \frac{\partial}{\partial c} \left( e^{A(c) P^s(c) x} P^s(c) \right) \\
-&= \frac{\partial}{\partial c} \left( e^{A(c) P^s(c) x} \right) P^s(c) + e^{A(c) P^s(c) x} P^s(c)'\\
-&= e^{A(c) P^s(c) x} [A(c) P^s(c)' + B P^s(c) ] P^s(c)+ e^{A(c) P^s(c) x} P^s(c)' \\
-&= e^{A(c) P^s(c) x} [A(c) P^s(c)' + B P^s(c) ] P^s(c)+ e^{A(c) P^s(c) x} P^s(c)'
-\end{align*}
-
-It doesn't look like this has helped much. Let's try a different approach.\\
-
-Recall that the two stable eigenvalues of $A(c)$ are designated $\lambda^s_1(c)$ and $\lambda^s_1(c)$. Their corresponding eigenvectors are $v^s_1(c)$ and $v^s_2(c)$. The unstable eigenvalues are $\lambda^u_1(c)$ and $\lambda^u_1(c)$, with corresponding eigenvectors $v^u_1(c)$ and $v^u_2(c)$. We are assuming $c > 0, c \neq 1/4$ so that the eigenvalues are distinct, thus the eigenvectors are linearly in dependent. \\
+For (i), we employ the following change of variables. Recall that the two stable eigenvalues of $A(c)$ are designated $\lambda^s_1(c)$ and $\lambda^s_1(c)$. Their corresponding eigenvectors are $v^s_1(c)$ and $v^s_2(c)$. The unstable eigenvalues are $\lambda^u_1(c)$ and $\lambda^u_1(c)$, with corresponding eigenvectors $v^u_1(c)$ and $v^u_2(c)$. We are assuming $c > 0, c \neq 1/4$ so that the eigenvalues are distinct, thus the eigenvectors are linearly independent. \\
 
 Let $S(c) = (v^s_1(c) | v^s_2(c) | v^u_1(c) | v^u_2(c))$, i.e. the matrix whose columns are the eigenvectors of $A(c)$. Then $S(c)^{-1} A(c) S(c) = D(c)$, where $D(c)$ is the diagonal matrix
 
@@ -547,7 +513,7 @@ So we have
 S(c)^{-1} e^{A(c) x} P^s(c) S(c) = S(c)^{-1} e^{A(c) x} S(c)^{-1} S(c) P^s(c) S(c) = e^{D(c) x} P_1
 \end{align*}
 
-Next, note that by the same argument as above, using the known formula for the matrix exponential of a diagonal matrix,
+Next, note that by the same argument as above, using the known formula for the matrix exponential of a diagonal matrix and Lemma \ref{expproj},
 
 \begin{align*}
 e^{D(c) x} P_1 &= e^{ D(c)P_1 x} P_1 = 
@@ -617,44 +583,44 @@ where the remainder term $r(h) \rightarrow 0$ as $h \rightarrow 0$.
 &= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} e^{r(h)h x} - 1 - \lambda'(c)x h|}{|h|} 
 \end{align*}
 
-We also expand $e^{r(h)h x}$ using the Taylor theorem
+We also expand $e^{r(h)h x}$ using the Taylor theorem to one term (i.e. the ordinary mean value theorem)
 
 \[
-e^{r(h)h x} = 1 + r(h)h x + \frac{1}{2}e^{r(h)h\xi}(r(h)hx)^2
+e^{r(h)h x} = 1 + e^{r(h)h\xi}r(h)hx
 \]
 where $\xi \in [0, x]$. Substituting this in, we get
 
 \begin{align*}
 &\frac{e^{\eta x}| e^{\lambda(c+h) x} - e^{\lambda(c) x} - e^{\lambda(c) x} \lambda'(c)x h|}{|h|}\\
-&= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx}( 1 + r(h)h x + \frac{1}{2}e^{r(h)h\xi}(r(h)hx)^2 )- 1 - \lambda'(c)x h|}{|h|} \\
-&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + \frac{e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} | r(h)h x|}{|h|} + \frac{e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} | e^{r(h)h\xi}(r(h)hx)^2|}{2 |h|}\\
-&= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} | r(h)| x + \frac{1}{2}e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h\xi}r(h)^2|h| \\
-&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} | r(h)| x + \frac{1}{2}e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h x}r(h)^2|h|
+&= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx}( 1 + e^{r(h)h\xi}r(h)hx )- 1 - \lambda'(c)x h|}{|h|} \\
+&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + \frac{e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h\xi} | r(h)h x|}{|h|} \\
+&= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h\xi}| r(h)| x \\
+&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} (1 + e^{r(h)h x}) | r(h)| x  \\
+&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} x | r(h)| + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h x} x | r(h) |
 \end{align*}
-where in the last line all we did was replace $\xi$ with $x$ since the exponential function is increasing and $\xi \in [0, x]$.\\
+where in the penultimate line we used the fact that the exponential function is monotonic, so since $\xi \in [0, x]$, $e^{r(h)h\xi}$ is bounded by either $e^{r(h)h x}$ or 1 depending on whether $r(h)h$ is positive or negative. Thus $e^{r(h)h\xi} \leq 1 + e^{r(h)h x}$.\\
 
 All that remains is to show each of the three terms goes to 0 uniformly in $x$ as $h \rightarrow \infty$. First, we choose $\eta$ so that $0 \leq \eta \leq \text{Re} \lambda_1^s(c), \text{Re} \lambda_2^s(c)$, so we have $0 \leq \eta \leq \lambda$ here. Then let $a = \lambda - \eta$. Note that $\lambda'(c)$ is just some constant.\\
 
-For the second term, choose $h$ sufficiently small such that $|\lambda'(c) h| \leq a/2$. Then we have
+For the second term and third terms, choose $h$ sufficiently small so that $|\lambda'(c) h| \leq a/4$ and  $|r(h)h| \leq a/4$. (Recall that $r(h) \rightarrow 0 $ as $h \rightarrow 0$, so we can do this.) For the second term, we have
 
 \begin{align*}
-e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} | r(h)| x &= e^{(\eta + \lambda(c) + \lambda'(c)h)x}x|r(h)| \\
-&= e^{(\eta + \lambda(c) + a/2 )x}x|r(h)| \\
+e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} x | r(h)| &= e^{(\eta + \lambda(c) + \lambda'(c)h)x}x|r(h)| \\
+&= e^{(\eta + \lambda(c) + a/4 )x}x|r(h)| \\
 &= e^{-\alpha x}x|r(h)|
 \end{align*}
 where $\alpha = \eta + \lambda(c) + a/2  < 0$. Since $e^{-\alpha x}x$ is bounded in $x$ and $|r(h)| \rightarrow 0$ as $h \rightarrow \infty$, this term decays to 0 uniformly in $x$.\\
 
-The third term decays similarly to the second. To show this, choose $h$ sufficiently small (decreasing it if needed) so that $|\lambda'(c) h| \leq a/4$ and $|r(h)h| \leq a/4$. (Recall that $r(h) \rightarrow 0 $ as $h \rightarrow 0$ as well, so we can do this.) Then we have
+For the third term, we have
 
 \begin{align*}
-\frac{1}{2}e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h x}r(h)^2|h| &= 
-\frac{1}{2}e^{(\eta x + \lambda(c) + \lambda'(c)h + r(h)h) x}r(h)^2|h| \\
-&\leq \frac{1}{2}e^{(\eta x + \lambda(c) + a/4 + a/4) x}r(h)^2|h| \\
-&= \frac{1}{2}e^{(\eta x + \lambda(c) + a/2) x}r(h)^2|h| 
+e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h x} x |r(h)| &= e^{(\eta + \lambda(c) + \lambda'(c)h + r(h)h)x}x|r(h)| \\
+&= e^{(\eta + \lambda(c) + a/4 + a/4)x}x|r(h)| \\
+&= e^{(\eta + \lambda(c) + a/2)x}x|r(h)| \\
+&= e^{-\alpha x}x|r(h)|
 \end{align*}
-Since the exponent is always negative, $e^{(\eta x + \lambda(c) + a/2) x}$ is bounded, so this term also decays to 0 uniformly in $x$.\\
 
-WE LIKELY COULD HAVE GOTTEN AWAY WITH ONLY ONE TERM IN THE TAYLOR EXPANSION (i.e. THE ORDINARY MEAN VALUE THEOREM), BUT THIS WORKS TOO.\\
+where $\alpha = \eta + \lambda(c) + a/2  < 0$ is the same as above. Since $e^{-\alpha x}x$ is bounded in $x$ and $|r(h)| \rightarrow 0$ as $h \rightarrow \infty$, this term decays to 0 uniformly in $x$ as well.\\
 
 Finally, for the first term, we have
 
@@ -676,7 +642,7 @@ The infinite sum was evaluated using Mathematica, but it is easy to verify manua
 
 By our choice of $\eta$ and for sufficiently small $h$ (as above) these exponential terms all have negative exponents, thus the RHS on the last line above is less than or equal to a constant multiplied by $|h|$ and so it decays to 0 uniformly in $x$.\\
 
-Since everything decays to 0 uniformly in $x$, we have proved the lemma.
+Since everything decays to 0 uniformly in $x$, we have proved part (i) of the lemma.
 
 \end{proof}
 \end{lemma}
