@@ -94,10 +94,15 @@ DH(u, u', u'', u''') = (cu - u^2, u''' - u', -u'', u') = (u(c - u), u''' - u', -
 
 We are interested in the derivative of the Hamiltonian at the peak of a single pulse solution. We make the following hypothesis about the existence of a single-pulse solution (although this might have been proved in the literature; we will look this up)
 
-\begin{hypothesis}
+\begin{hypothesis}\label{singlepulseexists}
 For a speed $c_0 > 0$, a single pulse solution $q_0(x) = q(x; c_0)$ exists to \eqref{4thorder}. This single pulse solution is a homoclinic orbit connecting the equilibrium at $u = 0$ to itself and is exponentially localized.
 \end{hypothesis}
 
+First, we want to show that the total derivative $DH$ of the Hamiltonian \eqref{Hamiltonian} is nonzero at $q_0(0)$, the center of the single pulse.
+
+\begin{lemma}\label{DHnonzero}
+For the single pulse solution $q_0(x)$ from Hypothesis \ref{singlepulseexists}, the total derivative of the Hamiltonian \eqref{Hamiltonian} evaluated at $q_0(0)$ is nonzero.
+\begin{proof}
 We want to evaluate $DH$ at $q_0(0)$. Note that this point is the peak (maximum) of the single pulse and the single pulse is an even function, so all odd derivatives are zero. Thus we have
 
 \[
@@ -112,7 +117,10 @@ q_0''''(0) - q_0''(0) + c^2 - c^2 &= 0 \\
 q_0''''(0) = q_0''(0)
 \end{align*}
 
-If $q_0''(0) = 0$, this implies $q_0''''(0)$ = 0. In other words, the constant solution $q_0(x) = c$ is the unique solution to \eqref{4thorder} with initial condition $(u(0), u'(0), u''(0), u'''(0)) = (c, 0, 0, 0)$. This is not an exponentially decaying pulse, so this cannot be the case. Thus we conclude that if $q_0(0) = c$, we must have $q_0''(0) \neq 0$. In either case, the total derivative $DH(q_0, q_0', q_0'', q_0''')$ cannot vanish at $x = 0$.\\
+If $q_0''(0) = 0$, this implies $q_0''''(0)$ = 0. In other words, the constant solution $q_0(x) = c$ is the unique solution to \eqref{4thorder} with initial condition $(u(0), u'(0), u''(0), u'''(0)) = (c, 0, 0, 0)$. This is not an exponentially decaying pulse, so this cannot be the case. Thus we conclude that if $q_0(0) = c$, we must have $q_0''(0) \neq 0$. In either case, the total derivative $DH(q_0, q_0', q_0'', q_0''')$ cannot vanish at $x = 0$.
+
+\end{proof}
+\end{lemma}
 
 Before we continue, we will write $\eqref{4thorder}$ as a 4th order system. Note that we are following our usual notational convention, where capital letters represent vectors in the 4th order system, while small letters represent their scalar counterparts. As a 4th-order system, we have
 
@@ -127,7 +135,7 @@ Let $Q(x; c) = (q(x; c) q'(x; c), q''(x; c), q'''(x; c))$. From here, we show th
 \begin{lemma}\label{manifoldinH0}
 The zero level set of the Hamiltonian $H^{-1}(0)$ contains a 3-dimensional manifold in a neighborhood of $Q(0; c_0)$.
 \begin{proof}
-By what we showed above, $DH(Q(0; c_0)) \neq 0$. For convenience, write $Q(x) = Q(x; c_0)$. In this case, either the first or the the third component of $DH(Q(0))$ is nonzero. Taking the first component to nonzero, using the IFT we can write $q_1$ locally as a graph over $(q_2, q_3, q_4)$. In other words, there exists a unique $C^1$ function $g: U \rightarrow \R$, where $U$ is an open neighborhood of $(q_2(0), q_3(0), q_4(0))$, such that $g(q_2(0), q_3(0), q_4(0)) = q_1(0)$ and $H(g(q_2, q_3, q_4), q_2, q_3, q_4 ) = 0$ on $U$. The three-dimensional surface:
+By Lemma \ref{DHnonzero}, $DH(Q(0; c_0)) \neq 0$. For convenience, write $Q(x) = Q(x; c_0)$. From the proof of that lemma, either the first or the the third component of $DH(Q(0))$ is nonzero. Taking the first component to nonzero, using the IFT we can write $q_1$ locally as a graph over $(q_2, q_3, q_4)$. In other words, there exists a unique $C^1$ function $g: U \rightarrow \R$, where $U$ is an open neighborhood of $(q_2(0), q_3(0), q_4(0))$, such that $g(q_2(0), q_3(0), q_4(0)) = q_1(0)$ and $H(g(q_2, q_3, q_4), q_2, q_3, q_4 ) = 0$ on $U$. The three-dimensional surface:
 
 \[
 \{ (g(q_2, q_3, q_4), q_2, q_3, q_4) : (q_2, q_3, q_4) \in U \}
@@ -333,320 +341,20 @@ $Q(x; c)$ is differentiable in $c$ for all $c$ near $c_0$ and for all $x$.
 \begin{proof}
 Let $\Phi(x; c)$ be the solution operator for \eqref{nonlinearsystem}, where the initial condition is given at $x = 0$. Taking the initial condition to be $Q(0; c)$, by the property of the solution operator, for $c$ near $c_0$, $Q(x; c) = \Phi(x; c)Q(0; c)$.\\
 
-By the existence and uniqueness theorem, $\Phi(x; c)$ is smooth in $c$ since the the RHS of \eqref{nonlinearsystem} is $C^\infty$ in $c$ (since $A(0; c)$ is a linear function of $c$ and $N(u)$ does not involve $c$ at all). By Lemma 1, $Q(0; c)$ is smooth in $c$.
+By the existence and uniqueness theorem, $\Phi(x; c)$ is smooth in $c$ since the the RHS of \eqref{nonlinearsystem} is $C^\infty$ in $c$ (since $A(0; c)$ is a linear function of $c$ and $N(u)$ does not involve $c$ at all). By Lemma \ref{transverseint}, $Q(0; c)$ is smooth in $c$.
 \end{proof}
 \end{lemma}
 
-Next we note some estimates which will be useful later.\\
-
 Let $A(c) = A(0; c)$. Then $e^{A(c)x}$ is the fundamental matrix solution to the linear problem $U' = A(c) U$. Let $P^s(c)$ and $P^u(c)$ are the stable and unstable projections onto the stable and unstable eigenspaces of $A(c)$.\\
 
-Since for $c > 0$ the matrix $A(c)$ is hyperbolic and since the eigenvalues of $A(c)$ are continuous functions of $c$ (in fact, we have explicit formulas for them, we can find $\alpha^s, \alpha^u > 0$ such that for all $c \in (c - \delta, c + \delta)$, where $\delta$ is the constant from Lemma \ref{transverseint}, all eigenvalues of $A(c)$ lie outside the open interval $(-\alpha^s, \alpha^u)$. For $c \in (c - \delta, c + \delta)$, we thus have the estimates
+Since for $c > 0$ the matrix $A(c)$ is hyperbolic and since the eigenvalues of $A(c)$ are continuous functions of $c$ (in fact, we have explicit formulas for them, we can find $\alpha^s, \alpha^u > 0$ such that for all $c \in (c - \delta, c + \delta)$, where $\delta$ is the constant from Lemma \ref{transverseint}, all eigenvalues of $A(c)$ lie outside the open interval $(-\alpha^s, \alpha^u)$. For $c \in (c - \delta, c + \delta)$, we have the estimates
 
 \begin{align*}
 ||e^{A(c)x}P^s(c)|| &\leq Me^{-\alpha^s x} && x \geq 0\\
 ||e^{A(c)x}P^u(c)|| &\leq Me^{\alpha^u x} && x \leq 0
 \end{align*}
 
-Next we need to show that certain functions, like $e^{A(c)x} P^s(c)$ have Frechet derivatives on $X_\eta$. Note that we would not, for example, expect $e^{A(c)x}$ to have a Frechet derivative on $X_\eta$, since it grows exponentially with $x$ if the initial condition has a component in $E^u(c)$. Thus the presence of the projection operator is key.\\
-
-First, we prove the following lemma about Frechet derivatives in exponentially weighted spaces with respect to a parameter under a change of variables dependent on that parameter. I'm sure this is known, but stuff on Frechet derivatives is hard to find.\\
-
-\begin{lemma}\label{frechetfun}
-Let $F(c): \R \rightarrow X_\eta$, where $X_\eta$ is the weighted exponential space
-
-\[
-X_\eta = \{ f \in C^0([0, \infty), \R^n) : \sup_{x \in [0, \infty)} |e^{\eta x} f(x)| < \infty 
-\]
-
-with norm given by
-
-\[
-||f||_\eta = \sup_{x \in [0, \infty)} |e^{\eta x} f(x)|
-\]
-
-Suppose $F$ has a Frechet derivative $L$ at parameter value $c$, i.e. $L$ is a bounded linear operator from $\R \rightarrow X_\eta$ such that 
-\[
-\lim_{h \rightarrow 0} \frac{|| F(c+h) - F(c) - Lh ||_\eta }{|h|} = 0
-\]
-
-\begin{enumerate}[(i)]
-
-\item Let $T(c)$ be an $n \times n$ matrix which is smooth in the parameter $c$. Then $T(c)F(c): \R \rightarrow X_\eta$ has Frechet derivative $T'(c)F(c) + T(c)L$ at $c$.
-
-\item Let $S(c)$ be an $n \times n$ matrix which is smooth in the parameter $c$. Then $F(c)S(c): \R \rightarrow X_\eta$ has Frechet derivative $L S(c) + F(c)S'(c)$ at $c$.
-
-\item Let $S(c) \in GL(n, \R)$ be a family of smooth invertible matrices paramaterized by $c$, where $S(c)$ is smooth and invertible in an open interval around a specific parameter value $c$. Then $S^{-1}(c)F(c)S: \R \rightarrow X_\eta$ has Frechet derivative $(S^{-1})'(c) F(c) S(c) + S^{-1}(c) L S (c) + S^{-1}(c) F(c) S'(c)$ at $c$.
-
-\end{enumerate}
-
-\begin{proof}
-
-Let $||F(c)||_\eta = M$.\\
-
-For (i), since by property of the norm, $||T(c)F(c)||_\eta = |T(c)| ||F(c)||_\eta = |T(c)|M$, $T(c)F(c)$ has codomain $X_\eta$ as claimed.
-
-\begin{align*}
-\lim_{h \rightarrow 0}&\frac{||T(c+h)F(c+h) - T(c)F(c) - (T'(c)F(c) + T(c)L)h||_\eta}{|h|} \\
-&= \lim_{h \rightarrow 0}\frac{||T(c+h)F(c+h) - T(c)F(c+h) + T(c)F(c+h) - T(c)F(c) - (T'(c)F(c) + T(c)L)h||_\eta}{|h|} \\
-&\leq \lim_{h \rightarrow 0}\frac{||T(c+h)F(c+h) - T(c)F(c+h) - T'(c)F(c) h ||_\eta}{|h|} \\
-&\:\:+ \lim_{h \rightarrow 0}\frac{||T(c)F(c+h) - T(c)F(c) - T(c)L)h||_\eta}{|h|}
-\end{align*}
-We will evaluate the two limits on the RHS separately. For the second limit, we have
-
-\begin{align*}
-\lim_{h \rightarrow 0}&\frac{||T(c)F(c+h) - T(c)F(c) - T(c)L)h||_\eta}{|h|} \\
-&= |T(c)| \lim_{h \rightarrow 0}\frac{||F(c+h) - F(c) - L)h||_\eta}{|h|} \\
-&= 0
-\end{align*}
-since $|T(c)|$ is a constant, and the remaining limit is the definition of the Frechet derivative of $F(c)$ at $c$, thus is zero. For the first limit on the RHS,
-
-\begin{align*}
-\lim_{h \rightarrow 0}&\frac{||T(c+h)F(c+h) - T(c)F(c+h) - T'(c)F(c) h ||_\eta}{|h|} \\
-&= \lim_{h \rightarrow 0}\frac{||T(c+h)F(c+h) - T(c)F(c+h) - T'(c)F(c+h)h + T'(c)F(c+h)h - T'(c)F(c) h ||_\eta}{|h|} \\
-&\leq \lim_{h \rightarrow 0}\frac{||T(c+h)F(c+h) - T(c)F(c+h) - T'(c)F(c+h)h||_\eta}{|h|} + \lim_{h \rightarrow 0} \frac{||T'(c)F(c+h)h - T'(c)F(c) h ||_\eta}{|h|} \\
-&\leq \lim_{h \rightarrow 0} \left| \frac{T(c+h) - T(c)}{h} - T'(c) \right| ||F(c+h)||_\eta + |T'(c)| \lim_{h \rightarrow 0} ||F(c+h) - F(c) ||_\eta \\
-&= 0 \cdot M + |T'(c)| \cdot 0 \\
-&= 0
-\end{align*}
-
-where we used the fact that $F$ is continuous as a function from $\R$ to $X_\eta$ (since it is Frechet differentiable) and that the norm is a continuous function, so we can pull the limit inside it. Thus we have proved (i).\\
-
-For (ii), the proof is similar. For (iii), take $T(c) = S^{-1}(c)$ in (i), then use (ii).
-
-\end{proof}
-\end{lemma}
-
-In the next lemma, we exhibit a property of 
-
-\begin{lemma}\label{expproj}
-If $A$ is an $n \times n$ matrix and $P$ is a projection on $\R^n$, 
-\[
-e^{Ax} P = e^{APx} P 
-\]
-Note that this does not require $P$ to commute with $A$.
-\begin{proof} 
-Using the fact that for a projection $P^2 = P$, thus $P^n = P$ for all $n$,
-\begin{align*}
-e^{Ax} P &= \left( \sum_{n = 0}^\infty \frac{ A^n x^n }{n!} \right) P \\
-&= \left(1 + Ax + \frac{A^2 x^2}{2!} + \cdots \right) P \\
-&= \left(P + AP^2 x + \frac{A^2 P^3 x^2}{2!} + \cdots \right)\\
-&= \left(1 + AP x + \frac{A^2 P^2 x^2}{2!} + \cdots \right) P \\
-&= \left( \sum_{n = 0}^\infty \frac{ [ A P x]^n}{n!} \right) P \\
-&= e^{AP x} P
-\end{align*}
-\end{proof}
-\end{lemma}
-
-This next lemma, although it seems irrelevant, will be useful in the proof of the lemma following it.
-
-\begin{lemma}\label{expineq}
-For
-\[
-f(x) = \frac{e^x - x - 1}{x^2},
-\]
-
-\begin{enumerate}[(i)]
-	\item $\lim_{x \rightarrow 0} f(x) = 1/2$
-	\item $f(x) \geq 0$ for all $x$
-	\item $f(x) \leq e^x$ for $x \geq 0$
-	\item $f(x) \leq 1$ for $x \leq 0$
-	\item $f(x) \leq 1 + e^x$ for all $x$
-\end{enumerate}
-\begin{proof}
-These all make sense visually, but a rigorous proof follows.
-\begin{enumerate}[(i)]
-	\item Use L'Hopital's rule twice. $f(x)$ is continuous everywhere except at $x = 0$, which is a removable discontinuity.
-	\item It suffices to look at the numerator since the denominator is nonnegative. Let $g(x) = e^x - x - 1$ and note that $g(0) = 0$ and $g'(x) = e^x - 1$. For $x < 0, g'(x) < 0$ and for $x > 0, g'(x) > 0$, thus $g(0) = 0$ is the minimum of $g$, and so $g(x)$ and $f(x) \geq 0$ for all $x$.
-	\item 
-	\[
-	e^x - f(x) = \frac{1 + x + e^x (x^2 - 1)}{x^2}
-	\]
-	Let $g(x) = 1 + x + e^x (x^2 - 1)$ be the numerator of this. For $x \geq 0$, $e^x (x^2 - 1) \geq -1$, thus $g(x) \geq 0$ and so $e^x - f(x) \geq 0$ for $x \geq 0$.
-	\item There are probably easier ways to show this, but this should work
-	\[
-	1 - f(x) = \frac{x^2 - e^x + x + 1)}{x^2}
-	\]
-	As before, let $g(x) = x^2 - e^x + x + 1$ be the numerator of this. We have $g(0) = 0$ and would like to show $g'(x) \leq 0$ for $x \leq 0$, from which it would follow that $g(x) \geq 0$ for $x 
-	\leq 0$ since it would then decrease to 0 from the left. $g'(x) = 2x - e^x + 1$. We have $g'(0) = 0$ as well, and to show that $g'(x) \leq 0$ for all $x \leq 0$, it suffices to show that $g''(x) \geq 0$ for all $x \leq 0$ since then $g'(x)$ would increase to 0 from the left. $g''(x) = 2 - e^x \geq 0$ for $x \leq 0$, so our assertion is proved.
-	\item This follows from the previous two.
-\end{enumerate}
-\end{proof}
-\end{lemma}
-
-Now we are in the position to show Frechet differentiability of three functions.
-
-\begin{lemma}\label{derivatives2}
-For $c > 0$, the following are Frechet differentiable with respect to $c$ at $c = c_0$ on $X_\eta$:
-\begin{enumerate}[(i)]
-	\item $e^{A(c)x} P^s(c)$
-	\item $\int_\infty^x e^{A(c)(x - y)}P^u(c) N(U(y))dy$
-	\item $\int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy$
-\end{enumerate}
-where $N(y)$ is the nonlinear part of our system \eqref{nonlinearsystem}.
-
-\begin{proof}
-In all cases, we come up with candidate for the Frechet derivative using regular differentiation, and then show that it is also the Frechet derivative using the definition of the Frechet derivative.\\
-
-Recall that in the definition of $X_\eta$, the domain of the functions is $[0, \infty)$.\\
-
-For (i), we employ the following change of variables. Recall that the two stable eigenvalues of $A(c)$ are designated $\lambda^s_1(c)$ and $\lambda^s_1(c)$. Their corresponding eigenvectors are $v^s_1(c)$ and $v^s_2(c)$. The unstable eigenvalues are $\lambda^u_1(c)$ and $\lambda^u_1(c)$, with corresponding eigenvectors $v^u_1(c)$ and $v^u_2(c)$. We are assuming $c > 0, c \neq 1/4$ so that the eigenvalues are distinct, thus the eigenvectors are linearly independent. \\
-
-Let $S(c) = (v^s_1(c) | v^s_2(c) | v^u_1(c) | v^u_2(c))$, i.e. the matrix whose columns are the eigenvectors of $A(c)$. Then $S(c)^{-1} A(c) S(c) = D(c)$, where $D(c)$ is the diagonal matrix
-
-\[
-D(c) = \begin{pmatrix}
-\lambda^s_1(c) &&& \\ & \lambda^s_2(c)&& \\ && \lambda^u_1(c) & \\ &&& \lambda^u_2(c) 
-\end{pmatrix}
-\]
-
-It is easy to show (and is known from an ODE course) that $S(c)^{-1} e^{A(c)x} S(c) = e^{D(c) x}$. In the eigenbasis, the stable projection $P^s(c)$ onto $E^s(c)$ has a nice form which is independent of $c$.
-
-\[
-S(c)^{-1} P^s(c) S(c) = P_1 = \begin{pmatrix}
-1 &&& \\ & 1 && \\ && 0 & \\ &&& 0 
-\end{pmatrix}
-\]
-
-So we have
-\begin{align*}
-S(c)^{-1} e^{A(c) x} P^s(c) S(c) = S(c)^{-1} e^{A(c) x} S(c)^{-1} S(c) P^s(c) S(c) = e^{D(c) x} P_1
-\end{align*}
-
-Next, note that by the same argument as above, using the known formula for the matrix exponential of a diagonal matrix and Lemma \ref{expproj},
-
-\begin{align*}
-e^{D(c) x} P_1 &= e^{ D(c)P_1 x} P_1 = 
-\begin{pmatrix}
-e^{\lambda^s_1(c) x} &&& \\ & e^{\lambda^s_2(c) x} && \\ && 0 & \\ &&& 0 
-\end{pmatrix}
-\end{align*}
-
-We can take the derivative with respect to $c$ of $e^{D(c) x}$:
-
-\begin{align*}
-\frac{\partial}{\partial c} e^{D(c) P_1 x} &=
-\begin{pmatrix}
-e^{\lambda^s_1(c) x} (\lambda^s_1)'(c) &&& \\ & e^{\lambda^s_2(c) x} (\lambda^s_2)'(c) && \\ && 0 & \\ &&& 0 
-\end{pmatrix} \\
-&= \begin{pmatrix}
-e^{\lambda^s_1(c) x} &&& \\ & e^{\lambda^s_2(c) x}  && \\ && 0 & \\ &&& 0 
-\end{pmatrix}
-\begin{pmatrix} (\lambda^s_1)'(c) x &&& \\ & (\lambda^s_2)'(c) x && \\ && 0 & \\ &&& 0 \end{pmatrix}  \\
-&= e^{D(c) P_1 x} P_1 \Lambda'(c) x
-\end{align*}
-
-where
-
-\[
-\Lambda(c) = \begin{pmatrix} \lambda^s_1(c) &&& \\ & \lambda^s_2(c)  && \\ 
-&& \lambda^u_1(c)  & \\ &&& \lambda^u_2(c)  \end{pmatrix}
-\]
-
-Thus since $P_1$ is constant, we have
-
-\begin{equation}\label{frechetcandidate}
-\frac{\partial}{\partial c} e^{D(c) P_1 x} P_1 = e^{D(c) P_1 x} P_1 \Lambda'(c) x P_1
-\end{equation}
-
-Since $e^{A(c)x P(c)} = S(c) e^{D(c) x} P_1 S^{-1}(c)$, by Lemma \ref{frechetfun}, it suffices to show that $e^{D(c) x} P_1 = e^{D(c) P_1 x} P_1$ has a Frechet derivative. We will use \eqref{frechetcandidate} as our candidate. Note that as long as $0 < \eta < \alpha^s$, this is a bounded linear transformation from $\R$ to $X_\eta$ since
-
-\begin{align*}
-|e^{\eta x} e^{D(c) P_1 x} P_1 \Lambda'(c) x P_1| &\leq e^{\eta x} e^{-\alpha^s x} x |\Lambda'(c)||P_1| \\
-&= e^{(\eta -\alpha^s) x} x |\Lambda'(c)| \\
-&\leq C 
-\end{align*}
-since $|\Lambda'(c)|$ is constant, and $e^{(\eta -\alpha^s) x} x$ is bounded on $[0, \infty)$ as long as $0 < \eta < \alpha^s$.\\
-
-We need to show that
-
-\[
-\lim_{h \rightarrow 0} \frac{|| e^{D(c+h) P_1 x} P_1 - e^{D(c) P_1 x} P_1 - e^{D(c) P_1 x} P_1 \Lambda'(c) x P_1||_\eta}{|h|} = 0
-\]
-
-Note that this is a diagonal matrix with only the first two entries nonzero. Thus it suffices to show that for $i = 1, 2$
-
-\[
-\lim_{h \rightarrow 0} \frac{|| e^{\lambda^s_i(c+h) x} - e^{\lambda^s_i(c) x} 
-- e^{\lambda^s_i(c) x} (\lambda^s_i)'(c)x h ||_\eta}{|h|} = 0
-\]
-
-For convenience, we will let $\lambda(c) = \lambda^s_i(c)$. Using the Taylor theorem on $\lambda(c+h)$, we have
-\[ 
-\lambda(c+h) = \lambda(c) + \lambda'(c)h + r(h)h
-\]
-where the remainder term $r(h) \rightarrow 0$ as $h \rightarrow 0$.
-
-\begin{align*}
-\frac{e^{\eta x}| e^{\lambda(c+h) x} - e^{\lambda(c) x} - e^{\lambda(c) x} \lambda'(c)x h|}{|h|} &=
- \frac{e^{\eta x}| e^{(\lambda(c) + \lambda'(c)h + r(h)h) x} - e^{\lambda(c) x} - e^{\lambda(c) x} \lambda'(c)x h|}{|h|} \\
-&= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} e^{r(h)h x} - 1 - \lambda'(c)x h|}{|h|} 
-\end{align*}
-
-We also expand $e^{r(h)h x}$ using the Taylor theorem to one term (i.e. the ordinary mean value theorem)
-
-\[
-e^{r(h)h x} = 1 + e^{r(h)h\xi}r(h)hx
-\]
-where $\xi \in [0, x]$. Substituting this in, we get
-
-\begin{align*}
-&\frac{e^{\eta x}| e^{\lambda(c+h) x} - e^{\lambda(c) x} - e^{\lambda(c) x} \lambda'(c)x h|}{|h|}\\
-&= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx}( 1 + e^{r(h)h\xi}r(h)hx )- 1 - \lambda'(c)x h|}{|h|} \\
-&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + \frac{e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h\xi} | r(h)h x|}{|h|} \\
-&= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h\xi}| r(h)| x \\
-&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} (1 + e^{r(h)h x}) | r(h)| x  \\
-&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} x | r(h)| + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h x} x | r(h) |
-\end{align*}
-where in the penultimate line we used the fact that the exponential function is monotonic, so since $\xi \in [0, x]$, $e^{r(h)h\xi}$ is bounded by either $e^{r(h)h x}$ or 1 depending on whether $r(h)h$ is positive or negative. Thus $e^{r(h)h\xi} \leq 1 + e^{r(h)h x}$.\\
-
-All that remains is to show each of the three terms goes to 0 uniformly in $x$ as $h \rightarrow \infty$. First, we choose $\eta$ so that $0 \leq \eta \leq \text{Re} \lambda_1^s(c), \text{Re} \lambda_2^s(c)$, so we have $0 \leq \eta \leq \lambda$ here. Then let $a = \lambda - \eta$. Note that $\lambda'(c)$ is just some constant.\\
-
-For the second term and third terms, choose $h$ sufficiently small so that $|\lambda'(c) h| \leq a/4$ and  $|r(h)h| \leq a/4$. (Recall that $r(h) \rightarrow 0 $ as $h \rightarrow 0$, so we can do this.) For the second term, we have
-
-\begin{align*}
-e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} x | r(h)| &= e^{(\eta + \lambda(c) + \lambda'(c)h)x}x|r(h)| \\
-&= e^{(\eta + \lambda(c) + a/4 )x}x|r(h)| \\
-&= e^{-\alpha x}x|r(h)|
-\end{align*}
-where $\alpha = \eta + \lambda(c) + a/2  < 0$. Since $e^{-\alpha x}x$ is bounded in $x$ and $|r(h)| \rightarrow 0$ as $h \rightarrow \infty$, this term decays to 0 uniformly in $x$.\\
-
-For the third term, we have
-
-\begin{align*}
-e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h x} x |r(h)| &= e^{(\eta + \lambda(c) + \lambda'(c)h + r(h)h)x}x|r(h)| \\
-&= e^{(\eta + \lambda(c) + a/4 + a/4)x}x|r(h)| \\
-&= e^{(\eta + \lambda(c) + a/2)x}x|r(h)| \\
-&= e^{-\alpha x}x|r(h)|
-\end{align*}
-
-where $\alpha = \eta + \lambda(c) + a/2  < 0$ is the same as above. Since $e^{-\alpha x}x$ is bounded in $x$ and $|r(h)| \rightarrow 0$ as $h \rightarrow \infty$, this term decays to 0 uniformly in $x$ as well.\\
-
-Finally, for the first term, we have
-
-\begin{align*}
-\frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} &= \frac{1}{|h|}e^{\eta x} e^{\lambda(c)x} \left| 1 + \lambda'(c)xh + \sum_{n = 2}^\infty \frac{(\lambda'(c)xh)^n}{n!} - 1 - \lambda'(c)xh\right|\\
-&= \frac{1}{|h|}e^{\eta x} e^{\lambda(c)x} \left| \sum_{n = 2}^\infty \frac{(\lambda'(c)xh)^n}{n!} \right| \\
-&= e^{\eta x} e^{\lambda(c)x} \left| \sum_{n = 2}^\infty \frac{(\lambda'(c)x)^n h^{n-1}}{n!} \right| \\
-&= e^{\eta x} e^{\lambda(c)x} \left| \sum_{n = 0}^\infty \frac{(\lambda'(c)x)^{n+2} h^{n+1}}{(n+2)!} \right|\\
-&= e^{\eta x} e^{\lambda(c)x} x^2 |\lambda'(c)|^2 |h| \left| \sum_{n = 0}^\infty \frac{(\lambda'(c)x)^{n} h^{n}}{(n+2)!} \right|\\
-&= e^{\eta x} e^{\lambda(c)x} x^2 |\lambda'(c)|^2 |h| \left( \frac{e^{\lambda'(c)xh} - \lambda'(c)xh - 1}{(\lambda'(c)xh)^2} \right)
-\end{align*}
-
-The infinite sum was evaluated using Mathematica, but it is easy to verify manually. First, we note that as we take $h \rightarrow 0$, the term in parentheses above (the closed form for the sum) presents no problem by Lemma \ref{expineq}(i). Since the closed form expression for this sum is annoying, we will use the inequality in Lemma \ref{expineq}(v).
-
-\begin{align*}
-\frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} &\leq e^{\eta x} e^{\lambda(c)x} x^2 |\lambda'(c)|^2 |h| \left( 1 + e^{\lambda'(c)xh} )\right) \\
-&= |\lambda'(c)|^2  \left( e^{(\eta + \lambda(c)) x}x^2 + e^{(\eta + \lambda(c) + \lambda'(c)xh)x} x^2 \right)|h|
-\end{align*}
-
-By our choice of $\eta$ and for sufficiently small $h$ (as above) these exponential terms all have negative exponents, thus the RHS on the last line above is less than or equal to a constant multiplied by $|h|$ and so it decays to 0 uniformly in $x$.\\
-
-Since everything decays to 0 uniformly in $x$, we have proved part (i) of the lemma.
-
-\end{proof}
-\end{lemma}
-
+We are now in position to show that the derivative $q_c(x)$ of the single pulse with respect to the speed $c$ is exponentially localized.
 
 \begin{lemma}\label{qc}
 For the stationary, single-pulse solution $q(x; c)$ to the 5th order KdV equation in a frame moving with velocity $c$, the derivative $q_c(x)$ of the pulse with respect to $c$ is exponentially localized, thus $q_c(x) \in L^2(\R)$.
@@ -693,9 +401,9 @@ Multiplying both sides by $e^{\eta x}$ gives us the bound (pointwise in $x$, for
 
 taking the supremum in $x$ gives us the bound
 
-\[
+\begin{equation}\label{NUetabound}
 ||N(U)||_\eta \leq L(\rho) ||U||_\eta \leq L(\rho) \rho
-\]
+\end{equation}
 
 where everything is finite since we are assuming $U \in D$.\\
 
@@ -802,17 +510,371 @@ G_c(c_0, a_0)h = q_c(\tilde{x} + \cdot \: ; c_0) h
 
 Thus since $G_c(c_0, a_0)$ is a bounded linear operator, $q_c(\tilde{x} + \cdot \: ; c_0) \in X_\eta$, and so the function $q_c(\tilde{x} + x ; c_0)$ decays exponentially in $x$. Since all we care about is asymptotic behavior, we conclude that $q_c(x ; c_0)$ decays exponentially in $x$.\\
 
-All we need to do to complete the proof is show that the map $F$ is smooth in $c$. For convenience, we restate the definition of the map $F$.\\
+All we need to do to complete the proof is show that the map $F$ defined in \eqref{F} is differentiable in $c$. Note that $F: D \times B_1 \times B_2 \rightarrow X_\eta$. Since the codomain is an exponentially weighted function space with exponentially weighted norm, we need to show that $F$ is Frechet differentiable in $c$ with respect to this norm. We will do this in a series of lemmas which follow this one. \\
 
-\begin{equation}
+We can similarly show (by, say, replacing $x$ with $-x$), that $q_c(x)$ at $c = c_0$ decays exponentially as $x \rightarrow -\infty$. From this, we will have the additional condition that $\eta < \alpha^u$. Thus as long as $0 < \eta < \alpha^s, \alpha^u$, we are all set, and the proof is complete.
+
+\end{proof}
+\end{lemma}
+
+We now prove that the map $F: D \times B_1 \times B_2 \rightarrow X_\eta$ defined in \eqref{F} is Frechet differentiable with respect to $c$. We do this in a series of lemmas.\\
+
+First, we prove a lemma about Frechet derivatives in exponentially weighted spaces with respect to a parameter under a change of variables dependent on that parameter. I'm sure this is known, but stuff on Frechet derivatives is hard to find.\\
+
+\begin{lemma}\label{frechetfun}
+Let $F(c): \R \rightarrow X_\eta$, where $X_\eta$ is the weighted exponential space
+
+\[
+X_\eta = \{ f \in C^0([0, \infty), \R^n) : \sup_{x \in [0, \infty)} |e^{\eta x} f(x)| < \infty \}
+\]
+
+with norm given by
+
+\[
+||f||_\eta = \sup_{x \in [0, \infty)} |e^{\eta x} f(x)|
+\]
+
+Suppose $F$ has a Frechet derivative $L$ at parameter value $c$, i.e. $L$ is a bounded linear operator from $\R \rightarrow X_\eta$ such that 
+\[
+\lim_{h \rightarrow 0} \frac{|| F(c+h) - F(c) - Lh ||_\eta }{|h|} = 0
+\]
+
+\begin{enumerate}[(i)]
+
+\item Let $T(c)$ be an $n \times n$ matrix which is smooth in the parameter $c$. Then $T(c)F(c): \R \rightarrow X_\eta$ has Frechet derivative $T'(c)F(c) + T(c)L$ at $c$.
+
+\item Let $S(c)$ be an $n \times n$ matrix which is smooth in the parameter $c$. Then $F(c)S(c): \R \rightarrow X_\eta$ has Frechet derivative $L S(c) + F(c)S'(c)$ at $c$.
+
+\item Let $S(c) \in GL(n, \R)$ be a family of smooth invertible matrices paramaterized by $c$, where $S(c)$ is smooth and invertible in an open interval around a specific parameter value $c$. Then $S^{-1}(c)F(c)S: \R \rightarrow X_\eta$ has Frechet derivative $(S^{-1})'(c) F(c) S(c) + S^{-1}(c) L S (c) + S^{-1}(c) F(c) S'(c)$ at $c$.
+
+\end{enumerate}
+
+\begin{proof}
+
+Let $||F(c)||_\eta = M$.\\
+
+For (i), since by property of the norm, $||T(c)F(c)||_\eta = |T(c)| ||F(c)||_\eta = |T(c)|M$, $T(c)F(c)$ has codomain $X_\eta$ as claimed.
+
+\begin{align*}
+\lim_{h \rightarrow 0}&\frac{||T(c+h)F(c+h) - T(c)F(c) - (T'(c)F(c) + T(c)L)h||_\eta}{|h|} \\
+&= \lim_{h \rightarrow 0}\frac{||T(c+h)F(c+h) - T(c)F(c+h) + T(c)F(c+h) - T(c)F(c) - (T'(c)F(c) + T(c)L)h||_\eta}{|h|} \\
+&\leq \lim_{h \rightarrow 0}\frac{||T(c+h)F(c+h) - T(c)F(c+h) - T'(c)F(c) h ||_\eta}{|h|} \\
+&\:\:+ \lim_{h \rightarrow 0}\frac{||T(c)F(c+h) - T(c)F(c) - T(c)L)h||_\eta}{|h|}
+\end{align*}
+We will evaluate the two limits on the RHS separately. For the second limit, we have
+
+\begin{align*}
+\lim_{h \rightarrow 0}&\frac{||T(c)F(c+h) - T(c)F(c) - T(c)L)h||_\eta}{|h|} \\
+&= |T(c)| \lim_{h \rightarrow 0}\frac{||F(c+h) - F(c) - L)h||_\eta}{|h|} \\
+&= 0
+\end{align*}
+since $|T(c)|$ is a constant, and the remaining limit is the definition of the Frechet derivative of $F(c)$ at $c$, thus is zero. For the first limit on the RHS,
+
+\begin{align*}
+\lim_{h \rightarrow 0}&\frac{||T(c+h)F(c+h) - T(c)F(c+h) - T'(c)F(c) h ||_\eta}{|h|} \\
+&= \lim_{h \rightarrow 0}\frac{||T(c+h)F(c+h) - T(c)F(c+h) - T'(c)F(c+h)h + T'(c)F(c+h)h - T'(c)F(c) h ||_\eta}{|h|} \\
+&\leq \lim_{h \rightarrow 0}\frac{||T(c+h)F(c+h) - T(c)F(c+h) - T'(c)F(c+h)h||_\eta}{|h|} + \lim_{h \rightarrow 0} \frac{||T'(c)F(c+h)h - T'(c)F(c) h ||_\eta}{|h|} \\
+&\leq \lim_{h \rightarrow 0} \left| \frac{T(c+h) - T(c)}{h} - T'(c) \right| ||F(c+h)||_\eta + |T'(c)| \lim_{h \rightarrow 0} ||F(c+h) - F(c) ||_\eta \\
+&= 0 \cdot M + |T'(c)| \cdot 0 \\
+&= 0
+\end{align*}
+
+where we used the fact that $F$ is continuous as a function from $\R$ to $X_\eta$ (since it is Frechet differentiable) and that the norm is a continuous function, so we can pull the limit inside it. Thus we have proved (i).\\
+
+For (ii), the proof is similar. For (iii), take $T(c) = S^{-1}(c)$ in (i), then use (ii).
+
+\end{proof}
+\end{lemma}
+
+In the next lemma, we exhibit a property of 
+
+\begin{lemma}\label{expproj}
+If $A$ is an $n \times n$ matrix and $P$ is a projection on $\R^n$, 
+\[
+e^{Ax} P = e^{APx} P 
+\]
+Note that this does not require $P$ to commute with $A$.
+\begin{proof} 
+Using the fact that for a projection $P^2 = P$, thus $P^n = P$ for all $n$,
+\begin{align*}
+e^{Ax} P &= \left( \sum_{n = 0}^\infty \frac{ A^n x^n }{n!} \right) P \\
+&= \left(1 + Ax + \frac{A^2 x^2}{2!} + \cdots \right) P \\
+&= \left(P + AP^2 x + \frac{A^2 P^3 x^2}{2!} + \cdots \right)\\
+&= \left(1 + AP x + \frac{A^2 P^2 x^2}{2!} + \cdots \right) P \\
+&= \left( \sum_{n = 0}^\infty \frac{ [ A P x]^n}{n!} \right) P \\
+&= e^{AP x} P
+\end{align*}
+\end{proof}
+\end{lemma}
+
+This next lemma seems irrelevant, but be used in the proof of the lemma following it.
+
+\begin{lemma}\label{expineq}
+For
+\[
+f(x) = \frac{e^x - x - 1}{x^2},
+\]
+
+\begin{enumerate}[(i)]
+	\item $\lim_{x \rightarrow 0} f(x) = 1/2$
+	\item $f(x) \geq 0$ for all $x$
+	\item $f(x) \leq e^x$ for $x \geq 0$
+	\item $f(x) \leq 1$ for $x \leq 0$
+	\item $f(x) \leq 1 + e^x$ for all $x$
+\end{enumerate}
+\begin{proof}
+These all make sense visually, but a rigorous proof follows.
+\begin{enumerate}[(i)]
+	\item Use L'Hopital's rule twice. $f(x)$ is continuous everywhere except at $x = 0$, which is a removable discontinuity.
+	\item It suffices to look at the numerator since the denominator is nonnegative. Let $g(x) = e^x - x - 1$ and note that $g(0) = 0$ and $g'(x) = e^x - 1$. For $x < 0, g'(x) < 0$ and for $x > 0, g'(x) > 0$, thus $g(0) = 0$ is the minimum of $g$, and so $g(x)$ and $f(x) \geq 0$ for all $x$.
+	\item 
+	\[
+	e^x - f(x) = \frac{1 + x + e^x (x^2 - 1)}{x^2}
+	\]
+	Let $g(x) = 1 + x + e^x (x^2 - 1)$ be the numerator of this. For $x \geq 0$, $e^x (x^2 - 1) \geq -1$, thus $g(x) \geq 0$ and so $e^x - f(x) \geq 0$ for $x \geq 0$.
+	\item There are probably easier ways to show this, but this should work
+	\[
+	1 - f(x) = \frac{x^2 - e^x + x + 1)}{x^2}
+	\]
+	As before, let $g(x) = x^2 - e^x + x + 1$ be the numerator of this. We have $g(0) = 0$ and would like to show $g'(x) \leq 0$ for $x \leq 0$, from which it would follow that $g(x) \geq 0$ for $x 
+	\leq 0$ since it would then decrease to 0 from the left. $g'(x) = 2x - e^x + 1$. We have $g'(0) = 0$ as well, and to show that $g'(x) \leq 0$ for all $x \leq 0$, it suffices to show that $g''(x) \geq 0$ for all $x \leq 0$ since then $g'(x)$ would increase to 0 from the left. $g''(x) = 2 - e^x \geq 0$ for $x \leq 0$, so our assertion is proved.
+	\item This follows from the previous two.
+\end{enumerate}
+\end{proof}
+\end{lemma}
+
+We are in position to show Frechet differentiability of the function $F$ in \eqref{F}.
+
+\begin{lemma}\label{derivatives2}
+Let $0 < \eta < \alpha^s, \alpha^u$. For $c > 0$, the function $F: D \times B_1 \times B_2 \rightarrow X_\eta$ defined by 
+
+\begin{equation}\label{F}
 [F(U, c, a)](x) = e^{A(c)x} P^s(c) a + \int_\infty^x e^{A(c)(x - y)}P^u(c) N(U(y))dy + \int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy
 \end{equation}
 
-From Lemma \ref{derivatives1}, $e^{A(c)x} P^s(c)$ is differentiable at $c = c_0$, thus we are all set with the first term on the RHS. For the second two terms, $N(U(y))$ does not depend on $c$, so we have the same two terms $e^{A(c)x} P^s(c)$ and $e^{A(c)x} P^u(c)$ inside the integral, both of which are differentiable at $c = c_0$ by Lemma \ref{derivatives1}. Thus all we have to do is make sure we can pass the derivative inside the integral sign. Since these are Frechet derivatives in a weighted Banach space, I'm not exactly sure how this works, but my guess is that since both integrands are bounded (when multiplied by the exponential weight) by an integrable function (as we showed above when we found a bound for $||F||^\eta$), we have an analogue of the DCT and can do this.\\
+is Frechet differentiable in $c$. The spaces $D$, $B_1$, and $B_2$ are defined in Lemma \ref{qc}.
 
-Thus we have (I think) shown that $F$ is differentiable in $c$.
+\begin{proof}
 
-We can similarly show (by, say, replacing $x$ with $-x$), that $q_c(x)$ at $c = c_0$ decays exponentially as $x \rightarrow -\infty$. From this, we will have the additional condition that $\eta < \alpha^u$. Thus as long as $0 < \eta < \alpha^s, \alpha^u$, we are all set.
+Since $F$ is a the sum of three functions, we will show that the following three functions are Frechet differentiable in $c$.
+
+\begin{enumerate}[(i)]
+	\item $e^{A(c)x} P^s(c)$
+	\item $\int_\infty^x e^{A(c)(x - y)}P^u(c) N(U(y))dy$
+	\item $\int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy$
+\end{enumerate}
+
+Note that since the initial condition $a$ is constant, we have removed it from (i) since it does not affect the derivative at all. In all three cases, we come up with candidate for the Frechet derivative using regular differentiation, and then show that it is also the Frechet derivative using the definition of the Frechet derivative. Recall that in the definition of $X_\eta$, the domain of the functions is $[0, \infty)$.\\
+
+First, we look at (i). To do this, we employ the following change of variables. Recall that the two stable eigenvalues of $A(c)$ are designated $\lambda^s_1(c)$ and $\lambda^s_1(c)$. Their corresponding eigenvectors are $v^s_1(c)$ and $v^s_2(c)$. The unstable eigenvalues are $\lambda^u_1(c)$ and $\lambda^u_1(c)$, with corresponding eigenvectors $v^u_1(c)$ and $v^u_2(c)$. We are assuming $c > 0, c \neq 1/4$ so that the eigenvalues are distinct, thus the eigenvectors are linearly independent. \\
+
+Let $S(c) = (v^s_1(c) | v^s_2(c) | v^u_1(c) | v^u_2(c))$, i.e. the matrix whose columns are the eigenvectors of $A(c)$. Then $S(c)^{-1} A(c) S(c) = D(c)$, where $D(c)$ is the diagonal matrix
+
+\[
+D(c) = \begin{pmatrix}
+\lambda^s_1(c) &&& \\ & \lambda^s_2(c)&& \\ && \lambda^u_1(c) & \\ &&& \lambda^u_2(c) 
+\end{pmatrix}
+\]
+
+It is easy to show (and is known from an ODE course) that $S(c)^{-1} e^{A(c)x} S(c) = e^{D(c) x}$. In the eigenbasis, the stable projection $P^s(c)$ onto $E^s(c)$ has a nice form which is independent of $c$.
+
+\[
+S(c)^{-1} P^s(c) S(c) = P_1 = \begin{pmatrix}
+1 &&& \\ & 1 && \\ && 0 & \\ &&& 0 
+\end{pmatrix}
+\]
+
+So we have
+\begin{align*}
+S(c)^{-1} e^{A(c) x} P^s(c) S(c) = S(c)^{-1} e^{A(c) x} S(c)^{-1} S(c) P^s(c) S(c) = e^{D(c) x} P_1
+\end{align*}
+
+Next, note that by the same argument as above, using the known formula for the matrix exponential of a diagonal matrix and Lemma \ref{expproj},
+
+\begin{align*}
+e^{D(c) x} P_1 &= e^{ D(c)P_1 x} P_1 = 
+\begin{pmatrix}
+e^{\lambda^s_1(c) x} &&& \\ & e^{\lambda^s_2(c) x} && \\ && 0 & \\ &&& 0 
+\end{pmatrix}
+\end{align*}
+
+We can take the derivative with respect to $c$ of $e^{D(c) x}$:
+
+\begin{align*}
+\frac{\partial}{\partial c} e^{D(c) P_1 x} &=
+\begin{pmatrix}
+e^{\lambda^s_1(c) x} (\lambda^s_1)'(c) &&& \\ & e^{\lambda^s_2(c) x} (\lambda^s_2)'(c) && \\ && 0 & \\ &&& 0 
+\end{pmatrix} \\
+&= \begin{pmatrix}
+e^{\lambda^s_1(c) x} &&& \\ & e^{\lambda^s_2(c) x}  && \\ && 0 & \\ &&& 0 
+\end{pmatrix}
+\begin{pmatrix} (\lambda^s_1)'(c) x &&& \\ & (\lambda^s_2)'(c) x && \\ && 0 & \\ &&& 0 \end{pmatrix}  \\
+&= e^{D(c) P_1 x} P_1 \Lambda'(c) x
+\end{align*}
+
+where
+
+\[
+\Lambda(c) = \begin{pmatrix} \lambda^s_1(c) &&& \\ & \lambda^s_2(c)  && \\ 
+&& \lambda^u_1(c)  & \\ &&& \lambda^u_2(c)  \end{pmatrix}
+\]
+
+Thus since $P_1$ is constant, we have
+
+\begin{equation}\label{frechetcandidate}
+\frac{\partial}{\partial c} e^{D(c) P_1 x} P_1 = e^{D(c) P_1 x} P_1 \Lambda'(c) x P_1
+\end{equation}
+
+Since $e^{A(c)x }P(c) = S(c) e^{D(c) x} P_1 S^{-1}(c)$, by Lemma \ref{frechetfun}, it suffices to show that $e^{D(c) x} P_1 = e^{D(c) P_1 x} P_1$ has a Frechet derivative. We will use \eqref{frechetcandidate} as our candidate. Note that as long as $0 < \eta < \alpha^s$, this is a bounded linear transformation from $\R$ to $X_\eta$ since
+
+\begin{align*}
+|e^{\eta x} e^{D(c) P_1 x} P_1 \Lambda'(c) x P_1| &\leq e^{\eta x} e^{-\alpha^s x} x |\Lambda'(c)||P_1| \\
+&= e^{(\eta -\alpha^s) x} x |\Lambda'(c)| \\
+&\leq C 
+\end{align*}
+since $|\Lambda'(c)|$ is constant, and $e^{(\eta -\alpha^s) x} x$ is bounded on $[0, \infty)$ as long as $0 < \eta < \alpha^s$.\\
+
+We need to show that
+
+\[
+\lim_{h \rightarrow 0} \frac{|| e^{D(c+h) P_1 x} P_1 - e^{D(c) P_1 x} P_1 - e^{D(c) P_1 x} P_1 \Lambda'(c) x P_1||_\eta}{|h|} = 0
+\]
+
+Note that this is a diagonal matrix with only the first two entries nonzero. Thus it suffices to show that for $i = 1, 2$
+
+\[
+\lim_{h \rightarrow 0} \frac{|| e^{\lambda^s_i(c+h) x} - e^{\lambda^s_i(c) x} 
+- e^{\lambda^s_i(c) x} (\lambda^s_i)'(c)x h ||_\eta}{|h|} = 0
+\]
+
+For convenience, we will let $\lambda(c) = \lambda^s_i(c)$. Using the Taylor theorem on $\lambda(c+h)$, we have
+\[ 
+\lambda(c+h) = \lambda(c) + \lambda'(c)h + r(h)h
+\]
+where the remainder term $r(h) \rightarrow 0$ as $h \rightarrow 0$.
+
+\begin{align*}
+\frac{e^{\eta x}| e^{\lambda(c+h) x} - e^{\lambda(c) x} - e^{\lambda(c) x} \lambda'(c)x h|}{|h|} &=
+ \frac{e^{\eta x}| e^{(\lambda(c) + \lambda'(c)h + r(h)h) x} - e^{\lambda(c) x} - e^{\lambda(c) x} \lambda'(c)x h|}{|h|} \\
+&= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} e^{r(h)h x} - 1 - \lambda'(c)x h|}{|h|} 
+\end{align*}
+
+We also expand $e^{r(h)h x}$ using the Taylor theorem to one term (i.e. the ordinary mean value theorem)
+
+\[
+e^{r(h)h x} = 1 + e^{r(h)h\xi}r(h)hx
+\]
+where $\xi \in [0, x]$. Substituting this in, we get
+
+\begin{align*}
+&\frac{e^{\eta x}| e^{\lambda(c+h) x} - e^{\lambda(c) x} - e^{\lambda(c) x} \lambda'(c)x h|}{|h|}\\
+&= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx}( 1 + e^{r(h)h\xi}r(h)hx )- 1 - \lambda'(c)x h|}{|h|} \\
+&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + \frac{e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h\xi} | r(h)h x|}{|h|} \\
+&= \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h\xi}| r(h)| x \\
+&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} (1 + e^{r(h)h x}) | r(h)| x  \\
+&\leq \frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} x | r(h)| + e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h x} x | r(h) |
+\end{align*}
+where in the penultimate line we used the fact that the exponential function is monotonic, so since $\xi \in [0, x]$, $e^{r(h)h\xi}$ is bounded by either $e^{r(h)h x}$ or 1 depending on whether $r(h)h$ is positive or negative. Thus $e^{r(h)h\xi} \leq 1 + e^{r(h)h x}$.\\
+
+All that remains is to show each of the three terms goes to 0 uniformly in $x$ as $h \rightarrow \infty$. First, we choose $\eta$ so that $0 \leq \eta \leq \text{Re} \lambda_1^s(c), \text{Re} \lambda_2^s(c)$, so we have $0 \leq \eta \leq \lambda$ here. Then let $a = \lambda - \eta$. Note that $\lambda'(c)$ is just some constant.\\
+
+For the second term and third terms, choose $h$ sufficiently small so that $|\lambda'(c) h| \leq a/4$ and  $|r(h)h| \leq a/4$. (Recall that $r(h) \rightarrow 0 $ as $h \rightarrow 0$, so we can do this.) For the second term, we have
+
+\begin{align*}
+e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} x | r(h)| &= e^{(\eta + \lambda(c) + \lambda'(c)h)x}x|r(h)| \\
+&= e^{(\eta + \lambda(c) + a/4 )x}x|r(h)| \\
+&= e^{-\alpha x}x|r(h)|
+\end{align*}
+where $\alpha = \eta + \lambda(c) + a/2  < 0$. Since $e^{-\alpha x}x$ is bounded in $x$ and $|r(h)| \rightarrow 0$ as $h \rightarrow \infty$, this term decays to 0 uniformly in $x$.\\
+
+For the third term, we have
+
+\begin{align*}
+e^{\eta x} e^{\lambda(c)x} e^{\lambda'(c)hx} e^{r(h)h x} x |r(h)| &= e^{(\eta + \lambda(c) + \lambda'(c)h + r(h)h)x}x|r(h)| \\
+&= e^{(\eta + \lambda(c) + a/4 + a/4)x}x|r(h)| \\
+&= e^{(\eta + \lambda(c) + a/2)x}x|r(h)| \\
+&= e^{-\alpha x}x|r(h)|
+\end{align*}
+
+where $\alpha = \eta + \lambda(c) + a/2  < 0$ is the same as above. Since $e^{-\alpha x}x$ is bounded in $x$ and $|r(h)| \rightarrow 0$ as $h \rightarrow \infty$, this term decays to 0 uniformly in $x$ as well.\\
+
+Finally, for the first term, we have
+
+\begin{align*}
+\frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} &= \frac{1}{|h|}e^{\eta x} e^{\lambda(c)x} \left| 1 + \lambda'(c)xh + \sum_{n = 2}^\infty \frac{(\lambda'(c)xh)^n}{n!} - 1 - \lambda'(c)xh\right|\\
+&= \frac{1}{|h|}e^{\eta x} e^{\lambda(c)x} \left| \sum_{n = 2}^\infty \frac{(\lambda'(c)xh)^n}{n!} \right| \\
+&= e^{\eta x} e^{\lambda(c)x} \left| \sum_{n = 2}^\infty \frac{(\lambda'(c)x)^n h^{n-1}}{n!} \right| \\
+&= e^{\eta x} e^{\lambda(c)x} \left| \sum_{n = 0}^\infty \frac{(\lambda'(c)x)^{n+2} h^{n+1}}{(n+2)!} \right|\\
+&= e^{\eta x} e^{\lambda(c)x} x^2 |\lambda'(c)|^2 |h| \left| \sum_{n = 0}^\infty \frac{(\lambda'(c)x)^{n} h^{n}}{(n+2)!} \right|\\
+&= e^{\eta x} e^{\lambda(c)x} x^2 |\lambda'(c)|^2 |h| \left( \frac{e^{\lambda'(c)xh} - \lambda'(c)xh - 1}{(\lambda'(c)xh)^2} \right)
+\end{align*}
+
+The infinite sum was evaluated using Mathematica, but it is easy to verify manually. First, we note that as we take $h \rightarrow 0$, the term in parentheses above (the closed form for the sum) presents no problem by Lemma \ref{expineq}(i). Since the closed form expression for this sum is annoying, we will use the inequality in Lemma \ref{expineq}(v).
+
+\begin{align*}
+\frac{e^{\eta x} e^{\lambda(c)x}| e^{\lambda'(c)hx} - 1 - \lambda'(c)x h|}{|h|} &\leq e^{\eta x} e^{\lambda(c)x} x^2 |\lambda'(c)|^2 |h| \left( 1 + e^{\lambda'(c)xh} )\right) \\
+&= |\lambda'(c)|^2  \left( e^{(\eta + \lambda(c)) x}x^2 + e^{(\eta + \lambda(c) + \lambda'(c)xh)x} x^2 \right)|h|
+\end{align*}
+
+By our choice of $\eta$ and for sufficiently small $h$ (as above) these exponential terms all have negative exponents, thus the RHS on the last line above is less than or equal to a constant multiplied by $|h|$ and so it decays to 0 uniformly in $x$.\\
+
+Since everything decays to 0 uniformly in $x$, we have proved that (i) is Frechet differentiable.\\
+
+The derivative of (iii) follows from that of (i) together with what we showed in Lemma \ref{qc}. For $x \geq 0$, let $L(c, x)$ be the Frechet derivative of $e^{A(c)(x)}P^s(c)$ with respect to $c$. We proved that this exists in (i) above. Our candidate for the Frechet derivative is
+
+\begin{equation}\label{frechetcandidateint}
+\int_0^x L(c, x - y) N(U(y)) dy
+\end{equation}
+
+First, we need to show this is a bounded linear transformation from $\R$ to $X_\eta$. To do this, we will use a little trick. Recall that we chose $\eta$ such that $0 < \eta < \alpha^s, \alpha^u$. Since this inequality is strict, we can find $\delta > 0$ such that $0 < \eta + \delta < \alpha^s, \alpha^u$. Since $e^{A(c)(x)}P^s(c)$ is Frechet differentiable for all $\eta < \alpha^s, \alpha^u$, it is Frechet differentiable for $\eta + \delta$. Thus we have
+
+\begin{align*}
+\left| e^{\eta x} \int_0^x L(c, x - y) N(U(y)) dy \right| &\leq \int_0^x |e^{\eta (x-y)} L(c, x - y)| |e^{\eta y} N(U(y))| dy\\
+&= \int_0^x e^{-\delta (x-y)} |e^{(\eta + \delta) (x-y)} L(c, x - y)| |e^{\eta y} N(U(y))| dy\\
+&\leq L(\rho)\rho ||L(c, \cdot) ||_{\eta + \delta} \int_0^x e^{-\delta(x-y)} dy\\
+&= L(\rho)\rho ||L(c, \cdot) ||_{\eta + \delta} \frac{1 - e^{-\delta x}}{\delta}\\
+&\leq \frac{L(\rho)\rho}{\delta}||L(c, \cdot) ||_{\eta + \delta}
+\end{align*}
+
+where in the third line we used \eqref{NUetabound} from Lemma \ref{qc}, since our domain for $U$ is $D$. $D$, $L(\rho)$, and $\rho$ are defined in Lemma \ref{qc}. We also used the fact that the Frechet derivative $L(c, x)$ is bounded for $\eta + \delta$, which we showed above. In the penultimate line we used the fact that $x \geq 0$ and $\delta > 0$. Since the RHS is a constant, \eqref{frechetcandidateint} is a bounded linear transformation from $\R$ to $X_\eta$.\\
+
+To show that \eqref{frechetcandidateint} is actually the Frechet derivative, using the definition of the Frechet derivative,
+
+\begin{align*}
+\frac{1}{|h|}&e^{\eta x}\left| \int_0^x e^{A(c+h)(x - y)}P^s(c) N(U(y))dy - \int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy - h \int_0^x L(c, x - y) N(U(y)) dy \right|\\
+&= \frac{1}{|h|}e^{\eta x}\left| \int_0^x \left( e^{A(c+h)(x - y)}P^s(c) - e^{A(c)(x - y)}P^s(c) - h L(c, x - y) \right) N(U(y)) dy \right| \\
+&\leq \int_0^x \left| \frac{ e^{\eta(x-y)} (e^{A(c+h)(x - y)}P^s(c) - e^{A(c)(x - y)}P^s(c) - h L(c, x - y))}{h}\right| \left| e^{\eta y} N(U(y)) \right| dy \\
+&\leq \int_0^x \left| \frac{ e^{\eta(x-y)} (e^{A(c+h)(x - y)}P^s(c) - e^{A(c)(x - y)}P^s(c) - h L(c, x - y))}{h}\right| || e^{\eta y} N(U(y)) ||_\eta dy \\
+&\leq L(\rho)\rho \int_0^x \left| \frac{ e^{\eta(x-y)} (e^{A(c+h)(x - y)}P^s(c) - e^{A(c)(x - y)}P^s(c) - h L(c, x - y))}{h}\right| dy
+\end{align*}
+
+where in the last line we used \eqref{NUetabound} from Lemma \ref{qc}.We need this to decay uniformly in $x$, so we use the same $\delta$ trick we used above. Using the same $\delta > 0$,
+
+\begin{align*}
+\frac{1}{|h|}&e^{\eta x}\left| \int_0^x e^{A(c+h)(x - y)}P^s(c) N(U(y))dy - \int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy - h \int_0^x L(c, x - y) N(U(y)) dy \right|\\
+&\leq L(\rho)\rho \int_0^x e^{-\delta(x-y)} \left| \frac{ e^{(\eta+\delta)(x-y)} (e^{A(c+h)(x - y)}P^s(c) - e^{A(c)(x - y)}P^s(c) - h L(c, x - y))}{h}\right| dy\\
+&\leq L(\rho)\rho \int_0^x e^{-\delta(x-y)} \frac{ || e^{A(c+h)(\cdot)}P^s(c) - e^{A(c)(\cdot)}P^s(c) - h L(c, \cdot) ||_{\eta + \delta} }{|h|} dy\\
+&= \leq L(\rho)\rho \frac{ || e^{A(c+h)(\cdot)}P^s(c) - e^{A(c)(\cdot)}P^s(c) - h L(c, \cdot) ||_{\eta + \delta} }{|h|} \int_0^x e^{-\delta(x-y)} dy\\
+\end{align*}
+
+In (i), we showed that $L(c, x)$ is the Frechet derivative of $e^{A(c)(x)}P^s(c)$ with respect to $c$ for any $0 < \eta < \alpha^s, \alpha^u$. In particular, this is true for $\eta + \delta$. Thus by the definition of the Frechet derivative, given $\epsilon > 0$, we can find $h$ sufficiently small such that 
+
+\[
+\frac{ || e^{A(c+h)(\cdot)}P^s(c) - e^{A(c)(\cdot)}P^s(c) - h L(c, \cdot) ||_{\eta + \delta} }{|h|} < \epsilon
+\]
+
+Thus for sufficiently small $h$, 
+
+\begin{align*}
+\frac{1}{|h|}&e^{\eta x}\left| \int_0^x e^{A(c+h)(x - y)}P^s(c) N(U(y))dy - \int_0^x e^{A(c)(x - y)}P^s(c) N(U(y))dy - h \int_0^x L(c, x - y) N(U(y)) dy \right|\\
+&\leq L(\rho)\rho \epsilon \int_0^x e^{-\delta(x-y)} dy\\
+&= L(\rho)\rho \epsilon \frac{1 - e^{-\delta x}}{\delta}\\
+&\leq \frac{L(\rho)\rho}{\delta}\epsilon
+\end{align*}
+
+since $\delta > 0$ and $x \geq 0$. Since $\epsilon$ is arbitrary and everything else is a constant not depending on $x$, we have proved that (iii) is Frechet differentiable with respect to $c$.\\
+
+For (ii), we first show Frechet differentiability of $e^{A(c)(x}P^u(c) N(U(y))$ on the exponentially weighted space $\{ f \in C^0((-\infty, 0], \R^n) : \sup_{x \in (-\infty, 0]} |e^{\eta x} f(x)| < \infty \}$, which is similar to (i). The Frechet differentiability of (ii) then follows similarly to that of (iii).
 
 \end{proof}
 \end{lemma}
