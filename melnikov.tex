@@ -1143,38 +1143,44 @@ v(x) = q'(x) - \lambda q_c(x) + \lambda^2 w(x)
 
 We have the following equation for $w$
 
-\[
+\begin{equation}\label{wqc}
 \partial_x H w = -q_c + \lambda w 
-\]
+\end{equation}
 
 where Hypothesis \ref{qcIP} assures that the leading-order problem $\partial_x H w = -q_c$ does not have a solution.\\
 
-From here, we integrate both sides, just as we did earlier, to get the integrated eigenvalue problem. Our lower limit is written here as $a$, which is either $\pm \infty$ to avoid boundary terms. This gives us
+NEW/MODIFIED STUFF STARTS HERE.\\
+
+From here, we step back and look at what we are trying to accomplish. We want to find a solution to \eqref{wqc}. Suppose we were able to find a solution to the problem
 
 \[
-H w(x) = -\int_a^x q_c(y) dy + \lambda \int_a^x w(y) dy 
+H w(x) = -\int^x q_c(y) dy + \lambda \int^x w(y) dy + C
 \]
 
-The first integral on the RHS does not depend on $w$ but only on the single pulse we are linearizing about. By Lemma \ref{qc}, this integral is well-defined since $q_c \in L^2(\R)$. \\
+where we have intentionally left off the lower limits of integration and added an arbitrary constant at the end. We call this the integrated eigenvalue problem. If we can find a solution to this, we can differentiate it to get a solution to \eqref{wqc}. The key is that it does not matter what the lower limits of the two integrals are (the can be different) and what the constant $C$ is. We can set up the problem in any way which is convenient for us. So let's do that. For the left integral, which does not depend on $w$, we will always have a lower limit of $-\infty$ since $q_c$ is smooth, integrable (we showed $q_c \in L^2(\R)$), and we don't have to do any join for it. For the second integral, we will write the lower limit as $a$, where $a$ will be $\pm \infty$. Since we will be attempting to join the left half and the right half of $w$ at $x = 0$, it makes sense to choose two different limits here. We can take $C = 0$ as well. The integrated eigenvalue problem becomes
+ 
+\[
+H w(x) = -\int_{-\infty}^x q_c(y) dy + \lambda \int_a^x w(y) dy 
+\]
 
 At this point we proceed as in the previous section by writing the problem as a first order system and splitting the domain up into two pieces. The two pieces are the same as above, and we take the integration limits $a = \pm \infty$ on the two pieces. This gives us the following set of equations.
 
 \begin{align*}
-W^\pm(x)' &= A(q(x)) W^\pm(x) - (K^\pm B Q_c)(x) + \lambda (K^\pm B W^\pm)(x) \\
+W^\pm(x)' &= A(q(x)) W^\pm(x) - (K^- B Q_c)(x) + \lambda (K^\pm B W^\pm)(x) \\
 W^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
 W^+(0) - W^-(0) &\in \C \psi(0) 
 \end{align*}
 
-We can write the fixed point equations for $W^\pm$ as
+Note that for the integral involving $Q_c$ we always use the integration operator $K^-$ since we are always integrating from $-\infty$. We can write the fixed point equations for $W^\pm$ as
 
 \begin{align*}
-W^-(x) = \Phi^u_-(x, 0)b^- &+ \int_0^x \Phi^u_-(x, y)[\lambda (K^- B W^-)(y) + (K^- B Q_c)(y) ] dy \\
-&+ \int_{-\infty}^x \Phi^s_-(x, y)[\lambda (K^- B W^-)(y) + (K^- B Q_c)(y) ] dy \\
-W^+(x) = \Phi^s_+(x, 0)b^+ &+ \int_0^x \Phi^s_+(x, y)[\lambda (K^+ B W^+)(y) + (K^+ B Q_c)(y) ] dy \\
-&+ \int_{\infty}^x \Phi^u_+(x, y)[\lambda (K^+ B W^+)(y) + (K^+ B Q_c)(y) ] dy
+W^-(x) = \Phi^u_-(x, 0)b^- &+ \int_0^x \Phi^u_-(x, y)[\lambda (K^- B W^-)(y) - (K^- B Q_c)(y) ] dy \\
+&+ \int_{-\infty}^x \Phi^s_-(x, y)[\lambda (K^- B W^-)(y) - (K^- B Q_c)(y) ] dy \\
+W^+(x) = \Phi^s_+(x, 0)b^+ &+ \int_0^x \Phi^s_+(x, y)[\lambda (K^+ B W^+)(y) - (K^- B Q_c)(y) ] dy \\
+&+ \int_{\infty}^x \Phi^u_+(x, y)[\lambda (K^+ B W^+)(y) - (K^- B Q_c)(y) ] dy
 \end{align*}
 
-Now we do the inversion as in the previous section and as in Sandstede (1998). The integration operator term $K^\pm B W^\pm$ is the same as above, so we can handle that with an exponentially weighted function space with the same choice of exponential weight $\alpha$. $Q_c$ is independent of $W^\pm$ and is integrable by Lemma \ref{qc}, so the $K^\pm B Q_c$ term is bounded by a constant. Thus we have the equivalent of Lemma \ref{inv1} in the previous section.
+Now we do the inversion as in the previous section and as in Sandstede (1998). The integration operator term $K^\pm B W^\pm$ is the same as above, so we can handle that with an exponentially weighted function space with the same choice of exponential weight $\alpha$. $Q_c$ is independent of $W^\pm$ and is integrable by Lemma \ref{qc}, so the $K^- B Q_c$ term is bounded by a constant. Thus we have the equivalent of Lemma \ref{inv1} in the previous section.
 
 \begin{align*}
 (b, W) &= (B_1(\lambda), W_3(\lambda))\\
@@ -1185,74 +1191,43 @@ B_1(\lambda)| &\leq C|\lambda|\\
 Now we look at the jump as before. 
 
 \begin{align*}
-\langle \Psi(0), W^-(0) &- W^+(0) \rangle = \langle \Psi(0), \Phi^u_-(0, 0)b^- + \int_{-\infty}^0 \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + (K^- B Q_c)(y)] dy  \\
-&- \Phi^s_+(0, 0)b^+ - \int_\infty^0 \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + (K^+ B Q_c)(y) ] dy \rangle \\
-&= \langle \Psi(0), b^- - b^+\rangle + \int_{-\infty}^0 \langle \Psi(0), \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + (K^- B Q_c)(y) ] \rangle dy  \\
-&- \int_\infty^0 \langle \Psi(0), \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + (K^+ B Q_c)(y) ] \rangle dy  \\
-&= \int_{-\infty}^0 \langle \Psi(y), \lambda (K^- B W^-)(y) + (K^- B Q_c)(y) \rangle dy \\
-&- \int_\infty^0 \langle \Psi(y), \lambda (K^+ B W^+)(y) + (K^+ B Q_c)(y) \rangle dy \\
-&= \int_{-\infty}^0 \langle \Psi(y), (K^- B Q_c)(y) \rangle dy - \int_{\infty}^0 \langle \Psi(y), (K^+ B Q_c)(y) \rangle dy  \\
-&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy - \int_\infty^0 \langle \Psi(y), (K^+ B W^+)(y) \rangle dy \right) \\
-&= \int_{-\infty}^0 \langle \Psi(y), (K^- B Q_c)(y) \rangle dy + \int_0^{\infty} \langle \Psi(y), (K^+ B Q_c)(y) \rangle dy  \\
-&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K^+ B W^+)(y) \rangle dy \right) \\
+\langle \Psi(0), W^-(0) &- W^+(0) \rangle = \langle \Psi(0), \Phi^u_-(0, 0)b^- + \int_{-\infty}^0 \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) - (K^- B Q_c)(y)] dy  \\
+&\:\:\:\:\:\:\:\: - \Phi^s_+(0, 0)b^+ - \int_\infty^0 \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) - (K^- B Q_c)(y) ] dy \rangle \\
+&= \langle \Psi(0), b^- - b^+\rangle + \int_{-\infty}^0 \langle \Psi(0), \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) - (K^- B Q_c)(y) ] \rangle dy  \\
+&\:\:\:\:\:\:\:\:- \int_\infty^0 \langle \Psi(0), \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) - (K^- B Q_c)(y) ] \rangle dy  \\
+&= \int_{-\infty}^0 \langle \Psi(y), \lambda (K^- B W^-)(y) - (K^- B Q_c)(y) \rangle dy \\
+&\:\:\:\:\:\:\:\:- \int_\infty^0 \langle \Psi(y), \lambda (K^+ B W^+)(y) - (K^- B Q_c)(y) \rangle dy \\
+&= -\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B Q_c)(y) \rangle dy - \int_{\infty}^0 \langle \Psi(y), (K^- B Q_c)(y) \rangle dy \right) \\
+&\:\:\:\:\:\:\:\:+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy - \int_\infty^0 \langle \Psi(y), (K^+ B W^+)(y) \rangle dy \right) \\
+&= -\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B Q_c)(y) \rangle dy + \int_0^{\infty} \langle \Psi(y), (K^- B Q_c)(y) \rangle dy  \right) \\
+&\:\:\:\:\:\:\:\:+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K^+ B W^+)(y) \rangle dy \right) \\
+&= -\int_{-\infty}^\infty \langle \Psi(y), (K^- B Q_c)(y) \rangle dy \\
+&\:\:\:\:\:\:\:\:+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K^+ B W^+)(y) \rangle dy \right) 
 \end{align*}
 
-We are interested in the terms not involving $\lambda$. (If we recall what we did above, these will correspond to the coefficient of $\lambda^2$ in the expansion \eqref{eigenfntosecondorder} of the eigenfunction.) Recall that we defined $\psi$ above as the 4th component of $\Psi$. 
+We are interested in the term involving $\lambda$. (If we recall what we did above, these will correspond to the coefficient of $\lambda^2$ in the expansion \eqref{eigenfntosecondorder} of the eigenfunction.) Recall that we defined $\psi$ above as the 4th component of $\Psi$. 
 
 \begin{equation}
-M = \int_{-\infty}^0 \psi(y) \int_{-\infty}^y q_c(z) dz dy + \int_0^\infty \psi(y) \int_{\infty}^y q_c(z) dz dy 
+M = -\int_{-\infty}^\infty \psi(y) \int_{-\infty}^y q_c(z) dz dy
 \end{equation}
 
 We showed above that $\psi \in \ker H$. By Hypothesis \ref{1dkernel}, $\psi = q'$, so $M$ becomes
 
 \begin{equation}\label{defM}
-M = \int_{-\infty}^0 q'(y) \int_{-\infty}^y q_c(z) dz dy + \int_0^\infty q'(y) \int_{\infty}^y q_c(z) dz dy
+M = -\int_{-\infty}^\infty q'(y) \int_{-\infty}^y q_c(z) dz dy
 \end{equation}
 
-To make this look nicer, we define the piecewise function
-\[
-\tilde{q}(x) = \begin{cases}
-\int_{-\infty}^x q_c(z) dz & x < 0 \\
-\int_{\infty}^x q_c(z) dz & x \geq 0
-\end{cases}
-\]
-
-The derivative $q_c(x; c)$ is a even function, since we have
-\begin{align*}
-q_c(x; c) &= \lim_{h \rightarrow 0}\frac{q(x; c+h) - q(x; c)}{h} \\
-&= \lim_{h \rightarrow 0}\frac{q(-x; c+h) - q(-x; c)}{h} \\
-&= q_c(-x; c)
-\end{align*}
-where we used the fact that $q(x)$ is an even function (in $x$). Since $q_c(x)$ is even, it is almost certainly not continuous at $x = 0$. Note that the derivative of $\tilde{q}$ is equal to $q_c$ except at $x = 0$ where it does not exist.\\
-
-To make things look nice, we can rewrite $M$ using $\tilde{q}(x)$
-
-\[
-M = \int_{-\infty}^0 q'(y) \tilde{q}(y) dy + \int_0^\infty q'(y) \tilde{q}(y) dy = \int_{-\infty}^\infty q'(y) \tilde{q}(y) dy = \langle q', \tilde{q} \rangle_{L^2(\R)}
-\]
-
-This makes $M$ into a nice $L^2$ inner product, analogous to the Melnikov intergral from the prior section.\\
-
-Now we show that $M \neq 0$. To to this, we take \eqref{defM} and integrate by parts. Since $\tilde{q}$ is not differentiable at $x = 0$, we need to do this in two pieces.
+Now we show that $M \neq 0$. To to this, we take \eqref{defM} and integrate by parts.
 
 \begin{align*}
-M &= \int_{-\infty}^0 q'(y) \int_{-\infty}^y q_c(z) dz dy + \int_0^\infty q'(y) \int_{\infty}^y q_c(z) dz dy \\
-&= \int_{-\infty}^0 q'(y) \tilde{q}(y) dy + \int_0^\infty q'(y) \tilde{q}(y) dy \\
-&= q(y) \tilde{q}(y)\Big|_{-\infty}^{0-} - \int_{-\infty}^0 q(y) q_c (y) dy + q(y) \tilde{q}(y)\Big|_{0+}^{\infty} - \int_0^{\infty} q(y) q_c (y) dy \\
-&= q(0)[\tilde{q}(0-) - \tilde{q}(0+)] - \int_{-\infty}^\infty q(y) q_c(y) dy \\
-&= q(0)\left( \int_{-\infty}^0 q_c(y) dy - \int_{\infty}^0 q_c(y) dy \right) - \langle q, q_c \rangle \\
-&= q(0) \int_{-\infty}^\infty q_c(y) dy - \langle q, q_c \rangle
+M &= -\int_{-\infty}^\infty q'(y) \int_{-\infty}^y q_c(z) dz dy \\
+&= -\left( q(y) \int_{-\infty}^y q_c(z) dz \Big|_{-\infty}^{\infty} - \int_{-\infty}^\infty q(y) q_c(y) dy \right)\\
+&= \langle q, q_c \rangle_{L^2(\R)}
 \end{align*}
 
-The second term on the RHS is nonzero by Hypothesis \ref{qcIP}. The first term on the RHS comes from the integration-by-parts boundary. The maximum of $q$ occurs at 0, so $q(0) \neq 0$, and numerics suggests that $q_c$ does not have mean 0, thus the first term is almost certainly nonzero.
+where the boundary term cancels since the single pulse $q$ decays at $\pm \infty$ and $q_c \in L^2(\R)$. By Hypothesis \ref{qcIP}, $M \neq 0$.\\
 
-We can rewrite this as
-
-\begin{equation}
-M = \int_{-\infty}^\infty [q(0) - q(y)] q_c(y) dy
-\end{equation}
-
-but I'm not sure if that buys us anything. We would, naturally, like the first term to not be there. If we repeat all this using the known symmetry of $q$, $q'$, and $q_c$, we get the same thing.
+NEW/MODIFIED STUFF ENDS HERE.\\
 
 We can use our estimates to get something resembling (3.56) in Sandstede (1998), ALTHOUGH I DO NOT KNOW IF THIS IS USEFUL SINCE WE HAVE THE EQUIVALENT TO THE MELNIKOV INTEGRAL. We use here the estimate (3.50) in Sandstede (1998) $|\Psi(x)| \leq C e^{-\alpha_* |x|}$. (We use $\alpha_*$ here for the constant to distinguish it from the $\alpha$ we chose above.) We also use the estimate $||W|| = ||W_3(\lambda)||_\alpha \leq C|\lambda|$ for our chosen $\alpha < \alpha^s, \alpha^u$. For the last one, recall that the exponentially weighted norm is defined by
 
