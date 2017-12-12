@@ -1149,8 +1149,6 @@ We have the following equation for $w$
 
 where Hypothesis \ref{qcIP} assures that the leading-order problem $\partial_x H w = -q_c$ does not have a solution.\\
 
-NEW/MODIFIED STUFF STARTS HERE.\\
-
 From here, we step back and look at what we are trying to accomplish. We want to find a solution to \eqref{wqc}. Suppose we were able to find a solution to the problem
 
 \[
@@ -1227,8 +1225,6 @@ M &= -\int_{-\infty}^\infty q'(y) \int_{-\infty}^y q_c(z) dz dy \\
 
 where the boundary term cancels since the single pulse $q$ decays at $\pm \infty$ and $q_c \in L^2(\R)$. By Hypothesis \ref{qcIP}, $M \neq 0$.\\
 
-NEW/MODIFIED STUFF ENDS HERE.\\
-
 We can use our estimates to get something resembling (3.56) in Sandstede (1998), ALTHOUGH I DO NOT KNOW IF THIS IS USEFUL SINCE WE HAVE THE EQUIVALENT TO THE MELNIKOV INTEGRAL. We use here the estimate (3.50) in Sandstede (1998) $|\Psi(x)| \leq C e^{-\alpha_* |x|}$. (We use $\alpha_*$ here for the constant to distinguish it from the $\alpha$ we chose above.) We also use the estimate $||W|| = ||W_3(\lambda)||_\alpha \leq C|\lambda|$ for our chosen $\alpha < \alpha^s, \alpha^u$. For the last one, recall that the exponentially weighted norm is defined by
 
 \begin{align*}
@@ -1254,5 +1250,78 @@ So we should have for our jump
 where $M$ is given above and we have the above estimate for the remainder $R(\lambda)$.\\
 
 We know what the deal is in this case, i.e. there is no nonzero eigenvalue near 0 for the single pulse. Thus we should not be able to get the jump to be 0, although it is not clear at all that this is the case by looking at what we did above.
+
+\subsection*{Double Pulse}
+
+Now we combine stuff from the above two constructions and from Sandstede (1998) to generalize this to the double pulse. Recall from that paper that for a double pulse, we can write the eigenfunction as a perturbation of the derivative of the double pulse, where on the two ``big pieces'', the derivative is multiplied by a scaling constant. $Q_2$ is the double pulse solution.
+
+\[
+V_i^\pm = d_i Q_2' + W_i^\pm 
+\]
+
+Numerics suggest that the $d_i$ are definitely not identical. (For the interaction eigenfunction of the first unstable double pulse, for example, one side is significantly larger than the other.) Since $d_i$ is nonzero, there is no reason we cannot have it multiply the $W_i^pm$.
+
+\[
+V_i^\pm = d_i (Q_2' + W_i^\pm)
+\]
+
+Finally, recalling what we did in the previous section, we can write this as an expansion in $\lambda$ for $\lambda$ near 0.
+
+\begin{equation}\label{dpeigform}
+V_i^\pm = d_i( Q_2' + \lambda Q_{2c} + \lambda^2 W_i^\pm)
+\end{equation}
+
+The perturbation $W_i^\pm$ is different in each case. When $\lambda = 0$, we can take $d_i = 1$ to get the correct eigenfunction $Q_2'$, so that is good. Also we will eventually want this in terms of the single pulse $Q$, but we leave it this for now to get some nice cancelation. Recall that the integrated eigenvalue problem is given in piecewise system form by
+
+\[
+(V_i^\pm)' = A(Q_2)V_i^\pm + \lambda K_i^\pm B V_i\pm
+\]
+
+If we plug in \eqref{dpeigform} into this, we get 
+
+\begin{align*}
+(Q_2 &- \lambda Q_{2c} + \lambda^2 W_i^\pm)' = \\
+&A(Q_2)Q_2' - \lambda A(Q_2)Q_{2c} + \lambda^2 W_i^\pm + \lambda KBQ_2' - \lambda^2KBQ_{2c} + \lambda^3 K_i^\pm W_i^\pm 
+\end{align*}
+
+where $K$ is the integral operator $Kf(x) = \int_{-\infty}^x f(y) dy$. As we did above, for the non-piecewise functions, we always take the lower limit of integration to be $-\infty$. We should be able to justify this by the same reasons we gave above. In any case, it won't work unless we do this.\\
+
+We note the following relationships which can be derived from the eigenfunctions $q'$ and $q_c$.
+
+\begin{align*}
+(Q_2)' &= A(Q_2)Q_2 \\
+(Q_{2c})' &= A(Q_{2})Q_{2c} - BQ_2  
+\end{align*} 
+
+For the second one, we can use the integration operator $K$ on $Q_2'$ to get
+
+\[
+(Q_{2c})' = A(Q_{2})Q_{2c} - KBQ_2'
+\]
+
+Using these expressions to cancel things and dividing by $\lambda^2$ (which we are assuming is nonzero since we know what happens when it is zero), we get
+
+\[
+(W_i^\pm)' = A(Q_2)W_i^\pm- KBQ_{2c} + \lambda K_i^\pm BW_i^\pm
+\]
+
+This is exactly what we have in the one-pulse case, except we have replaced the single pulse with the double pulse. Of course, we could have just guessed this, but it is nice to show. But this is not what we want. We would like to write things in terms of the single pulse $Q$. Luckily, from Sandstede (1998) we know that
+
+\[
+Q_2 = Q + R_i^\pm
+\]
+
+where the remainder $R_i^\pm$ is small (and we have estimates on it). Then $Q_{2c} = Q_c + (R_i^\pm)_c$. Let
+\[
+G_i^\pm = A(Q_2) - A(Q) = A(Q + R_i^\pm) - A(Q)
+\]
+
+Then we have
+
+\begin{equation}\label{inteigQ}
+(W_i^\pm)' = A(Q)W_i^\pm- KBQ_{c} + \lambda K_i^\pm BW_i^\pm + G_i^\pm W_i^\pm - K_i^\pm B (R_i^\pm)_c
+\end{equation}  
+
+The first three terms on the RHS are exactly those from the single pulse case. The remaining terms hopefully are small.
 
 \end{document}
