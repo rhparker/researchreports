@@ -1203,7 +1203,7 @@ Now we look at the jump as before.
 &\:\:\:\:\:\:\:\:+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K^+ B W^+)(y) \rangle dy \right) 
 \end{align*}
 
-We are interested in the term involving $\lambda$. (If we recall what we did above, these will correspond to the coefficient of $\lambda^2$ in the expansion \eqref{eigenfntosecondorder} of the eigenfunction.) Recall that we defined $\psi$ above as the 4th component of $\Psi$. 
+We are interested in the term not involving $\lambda$. (If we recall what we did above, these will correspond to the coefficient of $\lambda^2$ in the expansion \eqref{eigenfntosecondorder} of the eigenfunction.) Recall that we defined $\psi$ above as the 4th component of $\Psi$. 
 
 \begin{equation}
 M = -\int_{-\infty}^\infty \psi(y) \int_{-\infty}^y q_c(z) dz dy
@@ -1319,9 +1319,43 @@ G_i^\pm = A(Q_2) - A(Q) = A(Q + R_i^\pm) - A(Q)
 Then we have
 
 \begin{equation}\label{inteigQ}
-(W_i^\pm)' = A(Q)W_i^\pm- KBQ_{c} + \lambda K_i^\pm BW_i^\pm + G_i^\pm W_i^\pm - K_i^\pm B (R_i^\pm)_c
+(W_i^\pm)' = A(Q)W_i^\pm - KBQ_{c} + \lambda K_i^\pm BW_i^\pm + G_i^\pm W_i^\pm - K_i^\pm B (R_i^\pm)_c
 \end{equation}  
 
-The first three terms on the RHS are exactly those from the single pulse case. The remaining terms hopefully are small.
+The first three terms on the RHS are exactly those from the single pulse case. The remaining terms hopefully are small. Following Sandstede (1998) and what we did above, we can write the fixed point equations for $W_i^\pm$ as
+
+\begin{align*}
+W_i^-(x) = \Phi^s_-(&x, -L_{i-1})a_i^- + \Phi^u_-(x, 0)b_i^- \\
+&+ \int_0^x \Phi^u_-(x, y)[\lambda K_i^- BW_i^- - KBQ_{c} + G_i^- W_i^- - K_i^- B (R_i^-)_c ] dy \\
+&+ \int_{-L_{i-1}}^x \Phi^s_-(x, y)[\lambda K_i^- BW_i^- - KBQ_{c} + G_i^- W_i^- - K_i^- B (R_i^-)_c ] dy \\
+W_i^+(x) = \Phi^u_+(&x, L_i)a_i^+ + \Phi^s_+(x, 0)b_i^+ \\
+&+ \int_0^x \Phi^s_+(x, y)[\lambda K_i^+ BW_i^+ - KBQ_{c} + G_i^+ W_i^+ - K_i+- B (R_i^+)_c ] dy \\
+&+ \int_{L_i}^x \Phi^u_+(x, y)[\lambda K_i^+ BW_i^+ - KBQ_{c} + G_i^+ W_i^+ - K_i+- B (R_i^+)_c ]dy
+\end{align*}
+
+Next we write down the equation for the jump distance. Following what was done above and in Sandstede (1998), we have
+
+\begin{align*}
+\langle \Psi(0), &W_i^-(0) - W_i^+(0) \rangle \\
+= &-\left( \int_{-L_{i-1}}^0 \langle \Psi(y), (K B Q_c)(y) \rangle dy - \int_{L_i}^0 \langle \Psi(y), (K B Q_c)(y) \rangle dy \right) \\
+&+\left( \int_{-L_{i-1}}^0 \langle \Psi(y), G_i^- W_i^-(y) - (K_i^- B (R_i^-)_c)(y) \rangle dy - \int_{L_i}^0 \langle \Psi(y), G_i^+ W_i^+(y) - (K_i^+ B (R_i^+)_c)(y) \rangle dy \right) \\
+&+ \lambda\left( \int_{-L_{i-1}}^0 \langle \Psi(y), (K_i^- B W_i^-)(y) \rangle dy - \int_{L_i}^0 \langle \Psi(y), (K_i^+ B W_i^+)(y) \rangle dy \right) 
+\end{align*}
+
+At this point, we will take $i = 1$ to make things easier. The $i = 2$ case will be similar.
+
+\begin{align*}
+\langle \Psi(0), &W_1^-(0) - W_1^+(0) \rangle \\
+= &-\left( \int_{-\infty}^0 \langle \Psi(y), (K B Q_c)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \right) + \int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \\
+&+\left( \int_{-\infty}^0 \langle \Psi(y), G_i^- W_i^-(y) - (K_i^- B (R_i^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), G_i^+ W_i^+(y) - (K_i^+ B (R_i^+)_c)(y) \rangle dy \right) \\
+&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K_i^- B W_i^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_i^+ B W_i^+)(y) \rangle dy \right) \\
+= &\langle q, q_c \rangle_{L^2(\R)} + \int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \\
+&+\left( \int_{-\infty}^0 \langle \Psi(y), G_i^- W_i^-(y) - (K_i^- B (R_i^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), G_i^+ W_i^+(y) - (K_i^+ B (R_i^+)_c)(y) \rangle dy \right) \\
+&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K_i^- B W_i^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_i^+ B W_i^+)(y) \rangle dy \right) 
+\end{align*}
+
+where we used the Melnikov result from the single pulse case. Now all we have to do is hope the rest of the terms are sufficiently small.
+
+
 
 \end{document}
