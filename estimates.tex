@@ -88,7 +88,7 @@ where
 
 \begin{align*}
 G_i^\pm(x) &= A(Q_2) - A(Q)) = A(Q + R_i^\pm) - A(Q) \\
-D_1 d &= d_2 [ Q'(-L) + R_2'(-L)] - d_1 [ Q'(L) + R_1'(L) ]
+D_1 d &= d_2 [ Q_2'(-L) + Q_{2c}(-L)] - d_1 [ Q_2'(L) + Q_{2c}(L)]
 \end{align*}
 
 Suppose we have the bounds
@@ -143,15 +143,15 @@ Let $L_1(\lambda): V_w^\eta \rightarrow V_w^\eta$ be the linear operator defined
 where $G_i^\pm$ is uniformly bounded with supremum norm $|G|$. Then $L_1(\lambda)$ is bounded in the weighted supremum norm. This bound does not depend on the interval endpoints $X_i^\pm$.
 
 \begin{proof}
-First, we look at the negative piece. Note that when taking the absolute value we have to integrate in the positive direction.
+First, we look at the negative piece. Note that when taking the absolute value we have to integrate in the positive direction. For all of this, we use the estimates in Lemma 3.2 of Sandstede (1998) to bound $\Phi^u_\pm$ and $\Phi^s_\pm$.
 
 \begin{align*}
 |e^{-\eta x} & (L_1(\lambda)W_i^-)(x) | \leq  e^{-\eta x} \int_x^0 |\Phi^u_-(x, y)|[|G_i^-(y)||W_i^-(y)| + |\lambda||(K_i^- B W_i^-)(y)| ] dy \\
 &+ e^{-\eta x} \int_{-X_{i-1}}^x |\Phi^s_-(x, y)|[|G_i^-(y)||W_i^-(y)| + |\lambda||(K_i^- B W_i^-)(y)| ] dy \\
-&\leq |G| \int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy 
-+ |\lambda|\int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy \\
-&+ |G| \int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy 
-+ |\lambda|\int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy  \\ 
+&\leq C|G| \int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy 
++ C|\lambda|\int_x^0 e^{\alpha^u (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy \\
+&+ C|G| \int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} W_i^-(y)| dy 
++ C|\lambda|\int_{-X_{i-1}}^x e^{-\alpha^s (x-y)}e^{-\eta(x-y)}|e^{-\eta y} (K_i^- B W_i^-)(y)| dy  \\ 
 \end{align*}
 
 The two terms not involving the integration operator are similar to those in Sandstede (1998), so let's take care of those first.
@@ -214,10 +214,10 @@ The ``+'' equations are similar to the ``-'' equations. We could probably just s
 \begin{align*}
 |e^{\eta x} & (L_1(\lambda)W)_i^+)(x) | \leq e^{\eta x} \int_0^x |\Phi^s_+(x, y)|[|G_i^+(y)||W_i^+(y)| + |\lambda|(K_i^+ B W_i^+)(y)| ] dy \\
 &+ e^{\eta x} \int_x^{X_i} |\Phi^u_+(x, y)|[|G_i^+(y)||W_i^+(y)| + |\lambda||(K_i^+ B W_i^+)(y)| ] dy \\
-&\leq |G| \int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy 
-+ |\lambda|\int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} (K_i^+ B W_i^+)(y)| dy \\
-&+ |G| \int_x^{X_i} e^{\alpha^u (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy 
-+ |\lambda|\int_x^{X_i} e^{\alpha^u (x-y)}e^{\eta(x-y)}|e^{\eta y} (K_i^+ B W_i^+)(y)| dy \\ 
+&\leq C|G| \int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy 
++ C|\lambda|\int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} (K_i^+ B W_i^+)(y)| dy \\
+&+ C|G| \int_x^{X_i} e^{\alpha^u (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy 
++ C|\lambda|\int_x^{X_i} e^{\alpha^u (x-y)}e^{\eta(x-y)}|e^{\eta y} (K_i^+ B W_i^+)(y)| dy \\ 
 \end{align*}
 
 We do the same thing we did above.
@@ -274,7 +274,7 @@ For the final integral,
 Putting this all together, we conclude the following. The operator $L_1$ defined above is a bounded linear operator from $V_w^\eta$, the exponentially weighted version of $V_w$, to itself. Since the norm on the product space $V_w^\eta$ is the maximum of the individual (weighted) norms making up the product, we have the bound:
 
 \begin{equation}
-	||L_1(\lambda)W||_\eta \leq \left(|G| + \frac{|\lambda|}{\eta}\right)\left(\frac{1}{\alpha^s + \eta} + \frac{1}{\alpha^u + \eta} + \frac{1}{\alpha^s - \eta} + \frac{1}{\alpha^u - \eta}\right)||W||_\eta
+	||L_1(\lambda)W||_\eta \leq C\left(|G| + \frac{|\lambda|}{\eta}\right)\left(\frac{1}{\alpha^s + \eta} + \frac{1}{\alpha^u + \eta} + \frac{1}{\alpha^s - \eta} + \frac{1}{\alpha^u - \eta}\right)||W||_\eta
 \end{equation}
 
 provided that $\eta \leq \alpha^2, \alpha^u$, where $W$ is the element of $V_w^\eta$ formed by the pieces $W_i^\pm$. If we have $|\lambda| \leq \delta$ and $|G| \leq \delta$, this bound becomes
@@ -308,12 +308,12 @@ As in the previous lemma, we will take $0 < \eta < \alpha^s, \alpha^u$. For the 
 \begin{align*}
 | e^{-\eta x} L_2(\lambda)(a, b, d)_i^-(x)| &\leq e^{-\eta x} |\Phi^s_-(x, -X_{i-1})a^-_{i-1}| + e^{-\eta x}|\Phi^u_-(x, 0)b_i^-| \\
 &+ |\lambda|^2 |d_i| e^{-\eta x} \left( \int_x^0 |\Phi^u_-(x, y)||(KBQ_{2c})|(y) dy  + \int_{-X_{i-1}}^x |\Phi^s_-(x, y)||(KBQ_{2c})(y)| dy \right) \\
-&\leq e^{-\eta x} e^{-\alpha^s [x - (-X_{i-1})]}|a^-_{i-1}| + e^{-\eta x}e^{\alpha^u x}|b_i^-| \\
-&+ |\lambda|^2 |d_i| e^{-\eta x} \left( \int_x^0 e^{\alpha^u (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy  + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy\right) \\
-&= e^{-(\alpha^s + \eta) [x - (-X_{i-1})]} e^{\eta X_{i-1}}|a^-_{i-1}| + e^{(\alpha^u - \eta) x}|b_i^-| \\
-&+ |\lambda|^2 |d_i| e^{-\eta x} \left( \int_x^0 e^{\alpha^u (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy  + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy\right) \\
-&= e^{\eta X_{i-1}}|a^-_{i-1}| + |b_i^-| \\
-&+ |\lambda|^2 |d_i| e^{-\eta x} \left( \int_x^0 e^{\alpha^u (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy  + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy\right) \\
+&\leq C e^{-\eta x} e^{-\alpha^s [x - (-X_{i-1})]}|a^-_{i-1}| + C e^{-\eta x}e^{\alpha^u x}|b_i^-| \\
+&+ C|\lambda|^2 |d_i| e^{-\eta x} \left( \int_x^0 e^{\alpha^u (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy  + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy\right) \\
+&= C e^{-(\alpha^s + \eta) [x - (-X_{i-1})]} e^{\eta X_{i-1}}|a^-_{i-1}| + C e^{(\alpha^u - \eta) x}|b_i^-| \\
+&+ C|\lambda|^2 |d_i| e^{-\eta x} \left( \int_x^0 e^{\alpha^u (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy  + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy\right) \\
+&= C e^{\eta X_{i-1}}|a^-_{i-1}| + C |b_i^-| \\
+&+ C|\lambda|^2 |d_i| e^{-\eta x} \left( \int_x^0 e^{\alpha^u (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy  + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy\right) \\
 \end{align*}
 
 For the first integral, we have
@@ -345,36 +345,32 @@ e^{-\eta x} \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}\int_{-\infty}^y |q_{2c}(z)| 
 Putting all this together, we have for our bound (for the negative piece),
 
 \begin{align*}
-| e^{-\eta x} L_2(\lambda)(a, b, d)_i^-(x)| \leq e^{\eta X_{i-1}}|a^-_{i-1}| + |b_i^-| + |\lambda|^2 |d_i|  \frac{ ||q_{2c}||_\eta }{\eta} \left( \frac{1}{\alpha^s + \eta} + \frac{1}{\alpha^u - \eta} \right)
+| e^{-\eta x} L_2(\lambda)(a, b, d)_i^-(x)| \leq C \left[] e^{\eta X_{i-1}}|a^-_{i-1}| + |b_i^-| + |\lambda|^2 |d_i|  \frac{ ||q_{2c}||_\eta }{\eta} \left( \frac{1}{\alpha^s + \eta} + \frac{1}{\alpha^u - \eta} \right)\right]
 \end{align*}
 
 The positive piece is similar. The bound should look like (we can verify this if all this ends up working)
 
 \begin{align*}
-| e^{\eta x} L_2(\lambda)(a, b, d)_i^+(x)| \leq e^{\eta X_{i}}|a_i^+| + |b_i^+| + |\lambda|^2 |d_i|  \frac{ ||q_{2c}||_\eta }{\eta} \left( \frac{1}{\alpha^u + \eta} + \frac{1}{\alpha^s - \eta} \right)
+| e^{\eta x} L_2(\lambda)(a, b, d)_i^+(x)| \leq C \left[ e^{\eta X_{i}}|a_i^+| + |b_i^+| + |\lambda|^2 |d_i|  \frac{ ||q_{2c}||_\eta }{\eta} \left( \frac{1}{\alpha^u + \eta} + \frac{1}{\alpha^s - \eta} \right)\right]
 \end{align*}
 
 Thus, putting all this together, we have the bound
 
 \[
-||L_2(\lambda)(a, b, d)(x)||_\eta \leq e^{\eta X}|a| + |b| + C |\lambda|^2 |d|
+||L_2(\lambda)(a, b, d)(x)||_\eta \leq C(e^{\eta X}|a| + |b| + |\lambda|^2 |d|)
 \]
 
-where
-
-\[
-C = \frac{ ||q_{2c}||_\eta }{\eta} \left( \frac{1}{\alpha^s + \eta} + \frac{1}{\alpha^u - \eta} + \frac{1}{\alpha^u + \eta} + \frac{1}{\alpha^s - \eta} \right)
-\]
-
-and $X$ is the maximum of the join points $X_i$ which are finite.
+where $X$ is the maximum of the join points $X_i$ which are finite.
 
 \end{proof}
 
 \end{lemma}
 
-We can combine these two lemma to solve for $W_^\pm$.
+This is identical to what we have in (3.20) in Sandstede (1998) except for the presence of the $e^{\eta X}$ term. It appears this is unavoidable as a consequence of working in exponentially weighted spaces. However, we hope this will not become a problem later down the road.\\
 
-\begin{lemma}
+We can combine these two lemmas to solve for $W_i^\pm$.
+
+\begin{lemma}\label{W1}
 There exists a bounded linear operator $W_1: V_\lambda \times V_a \times V_b \times V_d \rightarrow V_w^\eta$ such that 
 \[
 w = W_1(\lambda)(a,b,d)
@@ -382,6 +378,7 @@ w = W_1(\lambda)(a,b,d)
 This operator is analytic in $\lambda$ and linear in $(a, b, d)$. The operator $W_1$ satisfies the bound
 
 \[
+||W_1(\lambda)(a,b,d)||_\eta \leq C ( e^{\eta X}|a| + |b| + |\lambda|^2 |d|)
 \]
 
 \begin{proof}
@@ -415,14 +412,86 @@ which depends linearly on $(a,b,d)$ and analytically on $\lambda$. Since the ope
 
 \end{lemma}
 
+In the next lemma we solve for the center join $W_1^+(L) - W_2^-(-L) = D_1 d$.
 
-The rest of the inversion procedure should proceed exactly as in Sandstede (1998). \\
+\begin{lemma}
+\begin{proof}
+\begin{align*}
+D_1 d &= W_1^+(L) - W_2^-(-L) \\
+&= \Phi^u_+(L, L)a^+_{1} + \Phi^s_+(L, 0)b_1^+ 
++ \int_0^L \Phi^s_+(L, y)[G_1^+(y) W_1^+(y) + \lambda (K_1^+ B W_1^+)(y) - \lambda^2 d_1 B Q_{2c}(y) ] dy \\  
+&- \Phi^s_-(-L, -L)a^-_{1} - \Phi^u_-(-L, 0)b_2^- - \int_0^{-L} \Phi^u_-(-L, y)[G_2^-(y) W_2^-(y) + \lambda (K_2^- B W_2^-)(y) - \lambda^2 d_2 B Q_{2c}(y) ] dy \\
+&= P_u^+(L) a^+_{1} - P_s^-(-L) a^-_{1} + \Phi^s_+(L, 0)b_1^+ - \Phi^u_-(-L, 0)b_2^- \\
+&+ \int_0^L \Phi^s_+(L, y)[G_1^+(y) W_1^+(y) + \lambda (K_1^+ B W_1^+)(y) - \lambda^2 d_1 B Q_{2c}(y) ] dy \\
+&+ \int_{-L}^0 \Phi^u_-(-L, y)[G_2^-(y) W_2^-(y) + \lambda (K_2^- B W_2^-)(y) - \lambda^2 d_2 B Q_{2c}(y) ] dy 
+\end{align*}
 
-The analogue of Lemma 3.4 solves the jump equation at the center point, i.e.
+Where we have the projections from Lemma 3.2 in Sandstede (1998)
+\begin{align*}
+P^s_\pm(x) &= \Phi^s_\pm(x,x) \\
+P^u_\pm(x) &= \Phi^u_\pm(x,x) \\
+\end{align*}
+
+Recall that $a_i^- \in E^s$ and $a_i^+ \in E^u$. Writing the projections on $E^s$ and $E^u$ as $P_0^s$ and $P_0^u$, we have $P_0^s a_i^- = a_i^-$ and $P_0^u a_i^+ = a_i^+$. Using these above with $i = 1$, we get 
+
+\begin{align*}
+D_1 d &=  a^+_1 - a^-_1 + (P_u^+(L) - P_0^u) a^+_1 - (P_0^s - P_s^-(-L)) a^-_1 + \Phi^s_+(L, 0)b_1^+ - \Phi^u_-(-L, 0)b_2^- \\
+&+ \int_0^L \Phi^s_+(L, y)[G_1^+(y) W_1^+(y) + \lambda (K_1^+ B W_1^+)(y) - \lambda^2 d_1 B Q_{2c}(y) ] dy \\
+&+ \int_{-L}^0 \Phi^u_-(-L, y)[G_2^-(y) W_2^-(y) + \lambda (K_2^- B W_2^-)(y) - \lambda^2 d_2 B Q_{2c}(y) ] dy 
+\end{align*}
+
+Substituting $W_1(\lambda)(a,b,d)$ from Lemma \ref{W1} into this, we have the following equation
 
 \[
-W_1^+(L) - W_2^-(-L) = D_1 d = d_2 [ Q'(-L) + R_2'(-L)] - d_1 [ Q'(L) + R_1'(L) ]
+D_1 d = (a^+_1 - a^-_1) + L_3(\lambda)(a,b,d)
+\] 
+
+where 
+
+\begin{align*}
+L_3(\lambda)(a,b,d) &= (P_u^+(L) - P_0^u) a^+_1 - (P_0^s - P_s^-(-L)) a^-_1 + \Phi^s_+(L, 0)b_1^+ - \Phi^u_-(-L, 0)b_2^- \\
+&+ \int_0^L \Phi^s_+(L, y)[G_1^+(y) W_1^+(y) + \lambda (K_1^+ B W_1^+)(y) - \lambda^2 d_1 B Q_{2c}(y) ] dy \\
+&+ \int_{-L}^0 \Phi^u_-(-L, y)[G_2^-(y) W_2^-(y) + \lambda (K_2^- B W_2^-)(y) - \lambda^2 d_2 B Q_{2c}(y) ] dy 
+\end{align*}
+
+This is linear in $(a,b,d)$ and analytic in $\lambda$. Now we will get a bound on $L_3(\lambda)$. First, let
+
+\[
+p(L) = \sup_{x \geq L} (|P_u^+(x) - P_0^u| + |P_0^s - P_s^-(-x)|)
 \]
+
+Then for our bound we have
+
+\begin{align*}
+|L_3(\lambda)(a,b,d)| &\leq |P_u^+(L) - P_0^u|| a^+_1| + |P_0^s - P_s^-(-L)||a^-_1| + |\Phi^s_+(L, 0)||b_1^+| + |\Phi^u_-(-L, 0)||b_2^-| \\
+&+ \int_0^L |\Phi^s_+(L, y)|[|G_1^+(y)||W_1^+(y)| + |\lambda| |(K_1^+ B W_1^+)(y)| + |\lambda|^2 |d_1| B |Q_{2c}(y)| ] dy \\
+&+ \int_{-L}^0 \Phi^u_-(-L, y)[G_2^-(y) W_2^-(y) + |\lambda| |(K_2^- B W_2^-)(y)| + |\lambda|^2 |d_2| B |Q_{2c}(y)| ] dy 
+\end{align*}
+
+Doing the bounds one at a time, we have
+
+\begin{enumerate}
+
+\item
+\begin{align*}
+|P_u^+(L) - P_0^u|| a^+_1| + |P_0^s - P_s^-(-L)||a^-_1| \leq p(L)|a|
+\end{align*}
+
+\item
+\begin{align*}
+|\Phi^s_+(L, 0)||b_1^+| + |\Phi^u_-(-L, 0)||b_2^-| &\leq C e^{-\alpha^s L} |b_1^+| + C e^{\alpha^u (-L)}|b_2^-| \\
+&\leq C e^{-\alpha L}|b|
+\end{align*}
+
+\item
+
+
+\end{enumerate}
+
+
+
+\end{proof}
+\end{lemma}
 
 Since the only substantial change we made in Lemma 3.3 was the introduction of an exponential weight, Lemma 3.3 should hold with the norm of $W_2(\lambda)(b,d)$ replaced by the exponentially weighted norm. The bound might be slightly difference since there is no $\lambda$ dependence in $L_2$, but we can figure that out later if needed.\\
 
