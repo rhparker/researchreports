@@ -91,6 +91,12 @@ G_i^\pm(x) &= A(Q_2) - A(Q)) = A(Q + R_i^\pm) - A(Q) \\
 D_1 d &= d_2 [ Q_2'(-L) + Q_{2c}(-L)] - d_1 [ Q_2'(L) + Q_{2c}(L)]
 \end{align*}
 
+where $D_1$ is given by the row matrix 
+
+\[
+D_1 = \begin{pmatrix} -(Q_2'(L) + Q_{2c}(L)) & Q_2'(-L) + Q_{2c}(-L) \end{pmatrix}
+\]
+
 Suppose we have the bounds
 \begin{align*}
 |G_i^\pm(x)| \leq \delta \\
@@ -415,6 +421,7 @@ which depends linearly on $(a,b,d)$ and analytically on $\lambda$. Since the ope
 In the next lemma we solve for the center join $W_1^+(L) - W_2^-(-L) = D_1 d$.
 
 \begin{lemma}
+STATE LEMMA HERE
 \begin{proof}
 \begin{align*}
 D_1 d &= W_1^+(L) - W_2^-(-L) \\
@@ -442,9 +449,9 @@ D_1 d &=  a^+_1 - a^-_1 + (P_u^+(L) - P_0^u) a^+_1 - (P_0^s - P_s^-(-L)) a^-_1 +
 
 which we will write as
 
-\[
+\begin{equation}
 D_1 d = (a^+_1 - a^-_1) + L_3(\lambda)(a,b,d)
-\] 
+\end{equation}
 
 where 
 
@@ -454,7 +461,7 @@ L_3(\lambda)(a,b,d) &= (P_u^+(L) - P_0^u) a^+_1 - (P_0^s - P_s^-(-L)) a^-_1 + \P
 &+ \int_{-L}^0 \Phi^u_-(-L, y)[G_2^-(y) W_2^-(y) + \lambda (K_2^- B W_2^-)(y) - \lambda^2 d_2 B Q_{2c}(y) ] dy 
 \end{align*}
 
-If we substitute $W = W_1(\lambda)(a,b,d)$ from Lemma \ref{W1}, this is linear in $(a,b,d)$ and analytic in $\lambda$. Now we will get a bound on $L_3(\lambda)$. First, let
+If we substitute $W = W_1(\lambda)(a,b,d)$ from Lemma \ref{W1}, we see that this is linear in $(a,b,d)$ and analytic in $\lambda$. Now we will show that $L_3(\lambda)$ is bounded. First, let
 
 \[
 p(L) = \sup_{x \geq L} (|P_u^+(x) - P_0^u| + |P_0^s - P_s^-(-x)|)
@@ -578,11 +585,64 @@ Since we are substituting $W = W_1(\lambda)(a,b,d)$ from Lemma \ref{W1}, we can 
 |L_3(\lambda)(a,b,d)| &\leq p(L)|a| + C e^{-\alpha L}|b| \\
 &\leq C\left( p(L)|a| + e^{-\alpha L}|b| + \left(|G| + \frac{|\lambda|}{\eta}\right)e^{-\eta L}C(e^{\eta L}|a| + |b| + |\lambda|^2 |d|) + |\lambda|^2 |d| e^{-\eta L} ||Q_{2c}||_\eta \right) \\
 &= C\left( p(L)|a| + e^{-\alpha L}|b| + C \left(|G| + \frac{|\lambda|}{\eta}\right)(|a| + e^{-\eta L}|b| + e^{-\eta L}|\lambda|^2 |d|) + |\lambda|^2 |d| e^{-\eta L} ||Q_{2c}||_\eta \right) \\
-&= C \left( p(L) + |G| + \frac{|\lambda|}{\eta}\right)|a| + C \left[ e^{-\alpha L} + e^{-\eta L} \left(|G| + \frac{|\lambda|}{\eta}\right) \right] |b| + \left(|G| + \frac{\lambda}{\eta}\right)(|a| + e^{-\eta L}|b| \\
+&= C \left( p(L) + |G| + \frac{|\lambda|}{\eta}\right)|a| + C \left[ e^{-\alpha L} + e^{-\eta L} \left(|G| + \frac{|\lambda|}{\eta}\right) \right] |b|  \\
 &+ C e^{-\eta L} \left( |G| + \frac{|\lambda|}{\eta} + ||Q_{2c}||_\eta \right)|\lambda|^2 |d|
 \end{align*}
 
+Recalling that $|G|\leq \delta$ and $|\lambda| \leq \delta$, we this becomes 
 
+\[
+|L_3(\lambda)(a,b,d)| \leq C\delta(|a| + |b| + |d|)
+\]
+
+Let $J_1: V_a \rightarrow \C^n$ be defined by $J_1(a) = a_1^+ - a_1^-$. (These are the only two nonzero components of $a$). Since $\C^n = E^u \oplus E^s$, the map $J_1$ is a linear isomorphism. Now consider the operator $S_1$ defined by
+
+\[
+S_1(a) = J_1 a + L_3(\lambda)(a, 0, 0) = J_1( I + J_1^{-1} L_3(\lambda)(a, 0, 0) )
+\]
+
+For suffiencty small $\delta$, we will have the operator norm $||J_1^{-1} L_3(\lambda)(\cdot, 0, 0)|| < 1$, thus the map $a \rightarrow I + J_1^{-1} L_3(\lambda)(a, 0, 0)$ is invertible (for same reason as in Lemma \ref{W1}) and so the operator $S_1$ is invertible.\\
+
+Recall that we have the following expression for $D_1 d$.
+
+\[
+D_1 d = (a^+_1 - a^-_1) + L_3(\lambda)(a,b,d)
+\] 
+
+Since $L_3$ is linear, we can write this as
+
+\begin{align*}
+D_1 d &= J_1 a + L_3(\lambda)(a, 0, 0) + L_3(\lambda)(0, b, d) \\
+&= S_1(a) + L_3(\lambda)(0, b, d) 
+\end{align*}
+
+Writing this as 
+
+\[
+S_1(a) = D_1 d - L_3(\lambda)(0, b, d) 
+\]
+
+We can solve this for $a$ to get
+
+\begin{equation}
+a = A_1(\lambda)(b,d) = S_1^{-1}[D_1 d - L_3(\lambda)(0, b, d)] 
+\end{equation}
+
+We can find a bound for $A_1$. Note that $S_1^{-1}$ is a bounded linear operator.
+
+\begin{align*}
+|A_1(\lambda)(b,d)| &\leq ||S_1^{-1}|||D_1 d - L_3(\lambda)(0, b, d)| \\
+&\leq C (|D_1||d| + |L_3(\lambda)(0, b, d)|) \\
+&\leq C (|D_1||d| +  \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + \frac{|\lambda|}{\eta}\right) \right]|b| + e^{-\eta L} \left( |G| + \frac{|\lambda|}{\eta} + ||Q_{2c}||_\eta \right)|\lambda|^2 |d|)\\
+&= C\left( \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + \frac{|\lambda|}{\eta}\right) \right]|b| + \left[ e^{-\eta L} \left( |G| + \frac{|\lambda|}{\eta} + ||Q_{2c}||_\eta \right)|\lambda|^2 + |D_1| \right] |d| \right)
+\end{align*}
+
+
+We also define
+
+\begin{equation}\label{W2def}
+W_2(\lambda)(b,d) = W_1(\lambda)(A_1(\lambda)(b,d),b,d)
+\end{equation}
 \end{proof}
 \end{lemma}
 
