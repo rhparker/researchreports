@@ -357,10 +357,10 @@ The positive piece is similar. The bound should look like (we can verify this if
 Thus, putting all this together, we have the bound
 
 \[
-||L_2(\lambda)(a, b, d)(x)||_\eta \leq C(e^{\eta X}|a| + |b| + |\lambda|^2 |d|)
+||L_2(\lambda)(a, b, d)(x)||_\eta \leq C(e^{\eta L}|a| + |b| + |\lambda|^2 |d|)
 \]
 
-where $X$ is the maximum of the join points $X_i$ which are finite.
+since for the double pulse, the two nonzero join points are $\pm L$.
 
 \end{proof}
 
@@ -378,7 +378,7 @@ w = W_1(\lambda)(a,b,d)
 This operator is analytic in $\lambda$ and linear in $(a, b, d)$. The operator $W_1$ satisfies the bound
 
 \[
-||W_1(\lambda)(a,b,d)||_\eta \leq C ( e^{\eta X}|a| + |b| + |\lambda|^2 |d|)
+||W_1(\lambda)(a,b,d)||_\eta \leq C ( e^{\eta L}|a| + |b| + |\lambda|^2 |d|)
 \]
 
 \begin{proof}
@@ -405,7 +405,7 @@ W = W_1(\lambda)(a,b,d) = (I - L_1(\lambda))^{-1} L_2(\lambda)(a,b,d)
 which depends linearly on $(a,b,d)$ and analytically on $\lambda$. Since the operator norm of $L_1$ is bounded by a constant (independent of $X$), we have the bound
 
 \[
-||W_1(\lambda)(a,b,d)||_\eta \leq C ( e^{\eta X}|a| + |b| + |\lambda|^2 |d|)
+||W_1(\lambda)(a,b,d)||_\eta \leq C ( e^{\eta L}|a| + |b| + |\lambda|^2 |d|)
 \]
 
 \end{proof}
@@ -440,7 +440,7 @@ D_1 d &=  a^+_1 - a^-_1 + (P_u^+(L) - P_0^u) a^+_1 - (P_0^s - P_s^-(-L)) a^-_1 +
 &+ \int_{-L}^0 \Phi^u_-(-L, y)[G_2^-(y) W_2^-(y) + \lambda (K_2^- B W_2^-)(y) - \lambda^2 d_2 B Q_{2c}(y) ] dy 
 \end{align*}
 
-Substituting $W_1(\lambda)(a,b,d)$ from Lemma \ref{W1} into this, we have the following equation
+which we will write as
 
 \[
 D_1 d = (a^+_1 - a^-_1) + L_3(\lambda)(a,b,d)
@@ -454,7 +454,7 @@ L_3(\lambda)(a,b,d) &= (P_u^+(L) - P_0^u) a^+_1 - (P_0^s - P_s^-(-L)) a^-_1 + \P
 &+ \int_{-L}^0 \Phi^u_-(-L, y)[G_2^-(y) W_2^-(y) + \lambda (K_2^- B W_2^-)(y) - \lambda^2 d_2 B Q_{2c}(y) ] dy 
 \end{align*}
 
-This is linear in $(a,b,d)$ and analytic in $\lambda$. Now we will get a bound on $L_3(\lambda)$. First, let
+If we substitute $W = W_1(\lambda)(a,b,d)$ from Lemma \ref{W1}, this is linear in $(a,b,d)$ and analytic in $\lambda$. Now we will get a bound on $L_3(\lambda)$. First, let
 
 \[
 p(L) = \sup_{x \geq L} (|P_u^+(x) - P_0^u| + |P_0^s - P_s^-(-x)|)
@@ -465,7 +465,7 @@ Then for our bound we have
 \begin{align*}
 |L_3(\lambda)(a,b,d)| &\leq |P_u^+(L) - P_0^u|| a^+_1| + |P_0^s - P_s^-(-L)||a^-_1| + |\Phi^s_+(L, 0)||b_1^+| + |\Phi^u_-(-L, 0)||b_2^-| \\
 &+ \int_0^L |\Phi^s_+(L, y)|[|G_1^+(y)||W_1^+(y)| + |\lambda| |(K_1^+ B W_1^+)(y)| + |\lambda|^2 |d_1| B |Q_{2c}(y)| ] dy \\
-&+ \int_{-L}^0 \Phi^u_-(-L, y)[G_2^-(y) W_2^-(y) + |\lambda| |(K_2^- B W_2^-)(y)| + |\lambda|^2 |d_2| B |Q_{2c}(y)| ] dy 
+&+ \int_{-L}^0 \Phi^u_-(-L, y)[|G_2^-(y)||W_2^-(y)| + |\lambda| |(K_2^- B W_2^-)(y)| + |\lambda|^2 |d_2| B |Q_{2c}(y)| ] dy 
 \end{align*}
 
 Doing the bounds one at a time, we have
@@ -479,15 +479,108 @@ Doing the bounds one at a time, we have
 
 \item
 \begin{align*}
-|\Phi^s_+(L, 0)||b_1^+| + |\Phi^u_-(-L, 0)||b_2^-| &\leq C e^{-\alpha^s L} |b_1^+| + C e^{\alpha^u (-L)}|b_2^-| \\
+|\Phi^s_+(L, 0)||b_1^+| + |\Phi^u_-(-L, 0)||b_2^-| &\leq C e^{-\alpha^s L} |b_1^+| + C e^{-\alpha^u L}|b_2^-| \\
 &\leq C e^{-\alpha L}|b|
 \end{align*}
 
 \item
+\begin{align*}
+\int_0^L |\Phi^s_+(L, y)|[|G_1^+(y)||W_1^+(y)| dy &\leq C|G| \int_0^L e^{-\alpha^s(L-y)}e^{-\eta y}|e^{\eta y}W_1^+(y)| dy \\
+&\leq C|G|||W_1^+||_\eta e^{-\eta L} \int_0^L e^{-\alpha^s(L-y)}e^{\eta L} e^{-\eta y} dy \\
+&= C|G| e^{-\eta L}||W_1^+||_\eta \int_0^L e^{-(\alpha^s - \eta)(L-y)} dy \\
+&= C|G| e^{-\eta L} ||W_1^+||_\eta \frac{1 - e^{-(\alpha^s - \eta)L}}{\alpha^s - \eta}\\
+&\leq C|G| \frac{ e^{-\eta L} }{\alpha^s - \eta} ||W_1^+||_\eta
+\end{align*}
 
+Similarly,
+
+\begin{align*}
+\int_{-L}^0 |\Phi^u_-(-L, y)|[|G_2^-(y)||W_2^-(y)| dy &\leq C|G| \int_{-L}^0  e^{-\alpha^u(L+y)}e^{\eta y}|e^{-\eta y}W_2^-(y)| dy \\
+&\leq C|G| e^{-\eta L}||W_2^-||_\eta \int_0^L e^{-(\alpha^u - \eta)(L+y)} dy \\
+&= C|G| e^{-\eta L} ||W_2^-||_\eta \frac{1 - e^{-(\alpha^u - \eta)L}}{\alpha^u - \eta}\\
+&\leq C|G| \frac{ e^{-\eta L} }{\alpha^u - \eta} ||W_2^-||_\eta
+\end{align*}
+
+Combining these, we have
+
+\begin{align*}
+\int_0^L |\Phi^s_+(L, y)|&|G_1^+(y)||W_1^+(y)| dy + \int_{-L}^0 |\Phi^u_i(-L, y)||G_2^-(y)||W_2^-(y)| dy \\
+&\leq C|G| \left( \frac{1}{\alpha^s - \eta} + \frac{1}{\alpha^u - \eta} \right) e^{-\eta L}||W||_\eta
+\end{align*}
+
+\item
+
+\begin{align*}
+\int_0^L |\Phi^s_+(L, y)||(K_1^+ B W_1^+)(y)| dy &\leq C \int_0^L e^{-\alpha^s(L-y)}\int_y^L|w_1^+(z)|dz dy \\
+&= C \int_0^L e^{-\alpha^s(L-y)}\int_y^L|e^{\eta z} w_1^+(z)|e^{-\eta z} dz dy \\
+&\leq C e^{-\eta L} ||W_1^+||_\eta \int_0^L e^{-\alpha^s(L-y)}\int_y^L e^{\eta(L-z)} dz dy \\
+&= C e^{-\eta L} ||W_1^+||_\eta \int_0^L e^{-\alpha^s(L-y)} \frac{e^{\eta(L - y)} - 1}{\eta} dy \\
+&\leq C \frac{e^{-\eta L}}{\eta} ||W_1^+||_\eta \int_0^L e^{-(\alpha^s-\eta)(L-y)} dy \\
+&= C \frac{e^{-\eta L}}{\eta} ||W_1^+||_\eta \frac{1 - e^{-(\alpha^s - \eta)L}}{\alpha^s - \eta} \\
+&= C \frac{e^{-\eta L}}{\eta(\alpha^s - \eta)} ||W_1^+||_\eta
+\end{align*}
+
+Similarly,
+
+\begin{align*}
+\int_{-L}^0 |\Phi^u_-(-L, y)||(K_2^+ B W_1^+)(y)| dy &\leq C \int_{-L}^0 e^{-\alpha^u(L+y)}\int_{-L}^y|w_2^-(z)|dz dy \\
+&= C \int_{-L}^0 e^{-\alpha^u(L+y)}\int_{-L}^y|e^{-\eta z} w_2^-(z)|e^{\eta z} dz dy \\
+&\leq C e^{-\eta L} ||W_2^-||_\eta \int_{-L}^0 e^{-\alpha^u(L+y)}\int_{-L}^y e^{\eta(L+z)} dz dy \\
+&= C e^{-\eta L} ||W_2^-||_\eta \int_{-L}^0 e^{-\alpha^u(L+y)} \frac{e^{\eta(L + y)} - 1}{\eta} dy \\
+&\leq C \frac{e^{-\eta L}}{\eta} ||W_2^-||_\eta \int_{-L}^0 e^{-(\alpha^u - \eta)(L+y)} dy \\
+&= C \frac{e^{-\eta L}}{\eta} ||W_2^-||_\eta \frac{1 - e^{-(\alpha^u - \eta)L}}{\alpha^u - \eta} \\
+&= C \frac{e^{-\eta L}}{\eta(\alpha^u - \eta)} ||W_2^-||_\eta
+\end{align*}
+
+Combining these, we have
+
+\begin{align*}
+\int_0^L &|\Phi^s_+(L, y)||(K_1^+ B W_1^+)(y)| dy + \int_{-L}^0 |\Phi^u_-(-L, y)||(K_2^+ B W_1^+)(y)| dy \\
+& \leq C \left( \frac{1}{\alpha^s - \eta} + \frac{1}{\alpha^u - \eta} \right) \frac{e^{-\eta L}}{\eta} ||W||_\eta
+\end{align*}
+
+\item Recall that for our pulse $q$ we showed that $q_{c}$ is bounded in the exponentially weighted space with weight $\eta$. The same holds for the double pulse $q_2$. Thus we have
+
+\begin{align*}
+\int_0^L |\Phi^s_+(L, y)| B |Q_{2c}(y)| dy &\leq C \int_0^L e^{-\alpha^s(L-y)}|e^{\eta y} q_{2c}(y)|e^{-\eta y} dy\\
+& \leq C ||Q_{2c}||_\eta e^{-\eta L} \int_0^L e^{-(\alpha^s - \eta)(L-y)}dy \\
+&= C ||Q_{2c}||_\eta e^{-\eta L}\frac{1 - e^{-(\alpha^s - \eta)L}}{\alpha^s - \eta} \\
+&\leq C ||Q_{2c}||_\eta\frac{ e^{-\eta L}}{\alpha^s - \eta} 
+\end{align*}
+
+Similarly,
+
+\begin{align*}
+\int_0^L |\Phi^s_+(L, y)| B |Q_{2c}(y)| dy&\leq C ||Q_{2c}||_\eta\frac{ e^{-\eta L}}{\alpha^u - \eta} 
+\end{align*}
+
+Combining these, we have
+
+\begin{align*}
+\int_0^L |\Phi^s_+(L, y)| B |Q_{2c}(y)| dy + \int_0^L |\Phi^s_+(L, y)| B |Q_{2c}(y)| dy \leq
+C ||Q_{2c}||_\eta \left( \frac{1}{\alpha^s - \eta} + \frac{1}{\alpha^u - \eta} \right) e^{-\eta L}
+\end{align*}
 
 \end{enumerate}
 
+From all of this, we have a bound for $L_3(\lambda)$
+
+\begin{align*}
+|L_3(\lambda)(a,b,d)| &\leq p(L)|a| + C e^{-\alpha L}|b| \\
+&+  C \left( \frac{1}{\alpha^s - \eta} + \frac{1}{\alpha^u - \eta} \right) e^{-\eta L} 
+\left( |G| ||W||_\eta + \frac{1}{\eta} |\lambda| ||W||_\eta + |\lambda|^2 |d| ||Q_{2c}||_\eta \right)\\
+&\leq C\left( p(L)|a| + e^{-\alpha L}|b| + \left(|G| + \frac{|\lambda|}{\eta}\right)e^{-\eta L}||W||_\eta + |\lambda|^2 |d| e^{-\eta L} ||Q_{2c}||_\eta \right)
+\end{align*}
+
+Since we are substituting $W = W_1(\lambda)(a,b,d)$ from Lemma \ref{W1}, we can use our bound for $|W||_\eta$ from there to get
+
+\begin{align*}
+|L_3(\lambda)(a,b,d)| &\leq p(L)|a| + C e^{-\alpha L}|b| \\
+&\leq C\left( p(L)|a| + e^{-\alpha L}|b| + \left(|G| + \frac{|\lambda|}{\eta}\right)e^{-\eta L}C(e^{\eta L}|a| + |b| + |\lambda|^2 |d|) + |\lambda|^2 |d| e^{-\eta L} ||Q_{2c}||_\eta \right) \\
+&= C\left( p(L)|a| + e^{-\alpha L}|b| + C \left(|G| + \frac{|\lambda|}{\eta}\right)(|a| + e^{-\eta L}|b| + e^{-\eta L}|\lambda|^2 |d|) + |\lambda|^2 |d| e^{-\eta L} ||Q_{2c}||_\eta \right) \\
+&= C \left( p(L) + |G| + \frac{|\lambda|}{\eta}\right)|a| + C \left[ e^{-\alpha L} + e^{-\eta L} \left(|G| + \frac{|\lambda|}{\eta}\right) \right] |b| + \left(|G| + \frac{\lambda}{\eta}\right)(|a| + e^{-\eta L}|b| \\
+&+ C e^{-\eta L} \left( |G| + \frac{|\lambda|}{\eta} + ||Q_{2c}||_\eta \right)|\lambda|^2 |d|
+\end{align*}
 
 
 \end{proof}
