@@ -421,7 +421,15 @@ which depends linearly on $(a,b,d)$ and analytically on $\lambda$. Since the ope
 In the next lemma we solve for the center join $W_1^+(L) - W_2^-(-L) = D_1 d$.
 
 \begin{lemma}
-STATE LEMMA HERE
+There exist operators
+
+\begin{align*}
+A_1: V_\lambda \times V_b \times V_d \rightarrow V_a \\
+W_2: V_\lambda \times V_b \times V_d \rightarrow V_w^\eta \\
+\end{align*}
+
+such that $(a,w) = ( A_1(\lambda)(b,d), W_2(lambda(b,d) )$ solves our system. These operators are analytic in $\lambda$, linear in $(b,d)$, and bounds for them are given below.
+
 \begin{proof}
 \begin{align*}
 D_1 d &= W_1^+(L) - W_2^-(-L) \\
@@ -582,12 +590,19 @@ From all of this, we have a bound for $L_3(\lambda)$
 Since we are substituting $W = W_1(\lambda)(a,b,d)$ from Lemma \ref{W1}, we can use our bound for $|W||_\eta$ from there to get
 
 \begin{align*}
-|L_3(\lambda)(a,b,d)| &\leq p(L)|a| + C e^{-\alpha L}|b| \\
+|L_3(\lambda)(a,b,d)| 
 &\leq C\left( p(L)|a| + e^{-\alpha L}|b| + \left(|G| + \frac{|\lambda|}{\eta}\right)e^{-\eta L}C(e^{\eta L}|a| + |b| + |\lambda|^2 |d|) + |\lambda|^2 |d| e^{-\eta L} ||Q_{2c}||_\eta \right) \\
 &= C\left( p(L)|a| + e^{-\alpha L}|b| + C \left(|G| + \frac{|\lambda|}{\eta}\right)(|a| + e^{-\eta L}|b| + e^{-\eta L}|\lambda|^2 |d|) + |\lambda|^2 |d| e^{-\eta L} ||Q_{2c}||_\eta \right) \\
 &= C \left( p(L) + |G| + \frac{|\lambda|}{\eta}\right)|a| + C \left[ e^{-\alpha L} + e^{-\eta L} \left(|G| + \frac{|\lambda|}{\eta}\right) \right] |b|  \\
 &+ C e^{-\eta L} \left( |G| + \frac{|\lambda|}{\eta} + ||Q_{2c}||_\eta \right)|\lambda|^2 |d|
 \end{align*}
+
+We can simplify this a bit by lumping a few things into the constant $C$. $\eta$ is a constant, so we can incorportate that into $C$. The expression $|G| + \frac{|\lambda|}{\eta} + ||Q_{2c}||_\eta$ is the same order as $||Q_{2c}||_\eta$, since both $|G|$ and $\lambda$ are small, so we can lump that into the constant $C$. Thus this all becomes
+
+\begin{align*}
+|L_3&(\lambda)(a,b,d)| \leq C \left( \left( p(L) + |G| + |\lambda|\right) |a| + \left( e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right) \right) |b| + e^{-\eta L} |\lambda|^2 |d| \right)
+\end{align*}
+
 
 Recalling that $|G|\leq \delta$ and $|\lambda| \leq \delta$, we this becomes 
 
@@ -633,8 +648,8 @@ We can find a bound for $A_1$. Note that $S_1^{-1}$ is a bounded linear operator
 \begin{align*}
 |A_1(\lambda)(b,d)| &\leq ||S_1^{-1}|||D_1 d - L_3(\lambda)(0, b, d)| \\
 &\leq C (|D_1||d| + |L_3(\lambda)(0, b, d)|) \\
-&\leq C (|D_1||d| +  \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + \frac{|\lambda|}{\eta}\right) \right]|b| + e^{-\eta L} \left( |G| + \frac{|\lambda|}{\eta} + ||Q_{2c}||_\eta \right)|\lambda|^2 |d|)\\
-&= C\left( \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + \frac{|\lambda|}{\eta}\right) \right]|b| + \left[ e^{-\eta L} \left( |G| + \frac{|\lambda|}{\eta} + ||Q_{2c}||_\eta \right)|\lambda|^2 + |D_1| \right] |d| \right)
+&\leq C (|D_1||d| +  \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda| \right) \right]|b| + e^{-\eta L} |\lambda|^2 |d|)\\
+&= C\left( \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right) \right]|b| + \left[ e^{-\eta L} |\lambda|^2 + |D_1| \right] |d| \right)\\
 \end{align*}
 
 We also define
@@ -646,19 +661,155 @@ W_2(\lambda)(b,d) = W_1(\lambda)(A_1(\lambda)(b,d),b,d)
 We can get a bound on this by plugging in the bound for $A_1(\lambda)$ into that for $W_1(\lambda)$.
 
 \begin{align*}
-||W_1&(\lambda)(a,b,d)||_\eta \leq C e^{\eta L} C\left( \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + \frac{|\lambda|}{\eta}\right) \right]|b| + \left[ e^{-\eta L} \left( |G| + \frac{|\lambda|}{\eta} + ||Q_{2c}||_\eta \right)|\lambda|^2 + |D_1| \right] |d| \right) \\
-&+ C( |b| + |\lambda|^2 |d| )
+||W_2&(\lambda)(a,b,d)||_\eta \\
+&\leq C\left( e^{\eta L} \left( \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right) \right]|b| + \left[ e^{-\eta L} |\lambda|^2 + |D_1| \right] |d| \right) + C( |b| + |\lambda|^2 |d| ) \right)\\
+&\leq C \left( \left[e^{-(\alpha-\eta) L} + |G| + |\lambda| + 1 \right] |b| 
++ \left[ |\lambda|^2 + e^{\eta L}|D_1| \right] |d|\right)
+\end{align*} 
+
+Since $e^{-(\alpha-\eta) L} + |G| + |\lambda| + 1$ is of order 1 (the first three terms in the sum are small), we can again lump the first three terms into the contant to get the bound
+
+\begin{align*}
+||W_2&(\lambda)(a,b,d)||_\eta \leq C \left( |b| + \left( |\lambda|^2 + e^{\eta L}|D_1| \right) |d|\right)
+\end{align*} 
+
+Next we take the equation
+
+\[
+D_1 d = (a^+_1 - a^-_1) + L_3(\lambda)(a,b,d)
+\]
+
+and project both sides by $P_0^s$ and $P_0^u$, the projections on $E^s$ and $E_u$. Recalling that $a^-_1 \in E^u$ and $a^+_1 \in E_s$, we have
+
+\begin{align*}
+a^-_1 &= -P_0^s D_1 d + P_0^s L_3(\lambda)(a,b,d) \\
+a^+_1 &= P_0^u D_1 d - P_0^u L_3(\lambda)(a,b,d)
 \end{align*}
 
+Substituting $a = A_1(\lambda)(b,d)$ into this, we get
+
+\begin{align*}
+(A_1(\lambda)(b,d))^- &= -P_0^s D_1 d + P_0^s L_3(\lambda)(A_1(\lambda)(b,d),b,d) \\
+(A_1(\lambda)(b,d))^+ &= P_0^u D_1 d - P_0^u L_3(\lambda)(A_1(\lambda)(b,d),b,d)
+\end{align*}
+
+Define $A_2(\lambda): V_\lambda \times V_b \times V_d \rightarrow V_a$ piecewise by
+\begin{align*}
+(A_2(\lambda)(b,d))^- &= P_0^s L_3(\lambda)(A_1(\lambda)(b,d),b,d) \\
+(A_2(\lambda)(b,d))^+ &= - P_0^u L_3(\lambda)(A_1(\lambda)(b,d),b,d)
+\end{align*}
+
+Then we have
+\begin{align*}
+(A_1(\lambda)(b,d))^- &= -P_0^s D_1 d + (A_2(\lambda)(b,d))^-\\
+(A_1(\lambda)(b,d))^+ &= P_0^u D_1 d + (A_2(\lambda)(b,d))^+
+\end{align*}
+
+And, finally, we have the following estimate for $A_2(\lambda)$
+
+\begin{align*}
+|(A_2&(\lambda)(b,d))| \leq |P_0^{s/u}|| L_3(\lambda)(A_1(\lambda)(b,d),b,d) |\\
+&\leq C \left( \left( p(L) + |G| + |\lambda|\right) |(A_1(\lambda)(b,d)| + \left( e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right) \right) |b| + e^{-\eta L} |\lambda|^2 |d| \right)\\
+&\leq C \left( p(L) + |G| + |\lambda|\right) \left( \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right) \right]|b| + \left[ e^{-\eta L} |\lambda|^2 + |D_1| \right] |d| \right) \\
+&+ C\left( e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right) \right) |b| + C e^{-\eta L} |\lambda|^2 |d| \\
+&= C \left[ \left( p(L) + |G| + |\lambda| \right) \left( e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right)\right) +  e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right) \right] |b| \\
+&+ C \left[  \left( p(L) + |G| + |\lambda| \right)(e^{-\eta L} |\lambda|^2 + |D_1|) + e^{-\eta L} |\lambda|^2) \right]|d| \\
+&= C \left[ \left( p(L) + |G| + |\lambda| + 1 \right) e^{-\alpha L} + \left( p(L) + |G| + |\lambda| + 1 \right) e^{-\eta L} \left(|G| + |\lambda|\right)\right] |b| \\
+&+ C \left[ \left( p(L) + |G| + |\lambda| + 1 \right)e^{-\eta L} |\lambda|^2 + \left( p(L) + |G| + |\lambda| \right)|D_1| \right]|d| 
+\end{align*}
+
+Since $p(L) + |G| + |\lambda|$ is small compared to 1, we can simplify this bound by lumping more things into the constant $C$ to get
+
+\begin{align*}
+|(A_2&(\lambda)(b,d))| \leq \\
+&= C \left[ \left( e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right)\right) |b|
++ \left( e^{-\eta L} |\lambda|^2 + \left( p(L) + |G| + |\lambda| \right)|D_1| \right)|d| \right]
+\end{align*}
 
 \end{proof}
 \end{lemma}
 
-Since the only substantial change we made in Lemma 3.3 was the introduction of an exponential weight, Lemma 3.3 should hold with the norm of $W_2(\lambda)(b,d)$ replaced by the exponentially weighted norm. The bound might be slightly difference since there is no $\lambda$ dependence in $L_2$, but we can figure that out later if needed.\\
+At this point, we are ready to look at the remaining equations
 
-The analogue of Lemma 3.5 gets $a, b, W$ in terms of $d$. This should again hold with the appropriate norm replaced by the exponentially weighted norm.\\
+\begin{align*}
+W_i^\pm(x) &\in \C \Psi(0) \oplus Y^+ \oplus Y^- \\
+W_i^+(0) - W_i^-(0) &\in \C \Psi(0) 
+\end{align*}
 
-Thus we should be (mostly) all set to use these estimates.
+First, we take $x = 0$ in the fixed point equations.
 
+\begin{align*}
+W_i^-(0) &= \Phi^s_-(0, -X_{i-1})a^-_{i-1} + \Phi^u_-(0, 0)b_i^- \\
+&+ \int_{-X_{i-1}}^x \Phi^s_-(0, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^-B W_i^-)(y) - \lambda^2 d_i B Q_{2c}(y) ] dy \\
+W_i^+(0) &= \Phi^u_+(0, X_i)a^+_{i} + \Phi^s_+(0, 0)b_i^+ \\
+&+ \int_{X_{i}}^x \Phi^u_+(0, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y) - \lambda^2 d_i B Q_{2c}(y) ] dy
+\end{align*}
+
+Recall that $\Phi^u_-(0, 0) = P^u_i(0)$, $\Phi^s_+(0, 0) = P^s_+(0)$. Since $b_i^-$ and $b_i^+$ are in the range of these projections, $\Phi^u_-(0, 0)b_i^- = b_i^-$ and $\Phi^s_+(0, 0)b_i^+ = b_i^+ $. Thus we have
+
+\begin{align*}
+W_i^-(0) &= \Phi^s_-(0, -X_{i-1})a^-_{i-1} + b_i^- \\
+&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^-B W_i^-)(y) - \lambda^2 d_i B Q_{2c}(y) ] dy \\
+W_i^+(0) &= \Phi^u_+(0, X_i)a^+_{i} + b_i^+ \\
+&+ \int_{X_{i}}^0 \Phi^u_+(0, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y) - \lambda^2 d_i B Q_{2c}(y) ] dy
+\end{align*}
+
+We use $W = W_2(\lambda)(b,d)$ and $a = A_1(\lambda)(b,d)$ in this. By the definition of $V_b$, we can decompose the $b_i^\pm$ uniquely as
+\[
+b_i^\pm = x_i^\pm + y_i^\pm
+\]
+where $x_i^\pm \in \C Q'(0)$ and $y_i^\pm \in Y^\pm$. 
+
+Since
+
+\[
+\C^n = \C\Psi(0) \oplus \C Q'(0) \oplus Y^- \oplus Y^+
+\]
+
+the conditions above are equivalent to
+
+\begin{align*}\label{projeq}
+P(\C Q'(0), \C\Psi(0) \oplus Y^- \oplus Y^+)W_i^-(0) &= 0 \\
+P(\C Q'(0), \C\Psi(0) \oplus Y^- \oplus Y^+)W_i^+(0) &= 0 \\
+P(Y^+ \oplus Y^-, \C Q'(0) \oplus \C\Psi(0) )(W_i^+(0) - W_i^-(0)) &= 0 \\
+\end{align*}
+
+where $P(X,Y)$ is the projection onto $X$ with kernel $Y$.
+
+\begin{lemma}
+There exist operators 
+\begin{align*}
+B_1: V_\lambda \times V_d \rightarrow V_b \\
+A_3: V_\lambda \times V_d \rightarrow V_a \\
+W_3: V_\lambda \times V_d \rightarrow V_w^\eta
+\end{align*}
+such that 
+\[
+(a,b,w) = (A_3(\lambda)d, B_1(\lambda)d, W_3(\lambda)d)
+\]
+solves the thing we want for any $d$ and $\lambda$. The operators are analytic in $\lambda$ and linear in $d$. Bounds for them are given in the proof.
+
+\begin{proof}
+Substituting the fixed point equations evaluated at $x = 0$ into the projection equations above, we have 
+\begin{align*}
+0 &= x_i^- + P(\C Q'(0), \C\Psi(0) \oplus Y^- \oplus Y^+) \Big( \Phi^s_-(0, -X_{i-1})a^-_{i-1}  \\
+&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^-B W_i^-)(y) - \lambda^2 d_i B Q_{2c}(y) ] dy \Big) \\
+0 &= x_i^+ + P(\C Q'(0), \C\Psi(0) \oplus Y^- \oplus Y^+) \Big( \Phi^u_+(0, X_i)a^+_{i} \\
+&+ \int_{X_{i}}^0 \Phi^u_+(0, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y) - \lambda^2 d_i B Q_{2c}(y) ] dy \Big)\\
+0 &= y^i^+ - y_i^- + P(Y^+ \oplus Y^-, \C Q'(0) \oplus \C\Psi(0) )\Big( \Phi^u_+(0, X_i)a^+_{i} - \Phi^s_-(0, -X_{i-1})a^-_{i-1} \\
+&+ \int_{X_{i}}^0 \Phi^u_+(0, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y) - \lambda^2 d_i B Q_{2c}(y) ] dy \Big)\\
+&- \int_{-X_{i-1}}^0 \Phi^s_-(0, y)[G_i^-(y) W_i^-(y) + \lambda (K_i^-B W_i^-)(y) - \lambda^2 d_i B Q_{2c}(y) ] dy \Big)
+\end{align*}
+
+We can write this in the form
+
+\[ 
+\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- \end{pmatrix} = (L_4(\lambda)(b,d))_i = 0
+\]
+where $L_4(\lambda)(b,d)$ is the rest of the RHS above.
+
+\end{proof}
+
+\end{lemma}
 
 \end{document}
