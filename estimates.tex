@@ -169,7 +169,19 @@ Let $L_1(\lambda): V_w^\eta \rightarrow V_w^\eta$ be the linear operator defined
 &+ \int_{X_{i}}^x \Phi^u_+(x, y)[G_i^+(y) W_i^+(y) + \lambda (K_i^+ B W_i^+)(y) ] dy
 \end{align*}
 
-where $G_i^\pm$ is uniformly bounded with norm $|G|$. Then $L_1(\lambda): V_w^\eta \rightarrow V_w^\eta$ is a bounded linear operator. $L_1(\lambda): V_w^\eta \rightarrow V_w$ is a also a bounded linear operator. These bounds does not depend on the interval endpoints $X_i^\pm$.\\
+where $G_i^\pm$ is uniformly bounded with norm $|G|$. Then $L_1(\lambda): V_w^\eta \rightarrow V_w^\eta$ is a bounded linear operator, and we have bound
+
+\begin{equation}
+||L_1(\lambda)W||_\eta \leq C\left(|G| +|\lambda|\right)||W||_\eta
+\end{equation}
+
+Choosing the codomain to be the nonweighted space, $L_1(\lambda): V_w^\eta \rightarrow V_w$ is a also a bounded linear operator, and we have the same bound
+
+\begin{equation}
+||L_1(\lambda)W|| \leq C\left(|G| +|\lambda|\right)||W||_\eta
+\end{equation}
+
+These bounds does not depend on the interval endpoints $X_i^\pm$.\\
 
 \begin{proof}
 First, we look at the negative piece. Note that when taking the absolute value we have to integrate in the positive direction. For all of this, we use the estimates in Lemma 3.2 of Sandstede (1998) to bound $\Phi^u_\pm$ and $\Phi^s_\pm$.
@@ -348,10 +360,15 @@ L_2(\lambda)(a, b, d)_i^+(x) &= \Phi^u_+(x, X_i)a^+_{i} + \Phi^s_+(x, 0)b_i^+ \\
 &- \lambda^2 d_i \left( \int_0^x \Phi^s_+(x, y)(KBQ_{2c})(y) dy + \int_{X_{i}}^x \Phi^u_+(x, y)(KBQ_{2c})(y) dy \right)
 \end{align*}
 
-Then $L_2$ is a bounded linear operator with the following bounds.
+Then $L_2$ is a bounded linear operator with the following bounds
 
 \begin{align*}
 ||L_2(\lambda)(a, b, d)||_\eta &\leq C(e^{\eta L}|a| + |b| + |\lambda|^2 |d|) \\
+\end{align*}
+
+If we consider $L_2(\lambda): V_a \times V_b \times V_d \rightarrow V_w$, i.e. take the codomain to be the unweighted space, we have the bound 
+
+\begin{align*}
 ||L_2(\lambda)(a, b, d)|| &\leq C(|a| + |b| + |\lambda|^2 |d|)
 \end{align*}
 
@@ -467,11 +484,11 @@ For $L_1$ we have the estimate
 \]
 Choose $\delta$ such that $\delta < 1/C$. Then we have
 \[
-||L_1(\lambda)W|| < 1
+||L_1(\lambda)W||_\eta < ||W||_\eta
 \]
 in which case the operator $(I - L_1(\lambda))$ is invertible. The inverse $(I - L_1(\lambda))^{-1}$ is analytic in $\lambda$ and has operator norm 
 \[
-||(I - L_1(\lambda))^{-1}|| \leq \frac{1}{1 - ||L_1||}
+||(I - L_1(\lambda))^{-1}||_\eta \leq \frac{1}{1 - ||L_1||_\eta}
 \]
 We can then write $W$ as
 \[
@@ -484,7 +501,45 @@ which depends linearly on $(a,b,d)$ and analytically on $\lambda$. Since the ope
 \]
 
 \end{proof}
+\end{lemma}
 
+However, we would really like to have a bound on $W_1(\lambda)$ in the unweighted norm. We can do that.
+
+
+\begin{lemma}\label{W1unweighted}
+The operator $W_1$ defined in Lemma \ref{W1} satisfies the bound
+
+\[
+||W_1(\lambda)(a,b,d)|| \leq C ( |a| + |b| + |\lambda|^2 |d|)
+\]
+
+\begin{proof}
+Define $W_1$ as in Lemma \ref{W1}. Since $V_w^\eta \subset V_w$, $W_1$ is well-defined with codomain $V_w$. Choosing the same $\delta$ as in Lemma \ref{W1}, we have
+\[
+||L_1(\lambda)W|| \leq ||L_1(\lambda)W||_\eta < ||W||_\eta
+\]
+Thus the operator $(I - L_1(\lambda)): V_w^\eta \rightarrow V_w$ is invertible on this domain-codomain pair. The inverse $(I - L_1(\lambda))^{-1}: V_w \rightarrow V_w^\eta$ is analytic in $\lambda$ and has operator norm 
+\[
+||(I - L_1(\lambda))^{-1}|| \leq \frac{1}{1 - ||L_1||}
+\]
+Writing $W$ as in Lemma \ref{W1}, we have an operator $W: V_a \times V_b \times V_d \rightarrow V_w^\eta$
+\[
+W = W_1(\lambda)(a,b,d) = (I - L_1(\lambda))^{-1} L_2(\lambda)(a,b,d)
+\]
+
+which has bound
+
+\[
+||W_1(\lambda)(a,b,d)||_\eta \leq C ( |a| + |b| + |\lambda|^2 |d| )
+\]
+
+since the unweighted norm is bounded by the weighted norm, we conclude 
+
+\[
+||W_1(\lambda)(a,b,d)|| \leq C ( |a| + |b| + |\lambda|^2 |d| )
+\]
+
+\end{proof}
 \end{lemma}
 
 In the next lemma we solve for the center join $W_1^+(L) - W_2^-(-L) = D_1 d$.
