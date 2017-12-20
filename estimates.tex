@@ -118,6 +118,29 @@ Since we want our functions in this space to decay exponentially at $\pm \infty$
 || f ||_\eta &= \sup_{x \in [0, a]} |e^{\eta x} f(x) | && f \in C^0_\eta[0, a] \\
 \end{align*}
 
+It is clear by our definition of the exponentially weighted spaces that $C_0^\eta \subset C_0$. Using the supremum norm on $C_0$, we have the following relationship between the norm on $C_0$ and the norm on $C_0^\eta$. For $f \in C_0[0, a]$,
+
+\begin{align*}
+|| f || &= \sup_{x \in [0,a]} | f(x) | \\
+&\leq \sup_{x \in [0,a]} | e^{\eta x} f(x) | = ||f||_\eta
+\end{align*}
+
+since we have chosen $\eta > 0$ for funcions defined on $[0, a]$, thus $e^{\eta x} \geq 1$, so we always have $|f(x)| \leq  |e^{\eta x} f(x)|$. The same hold true for functions in $C_0[-a, 0]$. Thus, as long as $f \in C_0^\eta$, we always have
+
+\begin{align*}
+||f|| \leq ||f||_\eta && f \in C_0^\eta
+\end{align*}
+
+If $S: C_0^\eta \rightarrow C_0^\eta$ is a bounded linear operator with operator norm $||S||_\eta$, then $S: C_0^\eta \rightarrow C_0$ is a also a bounded linear operator with operator norm $||S||$, and $||S|| \leq ||S||_\eta$. For $f \in C_0^\eta[0,a]$,
+
+\begin{align*}
+||S f|| &= \sup_{x \in [0,a]} | (S f)(x) | \\
+& \leq \sup_{x \in [0,a]} | e^{\eta x} (S f)(x) | \\
+&= || S f ||_\eta \leq ||S||_\eta ||f||_\eta
+\end{align*}
+
+thus $||S|| \leq ||S||_\eta$.\\
+ 
 We define the same spaces as in (3.12) in Sandstede (1998), except we use the weighted spaces for the space $V_w$. To indicate that we have used the exponential weight $\eta$, we will call that space $V_w^\eta$. For the norms on these direct sums, we use the max of the norms on the individual spaces, since each is a finite sum.\\
 
 Following (3.14) in Sandstede (1998) we write our ODE system as the fixed point equation
@@ -283,7 +306,13 @@ Putting this all together, we conclude the following. The operator $L_1$ defined
 	||L_1(\lambda)W||_\eta \leq C\left(|G| + \frac{|\lambda|}{\eta}\right)\left(\frac{1}{\alpha^s + \eta} + \frac{1}{\alpha^u + \eta} + \frac{1}{\alpha^s - \eta} + \frac{1}{\alpha^u - \eta}\right)||W||_\eta
 \end{equation}
 
-provided that $\eta \leq \alpha^2, \alpha^u$, where $W$ is the element of $V_w^\eta$ formed by the pieces $W_i^\pm$. If we have $|\lambda| \leq \delta$ and $|G| \leq \delta$, this bound becomes
+provided that $\eta \leq \alpha^2, \alpha^u$, where $W$ is the element of $V_w^\eta$ formed by the pieces $W_i^\pm$. Incorporating many of the constants above into the constant $C$, this becomes
+
+\begin{equation}
+	||L_1(\lambda)W||_\eta \leq C\left(|G| +|\lambda|\right)||W||_\eta
+\end{equation}
+
+If we have $|\lambda| \leq \delta$ and $|G| \leq \delta$, this bound becomes
 
 \begin{equation}
 	||L_1(\lambda)W||_\eta \leq C \delta ||W||_\eta
@@ -305,7 +334,12 @@ L_2(\lambda)(a, b, d)_i^+(x) &= \Phi^u_+(x, X_i)a^+_{i} + \Phi^s_+(x, 0)b_i^+ \\
 &- \lambda^2 d_i \left( \int_0^x \Phi^s_+(x, y)(KBQ_{2c})(y) dy + \int_{X_{i}}^x \Phi^u_+(x, y)(KBQ_{2c})(y) dy \right)
 \end{align*}
 
-Then $L_2$ is a bounded linear operator whose bound does not depend on the endpoints $X_i$.
+Then $L_2$ is a bounded linear operator with the following bounds.
+
+\begin{align*}
+||L_2(\lambda)(a, b, d)(x)||_\eta &\leq C(e^{\eta L}|a| + |b| + |\lambda|^2 |d|) \\
+||L_2(\lambda)(a, b, d)(x)|| &\leq C(|a| + |b| + |\lambda|^2 |d|)
+\end{align*}
 
 \begin{proof}
 
@@ -351,7 +385,7 @@ e^{-\eta x} \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}\int_{-\infty}^y |q_{2c}(z)| 
 Putting all this together, we have for our bound (for the negative piece),
 
 \begin{align*}
-| e^{-\eta x} L_2(\lambda)(a, b, d)_i^-(x)| \leq C \left[] e^{\eta X_{i-1}}|a^-_{i-1}| + |b_i^-| + |\lambda|^2 |d_i|  \frac{ ||q_{2c}||_\eta }{\eta} \left( \frac{1}{\alpha^s + \eta} + \frac{1}{\alpha^u - \eta} \right)\right]
+| e^{-\eta x} L_2(\lambda)(a, b, d)_i^-(x)| \leq C \left[ e^{\eta X_{i-1}}|a^-_{i-1}| + |b_i^-| + |\lambda|^2 |d_i|  \frac{ ||q_{2c}||_\eta }{\eta} \left( \frac{1}{\alpha^s + \eta} + \frac{1}{\alpha^u - \eta} \right)\right]
 \end{align*}
 
 The positive piece is similar. The bound should look like (we can verify this if all this ends up working)
@@ -360,21 +394,30 @@ The positive piece is similar. The bound should look like (we can verify this if
 | e^{\eta x} L_2(\lambda)(a, b, d)_i^+(x)| \leq C \left[ e^{\eta X_{i}}|a_i^+| + |b_i^+| + |\lambda|^2 |d_i|  \frac{ ||q_{2c}||_\eta }{\eta} \left( \frac{1}{\alpha^u + \eta} + \frac{1}{\alpha^s - \eta} \right)\right]
 \end{align*}
 
-Thus, putting all this together, we have the bound
+Thus, putting all this together, we have the bound in the expontially weighted norm
 
 \[
 ||L_2(\lambda)(a, b, d)(x)||_\eta \leq C(e^{\eta L}|a| + |b| + |\lambda|^2 |d|)
 \]
 
-since for the double pulse, the two nonzero join points are $\pm L$.
+since for the double pulse, the two nonzero join points are $\pm L$.\\
+
+For the bound in the unweighted norm, we do the same thing except we do not multiply by $e^{-\eta x}$. Recall that $x < 0$ for the ``minus'' piece.
+
+\begin{align*}
+| L_2(\lambda)(a, b, d)_i^-(x)| &\leq |\Phi^s_-(x, -X_{i-1})a^-_{i-1}| + |\Phi^u_-(x, 0)b_i^-| \\
+&+ |\lambda|^2 |d_i| \left( \int_x^0 |\Phi^u_-(x, y)||(KBQ_{2c})|(y) dy  + \int_{-X_{i-1}}^x |\Phi^s_-(x, y)||(KBQ_{2c})(y)| dy \right) \\
+&\leq C e^{-\alpha^s [x - (-X_{i-1})]}|a^-_{i-1}| + C e^{\alpha^u x}|b_i^-| \\
+&+ C|\lambda|^2 |d_i| e^{-\eta x} \left( \int_x^0 e^{\alpha^u (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy  + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}\int_{-\infty}^y |q_{2c}(z)| dz dy\right) \\
+\end{align*}
+
+where in the 
 
 \end{proof}
 
 \end{lemma}
 
-This is identical to what we have in (3.20) in Sandstede (1998) except for the presence of the $e^{\eta X}$ term. It appears this is unavoidable as a consequence of working in exponentially weighted spaces. However, we hope this will not become a problem later down the road.\\
-
-We can combine these two lemmas to solve for $W_i^\pm$.
+This is essentially identical to what we have in (3.20) in Sandstede (1998). We can combine these two lemmas to solve for $W_i^\pm$.
 
 \begin{lemma}\label{W1}
 There exists a bounded linear operator $W_1: V_\lambda \times V_a \times V_b \times V_d \rightarrow V_w^\eta$ such that 
@@ -428,7 +471,7 @@ A_1: V_\lambda \times V_b \times V_d \rightarrow V_a \\
 W_2: V_\lambda \times V_b \times V_d \rightarrow V_w^\eta \\
 \end{align*}
 
-such that $(a,w) = ( A_1(\lambda)(b,d), W_2(lambda(b,d) )$ solves our system. These operators are analytic in $\lambda$, linear in $(b,d)$, and bounds for them are given below.
+such that $(a,w) = ( A_1(\lambda)(b,d), W_2(\lambda)(b,d) )$ solves our system. These operators are analytic in $\lambda$, linear in $(b,d)$, and bounds for them are given below.
 
 \begin{proof}
 \begin{align*}
@@ -878,19 +921,26 @@ solves our problem. For the operator $B_1(\lambda)$, since $S_2^{-1}$ is a bound
 Substituting this into the operators $A_1(\lambda)$ and $W_3(\lambda)$ from the previous lemma gives us operators $A_3$ and $W_3$, which have bounds
 
 \begin{align*}
-|A_2(\lambda)(d)| &\leq C\left( \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right) \right]|B_1(\lambda)(d)| + \left[ e^{-\eta L} |\lambda|^2 + |D_1| \right] |d| \right)\\
+|A_3(\lambda)(d)| &\leq C\left( \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right) \right]|B_1(\lambda)(d)| + \left[ e^{-\eta L} |\lambda|^2 + |D_1| \right] |d| \right)\\
 &\leq C\left( \left[e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right) \right](|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1| )|d|)+ \left[ e^{-\eta L} |\lambda|^2 + |D_1| \right] |d| \right)
 \end{align*}
 
 Adjusting constants, this bound becomes
 
 \begin{align*}
-|A_2(\lambda)(d)| &\leq C\left( (e^{-\alpha L} + e^{-\eta L})|\lambda^2| + |D_1| \right)|d|
+|A_3(\lambda)(d)| &\leq C\left( (e^{-\alpha L} + e^{-\eta L})|\lambda^2| + |D_1| \right)|d|
 \end{align*}
 
-For $W_2(\lambda)$ we have the bound
+Since $\eta \leq \alpha$, we can readjust the constant $C$ to get the simpler bound
+
 \begin{align*}
-||W_2&(\lambda)(a,b,d)||_\eta \leq C \left( |B_1(\lambda)(d)| + \left( |\lambda|^2 + e^{\eta L}|D_1| \right) |d|\right) \\
+|A_3(\lambda)(d)| &\leq C\left( e^{-\eta L}|\lambda^2| + |D_1| \right)|d|
+\end{align*}
+
+
+For $W_3(\lambda)$ we have the bound
+\begin{align*}
+||W_3&(\lambda)(a,b,d)||_\eta \leq C \left( |B_1(\lambda)(d)| + \left( |\lambda|^2 + e^{\eta L}|D_1| \right) |d|\right) \\
 &\leq C \left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d|
 \end{align*} 
 
@@ -907,10 +957,10 @@ which lets us write $A_3(\lambda)$ as
 (A_3(\lambda)(d))^+ &= P_0^u D_1 d + (A_4(\lambda)(d))^+
 \end{align*}
 
-Plugging in the estimate for $B_1(\lambda)$ into that of $A_2(\lambda)$ from the previous lemma, we get an estimate for $A_4(\lambda)$ 
+Plugging in the estimate for $B_1(\lambda)$ into that of $A_2(\lambda)$ from the previous lemma, we get an estimate for $A_4(\lambda)$.
 
 \begin{align*}
-|(A_2&(\lambda)(b,d))| \leq \\
+|(A_4&(\lambda)d)| \leq \\
 &= C \left[ \left( e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right)\right) |B_1(\lambda)d|
 + \left( e^{-\eta L} |\lambda|^2 + \left( p(L) + |G| + |\lambda| \right)|D_1| \right)|d| \right]\\
 &\leq C [ \left( e^{-\alpha L} + e^{-\eta L} \left(|G| + |\lambda|\right)\right) (|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1| )|d|\\
@@ -920,11 +970,67 @@ Plugging in the estimate for $B_1(\lambda)$ into that of $A_2(\lambda)$ from the
 Again, adjusting the constant $C$, this becomes
 
 \begin{align*}
-|(A_2&(\lambda)(b,d))| \leq C ( (e^{-\alpha L} + e^{-\eta L} )|\lambda|^2 + (e^{-2\alpha L} + |G| + |\lambda|)D_1)|d|
+|(A_4&(\lambda)d| \leq C ( e^{-\eta L}|\lambda|^2 + (e^{-2\alpha L} + |G| + |\lambda|)D_1)|d|
 \end{align*}
 
 \end{proof}
 
+We can use what we have done to get a sharper estimate for $W_i^\pm$, which we will need.
+
+\begin{lemma}
+\begin{proof}
+Since we have 
+\[
+W_i^\pm = (L_1(\lambda)W_i^\pm + (L_2(\lambda)W_i^\pm 
+\]
+
+we can use the estimate for $L_1(\lambda)$ together with an improved estimate for $L_2(\lambda)$. We use the same estimate for $L_1(\lambda)$ as we have above.
+
+\[
+|e^{-\eta x} L_1(\lambda) W_i^- | \leq C\left(|G| +|\lambda|\right)||W||_\eta
+\]
+
+For $L_2(\lambda)$ we will use the following estimate for the negative piece.
+
+\begin{align*}
+| e^{-\eta x} L_2(\lambda)(a, b, d)_i^-(x)| &\leq C \left( e^{-(\alpha^s + \eta) (x + X_{i-1})} e^{\eta X_{i-1}}|a^-_{i-1}| + |b_i^-| + |\lambda|^2 |d_i| \right)
+\end{align*}
+
+Combining these, we have
+
+\begin{align*}
+| e^{-\eta x} W_i^-(x)| &\leq C \left( e^{-(\alpha^s + \eta) (x + L)} e^{\eta L}|a^-_{i-1}| + |b_i^-| + \left(|G| +|\lambda|\right)||W||_\eta + |\lambda|^2 |d_i| \right)
+\end{align*}
+
+Substituting in $A_3(\lambda)$, $B_1(\lambda)d$, and $W_3(\lambda)d$, this estimate becomes
+
+\begin{align*}
+| e^{-\eta x} W_i^-(x)| &\leq C ( e^{-(\alpha^s + \eta) (x + L)} e^{\eta L}\left( e^{-\eta L}|\lambda^2| + |D_1| \right)|d_i| \\
+&+ (|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1| )|d_i| \\
+&+ \left(|G| +|\lambda|\right)\left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d_i| + |\lambda|^2 |d_i| )
+\end{align*}
+
+\begin{align*}
+|B_1(\lambda)(d)| &\leq C |L_4(\lambda)(0,d)| \\
+&\leq C(|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1| )|d|
+\end{align*}
+
+
+\begin{align*}
+|A_3(\lambda)(d)| &\leq C\left( (e^{-\alpha L} + e^{-\eta L})|\lambda^2| + |D_1| \right)|d|
+\end{align*}
+
+For $W_3(\lambda)$ we have the bound
+\begin{align*}
+||W_3&(\lambda)(a,b,d)||_\eta \leq C \left( |B_1(\lambda)(d)| + \left( |\lambda|^2 + e^{\eta L}|D_1| \right) |d|\right) \\
+&\leq C \left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d|
+\end{align*} 
+
+
+
+
+\end{proof}
+\end{lemma}
 
 
 \end{lemma}
