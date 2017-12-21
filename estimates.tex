@@ -181,7 +181,7 @@ Choosing the codomain to be the nonweighted space, $L_1(\lambda): V_w^\eta \righ
 ||L_1(\lambda)W|| \leq C\left(|G| +|\lambda|\right)||W||_\eta
 \end{equation}
 
-These bounds does not depend on the interval endpoints $X_i^\pm$.\\
+These bounds do not depend on the interval endpoints $X_i^\pm$.\\
 
 \begin{proof}
 First, we look at the negative piece. Note that when taking the absolute value we have to integrate in the positive direction. For all of this, we use the estimates in Lemma 3.2 of Sandstede (1998) to bound $\Phi^u_\pm$ and $\Phi^s_\pm$.
@@ -507,7 +507,7 @@ However, we would really like to have a bound on $W_1(\lambda)$ in the unweighte
 
 
 \begin{lemma}\label{W1unweighted}
-The operator $W_1$ defined in Lemma \ref{W1} satisfies the bound
+The operator $W_1$ defined in Lemma \ref{W1} also satisfies the bound in the unweighted space
 
 \[
 ||W_1(\lambda)(a,b,d)|| \leq C ( |a| + |b| + |\lambda|^2 |d|)
@@ -740,7 +740,7 @@ Let $J_1: V_a \rightarrow \C^n$ be defined by $J_1(a) = a_1^+ - a_1^-$. (These a
 S_1(a) = J_1 a + L_3(\lambda)(a, 0, 0) = J_1( I + J_1^{-1} L_3(\lambda)(a, 0, 0) )
 \]
 
-For suffiencty small $\delta$, we will have the operator norm $||J_1^{-1} L_3(\lambda)(\cdot, 0, 0)|| < 1$, thus the map $a \rightarrow I + J_1^{-1} L_3(\lambda)(a, 0, 0)$ is invertible (for same reason as in Lemma \ref{W1}) and so the operator $S_1$ is invertible.\\
+For suffiently small $\delta$, we will have the operator norm $||J_1^{-1} L_3(\lambda)(\cdot, 0, 0)|| < 1$, thus the map $a \rightarrow I + J_1^{-1} L_3(\lambda)(a, 0, 0)$ is invertible (for same reason as in Lemma \ref{W1}) and so the operator $S_1$ is invertible.\\
 
 Recall that we have the following expression for $D_1 d$.
 
@@ -794,7 +794,13 @@ We can get a bound on this by plugging in the bound for $A_1(\lambda)$ into that
 Since $e^{-(\alpha-\eta) L} + |G| + |\lambda| + 1$ is of order 1 (the first three terms in the sum are small), we can again lump the first three terms into the contant to get the bound
 
 \begin{align*}
-||W_2&(\lambda)(a,b,d)||_\eta \leq C \left( |b| + \left( |\lambda|^2 + e^{\eta L}|D_1| \right) |d|\right)
+||W_2(\lambda)(a,b,d)||_\eta \leq C \left( |b| + \left( |\lambda|^2 + e^{\eta L}|D_1| \right) |d|\right)
+\end{align*} 
+
+In the unweighted norm, the only difference is that we are missing the $e^{\eta L}$ term, so the unweighted bound is
+
+\begin{align*}
+||W_2(\lambda)(a,b,d)|| \leq C \left( |b| + \left( |\lambda|^2 + |D_1| \right) |d|\right)
 \end{align*} 
 
 Next we take the equation
@@ -1019,11 +1025,17 @@ Since $\eta \leq \alpha$, we can readjust the constant $C$ to get the simpler bo
 \end{align*}
 
 
-For $W_3(\lambda)$ we have the bound
+For $W_3(\lambda)$ we have the bound in the weighted space
 \begin{align*}
 ||W_3&(\lambda)(a,b,d)||_\eta \leq C \left( |B_1(\lambda)(d)| + \left( |\lambda|^2 + e^{\eta L}|D_1| \right) |d|\right) \\
 &\leq C \left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d|
 \end{align*} 
+
+The unweighted bound is
+\begin{align*}
+||W_3&(\lambda)(a,b,d)|| \leq C \left( |\lambda|^2 + |D_1|\right)|d|
+\end{align*} 
+
 
 Using $A_2(\lambda)$ from the previous lemma, we can define
 
@@ -1051,69 +1063,93 @@ Plugging in the estimate for $B_1(\lambda)$ into that of $A_2(\lambda)$ from the
 Again, adjusting the constant $C$, this becomes
 
 \begin{align*}
-|(A_4&(\lambda)d| \leq C ( e^{-\eta L}|\lambda|^2 + (e^{-2\alpha L} + |G| + |\lambda|)D_1)|d|
+|(A_4&(\lambda)d| \leq C ( e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)D_1)|d|
 \end{align*}
 
 \end{proof}
+\end{lemma}
 
-We can use what we have done to get a sharper estimate for $W_i^\pm$, which we will need.
+We can use what we have done to get a sharper estimate for $W_i^\pm$ in the unweighted norm, which we will need.
 
 \begin{lemma}
+IMPROVED ESTIMATE FOR $W_i^\pm$.
 \begin{proof}
 Since we have 
 \[
-W_i^\pm = (L_1(\lambda)W_i^\pm + (L_2(\lambda)W_i^\pm 
+W_i^\pm = L_1(\lambda)W_i^\pm + L_2(\lambda)W_i^\pm 
 \]
 
 we can use the estimate for $L_1(\lambda)$ together with an improved estimate for $L_2(\lambda)$. We use the same estimate for $L_1(\lambda)$ as we have above.
 
 \[
-|e^{-\eta x} L_1(\lambda) W_i^- | \leq C\left(|G| +|\lambda|\right)||W||_\eta
+| (L_1(\lambda) W_i^-)(x) | \leq C\left(|G| +|\lambda|\right)||W||_\eta
 \]
 
 For $L_2(\lambda)$ we will use the following estimate for the negative piece.
 
 \begin{align*}
-| e^{-\eta x} L_2(\lambda)(a, b, d)_i^-(x)| &\leq C \left( e^{-(\alpha^s + \eta) (x + X_{i-1})} e^{\eta X_{i-1}}|a^-_{i-1}| + |b_i^-| + |\lambda|^2 |d_i| \right)
+| (L_2(\lambda)(a, b, d)_i^-)(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + |\lambda|^2 |d_i| \right)
 \end{align*}
 
 Combining these, we have
 
 \begin{align*}
-| e^{-\eta x} W_i^-(x)| &\leq C \left( e^{-(\alpha^s + \eta) (x + L)} e^{\eta L}|a^-_{i-1}| + |b_i^-| + \left(|G| +|\lambda|\right)||W||_\eta + |\lambda|^2 |d_i| \right)
+| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + \left(|G| +|\lambda|\right)||W||_\eta + |\lambda|^2 |d_i| \right)
 \end{align*}
 
 Substituting in $A_3(\lambda)$, $B_1(\lambda)d$, and $W_3(\lambda)d$, this estimate becomes
 
 \begin{align*}
-| e^{-\eta x} W_i^-(x)| &\leq C ( e^{-(\alpha^s + \eta) (x + L)} e^{\eta L}\left( e^{-\eta L}|\lambda^2| + |D_1| \right)|d_i| \\
-&+ (|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1| )|d_i| \\
-&+ \left(|G| +|\lambda|\right)\left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d_i| + |\lambda|^2 |d_i| )
+| W_i^-(x)| &\leq C ( e^{-\alpha^s(x + X_{i-1})} \left( e^{-\eta L}|\lambda^2| + |D_1| \right)|d| \\
+&+ (|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1| )|d| \\
+&+ \left(|G| +|\lambda|\right)\left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d| + |\lambda|^2 |d| )\\
+&\leq C\left( e^{-\alpha^s(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda| + e^{\eta L}(|G| + |\lambda|) \right)|d|
 \end{align*}
 
+Similarly,
+
 \begin{align*}
-|B_1(\lambda)(d)| &\leq C |L_4(\lambda)(0,d)| \\
-&\leq C(|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1| )|d|
+| W_i^+(x)| \leq C\left( e^{\alpha^u(x - X_{i-1})} + e^{-\alpha L} + |G| + |\lambda| + e^{\eta L}(|G| + |\lambda|) \right)|d|
+\end{align*}
+
+Unfortunately, we still have an $e^{\eta L}$ term in this. We would like an estimate which does not have this term. In order to do this, we will get a new piecewise estimate for $L_1(\lambda)$ in the unweighted norm. We will do this for the pieces $L_1(\lambda)_1^+$ and $L_1(\lambda)_2^-$, which are the ones where we are integrating on a finite interval. For $L_1(\lambda)_1^+$, where $x \in [0, L]$, we have
+
+
+\begin{align*}
+|(L_1(\lambda)W)_i^+)(x)| &\leq \int_0^x |\Phi^s_+(x, y)|[|G_i^+(y)||W_i^+(y)| + |\lambda|(K_i^+ B W_i^+)(y)| ] dy \\
+&+ \int_x^{L} |\Phi^u_+(x, y)|[|G_i^+(y)||W_i^+(y)| + |\lambda||(K_i^+ B W_i^+)(y)| ] dy \\
+&\leq C|G| \int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy 
++ C|\lambda|\int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} (K_i^+ B W_i^+)(y)| dy \\
+&+ C|G| \int_x^{L} e^{\alpha^u (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy 
++ C|\lambda|\int_x^{L} e^{\alpha^u (x-y)}e^{\eta(x-y)}|e^{\eta y} (K_i^+ B W_i^+)(y)| dy \\ 
+\end{align*}
+
+We do the same thing we did above.
+
+\begin{align*}
+\int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy &= \int_0^x e^{(-\alpha^s + \eta) (x-y)}|e^{\eta y} W_i^-(y)| dy \\
+&\leq ||W_i^+||_\eta \frac{1 - e^{-(\alpha^s - \eta)x} }{\alpha^s - \eta}
+\end{align*}
+
+We need the RHS of this to be positive, which is true when $\eta < \alpha^s$. (This is the condition we were expecting). In that case, we have the bound
+
+\begin{align*}
+\int_0^x e^{-\alpha^s (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy &\leq ||W_i^+||_\eta \frac{1}{\alpha^s - \eta}
+\end{align*}
+
+For the other one:
+
+\begin{align*}
+\int_x^{X_i} e^{\alpha^u (x-y)}e^{\eta(x-y)}|e^{\eta y} W_i^+(y)| dy &= \int_x^{X_i} e^{(\alpha^u + \eta) (x-y)}|e^{\eta y} W_i^+(y)| dy \\
+&\leq ||W_i^+||_\eta \int_x^{\infty} e^{(\alpha^u + \eta) (x-y)} dy = ||W_i^+||_\eta \frac{1}{\alpha^u + \eta}
 \end{align*}
 
 
-\begin{align*}
-|A_3(\lambda)(d)| &\leq C\left( (e^{-\alpha L} + e^{-\eta L})|\lambda^2| + |D_1| \right)|d|
-\end{align*}
 
-For $W_3(\lambda)$ we have the bound
-\begin{align*}
-||W_3&(\lambda)(a,b,d)||_\eta \leq C \left( |B_1(\lambda)(d)| + \left( |\lambda|^2 + e^{\eta L}|D_1| \right) |d|\right) \\
-&\leq C \left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d|
-\end{align*} 
-
-
-
+ 
 
 \end{proof}
 \end{lemma}
 
-
-\end{lemma}
 
 \end{document}
