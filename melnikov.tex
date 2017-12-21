@@ -1353,18 +1353,21 @@ At this point, we will take $i = 1$ to make things easier. The $i = 2$ case will
 &+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right) 
 \end{align*}
 
-where we used the Melnikov result from the single pulse case above. Now all we have to do is hope the rest of the terms are sufficiently small.\\
+where we used the Melnikov result from the single pulse case above.\\
 
-We consider the other terms in the jump one at a time. For now, we will base this off the estimates in Sandstede (1998). This uses those estimates exactly, which may or may not be the case since the setup here is a little different. If this ends up working, we will adapt the things I did for the bound on the integration operator in the exponentially weighted norm, which should have no effect other than modifying constants. In any case, it's worth seeing what we think this will get us and then if we like it, we can fill in the details of the estimates.
+We consider the other terms in the jump one at a time, using the estimates we have found.
 
 \begin{enumerate}
 
-\item For the ``remainder'' of the $Q_c$ integral term, we have
+\item For the ``remainder'' of the $Q_c$ integral term, we can use the bound on $\Psi$ to get 
 \begin{align*}
-\int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy &= \int_L^\infty q'(y) \int_{-\infty}^y q_c(z) dz\\
-&= - q(L) \int_{-\infty}^L q_c(z)dz - \int_{L}^\infty q(z) q_c(z) dz
+\left| \int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \right| &\leq C \int_L^\infty e^{-\alpha y} \int_{-\infty}^y |q_c(z)| dz\\
+&\leq C \int_L^\infty e^{-\alpha y} \int_{-\infty}^\infty |q_c(z)| dz\\
+&= C \frac{||q_c||_{L_1}}{\alpha}e^{-\alpha L} \\
+&\leq C e^{-\alpha L} 
 \end{align*}
-where we used integration by parts to get the second line. This is a constant which depends only on the original single pulse $q$, so we will call it $\gamma_1$. It should be small since $q(L)$ is small; the first integral is bounded by a constant; and the second integral is integrating an exponentially decaying tail.
+
+This is a rather crude bound for the constant, but it looks like we don't need to do any better.
 
 \item For the term involving $a$, we plug in $A_4(\lambda)$ and use the estimate from that. We also use the estimate 
 \[
@@ -1391,7 +1394,18 @@ where we used integration by parts to get the second line. This is a constant wh
 \left| \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right| \leq C \left( |\lambda|^2 + |D_1^\eta|\right)|d|
 \]
 
-\item For the terms involving $K_1^\pm B (R_1^\pm)_c$, we know that $q_c$ is differentiable in $c$ and that the derivative $q_c$ is exponentially decaying, thus this thing should also be small and exponentially decaying. I am not sure what the best bound for it is, but it should also wind up in the remainder term and we won't worry about it for now.
+\item For the terms involving the integral of the single pulse remainder $K_1^\pm B (R_1^\pm)_c$ we know that the remainder is in the weighted exponential space $C_0^\alpha$, so we have
+
+\begin{align*}
+\left| \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy \right| &\leq
+C \int_{-\infty}^0 e^{\alpha y} \int_{-\infty}^y e^{\alpha z} |e^{-\alpha z} r_{1c}^-(z)| dz dy \\
+&\leq C ||R_{1c}^-||_\alpha \int_{-\infty}^0 e^{\alpha y} \int_{-\infty}^y e^{\alpha z} dz dy \\
+&= C \frac{||R_{1c}^-||_\alpha}{\alpha} \int_{-\infty}^0 
+\end{align*}
+
+\[
+\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) 
+\]
 
 \end{enumerate}
 
@@ -1406,7 +1420,8 @@ where the remainder term has bound
 
 \begin{align*}
 |(R(\lambda)d)_1| &\leq C \left( e^{-(\alpha +\eta) L}(|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1^\eta|)|d| \right) \\
-&+ C |G| \left( \left( e^{-\alpha L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d| + C |\lambda| \left( |\lambda|^2 + |D_1^\eta|\right)|d|
+&+ C |G| \left( \left( e^{-\alpha L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d| + C |\lambda| \left( |\lambda|^2 + |D_1^\eta|\right)|d| \\
+&\leq C \left[ (e^{-(\alpha + \eta)L} + |G|) |\lambda|^2 + (e^{-(\alpha + \eta)L} + |G|)(e^{-\alpha L} + |G| + |\lambda|)|D_1^\eta| + |\lambda|^3 + |\lambda| |D_1^\eta| \right]|d|
 \end{align*}
 
 The one for the second piece should look the same except for a few minor differences. When we split up the integral for $Q_C$, we are left this time with a ``remainder'' of 
@@ -1461,9 +1476,5 @@ The system above is equivalent to $S(\lambda)d = 0$. Thus our condition to have 
 \[
 \det S(\lambda) = 0
 \]
-
-We can get a bound on the remainder $R(\lambda)$ similar to what was done in Sandstede (1998).\\
-
-This has, admittedly, involved quite a bit of hand-waving in the estimates we used, i.e. we tossed things in the remainder term because we wanted to. If this looks like we are on the right track, we can nail those things down.
 
 \end{document}
