@@ -1355,7 +1355,11 @@ At this point, we will take $i = 1$ to make things easier. The $i = 2$ case will
 
 where we used the Melnikov result from the single pulse case above.\\
 
-We consider the other terms in the jump one at a time, using the estimates we have found.
+We consider the other terms in the jump one at a time, using the estimates we have found. For all of these use use the estimate
+
+\[
+|\Psi(x)| \leq C e^{-\alpha|x|}
+\]
 
 \begin{enumerate}
 
@@ -1369,10 +1373,7 @@ We consider the other terms in the jump one at a time, using the estimates we ha
 
 This is a rather crude bound for the constant, but it looks like we don't need to do any better.
 
-\item For the term involving $a$, we plug in $A_4(\lambda)$ and use the estimate from that. We also use the estimate 
-\[
-|\Psi(x)| \leq C e^{-\alpha|x|}
-\]
+\item For the term involving $a$, we plug in $A_4(\lambda)$ and use the estimate from that. 
 
 \begin{align*}
 \langle \psi(L), a_1^+ \rangle &= \langle \psi(L), P_0^u D_1 d \rangle + \langle \psi(L), (A_4(\lambda)(d))^+\rangle\\
@@ -1385,7 +1386,7 @@ This is a rather crude bound for the constant, but it looks like we don't need t
 \item For the terms involving $G_1^\pm$, we use our lemma to get 
 
 \begin{align*}
-&\left| \int_{-\infty}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_L^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy\right| \leq C |G| \left( \left( e^{-\alpha L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d|
+&\left| \int_{-\infty}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_L^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy\right| \leq C |G| \left( \left( e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d|
 \end{align*}
 
 \item For the terms involving $K_1^\pm B W_1^\pm$, we use another one of our lemmas
@@ -1394,22 +1395,17 @@ This is a rather crude bound for the constant, but it looks like we don't need t
 \left| \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right| \leq C \left( |\lambda|^2 + |D_1^\eta|\right)|d|
 \]
 
-\item For the terms involving the integral of the single pulse remainder $K_1^\pm B (R_1^\pm)_c$ we know that the remainder is in the weighted exponential space $C_0^\alpha$, so we have
-
-\begin{align*}
-\left| \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy \right| &\leq
-C \int_{-\infty}^0 e^{\alpha y} \int_{-\infty}^y e^{\alpha z} |e^{-\alpha z} r_{1c}^-(z)| dz dy \\
-&\leq C ||R_{1c}^-||_\alpha \int_{-\infty}^0 e^{\alpha y} \int_{-\infty}^y e^{\alpha z} dz dy \\
-&= C \frac{||R_{1c}^-||_\alpha}{\alpha} \int_{-\infty}^0 
-\end{align*}
+\item The only terms left are those involving the integral of the single pulse remainder $K_1^\pm B (R_1^\pm)_c$
 
 \[
 \left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) 
 \]
 
+FOR NOW WE DON'T KNOW WHAT TO DO WITH THIS SO WE WILL IGNORE IT.
+
 \end{enumerate}
 
-Thus we should have something resembling
+Thus we should have
 
 \[
 \langle \Psi(0), W_1^-(0) - W_1^+(0) \rangle = 
@@ -1419,30 +1415,35 @@ d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(L), Q'(-L) \rangle
 where the remainder term has bound
 
 \begin{align*}
-|(R(\lambda)d)_1| &\leq C \left( e^{-(\alpha +\eta) L}(|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1^\eta|)|d| \right) \\
-&+ C |G| \left( \left( e^{-\alpha L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d| + C |\lambda| \left( |\lambda|^2 + |D_1^\eta|\right)|d| \\
-&\leq C \left[ (e^{-(\alpha + \eta)L} + |G|) |\lambda|^2 + (e^{-(\alpha + \eta)L} + |G|)(e^{-\alpha L} + |G| + |\lambda|)|D_1^\eta| + |\lambda|^3 + |\lambda| |D_1^\eta| \right]|d|
+|(R(\lambda)d)_1| &\leq C |\lambda^2| d_1 e^{-\alpha L} + C \left( e^{-(\alpha +\eta) L}(|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1^\eta|)|d| \right) \\
+&+ C |G| \left( \left( e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d| + C |\lambda| \left( |\lambda|^2 + |D_1^\eta|\right)|d| \\
+&\leq C \left[ (e^{-\alpha L} + |G|) |\lambda|^2 + (e^{-(\alpha + \eta)L} + |G|)(e^{-\alpha L} + |G| + |\lambda|)|D_1^\eta| + |\lambda|^3 + |\lambda| |D_1^\eta| \right]|d|\\
 \end{align*}
 
-The one for the second piece should look the same except for a few minor differences. When we split up the integral for $Q_C$, we are left this time with a ``remainder'' of 
+Since we have the estimate for $D_1^\eta$
+
+\[
+|D_1^\eta| \leq C e^{-(\alpha - \eta)L}
+\]
+
+this becomes
 
 \begin{align*}
-\int_{-\infty}^{-L} \langle \Psi(y), (K B Q_c)(y) \rangle dy &= \int_{-\infty}^{-L} q'(y) \int_{-\infty}^y q_c(z) dz\\
-&= q(-L) \int_{-\infty}^{-L} q_c(z)dz - \int_{-\infty}^{-L} q(z) q_c(z) dz
+|(R(\lambda)d)_1| &\leq C \left[ (e^{-\alpha L} + |G|) |\lambda|^2 + (e^{-(\alpha + \eta)L} + |G|)(e^{-\alpha L} + |G| + |\lambda|)e^{-(\alpha - \eta)L} + |\lambda|^3 + |\lambda| e^{-(\alpha - \eta)L} \right]|d|
 \end{align*}
 
-This is again a constant, which we will call $\gamma_2$. Thus we should have
+Similarly, for the second piece, we have
 
 \[
 \langle \Psi(0), W_2^-(0) - W_2^+(0) \rangle = 
-d_2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + d_2 \gamma_2 + (R(\lambda)d)_2
+d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + (R(\lambda)d)_2
 \]
 
-Putting these together, we have to solve the following system for $(d_1, d_2)$.
+where the remainder has the same estimate. Putting these together, we have to solve the following system for $(d_1, d_2)$.
 
 \begin{align*}
-d_1 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + d_1 \gamma_1 + (R(\lambda)d)_1 = 0\\
-d_2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + d_2 \gamma_2 + (R(\lambda)d)_2 = 0
+d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1 = 0\\
+d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + (R(\lambda)d)_2 = 0
 \end{align*}
 
 We want this to have a solution in $d = (d_1, d_2)$ which is not the trivial solution. Thus if we write this in matrix form, that is equivalent to the matrix not being invertible.\\
@@ -1454,24 +1455,21 @@ a &= \langle \psi(L), Q'(-L) \rangle \\
 \tilde{a} &=\langle \psi(-L), Q'(L) \rangle
 \end{align*}
 
-Define the matrices
+Define the matrix
 
 \begin{align*}
 A = \begin{pmatrix}
 -a & a \\ -\tilde{a} & \tilde{a} 
-\end{pmatrix} &&
-\Gamma = \begin{pmatrix}
-\gamma_1 &  \\  & \gamma_2 
 \end{pmatrix}
 \end{align*}
 
 Then we can define
 
 \[
-S(\lambda) = A + MI + \Gamma + R(\lambda) 
+S(\lambda) = A + \lambda^2 MI + R(\lambda) 
 \]
 
-The system above is equivalent to $S(\lambda)d = 0$. Thus our condition to have a solution, i.e. the condition to have both jumps be zero and thus a match is 
+where $M = \lambda^2 \langle q, q_c \rangle_{L^2(\R)}$. The system above is equivalent to $S(\lambda)d = 0$. Thus our condition to have a solution, i.e. the condition to have both jumps be zero and thus a match happens when
 
 \[
 \det S(\lambda) = 0

@@ -1093,62 +1093,14 @@ Again, adjusting the constant $C$, this becomes
 \end{proof}
 \end{lemma}
 
-In the next lemma, we use what we have done to get an estimate on integrals involving our integration operator.
+We can use what we have done above to get a sharper estimate for $W_i^\pm$ in the unweighted norm, which we will need.
 
 \begin{lemma}
-We have the following bound on these integrals involving the integration operator.
+We have the following estimates for $|W_i^\pm(x)|$ in the unweighted norm
 
 \begin{align*}
-\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C \left( |\lambda|^2 + |D_1^\eta|\right)|d| \\
-\left| \int_{-X_{i-1}}^0 \langle \Psi(x), (K_i^- W_i^-)(x)\rangle dx \right| &\leq C \left( |\lambda|^2 + |D_1^\eta|\right)|d|
-\end{align*}
-
-\begin{proof}
-
-\begin{align*}
-\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} w_i^+(y) dy dx \\
-&= C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} |e^{\eta y} w_i^+(y)| dy dx\\
-&\leq C ||W||_\eta \int_0^{X_i} e^{-\alpha x} \int_x^{\infty} e^{-\eta y} dy dx \\
-&= C \frac{1}{\eta} ||W||_\eta \int_0^{X_i} e^{-\alpha x} e^{-\eta x} dy dx \\
-&\leq C \frac{1}{\eta} ||W||_\eta \int_0^{\infty} e^{-(\alpha + \eta) x} dy dx \\
-&= C \frac{1}{\eta(\alpha + \eta)} ||W||_\eta 
-\end{align*}
-
-Plugging in the bound for $W_3(\lambda)d$ in the exponentially weighted space and simplifying the constant, we get
-
-\begin{align*}
-\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C  \left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d|
-\end{align*}
-
-Finally, we substitute 
-\[
-D_1 = e^{-\eta L} D_1^{\eta}
-\]
-
-to get the bound
-
-\begin{align*}
-\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C  \left( |\lambda|^2 + |D_1^\eta|\right)|d|
-\end{align*}
-
-Similarly, 
-
-\begin{align*}
-\left| \int_{-X_{i-1}}^0 \langle \Psi(x), (K_i^- W_i^-)(x)\rangle dx \right| &\leq C  \left( |\lambda|^2 + |D_1^\eta|\right)|d|
-\end{align*}
-
-
-\end{proof}
-\end{lemma}
-
-We can also use what we have done above to get a sharper estimate for $W_i^\pm$ in the unweighted norm, which we will need.
-
-\begin{lemma}
-We have the following estimates for $W_i^\pm$ in the unweighted norm
-
-\begin{align*}
-| W_i^-(x)| &\leq C\left(\left( e^{-\alpha(x + X_{i-1})} + e^{-(\alpha + \eta) L} + |G| + |\lambda| ) \right) |D_1^{\eta}| + |\lambda|^2 \right) |d| \\
-| W_i^+(x)| &\leq C\left(\left( e^{\alpha(x - X_{i})} + e^{-(\alpha + \eta) L} + |G| + |\lambda| ) \right) |D_1^{\eta}| + |\lambda|^2 \right) |d|
+| W_i^-(x)| &\leq C\left(\left( e^{-\alpha(x + X_{i-1})}e^{-\eta L} + e^{-(\alpha + \eta) L} + |G| + |\lambda| ) \right) |D_1^{\eta}| + |\lambda|^2 \right) |d| \\
+| W_i^+(x)| &\leq C\left(\left( e^{\alpha(x - X_{i})}e^{-\eta L} + e^{-(\alpha + \eta) L} + |G| + |\lambda| ) \right) |D_1^{\eta}| + |\lambda|^2 \right) |d|
 \end{align*}
 where $\alpha = \min(\alpha^s, \alpha^u)$.
 
@@ -1199,16 +1151,80 @@ D_1 = e^{-\eta L} D_1^{\eta}
 
 \begin{align*}
 | W_i^-(x)| &\leq C\left(\left( e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda| + e^{\eta L}(|G| + |\lambda|) \right)e^{-\eta L} |D_1^{\eta}| + |\lambda|^2 \right) |d| \\
-&\leq C\left(\left( e^{-\alpha(x + X_{i-1})} + e^{-(\alpha + \eta) L} + |G| + |\lambda| ) \right) |D_1^{\eta}| + |\lambda|^2 \right) |d|
+&\leq C\left(\left( e^{-\alpha(x + X_{i-1})}e^{-\eta L} + e^{-(\alpha + \eta) L} + |G| + |\lambda| ) \right) |D_1^{\eta}| + |\lambda|^2 \right) |d|
 \end{align*}
 
 Similarly
 
 \begin{align*}
-| W_i^+(x)| &\leq C\left(\left( e^{\alpha(x - X_{i})} + e^{-(\alpha + \eta) L} + |G| + |\lambda| ) \right) |D_1^{\eta}| + |\lambda|^2 \right) |d|
+| W_i^+(x)| &\leq C\left(\left( e^{\alpha(x - X_{i})}e^{-\eta L} + e^{-(\alpha + \eta) L} + |G| + |\lambda| ) \right) |D_1^{\eta}| + |\lambda|^2 \right) |d|
 \end{align*}
 
 \end{proof}
+\end{lemma}
+
+We can do the same thing in the weighted norm.
+
+\begin{lemma}
+We have the following estimates for $|e^{\pm \eta x} W_i^\pm(x)|$.
+
+\begin{align*}
+| e^{-\eta x} W_i^-(x)| &\leq C\left(\left( e^{-\alpha(x + L)} + e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right) |d| \\
+| e^{\eta x} W_i^+(x)| &\leq C\left(\left( e^{\alpha(x - L)} + e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right) |d| 
+\end{align*}
+where $\alpha = \min(\alpha^s, \alpha^u)$.
+
+\begin{proof}
+Since we have 
+\[
+W_i^\pm = L_1(\lambda)W_i^\pm + L_2(\lambda)W_i^\pm 
+\]
+
+e can use the estimate we have for $L_1(\lambda)$ together with an improved estimate for $L_2(\lambda)$. For $L_1(\lambda)$, we have for the ``negative'' piece
+
+\[
+|e^{-\eta x} (L_1(\lambda) W_i^-)(x) | \leq C\left(|G| +|\lambda|\right)||W||_\eta
+\]
+
+For $L_2(\lambda)$ we will use the following estimate for the negative piece.
+
+\begin{align*}
+| e^{-\eta x} (L_2(\lambda)(a, b, d)_i^-)(x)| &\leq C \left( e^{\eta X_{i-1}} e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + |\lambda|^2 |d_i| \right)
+\end{align*}
+
+Combining these, we have
+
+\begin{align*}
+|e^{-\eta x} W_i^-(x)| &\leq C \left( e^{\eta X_{i-1}} e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + \left(|G| +|\lambda|\right)||W||_\eta + |\lambda|^2 |d_i| \right)
+\end{align*}
+
+Substituting in $A_3(\lambda)$, $B_1(\lambda)d$, and $W_3(\lambda)d$, this estimate becomes
+
+\begin{align*}
+| e^{-\eta x} W_i^-(x)| &\leq C ( e^{\eta X_{i-1}} e^{-\alpha^s(x + X_{i-1})} \left( e^{-\eta L}|\lambda^2| + |D_1| \right)|d| \\
+&+ (|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1| )|d| \\
+&+ \left(|G| +|\lambda|\right)\left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d| + |\lambda|^2 |d| )\\
+&\leq C\left(\left( e^{\eta X_{i-1}} e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda| + e^{\eta L}(|G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \\
+\end{align*}
+
+Now, take $X_{i-1} = L$ and substitute in 
+
+\[
+D_1 = e^{-\eta L} D_1^{\eta}
+\]
+
+\begin{align*}
+| e^{-\eta x} W_i^-(x)| &\leq C\left(\left( e^{\eta L} e^{-\alpha(x + L)} + e^{-\alpha L} + |G| + |\lambda| + e^{\eta L}(|G| + |\lambda|) \right)e^{-\eta L} |D_1^{\eta}| + |\lambda|^2 \right) |d| \\
+&\leq C\left(\left( e^{-\alpha(x + L)} + e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right) |d| 
+\end{align*}
+Similarly,
+
+\begin{align*}
+| e^{\eta x} W_i^+(x)| &\leq C\left(\left( e^{\alpha(x - L)} + e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right) |d| 
+\end{align*}
+
+\end{proof}
+\end{lemma}
 
 Next, we use this bound to estimate some integrals.
 
@@ -1216,8 +1232,8 @@ Next, we use this bound to estimate some integrals.
 We have the following bound for these integrals involving $W_i^\pm$
 
 \begin{align*}
-\left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq C|G| \left( \left( e^{-\alpha L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d| \\
-\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left( e^{-\alpha L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d|
+\left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq C|G| \left( \left( e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d| \\
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left( e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d|
 \end{align*}
 
 \begin{proof}
@@ -1231,7 +1247,7 @@ For the adjoint solution $\Psi$, we use the estimate
 Using the estimate from the previous lemma,
 \begin{align*}
 \left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq \int_0^{X_i} |\Psi(x)||G| |W_i^+(x)| dx \\
-&\leq C|G| \int_0^{X_i} e^{-\tilde{\alpha} x} \left(\left( e^{\alpha(x - X_{i})} + e^{-(\alpha + \eta) L} + |G| + |\lambda| ) \right) |D_1^{\eta}| + |\lambda|^2 \right) |d|dx 
+&\leq C|G| \int_0^{X_i} e^{-\tilde{\alpha} x} \left(\left( e^{\alpha(x - X_{i})}e^{-\eta L} + e^{-(\alpha + \eta) L} + |G| + |\lambda| ) \right) |D_1^{\eta}| + |\lambda|^2 \right) |d|dx 
 \end{align*}
 
 For the first term inside the integral,
@@ -1244,20 +1260,114 @@ By our hyperbolicity assumption (CHECK THIS), we can make the constant $\tilde{\
 
 \begin{align*}
 \left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq C|G| \int_0^{\infty} \left(  e^{-(\tilde{\alpha} - \alpha)x} e^{-\alpha X_i} +  e^{-\tilde{\alpha} x} \left( \left(e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right) \right) |d|dx \\
-&\leq C|G| \left(  \frac{1}{\tilde{\alpha} - \alpha}e^{-\alpha L} + \frac{1}{\tilde{\alpha}}\left( \left(e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right) \right)|d| \\
-&\leq C|G| \left( \left( e^{-\alpha L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d|
+&\leq C|G| \left(  \frac{1}{\tilde{\alpha} - \alpha}e^{-\alpha X_i}e^{-\eta L} + \frac{1}{\tilde{\alpha}}\left( \left(e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right) \right)|d| \\
+&\leq C|G| \left( \left( e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d|
 \end{align*}
 
-Similarly,
+where in the last line we took $X_i = L$, as is the case for the double pulse. Similarly,
 
 \begin{align*}
-\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left( e^{-\alpha L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d|
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left( e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d|
 \end{align*}
 
 \end{proof}
 \end{lemma}
 
+In the next lemma, we use what we have done to get an estimate on integrals involving our integration operator.
+
+\begin{lemma}
+We have the following bound on these integrals involving the integration operator.
+
+\begin{align*}
+\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C \left( |\lambda|^2 + |D_1^\eta|\right)|d| \\
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), (K_i^- W_i^-)(x)\rangle dx \right| &\leq C \left( |\lambda|^2 + |D_1^\eta|\right)|d|
+\end{align*}
+
+\begin{proof}
+
+\begin{align*}
+\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} w_i^+(y) dy dx \\
+&= C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} |e^{\eta y} w_i^+(y)| dy dx\\
+&\leq C ||W||_\eta \int_0^{X_i} e^{-\alpha x} \int_x^{\infty} e^{-\eta y} dy dx \\
+&= C \frac{1}{\eta} ||W||_\eta \int_0^{X_i} e^{-\alpha x} e^{-\eta x} dy dx \\
+&\leq C \frac{1}{\eta} ||W||_\eta \int_0^{\infty} e^{-(\alpha + \eta) x} dy dx \\
+&= C \frac{1}{\eta(\alpha + \eta)} ||W||_\eta 
+\end{align*}
+
+Plugging in the bound for $W_3(\lambda)d$ in the exponentially weighted space and simplifying the constant, we get
+
+\begin{align*}
+\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C  \left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d|
+\end{align*}
+
+Finally, we substitute 
+\[
+D_1 = e^{-\eta L} D_1^{\eta}
+\]
+
+to get the bound
+
+\begin{align*}
+\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C  \left( |\lambda|^2 + |D_1^\eta|\right)|d|
+\end{align*}
+
+Similarly, 
+
+\begin{align*}
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), (K_i^- W_i^-)(x)\rangle dx \right| &\leq C  \left( |\lambda|^2 + |D_1^\eta|\right)|d|
+\end{align*}
+
+\end{proof}
 \end{lemma}
+
+This bound is fine and good, but we will actually need a better bound. We can do this using the sharper estimate for $|e^{\pm \eta x} |W_i^\pm(x)|$
+
+\begin{lemma}
+We have the following bound on these integrals involving the integration operator.
+
+\begin{align*}
+BETTER BOUND HERE
+\end{align*}
+
+\begin{proof}
+
+\begin{align*}
+\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} w_i^+(y) dy dx \\
+&= C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} |e^{\eta y} w_i^+(y)| dy dx\\
+&\leq C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} \left(\left( e^{\alpha(y - L)} + e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right) |d| dy dx \\
+&= C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} e^{\alpha(y - L)} |D_1^{\eta}| |d| dy dx \\
+&+ C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} \left(\left( e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right) |d| dy dx
+\end{align*}
+
+
+
+Plugging in the bound for $W_3(\lambda)d$ in the exponentially weighted space and simplifying the constant, we get
+
+\begin{align*}
+\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C  \left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d|
+\end{align*}
+
+Finally, we substitute 
+\[
+D_1 = e^{-\eta L} D_1^{\eta}
+\]
+
+to get the bound
+
+\begin{align*}
+\left| \int_0^{X_i} \langle \Psi(x), (K_i^+ W_i^+)(x)\rangle dx \right| &\leq C  \left( |\lambda|^2 + |D_1^\eta|\right)|d|
+\end{align*}
+
+Similarly, 
+
+\begin{align*}
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), (K_i^- W_i^-)(x)\rangle dx \right| &\leq C  \left( |\lambda|^2 + |D_1^\eta|\right)|d|
+\end{align*}
+
+\end{proof}
+\end{lemma}
+
+
 
 
 \end{document}
