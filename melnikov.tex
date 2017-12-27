@@ -1401,7 +1401,83 @@ This is a rather crude bound for the constant, but it looks like we don't need t
 \left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) 
 \]
 
-FOR NOW WE DON'T KNOW WHAT TO DO WITH THIS SO WE WILL IGNORE IT.
+I believe the following is true.
+
+\[
+|(R_1^+)_c)(x)| \leq Ce^{-\alpha(L + |x|)}
+\]
+
+The argument is as follows. We showed above that $q_c \in C_0^\alpha$, so we have
+
+\begin{align*}
+|q_c(x)| &\leq e^{-\alpha |x|} | e^{\alpha |x|} q_c(x) | \\
+&\leq C e^{-\alpha |x|} 
+\end{align*} 
+
+Since the same must be true of $q_{2c}$, and $(q_{2c})i^\pm = q_c + r_{ic}^\pm$, we must have
+
+\[
+|r_{ic}^\pm(x)| \leq C e^{-\alpha |x|} 
+\] 
+
+Since we showed $q$ is smooth in $c$ as well as in $x$, we should have, analagous to Lemma 3.1 in Sandstede (1998),
+
+\[
+|r_{ic}^\pm(x)| \leq C \sup_{|x| \geq L} |q(x)|
+\]
+
+(The version in that lemma involves $(r_i^\pm)'(x)$, so the same should hold for the derivative with respect to $c$). \\
+
+Since $q(c) \in C_0^\alpha$, we also have
+
+\[ 
+|q(x)| \leq C e^{-\alpha |x|}
+\]
+
+Plugging this into the inequality for $r_{ic}^\pm(x)$ gives us
+
+\[
+|r_{ic}^\pm(x)| \leq C e^{-\alpha L}
+\]
+
+Since we have two inequalities for $r_{ic}^\pm(x)$, it must be less than or equal to the minimum of them, so we can combine them by writing
+
+\begin{align*}
+|r_{ic}^\pm(x)| &\leq C \min( e^{-\alpha L}, e^{-\alpha |x|} ) \\
+&\leq C e^{-\alpha \max(L, |x|)} \\
+&\leq C e^{{-\alpha (L + |x|)}}
+\end{align*}
+
+which is what we want.\\
+
+Given this, we have the following.
+
+\begin{align*}
+\left| \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy \right| &\leq C \int_{-\infty}^0 e^{\alpha y} \int_{-\infty}^y |r_{1c}^-(z)| dz dy \\
+&\leq C \int_{-\infty}^0 e^{\alpha y} \int_{-\infty}^y e^{-\alpha(L + |z|)} dz dy \\
+&\leq C e^{-\alpha L} \int_{-\infty}^0 e^{\alpha y} \int_{-\infty}^y e^{\alpha z} dz dy \\
+&= C \frac{1}{\alpha} e^{-\alpha L} \int_{-\infty}^0 e^{2 \alpha y} dy \\
+&= C \frac{1}{2 \alpha^2 } e^{-\alpha L} dy \\
+&\leq C e^{-\alpha L}
+\end{align*}
+
+Similarly,
+
+\begin{align*}
+\left| \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy\right| &\leq C \int_0^L e^{-\alpha y} \int_y^L |r_{1c}^+(z)| dz dy \\
+&\leq C \int_0^L e^{-\alpha y} \int_y^L e^{-\alpha(L + |z|)} dz dy \\
+&\leq C e^{-\alpha L} \int_0^L e^{-\alpha y} \int_y^L e^{-\alpha z} dz dy \\
+&= C \frac{1}{\alpha} e^{-\alpha L} \int_0^L e^{-\alpha y} (e^{-\alpha y} - e^{-\alpha L}) dy \\
+&\leq C \frac{1}{\alpha} e^{-\alpha L} \int_0^L e^{-2\alpha y} dy \\
+&= C \frac{1}{2 \alpha^2 } e^{-\alpha L} (1 - e^{-2aL})dy \\
+&\leq C e^{-\alpha L}
+\end{align*}
+
+Thus we have
+
+\[
+\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) \leq C e^{-\alpha L}
+\]
 
 \end{enumerate}
 
@@ -1415,9 +1491,10 @@ d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(L), Q'(-L) \rangle
 where the remainder term has bound
 
 \begin{align*}
-|(R(\lambda)d)_1| &\leq C |\lambda^2| d_1 e^{-\alpha L} + C \left( e^{-(\alpha +\eta) L}(|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1^\eta|)|d| \right) \\
+|(R(\lambda)d)_1| &\leq C |\lambda^2| |d| e^{-\alpha L} + C \left( e^{-(\alpha +\eta) L}(|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1^\eta|)|d| \right) \\
 &+ C |G| \left( \left( e^{-(\alpha + \eta) L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right)|d| \\
 &+ C |\lambda|\left(\left( e^{-\eta L} + |G| + |\lambda|  \right) |D_1^{\eta}| + |\lambda|^2 \right) |d|\\
+&+ C |\lambda^2| e^{-\alpha L} |d| \\
 &\leq C \left[ (e^{-\alpha L} + |G|) |\lambda|^2 + (e^{-(\alpha + \eta)L} + |G|)(e^{-\alpha L} + |G| + |\lambda|)|D_1^\eta| + |\lambda|^3 + |\lambda| (e^{-\alpha L} + |G| + |\lambda|)|D_1^\eta| \right]|d|\\
 \end{align*}
 
