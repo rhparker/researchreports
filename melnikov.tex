@@ -1389,9 +1389,9 @@ This is a rather crude bound for the constant, but it looks like we don't need t
 
 \item For the terms involving $K_1^\pm B W_1^\pm$, we use another one of our lemmas
 
-\[
-\left| \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right| \leq C\left( 1 + e^{\eta L}(|G| + |\lambda|) |D_1| + |\lambda|^2 \right) |d|
-\]
+\begin{equation}\label{KBW}
+\left| \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right| \leq C\left( ( 1 + e^{\eta L}(|G| + |\lambda|)) |D_1| + |\lambda|^2 \right) |d|
+\end{equation}
 
 \item The only terms left are those involving the integral of the single pulse remainder $K_1^\pm B (R_1^\pm)_c$
 
@@ -1491,39 +1491,47 @@ where the remainder term has bound
 \begin{align*}
 |(R&(\lambda)d)_1| \leq C |\lambda^2| |d| e^{-\alpha L} + C \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right) \\
 &+ C|G| \left( \left( e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right)|d| \\
-&+ C |\lambda|\left(1 + e^{\eta L}(|G| + |\lambda|) |D_1| + |\lambda|^2 \right) |d| \\
+&+ C |\lambda|\left(( 1 + e^{\eta L}(|G| + |\lambda|)) |D_1| + |\lambda|^2 \right) |d| \\
 &+ C |\lambda^2| e^{-\alpha L} |d| \\
-&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{\eta L}(|G| + |\lambda|)^2 |D_1| + e^{-\alpha L}(e^{-\alpha L} + |G| + |\lambda|) |D_1| \right] |d| \\
+&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{\eta L}(|G| + |\lambda|)^2 |D_1| + e^{-\alpha L}(|G| + |\lambda|) |D_1| + |\lambda||D_1| \right] |d| \\
 \end{align*}
 
-Now define $D_1^{\tilde{\eta}}$ by
+Now define $D_1^{\eta}$ by
 
 \[
-D_1^{\tilde{\eta}} = e^{\tilde{\eta} L} D_1
+D_1^{\eta} = e^{\eta L} D_1
 \]
-where we choose $0 < \eta < \tilde{\eta} \alpha$. We showed that $Q$, $Q'$, and $Q_c$ decay asymptotically exponentially with decay rate $\alpha$, thus $Q(L)$, $Q(-L)$, and their relevant derivatives are a constant multipled by $e^{-\alpha L}$, which gives us
+
+We showed that $Q$, $Q'$, and $Q_c$ decay asymptotically exponentially with decay rate $\alpha$, thus $Q(L)$, $Q(-L)$, and their relevant derivatives are a constant multipled by $e^{-\alpha L}$, which gives us
 
 \[
-|D_1^{\tilde{\eta}}| \leq C e^{-(\alpha - \tilde{\eta})L}
+|D_1^{\eta}| \leq C e^{-(\alpha - \eta)L}
 \]
 
 Thus we have
 
 \begin{align*}
-|D_1| &\leq e^{-\tilde{\eta} L} |D_1^{\tilde{\eta}}| \\
+|D_1| &\leq e^{-\eta L} |D_1^{\eta}| \\
 \end{align*}
 
 Plugging this in above, we get a remainder bound of
 
 \begin{align*}
-|(R&(\lambda)d)_1| \\
-&\leq  C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{\eta L}(|G| + |\lambda|)^2 e^{-\tilde{\eta} L} |D_1^{\tilde{\eta}}| + e^{-\alpha L}(e^{-\alpha L} + |G| + |\lambda|) e^{-\tilde{\eta} L} |D_1^{\tilde{\eta}}|\right] |d| \\
-&\leq  C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{\eta L}(|G| + |\lambda|)^2 e^{-\tilde{\eta} L} |D_1^{\tilde{\eta}}| + e^{-\alpha L}(e^{-\alpha L} + |G| + |\lambda|) e^{-\tilde{\eta} L} |D_1^{\tilde{\eta}}|\right] |d| \\
+|(R&(\lambda)d)_1|  \\
+&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{\eta L}(|G| + |\lambda|)^2 e^{-\eta L} |D_1^{\eta}| + e^{-\alpha L}(|G| + |\lambda|) e^{-\eta L} |D_1^{\eta}| + |\lambda|e^{-\eta L} |D_1^{\eta}| \right] |d| \\
+&= C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + (|G| + |\lambda|)^2 |D_1^{\eta}| + e^{-(\alpha+\eta) L}(|G| + |\lambda|)  |D_1^{\eta}| + |\lambda|e^{-\eta L} |D_1^{\eta}| \right] |d| \\
 \end{align*}
 
+Let's look at the overall order of the remainder. If we take $|\lambda|$ and $|G|$ of order $e^{-\alpha L}$, the overall order of the remainder is
 
-If we take $|\lambda|$ and $|G|$ of order $e^{-\alpha L}$, the overall order of the remainder is
+\begin{align*}
+|(R&(\lambda)d)_1|  \\
+&\leq C \left[ e^{-3 \alpha L} + e^{-2 \alpha L} |D_1^{\eta}| + e^{-(2\alpha+\eta) L} |D_1^{\eta}| + e^{-(\alpha + \eta) L} |D_1^{\eta}| \right] |d| \\
+&\leq C \left[ e^{-3 \alpha L} + e^{-2 \alpha L} e^{-(\alpha - \eta)L} + e^{-(2\alpha+\eta) L} e^{-(\alpha - \eta)L} + e^{-(\alpha + \eta) L} e^{-(\alpha - \eta)L} \right] |d| \\
+&= C \left[ e^{-3 \alpha L} + e^{-(3 \alpha - \eta)L} + e^{-2\alpha L} \right] |d| 
+\end{align*}
 
+THE LAST TERM ON THE RHS IS NOT HIGH ENOUGH ORDER (THE NONREMAINDER TERMS ARE ORDER $e^{-2 \alpha L}$< SO WE NEED REMAINDER TO HAVE A HIGHER ORDER THAN THIS.) THIS TERM IN THE ESTIMATE COMES FROM EQUATION \eqref{KBW}. I DO NOT THINK THE REST WILL WORK UNLESS WE CAN IMPROVE THIS ESTIMATE. OTHER THAN THAT THIS APPEARS TO WORK.\\
 
 Similarly, for the second piece, we have
 
