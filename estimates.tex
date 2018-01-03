@@ -1271,13 +1271,14 @@ where
 Next, we use this bound to estimate some integrals.
 
 \begin{lemma}
-We have the following bound for these integrals involving $W_i^\pm$
+We have the following bounded expressions for these integrals involving $W_i^\pm$
 
 \begin{align*}
-&\left| \int_{X_i}^0 \langle \Psi(x), (K_i^+ B W_i^+)(x)\rangle dx \right| \\
-&\leq \left| \int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x \Phi^u_+(y, X_i) P_0^u D_1 d \:dy \rangle dx \right| + C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \\
-&\left| \int_{-X_{i-1}}^0 \langle \Psi(x), (K_i^- B W_i^-)(x)\rangle dx \right| \\
-&\leq \left| \int_{-X_{i-1}}^0 \langle \Psi(x), \int_{-X_{i-1}}^x \Phi^s_-(y, -X_{i-1}) P_0^s D_1 d  \:dy \rangle dx \right| + C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|
+\int_{X_i}^0 \langle &\Psi(x), (K_i^+ B W_i^+)(x)\rangle dx  \\
+&= \int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x B\Phi^u_+(y, X_i) P_0^u D_1 d \:dy \rangle dx
++ \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|\right]\\
+\int_{-X_{i-1}}^0 \langle &\Psi(x), (K_i^- B W_i^-)(x)\rangle dx \\
+&= \int_{-X_{i-1}}^0 \langle \Psi(x), \int_{-X_{i-1}}^x B \Phi^s_-(y, -X_{i-1}) P_0^s D_1 d  \:dy \rangle dx + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|\right]
 \end{align*}
 
 \begin{proof}
@@ -1335,19 +1336,31 @@ We do this for the ``positive'' piece. The ``negative'' piece is similar. For th
 W_i^+(x) &= \Phi^u_+(x, X_i) P_0^u D_1 d + [T_2(\lambda)(b,d)]_i^+ W_i^+(x)
 \end{align*}
 
-where we have an estimate for $e^{-\eta x} T_2(\lambda)(b,d)_i^\pm W_i^\pm(x)$. Using these expressions, this becomes
+where we have an estimate for $e^{-\eta x} T_2(\lambda)(b,d)_i^\pm W_i^\pm(x)$. Using these expressions, we get a sum of two terms. 
 
 \begin{align*}
-&\left| \int_{X_i}^0 \langle \Psi(x), (K_i^+ B W_i^+)(x)\rangle dx \right| \\
-&\leq \left| \int_{X_i}^0 \langle \Psi(x), K_i^+ B\Phi^u_+(x, X_i) P_0^u D_1 d \rangle dx \right| + C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} |T_2(\lambda)(b,d)_i^+ W_i^+(y)| dy dx \\
-&\leq \left| \int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x B\Phi^u_+(y, X_i) P_0^u D_1 d \:dy \rangle dx \right| + C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} |e^{\eta y} T_2(\lambda)(b,d)_i^+ W_i^+(y)| dy dx \\
-&\leq \left| \int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x B\Phi^u_+(y, X_i) P_0^u D_1 d \: dy \rangle dx \right| \\
-&+ C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| dy dx \\
-&= \left| \int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x B\Phi^u_+(y, X_i) P_0^u D_1 d \: dy \rangle dx \right| \\
-&+ C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} dy dx \\
+\int_{X_i}^0 \langle &\Psi(x), (K_i^+ B W_i^+)(x)\rangle dx \\
+&= \int_{X_i}^0 \langle \Psi(x), K_i^+ B\Phi^u_+(x, X_i) P_0^u D_1 d \rangle dx + \int_{X_i}^0 \langle \Psi(x), K_i^+ B[T_2(\lambda)(b,d)]_i^+ W_i^+(x) \rangle dx 
 \end{align*}
 
-For the second integral on the RHS,
+The first term is
+
+\begin{align*}
+\int_{X_i}^0 \langle \Psi(x), K_i^+ B\Phi^u_+(x, X_i) P_0^u D_1 d \rangle dx &= 
+\int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x B\Phi^u_+(y, X_i) P_0^u D_1 d \:dy \rangle dx 
+\end{align*}
+
+For the second term,
+
+\begin{align*}
+\left| \int_{X_i}^0 \langle \Psi(x), K_i^+ B[T_2(\lambda)(b,d)]_i^+ W_i^+(x) \rangle dx \right|
+&\leq C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} |T_2(\lambda)(b,d)_i^+ W_i^+(y)| dy dx \\
+&\leq C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} |e^{\eta y} T_2(\lambda)(b,d)_i^+ W_i^+(y)| dy dx \\
+&\leq C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| dy dx \\
+&= C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} dy dx \\
+\end{align*}
+
+For the integral on the RHS,
 
 \begin{align*}
 \int_0^{X_i} &e^{-\alpha x} \int_x^{X_i} e^{-\eta y} dy dx
@@ -1356,21 +1369,29 @@ For the second integral on the RHS,
 &= \frac{1}{\eta(\alpha + \eta)}
 \end{align*}
 
+This gives us 
+
+\begin{align*}
+\left| \int_{X_i}^0 \langle \Psi(x), K_i^+ B[T_2(\lambda)(b,d)]_i^+ W_i^+(x) \rangle dx \right|
+&\leq C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \\
+\end{align*}
+
 Combining these, we have
 
 \begin{align*}
-&\left| \int_{X_i}^0 \langle \Psi(x), (K_i^+ B W_i^+)(x)\rangle dx \right| \\
-&\leq \left| \int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x \Phi^u_+(y, X_i) P_0^u D_1 d \:dy \rangle dx \right| + C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|
+\int_{X_i}^0 \langle &\Psi(x), (K_i^+ B W_i^+)(x)\rangle dx  \\
+&= \int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x B\Phi^u_+(y, X_i) P_0^u D_1 d \:dy \rangle dx
++ \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|\right]
 \end{align*}
 
 Similarly, we have
 
 \begin{align*}
-&\left| \int_{-X_{i-1}}^0 \langle \Psi(x), (K_i^- B W_i^-)(x)\rangle dx \right| \\
-&\leq \left| \int_{-X_{i-1}}^0 \langle \Psi(x), \int_{-X_{i-1}}^x \Phi^s_-(y, -X_{i-1}) P_0^s D_1 d  \:dy \rangle dx \right| + C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|
+\int_{-X_{i-1}}^0 \langle &\Psi(x), (K_i^- B W_i^-)(x)\rangle dx \\
+&= \int_{-X_{i-1}}^0 \langle \Psi(x), \int_{-X_{i-1}}^x B \Phi^s_-(y, -X_{i-1}) P_0^s D_1 d  \:dy \rangle dx + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|\right]
 \end{align*}
 
-As of now, we do not have estimates for the leading order terms.
+As of now, we do not have estimates for the leading order term.
 
 \end{proof}
 \end{lemma}
