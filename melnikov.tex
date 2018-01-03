@@ -1387,11 +1387,21 @@ This is a rather crude bound for the constant, but it looks like we don't need t
 &\left| \int_{-\infty}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_L^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy\right| \leq C|G| \left( \left( e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right)|d|
 \end{align*}
 
-\item For the terms involving $K_1^\pm B W_1^\pm$, we use another one of our lemmas
+\item For the terms involving $K_1^\pm B W_1^\pm$, we use our lemma to get the following
 
-\begin{equation}\label{KBW}
-\left| \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right| \leq C\left( ( 1 + e^{\eta L}(|G| + |\lambda|)) |D_1| + |\lambda|^2 \right) |d|
-\end{equation}
+\begin{align*}
+\lambda&\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right) \\
+&= -\lambda \left( \int_{L}^0 \langle \Psi(x), \int_{L}^x B\Phi^u_+(y, L) P_0^u D_1 d \:dy \rangle dx \right) + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d|\right] \\
+&= S_1 \lambda + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d|\right]
+\end{align*}
+
+where
+
+\[
+S_1 = -\int_{L}^0 \langle \Psi(x), \int_{L}^x B\Phi^u_+(y, L) P_0^u D_1 d\:dy \rangle dx 
+\]
+
+For now, we do not know what to do with the leading order term $S_1$.
 
 \item The only terms left are those involving the integral of the single pulse remainder $K_1^\pm B (R_1^\pm)_c$
 
@@ -1483,7 +1493,7 @@ Thus we should have
 
 \[
 \langle \Psi(0), W_1^-(0) - W_1^+(0) \rangle = 
-d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1
+d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + S_1 \lambda + \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1
 \]
 
 where the remainder term has bound
@@ -1491,9 +1501,9 @@ where the remainder term has bound
 \begin{align*}
 |(R&(\lambda)d)_1| \leq C |\lambda^2| |d| e^{-\alpha L} + C \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right) \\
 &+ C|G| \left( \left( e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right)|d| \\
-&+ C |\lambda|\left(( 1 + e^{\eta L}(|G| + |\lambda|)) |D_1| + |\lambda|^2 \right) |d| \\
+&+ C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d| \\
 &+ C |\lambda^2| e^{-\alpha L} |d| \\
-&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{\eta L}(|G| + |\lambda|)^2 |D_1| + e^{-\alpha L}(|G| + |\lambda|) |D_1| + |\lambda||D_1| \right] |d| \\
+&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + (e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|))(e^{-\alpha L} + |G| + |\lambda|) |D_1| \right] |d| \\
 \end{align*}
 
 Now define $D_1^{\eta}$ by
@@ -1518,20 +1528,19 @@ Plugging this in above, we get a remainder bound of
 
 \begin{align*}
 |(R&(\lambda)d)_1|  \\
-&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{\eta L}(|G| + |\lambda|)^2 e^{-\eta L} |D_1^{\eta}| + e^{-\alpha L}(|G| + |\lambda|) e^{-\eta L} |D_1^{\eta}| + |\lambda|e^{-\eta L} |D_1^{\eta}| \right] |d| \\
-&= C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + (|G| + |\lambda|)^2 |D_1^{\eta}| + e^{-(\alpha+\eta) L}(|G| + |\lambda|)  |D_1^{\eta}| + |\lambda|e^{-\eta L} |D_1^{\eta}| \right] |d| \\
+&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + (e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|))(e^{-\alpha L} + |G| + |\lambda|)e^{-\eta L} |D_1^{\eta}|  \right] |d| \\
+&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|)|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1^{\eta}|  \right] |d|
 \end{align*}
 
 Let's look at the overall order of the remainder. If we take $|\lambda|$ and $|G|$ of order $e^{-\alpha L}$, the overall order of the remainder is
 
 \begin{align*}
-|(R&(\lambda)d)_1|  \\
-&\leq C \left[ e^{-3 \alpha L} + e^{-2 \alpha L} |D_1^{\eta}| + e^{-(2\alpha+\eta) L} |D_1^{\eta}| + e^{-(\alpha + \eta) L} |D_1^{\eta}| \right] |d| \\
-&\leq C \left[ e^{-3 \alpha L} + e^{-2 \alpha L} e^{-(\alpha - \eta)L} + e^{-(2\alpha+\eta) L} e^{-(\alpha - \eta)L} + e^{-(\alpha + \eta) L} e^{-(\alpha - \eta)L} \right] |d| \\
-&= C \left[ e^{-3 \alpha L} + e^{-(3 \alpha - \eta)L} + e^{-2\alpha L} \right] |d| 
+|(R&(\lambda)d)_1| \leq C ( e^{-3 \alpha L} + e^{-2 \alpha L} |D_1^{\eta}| ) \\
+&\leq C ( e^{-3 \alpha L} + e^{-2 \alpha L} e^{-(\alpha - \eta)L}) \\
+&= C ( e^{-3 \alpha L} + e^{-(3 \alpha - \eta) L} )\\
 \end{align*}
 
-THE LAST TERM ON THE RHS IS NOT HIGH ENOUGH ORDER (THE NONREMAINDER TERMS ARE ORDER $e^{-2 \alpha L}$< SO WE NEED REMAINDER TO HAVE A HIGHER ORDER THAN THIS.) THIS TERM IN THE ESTIMATE COMES FROM EQUATION \eqref{KBW}. I DO NOT THINK THE REST WILL WORK UNLESS WE CAN IMPROVE THIS ESTIMATE. OTHER THAN THAT THIS APPEARS TO WORK.\\
+Since $0 < \eta < \alpha$, this is higher order than the rest of the terms in our expression for the jump, so this is okay.\\
 
 Similarly, for the second piece, we have
 
