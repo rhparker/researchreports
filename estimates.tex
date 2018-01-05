@@ -40,24 +40,14 @@
 
 \begin{document}
 
-\subsection*{Estimates}
-Here are some estimates like in Lemma 3.1 in Sandstede (1998)
-
-\begin{lemma}We have the estimates
-\begin{align*}
-|G_i(x)| &\leq C|R_i(x)| \leq C \sup_{|x| \geq L} |Q(x)| \\
-| B Q_2(x) - B Q(x) | & \leq C |R_i(x)| \leq C \sup_{|x| \geq L} |Q(x)| \\
-D_1 d &= (Q'(L) + Q'(-L))(d_2 - d_1) +\mathcal{O}\left( e^{-\alpha L} |d| \sup_{|x| \geq L} |Q(x)| \right)\\
-|A(Q_2(x))| &\leq C \textrm{ for all }x
-\end{align*}
-where $\alpha > 0$ is defined as on pages 432 and 434 of Sandstede (1998).
-\begin{proof}
-The first estimate is the same as in Sandstede (1998) with $Q$ replacing $Q^+$ and $Q^-$, and follows from the smoothness of $A$ together with (2.6)(i) in Sandstede (1998). The second estimate follows from (2.6)(i) in Sandstede (1998) and the expansion of $Q^2$ as $Q + R_i$. The third estimate is as in Lemma 3.1 of Sandstede (1998). The fourth estimate follows since the double pulse $q_2(x)$ is bounded and the rest of the matrix $A$ is constant.
-\end{proof}
-\end{lemma}
-
 \subsection*{Reduction}
-This corresponds to section 3.2 in Sandstede (1998). The integrated eigenvalue problem we are dealing with is
+This corresponds to section 3.2 in Sandstede (1998). We have written the eigenfunction $V$ piecewise as
+
+\begin{equation}\label{dpeigform}
+V_i^\pm = d_i( Q_2' + \lambda Q_{2c} ) + W_i^\pm
+\end{equation}
+
+The integrated eigenvalue problem we are dealing with which correspoonds to this expression is
 
 \begin{equation}\label{inteigQ}
 (W_i^\pm)' = A(Q)W_i^\pm - \lambda^2 d_i KBQ_{c} + \lambda K_i^\pm BW_i^\pm + G_i^\pm W_i^\pm - \lambda^2 d_i K_i^\pm B (R_i^\pm)_c
@@ -88,27 +78,50 @@ where
 
 \begin{align*}
 G_i^\pm(x) &= A(Q_2) - A(Q)) = A(Q + R_i^\pm) - A(Q) \\
-D_1 d &= d_2 [ Q_2'(-L) + Q_{2c}(-L)] - d_1 [ Q_2'(L) + Q_{2c}(L)]
+D_1 d &= d_2 [ Q_2'(-L) + \lambda Q_{2c}(-L)] - d_1 [ Q_2'(L) + \lambda Q_{2c}(L)]
 \end{align*}
 
 where $D_1$ is given by the row matrix 
 
 \[
-D_1 = \begin{pmatrix} -(Q_2'(L) + Q_{2c}(L)) & Q_2'(-L) + Q_{2c}(-L) \end{pmatrix}
+D_1 = \begin{pmatrix} -(Q_2'(L) + \lambda Q_{2c}(L)) & Q_2'(-L) + \lambda Q_{2c}(-L) \end{pmatrix}
 \]
 
-We can get an improved estimate on $D_1$ in the following way. First we write
+In the next lemma, we show some estimates similar to that in Lemma 3.1 in Sandstede (1998).
+
+\begin{lemma}We have the estimates
+\begin{align*}
+|G_i(x)| &\leq C|R_i(x)| \leq C \sup_{|x| \geq L} |Q(x)| \\
+| B Q_2(x) - B Q(x) | & \leq C |R_i(x)| \leq C \sup_{|x| \geq L} |Q(x)| \\
+D_1 d &= [Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |Q(x)| \right) \\
+|A(Q_2(x))| &\leq C \textrm{ for all }x
+\end{align*}
+where $\alpha > 0$ is defined as on pages 432 and 434 of Sandstede (1998).
+\begin{proof}
+The first estimate is the same as in Sandstede (1998) with $Q$ replacing $Q^+$ and $Q^-$, and follows from the smoothness of $A$ together with (2.6)(i) in Sandstede (1998). The second estimate follows from (2.6)(i) in Sandstede (1998) and the expansion of $Q^2$ as $Q + R_i$. The fourth estimate follows since the double pulse $q_2(x)$ is bounded and the rest of the matrix $A$ is constant. For the third estimate, we first write $D_1 d$ in terms of the single pulse
 
 \begin{align*}
 D_1 d &= d_2 [ Q_2'(-L) + Q_{2c}(-L)] - d_1 [ Q_2'(L) + Q_{2c}(L)] \\
-&= d_2 [ Q'(-L) + Q_c(-L) + (R_2^-)'(-L) + (R_2^-)_c(-L)] - d_1 [ Q'(L) + Q_c(L) + (R_1^+)'(-L) + (R_1^+)_c(-L)] \\
+&= d_2 [ Q'(-L) + \lambda Q_c(-L) + (R_2^-)'(-L) + \lambda (R_2^-)_c(-L)] - d_1 [ Q'(L) + \lambda Q_c(L) + (R_1^+)'(-L) + \lambda (R_1^+)_c(-L)] 
 \end{align*}
 
-which get everything in terms of the single pulse. Using estimates similar to Sandstede (1998) for the remainder term and its derivaties, we have the bound (WHICH WE SHOULD VERIFY)
+Adapting Lemma 2.6 in Sandstede (1998), and noting that $Q = Q^+ = Q^-$ in our case, we have
 
 \begin{align*}
-D_1 d &= d_2 [ Q'(-L) + Q_c(-L) ] - d_1 [ Q'(L) + Q_c(L) ] + \mathcal{O}(e^{-\alpha L}|d| \sup_{|x| \geq L} |Q(x)|)\\
+|R_{i+1}^-(-X_i) - Q(X_i)| \leq C e^{-\alpha L} \sup_{|x| \geq L} |Q(x)| \\
+|R_{i}^+(X_i) - Q(-X_i)| \leq C e^{-\alpha L} \sup_{|x| \geq L} |Q(x)| \\
 \end{align*}
+
+These should hold as well for derivatives with respect to $x$ and $c$, or at least I think that was used in the proof of Lemma 3.1 in Sandstede (1998) for the derivative with respect to $x$, so we will do that here. Thus, if we substitute these into the expression for $D_1 d$ we get
+
+\begin{align*}
+D_1 d &= d_2 [Q'(-L) + Q'(L) + \lambda Q_c(-L) + \lambda Q_c(L)] \\
+&- d_1 [Q'(L) + Q'(-L) + \lambda Q_c(L) +\lambda  Q_c(-L)] + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |Q(x)| \right) \\
+&= [Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |Q(x)| \right) \\
+\end{align*}
+
+\end{proof}
+\end{lemma}
 
 Next, suppose we have the bounds
 \begin{align*}

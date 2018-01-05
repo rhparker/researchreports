@@ -1379,7 +1379,50 @@ This is a rather crude bound for the constant, but it looks like we don't need t
 \langle \psi(L), a_1^+ \rangle &= \langle \psi(L), P_0^u D_1 d \rangle + \langle \psi(L), (A_4(\lambda)(d))^+\rangle\\
 &= \langle \psi(L), P_0^u D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left( e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
 &= \langle \psi(L), P_0^u D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
-\end{align*} 
+\end{align*}
+
+For the first term on the RHS, we substitute our expression for $D_1 d$.
+
+\[
+D_1 d = [Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |Q(x)| \right)
+\]
+
+For now, we assume the remainder term is of sufficiently small order that we don't have to worry about it. So we take
+
+\[
+D_1 d = Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1)
+\]
+
+Applying the projection $P_0^u$ to this, we have
+
+\begin{align*}
+P_0^u D_1 d &= P_0^u [Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1)]
+\end{align*}
+
+At $x = -L$ the orbit $Q(x)$ is close to and approximately tangent to the unstable manifold, so to leading order we have $P_0^u Q'(-L) = Q'(-L)$. At $x = L$ the orbit $Q(x)$ is close to and approximately tangent to the stable manifold, so to leading order we have $P_0^u Q'(L) = 0$. This gives us approximately
+
+\begin{align*}
+P_0^u D_1 d &= Q'(-L)(d_2 - d_1) + \lambda P_0^u (Q_c(-L) + Q_c(L))(d_2 - d_1)
+\end{align*}
+
+Substituting this above, we have
+
+\begin{align*}
+\langle \Psi(L), a_1^+ \rangle = \langle \Psi(L), &Q'(-L) \rangle (d_2 - d_1) + \lambda \langle \Psi(L), P_0^u (Q_c(-L) + Q_c(L))\rangle(d_2 - d_1) \\
+&+ \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
+\end{align*}
+
+For the second term on the RHS, since $Q_c \in C_0^\alpha$, we have the estimate
+
+\begin{align*}
+\langle \Psi(L), P_0^u (Q_c(-L) + Q_c(L))\rangle(d_2 - d_1) &\leq C e^{-2 \alpha L}|d|
+\end{align*}
+
+Thus this becomes
+
+\begin{align*}
+\langle \Psi(L), a_1^+ \rangle = \langle \Psi(L), Q'(-L) \rangle (d_2 - d_1) + \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + e^{-\alpha L}|\lambda| + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
+\end{align*}
 
 \item For the terms involving $G_1^\pm$, we use our lemma to get 
 
@@ -1491,19 +1534,18 @@ Thus we have
 
 Thus we should have
 
-\[
-\langle \Psi(0), W_1^-(0) - W_1^+(0) \rangle = 
-d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + S_1 \lambda + \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1
-\]
+\begin{align*}
+\langle &\Psi(0), W_1^-(0) - W_1^+(0) \rangle = d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \lambda S_1 + \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1
+\end{align*}
 
 where the remainder term has bound
 
 \begin{align*}
-|(R&(\lambda)d)_1| \leq C |\lambda^2| |d| e^{-\alpha L} + C \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right) \\
+|(R&(\lambda)d)_1| \leq C |\lambda^2| |d| e^{-\alpha L} + C \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + e^{-\alpha L}|\lambda| + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right) \\
 &+ C|G| \left( \left( e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right)|d| \\
 &+ C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d| \\
 &+ C |\lambda^2| e^{-\alpha L} |d| \\
-&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + (e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|))(e^{-\alpha L} + |G| + |\lambda|) |D_1| \right] |d| \\
+&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{-2\alpha L}|\lambda| + (e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|))(e^{-\alpha L} + |G| + |\lambda|) |D_1| \right] |d| \\
 \end{align*}
 
 Now define $D_1^{\eta}$ by
@@ -1528,25 +1570,70 @@ Plugging this in above, we get a remainder bound of
 
 \begin{align*}
 |(R&(\lambda)d)_1|  \\
-&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + (e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|))(e^{-\alpha L} + |G| + |\lambda|)e^{-\eta L} |D_1^{\eta}|  \right] |d| \\
-&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|)|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1^{\eta}|  \right] |d|
+&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{-2\alpha L}|\lambda| +(e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|))(e^{-\alpha L} + |G| + |\lambda|)e^{-\eta L} |D_1^{\eta}|  \right] |d| \\
+&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|)|\lambda|^2 + e^{-2\alpha L}|\lambda| + (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1^{\eta}|  \right] |d|
 \end{align*}
 
 Let's look at the overall order of the remainder. If we take $|\lambda|$ and $|G|$ of order $e^{-\alpha L}$, the overall order of the remainder is
 
 \begin{align*}
-|(R&(\lambda)d)_1| \leq C ( e^{-3 \alpha L} + e^{-2 \alpha L} |D_1^{\eta}| ) \\
+|(R&(\lambda)d)_1| \leq C ( e^{-3 \alpha L} + e^{-3 \alpha L} + e^{-2 \alpha L} |D_1^{\eta}| ) \\
 &\leq C ( e^{-3 \alpha L} + e^{-2 \alpha L} e^{-(\alpha - \eta)L}) \\
 &= C ( e^{-3 \alpha L} + e^{-(3 \alpha - \eta) L} )\\
 \end{align*}
 
 Since $0 < \eta < \alpha$, this is higher order than the rest of the terms in our expression for the jump, so this is okay.\\
 
-Similarly, for the second piece, we have
+For the second piece, most is similar to the first piece. We will do a few of the terms here
+
+\begin{align*}
+\langle \psi(-L), a_2^- \rangle &= -\langle \psi(-L), P_0^s D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
+\end{align*}
+
+Applying the projection $P_0^s$ to $D_1 d$, we have, similar to the first piece,
+
+\begin{align*}
+P_0^s D_1 d &= P_0^u [Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1)]
+\end{align*}
+
+Substituting this above, we obtain
+
+\begin{align*}
+\langle \Psi(-L), a_2^- \rangle = -\langle \Psi(-L), &Q'(L) \rangle (d_2 - d_1) - \lambda \langle \Psi(L), P_0^s (Q_c(-L) + Q_c(L))\rangle(d_2 - d_1) \\
+&+ \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
+\end{align*}
+
+Since, as above, we have
+
+\[
+\langle \Psi(L), P_0^s (Q_c(-L) + Q_c(L))\rangle(d_2 - d_1) \leq C e^{-2 \alpha L} |d|
+\]
+
+this becomes
+
+\begin{align*}
+\langle \Psi(-L), a_2^- \rangle = -\langle \Psi(-L), &Q'(L) \rangle (d_2 - d_1) + \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
+\end{align*}
+
+For the terms involving $K_2^\pm B W_2^\pm$, we use our lemma to get
+
+\begin{align*}
+\lambda&\left( \int_{-L}^0 \langle \Psi(y), (K_2^- B W_2^-)(y) \rangle dy - \int_{\infty}^0 \langle \Psi(y), (K_2^+ B W_2^+)(y) \rangle dy \right) \\
+&= \lambda \left( \int_{-L}^0 \langle \Psi(x), \int_{-L}^x B \Phi^s_-(y, -L) P_0^s D_1 d  \:dy \rangle dxdx \right) + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d|\right] \\
+&= S_2 \lambda + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d|\right]
+\end{align*}
+
+where
+
+\[
+S_2 = \int_{-L}^0 \langle \Psi(x), \int_{-L}^x B \Phi^s_-(y, -L) P_0^s D_1 d  \:dy \rangle dxdx 
+\]
+
+Thus we have
 
 \[
 \langle \Psi(0), W_2^-(0) - W_2^+(0) \rangle = 
-d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + (R(\lambda)d)_2
+d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + S_2 \lambda + \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + (R(\lambda)d)_2
 \]
 
 where the remainder has the same estimate. Putting these together, we have to solve the following system for $(d_1, d_2)$.
@@ -1584,5 +1671,52 @@ where $M = \lambda^2 \langle q, q_c \rangle_{L^2(\R)}$. The system above is equi
 \[
 \det S(\lambda) = 0
 \]
+
+\subsection*{Symmetry}
+
+Now let's look at symmetry for the double pulse case. Recall that if $v(x)$ is an eigenfunction of $\partial_x H v = \lambda v$ with eigenvalue $\lambda$, then
+
+\begin{enumerate}
+	\item $v(-x)$ is an eigenfunction with eigenvalue $-\lambda$
+	\item $\bar{v}(x)$ is an eigenfunction with eigenvalue $\bar{\lambda}$
+\end{enumerate}
+
+Thus if we have a solution $d = (d_1, d_2)$ to $S(\lambda)d = 0$, we should be able to come up with a $\tilde{d}$ which solves $S(-\lambda)\tilde{d} = 0$.\\
+
+Assuming we have such a $v(x)$, we can write it piecewise (as we always do) by:
+
+\begin{align*}
+[q'(x) + \lambda q_c(x)]d_1 + w_1^-(x) && x \in (-\infty, 0] \\
+[q'(x) + \lambda q_c(x)]d_1 + w_1^+(x) && x \in [0, L] \\
+[q'(x) + \lambda q_c(x)]d_2 + w_2^-(x) && x \in [-L, 0] \\
+[q'(x) + \lambda q_c(x)]d_2 + w_2^+(x) && x \in [0, \infty) \\
+\end{align*}
+
+We reverse all of this to get the piecewise version of $v(-x)$:
+\begin{align*}
+[q'(-x) + \lambda q_c(-x)]d_2 + w_2^+(-x) && x \in (-\infty, 0] \\
+[q'(-x) + \lambda q_c(-x)]d_2 + w_2^-(-x) && x \in [0, L] \\
+[q'(-x) + \lambda q_c(-x)]d_1 + w_1^+(-x) && x \in [-L, 0] \\
+[q'(-x) + \lambda q_c(-x)]d_1 + w_1^-(-x) && x \in [0, \infty) \\
+\end{align*}
+
+Since $q'(x)$ is odd and $q_c(x)$ is even, we have
+
+\begin{align*}
+q'(-x) + \lambda q_c(-x) &= -q'(-x) + \lambda q_c(x) \\
+&= -[q'(x) + (-\lambda)q_c(x)]
+\end{align*}
+
+Thus the piecewise version of $v(-x)$ can be written as
+\begin{align*}
+[q'(x) + (-\lambda) q_c(x)](-d_2) + w_2^+(-x) && x \in (-\infty, 0] \\
+[q'(x) + (-\lambda) q_c(x)](-d_2) + w_2^-(-x) && x \in [0, L] \\
+[q'(x) + (-\lambda) q_c(x)](-d_1) + w_1^+(-x) && x \in [-L, 0] \\
+[q'(x) + (-\lambda) q_c(x)](-d_1) + w_1^-(-x) && x \in [0, \infty) \\
+\end{align*}
+
+Since this is now the same form as for a generic eigenvector, we conclude that for $\tilde{d} = (-d_2, -d_1)$, $S(-\lambda)\tilde{d} = 0$.
+
+
 
 \end{document}
