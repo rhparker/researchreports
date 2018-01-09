@@ -1390,7 +1390,7 @@ D_1 d = [Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1) + \mathcal{O}\le
 For now, we assume the remainder term is of sufficiently small order that we don't have to worry about it. So we take
 
 \[
-D_1 d = Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1)
+D_1 d = [Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1)
 \]
 
 Applying the projection $P_0^u$ to this, we have
@@ -1535,7 +1535,7 @@ Thus we have
 Thus we should have
 
 \begin{align*}
-\langle &\Psi(0), W_1^-(0) - W_1^+(0) \rangle = d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \lambda S_1 + \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1
+\langle &\Psi(0), W_1^-(0) - W_1^+(0) \rangle = d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \lambda S_1 - \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1
 \end{align*}
 
 where the remainder term has bound
@@ -1626,21 +1626,21 @@ For the terms involving $K_2^\pm B W_2^\pm$, we use our lemma to get
 where
 
 \[
-S_2 = \int_{-L}^0 \langle \Psi(x), \int_{-L}^x B \Phi^s_-(y, -L) P_0^s D_1 d  \:dy \rangle dxdx 
+S_2 = \int_{-L}^0 \langle \Psi(x), \int_{-L}^x B \Phi^s_-(y, -L) P_0^s D_1 d  \:dy \rangle dx
 \]
 
 Thus we have
 
 \[
 \langle \Psi(0), W_2^-(0) - W_2^+(0) \rangle = 
-d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + S_2 \lambda + \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + (R(\lambda)d)_2
+d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + S_2 \lambda - \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + (R(\lambda)d)_2
 \]
 
 where the remainder has the same estimate. Putting these together, we have to solve the following system for $(d_1, d_2)$.
 
 \begin{align*}
-d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1 = 0\\
-d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + (R(\lambda)d)_2 = 0
+d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1 = 0\\
+d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + (R(\lambda)d)_2 = 0
 \end{align*}
 
 We want this to have a solution in $d = (d_1, d_2)$ which is not the trivial solution. Thus if we write this in matrix form, that is equivalent to the matrix not being invertible.\\
@@ -1656,7 +1656,7 @@ Define the matrix
 
 \begin{align*}
 A = \begin{pmatrix}
--a & a \\ -\tilde{a} & \tilde{a} 
+a & -a \\ \tilde{a} & -\tilde{a} 
 \end{pmatrix}
 \end{align*}
 
@@ -1673,6 +1673,8 @@ where $M = \lambda^2 \langle q, q_c \rangle_{L^2(\R)}$. The system above is equi
 \]
 
 \subsection*{Symmetry}
+
+\subsubsection{Eigenfunction Symmetry}
 
 Now let's look at symmetry for the double pulse case. Recall that if $v(x)$ is an eigenfunction of $\partial_x H v = \lambda v$ with eigenvalue $\lambda$, then
 
@@ -1715,8 +1717,133 @@ Thus the piecewise version of $v(-x)$ can be written as
 [q'(x) + (-\lambda) q_c(x)](-d_1) + w_1^-(-x) && x \in [0, \infty) \\
 \end{align*}
 
-Since this is now the same form as for a generic eigenvector, we conclude that for $\tilde{d} = (-d_2, -d_1)$, $S(-\lambda)\tilde{d} = 0$.
+Since eigenfunctions are specified only up to a constant multiple, we can multiply this whole thing by $-1$ to get
+
+\begin{align*}
+[q'(x) + (-\lambda) q_c(x)]d_2 + -w_2^+(-x) && x \in (-\infty, 0] \\
+[q'(x) + (-\lambda) q_c(x)]d_2 + -w_2^-(-x) && x \in [0, L] \\
+[q'(x) + (-\lambda) q_c(x)]d_1 + -w_1^+(-x) && x \in [-L, 0] \\
+[q'(x) + (-\lambda) q_c(x)]d_1 + -w_1^-(-x) && x \in [0, \infty) \\
+\end{align*}
+
+This is now the same form as a generic eigenvector, so we conclude that for $\tilde{d} = (d_2, d_1)$, $S(-\lambda)\tilde{d} = 0$.\\
+
+\subsubsection{Preliminary Computations}
+
+Before we look at the symmetry of the individual terms, we look at the inner product $\langle \Psi(x), Q'(-x)$. Recall that since $\Psi(x)$ is the solution to the adjoint equation $\Psi'(x) = -A(Q(x))^* \Psi(x)$. Thus the individual components of $\Psi$ are related by
+
+\begin{align*}
+\psi_1' &= -(2q(x) - c) \psi_4 \\
+\psi_2' &= -\psi_1 \\
+\psi_3' &= -\psi_2 - \psi_4 \\
+\psi_4' &= -\psi_3
+\end{align*}
+
+From this we have the relations
+
+\begin{align*}
+\psi_3 &= -\psi_4' \\
+\psi_2 &= -\psi_3' - \psi_4 = \psi_4'' - \psi_4 \\
+\psi_1 &= -\psi_2' = \psi_4''' - \psi_4'
+\end{align*}
+
+By our assumptions above that $\ker H$ is one-dimensional, we have $\psi_4 = q'$. Thus
+
+\[
+\Psi(x) = \begin{pmatrix}
+q''''(x) - q''(x) \\
+q'''(x) - q'(x) \\
+-q''(x) \\
+q'(x)
+\end{pmatrix}
+\]
+
+Thus for the inner product $\langle \Psi(x), Q'(-x) \rangle$ we have
+
+\begin{align*}
+\langle \Psi(x), Q'(-x) \rangle &= (q'''' - q'')(x)q'(-x) + (q''' - q')(x)q''(-x) + -q''(x)q'''(-x) + q'(x)q''''(-x) \\
+&= -(q'''' - q'')(-x)q'(x) - (q''' - q')(-x)q''(x) - -q''(-x)q'''(x) - q'(-x)q''''(x) \\
+&= -\langle \Psi(-x), Q'(x) \rangle
+\end{align*}
+
+where we used the fact that $q'(x)$ is an odd function. We also have for the inner product $\langle \Psi(x), Q_c(-x) \rangle$ 
+
+\begin{align*}
+\langle \Psi(x), Q_c(-x) \rangle &= (q'''' - q'')(x)q_c(-x) + (q''' - q')(x)q_c'(-x) + -q''(x)q_c''(-x) + q'(x)q_c'''(-x) \\
+&= (q'''' - q'')(-x)q_c(x) + (q''' - q')(-x)q_c'(x) + -q''(-x)q_c''(x) + q'(-x)q_c'''(x) \\
+&= \langle \Psi(-x), Q_c(x) \rangle
+\end{align*}
+
+where we used the fact that $q'(x)$ is an odd function and $q_c(x)$ is an even function.
+
+\subsubsection*{Individual Terms}
+
+Now we look at the symmetry of the individual terms in $S$. To do this, we have to consider terms of all orders, which is annoying since we have shown that most of them are small. But we will proceed anyway and see what happens.
+
+Recall that for our two jumps we have
+
+\begin{enumerate}
+
+\item First jump
+
+\begin{align*}
+\langle \Psi(0), &W_1^-(0) - W_1^+(0) \rangle \\
+= &-\langle \psi(L), a_{1}^+\rangle + \lambda^2 d_1 \langle q, q_c \rangle_{L^2(\R)} + \lambda^2 d_1 \int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \\
+&-\lambda^2 d_1 \left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) \\
+&+\left( \int_{-\infty}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_{L}^0 \langle \Psi(y), G_1^+ W_1^+(y) \rangle dy \right) \\
+&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right) 
+\end{align*}
+
+\item Second jump
+
+\begin{align*}
+\langle \Psi(0), &W_1^-(0) - W_1^+(0) \rangle \\
+= &-\langle \psi(L), a_{1}^+\rangle + \lambda^2 d_1 \langle q, q_c \rangle_{L^2(\R)} + \lambda^2 d_1 \int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \\
+&-\lambda^2 d_1 \left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) \\
+&+\left( \int_{-\infty}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_{L}^0 \langle \Psi(y), G_1^+ W_1^+(y) \rangle dy \right) \\
+&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right) 
+\end{align*}
+
+\end{enumerate}
 
 
+
+Let $U$ be the matrix
+
+\[
+U = \begin{pmatrix}0 & 1\\ 1 &0\end{pmatrix}
+\]
+which swaps the two rows of a $2\times2$ matrix.\\
+
+From what we just showed,
+
+\[
+\langle \Psi(L), Q'(-L) \rangle = \langle \Psi(-L), Q'(L) \rangle
+\]
+
+Thus in the matrix $A$ above, $\tilde{a} = -a$, so we have
+
+\begin{align*}
+A = a \begin{pmatrix}
+1 & -1 \\ -1 & 1 
+\end{pmatrix}
+\end{align*}
+
+So we have for the $A$ term
+
+\begin{align*}
+A \begin{pmatrix}d_2\\d_1\end{pmatrix} &= 
+a \begin{pmatrix}1 & -1 \\ -1 & 1 \end{pmatrix}\begin{pmatrix}d_2\\d_1\end{pmatrix} \\
+&= a\begin{pmatrix}d_2 - d_1 \\ -d_2 + d_1 \end{pmatrix}\\
+&= -a\begin{pmatrix}d_1 - d_2 \\ -d_1 + d_2 \end{pmatrix}\\
+&= -a\begin{pmatrix}1 & -1 \\ -1 & 1 \end{pmatrix}\begin{pmatrix}d_1\\d_2\end{pmatrix} \\
+&= -A \begin{pmatrix}d_1\\d_2\end{pmatrix}
+\end{align*}
+
+For the $\lambda^2 M I$ term
+
+\begin{align*}
+(-\lambda)^2 M I \begin{pmatrix}d_2\\d_1\end{pmatrix}
+\end{align*}
 
 \end{document}
