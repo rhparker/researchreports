@@ -906,13 +906,28 @@ V^\pm(x) = Q'(x) + W^\pm(x)
 
 If we plug this into the integrated eigenvalue problem (defined in \texttt{KdV17}), we obtain the following system of equations, which are analogous to (3.7) in Sandstede (1998).
 
-\begin{align*}
+\begin{align*}\label{inteig1}
 W^\pm(x)' &= A(q(x)) W^\pm(x) + \lambda B Q(x) + \lambda K^\pm B W^\pm(x) \\
 W^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
 W^+(0) - W^-(0) &\in \C \psi(0) 
 \end{align*}
 
-We will use the third equation together with the jump distance to conclude that $W^-(0) = W^+(0)$, which is the matching condition we want.\\
+where $K^\pm$ is the integration operator
+
+\[
+(K^\pm F)(x) = \int_{\pm \infty}^x F(y) dy
+\]
+
+Note that for the above problem to make sense, we need the RHS of the $W^\pm$ equation in \eqref{inteig1} to be continuous at $x = 0$. Suppose we have found a solution to \eqref{inteig1} such that $W^-(0) = W^+(0)$. Then since $Q(x)$ is continuous, the RHS matches at 0 if and only if 
+
+\begin{align*}
+0 &= \lambda (K^- B W^-)(0) - \lambda (K^- B W^+)(0) \\
+&= \lambda \left( \int_{-\infty}^0 BW^-(y) dy + \int_0^{\infty} BW^+(y) dy\right)
+\end{align*}
+
+In other words, this makes sense only if $\lambda = 0$ or the other term in the RHS is 0. In the latter case, we will say that the mean zero condition for $W^\pm$ is satisfied. So for $\lambda \neq 0$, the eigenvalue problem and the integrated eigenvalue problem are equivalent if and only if the mean zero condition is satisfied. I have no idea how (or if) we can guarantee this condition, but it will be essential to what follows.\\
+
+We will use the third equation in \eqref{inteig1} together with the jump distance to conclude that $W^-(0) = W^+(0)$, which is the matching condition we want.\\
 
 Analogous to (3.14) in Sandstede (1998), we can write the fixed point equations for $W^\pm$ as
 
@@ -987,19 +1002,19 @@ Having done this, it only remains to estimate the single jump at $x = 0$.
 Plugging in what we have, we get
 
 \begin{align*}
-\langle\Psi(0), W^+(0) &- W^-(0)\rangle = \langle \Psi(0), \Phi^u_-(0, 0)b^- + \int_{-\infty}^0 \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + \lambda B Q(y) ] dy  \\
-&- \Phi^s_+(0, 0)b^+ - \int_\infty^0 \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + \lambda B Q(y) ] dy \rangle\\
-&= \langle \Psi(0), b^- - b^+\rangle + \int_{-\infty}^0 \langle \Psi(0), \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + \lambda B Q(y) ] \rangle dy  \\
+\langle\Psi(0), W^+(0) &- W^-(0)\rangle = \langle \Psi(0), \Phi^u_-(0, 0)b^- \rangle + \int_{-\infty}^0 \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + \lambda B Q(y) ] dy  \\
+&- \langle \Psi(0), \Phi^s_+(0, 0)b^+ \rangle - \int_\infty^0 \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + \lambda B Q(y) ] dy \rangle\\
+&= \langle \Psi(0), b^- \rangle - \langle \Psi(0), b^+ \rangle + \int_{-\infty}^0 \langle \Psi(0), \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + \lambda B Q(y) ] \rangle dy  \\
 &- \int_\infty^0 \langle \Psi(0), \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + \lambda B Q(y) ] \rangle dy  \\
 &= \int_{-\infty}^0 \langle \Psi(y), \lambda (K^- B W^-)(y) + \lambda B Q(y) \rangle dy \\
-&- \int_\infty^0 \langle \Psi(y), \lambda (K^+ B W^+)(y) + \lambda B Q(y)  \rangle dy \\
-&= \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) > dy + \int_\infty^0 \langle \Psi(y), \lambda (K^+ B W^+)(y) \rangle dy \right) \\
+&+ \int_0^\infty \langle \Psi(y), \lambda (K^+ B W^+)(y) + \lambda B Q(y)  \rangle dy \\
+&= \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), \lambda (K^+ B W^+)(y) \rangle dy \right) \\
 &+ \lambda \int_{-\infty}^\infty \langle\Psi(y), BQ(y) \rangle dy
 \end{align*}
 
-I am pretty sure that we matched things so that $b^+ = b^-$ (I CANNOT TELL IN THE PAPER WHERE THIS IS DONE, BUT THIS APPEARS TO BE USED IN (3.48) IN SANDSTEDE (1998)), so this term cancels.\\
+where we terms involving the $b^\pm$ are zero since $b^\pm \perp \Psi(0)$.\\
 
-The final integral on the RHS is the Melnikov integral, which we claim is 0. To see this, we first note that for the linearization of the fourth-order equation about the single pulse $q$, i.e. $H = \partial_x^4 - \partial_x^2 + c - 2q$, $Hq_c = -q$. (To show this, plug it in and use the fact that $q$ solves the orginal nonlinear 4th order equation.) Using this and the definition of $B$ (see \texttt{KdV17}) we have
+The final integral on the RHS is the standard Melnikov integral, which we claim is 0. To see this, we first note that for the linearization of the fourth-order equation about the single pulse $q$, i.e. $H = \partial_x^4 - \partial_x^2 + c - 2q$, $Hq_c = -q$. (To show this, plug it in and use the fact that $q$ solves the orginal nonlinear 4th order equation.) Using this and the definition of $B$ (see \texttt{KdV17}) we have
 
 \begin{align*}
  \int_{-\infty}^\infty \langle \Psi(y), BQ(y) \rangle dy &=  \int_{-\infty}^\infty \psi(y) q(y) dy \\
@@ -1041,10 +1056,97 @@ We have shown that $\Psi' = -A(q(x))^*\Psi$ is equivalent to $\Psi_4 \in \ker H$
 Thus for our jump we have
 
 \[
-\langle \Psi(0), W^+(0) - W^-(0) \rangle = \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_\infty^0 \langle \Psi(y), \lambda (K^+ B W^+)(y) \rangle dy \right) 
+\langle \Psi(0), W^+(0) - W^-(0) \rangle = \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), \lambda (K^+ B W^+)(y) \rangle dy \right) 
 \]
 
-At this point, we can plug in our expressions for $W^\pm$ from above and see what we get. The idea is to get something equivalent to a Melnikov integral, but as a coefficient of $\lambda^2$. Looking at what we have, when we plug in $W^\pm$, the term in $BQ(y)$ will give us what we want. Unfortunately, this is a really big mess, so we will approach this from another angle.
+At this point, we can plug in our expressions for $W^\pm$ from above and see what we get. Unfortunately, this is a really big mess, so we will approach this from another angle. From what we have proved, we know that $W^\pm$ is analytic in $\lambda$, so we can expand it as a Taylor series in $\lambda$ about $\lambda = 0$. The constant term in the Taylor expansion must be zero since we know what happens when $\lambda = 0$. Thus we have
+
+\[
+W(\lambda, x)^\pm = \lambda V^\pm(x) + \mathcal{O}(\lambda^2)
+\]
+
+If we substitute this into our expression for $W^\pm(x)$ we get (neglecting the higher order term)
+
+\begin{align*}
+\lambda (V^\pm)'(x) &= A(q(x)) \lambda V^\pm(x) + \lambda B Q(x) + \lambda^2 K^\pm B V^\pm(x) 
+\end{align*}
+
+Since we are interested in $\lambda \neq 0$ and we know what happens when $\lambda = 0$, we can divide by $\lambda$ to get
+
+\begin{align*}
+(V^\pm)'(x) &= A(q(x))V^\pm(x) + B Q(x) + \lambda K^\pm B V^\pm(x) 
+\end{align*}
+
+To find $V^\pm(x)$, we set $\lambda = 0$ to cancel the last term on the RHS to get
+
+\begin{align*}
+(V^\pm)'(x) &= A(q(x))V^\pm(x) + B Q(x) 
+\end{align*}
+
+which we have shown has unique solution $V^\pm(x) = -Q_c(x)$. In this case, $-Q_c(x)$ is continuous, so the two pieces $V^\pm(x)$ are automatically connected at $x = 0$. So we have written $W^\pm$ as
+
+\[
+W(\lambda, x)^\pm = -Q_c(x) + \mathcal{O}(\lambda^2)
+\]
+
+It remains to verify the other pieces to the original problem. First we need to verify that
+
+\[
+W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^- 
+\]
+
+In other words, we need to show that $W^\pm(0) \perp Q'(0)$ for the expression we have for $W^\pm$. For this to be true, it must hold for the lowest order term, i.e. we need to show that $Q_c(0) \perp Q'(0)$. To do this, we take the standard $\R^4$ inner product to get
+
+\begin{align*}
+\langle Q_c(0), Q'(0) \rangle &= 
+\langle 
+\begin{pmatrix}q_c(0)\\ q_{cx}(0)\\ q_{cxx}(0)\\q_{cxxx}(0)\end{pmatrix}
+\begin{pmatrix}q_x(0)\\ q_{xx}(0)\\ q_{xxx}(0)\\q_{xxxx}(0)\end{pmatrix}
+\rangle\\
+&= \begin{pmatrix}q_c(0)\\ 0\\ q_{cxx}(0)\\0\end{pmatrix}
+\begin{pmatrix}0\\ q_{xx}(0)\\ 0\\q_{xxxx}(0)\end{pmatrix}\\
+&= 0
+\end{align*}
+
+where we used the fact that $q_c$ is an even function and $q'$ is an odd function. Thus we have verified this condition. The final condition to verify is 
+
+\[
+W^+(0) - W^-(0) \in \C \psi(0) 
+\]
+
+For the leading order term $V^\pm = -Q_c$ this becomes
+
+\[
+Q_c^+(0) - Q_c^-(0) \in \C \psi(0) 
+\]
+
+which is trivially true since $Q_c$ is continuous.\\
+
+Having verified these conditions, we can write
+
+\[
+W^\pm(x) = -\lambda Q_c(x) + \lambda^2 \tilde{W}^\pm(x) 
+\]
+
+Plugging this in to our jump equation, we have
+
+\begin{align*}
+\langle &\Psi(0), W^+(0) - W^-(0) \rangle \\
+&= -\lambda^2 \left( \int_{-\infty}^0 \langle \Psi(y), (K^- B Q_c)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K^+ B Q_c)(y) \rangle dy \right) \\
+&+ \lambda^3 \left( \int_{-\infty}^0 \langle \Psi(y), (K^- B \tilde{W}^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), \lambda (K^+ B \tilde{W}^+)(y) \rangle dy \right) 
+\end{align*}
+
+We are only concerned with the coefficient of $\lambda^2$. Since we know that the 4th component of $\Psi$ is $q'$, this becomes (upon integration by parts)
+
+\begin{align*}
+\int_{-\infty}^0 &\langle \Psi(y), (K^- B Q_c)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K^+ B Q_c)(y) \rangle dy\\
+&= \int_{-\infty}^0 q'(y) \int_{-\infty}^y q_c(z) dzdy + \int_0^\infty q'(y) \int_{\infty}^y q_c(z) dz dy\\
+&= q(y) \int_{-\infty}^y q_c(z) dz \Big|_{-\infty}^0 - \int_{-\infty}^0 q(y)q_c(y) dy + q(y) \int_{\infty}^y q_c(z) dz \Big|_0^\infty - \int_0^\infty q(y)q_c(y) dy\\
+&= q(0) \left( \int_{-\infty}^0 q_c(z) dz - \int_{\infty}^0 q_c(z) dz \right) - \int_{-\infty}^\infty q(y) q_c(y) dy\\
+&= q(0) \int_{-\infty}^\infty q_c(z) dz - \int_{-\infty}^\infty q(y) q_c(y) dy
+\end{align*}
+
+The second term on the RHS is the higher order Melnikov integral that we want. The first term on the RHS is the annoying boundary term which we got before when we did this the other way. I am not sure what to do from here.
 
 \subsection*{Second Construction}
 
