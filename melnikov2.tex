@@ -42,9 +42,11 @@
 
 \begin{document}
 
-\section*{Melnikov Integrals for Linearization of KdV5 about Single Pulse}
+\section*{Melnikov Integrals for Eigenfunctions of KdV5}
 
-\subsection*{Preliminaries}
+\subsection*{Introduction}
+
+\subsubsection*{Prelimiaries}
 
 A single-pulse solution $q(x; c)$ to KdV5 is a homoclinic orbit connecting the equilibrium solution at 0 to itself. The single pulse solves the stationary KdV5 equation
 
@@ -92,7 +94,9 @@ Since we know the form of the Hamiltonian explicitly, we can compute its total d
 DH(u, u', u'', u''') = (cu - u^2, u''' - u', -u'', u') = (u(c - u), u''' - u', -u'', u') 
 \end{equation}
 
-We are interested in the derivative of the Hamiltonian at the peak of a single pulse solution. We make the following hypothesis about the existence of a single-pulse solution (although this might have been proved in the literature; we will look this up)
+\subsubsection*{Single Pulse Solutions}
+
+We are interested in the derivative of the Hamiltonian at the peak of a single pulse solution. We make the following hypothesis about the existence of a single-pulse solution (although Chugunova and Pelinovsky actually have an exact solution for a specific value of $c$, so it's not really necessary)
 
 \begin{hypothesis}\label{singlepulseexists}
 For a speed $c_0 > 0$, a single pulse solution $q_0(x) = q(x; c_0)$ exists to \eqref{4thorder}. This single pulse solution is a homoclinic orbit connecting the equilibrium at $u = 0$ to itself and is exponentially localized.
@@ -898,270 +902,230 @@ Note that by Cauchy-Schwarz, $\langle q, q_c\rangle_{L^2(\R)} \leq ||q||_{L^2(\R
 
 \subsection*{Single Pulse, Construction of Eigenfunction}
 
-Here we present one construction of the eigenfunction corresponding to an eigenvalue near 0 for the linearization of KdV5 about the single pulse. This corresponds to Sandstede (1998). For the single pulse, we only have two pieces which are connected by a single join at $x = 0$. We write the piecewise eigenfunction $V^\pm$ as a perturbation of the derivative $Q'$ of the single pulse, since we know that $Q'$ is an eigenfunction with eigenvalue 0. 
+We are interested in constructing the eigenfunction of the linearization about the single pulse solution of KdV5. Although we know that the derivative of the single pulse is the only (non-generalized) eigenfunction, this should allow us to construct the Evans function, which can then be extended to the multipulse case. There are many ways in which we could do this. Here is a summary of some things we could or did try, together with remarks about why they did not work.
+
+\begin{enumerate} 
+	\item Use construction from Sandstede (1998). We cannot do this directly, since the matrix representing linearization of KdV5 about the zero-solution is not hyperbolic. (There is always an eigenvalue at 0 representing translation invariance.) We could, however, use this method in an exponentially weighted space.
+	\item Form an ``integrated eigenvalue problem'' by integrating both sides of $\partial_x H v = \lambda v$ with sufficient limits of integration. If we do that, integrating the ``negative piece'' from $-\infty$ and the ``positive'' piece from $\infty$, we need an additional ``mean-zero'' condition to get the Melnikov term we want.
+\end{enumerate}
+
+There are a few more things left to try, so let's do that now.
+
+\subsubsection*{Integrated eigenvalue problem, integrate from below}
+
+Here we present a different version of the integrated eigenvalue problem, where we integrate from $-\infty$ on both pieces. Recall that the eigenvalue problem we are interested in is given by
+
+\[
+\partial_x H v = \lambda v
+\]
+
+We write the eigenfunction piecewise as a perturbation of the zero-eigenfunction, which is the derivative of the single pulse: $v^\pm = q' + w^\pm$. Substituting this in, and using the fact that $Hq' = 0$, we get
+
+\[
+\partial_x H w^\pm = \lambda q' + \lambda w^\pm
+\]
+
+Now we integrate from $-\infty$ to $x$. Note that when we do this for the ``positive'' piece, we have to integrate across the entire ``negative'' piece. There is no boundary term at $-\infty$ since we are assuming the pulse decays (exponentially) at the ends.
 
 \begin{align*}
-V^\pm(x) = Q'(x) + W^\pm(x)
+H w^-(x) &= \lambda q + \lambda \int_{-\infty}^x w^-(y) dy \\
+H w^+(x) &= \lambda q + \lambda \int_{-\infty}^0 w^-(y) dy + \lambda \int_0^x w^+(y) dy \\
 \end{align*}
 
-If we plug this into the integrated eigenvalue problem (defined in \texttt{KdV17}), we obtain the following system of equations, which are analogous to (3.7) in Sandstede (1998).
+If we define $z^\pm$ by
+
+\begin{align*}
+z^- &= 0 \\
+z^+ &= \int_{-\infty}^0 w^-(y) dy
+\end{align*}
+
+we can combine these into a single line
+
+\[
+H w^\pm = \lambda(q + z^\pm) + \lambda \int_{a^\pm}^x w^\pm dy
+\]
+
+where $a^- = -\infty$ and $a^+ = 0$. Converting this into a first order system, we have
+
+\begin{equation}
+(W^\pm)' = A(Q)W^\pm + \lambda B (Q + Z^\pm) + \lambda K^\pm B W^\pm
+\end{equation}
+
+where $K$ is the integration operator with lower limits $a^\pm$ and $B$ is the matrix
+\[
+\begin{pmatrix}0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 \\1 & 0 & 0 & 0 \end{pmatrix}
+\]
+
+
+This we obtain the following system of equations, which is analogous to (3.7) in Sandstede (1998).
 
 \begin{align*}\label{inteig1}
-W^\pm(x)' &= A(q(x)) W^\pm(x) + \lambda B Q(x) + \lambda K^\pm B W^\pm(x) \\
+(W^\pm)' &= A(Q)W^\pm + \lambda B (Q + Z^\pm) + \lambda K^\pm B W^\pm\\
 W^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
 W^+(0) - W^-(0) &\in \C \psi(0) 
 \end{align*}
 
-where $K^\pm$ is the integration operator
-
-\[
-(K^\pm F)(x) = \int_{\pm \infty}^x F(y) dy
-\]
-
-Note that for the above problem to make sense, we need the RHS of the $W^\pm$ equation in \eqref{inteig1} to be continuous at $x = 0$. Suppose we have found a solution to \eqref{inteig1} such that $W^-(0) = W^+(0)$. Then since $Q(x)$ is continuous, the RHS matches at 0 if and only if 
-
-\begin{align*}
-0 &= \lambda (K^- B W^-)(0) - \lambda (K^- B W^+)(0) \\
-&= \lambda \left( \int_{-\infty}^0 BW^-(y) dy + \int_0^{\infty} BW^+(y) dy\right)
-\end{align*}
-
-In other words, this makes sense only if $\lambda = 0$ or the term in parentheses on the RHS is 0. In the latter case, we will say that the mean zero condition for $W^\pm$ is satisfied. \\
-
-Thus for $\lambda \neq 0$, if we write $V^\pm(x) = Q'(x) + W^\pm(x)$, $W^\pm(x)$ solves the eigenvalue problem if and only if $W^\pm(x)$ solves the integrated eigenvalue problem and the mean-zero condition is satisfied.\\
-
-I have no idea how (or if) we can obtain the mean-zero condition, but it will be essential to what follows.\\
-
-We will use the third equation in \eqref{inteig1} together with the jump distance to conclude that $W^-(0) = W^+(0)$, which is the matching condition we want.\\
+For the above problem to make sense, we need the RHS of the $W^\pm$ equation in to be continuous at $x = 0$. Suppose we have found a solution to this such that $W^-(0) = W^+(0)$. Then since we always integrating from $-\infty$, the RHS is continuous at 0 by construction, so we don't have a ``mean-zero'' condition to worry about.\\
 
 Analogous to (3.14) in Sandstede (1998), we can write the fixed point equations for $W^\pm$ as
 
 \begin{align*}
-W^-(x) = \Phi^u_-(x, 0)b^- &+ \int_0^x \Phi^u_-(x, y)[\lambda (K^- B W^-)(y) + \lambda B Q(y) ] dy \\
-&+ \int_{-\infty}^x \Phi^s_-(x, y)[\lambda (K^- B W^-)(y) + \lambda B Q(y) ] dy \\
-W^+(x) = \Phi^s_+(x, 0)b^+ &+ \int_0^x \Phi^s_+(x, y)[\lambda (K^+ B W^+)(y) + \lambda B Q(y) ] dy \\
-&+ \int_{\infty}^x \Phi^u_+(x, y)[\lambda (K^+ B W^+)(y) + \lambda B Q(y) ] dy
+W^-(x) = \Phi^u_-(x, 0)b^- &+ \int_0^x \Phi^u_-(x, y)[\lambda (K^- B W^-)(y) + \lambda B (Q(y) + Z^-) ] dy \\
+&+ \int_{-\infty}^x \Phi^s_-(x, y)[\lambda (K^- B W^-)(y) + \lambda B (Q(y) + Z^-)] dy \\
+W^+(x) = \Phi^s_+(x, 0)b^+ &+ \int_0^x \Phi^s_+(x, y)[\lambda (K^+ B W^+)(y) + \lambda B(Q(y) + Z^+)] dy \\
+&+ \int_{\infty}^x \Phi^u_+(x, y)[\lambda (K^+ B W^+)(y) + \lambda B (Q(y) + Z^+) ] dy
 \end{align*}
 
-In particular, note that compared to the double pulse (see \textrm{KdV17}), the boundary term is gone, and there is no longer a match at $\pm L$. To solve this, we use the equivalent of Lemmas 3.3 - 3.5 in Sandstede (1998).
-
-\begin{lemma}\label{inv1}
-There exist operators $B_1(\lambda)$ and $W_3(\lambda)$ such that 
-\[
-(b, W) = (B_1(\lambda), W_3(\lambda))
-\]
-Any bounded solution is given by this, and these operators are analytic in $\lambda$. We have the estimates
-\begin{align*}
-|B_1(\lambda)| &\leq C|\lambda| \\
-||W_3(\lambda)||_\alpha &\leq C|\lambda|
-\end{align*}
-where $\alpha$ is chosen so that $0 < \alpha < \alpha^s, \alpha^u$
-\begin{proof}
-We follow what we did in \texttt{KdV17} as well as Lemmas 3.3 - 3.5 in Sandstede (1998), but we make the necessary simplifications for the single pulse. As in \texttt{KdV17}, we work in the exponentially weighted spaces $C^0_\alpha(-\infty, 0]$ and $C^0_\alpha[0, \infty)$, where $\alpha$ is chosen as above. These spaces and their norms are defined in \texttt{KdV17}. We define the linear operators $(L_1(\lambda)W^\pm)(x)$ from the exponentially weighted spaces to themselves by
-
-\begin{align*}
-(L_1(\lambda)W^-)(x) &= \lambda \left( \int_0^x (K_i^- B W^-)(y) dy + \int_{-\infty}^x (K_i^-B W^-)(y) dy \right) \\
-(L_1(\lambda)W^+)(x) &= \lambda \left( \int_0^x (K_i^+ B W^+)(y) dy + \int_{\infty}^x (K_i^+ B W^+)(y) dy \right)
-\end{align*}
-We showed in \texttt{KdV17} that this operator is well-defined, i.e. it actually maps the exponentially weighted spaces to themselves, and that $||L_1(\lambda)W||_\alpha \leq C||W||_\alpha$ for our choice of $\alpha$.\\
-
-We also define the linear operators $(L_2(\lambda)b)(x)$ from $\R^n$ to our exponentially weighted space by
-
-\begin{align*}
-(L_2(\lambda))(b^-) &= \Phi^u_-(x, 0)b^- + \lambda \left( \int_0^x \Phi^u_-(x, y) B Q(y)dy + \int_{-\infty}^x \Phi^s_-(x, y)B Q(y) dy \right)\\
-(L_2(\lambda))(b^+) &= \Phi^s_+(x, 0)b^+ + \lambda \left( \int_0^x \Phi^s_+(x, y) B Q(y) dy + \int_{\infty}^x \Phi^u_+(x, y) B Q(y) dy \right)
-\end{align*}
-
-Since this is a simplified version of the operator in Lemma 3.3 of Sandstede (1998), the estimate there applies in this case, and we have
-
-\[
-||L_2(\lambda)(b)|| \leq C|b|
-\]
-
-Writing the fixed point problem as $(I - L_1(\lambda))W = L_2(\lambda)(b)$, we can invert the operator ($(I - L_1(\lambda))$ to get
-\[
-W = (I - L_1(\lambda))^{-1} L_2(\lambda)(b) := W_1(\lambda)(b)
-\]
-with 
-\[
-||W_1(\lambda)(b)||_\alpha \leq C|b|
-\]
-
-Since we only have the join at $x = 0$ (i.e. we do not have the $d_i$), we do not need an equivalent to Lemma 3.4. Since the only thing we have changed is the function space (nonweighted to exponentially weighted), Lemma 3.5 should apply unchanged. Since there is no $a$ or $d$, $W_3 = W_1$. The only thing we need to be careful of is that $B_1(\lambda)$ is a function of $d$, which we do not have here. We should be able to take $d = 1$ (since it always takes that value here) and be all set. Thus applying Lemma 3.5 gives us
-
-\begin{align*}
-(b, W) = (B_1(\lambda), W_3(\lambda))
-|B_1(\lambda)| &\leq C|\lambda| \\
-||W_3(\lambda)||_\alpha &\leq C|\lambda|
-\end{align*}
-
-which is the result we want.
-\end{proof}
-\end{lemma}
-
-Having done this, it only remains to estimate the single jump at $x = 0$.
+To estimate the single jump at $x = 0$ we compute
 \[
 \xi = \langle \Psi(0), W^+(0) - W^-(0) \rangle
 \]
 
-Plugging in what we have, we get
+Plugging in the fixed point equations, and using $Z^- = 0$, this becomes
 
 \begin{align*}
-\langle\Psi(0), W^+(0) &- W^-(0)\rangle = \langle \Psi(0), \Phi^u_-(0, 0)b^- \rangle + \int_{-\infty}^0 \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + \lambda B Q(y) ] dy  \\
-&- \langle \Psi(0), \Phi^s_+(0, 0)b^+ \rangle - \int_\infty^0 \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + \lambda B Q(y) ] dy \rangle\\
+\langle\Psi(0), W^-(0) &- W^+(0)\rangle = \langle \Psi(0), \Phi^u_-(0, 0)b^- \rangle + \int_{-\infty}^0 \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + \lambda B Q(y) ] dy  \\
+&- \langle \Psi(0), \Phi^s_+(0, 0)b^+ \rangle - \int_\infty^0 \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + \lambda B (Q(y) + Z^+) ] dy \rangle\\
 &= \langle \Psi(0), b^- \rangle - \langle \Psi(0), b^+ \rangle + \int_{-\infty}^0 \langle \Psi(0), \Phi^s_-(0, y)[\lambda (K^- B W^-)(y) + \lambda B Q(y) ] \rangle dy  \\
-&- \int_\infty^0 \langle \Psi(0), \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + \lambda B Q(y) ] \rangle dy  \\
+&- \int_\infty^0 \langle \Psi(0), \Phi^u_+(0, y)[\lambda (K^+ B W^+)(y) + \lambda B (Q(y) + Z^+) ] \rangle dy  \\
 &= \int_{-\infty}^0 \langle \Psi(y), \lambda (K^- B W^-)(y) + \lambda B Q(y) \rangle dy \\
-&+ \int_0^\infty \langle \Psi(y), \lambda (K^+ B W^+)(y) + \lambda B Q(y)  \rangle dy \\
-&= \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), \lambda (K^+ B W^+)(y) \rangle dy \right) \\
-&+ \lambda \int_{-\infty}^\infty \langle\Psi(y), BQ(y) \rangle dy
+&+ \int_0^\infty \langle \Psi(y), \lambda (K^+ B W^+)(y) + \lambda B (Q(y) + Z^+)  \rangle dy \\
+&= \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K^+ B W^+)(y) \rangle dy \right) \\
+&+ \lambda \int_{-\infty}^\infty \langle\Psi(y), BQ(y) \rangle dy + \lambda \int_{-\infty}^0 \langle \Psi(y), B Z^+ \rangle dy
 \end{align*}
 
 where we terms involving the $b^\pm$ are zero since $b^\pm \perp \Psi(0)$.\\
 
-The final integral on the RHS is the standard Melnikov integral, which we claim is 0. To see this, we first note that for the linearization of the fourth-order equation about the single pulse $q$, i.e. $H = \partial_x^4 - \partial_x^2 + c - 2q$, $Hq_c = -q$. (To show this, plug it in and use the fact that $q$ solves the orginal nonlinear 4th order equation.) Using this and the definition of $B$ (see \texttt{KdV17}) we have
+The second integral on the RHS is the standard Melnikov integral, which we have shown is 0. Thus we have for our jump
 
 \begin{align*}
- \int_{-\infty}^\infty \langle \Psi(y), BQ(y) \rangle dy &=  \int_{-\infty}^\infty \psi(y) q(y) dy \\
-&= \langle \psi, q \rangle_{L^2(\R)} = -\langle \psi, H q_c \rangle_{L^2(\R)} \\
-&= -\langle H^* \psi, q_c\rangle_{L^2(\R)} = -\langle H \psi, q_c \rangle_{L^2(\R)}
+\langle\Psi(0), W^-(0) &- W^+(0)\rangle \\
+&= \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K^+ B W^+)(y) \rangle dy \right) + \lambda \int_{-\infty}^0 \langle \Psi(y), B Z^+ \rangle dy
 \end{align*}
 
-The final inner product is well-defined by Cauchy-Schwarz since $\langle H \psi, q_c \rangle_{L^2(\R)} \leq ||H \psi||_{L^2(\R)} |q_c|_{L^2(\R)}$ and $q_c \in L^2(\R)$ by Lemma \ref{qc}. (We will show below that $H \psi$ = 0). The inner product $\langle \psi, q \rangle_{L^2(\R)}$ is similarly well-defined since $q$ is exponentially localized, as is $\psi$. (We sill show below that $\psi \in \ker H$, and since we are assuming that $\ker H$ is one-dimensional, $\psi$ is a multiple of $q'$, which is exponentially localized).\\
-
-All that remains is show that $\psi \in \ker H$. Recall that the matrix $B$ places the 1st component of a vector into the 4th component and zeros out all the other components. Since $BQ(y)$ places the pulse $q(y)$ into the 4th component, $\psi$ is the 4th component of $\Psi$. $\Psi$ is the solution to the adjoint variational equation $U' = -A(q(x))^*U$, where 
-
-\[ 
-A(q(x))^* = 
- \begin{pmatrix}0 & 0 & 0 & 2q_2(x) - c \\ 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 1 \\ 0 & 0 & 1 & 0\end{pmatrix}
-\]
-
-This can be broken down into the four equations
+Before we go any further, we will integrate by parts on the RHS. We have already shown that the 4th component of $\Psi$ is $q'$, so we will use that here.
 
 \begin{align*}
-\Psi_1' &= -(2q(x) - c) \Psi_4 \\
-\Psi_2' &= -\Psi_1 \\
-\Psi_3' &= -\Psi_2 - \Psi_4 \\
-\Psi_4' &= -\Psi_3
+\int_{-\infty}^0 \langle \Psi(y), &(K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K^+ B W^+)(y) \rangle dy\\
+&= \int_{-\infty}^0 q'(y) \int_{-\infty}^y w^-(z) dzdy + \int_0^\infty q'(y) \int_{0}^y w^+(z) dz dy \\
+&=  q(y) \int_{-\infty}^y w^-(z) dz \Big|_{-\infty}^0 - \int_{-\infty}^0 q(y)w^-(y) dy + q(y) \int_{0}^y w^+(z) dz \Big|_0^\infty - \int_0^\infty q(y)w^+(y) dy \\
+&= q(0) \int_{-\infty}^0 w^-(z) dz - \left( \int_{-\infty}^0 q(y)w^-(y) dy + \int_0^\infty q(y)w^+(y) dy \right)
 \end{align*}
 
-The scalar function $\psi$ we want is the fourth component $\Psi_4$. We will show that $H \Psi_4 = 0$, i.e. $\Psi_4 \in \ker H$.
+The term in parentheses on the RHS looks good, but we have a boundary term before that, which doesn't look good. Evaluating our other boundary term, we have
 
 \begin{align*}
-H \Psi_4 &= \Psi''''_4 - \Psi''_4 + (c - 2q(x))\Psi_4 \\
-&= -\Psi'''_3 + \Psi_3' + \Psi_1' \\
-&= \Psi''_2 + \Psi''_4 + \Psi_3' + \Psi_1' \\
-&= -\Psi_1' - \Psi_3' + \Psi_3' + \Psi_1'\\
-&= 0
+\int_{-\infty}^0 \langle \Psi(y), B Z^+ \rangle dy &= \int_{-\infty}^0 q'(y) \int_{-\infty}^0 w^-(z) dz dy \\
+&= \int_{-\infty}^0 q'(y) dy \int_{-\infty}^0 w^-(y) dy \\
+&= q(0) \int_{-\infty}^0 w^-(y)
 \end{align*}
 
-We have shown that $\Psi' = -A(q(x))^*\Psi$ is equivalent to $\Psi_4 \in \ker H$. Since $H \psi = H \Psi_4 = 0$, we can conclude that the Melnikov integral above is 0. Since we are assuming that $\ker H$ is 1-dimensional and we know that $q' \in \ker H$, we conclude that $\psi = q'$.
-\\
+Combining these for our jump, we have
 
-Thus for our jump we have
+\begin{align*}
+\langle\Psi(0), W^-(0) &- W^+(0)\rangle \\
+&= \lambda\left[ q(0) \int_{-\infty}^0 w^-(y) dy + q(0) \int_{-\infty}^0 w^-(y) - \left( \int_{-\infty}^0 q(y)w^-(y) dy + \int_0^\infty q(y)w^+(y) dy \right) \right] \\
+&= \lambda\left[ 2 q(0) \int_{-\infty}^0 w^-(y) - \left( \int_{-\infty}^0 q(y)w^-(y) dy + \int_0^\infty q(y)w^+(y) dy \right) \right] 
+\end{align*}
+
+Thus we have a similar boundary condition to before and conclude that the integrated eigenvalue problem is likely not going to be useful, even if we use limits of integration which guarantee continuity across the join point.
+
+\subsubsection*{Exponentially weighted space}
+
+We will pose our eigenvalue problem in the exponentially weighted space $H_a^k(\R)$, where $a$ is the exponential weight, and the norm of the space is given by
 
 \[
-\langle \Psi(0), W^+(0) - W^-(0) \rangle = \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K^- B W^-)(y) \rangle dy + \int_0^\infty \langle \Psi(y), \lambda (K^+ B W^+)(y) \rangle dy \right) 
+||u|_{H_a^k(\R)} = ||e^{ax}u||_{H^k}
 \]
 
-At this point, we can plug in our expressions for $W^\pm$ from above and see what we get. Unfortunately, this is a really big mess, so we will approach this from another angle. \\
-
-Before we go any further, we will integrate by parts on the RHS.
-
-\begin{align*}
-\langle \Psi(0), &W^+(0) - W^-(0) \rangle = \lambda\left( \int_{-\infty}^0 q'(x) \int_{-\infty}^x w^-(y) dy dx + \int_0^{\infty} q'(x) \int_{\infty}^x w^+(y) dy dx \right) \\
-&= \lambda \left( \int_{-\infty}^0 q'(y) \int_{-\infty}^y w^-(z) dzdy + \int_0^\infty q'(y) \int_{\infty}^y w^+(z) dz dy \right)\\
-&= \lambda \left( q(y) \int_{-\infty}^y w^-(z) dz \Big|_{-\infty}^0 - \int_{-\infty}^0 q(y)w^-(y) dy + q(y) \int_{\infty}^y w^+(z) dz \Big|_0^\infty - \int_0^\infty q(y)w^+(y) dy \right) \\
-&= \lambda \left( q(0) \int_{-\infty}^0 w^-(z) dz - q(0) \int_{\infty}^0 w^+(z) dz \right) - \lambda \left( \int_{-\infty}^0 q(y)w^-(y) dy +  \int_0^\infty q(y)w^+(y) dy \right) \\
-&= \lambda q(0) \left( \int_{-\infty}^0 w^-(z) dz + \int_0^\infty w^+(z) dz \right) - \lambda \left( \int_{-\infty}^0 q(y)w^-(y) dy +  \int_0^\infty q(y)w^+(y) dy \right) \\
-&= \lambda q(0) \left( \int_{-\infty}^0 BW^-(z) dz + \int_0^\infty BW^+(z) dz \right) - \lambda \left( \int_{-\infty}^0 q(y)w^-(y) dy +  \int_0^\infty q(y)w^+(y) dy \right) \\
-\end{align*}
-
-The first term in parentheses on the RHS is the mean-zero condition. Since for $\lambda \neq 0$ we need this satisfied for the integrated eigenvalue problem to make sense and to imply a solution to the eigenvalue problem, we will assume for now that we have somehow satisfied that criterion. NOTE THAT WE HAVE NO IDEA AT PRESENT HOW WE WILL DO THAT. In that case, this becomes
-
-\begin{align*}
-\langle \Psi(0), &W^+(0) - W^-(0) \rangle = - \lambda \left( \int_{-\infty}^0 q(y)w^-(y) dy +  \int_0^\infty q(y)w^+(y) dy \right) \\
-\end{align*}
-
-Now we look for an expansino for $W^\pm$. From what we have proved, we know that $W^\pm$ is analytic in $\lambda$, so we can expand it as a Taylor series in $\lambda$ about $\lambda = 0$. The constant term in the Taylor expansion must be zero since we know what happens when $\lambda = 0$. Thus we have
+The (unweighted) linear operator is
 
 \[
-W(\lambda, x)^\pm = \lambda V^\pm(x) + \mathcal{O}(\lambda^2)
+L = \partial_x H = \partial_x^5 - \partial_x^3 + (c - 2q(x))\partial_x - 2 q_x(x)
 \]
 
-If we substitute this into our expression for $W^\pm(x)$ we get (neglecting the higher order term)
+We can write the eigenvalue problem as a first-order system. After doing this, the eigenvalue problem becomes (for fixed $c$) $V' = A(q, 0)V + \lambda B V$, where V = $(v, v', v'', v''', v'''')$ and we have the matrices
 
 \begin{align*}
-\lambda (V^\pm)'(x) &= A(q(x)) \lambda V^\pm(x) + \lambda B Q(x) + \lambda^2 K^\pm B V^\pm(x) 
+B = \begin{pmatrix}0 & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\1 & 0 & 0 & 0 & 0 \end{pmatrix} && 
+A(q, 0) = \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
+2q'(x) & 2q(x) - c & 0 & 1 & 0 \end{pmatrix} 
 \end{align*}
 
-Since we are interested in $\lambda \neq 0$ and we know what happens when $\lambda = 0$, we can divide by $\lambda$ to get
+In the exponentially weighted space, this becomes the operator
+
+\[
+L_a = e^{ax} L e^{-ax}
+\]
+
+The single element in the kernel is $\tilde{q}(x) = e^{ax} q'(x)$, since
 
 \begin{align*}
-(V^\pm)'(x) &= A(q(x))V^\pm(x) + B Q(x) + \lambda K^\pm B V^\pm(x) 
+L_a e^{ax} q'(x) &= e^{ax} L e^{-ax} e^{ax} q'(x) = e^{ax} L q'(x) = 0
 \end{align*}
 
-To find $V^\pm(x)$, we set $\lambda = 0$ to cancel the last term on the RHS to get
+where we used the fact that $q' \in \ker L$. For the generalized kernel, we have the single element $-e^{ax} q_c(x)$, since
 
 \begin{align*}
-(V^\pm)'(x) &= A(q(x))V^\pm(x) + B Q(x) 
+L_a e^{ax} (-q_c(x)) &= e^{ax} L e^{-ax} e^{ax} (-q_c(x)) = e^{ax} L (-q_c(x)) = e^{ax} q'(x)
 \end{align*}
 
-which we have shown has unique solution $V^\pm(x) = -Q_c(x)$. In this case, $-Q_c(x)$ is continuous, so the two pieces $V^\pm(x)$ are automatically connected at $x = 0$. So we have written $W^\pm$ as
+where we used the fact that $L q_c(x) = -q'(x)$.\\
+
+We can also write this as a first order system in the exponentially weighted space. In that case, the eigenvalue problem becomes $V' = A(q, a)V + \lambda B V$, where
 
 \[
-W(\lambda, x)^\pm = -\lambda Q_c(x) + \mathcal{O}(\lambda^2)
+A(q, a) = 
+\begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
+a^5 - a^3 + a c - 2 a q(x) + 2q'(x) & -5a^4 + 3a^2 + 2q(x) - c & -10a^3 + 3a & -10a^2 + 1 & 5a \end{pmatrix} 
 \]
 
-It remains to verify the other pieces to the original problem. First we need to verify that
+If we linearize about the zero-solution, the matrix $A(0, a)$ is hyperbolic for $a \neq 0$ (easy to show numerically, so for now that will do). Thus we can follow the procedure in Sandstede (1998), as long as we set up the problem correctly. So let's do that.\\
+
+Consider the eigenvalue problem
 
 \[
-W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^- 
+V' = A(q, a)V + \lambda B V
 \]
 
-In other words, we need to show that $W^\pm(0) \perp Q'(0)$ for the expression we have for $W^\pm$. For this to be true, it must hold for the lowest order term, i.e. we need to show that $Q_c(0) \perp Q'(0)$. To do this, we take the standard $\R^4$ inner product to get
+and take the eigenvalue $V$ to be a perturbation of the zero-eigenfunction, which in the weighted space is $Q_a$. Recall from above that the first component of this is $q_a(x) = e^{ax} q'(x)$ and the remaining components are the derivatives of this. In other words, we write
+
+\[
+V' = Q_a + W^\pm
+\]
+
+Plugging this into the eigenvalue problem, we have
 
 \begin{align*}
-\langle Q_c(0), Q'(0) \rangle &= 
-\langle 
-\begin{pmatrix}q_c(0)\\ q_{cx}(0)\\ q_{cxx}(0)\\q_{cxxx}(0)\end{pmatrix}
-\begin{pmatrix}q_x(0)\\ q_{xx}(0)\\ q_{xxx}(0)\\q_{xxxx}(0)\end{pmatrix}
-\rangle\\
-&= \langle \begin{pmatrix}q_c(0)\\ 0\\ q_{cxx}(0)\\0\end{pmatrix}
-\begin{pmatrix}0\\ q_{xx}(0)\\ 0\\q_{xxxx}(0)\end{pmatrix} \rangle \\
-&= 0
+(W^\pm)' &= A(q, a)W^\pm + \lambda B Q_a + \lambda B W^\pm \\
+W^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
+W^+(0) - W^-(0) &\in \C \psi(0) 
 \end{align*}
 
-where we used the fact that $q_c$ is an even function and $q'$ is an odd function. Thus we have verified this condition. The final condition to verify is 
-
-\[
-W^+(0) - W^-(0) \in \C \psi(0) 
-\]
-
-For the leading order term $V^\pm = -Q_c$ this becomes
-
-\[
-Q_c^+(0) - Q_c^-(0) \in \C \psi(0) 
-\]
-
-which is trivially true since $Q_c$ is continuous.\\
-
-Having verified these conditions, we can write
-
-\[
-W^\pm(x) = -\lambda Q_c(x) + \lambda^2 \tilde{W}^\pm(x) 
-\]
-
-Plugging this in to our jump equation, we have
+Following Sandstede (1998), we write the fixed-point equations for $W$ as 
 
 \begin{align*}
-\langle \Psi(0), &W^+(0) - W^-(0) \rangle = - \lambda \left( \int_{-\infty}^0 q(y)(-\lambda q_c(y) +\lambda^2 \tilde{w}^+(y)) dy + \int_0^\infty q(y)(-\lambda q_c(y) +\lambda^2 \tilde{w}^-(y)) dy \right) \\ 
-&= \lambda^2 \int_{-\infty}^\infty q(y) q_c(y) dy - \lambda^3 \left( \int_{-\infty}^0 q(y)\tilde{w}^-(y) dy + \int_0^\infty q(y) \tilde{w}^+(y) dy \right) \\
-&= \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \lambda^3 \left( \int_{-\infty}^0 q(y)\tilde{w}^-(y) dy + \int_0^\infty q(y) \tilde{w}^+(y) dy \right) 
+W^-(x) = \Phi^u(x, 0)b^- &+ \int_0^x \Phi^u(x, y)[\lambda B W^-(y) + \lambda B Q_a(y) ] dy \\
+&+ \int_{-\infty}^x \Phi^s(x, y)[\lambda B W^-(y) + \lambda B Q_a(y) ] dy \\
+W^+(x) = \Phi^s(x, 0)b^+ &+ \int_0^x \Phi^s(x, y)[\lambda B W^+(y) + \lambda B Q_a(y) ] dy \\
+&+ \int_{\infty}^x \Phi^u(x, y)[\lambda B W^+(y) + \lambda B Q_a(y) ] dy
 \end{align*}
 
-The coefficient of $\lambda^2$ on the RHS is the higher order Melnikov integral that we want. This agrees with Pego and Weinstein, as well as our intuition. By our hypothesis, this coefficient is nonzero. The other term on the RHS is higher order, and we should be able to handle it with our estimates.
+The jump at $x = 0$ is given by
 
-\subsection*{Double Pulse}
+\begin{align*}
+\langle\Psi(0), W^-(0) &- W^+(0)\rangle = \langle \Psi(0), \Phi^u(0, 0)b^- + \int_{-\infty}^0 \Phi^s(0, y)[\lambda B W^-(y) + \lambda B Q_a(y) ] dy  \\
+&- \Phi^s(0, 0)b^+ - \int_\infty^0 \Phi^u(0, y)[\lambda B W^+(y) + \lambda B Q_a(y) ] dy \rangle\\
+&= \langle \Psi(0), b^- \rangle - \langle \Psi(0), b^+ \rangle + \int_{-\infty}^0 \langle \Psi(0), \Phi^s_-(0, y)[\lambda B W^-(y) + \lambda B Q_a(y) ] \rangle dy  \\
+&- \int_\infty^0 \langle \Psi(0), \Phi^u_+(0, y)[\lambda B W^+(y) + \lambda B Q_a(y) ] \rangle dy  \\
+&= \int_{-\infty}^0 \langle \Psi(y), \lambda B W^-(y) + \lambda B Q_a(y) \rangle dy 
++ \int_0^\infty \langle \Psi(y), \lambda B W^+(y) + \lambda B Q_a(y)  \rangle dy \\
+&= \lambda\left( \int_{-\infty}^0 \langle \Psi(y), B W^-(y) \rangle dy + \int_0^\infty \langle \Psi(y), \lambda B W^+(y) \rangle dy \right) + \lambda \int_{-\infty}^\infty \langle\Psi(y), BQ_a(y) \rangle dy
+\end{align*}
+
+The final integral on the RHS is our first order Melnikov integral. We would like to show this is zero. To do that, we need to determine what $\Psi(y)$ is in this case. Recall that $\Psi(y)$ is the solution to the adjoint equation $\Psi'(y) = -A(q, a)^*\Psi(y)$. 
+
+\subsubsection*{Double Pulse}
 
 Now we combine stuff from the above two constructions and from Sandstede (1998) to generalize this to the double pulse. Recall from that paper that for a double pulse, we can write the eigenfunction as a perturbation of the derivative of the double pulse, where on the two ``big pieces'', the derivative is multiplied by a scaling constant. $Q_2$ is the double pulse solution.
 
