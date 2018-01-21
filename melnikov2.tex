@@ -1346,7 +1346,7 @@ D_1 d &= [Q^\eta_x(-L) + Q^\eta_x(L) +
 Now, as in Sandstede (1998), we write the system in a more general form. As in section 3.2 in Sandstede (1998), consider the general system
 
 \begin{enumerate}[(i)]
-\item $(W_i^\pm)' = A W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i B \tilde{H}_i^\pm$
+\item $(W_i^\pm)' = A W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
 \item $W_i^\pm(x) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
 \item $W_i^+(0) - W_i^-(0) \in \C \psi(0) $
 \item $W_1^+(L) - W_2^-(-L) = D_1 d $
@@ -1368,11 +1368,11 @@ Following Sandstede (1998) and what we did above, we can write the fixed point e
 
 \begin{align*}
 W_i^-(x) = \Phi^s(&x, -X_{i-1})a_{i-1}^- + \Phi^u(x, 0)b_i^- \\
-&+ \int_0^x \Phi^u(x, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i B \tilde{H}_i^-(y) ] dy \\
-&+ \int_{-X_{i-1}}^x \Phi^s(x, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i B \tilde{H}_i^-(y) ] dy \\
+&+ \int_0^x \Phi^u(x, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y) ] dy \\
+&+ \int_{-X_{i-1}}^x \Phi^s(x, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y) ] dy \\
 W_i^+(x) = \Phi^u(&x, X_i)a_i^+ + \Phi^s(x, 0)b_i^+ \\
-&+ \int_0^x \Phi^s(x, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i B \tilde{H}_i^+(y)] dy \\
-&+ \int_{X_i}^x \Phi^u(x, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i B \tilde{H}_i^+(y)]dy
+&+ \int_0^x \Phi^s(x, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y)] dy \\
+&+ \int_{X_i}^x \Phi^u(x, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y)]dy
 \end{align*}
 
 where in this case the join points are $(X_0, X_1, X_2) = (-\infty, L, \infty)$. Next we write down the equation for the jump distance (i.e. evaluate this at $x = 0)$. \\
@@ -1427,9 +1427,9 @@ Let $L_2(\lambda): V_a \times V_b \times V_d \rightarrow V_w$ be the linear oper
 
 \begin{align*}
 L_2(\lambda)(a, b, d)_i^-(x) &= \Phi^s(x, -X_{i-1})a^-_{i-1} + \Phi^u(x, 0)b_i^- \\
-&+ \lambda^2 d_i \left( \int_0^x \Phi^u(x, y)B\tilde{H}_i^-(y) dy  + \int_{-X_{i-1}}^x \Phi^s(x, y)B\tilde{H}_i^-(y) dy \right)\\
+&+ \lambda^2 d_i \left( \int_0^x \Phi^u(x, y)\tilde{H}_i^-(y) dy  + \int_{-X_{i-1}}^x \Phi^s(x, y)\tilde{H}_i^-(y) dy \right)\\
 L_2(\lambda)(a, b, d)_i^+(x) &= \Phi^u(x, X_i)a^+_{i} + \Phi^s(x, 0)b_i^+ \\
-&+ \lambda^2 d_i \left( \int_0^x \Phi^s(x, y)B\tilde{H}_i^+(y) dy + \int_{X_{i}}^x \Phi^u(x, y)B\tilde{H}_i^+(y) dy \right)
+&+ \lambda^2 d_i \left( \int_0^x \Phi^s(x, y)\tilde{H}_i^+(y) dy + \int_{X_{i}}^x \Phi^u(x, y)\tilde{H}_i^+(y) dy \right)
 \end{align*}
 
 Then $L_2$ is a bounded linear operator with the following bound
@@ -1446,16 +1446,16 @@ As in the previous lemma, we look at the negative piece first. Recall that $a_0 
 
 \begin{align*}
 | L_2(\lambda)(a, b, d)_i^-(x)| &\leq |\Phi^s_-(x, -X_{i-1})a^-_{i-1}| + |\Phi^u_-(x, 0)b_i^-| \\
-&+ |\lambda|^2 |d_i| \left( \int_0^x |\Phi^u(x, y)||B\tilde{H}_i^-(y)| dy  + \int_{-X_{i-1}}^x |\Phi^s(x, y)||B\tilde{H}_i^-(y)| dy \right) \\
+&+ |\lambda|^2 |d_i| \left( \int_0^x |\Phi^u(x, y)||\tilde{H}_i^-(y)| dy  + \int_{-X_{i-1}}^x |\Phi^s(x, y)||\tilde{H}_i^-(y)| dy \right) \\
 &\leq C |e^{-\alpha^s (x + X_{i-1})}||a^-_{i-1}| + C |e^{\alpha^u x}||b_i^-| \\
-&+ C|\lambda|^2 |d_i| \left( \int_x^0 e^{\alpha^u (x - y)}|B\tilde{H}_i^-(y)| dy + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}|B\tilde{H}_i^-(y)| dy\right) \\
-&\leq C(|a| + |b|) + C|\lambda|^2 |d_i| \left( \int_x^0 e^{\alpha^u (x - y)}|B\tilde{H}_i^-(y)| dy + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}|B\tilde{H}_i^-(y)| dy\right) \\
+&+ C|\lambda|^2 |d_i| \left( \int_x^0 e^{\alpha^u (x - y)}|\tilde{H}_i^-(y)| dy + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}|\tilde{H}_i^-(y)| dy\right) \\
+&\leq C(|a| + |b|) + C|\lambda|^2 |d_i| \left( \int_x^0 e^{\alpha^u (x - y)}|\tilde{H}_i^-(y)| dy + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}|\tilde{H}_i^-(y)| dy\right) \\
 \end{align*}
 
 For the integral terms, we have
 
 \begin{align*}
-\int_x^0 e^{\alpha^u (x - y)}|B\tilde{H}_i^-(y)| dy &\leq \int_x^0 e^{\alpha^u (x - y)}|BH(y)| dy + \int_x^0 e^{\alpha^u (x - y)}|B||\tilde{H}_i^-(y) - H(y)| dy \\
+\int_x^0 e^{\alpha^u (x - y)}|\tilde{H}_i^-(y)| dy &\leq \int_x^0 e^{\alpha^u (x - y)}|BH(y)| dy + \int_x^0 e^{\alpha^u (x - y)}|B||\tilde{H}_i^-(y) - H(y)| dy \\
 &\leq (||H|| + \Delta H)\frac{1 - e^{\alpha_u x}}{\alpha_u} \\
 &= C( ||H|| + \Delta H )
 \end{align*}
@@ -1463,7 +1463,7 @@ For the integral terms, we have
 and
 
 \begin{align*}
-\int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}|B\tilde{H}_i^-(y)| dy &\leq \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}|BH(y)| dy + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}|B||\tilde{H}_i^-(y) - H(y)| dy \\
+\int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}|\tilde{H}_i^-(y)| dy &\leq \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}|BH(y)| dy + \int_{-X_{i-1}}^x e^{-\alpha^s (x - y)}|B||\tilde{H}_i^-(y) - H(y)| dy \\
 &\leq \int_{-\infty}^x e^{-\alpha^s (x - y)}|BH(y)| dy + \int_{-\infty}^x e^{-\alpha^s (x - y)}|B||\tilde{H}_i^-(y) - H(y)| dy \\
 &\leq (||H|| + \Delta H)\frac{1}{\alpha_s} \\
 &= C( ||H|| + \Delta H )
@@ -1552,10 +1552,10 @@ such that $(a,w) = ( A_1(\lambda)(b,d), W_2(\lambda)(b,d) )$ solves our system. 
 \begin{align*}
 D_1 d &= W_1^+(L) - W_2^-(-L) \\
 &= \Phi^u(L, L)a^+_{1} + \Phi^s(L, 0)b_1^+ 
-+ \int_0^L \Phi^s(L, y)[G_1^+(y) W_1^+(y) + \lambda B W_1^+(y) + \lambda^2 d_1 B \tilde{H}_1^+(y) ] dy \\  
++ \int_0^L \Phi^s(L, y)[G_1^+(y) W_1^+(y) + \lambda B W_1^+(y) + \lambda^2 d_1 \tilde{H}_1^+(y) ] dy \\  
 &- \Phi^s(-L, -L)a^-_{1} - \Phi^u_-(-L, 0)b_2^- - \int_0^{-L} \Phi^u(-L, y)[G_2^-(y) W_2^-(y) + \lambda B W_2^-(y) + \lambda^2 d_2 \tilde{H}_2^-(y) ] dy \\
 &= P_u^+(L) a^+_{1} - P_s^-(-L) a^-_{1} + \Phi^s(L, 0)b_1^+ - \Phi^u(-L, 0)b_2^- \\
-&+ \int_0^L \Phi^s(L, y)[G_1^+(y) W_1^+(y) + \lambda B W_1^+(y) + \lambda^2 d_1 B \tilde{H}_1^+(y) ] dy \\
+&+ \int_0^L \Phi^s(L, y)[G_1^+(y) W_1^+(y) + \lambda B W_1^+(y) + \lambda^2 d_1 \tilde{H}_1^+(y) ] dy \\
 &+ \int_{-L}^0 \Phi^u(-L, y)[G_2^-(y) W_2^-(y) + \lambda B W_2^-(y) + \lambda^2 d_2 \tilde{H}_2^-(y) ] dy 
 \end{align*}
 
@@ -1569,7 +1569,7 @@ Recall that $a_i^- \in E^s$ and $a_i^+ \in E^u$. Writing the projections on $E^s
 
 \begin{align*}
 D_1 d &=  a^+_1 - a^-_1 + (P^u(L) - P_0^u) a^+_1 - (P_0^s - P^s(-L)) a^-_1 + \Phi^s(L, 0)b_1^+ - \Phi^u(-L, 0)b_2^- \\
-&+ \int_0^L \Phi^s(L, y)[G_1^+(y) W_1^+(y) + \lambda B W_1^+(y) + \lambda^2 d_1 B \tilde{H}_1^+(y) ] dy \\
+&+ \int_0^L \Phi^s(L, y)[G_1^+(y) W_1^+(y) + \lambda B W_1^+(y) + \lambda^2 d_1 \tilde{H}_1^+(y) ] dy \\
 &+ \int_{-L}^0 \Phi^u(-L, y)[G_2^-(y) W_2^-(y) + \lambda B W_2^-(y) + \lambda^2 d_2 \tilde{H}_2^-(y) ] dy 
 \end{align*}
 
@@ -1583,7 +1583,7 @@ where
 
 \begin{align*}
 L_3(\lambda)(a,b,d) &= (P^u(L) - P_0^u) a^+_1 - (P_0^s - P^s(-L)) a^-_1 + \Phi^s(L, 0)b_1^+ - \Phi^u(-L, 0)b_2^- \\
-&+ \int_0^L \Phi^s(L, y)[G_1^+(y) W_1^+(y) + \lambda B W_1^+(y) + \lambda^2 d_1 B \tilde{H}_1^+(y) ] dy \\
+&+ \int_0^L \Phi^s(L, y)[G_1^+(y) W_1^+(y) + \lambda B W_1^+(y) + \lambda^2 d_1 \tilde{H}_1^+(y) ] dy \\
 &+ \int_{-L}^0 \Phi^u(-L, y)[G_2^-(y) W_2^-(y) + \lambda B W_2^-(y) + \lambda^2 d_2 \tilde{H}_2^-(y) ] dy 
 \end{align*}
 
@@ -1597,8 +1597,8 @@ Then for our bound we have
 
 \begin{align*}
 |L_3(\lambda)(a,b,d)| &\leq |P^u(L) - P_0^u|| a^+_1| + |P_0^s - P^s(-L)||a^-_1| + |\Phi^s(L, 0)||b_1^+| + |\Phi^u(-L, 0)||b_2^-| \\
-&+ \int_0^L |\Phi^s(L, y)|[|G_1^+(y)||W_1^+(y)| + |\lambda| |B W_1^+(y)| + |\lambda|^2 |d_1| |B \tilde{H}_1^+(y)| ] dy \\
-&+ \int_{-L}^0 |\Phi^u(-L, y)|[|G_2^-(y)||W_2^-(y)| + |\lambda| |B W_2^-(y)| + |\lambda|^2 |d_2| |B \tilde{H}_2^-(y)| ] dy 
+&+ \int_0^L |\Phi^s(L, y)|[|G_1^+(y)||W_1^+(y)| + |\lambda| |B W_1^+(y)| + |\lambda|^2 |d_1| |\tilde{H}_1^+(y)| ] dy \\
+&+ \int_{-L}^0 |\Phi^u(-L, y)|[|G_2^-(y)||W_2^-(y)| + |\lambda| |B W_2^-(y)| + |\lambda|^2 |d_2| |\tilde{H}_2^-(y)| ] dy 
 \end{align*}
 
 Doing the bounds one at a time, we have
@@ -1647,7 +1647,7 @@ Note that none of this depended on $L$.
 \item The final integral term involving $\tilde{H}_i^\pm$ is similar to what we did before.
 
 \begin{align*}
-\int_0^L |\Phi^s(L, y)|| B \tilde{H}_1^+(y)| ] dy &\leq \int_0^L e^{-\alpha^s (L - y)}|BH(y)| dy + \int_0^L e^{-\alpha^s (L - y)}|B||\tilde{H}_i^+(y) - H(y)| dy \\
+\int_0^L |\Phi^s(L, y)|| \tilde{H}_1^+(y)| ] dy &\leq \int_0^L e^{-\alpha^s (L - y)}|BH(y)| dy + \int_0^L e^{-\alpha^s (L - y)}|B||\tilde{H}_i^+(y) - H(y)| dy \\
 &\leq (||H|| + \Delta H)\frac{1 - e^{-\alpha^s L}}{\alpha^s} \\
 &= C( ||H|| + \Delta H )
 \end{align*}
@@ -1655,7 +1655,7 @@ Note that none of this depended on $L$.
 Similarly,
 
 \begin{align*}
-\int_{-L}^0 |\Phi^u(-L, y)||B \tilde{H}_2^-(y)| ] dy &\leq (||H|| + \Delta H)\frac{1 - e^{-\alpha^u L}}{\alpha^u} \\
+\int_{-L}^0 |\Phi^u(-L, y)||\tilde{H}_2^-(y)| ] dy &\leq (||H|| + \Delta H)\frac{1 - e^{-\alpha^u L}}{\alpha^u} \\
 &= C( ||H|| + \Delta H )
 \end{align*}
 
@@ -1792,18 +1792,18 @@ First, we take $x = 0$ in the fixed point equations.
 
 \begin{align*}
 W_i^-(0) &= \Phi^s(0, -X_{i-1})a^-_{i-1} + \Phi^u(0, 0)b_i^- \\
-&+ \int_{-X_{i-1}}^x \Phi^s(0, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i B \tilde{H}_i^-(y)] dy \\
+&+ \int_{-X_{i-1}}^x \Phi^s(0, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y)] dy \\
 W_i^+(0) &= \Phi^u(0, X_i)a^+_{i} + \Phi^s(0, 0)b_i^+ \\
-&+ \int_{X_{i}}^x \Phi^u(0, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i B \tilde{H}_i^+(y) ] dy
+&+ \int_{X_{i}}^x \Phi^u(0, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y) ] dy
 \end{align*}
 
 Recall that $\Phi^u(0, 0) = P^u(0)$ and $\Phi^s(0, 0) = P^s_+(0)$. Since $b_i^-$ and $b_i^+$ are in the range of these projections, $\Phi^u(0, 0)b_i^- = b_i^-$ and $\Phi^s(0, 0)b_i^+ = b_i^+ $. Thus we have
 
 \begin{align*}
 W_i^-(0) &= \Phi^s(0, -X_{i-1})a^-_{i-1} + b_i^- \\
-&+ \int_{-X_{i-1}}^x \Phi^s(0, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i B \tilde{H}_i^-(y)] dy \\
+&+ \int_{-X_{i-1}}^x \Phi^s(0, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y)] dy \\
 W_i^+(0) &= \Phi^u(0, X_i)a^+_{i} + b_i^+ \\
-&+ \int_{X_{i}}^x \Phi^u(0, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i B \tilde{H}_i^+(y) ] dy
+&+ \int_{X_{i}}^x \Phi^u(0, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y) ] dy
 \end{align*}
 
 We use $W = W_2(\lambda)(b,d)$ and $a = A_1(\lambda)(b,d)$ in this. By the definition of $V_b$, we can decompose the $b_i^\pm$ uniquely as
@@ -1845,12 +1845,12 @@ solves the thing we want for any $d$ and $\lambda$. The operators are analytic i
 Substituting the fixed point equations evaluated at $x = 0$ into the projection equations above, we have 
 \begin{align*}
 0 &= x_i^- + P(\C Q'(0), \C\Psi(0) \oplus Y^- \oplus Y^+) \Big( \Phi^s(0, -X_{i-1})a^-_{i-1}  \\
-&+ \int_{-X_{i-1}}^0 \Phi^s(0, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i B \tilde{H}_i^-(y) ] dy \Big) \\
+&+ \int_{-X_{i-1}}^0 \Phi^s(0, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y) ] dy \Big) \\
 0 &= x_i^+ + P(\C Q'(0), \C\Psi(0) \oplus Y^- \oplus Y^+) \Big( \Phi^u(0, X_i)a^+_{i} \\
-&+ \int_{X_{i}}^0 \Phi^u(0, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i B \tilde{H}_i^+(y)(y) ] dy \Big)\\
+&+ \int_{X_{i}}^0 \Phi^u(0, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y)(y) ] dy \Big)\\
 0 &= y_i^+ - y_i^- + P(Y^+ \oplus Y^-, \C Q'(0) \oplus \C\Psi(0) )\Big( \Phi^u(0, X_i)a^+_{i} - \Phi^s(0, -X_{i-1})a^-_{i-1} \\
-&+ \int_{X_{i}}^0 \Phi^u(0, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i B \tilde{H}_i^+(y)(y) ] dy \Big)\\
-&- \int_{-X_{i-1}}^0 \Phi^s(0, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i B \tilde{H}_i^-(y)(y) ] dy \Big)
+&+ \int_{X_{i}}^0 \Phi^u(0, y)[G_i^+(y) W_i^+(y) + \lambda B W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y)(y) ] dy \Big)\\
+&- \int_{-X_{i-1}}^0 \Phi^s(0, y)[G_i^-(y) W_i^-(y) + \lambda B W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y)(y) ] dy \Big)
 \end{align*}
 
 We can write this in the form
@@ -2067,7 +2067,7 @@ We now proceed to compute the jump along $\Psi(0)$ by taking $x = 0$ in the fixe
 = &\langle \Psi(-X_{i-1}), a_{i-1}^-\rangle - \langle \Psi(X_i), a_{i}^+\rangle \\
 &+\left( \int_{-X_{i-1}}^0 \langle \Psi(y), G_i^- W_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), G_i^+ W_i^+(y) \rangle dy \right) \\
 &+ \lambda\left( \int_{-X_{i-1}}^0 \langle \Psi(y), B W_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B W_i^+(y) \rangle dy \right) \\
-&+\lambda^2 d_i \left( \int_{-X_{i-1}}^0 \langle \Psi(y), B \tilde{H}_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B \tilde{H}_i^+(y) \rangle dy \right)
+&+\lambda^2 d_i \left( \int_{-X_{i-1}}^0 \langle \Psi(y), \tilde{H}_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), \tilde{H}_i^+(y) \rangle dy \right)
 \end{align*}
 
 where the terms involving the $b^\pm$ vanish since $b^\pm \perp \Psi(0)$.\\
@@ -2115,8 +2115,8 @@ Recall that $a_0^i = a_2^+ = 0$, so for the double pulse, only one of these two 
 \item From the term involving $\tilde{H}$ we will get our higher order Melnikov integral.
 
 \begin{align*}
-\int_{-X_{i-1}}^0 &\langle \Psi(y), B \tilde{H}_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B \tilde{H}_i^+(y) \rangle dy \\
-&= \left( \int_{-X_{i-1}}^0 \langle \Psi(y), B H(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B H(y) \rangle dy \right) \\
+\int_{-X_{i-1}}^0 &\langle \Psi(y), \tilde{H}_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), \tilde{H}_i^+(y) \rangle dy \\
+&= \left( \int_{-X_{i-1}}^0 \langle \Psi(y), H(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), H(y) \rangle dy \right) \\
 &+ \left( \int_{-X_{i-1}}^0 \langle \Psi(y), B (\tilde{H}_i^-(y) - H(y)) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B (\tilde{H}_i^+(y) - H(y)) \rangle dy \right) 
 \end{align*}
 
@@ -2129,15 +2129,15 @@ For the second pair of integrals,
 For the first pair of integrals,
 
 \begin{align*}
-\int_{-X_{i-1}}^0 &\langle \Psi(y), B H(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B H(y) \rangle dy \\
-&= \int_{-X_{i-1}}^{X_i} \langle \Psi(y), B H(y) \rangle dy \\
-&= \int_{-\infty}^{\infty} \langle \Psi(y), B H(y) \rangle dy - \int_{-\infty}^{-X_{i-1}} \langle \Psi(y), B H(y) \rangle dy - \int_{X_i}^{\infty} \langle \Psi(y), B H(y) \rangle dy 
+\int_{-X_{i-1}}^0 &\langle \Psi(y), H(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), H(y) \rangle dy \\
+&= \int_{-X_{i-1}}^{X_i} \langle \Psi(y), H(y) \rangle dy \\
+&= \int_{-\infty}^{\infty} \langle \Psi(y), H(y) \rangle dy - \int_{-\infty}^{-X_{i-1}} \langle \Psi(y), H(y) \rangle dy - \int_{X_i}^{\infty} \langle \Psi(y), H(y) \rangle dy 
 \end{align*}
 
 The first integral on the RHS is our higher order Melnikov integral. We can bound the other two integrals easily.
 
 \begin{align*}
-\left| \int_{-\infty}^{-X_{i-1}} \langle \Psi(y), B H(y) \rangle dy - \int_{X_i}^{\infty} \langle \Psi(y), B H(y) \rangle dy \right| \leq C e^{-\alpha L}||H||
+\left| \int_{-\infty}^{-X_{i-1}} \langle \Psi(y), H(y) \rangle dy - \int_{X_i}^{\infty} \langle \Psi(y), H(y) \rangle dy \right| \leq C e^{-\alpha L}||H||
 \end{align*}
 
 \end{enumerate}
@@ -2145,13 +2145,13 @@ The first integral on the RHS is our higher order Melnikov integral. We can boun
 Now we combine all this stuff and see what we get for the jump.
 
 \begin{align*}
-\xi = \langle &\Psi(0), W_1^-(0) - W_1^+(0) \rangle = -\langle \psi(-L), P_0^s D_1 d \rangle - \langle \psi(L), P_0^u D_1 d \rangle + \lambda^2 d_i \int_{-\infty}^{\infty} \langle \Psi(y), B H(y) \rangle dy + (R_i(\lambda)d)_i
+\xi = \langle &\Psi(0), W_1^-(0) - W_1^+(0) \rangle = -\langle \psi(-L), P_0^s D_1 d \rangle - \langle \psi(L), P_0^u D_1 d \rangle + \lambda^2 d_i \int_{-\infty}^{\infty} \langle \Psi(y), H(y) \rangle dy + (R(\lambda)d)_i
 \end{align*}
 
 where the remainder term has bound
 
 \begin{align*}
-|(R&(\lambda)d)_1| \leq C\left( e^{-\alpha L} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)\right)|d| \\
+|(R&(\lambda)d)_i| \leq C\left( e^{-\alpha L} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)\right)|d| \\
 &+ C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d| \\
 &+ C |\lambda| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d| \\
 &+ C |\lambda^2| (e^{-\alpha L}||H|| + \Delta H)|d| \\
@@ -2163,17 +2163,47 @@ where the remainder term has bound
 We make the following substitutions which are appropriate to our specific case.
 
 \begin{align*}
-H &= Q^\eta_c \\
-\tilde{H} &= \tilde{Q}^\eta_c \\
+H &= B Q^\eta_c \\
+\tilde{H} &= B \tilde{Q}^\eta_c \\
 G_i^\pm &= G(\eta)_i^\pm
 \end{align*}
 
-We also need estimates for $||H||$ and $\Delta H$ for the remainder estimate. Recall that we showed that $q_c$ decays exponentially asymptotically with rate $\alpha$
+We also need estimates for $||H||$ and $\Delta H$ for the remainder estimate. Recall that we showed that $q_c$ decays exponentially asymptotically with rate $\alpha$. We also chose $\eta$ so that $0 < \eta < \alpha$. Thus $||e^{\alpha x} q_c(x)|| \leq C$. Since the only nonzero component of $B Q^\eta c$ is $e^{\eta x} q_c(x)$, we have for $x \geq 0$
 
+\[
+\sup_{x \geq 0} |e^{\eta x} q_c(x)| \leq \sup_{x \geq 0} |e^{\alpha x} q_c(x)| = ||e^{\alpha x} q_c(x)|| \leq C
+\]
+
+and for $x \leq 0$, since $q_c$ is bounded we have
+
+\[
+\sup_{x \leq 0} |e^{\eta x} q_c(x)| \leq \sup_{x \leq 0} |q_c(x)| \leq C
+\]
+
+Thus $||H||$ really is a constant and we can take $||H|| = C$. Now we deal with $\Delta H$. We (should) have from Lemma \ref{estimates} that
+
+\begin{align*}
+| B \tilde{Q}^\eta_c(x) - B Q^\eta_c(x) | &\leq C \sup_{|x| \geq L} |e^{\eta x} q(x)| \\
+&\leq C \sup_{|x| \geq L} |e^{\eta x} q(x)| \\
+&\leq C e^{-(\alpha - \eta)L}
+\end{align*}
+
+Thus we can take 
+
+\[
+\Delta H = C e^{-(\alpha - \eta)L}
+\]
+
+and so the remainder term has estimate
+
+\begin{align*}
+|(R&(\lambda)d)_i| \leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (e^{-\alpha L} + |G| + |\lambda| + e^{-(\alpha - \eta)L})|\lambda^2| \right)|d| \\
+&\leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (|G| + |\lambda| + e^{-(\alpha - \eta)L})|\lambda^2| \right)|d| \\
+\end{align*}
 From above, the higher order Melnikov integral is
 
 \begin{align*}
-\int_{-\infty}^{\infty} \langle \Psi(y), B H(y) \rangle dy &= \int_{-\infty}^{\infty} e^{-\eta y} q(y) e^{\eta y} q_c(y) dy \\
+\int_{-\infty}^{\infty} \langle \Psi(y), H(y) \rangle dy &= \int_{-\infty}^{\infty} e^{-\eta y} q(y) e^{\eta y} q_c(y) dy \\
 &= \langle q, q_c \rangle_{L^2(\R)}
 \end{align*}
 
@@ -2185,12 +2215,55 @@ For the terms involving $a_i^\pm$, recall from Lemma \ref{estimates} that $D_1$ 
 D_1 d = [Q^\eta_x(-L) + Q^\eta_x(L) + 
 \lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right)
 \]
+The remainder term here is order $e^{(2 \alpha - \eta)L}$. When we take the inner product with $\Psi(\pm L)$, the whole thing has order $e^{(3 \alpha - \eta)L}$ and can thus be tossed into the overall remainder term, which gives us a remainder estimate of 
+
+\begin{align*}
+|(R&(\lambda)d)_i| \leq C \left( e^{(3 \alpha - \eta)L} + (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (|G| + |\lambda| + e^{-(\alpha - \eta)L})|\lambda^2| \right)|d| \\
+\end{align*}
+
+The highest order terms in $D_1$ are $Q^\eta_x(-L) + Q^\eta_x(L)$, which are order $e^{-(\alpha - \eta)L}$, so putting that in the remainder, we get 
+
+\begin{align*}
+|(R&(\lambda)d)_i| \leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 e^{-(\alpha - \eta)L} + (|G| + |\lambda| + e^{-(\alpha - \eta)L})|\lambda^2| \right)|d| \\
+\end{align*}
+
+If we choose $\delta \leq e^{-\alpha L}$, the overall order of the remainder term is $e^{-(3\alpha - \eta) L}$ which is higher order than $e^{-2 \alpha L}$, the order of the higher order terms (hopefully!). \\
+
+Now we deal with the rest of the $a_i^\pm$ terms. As in Sandstede (1998), we should be able to neglect the terms involving inner products with the same sign in front of $L$, since they are higher order terms. Similarly, we should be able to drop the projection operator in the terms involving inner products with opposite signs, since these projection are approximately the identity. This is true by how we set the problem up in the first place, I think. So we will do that for now, although we should really look at this more closely. Thus to leading order we should have
+
+\begin{align*}
+\langle \Psi(L), P_0^u [Q^\eta_x(-L) + Q^\eta_x(L) + 
+\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) \rangle &= \langle \Psi(L), Q^\eta_x(-L) + \lambda Q^\eta_c(-L)\rangle (d_2 - d_1) 
+\end{align*}
+
+This is all fine and stuff, but we do not want this to involve $\lambda$. We can take care of that by noting that $\langle \Psi(L), \lambda Q^\eta_c(-L) \rangle$ has order $e^{-(2\alpha - \eta)L}|\lambda|$, thus we can add that term to our remainder term to get
+
+\begin{align*}
+|(R&(\lambda)d)_i| \leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 e^{-(\alpha - \eta)L} + e^{-(2\alpha - \eta)L}|\lambda| + (|G| + |\lambda| + e^{-(\alpha - \eta)L})|\lambda^2| \right)|d| \\
+\end{align*}
+
+This does not change the overall order of the remainder term, so it should be legit. Thus we have
+
+\begin{align*}
+\langle \Psi(L), &P_0^u [Q^\eta_x(-L) + Q^\eta_x(L) + 
+\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) \rangle \\
+&= \langle \Psi(L), Q^\eta_x(-L) \rangle (d_2 - d_1) + \mathcal{O}(e^{-(\alpha - \eta) L}(e^{-\alpha L} + |\lambda|))
+\end{align*}
+
+Similary, we have
+
+\begin{align*}
+\langle \Psi(-L), &P_0^s [Q^\eta_x(-L) + Q^\eta_x(L) + 
+\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) \rangle \\
+&= \langle \Psi(-L), Q^\eta_x(L) \rangle (d_2 - d_1) + \mathcal{O}(e^{-(\alpha - \eta) L}(e^{-\alpha L} + |\lambda|))
+\end{align*}
+
 
 Putting these together, we have to solve the following system for $(d_1, d_2)$.
 
 \begin{align*}
-d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \lambda U_1 - \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1 = 0\\
-d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \lambda U_2 - \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + (R(\lambda)d)_2 = 0
+d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi(L), Q^\eta_x(-L) \rangle (d_2 - d_1)  + (R(\lambda)d)_1 = 0\\
+d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi(-L), Q^\eta_x(L) \rangle (d_2 - d_1)  + (R(\lambda)d)_2 = 0
 \end{align*}
 
 We want this to have a solution in $d = (d_1, d_2)$ which is not the trivial solution. Thus if we write this in matrix form, that is equivalent to the matrix not being invertible.\\
@@ -2198,28 +2271,25 @@ We want this to have a solution in $d = (d_1, d_2)$ which is not the trivial sol
 First let
 
 \begin{align*}
-a &= \langle \psi(L), Q'(-L) \rangle \\
-\tilde{a} &=\langle \psi(-L), Q'(L) \rangle
+a &= \langle \Psi(L), Q^\eta_x(-L) \rangle \\
+\tilde{a} &= \langle \Psi(-L), Q^\eta_x(L) \rangle
 \end{align*}
 
-Define the matrices
+Define the matrix
 
 \begin{align*}
 A = \begin{pmatrix}
 a & -a \\ \tilde{a} & -\tilde{a} 
-\end{pmatrix} &&
-U = \begin{pmatrix}
-U_1 & 0 \\ 0 & U_2 
-\end{pmatrix} 
+\end{pmatrix}
 \end{align*}
 
 Then we can define
 
 \[
-S(\lambda) = A + \lambda^2 MI + \lambda U + R(\lambda) 
+S(\lambda) = A + \lambda^2 MI + R(\lambda) 
 \]
 
-where $M = \lambda^2 \langle q, q_c \rangle_{L^2(\R)}$. The system above is equivalent to $S(\lambda)d = 0$. Thus our condition to have a solution, i.e. the condition to have both jumps be zero and thus a match happens when
+where $M = \lambda^2 \langle q, q_c \rangle_{L^2(\R)}$ is the higher-order Melnikov integral. The system above is equivalent to $S(\lambda)d = 0$. Thus our condition to have a solution, i.e. the condition to have both jumps be zero and thus a match happens, is
 
 \[
 \det S(\lambda) = 0
