@@ -1296,7 +1296,8 @@ D_1(\eta) = \begin{pmatrix} -(\tilde{Q}^\eta_x(L) + \lambda \tilde{Q}^\eta_c(L))
 
 In the next lemma, we show some estimates similar to that in Lemma 3.1 in Sandstede (1998).
 
-\begin{lemma}We have the estimates
+\begin{lemma}\label{estimates}
+We have the estimates
 \begin{align*}
 |G(\eta)_i^\pm(x)| &\leq C|R_i^\pm(x)| \leq C \sup_{|x| \geq L} |Q(x)| \\
 | B \tilde{Q}^\eta(x) - B Q^\eta(x) | & \leq C | e^{\eta x} R_i^\pm(x)| \leq C \sup_{|x| \geq L} |e^{\eta x} Q(x)| \\
@@ -1307,7 +1308,7 @@ D_1 d &= [Q^\eta_x(-L) + Q^\eta_x(L) +
 where $\alpha > 0$ is defined as on pages 432 and 434 of Sandstede (1998) and as above.
 
 \begin{proof}
-The first estimate is the same as in Sandstede (1998) with $Q$ replacing $Q^+$ and $Q^-$, and follows from the smoothness of $A$ together with (2.6)(i) in Sandstede (1998). The second estimate follows from (2.6)(i) in Sandstede (1998) and the expansion of $\tilde{Q}$ as $Q + R_i$. The additional factor of $e^{\eta x}$ comes into play since we are in the exponentially weighted space, so everything is multiplied by that factor. The fourth estimate follows since the double pulse $\tilde{q}(x)$ is bounded and the rest of the matrix $A$ is constant (depending on $\eta$, but that is constant). For the third estimate, we first write $D_1 d$ in terms of the single pulse
+The first estimate is the same as in Sandstede (1998) with $Q$ replacing $Q^+$ and $Q^-$, and follows from the smoothness of $A$ together with (2.6)(i) in Sandstede (1998). The second estimate follows from (2.6)(i) in Sandstede (1998) and the expansion of $\tilde{Q}$ as $Q + R_i^\pm$. The additional factor of $e^{\eta x}$ comes into play since we are in the exponentially weighted space, so everything is multiplied by that factor. The fourth estimate follows since the double pulse $\tilde{q}(x)$ is bounded and the rest of the matrix $A$ is constant (depending on $\eta$, but that is constant). For the third estimate, we first write $D_1 d$ in terms of the single pulse
 
 \begin{align*}
 D_1 d &= d_2 [ \tilde{Q}^\eta_x(-L) + \lambda \tilde{Q}^\eta_c(-L)] 
@@ -1323,12 +1324,20 @@ Adapting Lemma 2.6 in Sandstede (1998), and noting that $Q = Q^+ = Q^-$ in our c
 |R_{i}^+(X_i) - Q(-X_i)| \leq C e^{-\alpha L} \sup_{|x| \geq L} |Q(x)| \\
 \end{align*}
 
-These should hold as well for derivatives with respect to $x$ and $c$, or at least I think that was used in the proof of Lemma 3.1 in Sandstede (1998) for the derivative with respect to $x$, so we will do that here. Thus, if we substitute these into the expression for $D_1 d$ we get
+If we do this in the exponentially weighted space, we should just get a factor of $e^\eta x$ on the RHS, so this should be
 
 \begin{align*}
-D_1 d &= d_2 [Q'(-L) + Q'(L) + \lambda Q_c(-L) + \lambda Q_c(L)] \\
-&- d_1 [Q'(L) + Q'(-L) + \lambda Q_c(L) + \lambda  Q_c(-L)] + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |Q(x)| \right) \\
-&= [Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |Q(x)| \right) \\
+|(R_{i+1}^-)^\eta(-X_i) - Q^\eta(X_i)| \leq C e^{-\alpha L} \sup_{|x| \geq L} |e^{\eta x} Q(x)| \\
+|(R_{i}^+)^\eta(X_i) - Q^\eta(-X_i)| \leq C e^{-\alpha L} \sup_{|x| \geq L} |e^{\eta x} Q(x)| \\
+\end{align*}
+
+These should hold as well for derivatives with respect to $x$ and $c$, or at least I think that was used in the proof of Lemma 3.1 in Sandstede (1998) for the derivative with respect to $x$, so we will do that here. 
+
+Thus, if we substitute these into the expression for $D_1 d$ we get the result we want
+
+\begin{align*}
+D_1 d &= [Q^\eta_x(-L) + Q^\eta_x(L) + 
+\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) \\ \\
 \end{align*}
 
 \end{proof}
@@ -1347,7 +1356,7 @@ where we have the bounds
 
 \begin{align*}
 |G_i^\pm| & \leq \delta \\
-|\tilde{H}_i^\pm(x) - H(x)| &\leq \Delta H\\
+|\tilde{H}_i^\pm(x) - H(x)| &\leq \Delta H \leq e^{\eta L} \delta\\
 |B| &\leq 1 \\
 |\lambda| &\leq \delta \\
 |D_1| &\leq e^{\eta L} \delta
@@ -1401,7 +1410,7 @@ First, we look at the negative piece. Note that when taking the absolute value w
 &+ \int_{-X_{i-1}}^x |\Phi^s(x, y)|[|G_i^-(y)||W_i^-(y)| + |\lambda||B W_i^-(y)| ] dy \\
 &\leq C(|G| + |\lambda|) ||W|| \left( \int_x^0 e^{\alpha^u (x-y)} dy + \int_{-X_{i-1}}^x e^{-\alpha^s (x-y)} dy \right) \\
 &\leq C(|G| + |\lambda|) ||W|| \left( \int_x^0 e^{\alpha^u (x-y)} dy + \int_{-\infty}^x e^{-\alpha^s (x-y)} dy \right) \\
-&\leq C(|G| + |\lambda|) ||W|| \left( \frac{1 - e^{\alpha_u x}}{\alpha_u} + \frac{1}{\alpha^s} \right)
+&\leq C(|G| + |\lambda|) ||W|| \left( \frac{1 - e^{\alpha^u x}}{\alpha^u} + \frac{1}{\alpha^s} \right) \\
 &= C (|G| + |\lambda|) ||W|| 
 \end{align*}
 
@@ -1947,11 +1956,11 @@ Note that compared to (3.39) in Sandstede (1998), we have an extra $|\lambda|$ i
 We can use what we have done above to get a sharper estimate for $W_i^\pm$ in the unweighted norm, which we will need.
 
 \begin{lemma}
-We have the following estimates for $|W_i^\pm(x)|$ in the unweighted norm
+We have the following estimates for $|W_i^\pm(x)|$
 
 \begin{align*}
-| W_i^-(x)| &\leq C\left(\left( e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \\
-| W_i^+(x)| &\leq C\left(\left( e^{\alpha(x - X_{i})} + e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|
+| W_i^-(x)| &\leq C ( (e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 (||H|| + \Delta H))|d|\\
+| W_i^+(x)| &\leq C ( (e^{\alpha(x - X_{i})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 (||H|| + \Delta H))|d|
 \end{align*}
 where $\alpha = \min(\alpha^s, \alpha^u)$.
 
@@ -1961,190 +1970,54 @@ Since we have
 W_i^\pm = L_1(\lambda)W_i^\pm + L_2(\lambda)W_i^\pm 
 \]
 
-we can use the estimate for $L_1(\lambda)$ together with an improved estimate for $L_2(\lambda)$. We use the same estimate for $L_1(\lambda)$ as we have above.
+we can use the estimate for $L_1(\lambda)$ together with an improved estimate for $L_2(\lambda)$. We use the same estimate for $L_1(\lambda)$ as we have above. We will do the negative piece here. The positive piece is similar.
 
 \[
-| (L_1(\lambda) W_i^-)(x) | \leq C\left(|G| +|\lambda|\right)||W||_\eta
+| (L_1(\lambda) W_i^-)(x) | \leq C\left(|G| +|\lambda|\right)||W||
 \]
 
-For $L_2(\lambda)$ we will use the following estimate for the negative piece.
+For $L_2(\lambda)$ we will use the following estimate for the negative piece, which comes from the proof of Lemma \ref{L2}.
 
 \begin{align*}
-| (L_2(\lambda)(a, b, d)_i^-)(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + |\lambda|^2 |d_i| \right)
+| (L_2(\lambda)(a, b, d)_i^-)(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + |\lambda|^2 (||H|| + \Delta H)|d_i| \right)
 \end{align*}
 
 Combining these, we have
 
 \begin{align*}
-| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + \left(|G| +|\lambda|\right)||W||_\eta + |\lambda|^2 |d_i| \right)
+| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + \left(|G| +|\lambda|\right)||W||_\eta + |\lambda|^2 (||H|| + \Delta H)|d_i|  \right)
 \end{align*}
 
-Substituting in $A_3(\lambda)$, $B_1(\lambda)d$, and $W_3(\lambda)d$, this estimate becomes
+Substituting in $A_3(\lambda)$, $B_1(\lambda)$, and $W_3(\lambda)$, this estimate becomes
 
 \begin{align*}
-| W_i^-(x)| &\leq C ( e^{-\alpha^s(x + X_{i-1})} \left( e^{-\eta L}|\lambda^2| + |D_1| \right)|d| \\
-&+ (|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1| )|d| \\
-&+ \left(|G| +|\lambda|\right)\left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d| + |\lambda|^2 |d| )\\
-&\leq C\left(\left( e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda| + e^{\eta L}(|G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|
-\end{align*}
-
-Since $e^{\eta L}$ is at least order 1, we have
-
-\begin{align*}
-| W_i^-(x)| &\leq C\left(\left( e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|
+| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |A_3(\lambda)| + |B_1(\lambda)| + \left(|G| +|\lambda|\right)||W_3(\lambda)|| + |\lambda|^2 (||H|| + \Delta H)|d_i|  \right) \\
+&= C e^{-\alpha^s(x + X_{i-1})} (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d|)\\
+&+ C (|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d|\\
+&+ C (|G +|\lambda|)(|D_1| + |\lambda|^2(||H|| + \Delta H ))|d| + C |\lambda|^2 (||H|| + \Delta H)|d| \\
+&\leq C ( (e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 (||H|| + \Delta H))|d|
 \end{align*}
 
 Similarly
 
 \begin{align*}
-| W_i^+(x)| \leq C\left(\left( e^{\alpha(x - X_{i})} + e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|
+| W_i^+(x)| \leq C ( (e^{\alpha(x - X_{i})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 (||H|| + \Delta H))|d|
 \end{align*}
 
 \end{proof}
 
-\end{lemma}
-
-We can do something similar in the weighted norm. Here we split $W_i^\pm$ up into two terms and provide an estimate for the higher order term in the weighted norm.
-
-\begin{lemma}
-
-We can write $W_i^\pm(x)$ as 
-\begin{align*}
-W_i^-(x) &= -\Phi^s_-(x, -X_{i-1}) P_0^s D_1 d + [T_2(\lambda)(b,d)]_i^- W_i^-(x)\\
-W_i^+(x) &= \Phi^u_+(x, X_i) P_0^u D_1 d + [T_2(\lambda)(b,d)]_i^+ W_i^+(x)\\
-\end{align*}
-
-We have the following estimates for $|e^{\pm \eta x} T_2(\lambda)(b,d)_i^\pm(x) W_i^\pm(x)|$.
-
-\begin{align*}
-| e^{-\eta x} T_2(\lambda)(b,d)_i^\pm W_i^\pm(x) | &\leq C\left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \\
-\end{align*}
-
-where $\alpha = \min(\alpha^s, \alpha^u)$.\\
-
-For the ``end-pieces'' we have
-
-\begin{align*}
-W_1^-(x) &= [T_2(\lambda)(b,d)]_1^- W_1^-(x)\\
-W_N^+(x) &= [T_2(\lambda)(b,d)]_N^+ W_N^+(x)\\
-\end{align*}
-
-\begin{proof}
-We have from a prior lemma that
-\[
-W_i^\pm = L_1(\lambda)W_i^\pm + L_2(\lambda)W_i^\pm 
-\]
-
-We have the following estimate for $L_1(\lambda)$.
-
-\[
-|e^{-\eta x} (L_1(\lambda) W_i^\pm)(x) | \leq C\left(|G| +|\lambda|\right)||W||_\eta
-\]
-
-Recall that $L_2(\lambda)$ is defined by
-
-\begin{align*}
-L_2(\lambda)(a, b, d)_i^-(x) &= \Phi^s_-(x, -X_{i-1})a^-_{i-1} + \Phi^u_-(x, 0)b_i^- \\
-&- \lambda^2 d_i \left( \int_0^x \Phi^u_-(x, y)(KBQ_{2c})(y) dy  + \int_{-X_{i-1}}^x \Phi^s_-(x, y)(KBQ_{2c})(y) dy \right)\\
-L_2(\lambda)(a, b, d)_i^+(x) &= \Phi^u_+(x, X_i)a^+_{i} + \Phi^s_+(x, 0)b_i^+ \\
-&- \lambda^2 d_i \left( \int_0^x \Phi^s_+(x, y)(KBQ_{2c})(y) dy + \int_{X_{i}}^x \Phi^u_+(x, y)(KBQ_{2c})(y) dy \right)
-\end{align*}
-
-We will look a the ``negative'' piece only; the ``positive'' piece is similar. For the ``negative'', we write $L_2(\lambda)_i^-$ as 
-
-\begin{align*}
-L_2(\lambda)(a, b, d)_i^-(x) &= \Phi^s_-(x, -X_{i-1})a^-_{i-1} + T_1(\lambda)(b,d)_i^-
-\end{align*}
-
-where
-
-\begin{align*}
-T_1(\lambda)(b,d)_i^- &= \Phi^u_-(x, 0)b_i^- - \lambda^2 d_i \left( \int_0^x \Phi^u_-(x, y)(KBQ_{2c})(y) dy  + \int_{-X_{i-1}}^x \Phi^s_-(x, y)(KBQ_{2c})(y) dy \right)
-\end{align*}
-
-
-From the estimate for $L_2(\lambda)$ in Lemma \ref{L2} we have the following estimate for $ e^{-\eta x} T_1(\lambda)(b,d)_i^-$
-
-\begin{align*}
-| e^{-\eta x} T_1(\lambda)(b,d)_i^-| &\leq C \left( |b_i^-| + |\lambda|^2 |d_i| \right)
-\end{align*}
-
-For $a^-_{i-1}$ we use
-\[
-(A_3(\lambda)(d))^- = -P_0^s D_1 d + (A_4(\lambda)(d))^-
-\]
-
-This gives us
-
-\begin{align*}
-L_2(\lambda)(a, b, d)_i^-(x) &= -\Phi^s_-(x, -X_{i-1}) P_0^s D_1 d + \Phi^s_-(x, -X_{i-1}) (A_4(\lambda)(d))^- + T_1(\lambda)_i^-(b,d)
-\end{align*}
-
-Combining everything, we have
-
-\begin{align*}
-W_i^- &= \Phi^s_-(x, -X_{i-1}) P_0^s D_1 d + L_1(\lambda)W_i^- + \Phi^s_-(x, -X_{i-1}) (A_4(\lambda)(d))^- + T_1(\lambda)(b,d)_i^-
-\end{align*}
-
-Define $T_2(\lambda)(b,d)_i^- W_i^-$ by 
-\[
-T_2(\lambda)(b,d)_i^- W_i^- = L_1(\lambda) W_i^- + \Phi^s_-(x, -X_{i-1}) (A_4(\lambda)(d))^- + T_1(\lambda)_i^-(b,d)
-\]
-
-Then
-
-\begin{align*}
-W_i^- &= -\Phi^s_-(x, -X_{i-1}) P_0^s D_1 d + T_2(\lambda)(b,d)_i^-\\
-\end{align*}
-
-For $T_2(\lambda)(b,d)_i^- W_i^-$, we have the bound
-
-\begin{align*}
-|e^{-\eta x} T_2^\pm(\lambda)(b,d)_i^- W_i^-(x)| &\leq C \left( e^{\eta X_{i-1}} e^{-\alpha^s(x + X_{i-1})} |A_4(\lambda)d| + |b_i^-| + \left(|G| +|\lambda|\right)||W||_\eta + |\lambda|^2 |d_i| \right)
-\end{align*}
-
-Next we substitute in $B_1(\lambda)d$ and $W_3(\lambda)d$ and use the estimate for $A_4(\lambda)d$. This estimate then becomes
-
-\begin{align*}
-| e^{-\eta x} T_2^-(\lambda)(b,d)_i^- W_i^-(x) | &\leq C ( e^{\eta X_{i-1}} e^{-\alpha^s(x + X_{i-1})} \left( e^{-\eta L}|\lambda^2| + (e^{-\alpha L} + |G| + |\lambda|)|D_1| \right)|d| \\
-&+ (|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1| )|d| \\
-&+ \left(|G| +|\lambda|\right)\left( |\lambda|^2 + e^{\eta L}|D_1|\right)|d| + |\lambda|^2 |d| )\\
-&\leq C\left( \left( e^{-\alpha L} + |G| + |\lambda| + e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \\
-\end{align*}
-
-where we took $X_{i-1} = L$ since we have a double pulse.\\
-
-Since $e^{\eta L}$ is at least order 1, we have
-
-\begin{align*}
-| e^{-\eta x} T_2^-(\lambda)(b,d)_i^- W_i^-(x) | &\leq C\left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \\
-\end{align*}
-
-Similarly,
-
-\begin{align*}
-W_i^+ &= \Phi^u_+(x, X_i) P_0^u D_1 d + T_2(\lambda)(b,d)_i^+\\
-\end{align*}
-
-where 
-
-\begin{align*}
-| e^{-\eta x} T_2^+(\lambda)(b,d)_i^+ W_i^+(x) | &\leq C\left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \\
-\end{align*}
-
-Recall that $a_0 = a_N = 0$. Thus for $W_1^-$ and $W_2^+$, the first term on the RHS is 0, so we only have the remainder term.
-
-\end{proof}
 \end{lemma}
 
 Next, we use this bound to estimate some integrals.
 
-\begin{lemma}
+\begin{lemma}\label{intG}
 We have the following bounds for these integrals involving $W_i^\pm$
 
 \begin{align*}
-\left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq  \left( \left( e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right)|d| \\
-\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left( e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right)|d|
+\left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|\\
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|\\
+\left| \int_0^{X_i} \langle \Psi(x), B W_i^+(x) \rangle dx \right| &\leq C \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|\\
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), B W_i^-(x) \rangle dx \right| &\leq C \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|
 \end{align*}
 
 \begin{proof}
@@ -2158,7 +2031,7 @@ For the adjoint solution $\Psi$, we use the estimate
 Using the estimate from the previous lemma,
 \begin{align*}
 \left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq \int_0^{X_i} |\Psi(x)||G| |W_i^+(x)| dx \\
-&\leq C|G| \int_0^{X_i} e^{-\tilde{\alpha} x} \left(\left( e^{\alpha(x - X_{i})} + e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| dx 
+&\leq C|G| \int_0^{X_i} e^{-\tilde{\alpha} x} \left( (e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 (||H|| + \Delta H)\right) |d| dx 
 \end{align*}
 
 For the first term inside the integral,
@@ -2170,142 +2043,36 @@ e^{-\tilde{\alpha} x} e^{\alpha(x - X_{i})} &= e^{-\alpha X_i} e^{-(\tilde{\alph
 By our hyperbolicity assumption (CHECK THIS), we can make the constant $\tilde{\alpha}$ a little larger than $\alpha$ so that the above expression decays since $x \geq 0$. Thus we have
 
 \begin{align*}
-\left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq C|G| \int_0^{\infty} \left(  e^{-(\tilde{\alpha} - \alpha)x} e^{-\alpha X_i} |D_1| +  e^{-\tilde{\alpha} x} \left( \left(e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right) \right) |d|dx \\
-&\leq C|G| \left(  \frac{1}{\tilde{\alpha} - \alpha}e^{-\alpha X_i}|D_1| + \frac{1}{\tilde{\alpha}}\left( \left(e^{-\alpha L} + e^{\eta L}( |G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right) \right)|d| \\
-&\leq C|G| \left( \left( e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right)|d|
+&\left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| \\
+&\leq C|G| \int_0^{\infty} \left(  e^{-(\tilde{\alpha} - \alpha)x} e^{-\alpha X_i} |D_1| +  e^{-\tilde{\alpha} x} \left( (e^{-\alpha L} + |G| + |\lambda| ) |D_1| + |\lambda|^2 ( ||H|| + \Delta H )\right) \right) |d|dx \\
+&\leq C|G| \left(  \frac{1}{\tilde{\alpha} - \alpha}e^{-\alpha X_i}|D_1| + \frac{1}{\tilde{\alpha}}\left( (e^{-\alpha L} + |G| + |\lambda| ) |D_1| + |\lambda|^2 ( ||H|| + \Delta H )\right) \right)|d| \\
+&\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|
 \end{align*}
 
 where in the last line we took $X_i = L$, as is the case for the double pulse. Similarly,
 
 \begin{align*}
-\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left( e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right)|d|
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|
 \end{align*}
+
+The other two bounds are essentially identical.
 
 \end{proof}
 \end{lemma}
 
-In the next lemma, we use what we have done to get an estimate on integrals involving our integration operator.
-
-\begin{lemma}
-We have the following bounded expression for these integrals involving the integration operator.
-
-\begin{align*}
-\int_{X_i}^0 \langle &\Psi(x), (K_i^+ B W_i^+)(x)\rangle dx  \\
-&= \int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x B\Phi^u_+(y, X_i) P_0^u D_1 d \:dy \rangle dx
-+ \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|\right]\\
-\int_{-X_{i-1}}^0 \langle &\Psi(x), (K_i^- B W_i^-)(x)\rangle dx \\
-&= \int_{-X_{i-1}}^0 \langle \Psi(x), \int_{-X_{i-1}}^x B \Phi^s_-(y, -X_{i-1}) P_0^s D_1 d  \:dy \rangle dx + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|\right]
-\end{align*}
-
-For the ``end-pieces'', we have
-\begin{align*}
-\int_{\infty}^0 \langle \Psi(x), (K_2^+ B W_2^+)(x)\rangle dx 
-&= \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|\right]\\
-\int_{-\infty}^0 \langle \Psi(x), (K_1^- B W_1^-)(x)\rangle dx 
-&= \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|\right]
-\end{align*}
-
-\begin{proof}
-
-We do this for the ``positive'' piece. The ``negative'' piece is similar. For the ``positive'' piece, we use the above lemma to write $W_i^+(x)$ as 
-
-\begin{align*}
-W_i^+(x) &= \Phi^u_+(x, X_i) P_0^u D_1 d + [T_2(\lambda)(b,d)]_i^+ W_i^+(x)
-\end{align*}
-
-where we have an estimate for $e^{-\eta x} T_2(\lambda)(b,d)_i^\pm W_i^\pm(x)$. Using these expressions, we get a sum of two terms. 
-
-\begin{align*}
-\int_{X_i}^0 \langle &\Psi(x), (K_i^+ B W_i^+)(x)\rangle dx \\
-&= \int_{X_i}^0 \langle \Psi(x), K_i^+ B\Phi^u_+(x, X_i) P_0^u D_1 d \rangle dx + \int_{X_i}^0 \langle \Psi(x), K_i^+ B[T_2(\lambda)(b,d)]_i^+ W_i^+(x) \rangle dx 
-\end{align*}
-
-The first term is
-
-\begin{align*}
-\int_{X_i}^0 \langle \Psi(x), K_i^+ B\Phi^u_+(x, X_i) P_0^u D_1 d \rangle dx &= 
-\int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x B\Phi^u_+(y, X_i) P_0^u D_1 d \:dy \rangle dx 
-\end{align*}
-
-For the second term,
-
-\begin{align*}
-\left| \int_{X_i}^0 \langle \Psi(x), K_i^+ B[T_2(\lambda)(b,d)]_i^+ W_i^+(x) \rangle dx \right|
-&\leq C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} |T_2(\lambda)(b,d)_i^+ W_i^+(y)| dy dx \\
-&\leq C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} |e^{\eta y} T_2(\lambda)(b,d)_i^+ W_i^+(y)| dy dx \\
-&\leq C \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| dy dx \\
-&= C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \int_0^{X_i} e^{-\alpha x} \int_x^{X_i} e^{-\eta y} dy dx \\
-\end{align*}
-
-For the integral on the RHS,
-
-\begin{align*}
-\int_0^{X_i} &e^{-\alpha x} \int_x^{X_i} e^{-\eta y} dy dx
-\leq \int_0^{X_i} e^{-\alpha x} \int_x^{\infty} e^{-\eta y} dy dx \\
-&\leq \frac{1}{\eta} \int_0^{\infty} e^{-(\alpha + \eta) x} dx \\
-&= \frac{1}{\eta(\alpha + \eta)}
-\end{align*}
-
-This gives us 
-
-\begin{align*}
-\left| \int_{X_i}^0 \langle \Psi(x), K_i^+ B[T_2(\lambda)(b,d)]_i^+ W_i^+(x) \rangle dx \right|
-&\leq C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d| \\
-\end{align*}
-
-Combining these, we have
-
-\begin{align*}
-\int_{X_i}^0 \langle &\Psi(x), (K_i^+ B W_i^+)(x)\rangle dx  \\
-&= \int_{X_i}^0 \langle \Psi(x), \int_{X_i}^x B\Phi^u_+(y, X_i) P_0^u D_1 d \:dy \rangle dx
-+ \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|\right]
-\end{align*}
-
-Similarly, we have
-
-\begin{align*}
-\int_{-X_{i-1}}^0 \langle &\Psi(x), (K_i^- B W_i^-)(x)\rangle dx \\
-&= \int_{-X_{i-1}}^0 \langle \Psi(x), \int_{-X_{i-1}}^x B \Phi^s_-(y, -X_{i-1}) P_0^s D_1 d  \:dy \rangle dx + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right) |d|\right]
-\end{align*}
-
-For the ``end-pieces'', the integral term on the RHS is not present.\\
-
-As of now, we do not have estimates for the leading order term.
-
-\end{proof}
-\end{lemma}
-
-The following is analogous to (3.48) in Sandstede (1998). The $b_i$ cancel in that paper, so we will assume they cancel here too, although at some point we might want to look at that more carefully. In the meantime, we will just try and get this to work.
+We now proceed to compute the jump along $\Psi(0)$ by taking $x = 0$ in the fixed point equations, analogous to (3.48) in Sandstede (1998).
 
 \begin{align*}
 \langle \Psi(0), &W_i^-(0) - W_i^+(0) \rangle \\
-= &\langle \psi(-X_{i-1}), a_{i-1}^-\rangle - \langle \psi(X_i), a_{i}^+\rangle\\
-&-\lambda^2\left( \int_{-X_{i-1}}^0 \langle \Psi(y), d_i (K B Q_c)(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), d_i (K B Q_c)(y) \rangle dy \right) \\
-&-\lambda^2 d_i \left( \int_{-X_{i-1}}^0 \langle \Psi(y), (K_i^- B (R_i^-)_c)(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), (K_i^+ B (R_i^+)_c)(y) \rangle dy \right) \\
+= &\langle \Psi(-X_{i-1}), a_{i-1}^-\rangle - \langle \Psi(X_i), a_{i}^+\rangle \\
 &+\left( \int_{-X_{i-1}}^0 \langle \Psi(y), G_i^- W_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), G_i^+ W_i^+(y) \rangle dy \right) \\
-&+ \lambda\left( \int_{-X_{i-1}}^0 \langle \Psi(y), (K_i^- B W_i^-)(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), (K_i^+ B W_i^+)(y) \rangle dy \right) 
+&+ \lambda\left( \int_{-X_{i-1}}^0 \langle \Psi(y), B W_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B W_i^+(y) \rangle dy \right) \\
+&+\lambda^2 d_i \left( \int_{-X_{i-1}}^0 \langle \Psi(y), B \tilde{H}_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B \tilde{H}_i^+(y) \rangle dy \right)
 \end{align*}
 
-\subsubsection*{First jump}
+where the terms involving the $b^\pm$ vanish since $b^\pm \perp \Psi(0)$.\\
 
-At this point, we will take $i = 1$ to make things easier. The $i = 2$ case will be similar. 
-
-\begin{align*}
-\langle \Psi(0), &W_1^-(0) - W_1^+(0) \rangle \\
-= &-\langle \psi(L), a_{1}^+\rangle\\
-&-\lambda^2 d_1 \left( \int_{-\infty}^0 \langle \Psi(y), (K B Q_c)(y) \rangle dy + \int_0^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \right) + \lambda^2 d_1 \int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \\
-&-\lambda^2 d_1 \left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) \\
-&+\left( \int_{-\infty}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_{L}^0 \langle \Psi(y), G_1^+ W_1^+(y) \rangle dy \right) \\
-&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K_i^- B W_i^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_i^+ B W_i^+)(y) \rangle dy \right) \\
-= &-\langle \psi(L), a_{1}^+\rangle + \lambda^2 d_1 \langle q, q_c \rangle_{L^2(\R)} + \lambda^2 d_1 \int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \\
-&-\lambda^2 d_1 \left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) \\
-&+\left( \int_{-\infty}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_{L}^0 \langle \Psi(y), G_1^+ W_1^+(y) \rangle dy \right) \\
-&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right) 
-\end{align*}
-
-where we used the Melnikov result from the single pulse case above.\\
-
-We consider the other terms in the jump one at a time, using the estimates we have found. For all of these use use the estimate
+To do our final estimate, we look at the terms in the jump one at a time, using the estimates we have found above. For all of these use use the estimate
 
 \[
 |\Psi(x)| \leq C e^{-\alpha|x|}
@@ -2313,284 +2080,111 @@ We consider the other terms in the jump one at a time, using the estimates we ha
 
 \begin{enumerate}
 
-\item For the ``remainder'' of the $Q_c$ integral term, we can use the bound on $\Psi$ to get 
-\begin{align*}
-\left| \int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \right| &\leq C \int_L^\infty e^{-\alpha y} \int_{-\infty}^y |q_c(z)| dz\\
-&\leq C \int_L^\infty e^{-\alpha y} \int_{-\infty}^\infty |q_c(z)| dz\\
-&= C \frac{||q_c||_{L_1}}{\alpha}e^{-\alpha L} \\
-&\leq C e^{-\alpha L} 
-\end{align*}
-
-This is a rather crude bound for the constant, but it looks like we don't need to do any better.
-
-\item For the term involving $a$, we plug in $A_4(\lambda)$ and use the estimate from that. 
+\item For the term involving $a$, we plug in $A_3(\lambda)$ and use the estimate from $A_4(\lambda)$.
 
 \begin{align*}
-\langle \psi(L), a_1^+ \rangle &= \langle \psi(L), P_0^u D_1 d \rangle + \langle \psi(L), (A_4(\lambda)(d))^+\rangle\\
-&= \langle \psi(L), P_0^u D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left( e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
-&= \langle \psi(L), P_0^u D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
-\end{align*}
-
-For the first term on the RHS, we substitute our expression for $D_1 d$.
-
-\[
-D_1 d = [Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |Q(x)| \right)
-\]
-
-For now, we assume the remainder term is of sufficiently small order that we don't have to worry about it. So we take
-
-\[
-D_1 d = [Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1)
-\]
-
-Applying the projection $P_0^u$ to this, we have
-
-\begin{align*}
-P_0^u D_1 d &= P_0^u [Q'(-L) + Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1)]
-\end{align*}
-
-At $x = -L$ the orbit $Q(x)$ is close to and approximately tangent to the unstable manifold, so to leading order we have $P_0^u Q'(-L) = Q'(-L)$. At $x = L$ the orbit $Q(x)$ is close to and approximately tangent to the stable manifold, so to leading order we have $P_0^u Q'(L) = 0$. This gives us approximately
-
-\begin{align*}
-P_0^u D_1 d &= Q'(-L)(d_2 - d_1) + \lambda P_0^u (Q_c(-L) + Q_c(L))(d_2 - d_1)
-\end{align*}
-
-Substituting this above, we have
-
-\begin{align*}
-\langle \Psi(L), a_1^+ \rangle = \langle \Psi(L), &Q'(-L) \rangle (d_2 - d_1) + \lambda \langle \Psi(L), P_0^u (Q_c(-L) + Q_c(L))\rangle(d_2 - d_1) \\
-&+ \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
-\end{align*}
-
-For the second term on the RHS, since $Q_c \in C_0^\alpha$, we have the estimate
-
-\begin{align*}
-\langle \Psi(L), P_0^u (Q_c(-L) + Q_c(L))\rangle(d_2 - d_1) &\leq C e^{-2 \alpha L}|d|
-\end{align*}
-
-Thus this becomes
-
-\begin{align*}
-\langle \Psi(L), a_1^+ \rangle = \langle \Psi(L), Q'(-L) \rangle (d_2 - d_1) + \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + e^{-\alpha L}|\lambda| + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
-\end{align*}
-
-\item For the terms involving $G_1^\pm$, we use our lemma to get 
-
-\begin{align*}
-&\left| \int_{-\infty}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_L^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy\right| \leq C|G| \left( \left( e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right)|d|
-\end{align*}
-
-\item For the terms involving $K_1^\pm B W_1^\pm$, we use our lemma to get the following
-
-\begin{align*}
-\lambda&\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right) \\
-&= -\lambda \left( \int_{L}^0 \langle \Psi(x), \int_{L}^x B\Phi^u_+(y, L) P_0^u D_1 d \:dy \rangle dx \right) + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d|\right] \\
-&= U_1 \lambda + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d|\right]
-\end{align*}
-
-where
-
-\[
-U_1 = -\int_{L}^0 \langle \Psi(x), \int_{L}^x B\Phi^u_+(y, L) P_0^u D_1 d\:dy \rangle dx 
-\]
-
-For now, we do not know what to do with the leading order term $S_1$.
-
-\item The only terms left are those involving the integral of the single pulse remainder $K_1^\pm B (R_1^\pm)_c$
-
-\[
-\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) 
-\]
-
-I believe the following is true.
-
-\[
-|(R_1^+)_c)(x)| \leq Ce^{-\alpha(L + |x|)}
-\]
-
-The argument is as follows. We showed above that $q_c \in C_0^\alpha$, so we have
-
-\begin{align*}
-|q_c(x)| &\leq e^{-\alpha |x|} | e^{\alpha |x|} q_c(x) | \\
-&\leq C e^{-\alpha |x|} 
-\end{align*} 
-
-Since the same must be true of $q_{2c}$, and $(q_{2c})_i^\pm = q_c + r_{ic}^\pm$, we must have
-
-\[
-|r_{ic}^\pm(x)| \leq C e^{-\alpha |x|} 
-\] 
-
-Since we showed $q$ is smooth in $c$ as well as in $x$, we should have, analagous to Lemma 3.1 in Sandstede (1998),
-
-\[
-|r_{ic}^\pm(x)| \leq C \sup_{|x| \geq L} |q(x)|
-\]
-
-(The version in that lemma involves $(r_i^\pm)'(x)$, so the same should hold for the derivative with respect to $c$). \\
-
-Since $q(c) \in C_0^\alpha$, we also have
-
-\[ 
-|q(x)| \leq C e^{-\alpha |x|}
-\]
-
-Plugging this into the inequality for $r_{ic}^\pm(x)$ gives us
-
-\[
-|r_{ic}^\pm(x)| \leq C e^{-\alpha L}
-\]
-
-Since we have two inequalities for $r_{ic}^\pm(x)$, it must be less than or equal to the minimum of them, so we can combine them by writing
-
-\begin{align*}
-|r_{ic}^\pm(x)| &\leq C \min( e^{-\alpha L}, e^{-\alpha |x|} ) \\
-&\leq C e^{-\alpha \max(L, |x|)} \\
-&\leq C e^{{-\alpha (L + |x|)}}
-\end{align*}
-
-which is what we want.\\
-
-Given this, we have the following.
-
-\begin{align*}
-\left| \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy \right| &\leq C \int_{-\infty}^0 e^{\alpha y} \int_{-\infty}^y |r_{1c}^-(z)| dz dy \\
-&\leq C \int_{-\infty}^0 e^{\alpha y} \int_{-\infty}^y e^{-\alpha(L + |z|)} dz dy \\
-&\leq C e^{-\alpha L} \int_{-\infty}^0 e^{\alpha y} \int_{-\infty}^y e^{\alpha z} dz dy \\
-&= C \frac{1}{\alpha} e^{-\alpha L} \int_{-\infty}^0 e^{2 \alpha y} dy \\
-&= C \frac{1}{2 \alpha^2 } e^{-\alpha L} dy \\
-&\leq C e^{-\alpha L}
+\langle \psi(L), a_i^+ \rangle &= \langle \psi(L), P_0^u D_1 d \rangle + \langle \psi(L), (A_4(\lambda)(d))^+\rangle\\
+&= \langle \psi(L), P_0^u D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)|d|\\
+&= \langle \psi(L), P_0^u D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)\right)|d|\\
 \end{align*}
 
 Similarly,
 
 \begin{align*}
-\left| \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy\right| &\leq C \int_0^L e^{-\alpha y} \int_y^L |r_{1c}^+(z)| dz dy \\
-&\leq C \int_0^L e^{-\alpha y} \int_y^L e^{-\alpha(L + |z|)} dz dy \\
-&\leq C e^{-\alpha L} \int_0^L e^{-\alpha y} \int_y^L e^{-\alpha z} dz dy \\
-&= C \frac{1}{\alpha} e^{-\alpha L} \int_0^L e^{-\alpha y} (e^{-\alpha y} - e^{-\alpha L}) dy \\
-&\leq C \frac{1}{\alpha} e^{-\alpha L} \int_0^L e^{-2\alpha y} dy \\
-&= C \frac{1}{2 \alpha^2 } e^{-\alpha L} (1 - e^{-2aL})dy \\
-&\leq C e^{-\alpha L}
+\langle \psi(-L), a_{i-1}^- \rangle &= \langle \psi(-L), -P_0^s D_1 d \rangle + \langle \psi(-L), (A_4(\lambda)(d))^-\rangle\\
+&= -\langle \psi(-L), P_0^s D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)|d|\\
+&= -\langle \psi(-L), P_0^s D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)\right)|d|\\
 \end{align*}
 
-Thus we have
+Recall that $a_0^i = a_2^+ = 0$, so for the double pulse, only one of these two terms will be nonzero.
 
-\[
-\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) \leq C e^{-\alpha L}
-\]
+\item For the terms involving $G_1^\pm$, we use Lemma \ref{intG} to get 
+
+\begin{align*}
+&\left| \int_{-X_{i-1}}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy\right| \\
+&\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|
+\end{align*}
+
+\item For the terms involving $B W_1^\pm$, we use Lemma \ref{intG} again to get
+
+\begin{align*}
+\Big| \int_{-X_{i-1}}^0 &\langle \Psi(y), B W_1^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B W_1^+(y) \rangle dy \Big| \\
+&\leq C \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|
+\end{align*}
+
+\item From the term involving $\tilde{H}$ we will get our higher order Melnikov integral.
+
+\begin{align*}
+\int_{-X_{i-1}}^0 &\langle \Psi(y), B \tilde{H}_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B \tilde{H}_i^+(y) \rangle dy \\
+&= \left( \int_{-X_{i-1}}^0 \langle \Psi(y), B H(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B H(y) \rangle dy \right) \\
+&+ \left( \int_{-X_{i-1}}^0 \langle \Psi(y), B (\tilde{H}_i^-(y) - H(y)) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B (\tilde{H}_i^+(y) - H(y)) \rangle dy \right) 
+\end{align*}
+
+For the second pair of integrals,
+
+\begin{align*}
+\left| \int_{-X_{i-1}}^0 \langle \Psi(y), B (\tilde{H}_i^-(y) - H(y)) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B (\tilde{H}_i^+(y) - H(y)) \rangle dy \right| &\leq C \frac{1}{\alpha} \Delta H = C \Delta H
+\end{align*}
+
+For the first pair of integrals,
+
+\begin{align*}
+\int_{-X_{i-1}}^0 &\langle \Psi(y), B H(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B H(y) \rangle dy \\
+&= \int_{-X_{i-1}}^{X_i} \langle \Psi(y), B H(y) \rangle dy \\
+&= \int_{-\infty}^{\infty} \langle \Psi(y), B H(y) \rangle dy - \int_{-\infty}^{-X_{i-1}} \langle \Psi(y), B H(y) \rangle dy - \int_{X_i}^{\infty} \langle \Psi(y), B H(y) \rangle dy 
+\end{align*}
+
+The first integral on the RHS is our higher order Melnikov integral. We can bound the other two integrals easily.
+
+\begin{align*}
+\left| \int_{-\infty}^{-X_{i-1}} \langle \Psi(y), B H(y) \rangle dy - \int_{X_i}^{\infty} \langle \Psi(y), B H(y) \rangle dy \right| \leq C e^{-\alpha L}||H||
+\end{align*}
 
 \end{enumerate}
 
-Thus we should have
+Now we combine all this stuff and see what we get for the jump.
 
 \begin{align*}
-\langle &\Psi(0), W_1^-(0) - W_1^+(0) \rangle = d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \lambda U_1 - \langle \psi(L), Q'(-L) \rangle(d_2 - d_1) + (R(\lambda)d)_1
+\xi = \langle &\Psi(0), W_1^-(0) - W_1^+(0) \rangle = -\langle \psi(-L), P_0^s D_1 d \rangle - \langle \psi(L), P_0^u D_1 d \rangle + \lambda^2 d_i \int_{-\infty}^{\infty} \langle \Psi(y), B H(y) \rangle dy + (R_i(\lambda)d)_i
 \end{align*}
 
 where the remainder term has bound
 
 \begin{align*}
-|(R&(\lambda)d)_1| \leq C |\lambda^2| |d| e^{-\alpha L} + C \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + e^{-\alpha L}|\lambda| + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right) \\
-&+ C|G| \left( \left( e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|)  \right) |D_1| + |\lambda|^2 \right)|d| \\
-&+ C \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d| \\
-&+ C |\lambda^2| e^{-\alpha L} |d| \\
-&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{-2\alpha L}|\lambda| + (e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|))(e^{-\alpha L} + |G| + |\lambda|) |D_1| \right] |d| \\
+|(R&(\lambda)d)_1| \leq C\left( e^{-\alpha L} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)\right)|d| \\
+&+ C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d| \\
+&+ C |\lambda| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d| \\
+&+ C |\lambda^2| (e^{-\alpha L}||H|| + \Delta H)|d| \\
+&\leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + ((||H|| + \Delta H)(e^{-\alpha L} + |G| + |\lambda|) + \Delta H )|\lambda^2| \right)|d|
 \end{align*}
 
-Now define $D_1^{\eta}$ by
+\subsubsection*{The Substitution}
+
+We make the following substitutions which are appropriate to our specific case.
+
+\begin{align*}
+H &= Q^\eta_c \\
+\tilde{H} &= \tilde{Q}^\eta_c \\
+G_i^\pm &= G(\eta)_i^\pm
+\end{align*}
+
+We also need estimates for $||H||$ and $\Delta H$ for the remainder estimate. Recall that we showed that $q_c$ decays exponentially asymptotically with rate $\alpha$
+
+From above, the higher order Melnikov integral is
+
+\begin{align*}
+\int_{-\infty}^{\infty} \langle \Psi(y), B H(y) \rangle dy &= \int_{-\infty}^{\infty} e^{-\eta y} q(y) e^{\eta y} q_c(y) dy \\
+&= \langle q, q_c \rangle_{L^2(\R)}
+\end{align*}
+
+which agrees with Pego and Weinstein. \\
+
+For the terms involving $a_i^\pm$, recall from Lemma \ref{estimates} that $D_1$ is given by
 
 \[
-D_1^{\eta} = e^{\eta L} D_1
+D_1 d = [Q^\eta_x(-L) + Q^\eta_x(L) + 
+\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right)
 \]
-
-We showed that $Q$, $Q'$, and $Q_c$ decay asymptotically exponentially with decay rate $\alpha$, thus $Q(L)$, $Q(-L)$, and their relevant derivatives are a constant multipled by $e^{-\alpha L}$, which gives us
-
-\[
-|D_1^{\eta}| \leq C e^{-(\alpha - \eta)L}
-\]
-
-Thus we have
-
-\begin{align*}
-|D_1| &\leq e^{-\eta L} |D_1^{\eta}| \\
-\end{align*}
-
-Plugging this in above, we get a remainder bound of
-
-\begin{align*}
-|(R&(\lambda)d)_1|  \\
-&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|) |\lambda|^2 + e^{-2\alpha L}|\lambda| +(e^{-\alpha L} + e^{\eta L}(|G| + |\lambda|))(e^{-\alpha L} + |G| + |\lambda|)e^{-\eta L} |D_1^{\eta}|  \right] |d| \\
-&\leq C \left[ (e^{-\alpha L} + |G| + |\lambda|)|\lambda|^2 + e^{-2\alpha L}|\lambda| + (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1^{\eta}|  \right] |d|
-\end{align*}
-
-Let's look at the overall order of the remainder. If we take $|\lambda|$ and $|G|$ of order $e^{-\alpha L}$, the overall order of the remainder is
-
-\begin{align*}
-|(R&(\lambda)d)_1| \leq C ( e^{-3 \alpha L} + e^{-3 \alpha L} + e^{-2 \alpha L} |D_1^{\eta}| ) \\
-&\leq C ( e^{-3 \alpha L} + e^{-2 \alpha L} e^{-(\alpha - \eta)L}) \\
-&= C ( e^{-3 \alpha L} + e^{-(3 \alpha - \eta) L} )\\
-\end{align*}
-
-Since $0 < \eta < \alpha$, this is higher order than the rest of the terms in our expression for the jump, so this is okay.\\
-
-\subsubsection*{Second jump}
-
-For the second jump, most is similar to the first jump. We will do a few of the terms here.
-
-\begin{align*}
-\langle \psi(-L), a_1^- \rangle &= -\langle \psi(-L), P_0^s D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
-\end{align*}
-
-Applying the projection $P_0^s$ to $D_1 d$, we have, similar to the first piece,
-
-\begin{align*}
-P_0^s D_1 d &= P_0^u [Q'(L) + \lambda(Q_c(-L) + Q_c(L))](d_2 - d_1)]
-\end{align*}
-
-Substituting this above, we obtain
-
-\begin{align*}
-\langle \Psi(-L), a_1^- \rangle = -\langle \Psi(-L), &Q'(L) \rangle (d_2 - d_1) - \lambda \langle \Psi(L), P_0^s (Q_c(-L) + Q_c(L))\rangle(d_2 - d_1) \\
-&+ \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
-\end{align*}
-
-Since, as above, we have
-
-\[
-\langle \Psi(L), P_0^s (Q_c(-L) + Q_c(L))\rangle(d_2 - d_1) \leq C e^{-2 \alpha L} |d|
-\]
-
-this becomes
-
-\begin{align*}
-\langle \Psi(-L), a_2^- \rangle = -\langle \Psi(-L), &Q'(L) \rangle (d_2 - d_1) + \mathcal{O} \left( e^{-\alpha L} (e^{-\eta L}|\lambda|^2 + (e^{-\alpha L} + |G| + |\lambda|)|D_1|)|d| \right)\\
-\end{align*}
-
-For the terms involving $K_2^\pm B W_2^\pm$, we use our lemma to get
-
-\begin{align*}
-\lambda&\left( \int_{-L}^0 \langle \Psi(y), (K_2^- B W_2^-)(y) \rangle dy - \int_{\infty}^0 \langle \Psi(y), (K_2^+ B W_2^+)(y) \rangle dy \right) \\
-&= \lambda \left( \int_{-L}^0 \langle \Psi(x), \int_{-L}^x B \Phi^s_-(y, -L) P_0^s D_1 d  \:dy \rangle dxdx \right) + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d|\right] \\
-&= U_2 \lambda + \mathcal{O} \left[ \left(\left( e^{\eta L}(e^{-\alpha L} + |G| + |\lambda|) \right)|D_1| + |\lambda|^2 \right)|\lambda| |d|\right]
-\end{align*}
-
-where
-
-\[
-U_2 = \int_{-L}^0 \langle \Psi(x), \int_{-L}^x B \Phi^s_-(y, -L) P_0^s D_1 d  \:dy \rangle dx
-\]
-
-Thus we have
-
-\[
-\langle \Psi(0), W_2^-(0) - W_2^+(0) \rangle = 
-d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} + U_2 \lambda - \langle \psi(-L), Q'(L) \rangle(d_2 - d_1) + (R(\lambda)d)_2
-\]
-
-where the remainder has the same estimate. 
-
-\subsubsection*{The Matrix}
 
 Putting these together, we have to solve the following system for $(d_1, d_2)$.
 
@@ -2630,179 +2224,5 @@ where $M = \lambda^2 \langle q, q_c \rangle_{L^2(\R)}$. The system above is equi
 \[
 \det S(\lambda) = 0
 \]
-
-\subsection*{Symmetry}
-
-\subsubsection*{Eigenfunction Symmetry}
-
-Now let's look at symmetry for the double pulse case. Recall that if $v(x)$ is an eigenfunction of $\partial_x H v = \lambda v$ with eigenvalue $\lambda$, then
-
-\begin{enumerate}
-	\item $v(-x)$ is an eigenfunction with eigenvalue $-\lambda$
-	\item $\bar{v}(x)$ is an eigenfunction with eigenvalue $\bar{\lambda}$
-\end{enumerate}
-
-Thus if we have a solution $d = (d_1, d_2)$ to $S(\lambda)d = 0$, we should be able to come up with a $\tilde{d}$ which solves $S(-\lambda)\tilde{d} = 0$.\\
-
-Assuming we have such a $v(x)$, we can write it piecewise (as we always do) by:
-
-\begin{align*}
-[q'(x) + \lambda q_c(x)]d_1 + w_1^-(x) && x \in (-\infty, 0] \\
-[q'(x) + \lambda q_c(x)]d_1 + w_1^+(x) && x \in [0, L] \\
-[q'(x) + \lambda q_c(x)]d_2 + w_2^-(x) && x \in [-L, 0] \\
-[q'(x) + \lambda q_c(x)]d_2 + w_2^+(x) && x \in [0, \infty) \\
-\end{align*}
-
-We reverse all of this to get the piecewise version of $v(-x)$:
-\begin{align*}
-[q'(-x) + \lambda q_c(-x)]d_2 + w_2^+(-x) && x \in (-\infty, 0] \\
-[q'(-x) + \lambda q_c(-x)]d_2 + w_2^-(-x) && x \in [0, L] \\
-[q'(-x) + \lambda q_c(-x)]d_1 + w_1^+(-x) && x \in [-L, 0] \\
-[q'(-x) + \lambda q_c(-x)]d_1 + w_1^-(-x) && x \in [0, \infty) \\
-\end{align*}
-
-Since $q'(x)$ is odd and $q_c(x)$ is even, we have
-
-\begin{align*}
-q'(-x) + \lambda q_c(-x) &= -q'(-x) + \lambda q_c(x) \\
-&= -[q'(x) + (-\lambda)q_c(x)]
-\end{align*}
-
-Thus the piecewise version of $v(-x)$ can be written as
-\begin{align*}
-[q'(x) + (-\lambda) q_c(x)](-d_2) + w_2^+(-x) && x \in (-\infty, 0] \\
-[q'(x) + (-\lambda) q_c(x)](-d_2) + w_2^-(-x) && x \in [0, L] \\
-[q'(x) + (-\lambda) q_c(x)](-d_1) + w_1^+(-x) && x \in [-L, 0] \\
-[q'(x) + (-\lambda) q_c(x)](-d_1) + w_1^-(-x) && x \in [0, \infty) \\
-\end{align*}
-
-Since eigenfunctions are specified only up to a constant multiple, we can multiply this whole thing by $-1$ to get
-
-\begin{align*}
-[q'(x) + (-\lambda) q_c(x)]d_2 + -w_2^+(-x) && x \in (-\infty, 0] \\
-[q'(x) + (-\lambda) q_c(x)]d_2 + -w_2^-(-x) && x \in [0, L] \\
-[q'(x) + (-\lambda) q_c(x)]d_1 + -w_1^+(-x) && x \in [-L, 0] \\
-[q'(x) + (-\lambda) q_c(x)]d_1 + -w_1^-(-x) && x \in [0, \infty) \\
-\end{align*}
-
-This is now the same form as a generic eigenvector, so we conclude that for $\tilde{d} = (d_2, d_1)$, $S(-\lambda)\tilde{d} = 0$.\\
-
-\subsubsection*{Preliminary Computations}
-
-Before we look at the symmetry of the individual terms, we look at the inner product $\langle \Psi(x), Q'(-x)$. Recall that since $\Psi(x)$ is the solution to the adjoint equation $\Psi'(x) = -A(Q(x))^* \Psi(x)$. Thus the individual components of $\Psi$ are related by
-
-\begin{align*}
-\psi_1' &= -(2q(x) - c) \psi_4 \\
-\psi_2' &= -\psi_1 \\
-\psi_3' &= -\psi_2 - \psi_4 \\
-\psi_4' &= -\psi_3
-\end{align*}
-
-From this we have the relations
-
-\begin{align*}
-\psi_3 &= -\psi_4' \\
-\psi_2 &= -\psi_3' - \psi_4 = \psi_4'' - \psi_4 \\
-\psi_1 &= -\psi_2' = \psi_4''' - \psi_4'
-\end{align*}
-
-By our assumptions above that $\ker H$ is one-dimensional, we have $\psi_4 = q'$. Thus
-
-\[
-\Psi(x) = \begin{pmatrix}
-q''''(x) - q''(x) \\
-q'''(x) - q'(x) \\
--q''(x) \\
-q'(x)
-\end{pmatrix}
-\]
-
-Thus for the inner product $\langle \Psi(x), Q'(-x) \rangle$ we have
-
-\begin{align*}
-\langle \Psi(x), Q'(-x) \rangle &= (q'''' - q'')(x)q'(-x) + (q''' - q')(x)q''(-x) + -q''(x)q'''(-x) + q'(x)q''''(-x) \\
-&= -(q'''' - q'')(-x)q'(x) - (q''' - q')(-x)q''(x) - -q''(-x)q'''(x) - q'(-x)q''''(x) \\
-&= -\langle \Psi(-x), Q'(x) \rangle
-\end{align*}
-
-where we used the fact that $q'(x)$ is an odd function. We also have for the inner product $\langle \Psi(x), Q_c(-x) \rangle$ 
-
-\begin{align*}
-\langle \Psi(x), Q_c(-x) \rangle &= (q'''' - q'')(x)q_c(-x) + (q''' - q')(x)q_c'(-x) + -q''(x)q_c''(-x) + q'(x)q_c'''(-x) \\
-&= (q'''' - q'')(-x)q_c(x) + (q''' - q')(-x)q_c'(x) + -q''(-x)q_c''(x) + q'(-x)q_c'''(x) \\
-&= \langle \Psi(-x), Q_c(x) \rangle
-\end{align*}
-
-where we used the fact that $q'(x)$ is an odd function and $q_c(x)$ is an even function.
-
-\subsubsection*{Individual Terms}
-
-Now we look at the symmetry of the individual terms in $S$. To do this, we have to consider terms of all orders, which is annoying since we have shown that most of them are small. But we will proceed anyway and see what happens.
-
-Recall that for our two jumps we have
-
-\begin{enumerate}
-
-\item First jump
-
-\begin{align*}
-\langle \Psi(0), &W_1^-(0) - W_1^+(0) \rangle \\
-= &-\langle \psi(L), a_{1}^+\rangle + \lambda^2 d_1 \langle q, q_c \rangle_{L^2(\R)} + \lambda^2 d_1 \int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \\
-&-\lambda^2 d_1 \left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) \\
-&+\left( \int_{-\infty}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_{L}^0 \langle \Psi(y), G_1^+ W_1^+(y) \rangle dy \right) \\
-&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right) 
-\end{align*}
-
-\item Second jump
-
-\begin{align*}
-\langle \Psi(0), &W_1^-(0) - W_1^+(0) \rangle \\
-= &-\langle \psi(L), a_{1}^+\rangle + \lambda^2 d_1 \langle q, q_c \rangle_{L^2(\R)} + \lambda^2 d_1 \int_L^\infty \langle \Psi(y), (K B Q_c)(y) \rangle dy \\
-&-\lambda^2 d_1 \left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B (R_1^-)_c)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B (R_1^+)_c)(y) \rangle dy \right) \\
-&+\left( \int_{-\infty}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_{L}^0 \langle \Psi(y), G_1^+ W_1^+(y) \rangle dy \right) \\
-&+ \lambda\left( \int_{-\infty}^0 \langle \Psi(y), (K_1^- B W_1^-)(y) \rangle dy - \int_{L}^0 \langle \Psi(y), (K_1^+ B W_1^+)(y) \rangle dy \right) 
-\end{align*}
-
-\end{enumerate}
-
-
-
-Let $U$ be the matrix
-
-\[
-U = \begin{pmatrix}0 & 1\\ 1 &0\end{pmatrix}
-\]
-which swaps the two rows of a $2\times2$ matrix.\\
-
-From what we just showed,
-
-\[
-\langle \Psi(L), Q'(-L) \rangle = \langle \Psi(-L), Q'(L) \rangle
-\]
-
-Thus in the matrix $A$ above, $\tilde{a} = -a$, so we have
-
-\begin{align*}
-A = a \begin{pmatrix}
-1 & -1 \\ -1 & 1 
-\end{pmatrix}
-\end{align*}
-
-So we have for the $A$ term
-
-\begin{align*}
-A \begin{pmatrix}d_2\\d_1\end{pmatrix} &= 
-a \begin{pmatrix}1 & -1 \\ -1 & 1 \end{pmatrix}\begin{pmatrix}d_2\\d_1\end{pmatrix} \\
-&= a\begin{pmatrix}d_2 - d_1 \\ -d_2 + d_1 \end{pmatrix}\\
-&= -a\begin{pmatrix}d_1 - d_2 \\ -d_1 + d_2 \end{pmatrix}\\
-&= -a\begin{pmatrix}1 & -1 \\ -1 & 1 \end{pmatrix}\begin{pmatrix}d_1\\d_2\end{pmatrix} \\
-&= -A \begin{pmatrix}d_1\\d_2\end{pmatrix}
-\end{align*}
-
-For the $\lambda^2 M I$ term
-
-\begin{align*}
-(-\lambda)^2 M I \begin{pmatrix}d_2\\d_1\end{pmatrix}
-\end{align*}
 
 \end{document}
