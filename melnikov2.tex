@@ -1088,7 +1088,7 @@ A(q, \eta) =
 
 We probably don't need to write this down explicitly, but there it is. All we care is that for a given temporal eigenvalue $\lambda$, the spatial eigenvalues $\nu$ are all shifted by $\eta$ (in the direction given by the sign of $\eta$). Thus as long as we don't choose $\eta$ to be the real part of any of the eigenvalues of $A(0, 0)$, the matrix $A(0, \eta)$ (which is the linearization about the zero solution) is hyperbolic.\\
 
-Here is a nice way we can see that the exponential weight $\eta$ just shifts the spatial eigenvalues by $\eta$. The spatial eigenvalues are the eigenvalues of the problem $(\partial_x H - \lambda I)v$ = 0, where $\lambda$ is the (fixed) temporal eigenvalue. For the asymptotic operator, this is a constant coefficient ODE, so can substitute the ansatz $e^{\nu x} and solve for $\nu$. This will be in the form of a polynomial for $\nu$, which is the same as the characteristic polynomial of the matrix $A(0,0)$. The exponentially weighted eigenvalue problem is $e^{\eta x} (\partial_x H - \lambda I)e^{-\eta x}v = 0$. Again, working with the asymptotic operator, if $v(x) = e^{\nu x}$ is a solution to the nonweighted equation, then $e^{\eta x}v(x) = e^{\eta x}e^{\nu x} = e^{(\nu + \eta)x} is a solution to the weighted equation, thus the spatial eigenvalues are shifted by $\eta$.
+Here is a nice way we can see that the exponential weight $\eta$ just shifts the spatial eigenvalues by $\eta$. The spatial eigenvalues are the eigenvalues of the problem $(\partial_x H - \lambda I)v$ = 0, where $\lambda$ is the (fixed) temporal eigenvalue. For the asymptotic operator, this is a constant coefficient ODE, so can substitute the ansatz $e^{\nu x}$ and solve for $\nu$. This will be in the form of a polynomial for $\nu$, which is the same as the characteristic polynomial of the matrix $A(0,0)$. The exponentially weighted eigenvalue problem is $e^{\eta x} (\partial_x H - \lambda I)e^{-\eta x}v = 0$. Again, working with the asymptotic operator, if $v(x) = e^{\nu x}$ is a solution to the nonweighted equation, then $e^{\eta x}v(x) = e^{\eta x}e^{\nu x} = e^{(\nu + \eta)x}$ is a solution to the weighted equation, thus the spatial eigenvalues are shifted by $\eta$.
 
 Before we go too much further, we should choose $\eta$.\\
 
@@ -1098,7 +1098,7 @@ Recall that for the linearization about the zero-solution, the nonzero eigenvalu
 \nu = \pm \sqrt{ \frac{1 \pm \sqrt{1 - 4c} }{2}}
 \]
 
-Two have positive real part and two have negative real part. Let $\alpha^u_0 > 0$ be the smallest real part of the unstable eigenvalues and $-\alpha^s_0 > 0$ be the largest real of the stable eigenvalues. Let $\alpha_0$ be the minimum of these two. Then we showed above that the single pulse (and it's $x$ and $c$ derivatives) decays asymptotally exponentially with rate $\alpha_0$, i.e. $|e^{-\alpha_0 |x|} q(x)|$ is bounded (and similarly for $q'(x)$ and $q_c(x)$). Thus we need to choose $\eta$ with $0 < \eta < \alpha_0$ so that these still decay in the exponentially weighted space. \\
+Two have positive real part and two have negative real part. Let $\alpha^u_0 > 0$ be the smallest real part of the unstable eigenvalues and $-\alpha^s_0 > 0$ be the largest real of the stable eigenvalues. Let $\alpha_0$ be the minimum of these two. Then we showed above that the single pulse (and it's $x$ and $c$ derivatives) decays asymptotally exponentially with rate $\alpha_0$, i.e. $|e^{-\alpha_0 |x|} q(x)|$ is bounded (and similarly for $q'(x)$ and $q_c(x)$). Thus we need to choose $\eta$ with either $0 < \eta < \alpha_0$ or $-\alpha_0 < \eta < 0$ so that these still decay in the exponentially weighted space. For now, we will take $\eta > 0$. \\
 
 In the exponentially weighted space, let $\alpha^u > 0$ be the smallest real part of the unstable eigenvalues of $A(0, \eta)$ and $-\alpha^s_0 > 0$ be the largest real of the stable eigenvalues of $A(0, \eta)$. Let $\alpha$ be the minimum of these two. Let $E^u$ and $E^s$ be the corresponding stable and unstable eigenspaces, and let $P^u_0$ and $P^s_0$ be their projections.\\
 
@@ -1323,8 +1323,7 @@ We have the estimates
 \begin{align*}
 |G(\eta)_i^\pm(x)| &\leq C|R_i^\pm(x)| \leq C \sup_{|x| \geq L} |Q(x)| \\
 | B \tilde{Q}^\eta(x) - B Q^\eta(x) | & \leq C | e^{\eta x} R_i^\pm(x)| \leq C \sup_{|x| \geq L} |e^{\eta x} Q(x)| \\
-D_1 d &= [Q^\eta_x(-L) + Q^\eta_x(L) + 
-\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) \\
+D_1 d &= (Q^\eta_x(-L) + Q^\eta_x(L))(d_2 - d_1) + \mathcal{O}\left(e^{-(\alpha - \eta) L}|\lambda||d| + e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) \\
 |A(\tilde{Q}, \eta)| &\leq C \textrm{ for all }x
 \end{align*}
 where $\alpha > 0$ is defined as on pages 432 and 434 of Sandstede (1998) and as above.
@@ -1355,12 +1354,14 @@ If we do this in the exponentially weighted space, we should just get a factor o
 
 These should hold as well for derivatives with respect to $x$ and $c$, or at least I think that was used in the proof of Lemma 3.1 in Sandstede (1998) for the derivative with respect to $x$, so we will do that here. 
 
-Thus, if we substitute these into the expression for $D_1 d$ we get the result we want
+Thus, if we substitute these into the expression for $D_1 d$ we get
 
 \begin{align*}
 D_1 d &= [Q^\eta_x(-L) + Q^\eta_x(L) + 
 \lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) \\ \\
 \end{align*}
+
+Finally, we note that $Q^\eta_c(-L)$ and $Q^\eta_c(L)$ are order $e^{-(\alpha - \eta)L}$, which gives us the result.
 
 \end{proof}
 \end{lemma}
@@ -1410,14 +1411,14 @@ Following Lemma 3.2 in Sandstede (1998), we have the following estimates for the
 |\Phi^u(y,x) &\leq Ce^{\alpha^u(y-x)}
 \end{align*}
 
-We have estimates for the projections
+where $y \geq x$. We have estimates for the projections from the same lemma.
 
 \begin{align*}
+|P^s(x) - P_0^s| \leq Ce^{-\alpha^s x} && x \geq 0 \\
+|P^u(x) - P_0^u| \leq Ce^{-\alpha^s x} && x \geq 0 \\
+|P^s(x) - P_0^s| \leq Ce^{\alpha^u x} && x \leq 0 \\
+|P^u(x) - P_0^u| \leq Ce^{\alpha^u x} && x \leq 0 \\
 \end{align*}
-
-
-
-where $y \geq x$.
 
 Following Sandstede (1998) and what we did above, we can write the fixed point equations for $W_i^\pm$ as
 
@@ -1490,7 +1491,7 @@ L_2(\lambda)(a, b, d)_i^+(x) &= \Phi^u(x, X_i)a^+_{i} + \Phi^s(x, 0)b_i^+ \\
 Then $L_2$ is a bounded linear operator with the following bound
 
 \begin{align*}
-||L_2(\lambda)(a, b, d)|| \leq C(|a| + |b| + |\lambda|^2 ( ||H|| + \Delta H ) |d|)  \\
+||L_2(\lambda)(a, b, d)|| \leq C(|a| + |b| + |\lambda|^2 |d|)  \\
 \end{align*}
 
 Again, this bound does not depend on the specific interval endpoints $X_i$.
@@ -1527,7 +1528,13 @@ and
 Thus we have
 
 \begin{align*}
-| L_2(\lambda)(a, b, d)_i^-(x)| \leq C(|a| + |b| + |\lambda|^2 ( ||H|| + \Delta H ) |d|) 
+| L_2(\lambda)(a, b, d)_i^-(x)| \leq C(|a| + |b| + |\lambda|^2 ( ||H|| + \Delta H ) )|d| 
+\end{align*}
+
+Since $||H||$ is a constant and $\Delta H$ is small (when compared to $||H||$), we can incorporate $||H||$ into the constant $C$ to get
+
+\begin{align*}
+| L_2(\lambda)(a, b, d)_i^-(x)| \leq C(|a| + |b| + |\lambda|^2 |d|) 
 \end{align*}
 
 The positive piece is similar.
@@ -1546,7 +1553,7 @@ w = W_1(\lambda)(a,b,d)
 This operator is analytic in $\lambda$ and linear in $(a, b, d)$. The operator $W_1$ satisfies the bound
 
 \[
-||W_1(\lambda)(a,b,d)|| \leq C(|a| + |b| + |\lambda|^2 ( ||H|| + \Delta H ) |d|) \\
+||W_1(\lambda)(a,b,d)|| \leq C(|a| + |b| + |\lambda|^2 |d|) \\
 \]
 
 \begin{proof}
@@ -1585,7 +1592,7 @@ W = W_1(\lambda)(a,b,d) = (I - L_1(\lambda))^{-1} L_2(\lambda)(a,b,d)
 which depends linearly on $(a,b,d)$ and analytically on $\lambda$. Since the operator norm of $L_1$ is bounded by a constant (independent of $X$), we have the bound
 
 \[
-||W_1(\lambda)(a,b,d)|| \leq C(|a| + |b| + |\lambda|^2 ( ||H|| + \Delta H ) |d|)
+||W_1(\lambda)(a,b,d)|| \leq C(|a| + |b| + |\lambda|^2 |d|)
 \]
 
 \end{proof}
@@ -1614,7 +1621,7 @@ D_1 d &= W_1^+(L) - W_2^-(-L) \\
 &+ \int_{-L}^0 \Phi^u(-L, y)[G_2^-(y) W_2^-(y) + \lambda B W_2^-(y) + \lambda^2 d_2 \tilde{H}_2^-(y) ] dy 
 \end{align*}
 
-Where we have the projections from Lemma 3.2 in Sandstede (1998)
+Where we have the projections
 \begin{align*}
 P^s(x) &= \Phi^s(x,x) \\
 P^u(x) &= \Phi^u(x,x) \\
@@ -1722,14 +1729,20 @@ Combining all of this, we have a bound for $L_3(\lambda)$
 |L_3(\lambda)(a,b,d)| &\leq C \left( p(L)|a| + e^{-\alpha L}|b| + (|G| + |\lambda|)||W|| + |\lambda|^2|d|(||H|| + \Delta H ) \right)
 \end{align*}
 
+Again, since $||H||$ is constant and $\Delta H$ is small, we can incorporate $||H||$ into the constant to get 
+
+\begin{align*}
+|L_3(\lambda)(a,b,d)| &\leq C \left( p(L)|a| + e^{-\alpha L}|b| + (|G| + |\lambda|)||W|| + |\lambda|^2|d| \right)
+\end{align*}
+
 Since we are substituting $W = W_1(\lambda)(a,b,d)$ from Lemma \ref{W1}, we can use our bound for $|W||$ from there to get
 
 \begin{align*}
-|L_3(\lambda)(a,b,d)| &\leq C \left( p(L)|a| + e^{-\alpha L}|b| + (|G| + |\lambda|)(|a| + |b| + |\lambda|^2 ( ||H|| + \Delta H ) |d|) + |\lambda|^2|d|(||H|| + \Delta H ) \right) \\
-&\leq C \left( (p(L) + |G| + |\lambda|)|a| + (e^{-\alpha L} + |G| + |\lambda|)|b| + |\lambda|^2|d|(||H|| + \Delta H ) \right)
+|L_3(\lambda)(a,b,d)| &\leq C \left( p(L)|a| + e^{-\alpha L}|b| + (|G| + |\lambda|)(|a| + |b| + |\lambda|^2 |d|) + |\lambda|^2|d| \right) \\
+&\leq C \left( (p(L) + |G| + |\lambda|)|a| + (e^{-\alpha L} + |G| + |\lambda|)|b| + |\lambda|^2|d| \right)
 \end{align*}
 
-Recalling that we are choosing $|G|\leq \delta$ and $|\lambda| \leq \delta$, we this becomes 
+Recalling that we are choosing $|G|\leq \delta$ and $|\lambda| \leq \delta$. We can also choose $L$ sufficiently large such that $(p(L) \leq \delta$ and $e^{-\alpha L} \leq \delta$. Then this becomes 
 
 \[
 |L_3(\lambda)(a,b,d)| \leq C\delta(|a| + |b| + |d|)
@@ -1773,8 +1786,8 @@ We can find a bound for $A_1$. Note that $S_1^{-1}$ is a bounded linear operator
 \begin{align*}
 |A_1(\lambda)(b,d)| &\leq ||S_1^{-1}|||D_1 d - L_3(\lambda)(0, b, d)| \\
 &\leq C (|D_1||d| + |L_3(\lambda)(0, b, d)|) \\
-&\leq C (|D_1||d| + (e^{-\alpha L} + |G| + |\lambda|)|b| + |\lambda|^2|d|(||H|| + \Delta H ) )\\
-&= C (e^{-\alpha L} + |G| + |\lambda|)|b| + (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d| )
+&\leq C (|D_1||d| + (e^{-\alpha L} + |G| + |\lambda|)|b| + |\lambda|^2|d| )\\
+&= C ((e^{-\alpha L} + |G| + |\lambda|)|b| + (|D_1| + |\lambda|^2)|d| )
 \end{align*}
 
 Next we define
@@ -1787,8 +1800,8 @@ We can get a bound on this by plugging in the bound for $A_1(\lambda)$ into that
 
 \begin{align*}
 ||W_2(\lambda)(a,b,d)||_\eta &\leq C(|A_1(\lambda)(b,d)| + |b| + |\lambda|^2 ( ||H|| + \Delta H ) |d|) \\
-&\leq C((e^{-\alpha L} + |G| + |\lambda|)|b| + (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d| + |b| + |\lambda|^2 ( ||H|| + \Delta H ) |d|) \\
-&\leq C(|b| + (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d|) \\
+&\leq C((e^{-\alpha L} + |G| + |\lambda|)|b| + (|D_1| + |\lambda|^2)|d| + |b| + |\lambda|^2 |d|) \\
+&\leq C(|b| + (|D_1| + |\lambda|^2)|d|) \\
 \end{align*} 
 
 Next we take the equation
@@ -1797,7 +1810,7 @@ Next we take the equation
 D_1 d = (a^+_1 - a^-_1) + L_3(\lambda)(a,b,d)
 \]
 
-and project both sides by $P_0^s$ and $P_0^u$, the projections on $E^s$ and $E_u$. Recalling that $a^-_1 \in E^u$ and $a^+_1 \in E_s$, we have
+and project both sides by $P_0^s$ and $P_0^u$, the projections on $E^s$ and $E^u$. Recalling that $a^-_1 \in E^u$ and $a^+_1 \in E^s$, we have
 
 \begin{align*}
 a^-_1 &= -P_0^s D_1 d + P_0^s L_3(\lambda)(a,b,d) \\
@@ -1827,10 +1840,10 @@ Finally, we have the following estimate for $A_2(\lambda)$
 
 \begin{align*}
 |(A_2&(\lambda)(b,d))| \leq |P_0^{s/u}|| L_3(\lambda)(A_1(\lambda)(b,d),b,d) |\\
-&\leq C \left( (p(L) + |G| + |\lambda|)|(A_1(\lambda)(b,d),b,d)| + (e^{-\alpha L} + |G| + |\lambda|)|b| + |\lambda|^2|d|(||H|| + \Delta H ) \right) \\
-&\leq C ( (p(L) + |G| + |\lambda|)[(e^{-\alpha L} + |G| + |\lambda|)|b| + (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d| ] \\
-&+ (e^{-\alpha L} + |G| + |\lambda|)|b| + |\lambda|^2|d|(||H|| + \Delta H ) ) \\
-&\leq C( (p(L) + |G| + |\lambda|)|b| + (|D_1|(p(L) + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d| ) \\
+&\leq C \left( (p(L) + |G| + |\lambda|)|(A_1(\lambda)(b,d),b,d)| + (e^{-\alpha L} + |G| + |\lambda|)|b| + |\lambda|^2|d| \right) \\
+&\leq C ( (p(L) + |G| + |\lambda|)[(e^{-\alpha L} + |G| + |\lambda|)|b| + (|D_1| + |\lambda|^2)|d| ] \\
+&+ (e^{-\alpha L} + |G| + |\lambda|)|b| + |\lambda|^2|d|) \\
+&\leq C( (p(L) + |G| + |\lambda|)|b| + ((p(L) + |G| + |\lambda|)|D_1| + |\lambda|^2)|d| ) \\
 \end{align*}
 
 \end{proof}
@@ -1919,25 +1932,25 @@ We can get an estimate for $L_4(\lambda)$ as follows. Projections have norm 1, s
 
 \begin{align*}
 |L_4(\lambda)(b,d)| &\leq C\left( e^{-\alpha^u L}|a_i^+| +  e^{-\alpha^s L}|a_i^-|
-+ (|G| + |\lambda|)||W|| + |\lambda|^2|d|(||H|| + \Delta H ) \right) \\
++ (|G| + |\lambda|)||W|| + |\lambda|^2|d| \right) \\
 &\leq C\left( e^{-\alpha L}|a|
-+ (|G| + |\lambda|)||W|| + |\lambda|^2|d|(||H|| + \Delta H ) \right)
++ (|G| + |\lambda|)||W|| + |\lambda|^2|d| \right)
 \end{align*}
 
 Substituting in $A_1(\lambda(b,d)$ and $W_2(\lambda)(b,d)$ and using their bounds, we get
 
 \begin{align*}
 |L_4&(\lambda)(b,d)| \leq C\left( e^{-\alpha L}|A_1(\lambda(b,d)|
-+ (|G| + |\lambda|)||W_2(\lambda)(b,d)|| + |\lambda|^2|d|(||H|| + \Delta H ) \right) \\
-&\leq C( e^{-\alpha L}((e^{-\alpha L} + |G| + |\lambda|)|b| + (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d| )) \\
-&+ (|G| + |\lambda|)((|b| + (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d|) )+ |\lambda|^2|d|(||H|| + \Delta H ) ) \\
-&\leq C( (e^{-2 \alpha L} + |G| + |\lambda|)|b| + (|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d|))
++ (|G| + |\lambda|)||W_2(\lambda)(b,d)|| + |\lambda|^2|d| \right) \\
+&\leq C( e^{-\alpha L}((e^{-\alpha L} + |G| + |\lambda|)|b| + (|D_1| + |\lambda|^2)|d| )) \\
+&+ (|G| + |\lambda|)(|b| + (|D_1| + |\lambda|^2)|d|) + |\lambda|^2|d| ) \\
+&\leq C( (e^{-2 \alpha L} + |G| + |\lambda|)|b| + ((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|)
 \end{align*}
 
-Recalling that $b = x + y$, $|G| \leq \delta$, $|\lambda| \leq \delta$, and choosing $L$ sufficiently large so that $e^{-2 \alpha L} \leq \delta$, this becomes
+Recalling that $b = x + y$, $|G| \leq \delta$, $|\lambda| \leq \delta$, and again choosing $L$ sufficiently large so that $e^{-\alpha L} \leq \delta$, this becomes
 
 \begin{align*}
-|L_4&(\lambda)(b,d)| \leq C\delta(|x| + |y|) + C(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d|
+|L_4&(\lambda)(b,d)| \leq C\delta(|x| + |y|) + C((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|
 \end{align*}
 
 Since the map $J_2$ defined by
@@ -1961,23 +1974,23 @@ solves our problem. For the operator $B_1(\lambda)$, since $S_2^{-1}$ is a bound
 
 \begin{align*}
 |B_1(\lambda)(d)| &\leq C |L_4(\lambda)(0,d)| \\
-&\leq C(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d|
+&\leq C((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|
 \end{align*}
 
 Substituting this into the operators $A_1(\lambda)$ and $W_2(\lambda)$ from the previous lemma gives us operators $A_3$ and $W_3$, which have bounds
 
 \begin{align*}
-|A_3&(\lambda)(d)| \leq C (e^{-\alpha L} + |G| + |\lambda|)|B_1(\lambda)(d)| + (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d| )\\
-&\leq C (e^{-\alpha L} + |G| + |\lambda|)(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d|) + (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d| ) \\
-&\leq C (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d|
+|A_3&(\lambda)(d)| \leq C ((e^{-\alpha L} + |G| + |\lambda|)|B_1(\lambda)(d)| + (|D_1| + |\lambda|^2)|d| )\\
+&\leq C ((e^{-\alpha L} + |G| + |\lambda|)((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|) + (|D_1| + |\lambda|^2 )|d| ) \\
+&\leq C (|D_1| + |\lambda|^2)|d|
 \end{align*}
 
 For $W_3(\lambda)$ we have the bound 
 
 \begin{align*}
-||W_3&(\lambda)(a,b,d)|| \leq C(|B_1(\lambda)(d)|  + (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d|)  \\
-&\leq C ((|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d|)  + (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d|) \\
-&\leq C (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d|
+||W_3&(\lambda)(a,b,d)|| \leq C(|B_1(\lambda)(d)|  + (|D_1| + |\lambda|^2)|d|)  \\
+&\leq C (((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|)  + (|D_1| + |\lambda|^2)|d|) \\
+&\leq C (|D_1| + |\lambda|^2)|d|
 \end{align*} 
 
 Using $A_2(\lambda)$ from the previous lemma, we can define
@@ -1997,10 +2010,10 @@ Plugging in the estimate for $B_1(\lambda)$ into that of $A_2(\lambda)$ from the
 
 \begin{align*}
 |(A_4&(\lambda)d)| \\
-&\leq C( (p(L) + |G| + |\lambda|)|B_1(\lambda)| + (|D_1|(p(L) + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d| ) \\
-&\leq C( (p(L) + |G| + |\lambda|)(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d|) \\
-&+ (|D_1|(p(L) + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d| ) \\
-&\leq C(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d|
+&\leq C( (p(L) + |G| + |\lambda|)|B_1(\lambda)| + ((p(L) + |G| + |\lambda|)|D_1| + |\lambda|^2)|d| ) \\
+&\leq C( (p(L) + |G| + |\lambda|)((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|) \\
+&+ ((p(L) + |G| + |\lambda|)|D_1| + |\lambda|^2)|d| ) \\
+&\leq C((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|
 \end{align*}
 
 Note that compared to (3.39) in Sandstede (1998), we have an extra $|\lambda|$ in the $D_1$ term. In that case, we had another term in $|\lambda|$ to absorb it. In this case, we have a term in $|\lambda^2|$ instead of $|\lambda|$, so we cannot absorb it. 
@@ -2014,8 +2027,8 @@ We can use what we have done above to get a sharper estimate for $W_i^\pm$ in th
 We have the following estimates for $|W_i^\pm(x)|$
 
 \begin{align*}
-| W_i^-(x)| &\leq C ( (e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 (||H|| + \Delta H))|d|\\
-| W_i^+(x)| &\leq C ( (e^{\alpha(x - X_{i})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 (||H|| + \Delta H))|d|
+| W_i^-(x)| &\leq C ( (e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 )|d|\\
+| W_i^+(x)| &\leq C ( (e^{\alpha(x - X_{i})} + e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 )|d|
 \end{align*}
 where $\alpha = \min(\alpha^s, \alpha^u)$.
 
@@ -2034,34 +2047,35 @@ we can use the estimate for $L_1(\lambda)$ together with an improved estimate fo
 For $L_2(\lambda)$ we will use the following estimate for the negative piece, which comes from the proof of Lemma \ref{L2}.
 
 \begin{align*}
-| (L_2(\lambda)(a, b, d)_i^-)(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + |\lambda|^2 (||H|| + \Delta H)|d_i| \right)
+| (L_2(\lambda)(a, b, d)_i^-)(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + |\lambda|^2 |d_i| \right)
 \end{align*}
 
 Combining these, we have
 
 \begin{align*}
-| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + \left(|G| +|\lambda|\right)||W||_\eta + |\lambda|^2 (||H|| + \Delta H)|d_i|  \right)
+| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + \left(|G| +|\lambda|\right)||W||_\eta + |\lambda|^2 |d_i|  \right)
 \end{align*}
 
 Substituting in $A_3(\lambda)$, $B_1(\lambda)$, and $W_3(\lambda)$, this estimate becomes
 
 \begin{align*}
-| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |A_3(\lambda)| + |B_1(\lambda)| + \left(|G| +|\lambda|\right)||W_3(\lambda)|| + |\lambda|^2 (||H|| + \Delta H)|d_i|  \right) \\
-&= C e^{-\alpha^s(x + X_{i-1})} (|D_1| + |\lambda|^2(||H|| + \Delta H ))|d|)\\
-&+ C (|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H ))|d|\\
-&+ C (|G +|\lambda|)(|D_1| + |\lambda|^2(||H|| + \Delta H ))|d| + C |\lambda|^2 (||H|| + \Delta H)|d| \\
-&\leq C ( (e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 (||H|| + \Delta H))|d|
+| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |A_3(\lambda)| + |B_1(\lambda)| + \left(|G| +|\lambda|\right)||W_3(\lambda)|| + |\lambda|^2 |d_i|  \right) \\
+&= C e^{-\alpha^s(x + X_{i-1})} (|D_1| + |\lambda|^2)|d|)\\
+&+ C ((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|\\
+&+ C (|G| +|\lambda|)(|D_1| + |\lambda|^2)|d| + C |\lambda|^2|d| \\
+&\leq C ( (e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 )|d|
 \end{align*}
 
 Similarly
 
 \begin{align*}
-| W_i^+(x)| \leq C ( (e^{\alpha(x - X_{i})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 (||H|| + \Delta H))|d|
+| W_i^+(x)| \leq C ( (e^{\alpha(x - X_{i})} + e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 )|d|
 \end{align*}
 
 \end{proof}
 
 \end{lemma}
+
 
 Next, we use this bound to estimate some integrals.
 
@@ -2069,10 +2083,10 @@ Next, we use this bound to estimate some integrals.
 We have the following bounds for these integrals involving $W_i^\pm$
 
 \begin{align*}
-\left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|\\
-\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|\\
-\left| \int_0^{X_i} \langle \Psi(x), B W_i^+(x) \rangle dx \right| &\leq C \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|\\
-\left| \int_{-X_{i-1}}^0 \langle \Psi(x), B W_i^-(x) \rangle dx \right| &\leq C \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|
+\left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \right)|d|\\
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \right)|d|\\
+\left| \int_0^{X_i} \langle \Psi(x), B W_i^+(x) \rangle dx \right| &\leq C \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \right)|d|\\
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), B W_i^-(x) \rangle dx \right| &\leq C \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \right)|d|
 \end{align*}
 
 \begin{proof}
@@ -2086,7 +2100,7 @@ For the adjoint solution $\Psi$, we use the estimate
 Using the estimate from the previous lemma,
 \begin{align*}
 \left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| &\leq \int_0^{X_i} |\Psi(x)||G| |W_i^+(x)| dx \\
-&\leq C|G| \int_0^{X_i} e^{-\tilde{\alpha} x} \left( (e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 (||H|| + \Delta H)\right) |d| dx 
+&\leq C|G| \int_0^{X_i} e^{-\tilde{\alpha} x} \left( (e^{-\alpha(x + X_{i-1})} + e^{-\alpha L} + |G| + |\lambda|)|D_1 + |\lambda|^2 \right) |d| dx 
 \end{align*}
 
 For the first term inside the integral,
@@ -2095,22 +2109,22 @@ For the first term inside the integral,
 e^{-\tilde{\alpha} x} e^{\alpha(x - X_{i})} &= e^{-\alpha X_i} e^{-(\tilde{\alpha} - \alpha)x}
 \end{align*}
 
-By our hyperbolicity assumption (CHECK THIS), we can make the constant $\tilde{\alpha}$ a little larger than $\alpha$ so that the above expression decays since $x \geq 0$. Thus we have
+By our hyperbolicity assumption (CHECK THIS!), we can make the constant $\tilde{\alpha}$ a little larger than $\alpha$ so that the above expression decays since $x \geq 0$. Thus we have
 
 \begin{align*}
 &\left| \int_0^{X_i} \langle \Psi(x), G_i^+(x) W_i^+(x) \rangle dx \right| \\
-&\leq C|G| \int_0^{\infty} \left(  e^{-(\tilde{\alpha} - \alpha)x} e^{-\alpha X_i} |D_1| +  e^{-\tilde{\alpha} x} \left( (e^{-\alpha L} + |G| + |\lambda| ) |D_1| + |\lambda|^2 ( ||H|| + \Delta H )\right) \right) |d|dx \\
-&\leq C|G| \left(  \frac{1}{\tilde{\alpha} - \alpha}e^{-\alpha X_i}|D_1| + \frac{1}{\tilde{\alpha}}\left( (e^{-\alpha L} + |G| + |\lambda| ) |D_1| + |\lambda|^2 ( ||H|| + \Delta H )\right) \right)|d| \\
-&\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|
+&\leq C|G| \int_0^{\infty} \left(  e^{-(\tilde{\alpha} - \alpha)x} e^{-\alpha X_i} |D_1| +  e^{-\tilde{\alpha} x} \left( (e^{-\alpha L} + |G| + |\lambda| ) |D_1| + |\lambda|^2 \right) \right) |d|dx \\
+&\leq C|G| \left(  \frac{1}{\tilde{\alpha} - \alpha}e^{-\alpha X_i}|D_1| + \frac{1}{\tilde{\alpha}}\left( (e^{-\alpha L} + |G| + |\lambda| ) |D_1| + |\lambda|^2 \right) \right)|d| \\
+&\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \right)|d|
 \end{align*}
 
 where in the last line we took $X_i = L$, as is the case for the double pulse. Similarly,
 
 \begin{align*}
-\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|
+\left| \int_{-X_{i-1}}^0 \langle \Psi(x), G_i^-(x) W_i^-(x) \rangle dx \right| &\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \right)|d|
 \end{align*}
 
-The other two bounds are essentially identical.
+The other two bounds are essentially identical since all we did is replace the $G$ with $B$, and $|B| \leq 1$.
 
 \end{proof}
 \end{lemma}
@@ -2135,20 +2149,20 @@ To do our final estimate, we look at the terms in the jump one at a time, using 
 
 \begin{enumerate}
 
-\item For the term involving $a$, we plug in $A_3(\lambda)$ and use the estimate from $A_4(\lambda)$.
+\item For the term involving $a$, we plug in $A_3(\lambda)$ and use the estimate for $A_4(\lambda)$.
 
 \begin{align*}
 \langle \psi(L), a_i^+ \rangle &= \langle \psi(L), P_0^u D_1 d \rangle + \langle \psi(L), (A_4(\lambda)(d))^+\rangle\\
-&= \langle \psi(L), P_0^u D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)|d|\\
-&= \langle \psi(L), P_0^u D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)\right)|d|\\
+&= \langle \psi(L), P_0^u D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left(((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|\right)\\
+&= \langle \psi(L), P_0^u D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} \left((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 \right)|d|\right)\\
 \end{align*}
 
 Similarly,
 
 \begin{align*}
 \langle \psi(-L), a_{i-1}^- \rangle &= \langle \psi(-L), -P_0^s D_1 d \rangle + \langle \psi(-L), (A_4(\lambda)(d))^-\rangle\\
-&= -\langle \psi(-L), P_0^s D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)|d|\\
-&= -\langle \psi(-L), P_0^s D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)\right)|d|\\
+&= -\langle \psi(-L), P_0^s D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left(((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|\right)\\
+&= -\langle \psi(-L), P_0^s D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} \left((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 \right)|d|\right)\\
 \end{align*}
 
 Recall that $a_0^i = a_2^+ = 0$, so for the double pulse, only one of these two terms will be nonzero.
@@ -2156,15 +2170,13 @@ Recall that $a_0^i = a_2^+ = 0$, so for the double pulse, only one of these two 
 \item For the terms involving $G_1^\pm$, we use Lemma \ref{intG} to get 
 
 \begin{align*}
-&\left| \int_{-X_{i-1}}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy\right| \\
-&\leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|
+&\left| \int_{-X_{i-1}}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), G_1^- W_1^-(y) \rangle dy\right| \leq C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \right)|d|
 \end{align*}
 
 \item For the terms involving $B W_1^\pm$, we use Lemma \ref{intG} again to get
 
 \begin{align*}
-\Big| \int_{-X_{i-1}}^0 &\langle \Psi(y), B W_1^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B W_1^+(y) \rangle dy \Big| \\
-&\leq C \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d|
+\Big| \int_{-X_{i-1}}^0 &\langle \Psi(y), B W_1^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), B W_1^+(y) \rangle dy \Big| \leq C \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2  \right)|d|
 \end{align*}
 
 \item From the term involving $\tilde{H}$ we will get our higher order Melnikov integral.
@@ -2189,11 +2201,21 @@ For the first pair of integrals,
 &= \int_{-\infty}^{\infty} \langle \Psi(y), H(y) \rangle dy - \int_{-\infty}^{-X_{i-1}} \langle \Psi(y), H(y) \rangle dy - \int_{X_i}^{\infty} \langle \Psi(y), H(y) \rangle dy 
 \end{align*}
 
-The first integral on the RHS is our higher order Melnikov integral. We can bound the other two integrals easily.
+The first integral on the RHS is our higher order Melnikov integral, which is what we want. We can bound the other two integrals easily.
 
 \begin{align*}
 \left| \int_{-\infty}^{-X_{i-1}} \langle \Psi(y), H(y) \rangle dy - \int_{X_i}^{\infty} \langle \Psi(y), H(y) \rangle dy \right| \leq C e^{-\alpha L}||H||
 \end{align*}
+
+Thus we have
+
+\begin{align*}
+\int_{-X_{i-1}}^0 &\langle \Psi(y), \tilde{H}_i^-(y) \rangle dy - \int_{X_i}^0 \langle \Psi(y), \tilde{H}_i^+(y) \rangle dy &= \int_{-\infty}^{\infty} \langle \Psi(y), H(y) \rangle dy + \mathcal{O}(e^{-\alpha L}||H|| + \Delta H) \\
+&= \mathcal{O}(e^{-\alpha L} + \Delta H) 
+\end{align*}
+
+since $||H||$ is a constant.
+
 
 \end{enumerate}
 
@@ -2206,16 +2228,24 @@ Now we combine all this stuff and see what we get for the jump.
 where the remainder term has bound
 
 \begin{align*}
-|(R&(\lambda)d)_i| \leq C\left( e^{-\alpha L} \left(|D_1|(e^{-\alpha L} + |G| + |\lambda|) + |\lambda|^2(||H|| + \Delta H )\right)\right)|d| \\
-&+ C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d| \\
-&+ C |\lambda| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2 \left(||H|| + \Delta H\right) \right)|d| \\
-&+ C |\lambda^2| (e^{-\alpha L}||H|| + \Delta H)|d| \\
-&\leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + ((||H|| + \Delta H)(e^{-\alpha L} + |G| + |\lambda|) + \Delta H )|\lambda^2| \right)|d|
+|(R&(\lambda)d)_i| \leq C\left( e^{-\alpha L} \left((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 \right)\right)|d| \\
+&+ C|G| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2  \right)|d| \\
+&+ C |\lambda| \left( \left(e^{-\alpha L} + |G| + |\lambda|  \right) |D_1| + |\lambda|^2  \right)|d| \\
+&+ C |\lambda^2| (e^{-\alpha L} + \Delta H)|d| \\
+&\leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (e^{-\alpha L} + |G| + |\lambda| + \Delta H )|\lambda^2| \right)|d|
 \end{align*}
+
+Let's do a quick order check to make sure this is legit before continuing. Recall that we have chosen $\delta$ so that $e^{-\alpha L} \leq \delta$ and also have the inequalities
+
+\[
+|\lambda|,|G|,|D_1|,|\Delta H| \leq \delta
+\]
+
+Then the higher order terms are of order $\delta^2 |d|$ and the remainder is of order $\delta^3 |d|$, so we are okay.
 
 \subsubsection*{The Substitution}
 
-We make the following substitutions which are appropriate to our specific case.
+Now we will substitute what we have in our specific case into the general version we analyzed above. First, we take
 
 \begin{align*}
 H &= B Q^\eta_c \\
@@ -2223,19 +2253,13 @@ H &= B Q^\eta_c \\
 G_i^\pm &= G(\eta)_i^\pm
 \end{align*}
 
-We also need estimates for $||H||$ and $\Delta H$ for the remainder estimate. Recall that we showed that $q_c$ decays exponentially asymptotically with rate $\alpha$. We also chose $\eta$ so that $0 < \eta < \alpha$. Thus $||e^{\alpha x} q_c(x)|| \leq C$. Since the only nonzero component of $B Q^\eta c$ is $e^{\eta x} q_c(x)$, we have for $x \geq 0$
+Before we can make the substitution, we need to verify a few things.
 
-\[
-\sup_{x \geq 0} |e^{\eta x} q_c(x)| \leq \sup_{x \geq 0} |e^{\alpha x} q_c(x)| = ||e^{\alpha x} q_c(x)|| \leq C
-\]
+\begin{enumerate}
 
-and for $x \leq 0$, since $q_c$ is bounded we have
+\item $||H||$ is bounded. Recall that we showed that $q_c$ decays exponentially asymptotically (at both ends) with rate $\alpha$. We also chose $\eta$ so that $0 < \eta < \alpha$ or $-\alpha < \eta < 0$. Thus since the only nonzero component of $B Q^\eta c$ is $e^{\eta x} q_c(x)$, $||B Q^\eta_c||$ is bounded, thus $||H|| = ||B Q^\eta_c||$ exists and is finite.\\
 
-\[
-\sup_{x \leq 0} |e^{\eta x} q_c(x)| \leq \sup_{x \leq 0} |q_c(x)| \leq C
-\]
-
-Thus $||H||$ really is a constant and we can take $||H|| = C$. Now we deal with $\Delta H$. We (should) have from Lemma \ref{estimates} that
+\item We can ensure that $\Delta H \leq \delta$ for any $\delta$. Recall we have the bound
 
 \begin{align*}
 | B \tilde{Q}^\eta_c(x) - B Q^\eta_c(x) | &\leq C \sup_{|x| \geq L} |e^{\eta x} q(x)| \\
@@ -2243,11 +2267,18 @@ Thus $||H||$ really is a constant and we can take $||H|| = C$. Now we deal with 
 &\leq C e^{-(\alpha - \eta)L}
 \end{align*}
 
-Thus we can take 
+Thus we have
 
 \[
 \Delta H = C e^{-(\alpha - \eta)L}
 \]
+
+and so we can always choose $L$ sufficiently large so that $\Delta H \leq \delta$.
+
+\item 
+
+\end{enumerate}
+
 
 and so the remainder term has estimate
 
