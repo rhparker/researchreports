@@ -1034,7 +1034,7 @@ Thus we have a similar boundary condition to before and conclude that the integr
 
 \subsubsection*{Exponentially weighted space}
 
-We will pose our eigenvalue problem in the exponentially weighted space $H_\eta^k(\R)$, where $a$ is the exponential weight, and the norm of the space is given by
+We will pose our eigenvalue problem in the exponentially weighted space $H_\eta^k(\R)$, where $\eta$ is the exponential weight, and the norm of the space is given by
 
 \[
 ||u||_{H_\eta^k(\R)} = ||e^{\eta x}u||_{H^k}
@@ -1046,7 +1046,7 @@ The (unweighted) linear operator is
 L = \partial_x H = \partial_x^5 - \partial_x^3 + (c - 2q(x))\partial_x - 2 q_x(x)
 \]
 
-We can write the eigenvalue problem as a first-order system. After doing this, the eigenvalue problem becomes (for fixed $c$) $V' = A(q, 0)V + \lambda B V$, where V = $(v, v', v'', v''', v'''')$ and we have the matrices
+We can write the eigenvalue problem as a first-order system. After doing this, the unweighted eigenvalue problem becomes (for fixed $c$) $V' = A(q, 0)V + \lambda B V$, where V = $(v, v', v'', v''', v'''')$ and we have the matrices
 
 \begin{align*}
 B = \begin{pmatrix}0 & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\0  & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\1 & 0 & 0 & 0 & 0 \end{pmatrix} && 
@@ -1060,9 +1060,11 @@ In the exponentially weighted space, this becomes the operator
 L_\eta = e^{\eta x} L e^{-\eta x} = e^{\eta x} \partial_x H e^{-\eta x}
 \]
 
-where we have chosen $\eta$ such that $0 < \eta < \alpha$ so that the exponentially weighted single pulse $e^{\eta x} q(x)$ still decays exponentially at both ends (albeit at a smaller rate at one end).\\
+To obtain an expression for this, all we have to do is replace $\partial_x$ by $(\partial_x - \eta)$ in the expression for $L$.
 
-The single element in the kernel is $\tilde{q}(x) = e^{\eta x} q'(x)$, since
+We will choose an appropriate $\eta$ a little later.\\
+
+The single element in the kernel of $L_\eta$ is $\tilde{q}(x) = e^{\eta x} q'(x)$, since
 
 \begin{align*}
 L_\eta e^{\eta x} q'(x) &= e^{\eta x} L e^{-\eta x} e^{\eta x} q'(x) = e^{\eta x} L q'(x) = 0
@@ -1076,17 +1078,37 @@ L_\eta e^{\eta x} (-q_c(x)) &= e^{\eta x} L e^{-\eta x} e^{\eta x} (-q_c(x)) = e
 
 where we used the fact that $L q_c(x) = -q'(x)$. In system-form, this generalized kernel element will be called $Q^\eta_c(x)$.\\
 
-We can also write this as a first order system in the exponentially weighted space. In that case, the eigenvalue problem becomes $V' = A(q, a)V + \lambda B V$, where
+We can write this as a first order system in the exponentially weighted space. In that case, the eigenvalue problem becomes $V' = A(q, \eta)V + \lambda B V$, where
 
 \[
 A(q, \eta) = 
 \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
-\eta^5 - \eta^3 + \eta c - 2 \eta q(x) + 2q'(x) & -5\eta^4 + 3\eta^2 + 2q(x) - c & -10\eta^3 + 3\eta & -10\eta^2 + 1 & 5\eta \end{pmatrix} 
+\eta^5 - \eta^3 + \eta c - 2 \eta q(x) + 2q'(x) & -5\eta^4 + 3\eta^2 + 2q(x) - c & 10\eta^3 - 3\eta & -10\eta^2 + 1 & 5\eta \end{pmatrix} 
 \]
 
-We probably don't need to write this down explicitly. If we linearize about the zero-solution, the matrix $A(0, \eta)$ is hyperbolic for $\eta \neq 0$ (easy to show numerically, so for now that will do). Thus we can follow the procedure in Sandstede (1998), as long as we set up the problem correctly. So let's do that.\\
+We probably don't need to write this down explicitly, but there it is. All we care is that for a given temporal eigenvalue $\lambda$, the spatial eigenvalues $\nu$ are all shifted by $\eta$ (in the direction given by the sign of $\eta$). Thus as long as we don't choose $\eta$ to be the real part of any of the eigenvalues of $A(0, 0)$, the matrix $A(0, \eta)$ (which is the linearization about the zero solution) is hyperbolic.\\
 
-Consider the eigenvalue problem
+Here is a nice way we can see that the exponential weight $\eta$ just shifts the spatial eigenvalues by $\eta$. The spatial eigenvalues are the eigenvalues of the problem $(\partial_x H - \lambda I)v$ = 0, where $\lambda$ is the (fixed) temporal eigenvalue. For the asymptotic operator, this is a constant coefficient ODE, so can substitute the ansatz $e^{\nu x} and solve for $\nu$. This will be in the form of a polynomial for $\nu$, which is the same as the characteristic polynomial of the matrix $A(0,0)$. The exponentially weighted eigenvalue problem is $e^{\eta x} (\partial_x H - \lambda I)e^{-\eta x}v = 0$. Again, working with the asymptotic operator, if $v(x) = e^{\nu x}$ is a solution to the nonweighted equation, then $e^{\eta x}v(x) = e^{\eta x}e^{\nu x} = e^{(\nu + \eta)x} is a solution to the weighted equation, thus the spatial eigenvalues are shifted by $\eta$.
+
+Before we go too much further, we should choose $\eta$.\\
+
+Recall that for the linearization about the zero-solution, the nonzero eigenvalues are given by
+
+\[
+\nu = \pm \sqrt{ \frac{1 \pm \sqrt{1 - 4c} }{2}}
+\]
+
+Two have positive real part and two have negative real part. Let $\alpha^u_0 > 0$ be the smallest real part of the unstable eigenvalues and $-\alpha^s_0 > 0$ be the largest real of the stable eigenvalues. Let $\alpha_0$ be the minimum of these two. Then we showed above that the single pulse (and it's $x$ and $c$ derivatives) decays asymptotally exponentially with rate $\alpha_0$, i.e. $|e^{-\alpha_0 |x|} q(x)|$ is bounded (and similarly for $q'(x)$ and $q_c(x)$). Thus we need to choose $\eta$ with $0 < \eta < \alpha_0$ so that these still decay in the exponentially weighted space. \\
+
+In the exponentially weighted space, let $\alpha^u > 0$ be the smallest real part of the unstable eigenvalues of $A(0, \eta)$ and $-\alpha^s_0 > 0$ be the largest real of the stable eigenvalues of $A(0, \eta)$. Let $\alpha$ be the minimum of these two. Let $E^u$ and $E^s$ be the corresponding stable and unstable eigenspaces, and let $P^u_0$ and $P^s_0$ be their projections.\\
+
+Finally, let $\Psi(x)$ be the unique bounded solution to the adjoint problem
+
+\[
+W' = -A(q, \eta)^* W
+\]
+
+Now let's return to the eigenvalue problem
 
 \[
 V' = A(q, \eta)V + \lambda B V
@@ -1262,7 +1284,7 @@ We would like to write things in terms of the single pulse $Q$. Luckily, from Sa
 where the remainder $R_i^\pm$ is small (and we have estimates on it). Then $\tilde{Q}_c = Q_c + (R_i^\pm)_c$. Let
 
 \[
-G(\eta)_i^\pm = A(\tilde{q},\eta) - A(q,\eta) = A(Q + R_i^\pm, \eta) - A(Q, \eta)
+G(\eta)_i^\pm = A(\tilde{q},\eta) - A(q,\eta) = A(q + r_i^\pm, \eta) - A(q, \eta)
 \]
 
 Following Sandstede (1998) we are then looking to solve the following system
@@ -1346,7 +1368,7 @@ D_1 d &= [Q^\eta_x(-L) + Q^\eta_x(L) +
 Now, as in Sandstede (1998), we write the system in a more general form. As in section 3.2 in Sandstede (1998), consider the general system
 
 \begin{enumerate}[(i)]
-\item $(W_i^\pm)' = A W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
+\item $(W_i^\pm)' = A(q, \eta) W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
 \item $W_i^\pm(x) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
 \item $W_i^+(0) - W_i^-(0) \in \C \psi(0) $
 \item $W_1^+(L) - W_2^-(-L) = D_1 d $
@@ -1356,13 +1378,46 @@ where we have the bounds
 
 \begin{align*}
 |G_i^\pm| & \leq \delta \\
-|\tilde{H}_i^\pm(x) - H(x)| &\leq \Delta H \leq e^{\eta L} \delta\\
+|\tilde{H}_i^\pm(x) - H(x)| &\leq \Delta H \leq \delta\\
 |B| &\leq 1 \\
 |\lambda| &\leq \delta \\
-|D_1| &\leq e^{\eta L} \delta
+|D_1| &\leq \delta
 \end{align*}
 
-where $H$ is a bounded function with supremum norm $||H||$ and $\delta$ is a constant we can choose later.
+where $H$ is a bounded function with supremum norm $||H||$ and $\delta$ is a constant which is small and which we can choose later. Thus this general system is a small perturbation of the 
+
+\begin{equation}\label{Wprime}
+W' = A(q, \eta) W
+\end{equation}
+
+which only depends on the single pulse $q(x)$ and the exponential weight $\eta$. Note that unlike in Sandstede (1998), we do not need to consider plus and minus components of this since the homoclinic orbit does not break. Let $\Phi(y, x)$ be the evolution of \eqref{Wprime}. Then we can decompose $\Phi(y, x)$ into stable components, i.e. 
+
+\[
+\Phi(y, x) = \Phi^s(y, x) + \Phi^u(y, x)
+\]
+
+Taking $y = x$, we define the projections at $x$ by
+
+\begin{align*}
+P^s(x) &= \Phi^s(x,x)\\
+P^u(x) &= \Phi^u(x,x)\\
+\end{align*}
+
+Following Lemma 3.2 in Sandstede (1998), we have the following estimates for the $\Phi^\pm$.
+
+\begin{align*}
+|\Phi^s(y,x) &\leq Ce^{-\alpha^s(y-x)}\\
+|\Phi^u(y,x) &\leq Ce^{\alpha^u(y-x)}
+\end{align*}
+
+We have estimates for the projections
+
+\begin{align*}
+\end{align*}
+
+
+
+where $y \geq x$.
 
 Following Sandstede (1998) and what we did above, we can write the fixed point equations for $W_i^\pm$ as
 
@@ -2229,7 +2284,7 @@ The highest order terms in $D_1$ are $Q^\eta_x(-L) + Q^\eta_x(L)$, which are ord
 
 If we choose $\delta \leq e^{-\alpha L}$, the overall order of the remainder term is $e^{-(3\alpha - \eta) L}$ which is higher order than $e^{-2 \alpha L}$, the order of the higher order terms (hopefully!). \\
 
-Now we deal with the rest of the $a_i^\pm$ terms. As in Sandstede (1998), we should be able to neglect the terms involving inner products with the same sign in front of $L$, since they are higher order terms. Similarly, we should be able to drop the projection operator in the terms involving inner products with opposite signs, since these projection are approximately the identity. This is true by how we set the problem up in the first place, I think. So we will do that for now, although we should really look at this more closely. Thus to leading order we should have
+Now we deal with the rest of the $a_i^\pm$ terms. THIS SHOULD FOLLOW FROM LEMMA 3.3 IN SANDSTEDE (1998). As in Sandstede (1998), we should be able to neglect the terms involving inner products with the same sign in front of $L$, since they are higher order terms. Similarly, we should be able to drop the projection operator in the terms involving inner products with opposite signs, since these projection are approximately the identity. This is true by how we set the problem up in the first place, I think. So we will do that for now, although we should really look at this more closely. Thus to leading order we should have
 
 \begin{align*}
 \langle \Psi(L), P_0^u [Q^\eta_x(-L) + Q^\eta_x(L) + 
