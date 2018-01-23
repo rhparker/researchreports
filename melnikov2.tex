@@ -1323,10 +1323,10 @@ We have the estimates
 \begin{align*}
 |G(\eta)_i^\pm(x)| &\leq C|R_i^\pm(x)| \leq C \sup_{|x| \geq L} |Q(x)| \\
 | B \tilde{Q}^\eta(x) - B Q^\eta(x) | & \leq C | e^{\eta x} R_i^\pm(x)| \leq C \sup_{|x| \geq L} |e^{\eta x} Q(x)| \\
-D_1 d &= (Q^\eta_x(-L) + Q^\eta_x(L))(d_2 - d_1) + \mathcal{O}\left(e^{-(\alpha - \eta) L}|\lambda||d| + e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) \\
+D_1 d &= (Q^\eta_x(-L) + Q^\eta_x(L))(d_2 - d_1) + \mathcal{O}\left(e^{-(\alpha_0 - \eta) L}|\lambda||d| + e^{-\alpha_0 L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) \\
 |A(\tilde{Q}, \eta)| &\leq C \textrm{ for all }x
 \end{align*}
-where $\alpha > 0$ is defined as on pages 432 and 434 of Sandstede (1998) and as above.
+where $\alpha_0 > 0$ is defined above. Note that $\alpha_0$ refers to the unweighted operator.
 
 \begin{proof}
 The first estimate is the same as in Sandstede (1998) with $Q$ replacing $Q^+$ and $Q^-$, and follows from the smoothness of $A$ together with (2.6)(i) in Sandstede (1998). The second estimate follows from (2.6)(i) in Sandstede (1998) and the expansion of $\tilde{Q}$ as $Q + R_i^\pm$. The additional factor of $e^{\eta x}$ comes into play since we are in the exponentially weighted space, so everything is multiplied by that factor. The fourth estimate follows since the double pulse $\tilde{q}(x)$ is bounded and the rest of the matrix $A$ is constant (depending on $\eta$, but that is constant). For the third estimate, we first write $D_1 d$ in terms of the single pulse
@@ -2257,20 +2257,20 @@ Before we can make the substitution, we need to verify a few things.
 
 \begin{enumerate}
 
-\item $||H||$ is bounded. Recall that we showed that $q_c$ decays exponentially asymptotically (at both ends) with rate $\alpha$. We also chose $\eta$ so that $0 < \eta < \alpha$ or $-\alpha < \eta < 0$. Thus since the only nonzero component of $B Q^\eta c$ is $e^{\eta x} q_c(x)$, $||B Q^\eta_c||$ is bounded, thus $||H|| = ||B Q^\eta_c||$ exists and is finite.\\
+\item $||H||$ is bounded. Recall that we showed that $q_c$ decays exponentially asymptotically (at both ends) with rate $\alpha_0$. We also chose $\eta$ so that $0 < \eta < \alpha_0$ or $-\alpha_0 < \eta < 0$. Thus since the only nonzero component of $B Q^\eta c$ is $e^{\eta x} q_c(x)$, $||B Q^\eta_c||$ is bounded, thus $||H|| = ||B Q^\eta_c||$ exists and is finite.\\
 
 \item We can ensure that $\Delta H \leq \delta$ for any $\delta$. Recall we have the bound
 
 \begin{align*}
 | B \tilde{Q}^\eta_c(x) - B Q^\eta_c(x) | &\leq C \sup_{|x| \geq L} |e^{\eta x} q(x)| \\
 &\leq C \sup_{|x| \geq L} |e^{\eta x} q(x)| \\
-&\leq C e^{-(\alpha - \eta)L}
+&\leq C e^{-(\alpha_0 - \eta)L}
 \end{align*}
 
 Thus we have
 
 \[
-\Delta H = C e^{-(\alpha - \eta)L}
+\Delta H = C e^{-(\alpha_0 - \eta)L}
 \]
 
 and so we can always choose $L$ sufficiently large so that $\Delta H \leq \delta$.
@@ -2278,10 +2278,10 @@ and so we can always choose $L$ sufficiently large so that $\Delta H \leq \delta
 \item $|D_1| \leq \delta$. Recall that we have the following expression/estimate for $D_1 d$. 
 
 \[
-D_1 d = (Q^\eta_x(-L) + Q^\eta_x(L))(d_2 - d_1) + \mathcal{O}\left(e^{-(\alpha - \eta) L}|\lambda||d| + e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) 
+D_1 d = (Q^\eta_x(-L) + Q^\eta_x(L))(d_2 - d_1) + \mathcal{O}\left(e^{-(\alpha_0 - \eta) L}|\lambda||d| + e^{-\alpha_0 L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) 
 \]
 
-Since the lower order terms are of order $e^{-(\alpha - \eta)L}$, we can choose $L$ sufficiently large so that they are smaller than $\delta$. The higher order terms present no difficulty.
+Since the lower order terms are of order $e^{-(\alpha_0 - \eta)L}$, we can choose $L$ sufficiently large so that they are smaller than $\delta$. The higher order terms present no difficulty.
 
 \end{enumerate}
 
@@ -2297,8 +2297,9 @@ which agrees with Pego and Weinstein. \\
 We want to follow what was done in Sandstede (1998) and get a nice form for the $a_i^\pm$ terms. We will do one of them; the other will be similar. Using our expression/estimate for $D_1$, we have
 
 \begin{align*}
-\langle \Psi(-L), P_0^s D_1 d \rangle &= \langle \psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle (d_2 - d_1) + \mathcal{O}\left(e^{-(2 \alpha - \eta) L}|\lambda||d| + e^{-2 \alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right)  \\
-&= \langle \psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle (d_2 - d_1) + \mathcal{O}\left(e^{-(2 \alpha - \eta) L}|\lambda||d| + e^{-(3 \alpha - \eta) L} |d| \right) 
+\langle \Psi(-L), P_0^s D_1 d \rangle &= \langle \Psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle (d_2 - d_1) \\
+&+\mathcal{O}\left(e^{-(\alpha + \alpha_0 - \eta) L}|\lambda||d| + e^{-(\alpha + \alpha_0) L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right)  \\
+&= \langle \Psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle (d_2 - d_1) + \mathcal{O}\left(e^{-(\alpha + \alpha_0 - \eta) L}|\lambda||d| + e^{-(2 \alpha_0 + \alpha - \eta) L} |d| \right) 
 \end{align*}
 
 where we get an additional $\mathcal{O}(e^{-\alpha L})$ on the RHS from our estimate on $\Psi(\pm L)$. Now we want to ditch the projection term. We will add this higher order term to the remainder below. I THINK WE HAVE THE FOLLOWING WHICH MATCHES SANSTEDE (1998), BUT I SHOULD VERIFY THIS FOR REAL AT SOME POINT.
@@ -2318,10 +2319,32 @@ Similarly, we should have
 For the remainder term we have (including the extra terms we added)
 
 \begin{align*}
-|(R(\lambda)d)_i| &\leq C \left( e^{-(2 \alpha - \eta) L}|\lambda| + e^{-(3 \alpha - \eta) L} + (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (e^{-\alpha L} + |G| + |\lambda| + \Delta H )|\lambda^2| \right)|d|
+|(R(\lambda)d)_i| &\leq C \left( e^{-(\alpha + \alpha_0 - \eta) L}|\lambda| + e^{-(2\alpha_0 + \alpha - \eta) L} + (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (e^{-\alpha L} + |G| + |\lambda| + \Delta H )|\lambda^2| \right)|d|
 \end{align*}
 
-If $|\lambda|$ and $|G|$ are order $e^{-\alpha L}$, the overall order of the remainder is $e^{(-(3 \alpha - \eta)L}$.\\
+This looks good, except we have both $\alpha_0$ and $\alpha$ in here, which is annoying. Recall that $\alpha_0$ refers to the unweighted problem and $\alpha$ refers to the weighted problem. However, we are lucky in that we know exactly what the weight does to the spatial eigenvalues. In fact, we have the following formula for $\alpha$, which can be verified by drawing a picture of the spatial eigenvalues and shifting them by $\eta$.
+
+\begin{equation}
+\alpha = \begin{cases}
+|\eta| & |\eta| \leq \frac{\alpha_0}{2} \\
+\alpha_0 - |\eta| & \frac{\alpha_0}{2} \leq |\eta| < \alpha_0 \\
+\end{cases}
+\end{equation}
+
+If we take $|\eta| \leq \frac{\alpha_0}{2}$ (I think we want a small weight, so this choice makes sense), then $\alpha = \eta$ and this becomes
+
+\begin{align*}
+|(R(\lambda)d)_i| &\leq C \left( e^{-\alpha_0 L}|\lambda| + e^{-2\alpha_0 L} + (e^{-\eta L} + |G| + |\lambda|)^2 |D_1| + (e^{-\eta L} + |G| + |\lambda| + \Delta H )|\lambda^2| \right)|d|
+\end{align*}
+
+Now rewrite this as
+
+\begin{align*}
+|(R(\lambda)d)_i| \leq C ( &e^{-(\alpha_0 - \eta) L}e^{-\eta L}|\lambda| + e^{-2(\alpha_0 - \eta) L}e^{-2\eta L} \\
+&+ (e^{-\eta L} + |G| + |\lambda|)^2 |D_1| + (e^{-\eta L} + |G| + |\lambda| + \Delta H )|\lambda^2| ) |d|
+\end{align*}
+
+If $|\lambda|$ and $|G|$ are order $e^{-\alpha L} = e^{-\eta L}$ and $D_1$ is order $e^{-(\alpha_0 - \eta) L}$ , the overall order of the remainder is $e^{-(\alpha_0 - \eta) L} e^{-2 \eta L} = e^{-(\alpha_0 - \eta) L} e^{-2 \alpha L} $.\\
 
 Putting all of this together, we have to solve the following system for $(d_1, d_2)$.
 
@@ -2330,7 +2353,7 @@ d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi(L), Q^\eta_x(-L) \
 d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi(-L), Q^\eta_x(L) \rangle (d_2 - d_1)  + (R(\lambda)d)_2 = 0
 \end{align*}
 
-The $|\lambda^2|$ term is order $e^{-2 \alpha L}$ and the other term is order $e^{-(2 \alpha - \eta) L}$, thus the remainder term is of higher order (in $L$) than these, so we are all good on that front.\\
+With our same choice of $|\lambda|$ of order $e^{-\eta L}$ as above, the $|\lambda^2|$ term is order $e^{-2 \eta L}$ (since $\alpha = \eta$). The other term is order $e^{-(\alpha + \alpha_0 - \eta) L} = e^{-\alpha_0 L}$; since we chose $|\eta| \leq \alpha_0 / 2$, this term is of no higher order than the $|\lambda|^2$ term. Thus the remainder term is of higher order (in $L$) than these (by a factor of $e^{-(\alpha_0 - \eta) L}$, but that's enough!), so we are all good.\\
 
 We want this to have a solution in $d = (d_1, d_2)$ which is not the trivial solution (this is always a solution). Thus if we write this in matrix form, that is equivalent to the matrix not being invertible.\\
 
@@ -2390,5 +2413,6 @@ Since we are assuming $M$ is nonzero, this is well-defined. Since the inner prod
 
 Note that what we have here is to leading order only. We showed that the remainder term is higher order (in $L$), then ditched it.
 
+\subsubsection*{Interpretation of Weighted Eigenfunctions}
 
 \end{document}
