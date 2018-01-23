@@ -2152,17 +2152,17 @@ To do our final estimate, we look at the terms in the jump one at a time, using 
 \item For the term involving $a$, we plug in $A_3(\lambda)$ and use the estimate for $A_4(\lambda)$.
 
 \begin{align*}
-\langle \psi(L), a_i^+ \rangle &= \langle \psi(L), P_0^u D_1 d \rangle + \langle \psi(L), (A_4(\lambda)(d))^+\rangle\\
-&= \langle \psi(L), P_0^u D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left(((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|\right)\\
-&= \langle \psi(L), P_0^u D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} \left((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 \right)|d|\right)\\
+\langle \Psi(L), a_i^+ \rangle &= \langle \Psi(L), P_0^u D_1 d \rangle + \langle \Psi(L), (A_4(\lambda)(d))^+\rangle\\
+&= \langle \Psi(L), P_0^u D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left(((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|\right)\\
+&= \langle \Psi(L), P_0^u D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} \left((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 \right)|d|\right)\\
 \end{align*}
 
 Similarly,
 
 \begin{align*}
-\langle \psi(-L), a_{i-1}^- \rangle &= \langle \psi(-L), -P_0^s D_1 d \rangle + \langle \psi(-L), (A_4(\lambda)(d))^-\rangle\\
-&= -\langle \psi(-L), P_0^s D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left(((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|\right)\\
-&= -\langle \psi(-L), P_0^s D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} \left((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 \right)|d|\right)\\
+\langle \Psi(-L), a_{i-1}^- \rangle &= \langle \Psi(-L), -P_0^s D_1 d \rangle + \langle \Psi(-L), (A_4(\lambda)(d))^-\rangle\\
+&= -\langle \Psi(-L), P_0^s D_1 d \rangle + e^{-\alpha L} \mathcal{O} \left(((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2)|d|\right)\\
+&= -\langle \Psi(-L), P_0^s D_1 d \rangle + \mathcal{O} \left( e^{-\alpha L} \left((e^{-\alpha L} + |G| + |\lambda|)|D_1| + |\lambda|^2 \right)|d|\right)\\
 \end{align*}
 
 Recall that $a_0^i = a_2^+ = 0$, so for the double pulse, only one of these two terms will be nonzero.
@@ -2222,7 +2222,7 @@ since $||H||$ is a constant.
 Now we combine all this stuff and see what we get for the jump.
 
 \begin{align*}
-\xi = \langle &\Psi(0), W_1^-(0) - W_1^+(0) \rangle = -\langle \psi(-L), P_0^s D_1 d \rangle - \langle \psi(L), P_0^u D_1 d \rangle + \lambda^2 d_i \int_{-\infty}^{\infty} \langle \Psi(y), H(y) \rangle dy + (R(\lambda)d)_i
+\xi = \langle &\Psi(0), W_1^-(0) - W_1^+(0) \rangle = -\langle \Psi(-L), P_0^s D_1 d \rangle - \langle \Psi(L), P_0^u D_1 d \rangle + \lambda^2 d_i \int_{-\infty}^{\infty} \langle \Psi(y), H(y) \rangle dy + (R(\lambda)d)_i
 \end{align*}
 
 where the remainder term has bound
@@ -2275,18 +2275,17 @@ Thus we have
 
 and so we can always choose $L$ sufficiently large so that $\Delta H \leq \delta$.
 
-\item 
+\item $|D_1| \leq \delta$. Recall that we have the following expression/estimate for $D_1 d$. 
+
+\[
+D_1 d = (Q^\eta_x(-L) + Q^\eta_x(L))(d_2 - d_1) + \mathcal{O}\left(e^{-(\alpha - \eta) L}|\lambda||d| + e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) 
+\]
+
+Since the lower order terms are of order $e^{-(\alpha - \eta)L}$, we can choose $L$ sufficiently large so that they are smaller than $\delta$. The higher order terms present no difficulty.
 
 \end{enumerate}
 
-
-and so the remainder term has estimate
-
-\begin{align*}
-|(R&(\lambda)d)_i| \leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (e^{-\alpha L} + |G| + |\lambda| + e^{-(\alpha - \eta)L})|\lambda^2| \right)|d| \\
-&\leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (|G| + |\lambda| + e^{-(\alpha - \eta)L})|\lambda^2| \right)|d| \\
-\end{align*}
-From above, the higher order Melnikov integral is
+Thus since all the criteria we need are met, we can go ahead and make the substitution. We first note that when we do this, the higher order Melnikov integral becomes
 
 \begin{align*}
 \int_{-\infty}^{\infty} \langle \Psi(y), H(y) \rangle dy &= \int_{-\infty}^{\infty} e^{-\eta y} q(y) e^{\eta y} q_c(y) dy \\
@@ -2295,64 +2294,45 @@ From above, the higher order Melnikov integral is
 
 which agrees with Pego and Weinstein. \\
 
-For the terms involving $a_i^\pm$, recall from Lemma \ref{estimates} that $D_1$ is given by
+We want to follow what was done in Sandstede (1998) and get a nice form for the $a_i^\pm$ terms. We will do one of them; the other will be similar. Using our expression/estimate for $D_1$, we have
+
+\begin{align*}
+\langle \Psi(-L), P_0^s D_1 d \rangle &= \langle \psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle (d_2 - d_1) + \mathcal{O}\left(e^{-(2 \alpha - \eta) L}|\lambda||d| + e^{-2 \alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right)  \\
+&= \langle \psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle (d_2 - d_1) + \mathcal{O}\left(e^{-(2 \alpha - \eta) L}|\lambda||d| + e^{-(3 \alpha - \eta) L} |d| \right) 
+\end{align*}
+
+where we get an additional $\mathcal{O}(e^{-\alpha L})$ on the RHS from our estimate on $\Psi(\pm L)$. Now we want to ditch the projection term. We will add this higher order term to the remainder below. I THINK WE HAVE THE FOLLOWING WHICH MATCHES SANSTEDE (1998), BUT I SHOULD VERIFY THIS FOR REAL AT SOME POINT.
 
 \[
-D_1 d = [Q^\eta_x(-L) + Q^\eta_x(L) + 
-\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right)
+\langle \psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle = \langle \psi(-L), Q^\eta_x(L) \rangle
++ \text{h.o.t.}
 \]
-The remainder term here is order $e^{(2 \alpha - \eta)L}$. When we take the inner product with $\Psi(\pm L)$, the whole thing has order $e^{(3 \alpha - \eta)L}$ and can thus be tossed into the overall remainder term, which gives us a remainder estimate of 
+
+Similarly, we should have 
+
+\[
+\langle \psi(L), P_0^u((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle = \langle \psi(L), Q^\eta_x(-L) \rangle
++ \text{h.o.t.}
+\]
+
+For the remainder term we have (including the extra terms we added)
 
 \begin{align*}
-|(R&(\lambda)d)_i| \leq C \left( e^{(3 \alpha - \eta)L} + (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (|G| + |\lambda| + e^{-(\alpha - \eta)L})|\lambda^2| \right)|d| \\
+|(R(\lambda)d)_i| &\leq C \left( e^{-(2 \alpha - \eta) L}|\lambda| + e^{-(3 \alpha - \eta) L} + (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (e^{-\alpha L} + |G| + |\lambda| + \Delta H )|\lambda^2| \right)|d|
 \end{align*}
 
-The highest order terms in $D_1$ are $Q^\eta_x(-L) + Q^\eta_x(L)$, which are order $e^{-(\alpha - \eta)L}$, so putting that in the remainder, we get 
+If $|\lambda|$ and $|G|$ are order $e^{-\alpha L}$, the overall order of the remainder is $e^{(-(3 \alpha - \eta)L}$.\\
 
-\begin{align*}
-|(R&(\lambda)d)_i| \leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 e^{-(\alpha - \eta)L} + (|G| + |\lambda| + e^{-(\alpha - \eta)L})|\lambda^2| \right)|d| \\
-\end{align*}
-
-If we choose $\delta \leq e^{-\alpha L}$, the overall order of the remainder term is $e^{-(3\alpha - \eta) L}$ which is higher order than $e^{-2 \alpha L}$, the order of the higher order terms (hopefully!). \\
-
-Now we deal with the rest of the $a_i^\pm$ terms. THIS SHOULD FOLLOW FROM LEMMA 3.3 IN SANDSTEDE (1998). As in Sandstede (1998), we should be able to neglect the terms involving inner products with the same sign in front of $L$, since they are higher order terms. Similarly, we should be able to drop the projection operator in the terms involving inner products with opposite signs, since these projection are approximately the identity. This is true by how we set the problem up in the first place, I think. So we will do that for now, although we should really look at this more closely. Thus to leading order we should have
-
-\begin{align*}
-\langle \Psi(L), P_0^u [Q^\eta_x(-L) + Q^\eta_x(L) + 
-\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) \rangle &= \langle \Psi(L), Q^\eta_x(-L) + \lambda Q^\eta_c(-L)\rangle (d_2 - d_1) 
-\end{align*}
-
-This is all fine and stuff, but we do not want this to involve $\lambda$. We can take care of that by noting that $\langle \Psi(L), \lambda Q^\eta_c(-L) \rangle$ has order $e^{-(2\alpha - \eta)L}|\lambda|$, thus we can add that term to our remainder term to get
-
-\begin{align*}
-|(R&(\lambda)d)_i| \leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 e^{-(\alpha - \eta)L} + e^{-(2\alpha - \eta)L}|\lambda| + (|G| + |\lambda| + e^{-(\alpha - \eta)L})|\lambda^2| \right)|d| \\
-\end{align*}
-
-This does not change the overall order of the remainder term, so it should be legit. Thus we have
-
-\begin{align*}
-\langle \Psi(L), &P_0^u [Q^\eta_x(-L) + Q^\eta_x(L) + 
-\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) \rangle \\
-&= \langle \Psi(L), Q^\eta_x(-L) \rangle (d_2 - d_1) + \mathcal{O}(e^{-(\alpha - \eta) L}(e^{-\alpha L} + |\lambda|))
-\end{align*}
-
-Similary, we have
-
-\begin{align*}
-\langle \Psi(-L), &P_0^s [Q^\eta_x(-L) + Q^\eta_x(L) + 
-\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) \rangle \\
-&= \langle \Psi(-L), Q^\eta_x(L) \rangle (d_2 - d_1) + \mathcal{O}(e^{-(\alpha - \eta) L}(e^{-\alpha L} + |\lambda|))
-\end{align*}
-
-
-Putting these together, we have to solve the following system for $(d_1, d_2)$.
+Putting all of this together, we have to solve the following system for $(d_1, d_2)$.
 
 \begin{align*}
 d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi(L), Q^\eta_x(-L) \rangle (d_2 - d_1)  + (R(\lambda)d)_1 = 0\\
 d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi(-L), Q^\eta_x(L) \rangle (d_2 - d_1)  + (R(\lambda)d)_2 = 0
 \end{align*}
 
-We want this to have a solution in $d = (d_1, d_2)$ which is not the trivial solution. Thus if we write this in matrix form, that is equivalent to the matrix not being invertible.\\
+The $|\lambda^2|$ term is order $e^{-2 \alpha L}$ and the other term is order $e^{-(2 \alpha - \eta) L}$, thus the remainder term is of higher order (in $L$) than these, so we are all good on that front.\\
+
+We want this to have a solution in $d = (d_1, d_2)$ which is not the trivial solution (this is always a solution). Thus if we write this in matrix form, that is equivalent to the matrix not being invertible.\\
 
 First let
 
@@ -2380,5 +2360,35 @@ where $M = \lambda^2 \langle q, q_c \rangle_{L^2(\R)}$ is the higher-order Melni
 \[
 \det S(\lambda) = 0
 \]
+
+\subsubsection*{Eigenvalues (to leading order)}
+
+Since we showed that the order of the remainder term is higher than that of the other terms, for sufficienly large $L$ we can drop the remainder term and solve the remaining system. This should, to leading order, give us the eigenvalues we are looking for.\\
+
+So now we take
+
+\[
+\tilde{S}(\lambda) = A + \lambda^2 MI
+\]
+
+The determinant of this is a 2nd degree polynomial in $\lambda^2$, which is a 4th degree polynomial in $\lambda$.
+
+\begin{align*}
+\det \tilde{S} &= \det \begin{pmatrix}
+a + \lambda^2 M & -a \\ \tilde{a} & -\tilde{a} + \lambda^2 M 
+\end{pmatrix} \\
+&= \lambda^2 M ( (a - \tilde{a}) + \lambda^2 M)
+\end{align*}
+
+This polynomial has a double root at $\lambda = 0$, which corresponds to the two zero (generalized) eigenfunctions which we already know about: $Q^\eta_x$ (eigenfunction) and $Q^\eta_c$ (generalized eigenfunction). There is another pair of eigenvalues, which are given by
+
+\[
+\lambda^2 = \frac{\tilde{a} - a}{M}
+\]
+
+Since we are assuming $M$ is nonzero, this is well-defined. Since the inner products involved in $a$ and $\tilde{a}$ involve only real-valued functions, we either get a pair of real eigenvalues $\lambda = \pm \beta$ or a pair of purely imaginary eigenvalues $\lambda = \pm \beta i$. Which one we get depends on the sign of $\tilde{a} - a$. THIS HAS SOMETHING TO DO WITH THINGS WINDING AROUND OTHER THINGS, SO WE SHOULD LOOK AT THAT SOMETIME SOON.\\
+
+Note that what we have here is to leading order only. We showed that the remainder term is higher order (in $L$), then ditched it.
+
 
 \end{document}
