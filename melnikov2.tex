@@ -2341,7 +2341,7 @@ and so we can always choose $L$ sufficiently large so that $\Delta H \leq \delta
 \item $|D_1| \leq \delta$. Recall that we have the following expression/estimate for $D_1 d$. 
 
 \[
-D_1 d = (Q^\eta_x(-L) + Q^\eta_x(L))(d_2 - d_1) + \mathcal{O}\left(e^{-(\alpha_0 - \eta) L}|\lambda||d| + e^{-\alpha_0 L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) 
+D_1 d &= ( Q'(-L) + Q'(-L) )(d_2 e^{-\eta L} - d_1 e^{\eta L}) + \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right)
 \]
 
 Since the lower order terms are of order $e^{-(\alpha_0 - \eta)L}$, we can choose $L$ sufficiently large so that they are smaller than $\delta$. The higher order terms present no difficulty.
@@ -2360,12 +2360,13 @@ which agrees with Pego and Weinstein. \\
 We want to follow what was done in Sandstede (1998) and get a nice form for the $a_i^\pm$ terms. We will do one of them; the other will be similar. Using our expression/estimate for $D_1$, we have
 
 \begin{align*}
-\langle \Psi(-L), P_0^s D_1 d \rangle &= \langle \Psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle (d_2 - d_1) \\
-&+\mathcal{O}\left(e^{-(\alpha + \alpha_0 - \eta) L}|\lambda||d| + e^{-(\alpha + \alpha_0) L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right)  \\
-&= \langle \Psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle (d_2 - d_1) + \mathcal{O}\left(e^{-(\alpha + \alpha_0 - \eta) L}|\lambda||d| + e^{-(2 \alpha_0 + \alpha - \eta) L} |d| \right) 
+\langle \Psi(-L), P_0^s D_1 d \rangle &= \langle \Psi(-L), P_0^s(Q'(-L) + Q'(-L)) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L}) \\
+&+\langle \Psi(-L), \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right) \rangle \\
+&= \langle \Psi(-L), P_0^s(Q'(-L) + Q'(-L)) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L}) \\
+&+ \mathcal{O} \left( e^{-(\alpha_0 + \alpha - \eta ) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right) 
 \end{align*}
 
-where we get an additional $\mathcal{O}(e^{-\alpha L})$ on the RHS from our estimate on $\Psi(\pm L)$. Now we want to ditch the projection term. We will add this higher order term to the remainder below. I THINK WE HAVE THE FOLLOWING WHICH MATCHES SANSTEDE (1998), BUT I SHOULD VERIFY THIS FOR REAL AT SOME POINT.
+where we get an additional $\mathcal{O}(e^{-\alpha L})$ on the RHS from our estimate on $\Psi(\pm L)$. Now we want to ditch the projection term. This is surprisingly not that bad. What we want to do is replace the projections on the eigenspaces $E^{s/u}$ with the projections on the stable and unstable manifolds, to leading order. To do this, we use the projection estimates we have from above.
 
 \[
 \langle \psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle = \langle \psi(-L), Q^\eta_x(L) \rangle
