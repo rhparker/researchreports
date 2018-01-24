@@ -1088,9 +1088,7 @@ A(q, \eta) =
 
 This is a mess. All we really care is that for a given temporal eigenvalue $\lambda$, the spatial eigenvalues $\nu$ are all shifted by $\eta$ (in the direction given by the sign of $\eta$). Thus as long as we don't choose $\eta$ to be the real part of any of the eigenvalues of $A(0, 0)$, the matrix $A(0, \eta)$ (which is the linearization about the zero solution) is hyperbolic.\\
 
-Here is a one way we can see that the exponential weight $\eta$ just shifts the spatial eigenvalues by $\eta$. The spatial eigenvalues are the eigenvalues of the problem $(\partial_x H - \lambda I)v$ = 0, where $\lambda$ is the (fixed) temporal eigenvalue. For the asymptotic operator, this is a constant coefficient ODE, so can substitute the ansatz $e^{\nu x}$ and solve for $\nu$. This will be in the form of a polynomial for $\nu$, which is the same as the characteristic polynomial of the matrix $A(0,0)$. The exponentially weighted eigenvalue problem is $e^{\eta x} (\partial_x H - \lambda I)e^{-\eta x}v = 0$. Again, working with the asymptotic operator, if $v(x) = e^{\nu x}$ is a solution to the nonweighted equation, then $e^{\eta x}v(x) = e^{\eta x}e^{\nu x} = e^{(\nu + \eta)x}$ is a solution to the weighted equation, thus the spatial eigenvalues are shifted by $\eta$.\\
-
-However, we are stuck using a matrix, since we need to write our problem as a first order system, and the matrix $A(q, \eta)$ above is really annoying to work with. There is another way, which essentially involves redefining $V$. With our new definition, each component of $V$ will no longer be the derivative of the previous component. But that does not matter, and we will still have a nice relationship which highlights the exponential weight.\\
+There is an easier way, which essentially involves redefining $V$. With our new definition, each component of $V$ will no longer be the derivative of the previous component, but it still will have a nice relationship which will make our lives easier in the end.\\
 
 Consider the unweighted eigenvalue problem $V' = A(q, 0)V + \lambda B V$, and let $V = e^{-\eta x} U$. (The negative sign in front of $\eta$ is consistent with how we defined the exponentially weighted problem above). Substituting this into the unweighted problem, we get
 
@@ -1112,11 +1110,15 @@ A(q, \eta) = \begin{pmatrix}\eta & 1 & 0 & 0 & 0 \\0 & \eta & 1 & 0 & 0 \\0 & 0 
 2q'(x) & 2q(x) - c & 0 & 1 & \eta \end{pmatrix} 
 \]
 
-From this, we see that each row of $V$ is $(\partial_x - \eta)$ operated on the previous row, which is again consistent with how we have defined our exponentially weighted space. We also note that the (spatial) eigenvalues for these two versions of $A(q, \eta)$ are the same, and that in both cases all the weight $\eta$ does is shift the spatial eigenvalues by $\eta$ (in the direction given by the sign of $\eta$). So since these are equivalent, we will use the ``easier'' version of the weighted eigenvalue problem problem \eqref{weightedeig}.
+From this, we see that each row of $V$ is $(\partial_x - \eta)$ operated on the previous row, which is again consistent with how we have defined our exponentially weighted space. In particular, if $v_1 = e^{\eta x} u$, then we have
 
-Before we go too much further, we should choose $\eta$.\\
+\[
+V = e^{\eta x}\begin{pmatrix}u\\u'\\u''\\u'''\\u'''' \end{pmatrix}
+\] 
 
-Recall that for the linearization about the zero-solution, the nonzero eigenvalues are given by
+which is really nice! We also note that the (spatial) eigenvalues for these two versions of $A(q, \eta)$ are the same, and that in both cases all the weight $\eta$ does is shift the spatial eigenvalues by $\eta$ (in the direction given by the sign of $\eta$). So since these are equivalent, we will use the ``easier'' version of the weighted eigenvalue problem problem \eqref{weightedeig}.\\
+
+Before we go too much further, we should choose $\eta$. Recall that for the linearization about the zero-solution, the nonzero eigenvalues are given by
 
 \[
 \nu = \pm \sqrt{ \frac{1 \pm \sqrt{1 - 4c} }{2}}
@@ -1126,11 +1128,30 @@ Two have positive real part and two have negative real part. Let $\alpha^u_0 > 0
 
 In the exponentially weighted space, let $\alpha^u > 0$ be the smallest real part of the unstable eigenvalues of $A(0, \eta)$ and $-\alpha^s_0 > 0$ be the largest real of the stable eigenvalues of $A(0, \eta)$. Let $\alpha$ be the minimum of these two. Let $E^u$ and $E^s$ be the corresponding stable and unstable eigenspaces, and let $P^u_0$ and $P^s_0$ be their projections.\\
 
-Finally, let $\Psi(x)$ be the unique bounded solution to the adjoint problem
+Now we note the following. Since $(Q')' = A(q, 0)Q'$, this implies that
+
+\[
+(e^{\eta x}Q')' = A(q, \eta)(e^{\eta x}Q')
+\]
+
+thus our zero-eigenfunction in the weighted space is $e^{\eta x}Q'$, as long as we write the first-order system in the ``easier'' way. Since we know how $Q'$ decays, by our choice of $\eta$ we are guaranteed that $e^{\eta x}Q'$ decays exponentially at both ends, so we don't have to worry about anything there. We will eventually be looking for perturbations of $e^{\eta x}Q'$. \\
+
+For the adjoint problem in the weighted space, let $\Psi(x)$ be the unique bounded solution to the adjoint problem 
 
 \[
 W' = -A(q, \eta)^* W
 \]
+
+Again, we would like to know how this relates to the adjoint solution in the unweighted space. Let $\Psi$ be a solution to the unweighted adjoint problem, i.e. $\Psi' = -A(q, 0)^* \Psi$. Since we can write the weighted problem as $W' = -( A(q, 0)^* + \eta I)W $, if we plug in $W = e^{-\eta x} \Psi$, we have
+
+\begin{align*} 
+W' &= e^{-\eta x} \Psi' - \eta e^{-\eta x} \Psi \\
+&= e^{-\eta x}( -A(q, 0)^* \Psi ) - \eta e^{-\eta x} \Psi \\
+&= -(A(q, 0)^* + \eta I) e^{-\eta x} \Psi \\
+&= -A(q, \eta)^* W
+\end{align*}
+
+Thus $e^{-\eta x} \Psi$ is a solution to the weighted adjoint problem.\\
 
 Now let's return to the eigenvalue problem
 
@@ -1138,16 +1159,16 @@ Now let's return to the eigenvalue problem
 V' = A(q, \eta)V + \lambda B V
 \]
 
-and take the eigenvalue $V$ to be a perturbation of the zero-eigenfunction, which in the weighted space we will call $Q^\eta_x$. Recall from above that the first component of this is $Q^\eta_x(x) = e^{ax} q'(x)$ and the remaining components are the derivatives of this. In other words, we write
+and take the eigenvalue $V$ to be a perturbation of the zero-eigenfunction, which in the weighted space is $e^{\eta x} Q'$, as shown above. Thus we have
 
 \[
-V' = Q^\eta_x + W^\pm
+V' = e^{\eta x} Q' + W^\pm
 \]
 
 Plugging this into the eigenvalue problem, we have
 
 \begin{align*}
-(W^\pm)' &= A(q, \eta)W^\pm + \lambda B Q^\eta_x + \lambda B W^\pm \\
+(W^\pm)' &= A(q, \eta)W^\pm + \lambda B (e^{\eta x} Q') + \lambda B W^\pm \\
 W^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
 W^+(0) - W^-(0) &\in \C \psi(0) 
 \end{align*}
@@ -1155,25 +1176,27 @@ W^+(0) - W^-(0) &\in \C \psi(0)
 Following Sandstede (1998), we write the fixed-point equations for $W$ as 
 
 \begin{align*}
-W^-(x) = \Phi^u(x, 0)b^- &+ \int_0^x \Phi^u(x, y)[\lambda B W^-(y) + \lambda B Q^\eta_x(y) ] dy \\
-&+ \int_{-\infty}^x \Phi^s(x, y)[\lambda B W^-(y) + \lambda B Q^\eta_x(y) ] dy \\
-W^+(x) = \Phi^s(x, 0)b^+ &+ \int_0^x \Phi^s(x, y)[\lambda B W^+(y) + \lambda B Q^\eta_x(y) ] dy \\
-&+ \int_{\infty}^x \Phi^u(x, y)[\lambda B W^+(y) + \lambda B Q^\eta_x(y) ] dy
+W^-(x) = \Phi^u(x, 0)b^- &+ \int_0^x \Phi^u(x, y)[\lambda B W^-(y) + \lambda B (e^{\eta y} Q'(y)) ] dy \\
+&+ \int_{-\infty}^x \Phi^s(x, y)[\lambda B W^-(y) + \lambda B (e^{\eta y} Q'(y)) ] dy \\
+W^+(x) = \Phi^s(x, 0)b^+ &+ \int_0^x \Phi^s(x, y)[\lambda B W^+(y) + \lambda B (e^{\eta y} Q'(y)) ] dy \\
+&+ \int_{\infty}^x \Phi^u(x, y)[\lambda B W^+(y) + \lambda B (e^{\eta y} Q'(y)) ] dy
 \end{align*}
 
 The jump at $x = 0$ is given by
 
 \begin{align*}
-\langle\Psi(0), W^-(0) &- W^+(0)\rangle = \langle \Psi(0), \Phi^u(0, 0)b^- + \int_{-\infty}^0 \Phi^s(0, y)[\lambda B W^-(y) + \lambda B Q^\eta_x(y) ] dy  \\
-&- \Phi^s(0, 0)b^+ - \int_\infty^0 \Phi^u(0, y)[\lambda B W^+(y) + \lambda B Q^\eta_x(y) ] dy \rangle\\
-&= \langle \Psi(0), b^- \rangle - \langle \Psi(0), b^+ \rangle + \int_{-\infty}^0 \langle \Psi(0), \Phi^s_-(0, y)[\lambda B W^-(y) + \lambda B Q^\eta_x(y) ] \rangle dy  \\
-&- \int_\infty^0 \langle \Psi(0), \Phi^u_+(0, y)[\lambda B W^+(y) + \lambda B Q^\eta_x(y) ] \rangle dy  \\
-&= \int_{-\infty}^0 \langle \Psi(y), \lambda B W^-(y) + \lambda B Q^\eta_x(y) \rangle dy 
-+ \int_0^\infty \langle \Psi(y), \lambda B W^+(y) + \lambda B Q^\eta_x(y)  \rangle dy \\
-&= \lambda\left( \int_{-\infty}^0 \langle \Psi(y), B W^-(y) \rangle dy + \int_0^\infty \langle \Psi(y), B W^+(y) \rangle dy \right) + \lambda \int_{-\infty}^\infty \langle\Psi(y), BQ^\eta_x(y) \rangle dy
+\langle\Psi(0), W^-(0) &- W^+(0)\rangle = \langle \Psi(0), \Phi^u(0, 0)b^- + \int_{-\infty}^0 \Phi^s(0, y)[\lambda B W^-(y) + \lambda B (e^{\eta y} Q'(y)) ] dy  \\
+&- \Phi^s(0, 0)b^+ - \int_\infty^0 \Phi^u(0, y)[\lambda B W^+(y) + \lambda B (e^{\eta y} Q'(y)) ] dy \rangle\\
+&= \langle \Psi(0), b^- \rangle - \langle \Psi(0), b^+ \rangle + \int_{-\infty}^0 \langle \Psi(0), \Phi^s_-(0, y)[\lambda B W^-(y) + \lambda B (e^{\eta y} Q'(y)) ] \rangle dy  \\
+&- \int_\infty^0 \langle \Psi(0), \Phi^u_+(0, y)[\lambda B W^+(y) + \lambda B (e^{\eta y} Q'(y)) ] \rangle dy  \\
+&= \int_{-\infty}^0 \langle \Psi(y), \lambda B W^-(y) + \lambda B (e^{\eta y} Q'(y)) \rangle dy 
++ \int_0^\infty \langle \Psi(y), \lambda B W^+(y) + \lambda B (e^{\eta y} Q'(y))  \rangle dy \\
+&= \lambda\left( \int_{-\infty}^0 \langle \Psi(y), B W^-(y) \rangle dy + \int_0^\infty \langle \Psi(y), B W^+(y) \rangle dy \right) + \lambda \int_{-\infty}^\infty \langle\Psi(y), B (e^{\eta y} Q'(y)) \rangle dy
 \end{align*}
 
-The final integral on the RHS is our first order Melnikov integral. We would like to show this is zero. To do that, we need to determine what $\Psi(y)$ is in this case. Recall that $\Psi(y)$ is the solution to the adjoint equation $\Psi'(y) = -A(q, \eta)^*\Psi(y)$. Because of the matrix $B$, we only care about the last component of $\Psi(y)$. To do this, we use some facts about linear differential operators and first order systems. This will be done without proof (for now), but the basic ideas come from Pego and Weinstein, among others, and I verified this in simple cases.\\
+The final integral on the RHS is our first order Melnikov integral. We would like to show this is zero. To do that, we need to determine what $\Psi(y)$ is in this case. Recall that $\Psi(y)$ is the solution to the adjoint equation $\Psi'(y) = -A(q, \eta)^*\Psi(y)$. Because of the matrix $B$, we only care about the last component of $\Psi(y)$. In fact, since we know from above that $\Psi(y) = e^{-\eta y} W(y)$, where $W$ is the unique solution to the unweighted adjoint problem, we only have to determine the last component of $W$.\\
+
+To do this, we use some facts about linear differential operators and first order systems. This will be done without proof (for now), but the basic ideas come from Pego and Weinstein, among others, and I verified this in simple cases.\\
 
 Suppose $L$ is an $n$th degree differential operator
 
@@ -1183,16 +1206,16 @@ L = \frac{d^n}{dx^n} + \sum_{i = 1}^{n=1}a_i(x) \frac{d^i}{dx^i}
 
 and $A(L)$ is the representation of the operator $L$ as a first order system. Form the adjoint problem $W' = -A(L)^* W$ from the matrix $A(L)$. Then the $n$th component of $W$ is in the kernel of the adjoint differential operator $L^*$, i.e. $L^* w_n = 0$.\\
 
-Returning to our problem, we have $\psi_5(y) \in \ker (e^{\eta x} \partial_x H e^{-\eta x})^*$. Since
+Returning to our problem, we have $w_5(y) \in \ker (\partial_x H)^*$. Since
 
 \[
-(e^{\eta x} \partial_x H e^{-\eta x})^* = (e^{-\eta x})^* H^* (\partial_x)^* (e^{\eta x})^* = -e^{-\eta x} H \partial_x e^{\eta x}
+(\partial_x H)^* = H^* (\partial_x)^* = - H \partial_x
 \]
 
-we have $\psi_5(y) \in \ker e^{-\eta x} H \partial_x e^{-\eta x}$. Since $q' \in \ker H$, we can see that $e^{-\eta x} q \in \ker e^{-\eta x} H \partial_x e^{-\eta x}$. Since we are assuming that $\ker H$ is 1-dimensional (I will make sure that assumption is formally stated somewhere above), we conclude that $\psi_5(y) = e^{-\eta x} q$. Thus the first order Melnikov integral is
+we have $w_5(y) \in \ker H \partial_x$. Since $q' \in \ker H$, we can see that $q \in \ker \partial_x$. Since we are assuming that $\ker H$ is 1-dimensional (I will make sure that assumption is formally stated somewhere above), we conclude that $w_5(y) = q(y)$. Thus $\psi_5(y) = e^{-\eta y} q(y)$ and we have
 
 \begin{align*}
-\int_{-\infty}^\infty \langle\Psi(y), BQ^\eta_x(y) \rangle dy &= \int_{-\infty}^\infty e^{-\eta x} q(x) e^{\eta x} q'(x) dx\\
+\int_{-\infty}^\infty \langle\Psi(y), B (e^{\eta y} Q'(y)) \rangle dy &= \int_{-\infty}^\infty e^{-\eta x} q(x) e^{\eta x} q'(x) dx\\
 &= \int_{-\infty}^\infty  q(x) q'(x) dx \\
 &= \int_{-\infty}^\infty \left( \frac{1}{2} q^2 \right)_x dx\\
 &= 0
@@ -1213,41 +1236,65 @@ W(\lambda, x)^\pm = \lambda V^\pm(x) + \mathcal{O}(\lambda^2)
 If we substitute this into our expression for $W^\pm(x)$ we get (neglecting the higher order term)
 
 \begin{align*}
-\lambda (V^\pm)'(x) &= A(q, \eta) \lambda V^\pm(x) + \lambda B Q^\eta_x(x) + \lambda^2 B V^\pm(x) 
+\lambda (V^\pm)'(x) &= A(q, \eta) \lambda V^\pm(x) + \lambda B (e^{\eta x} Q'(x)) + \lambda^2 B V^\pm(x) 
 \end{align*}
 
 Since we are interested in $\lambda \neq 0$ and we know what happens when $\lambda = 0$, we can divide by $\lambda$ to get
 
 \begin{align*}
-(V^\pm)'(x) &= A(q, \eta)V^\pm(x) + B Q^\eta_x(x) + \lambda B V^\pm(x) 
+(V^\pm)'(x) &= A(q, \eta)V^\pm(x) + B (e^{\eta x} Q'(x)) + \lambda B V^\pm(x) 
 \end{align*}
 
 To find $V^\pm(x)$, we set $\lambda = 0$ to cancel the last term on the RHS to get
 
 \begin{align*}
-(V^\pm)'(x) &= A(q, a) V^\pm(x) + B Q^\eta_x(x) 
+(V^\pm)'(x) &= A(q, a) V^\pm(x) + B (e^{\eta x} Q'(x)) 
 \end{align*}
 
-which we have shown has unique solution $V^\pm(x) = -Q^\eta_c(x)$. In this case, $-Q_c(x)$ is continuous, so the two pieces $V^\pm(x)$ are automatically connected at $x = 0$. So we have written $W^\pm$ as
+which we have shown has unique solution $V^\pm(x) = -(e^{\eta x} Q_c(x))$. In this case, $-Q_c(x)$ is continuous, so the two pieces $V^\pm(x)$ are automatically connected at $x = 0$. So we have written $W^\pm$ as
 
 \[
-W(\lambda, x)^\pm = -\lambda Q^\eta_c(x) + \mathcal{O}(\lambda^2)
+W(\lambda, x)^\pm = -\lambda (e^{\eta x} Q_c(x)) + \mathcal{O}(\lambda^2)
 \]
 
-It remains to verify the other pieces to the original problem. First we need to verify that
+It remains to verify the other pieces to the original problem. First we will need the condition that
 
 \[
 W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^- 
 \]
 
-In other words, we need to show that $W^\pm(0) \perp Q^\eta_x(0)$ for the expression we have for $W^\pm$. For this to be true, it must hold for the lowest order term, i.e. we need to show that $Q^\eta_c(0) \perp Q^\eta_x(0)$. If we do this, taking the standard $\R^5$ inner product, we do not get 0, even though we do in the unweighted case. Maybe the unweighted case is what we care about, since once we construct an eigenfunction, we can multiply it by $e^{-\eta x}$ to get an eigenfunction to the unweighted problem. 
-\\
+In other words, we need to have $W^\pm(0) \perp (e^{\eta x} Q'(x))|_{x = 0}$, i.e. $W^\pm(0) \perp (Q'(0)$ for the expression we have for $W^\pm$. For there to even be a hope that this is true, it must hold for the lowest order term, i.e. we need to show that $(e^{\eta x} Q_c(0))_{x = 0} \perp Q'(0)$, i.e. $Q_c(0) \perp Q'(0)$. Thus since we are applying this condition at $x = 0$, this is the same as the condition would be in the unweighed space. This is easily verified by taking the standard $\R^4$ inner product to get
 
-In any case, it might not be legit to actually do this, but we can formally substitute $W(\lambda, x)^\pm = -\lambda Q^\eta_c(x) + \lambda^2 \tilde{W}^\pm(x)$ into our jump equation to get
+\begin{align*}
+\langle Q_c(0), Q'(0) \rangle &= 
+\langle 
+\begin{pmatrix}q_c(0)\\ q_{cx}(0)\\ q_{cxx}(0)\\q_{cxxx}(0)\\q_{cxxxx}(0) \end{pmatrix}
+\begin{pmatrix}q_x(0)\\ q_{xx}(0)\\ q_{xxx}(0)\\q_{xxxx}(0)\\q_{xxxxx}(0) \end{pmatrix}
+\rangle\\
+&= \langle \begin{pmatrix}q_c(0)\\ 0\\ q_{cxx}(0)\\0\\q_{cxxxx}(0)\end{pmatrix}
+\begin{pmatrix}0\\ q_{xx}(0)\\ 0\\q_{xxxx}(0)\\0\end{pmatrix} \rangle \\
+&= 0
+\end{align*}
+
+where we used the fact that $q_c$ is an even function and $q'$ is an odd function. Thus we have verified this condition. The final condition to verify is 
+
+\[
+W^+(0) - W^-(0) \in \C \psi(0) 
+\]
+
+For the leading order term $V^\pm = -e^{\eta x} Q_c$ this becomes
+
+\[
+Q_c^+(0) - Q_c^-(0) \in \C \psi(0) 
+\]
+
+which is trivially true since $Q_c$ is continuous everywhere, in particular at 0.\\
+
+Having verified these conditions, we can substitute $W(\lambda, x)^\pm = -\lambda (e^{\eta x} Q_c(x)) + \lambda^2 \tilde{W}^\pm(x)$ into our jump equation to get
 
 \begin{align*}
 \langle\Psi(0) &, W^-(0) - W^+(0)\rangle \\
-&= -\lambda^2 \int_{-\infty}^\infty \langle \Psi(y), B Q^\eta_c(y) \rangle dy + \lambda^3 \left( \int_{-\infty}^0 \langle \Psi(y), B \tilde{W}^-(y) \rangle dy + \int_0^\infty \langle \Psi(y), B \tilde{W}^+(y) \rangle dy \right) \\
+&= -\lambda^2 \int_{-\infty}^\infty \langle \Psi(y), B (e^{\eta y} Q_c(y)) \rangle dy + \lambda^3 \left( \int_{-\infty}^0 \langle \Psi(y), B \tilde{W}^-(y) \rangle dy + \int_0^\infty \langle \Psi(y), B \tilde{W}^+(y) \rangle dy \right) \\
 &= -\lambda^2 \int_{-\infty}^\infty e^{-\eta y}q(y) e^{\eta y} q_c(y) dy + \lambda^3 \left( \int_{-\infty}^0 \langle \Psi(y), B \tilde{W}^-(y) \rangle dy + \int_0^\infty \langle \Psi(y), B \tilde{W}^+(y) \rangle dy \right) \\
 &= -\lambda^2 \int_{-\infty}^\infty q(y) q_c(y) dy + \lambda^3 \left( \int_{-\infty}^0 \langle \Psi(y), B \tilde{W}^-(y) \rangle dy + \int_0^\infty \langle \Psi(y), B \tilde{W}^+(y) \rangle dy \right) \\
 &= -\lambda^2 \langle q, q_c \rangle_{L^2(\R)} + \lambda^3 \left( \int_{-\infty}^0 \langle \Psi(y), B \tilde{W}^-(y) \rangle dy + \int_0^\infty \langle \Psi(y), B \tilde{W}^+(y) \rangle dy \right) \\
@@ -1257,64 +1304,65 @@ The first term on the RHS is the higher order Melnikov integral, and it agrees w
 
 \subsubsection*{Double Pulse}
 
-Now we combine stuff from the single pulse case and from Sandstede (1998) to generalize this to the double pulse. Recall from that paper that for a double pulse, we can write the eigenfunction as a perturbation of the derivative of the double pulse, where on the two ``big pieces'', the derivative is multiplied by a scaling constant. Since we are doing this in the exponentially weighted space and our notation is rapidly becoming complicated, we will represent the double pulse by $\tilde{q}$, thus the eigenfunction will be a perturbation of $\tilde{Q}^\eta_x$, where the first component of this is $e^{\eta x} \tilde{q}_x$.
+Now we combine stuff from the single pulse case and from Sandstede (1998) to generalize this to the double pulse. Recall from that paper that for a double pulse, we can write the eigenfunction as a perturbation of the derivative of the double pulse, where on the two ``big pieces'', the derivative is multiplied by a scaling constant. We represent the double pulse by $q_2(x)$. Thus since we are in an exponentially weighted space and have written things as a first order system, the eigenfunction will be a perturbation of $e^{\eta x}Q_2(x)$.
 
 \[
-V_i^\pm = d_i \tilde{Q}^\eta_x + W_i^\pm 
+V_i^\pm = d_i (e^{\eta x}Q_2(x)) + W_i^\pm 
 \]
 
 Numerics suggest that the $d_i$ are not identical. (For the interaction eigenfunction of the first unstable double pulse, for example, one side is significantly larger than the other.) Recalling what we did in the previous section, we can write this as
 
 \begin{equation}\label{dpeigform}
-V_i^\pm = d_i( \tilde{Q}^\eta_x - \lambda \tilde{Q}^\eta_c ) + W_i^\pm
+V_i^\pm = d_i( (e^{\eta x}Q_2'(x)) - \lambda (e^{\eta x}Q_{2c}(x)) ) + W_i^\pm
 \end{equation}
 
-The perturbation $W_i^\pm$ is different in this case. When $\lambda = 0$, we can take $d_i = 1$ to get the correct eigenfunction $\tilde{Q}^\eta_x$, so that is good. Also we will eventually want this in terms of the single pulse $Q$, but we leave it like this for now to get some nice cancelation. Recall that the eigenvalue problem in the exponentially weighted space is given in piecewise system form by
+The perturbation $W_i^\pm$ is different in this case. When $\lambda = 0$, we can take $d_i = 1$ to get the correct eigenfunction $e^{\eta x}Q_2'(x)$, so that is good. Also we will eventually want this in terms of the single pulse $Q$, but we leave it like this for now to get some nice cancelation. Recall that the eigenvalue problem in the exponentially weighted space is given in piecewise system form by
 
 \[
-(V_i^\pm)' = A(\tilde{q}, \eta)V_i^\pm + \lambda B V_i^\pm
+(V_i^\pm)' = A(q_2, \eta)V_i^\pm + \lambda B V_i^\pm
 \]
 
 If we plug \eqref{dpeigform} into this, we get 
 
 \begin{align*}
-(d_i \tilde{Q}^\eta_x &- d_i \lambda \tilde{Q}^\eta_c  + W_i^\pm)' = \\
-& d_i A(\tilde{q}, \eta) \tilde{Q}^\eta_x - d_i \lambda A(\tilde{q}, \eta)\tilde{Q}^\eta_c
-+ A(\tilde{q}, \eta) W_i^\pm + d_i \lambda B \tilde{Q}^\eta_x - d_i \lambda^2 B \tilde{Q}^\eta_c 
+(d_i (e^{\eta x}Q_2'(x)) &- d_i \lambda (e^{\eta x}Q_2'(x)) + W_i^\pm)' = \\
+& d_i A(q_2, \eta) (e^{\eta x}Q_2'(x)) - d_i \lambda A(q_2, \eta)(e^{\eta x}Q_{2c}(x))
++ A(q_2, \eta) W_i^\pm \\
+&+ d_i \lambda B (e^{\eta x}Q_2'(x)) - d_i \lambda^2 B (e^{\eta x}Q_{2c}(x)) 
 + \lambda B W_i^\pm 
 \end{align*}
 
 We note the following relationships which are analogous to the single pulse case.
 
 \begin{align*}
-(\tilde{Q}^\eta_x)' &= A(q,\eta)\tilde{Q}^\eta_x \\
-(\tilde{Q}^\eta_c)' &= A(q, \eta)\tilde{Q}^\eta_c - B \tilde{Q}^\eta_x  
+(e^{\eta x}Q_2'(x))' &= A(q_2,\eta)(e^{\eta x}Q_2'(x)) \\
+(e^{\eta x}Q_{2c}(x))' &= A(q_2, \eta)(e^{\eta x}Q_{2c}(x)) - B (e^{\eta x}Q_2'(x))  
 \end{align*} 
 
 
 Using these expressions to cancel things, we get
 
 \begin{align*}
-(W_i^\pm)' = A(\tilde{q}, \eta) W_i^\pm - d_i \lambda^2 B \tilde{Q}^\eta_c 
+(W_i^\pm)' = A(q_2, \eta) W_i^\pm - d_i \lambda^2 B (e^{\eta x}Q_{2c}(x)) 
 + \lambda B W_i^\pm 
 \end{align*}
 
 We would like to write things in terms of the single pulse $Q$. Luckily, from Sandstede (1998) we know that
 
 \[
-\tilde{Q} = Q + R_i^\pm
+Q_2 = Q + R_i^\pm
 \]
 
-where the remainder $R_i^\pm$ is small (and we have estimates on it). Then $\tilde{Q}_c = Q_c + (R_i^\pm)_c$. Let
+where the remainder $R_i^\pm$ is small (and we have estimates on it). Then $Q_{2c} = Q_c + (R_i^\pm)_c$. Let
 
 \[
-G(\eta)_i^\pm = A(\tilde{q},\eta) - A(q,\eta) = A(q + r_i^\pm, \eta) - A(q, \eta)
+G(\eta)_i^\pm = A(q_2,\eta) - A(q,\eta) = A(q + r_i^\pm, \eta) - A(q, \eta)
 \]
 
 Following Sandstede (1998) we are then looking to solve the following system
 
 \begin{equation}\label{inteigQ}
-(W_i^\pm)' = A(q, \eta)W_i^\pm + G(\eta)_i^\pm W_i^\pm - d_i \lambda^2 B \tilde{Q}^\eta_c + \lambda B W_i^\pm
+(W_i^\pm)' = A(q, \eta)W_i^\pm + G(\eta)_i^\pm W_i^\pm - d_i \lambda^2 B (e^{\eta x}Q_{2c}) + \lambda B W_i^\pm
 \end{equation}  
 
 subject to conditions
@@ -1329,16 +1377,10 @@ W_i^+(0) - W_i^-(0) &\in \C \Psi(0)
 where 
 
 \begin{align*}
-G(\eta)_i^\pm &= A(\tilde{q},\eta) - A(q,\eta) = A(Q + R_i^\pm, \eta) - A(Q, \eta) \\
-D_1(\eta) d &= d_2 [ \tilde{Q}^\eta_x(-L) + \lambda \tilde{Q}^\eta_c(-L)] 
-- d_1 [ \tilde{Q}^\eta_x(L) + \lambda \tilde{Q}^\eta_c(L)]
+G(\eta)_i^\pm &= A(q_2,\eta) - A(q,\eta) = A(q + r_i^\pm, \eta) - A(q, \eta) \\
+D_1(\eta) d &= d_2 e^{-\eta L}[ Q_2'(-L) + \lambda Q_{2c}(-L)] 
+- d_1 e^{\eta L}[ Q_2'(L) + \lambda Q_{2c}(L)]
 \end{align*}
-
-and $D_1(\eta)$ is given by the row matrix 
-
-\[
-D_1(\eta) = \begin{pmatrix} -(\tilde{Q}^\eta_x(L) + \lambda \tilde{Q}^\eta_c(L)) & \tilde{Q}^\eta_x(-L) + \lambda \tilde{Q}^\eta_c(-L) \end{pmatrix}
-\]
 
 In the next lemma, we show some estimates similar to that in Lemma 3.1 in Sandstede (1998).
 
@@ -1346,34 +1388,27 @@ In the next lemma, we show some estimates similar to that in Lemma 3.1 in Sandst
 We have the estimates
 \begin{align*}
 |G(\eta)_i^\pm(x)| &\leq C|R_i^\pm(x)| \leq C \sup_{|x| \geq L} |Q(x)| \\
-| B \tilde{Q}^\eta(x) - B Q^\eta(x) | & \leq C | e^{\eta x} R_i^\pm(x)| \leq C \sup_{|x| \geq L} |e^{\eta x} Q(x)| \\
-D_1 d &= (Q^\eta_x(-L) + Q^\eta_x(L))(d_2 - d_1) + \mathcal{O}\left(e^{-(\alpha_0 - \eta) L}|\lambda||d| + e^{-\alpha_0 L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) \\
-|A(\tilde{Q}, \eta)| &\leq C \textrm{ for all }x
+| B (e^{\eta x} Q_2(x)) - B (e^{\eta x} Q(x)) | & \leq C | e^{\eta x} R_i^\pm(x)| \leq C \sup_{|x| \geq L} |e^{\eta x} Q(x)| \\
+D_1 d &= ( Q'(-L) + Q'(-L) )(d_2 e^{-\eta L} - d_1 e^{\eta L}) + \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right)\\
+|A(q_2, \eta)| &\leq C \textrm{ for all }x
 \end{align*}
 where $\alpha_0 > 0$ is defined above. Note that $\alpha_0$ refers to the unweighted operator.
 
 \begin{proof}
-The first estimate is the same as in Sandstede (1998) with $Q$ replacing $Q^+$ and $Q^-$, and follows from the smoothness of $A$ together with (2.6)(i) in Sandstede (1998). The second estimate follows from (2.6)(i) in Sandstede (1998) and the expansion of $\tilde{Q}$ as $Q + R_i^\pm$. The additional factor of $e^{\eta x}$ comes into play since we are in the exponentially weighted space, so everything is multiplied by that factor. The fourth estimate follows since the double pulse $\tilde{q}(x)$ is bounded and the rest of the matrix $A$ is constant (depending on $\eta$, but that is constant). For the third estimate, we first write $D_1 d$ in terms of the single pulse
+The first estimate is the same as in Sandstede (1998) with $Q$ replacing $Q^+$ and $Q^-$, and follows from the smoothness of $A$ together with (2.6)(i) in Sandstede (1998). The second estimate follows from (2.6)(i) in Sandstede (1998) and the expansion of $Q_2$ as $Q + R_i^\pm$, together with the fact that we have multiplied everything by a factor of $e^{\eta x}$. The fourth estimate follows since the double pulse $q_2(x)$ is bounded and the rest of the matrix $A$ is constant (depending on $\eta$, but that is constant). For the third estimate, we first write $D_1 d$ in terms of the single pulse
 
 \begin{align*}
-D_1 d &= d_2 [ \tilde{Q}^\eta_x(-L) + \lambda \tilde{Q}^\eta_c(-L)] 
-- d_1 [ \tilde{Q}^\eta_x(L) + \lambda \tilde{Q}^\eta_c(L)] \\
-&= d_2 [ Q^\eta_x(-L) + \lambda Q^\eta_c(-L) + (R_2^-)^\eta_x(-L) + \lambda (R_2^-)^\eta_c(-L)] \\
-&- d_1 [ Q^\eta_x(L) + \lambda Q^\eta_c(L) + (R_1^+)^\eta_x(-L) + \lambda (R_1^+)^\eta_c(-L)] 
+D_1 d &= d_2 e^{-\eta L}[ Q_2'(-L) + \lambda Q_{2c}(-L)] 
+- d_1 e^{\eta L}[ Q_2'(L) + \lambda Q_{2c}(L)]  \\
+&= d_2 e^{-\eta L} [ Q'(-L) + \lambda Q_c(-L) + (R_2^-)'(-L) + \lambda (R_2^-)_c(-L)] \\
+&- d_1 e^{\eta L} [ Q'(L) + \lambda Q_c(L) + (R_1^+)'(-L) + \lambda (R_1^+)_c(-L)] 
 \end{align*}
 
 Adapting Lemma 2.6 in Sandstede (1998), and noting that $Q = Q^+ = Q^-$ in our case, we have
 
 \begin{align*}
-|R_{i+1}^-(-X_i) - Q(X_i)| \leq C e^{-\alpha L} \sup_{|x| \geq L} |Q(x)| \\
-|R_{i}^+(X_i) - Q(-X_i)| \leq C e^{-\alpha L} \sup_{|x| \geq L} |Q(x)| \\
-\end{align*}
-
-If we do this in the exponentially weighted space, we should just get a factor of $e^\eta x$ on the RHS, so this should be
-
-\begin{align*}
-|(R_{i+1}^-)^\eta(-X_i) - Q^\eta(X_i)| \leq C e^{-\alpha L} \sup_{|x| \geq L} |e^{\eta x} Q(x)| \\
-|(R_{i}^+)^\eta(X_i) - Q^\eta(-X_i)| \leq C e^{-\alpha L} \sup_{|x| \geq L} |e^{\eta x} Q(x)| \\
+|R_{i+1}^-(-X_i) - Q(X_i)| \leq C e^{-\alpha_0 L} \sup_{|x| \geq L} |Q(x)| \\
+|R_{i}^+(X_i) - Q(-X_i)| \leq C e^{-\alpha_0 L} \sup_{|x| \geq L} |Q(x)| \\
 \end{align*}
 
 These should hold as well for derivatives with respect to $x$ and $c$, or at least I think that was used in the proof of Lemma 3.1 in Sandstede (1998) for the derivative with respect to $x$, so we will do that here. 
@@ -1381,11 +1416,15 @@ These should hold as well for derivatives with respect to $x$ and $c$, or at lea
 Thus, if we substitute these into the expression for $D_1 d$ we get
 
 \begin{align*}
-D_1 d &= [Q^\eta_x(-L) + Q^\eta_x(L) + 
-\lambda(Q^\eta_c(-L) + Q^\eta_c(L))](d_2 - d_1) + \mathcal{O}\left(e^{-\alpha L} |d| \sup_{|x| \geq L} |e^{\eta x} Q(x)| \right) \\ \\
+D_1 d &= d_2 e^{-\eta L} \left[ Q'(L) + Q'(-L) + \lambda (Q_c(L) + Q_c(-L)) + \mathcal{O} \left( e^{-\alpha_0 L} \sup_{|x| \geq L} |Q(x)| \right) \right] \\
+&- d_1 e^{\eta L} \left[ Q'(L) + Q'(-L) + \lambda (Q_c(L) + Q_c(-L))] + \mathcal{O} \left( e^{-\alpha_0 L} \sup_{|x| \geq L} |Q(x)| \right) \right]
 \end{align*}
 
-Finally, we note that $Q^\eta_c(-L)$ and $Q^\eta_c(L)$ are order $e^{-(\alpha - \eta)L}$, which gives us the result.
+We want to consolidate the higher terms and get rid of the term involving $\lambda$, tossing that into the higher order terms as well. Note that we want to be able to take $\eta$ positive or negative as well, which means that either $e^{-\eta L}$ or $e^{\eta L}$ will be negligible, but since we don't know which one, we will do the ``worst-case scenario''. Since $Q_c(\pm L)$ is of order $e^{-\alpha_0 L}$ (we showed the decay rate for this above), we have 
+
+\begin{align*}
+D_1 d &= ( Q'(-L) + Q'(-L) )(d_2 e^{-\eta L} - d_1 e^{\eta L}) + \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right)
+\end{align*}
 
 \end{proof}
 \end{lemma}
