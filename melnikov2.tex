@@ -1086,9 +1086,33 @@ A(q, \eta) =
 \eta^5 - \eta^3 + \eta c - 2 \eta q(x) + 2q'(x) & -5\eta^4 + 3\eta^2 + 2q(x) - c & 10\eta^3 - 3\eta & -10\eta^2 + 1 & 5\eta \end{pmatrix} 
 \]
 
-We probably don't need to write this down explicitly, but there it is. All we care is that for a given temporal eigenvalue $\lambda$, the spatial eigenvalues $\nu$ are all shifted by $\eta$ (in the direction given by the sign of $\eta$). Thus as long as we don't choose $\eta$ to be the real part of any of the eigenvalues of $A(0, 0)$, the matrix $A(0, \eta)$ (which is the linearization about the zero solution) is hyperbolic.\\
+This is a mess. All we really care is that for a given temporal eigenvalue $\lambda$, the spatial eigenvalues $\nu$ are all shifted by $\eta$ (in the direction given by the sign of $\eta$). Thus as long as we don't choose $\eta$ to be the real part of any of the eigenvalues of $A(0, 0)$, the matrix $A(0, \eta)$ (which is the linearization about the zero solution) is hyperbolic.\\
 
-Here is a nice way we can see that the exponential weight $\eta$ just shifts the spatial eigenvalues by $\eta$. The spatial eigenvalues are the eigenvalues of the problem $(\partial_x H - \lambda I)v$ = 0, where $\lambda$ is the (fixed) temporal eigenvalue. For the asymptotic operator, this is a constant coefficient ODE, so can substitute the ansatz $e^{\nu x}$ and solve for $\nu$. This will be in the form of a polynomial for $\nu$, which is the same as the characteristic polynomial of the matrix $A(0,0)$. The exponentially weighted eigenvalue problem is $e^{\eta x} (\partial_x H - \lambda I)e^{-\eta x}v = 0$. Again, working with the asymptotic operator, if $v(x) = e^{\nu x}$ is a solution to the nonweighted equation, then $e^{\eta x}v(x) = e^{\eta x}e^{\nu x} = e^{(\nu + \eta)x}$ is a solution to the weighted equation, thus the spatial eigenvalues are shifted by $\eta$.
+Here is a one way we can see that the exponential weight $\eta$ just shifts the spatial eigenvalues by $\eta$. The spatial eigenvalues are the eigenvalues of the problem $(\partial_x H - \lambda I)v$ = 0, where $\lambda$ is the (fixed) temporal eigenvalue. For the asymptotic operator, this is a constant coefficient ODE, so can substitute the ansatz $e^{\nu x}$ and solve for $\nu$. This will be in the form of a polynomial for $\nu$, which is the same as the characteristic polynomial of the matrix $A(0,0)$. The exponentially weighted eigenvalue problem is $e^{\eta x} (\partial_x H - \lambda I)e^{-\eta x}v = 0$. Again, working with the asymptotic operator, if $v(x) = e^{\nu x}$ is a solution to the nonweighted equation, then $e^{\eta x}v(x) = e^{\eta x}e^{\nu x} = e^{(\nu + \eta)x}$ is a solution to the weighted equation, thus the spatial eigenvalues are shifted by $\eta$.\\
+
+However, we are stuck using a matrix, since we need to write our problem as a first order system, and the matrix $A(q, \eta)$ above is really annoying to work with. There is another way, which essentially involves redefining $V$. With our new definition, each component of $V$ will no longer be the derivative of the previous component. But that does not matter, and we will still have a nice relationship which highlights the exponential weight.\\
+
+Consider the unweighted eigenvalue problem $V' = A(q, 0)V + \lambda B V$, and let $V = e^{-\eta x} U$. (The negative sign in front of $\eta$ is consistent with how we defined the exponentially weighted problem above). Substituting this into the unweighted problem, we get
+
+\begin{align*}
+e^{-\eta x} U' - \eta e^{-\eta x}U &= A(q, 0)e^{-\eta x}U + \lambda B e^{-\eta x}U \\
+U' &= (A(q, 0) + \eta I) U + \lambda B U
+\end{align*}
+
+If we let $A(q, \eta) = A(q, 0) + \eta I$ (and rename $U$ back to $V$), then we have the weighted eigenvalue problem
+
+\begin{equation}\label{weightedeig}
+V' = A(q, \eta)V + \lambda B V
+\end{equation}
+
+where
+
+\[
+A(q, \eta) = \begin{pmatrix}\eta & 1 & 0 & 0 & 0 \\0 & \eta & 1 & 0 & 0 \\0 & 0 & \eta & 1 & 0 \\0 & 0 & 0 & \eta & 1 \\
+2q'(x) & 2q(x) - c & 0 & 1 & \eta \end{pmatrix} 
+\]
+
+From this, we see that each row of $V$ is $(\partial_x - \eta)$ operated on the previous row, which is again consistent with how we have defined our exponentially weighted space. We also note that the (spatial) eigenvalues for these two versions of $A(q, \eta)$ are the same, and that in both cases all the weight $\eta$ does is shift the spatial eigenvalues by $\eta$ (in the direction given by the sign of $\eta$). So since these are equivalent, we will use the ``easier'' version of the weighted eigenvalue problem problem \eqref{weightedeig}.
 
 Before we go too much further, we should choose $\eta$.\\
 
@@ -2413,6 +2437,48 @@ Since we are assuming $M$ is nonzero, this is well-defined. Since the inner prod
 
 Note that what we have here is to leading order only. We showed that the remainder term is higher order (in $L$), then ditched it.
 
+\subsubsection*{Negative exponential weights}
+
+What about negative exponential weights? By the setup above, as long as we choose $0 < |\eta| < \alpha_0/2$, both positive and negative exponential weights should work fine.\\
+
+Let's show that if we have solved the leading order system $\tilde{S}$ with eigenvalue $\lambda$ and weight $\eta$, then we can solve the leading order system with eigenvalue $-\lambda$ and weight $-\eta$. To do this, we need to see what happens to $a$ and $\tilde{a}$.
+
+\[
+Q^\eta_x(x) = e^{\eta x} \begin{pmatrix}
+q'(x) \\
+\eta q'(x) + q''(x)\\
+\eta^2 q'(x) + 2 \eta q''(x) + q^{(3)}(x) \\
+\eta^3 q'(x) + 3 \eta^2 q''(x) + 3 \eta q^{(3)}(x) + q^{(4)}(x) \\
+\eta^4 q'(x) + 4 \eta^3 q''(x) + 6 \eta^2 q^{(3)}(x) + 4 \eta q^{(4)}(x) + q^{(5)}(x) \\
+\end{pmatrix}
+\]
+
+\begin{align*}
+Q^{-\eta}_x(-x) &= e^{-\eta x} \begin{pmatrix}
+q'(-x) \\
+-\eta q'(-x) + q''(-x)\\
+\eta^2 q'(-x) - 2 \eta q''(-x) + q^{(3)}(-x) \\
+-\eta^3 q'(-x) + 3 \eta^2 q''(-x) - 3 \eta q^{(3)}(-x) + q^{(4)}(-x) \\
+\eta^4 q'(-x) - 4 \eta^3 q''(-x) + 6 \eta^2 q^{(3)}(-x) - 4 \eta q^{(4)}(-x) + q^{(5)}(-x) \\
+\end{pmatrix} \\
+&= e^{-\eta x} \begin{pmatrix}
+-q'(x) \\
+\eta q'(x) + q''(x)\\
+-\eta^2 q'(x) - 2 \eta q''(x) - q^{(3)}(x) \\
+\eta^3 q'(x) + 3 \eta^2 q''(x) + 3 \eta q^{(3)}(x) + q^{(4)}(x) \\
+-\eta^4 q'(x) - 4 \eta^3 q''(x) - 6 \eta^2 q^{(3)}(x) - 4 \eta q^{(4)}(x) - q^{(5)}(x) \\
+\end{pmatrix} \\
+\end{align*}
+
+\begin{align*}
+a &= \langle \Psi(L), Q^\eta_x(-L) \rangle \\
+\tilde{a} &= \langle \Psi(-L), Q^\eta_x(L) \rangle
+\end{align*}
+
+
+
 \subsubsection*{Interpretation of Weighted Eigenfunctions}
+
+Suppose we have found/constructed (by the above method or some other means) a solution to the weighted eigenvalue problem, i.e. we have a function $v(x)$ and eigenvalue $\lambda$ such that $(e^{\eta x} \partial_x H e^{-\eta x} - \lambda I)v(x) = 0$. What do we know about $v(x)$. Since $v(x)$ is in the exponentially weighted space, we know that $e^{\eta x} v(x)$ is bounded. 
 
 \end{document}
