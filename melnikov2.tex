@@ -2311,8 +2311,8 @@ Then the higher order terms are of order $\delta^2 |d|$ and the remainder is of 
 Now we will substitute what we have in our specific case into the general version we analyzed above. First, we take
 
 \begin{align*}
-H &= B Q^\eta_c \\
-\tilde{H} &= B \tilde{Q}^\eta_c \\
+H &= B e^{\eta x}Q_c ] \\
+\tilde{H} &= B e^{\eta x}Q_{2c}  \\
 G_i^\pm &= G(\eta)_i^\pm
 \end{align*}
 
@@ -2320,12 +2320,12 @@ Before we can make the substitution, we need to verify a few things.
 
 \begin{enumerate}
 
-\item $||H||$ is bounded. Recall that we showed that $q_c$ decays exponentially asymptotically (at both ends) with rate $\alpha_0$. We also chose $\eta$ so that $0 < \eta < \alpha_0$ or $-\alpha_0 < \eta < 0$. Thus since the only nonzero component of $B Q^\eta c$ is $e^{\eta x} q_c(x)$, $||B Q^\eta_c||$ is bounded, thus $||H|| = ||B Q^\eta_c||$ exists and is finite.\\
+\item $||H||$ is bounded. Recall that we showed that $q_c$ decays exponentially asymptotically (at both ends) with rate $\alpha_0$. We also chose $\eta$ so that $0 < \eta < \alpha_0$ or $-\alpha_0 < \eta < 0$. Thus since the only nonzero component of $B e^{\eta x}Q_c $ is $e^{\eta x} q_c(x)$, $||B e^{\eta x}Q_c ||$ is bounded, thus $||H|| = ||B e^{\eta x}Q_c ||$ exists and is finite.\\
 
 \item We can ensure that $\Delta H \leq \delta$ for any $\delta$. Recall we have the bound
 
 \begin{align*}
-| B \tilde{Q}^\eta_c(x) - B Q^\eta_c(x) | &\leq C \sup_{|x| \geq L} |e^{\eta x} q(x)| \\
+| B e^{\eta x}Q_{2c}  - B e^{\eta x}Q_c  | &\leq C \sup_{|x| \geq L} |e^{\eta x} q(x)| \\
 &\leq C \sup_{|x| \geq L} |e^{\eta x} q(x)| \\
 &\leq C e^{-(\alpha_0 - \eta)L}
 \end{align*}
@@ -2412,44 +2412,72 @@ Recall that we have
 	\item $\sup_{|x| \geq L} |Q(x)| $ is of order $e^{-\alpha_0 L}$
 \end{enumerate}
 
-If we choose $|\lambda|$ and $|G|$ of order $e^{-\alpha L} = e^{-\eta L}$, the overall order of the remainder (in $L$) is $e^{-(\alpha_0 - \eta) L} e^{-2 \eta L}$. This is of order $e^{-(\alpha_0 - \eta) L}$ higher \\
+If we choose $|\lambda|$ and $|G|$ of order $e^{-\alpha L} = e^{-\eta L}$, the overall order of the remainder (in $L$) is $e^{-(\alpha_0 - \eta) L} e^{-2 \eta L}$. For the lower order terms, we have the following orders (in $L$).
+
+\begin{enumerate}
+	\item The $\lambda^2$ term is of order $e^{-2 \eta L}$
+	\item The inner product term is of order $e^{-\alpha_0 L}$
+\end{enumerate}
+
+Since the remainder term is higher order than both of these, we are all set!\\
 
 Putting all of this together, we have to solve the following system for $(d_1, d_2)$.
 
 \begin{align*}
-d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi(L), Q^\eta_x(-L) \rangle (d_2 - d_1)  + (R(\lambda)d)_1 = 0\\
-d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi(-L), Q^\eta_x(L) \rangle (d_2 - d_1)  + (R(\lambda)d)_2 = 0
+d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi(L), Q'(-L) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L}) + (R(\lambda)d)_1 = 0\\
+d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi(-L), Q'(L) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L})  + (R(\lambda)d)_2 = 0
 \end{align*}
 
-With our same choice of $|\lambda|$ of order $e^{-\eta L}$ as above, the $|\lambda^2|$ term is order $e^{-2 \eta L}$ (since $\alpha = \eta$). The other term is order $e^{-(\alpha + \alpha_0 - \eta) L} = e^{-\alpha_0 L}$; since we chose $|\eta| \leq \alpha_0 / 2$, this term is of no higher order than the $|\lambda|^2$ term. Thus the remainder term is of higher order (in $L$) than these (by a factor of $e^{-(\alpha_0 - \eta) L}$, but that's enough!), so we are all good.\\
+Recall that the weighted adjoint solution $\Psi(x)$ can be written as
+
+\[
+\Psi(x) = e^{-\eta x} \Psi_0(x)
+\]
+
+where $\Psi_0(x)$ is the unique solution to the adjoint problem in the unweighted space. Thus we have
+
+\begin{align*}
+d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle e^{-\eta L} \Psi_0(L), Q'(-L) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L}) + (R(\lambda)d)_1 = 0\\
+d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle e^{\eta L} \Psi_0(-L), Q'(L) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L})  + (R(\lambda)d)_2 = 0
+\end{align*}
+
+which can be simplified to
+
+\begin{align*}
+d_1 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi_0(L), Q'(-L) \rangle (d_2 e^{-2 \eta L} - d_1) + (R(\lambda)d)_1 = 0\\
+d_2 \lambda^2 \langle q, q_c \rangle_{L^2(\R)} - \langle \Psi_0(-L), Q'(L) \rangle (d_2 - d_1 e^{2 \eta L})  + (R(\lambda)d)_2 = 0
+\end{align*}
+
+Note here that the two inner products do not involve the weight $\eta$ at all! \\
+
 
 We want this to have a solution in $d = (d_1, d_2)$ which is not the trivial solution (this is always a solution). Thus if we write this in matrix form, that is equivalent to the matrix not being invertible.\\
 
 First let
 
 \begin{align*}
-a &= \langle \Psi(L), Q^\eta_x(-L) \rangle \\
-\tilde{a} &= \langle \Psi(-L), Q^\eta_x(L) \rangle
+a &= \langle \Psi_0 (L), Q'(-L) \rangle \\
+\tilde{a} &= \langle \Psi_0(-L), Q'(L) \rangle
 \end{align*}
 
 Define the matrix
 
 \begin{align*}
-A = \begin{pmatrix}
-a & -a \\ \tilde{a} & -\tilde{a} 
+A(\eta) = \begin{pmatrix}
+a & -a e^{-2 \eta L} \\ \tilde{a} e^{2 \eta L} & -\tilde{a} 
 \end{pmatrix}
 \end{align*}
 
 Then we can define
 
 \[
-S(\lambda) = A + \lambda^2 MI + R(\lambda) 
+S(\lambda, \eta) = A(\eta) + \lambda^2 MI + R(\lambda) 
 \]
 
 where $M = \lambda^2 \langle q, q_c \rangle_{L^2(\R)}$ is the higher-order Melnikov integral. The system above is equivalent to $S(\lambda)d = 0$. Thus our condition to have a solution, i.e. the condition to have both jumps be zero and thus a match happens, is
 
 \[
-\det S(\lambda) = 0
+\det S(\lambda, \eta) = 0
 \]
 
 \subsubsection*{Eigenvalues (to leading order)}
@@ -2459,19 +2487,19 @@ Since we showed that the order of the remainder term is higher than that of the 
 So now we take
 
 \[
-\tilde{S}(\lambda) = A + \lambda^2 MI
+\tilde{S}(\lambda, \eta) = A + \lambda^2 MI
 \]
 
 The determinant of this is a 2nd degree polynomial in $\lambda^2$, which is a 4th degree polynomial in $\lambda$.
 
 \begin{align*}
 \det \tilde{S} &= \det \begin{pmatrix}
-a + \lambda^2 M & -a \\ \tilde{a} & -\tilde{a} + \lambda^2 M 
+a + \lambda^2 M & -a e^{-2 \eta L}  \\ \tilde{a} e^{2 \eta L} & -\tilde{a} + \lambda^2 M 
 \end{pmatrix} \\
 &= \lambda^2 M ( (a - \tilde{a}) + \lambda^2 M)
 \end{align*}
 
-This polynomial has a double root at $\lambda = 0$, which corresponds to the two zero (generalized) eigenfunctions which we already know about: $Q^\eta_x$ (eigenfunction) and $Q^\eta_c$ (generalized eigenfunction). There is another pair of eigenvalues, which are given by
+Note that this does not involve $\eta$ at all (even though the matrix $A(\eta)$ does, thus to leading order the eigenvalues do not depend on $\eta$. This polynomial has a double root at $\lambda = 0$, which corresponds to the two zero (generalized) eigenfunctions which we already know about: $Q^\eta_x$ (eigenfunction) and $Q^\eta_c$ (generalized eigenfunction). There is another pair of eigenvalues, which are given by
 
 \[
 \lambda^2 = \frac{\tilde{a} - a}{M}
@@ -2479,47 +2507,77 @@ This polynomial has a double root at $\lambda = 0$, which corresponds to the two
 
 Since we are assuming $M$ is nonzero, this is well-defined. Since the inner products involved in $a$ and $\tilde{a}$ involve only real-valued functions, we either get a pair of real eigenvalues $\lambda = \pm \beta$ or a pair of purely imaginary eigenvalues $\lambda = \pm \beta i$. Which one we get depends on the sign of $\tilde{a} - a$. THIS HAS SOMETHING TO DO WITH THINGS WINDING AROUND OTHER THINGS, SO WE SHOULD LOOK AT THAT SOMETIME SOON.\\
 
-Note that what we have here is to leading order only. We showed that the remainder term is higher order (in $L$), then ditched it.
+Note that what we have here is to leading order only. We showed that the remainder term is higher order (in $L$), then ditched it.\\
 
-\subsubsection*{Negative exponential weights}
+We should be able to do a little better here, since there is some symmetry involved. Recall that $Q'(x) = (Q'(x), Q''(x), Q^{(3)}(x), Q^{(4)}(x), Q^{(5)}(x))$. It will be useful to find a similar expression for the adjoint solution $\Psi_0(x)$. Since we know the 5th component of this is $q(x)$, it is straightforward to figure out the rest. For notational convenience, suppose that $W$ solves the unweighted adjoint problem $W' = -A(q)^* W$. Then we have
 
-What about negative exponential weights? By the setup above, as long as we choose $0 < |\eta| < \alpha_0/2$, both positive and negative exponential weights should work fine.\\
+\begin{align*}
+w_1' &= -2q' w_5 \\
+w_2' &= -(w_1 + (2q -c)w_5) \\
+w_3' &= -w_2 \\
+w_4' &= -(w_3 + w_5) \\
+w_5' &= -w^4 
+\end{align*}
 
-Let's show that if we have solved the leading order system $\tilde{S}$ with eigenvalue $\lambda$ and weight $\eta$, then we can solve the leading order system with eigenvalue $-\lambda$ and weight $-\eta$. To do this, we need to see what happens to $a$ and $\tilde{a}$.
+Rearranging this, we get
+
+\begin{align*}
+w_4 &= -w_5' \\
+w_3 &= -w_4' - w_5 = w_5'' - w_5 \\
+w_2 &= -w_3' = -w_5^{(3)} + w_5' \\
+w_1 &= -w_2' + (2q - c)w_5 = w_5^{(4)} - w_5'' + (2q - c)w_5
+\end{align*}
+
+For $\Psi_0$, we substitute $w_5 = q$ to get
 
 \[
-Q^\eta_x(x) = e^{\eta x} \begin{pmatrix}
-q'(x) \\
-\eta q'(x) + q''(x)\\
-\eta^2 q'(x) + 2 \eta q''(x) + q^{(3)}(x) \\
-\eta^3 q'(x) + 3 \eta^2 q''(x) + 3 \eta q^{(3)}(x) + q^{(4)}(x) \\
-\eta^4 q'(x) + 4 \eta^3 q''(x) + 6 \eta^2 q^{(3)}(x) + 4 \eta q^{(4)}(x) + q^{(5)}(x) \\
+\Psi_0(x) = \begin{pmatrix}
+q^{(4)}(x) - q''(x) + (2q(x) - c)q(x)\\
+-q^{(3)}(x) + q'(x) \\
+q''(x) - q(x) \\
+-q' \\
+q(x)
 \end{pmatrix}
 \]
 
-\begin{align*}
-Q^{-\eta}_x(-x) &= e^{-\eta x} \begin{pmatrix}
-q'(-x) \\
--\eta q'(-x) + q''(-x)\\
-\eta^2 q'(-x) - 2 \eta q''(-x) + q^{(3)}(-x) \\
--\eta^3 q'(-x) + 3 \eta^2 q''(-x) - 3 \eta q^{(3)}(-x) + q^{(4)}(-x) \\
-\eta^4 q'(-x) - 4 \eta^3 q''(-x) + 6 \eta^2 q^{(3)}(-x) - 4 \eta q^{(4)}(-x) + q^{(5)}(-x) \\
-\end{pmatrix} \\
-&= e^{-\eta x} \begin{pmatrix}
--q'(x) \\
-\eta q'(x) + q''(x)\\
--\eta^2 q'(x) - 2 \eta q''(x) - q^{(3)}(x) \\
-\eta^3 q'(x) + 3 \eta^2 q''(x) + 3 \eta q^{(3)}(x) + q^{(4)}(x) \\
--\eta^4 q'(x) - 4 \eta^3 q''(x) - 6 \eta^2 q^{(3)}(x) - 4 \eta q^{(4)}(x) - q^{(5)}(x) \\
-\end{pmatrix} \\
-\end{align*}
+Note that 
+
+\begin{enumerate}
+	\item The components of $Q'(x)$ are odd, even, odd, even, odd.
+	\item The components of $\Psi_0(x)$ are even, odd, even, odd, even.
+\end{enumerate}
+
+Thus the inner product $\langle \Psi_0(x), Q'(x) \rangle$ is a odd function in $x$. In particular, this implies that 
+
+\[
+\tilde{a} = \langle \Psi_0(-L), Q'(L) \rangle = -\langle \Psi_0(L), Q'(-L) \rangle = -a
+\]
+
+Thus we can write our matrix equation as
+
+\[
+S(\lambda, \eta) = a A(\eta) + \lambda^2 MI + R(\lambda) 
+\]
+
+where 
 
 \begin{align*}
-a &= \langle \Psi(L), Q^\eta_x(-L) \rangle \\
-\tilde{a} &= \langle \Psi(-L), Q^\eta_x(L) \rangle
+A(\eta) = \begin{pmatrix}
+1 & -e^{-2 \eta L} \\ -e^{2 \eta L} & 1 
+\end{pmatrix}
 \end{align*}
 
+Writing the leading order matrix as $\tilde{S}$ we have
 
+\begin{align*}
+\det \tilde{S} &= \lambda^2 M ( 2 a + \lambda^2 M)
+\end{align*}
+
+And the nonzero eigenvalues (to leading order) are given by
+
+\[
+\lambda^2 = -\frac{2a}{M}
+\]
 
 \subsubsection*{Interpretation of Weighted Eigenfunctions}
 
