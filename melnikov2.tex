@@ -1389,7 +1389,7 @@ We have the estimates
 \begin{align*}
 |G(\eta)_i^\pm(x)| &\leq C|R_i^\pm(x)| \leq C \sup_{|x| \geq L} |Q(x)| \\
 | B (e^{\eta x} Q_2(x)) - B (e^{\eta x} Q(x)) | & \leq C | e^{\eta x} R_i^\pm(x)| \leq C \sup_{|x| \geq L} |e^{\eta x} Q(x)| \\
-D_1 d &= ( Q'(-L) + Q'(-L) )(d_2 e^{-\eta L} - d_1 e^{\eta L}) + \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right)\\
+D_1 d &= ( Q'(L) + Q'(-L) )(d_2 e^{-\eta L} - d_1 e^{\eta L}) + \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right)\\
 |A(q_2, \eta)| &\leq C \textrm{ for all }x
 \end{align*}
 where $\alpha_0 > 0$ is defined above. Note that $\alpha_0$ refers to the unweighted operator.
@@ -1423,7 +1423,7 @@ D_1 d &= d_2 e^{-\eta L} \left[ Q'(L) + Q'(-L) + \lambda (Q_c(L) + Q_c(-L)) + \m
 We want to consolidate the higher terms and get rid of the term involving $\lambda$, tossing that into the higher order terms as well. Note that we want to be able to take $\eta$ positive or negative as well, which means that either $e^{-\eta L}$ or $e^{\eta L}$ will be negligible, but since we don't know which one, we will do the ``worst-case scenario''. Since $Q_c(\pm L)$ is of order $e^{-\alpha_0 L}$ (we showed the decay rate for this above), we have 
 
 \begin{align*}
-D_1 d &= ( Q'(-L) + Q'(-L) )(d_2 e^{-\eta L} - d_1 e^{\eta L}) + \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right)
+D_1 d &= ( Q'(L) + Q'(-L) )(d_2 e^{-\eta L} - d_1 e^{\eta L}) + \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right)
 \end{align*}
 
 \end{proof}
@@ -2341,7 +2341,7 @@ and so we can always choose $L$ sufficiently large so that $\Delta H \leq \delta
 \item $|D_1| \leq \delta$. Recall that we have the following expression/estimate for $D_1 d$. 
 
 \[
-D_1 d &= ( Q'(-L) + Q'(-L) )(d_2 e^{-\eta L} - d_1 e^{\eta L}) + \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right)
+D_1 d = ( Q'(-L) + Q'(-L) )(d_2 e^{-\eta L} - d_1 e^{\eta L}) + \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right)
 \]
 
 Since the lower order terms are of order $e^{-(\alpha_0 - \eta)L}$, we can choose $L$ sufficiently large so that they are smaller than $\delta$. The higher order terms present no difficulty.
@@ -2360,30 +2360,25 @@ which agrees with Pego and Weinstein. \\
 We want to follow what was done in Sandstede (1998) and get a nice form for the $a_i^\pm$ terms. We will do one of them; the other will be similar. Using our expression/estimate for $D_1$, we have
 
 \begin{align*}
-\langle \Psi(-L), P_0^s D_1 d \rangle &= \langle \Psi(-L), P_0^s(Q'(-L) + Q'(-L)) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L}) \\
+\langle \Psi(-L), P_0^s D_1 d \rangle &= \langle \Psi(-L), P_0^s(Q'(L) + Q'(-L)) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L}) \\
 &+\langle \Psi(-L), \mathcal{O} \left( e^{-(\alpha_0 - \eta) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right) \rangle \\
-&= \langle \Psi(-L), P_0^s(Q'(-L) + Q'(-L)) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L}) \\
+&= \langle \Psi(-L), P_0^s(Q'(L) + Q'(-L)) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L}) \\
 &+ \mathcal{O} \left( e^{-(\alpha_0 + \alpha - \eta ) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right) 
 \end{align*}
 
-where we get an additional $\mathcal{O}(e^{-\alpha L})$ on the RHS from our estimate on $\Psi(\pm L)$. Now we want to ditch the projection term. This is surprisingly not that bad. What we want to do is replace the projections on the eigenspaces $E^{s/u}$ with the projections on the stable and unstable manifolds, to leading order. To do this, we use the projection estimates we have from above.
+where we get an additional $\mathcal{O}(e^{-\alpha L})$ on the RHS from our estimate on $\Psi(\pm L)$. We will add these higher order terms to our remainder term when we are done. \\
 
-\[
-\langle \psi(-L), P_0^s((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle = \langle \psi(-L), Q^\eta_x(L) \rangle
-+ \text{h.o.t.}
-\]
-
-Similarly, we should have 
-
-\[
-\langle \psi(L), P_0^u((Q^\eta_x(-L) + Q^\eta_x(L)) \rangle = \langle \psi(L), Q^\eta_x(-L) \rangle
-+ \text{h.o.t.}
-\]
-
-For the remainder term we have (including the extra terms we added)
+At this point we want to ditch the projection terms. We will assume for now that what was done in (3.36) in Sandstede (1998) applies here. WE WILL WANT TO VERIFY THIS SINCE I AM NOT SURE USING THE PROJECTION ESTIMATES IS HIGH ENOUGH ORDER. For now we will assume that we have
 
 \begin{align*}
-|(R(\lambda)d)_i| &\leq C \left( e^{-(\alpha + \alpha_0 - \eta) L}|\lambda| + e^{-(2\alpha_0 + \alpha - \eta) L} + (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (e^{-\alpha L} + |G| + |\lambda| + \Delta H )|\lambda^2| \right)|d|
+\langle \Psi(-L), P_0^s D_1 d \rangle &= \langle \Psi(-L), Q'(L) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L}) \rangle + \mathcal{O} \left( e^{-(\alpha_0 + \alpha - \eta ) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right) \\
+\langle \Psi(L), P_0^u D_1 d \rangle &= \langle \Psi(L), Q'(-L) \rangle (d_2 e^{-\eta L} - d_1 e^{\eta L}) \rangle + \mathcal{O} \left( e^{-(\alpha_0 + \alpha - \eta ) L}|d| \left( |\lambda| +  \sup_{|x| \geq L} |Q(x)| \right) \right)
+\end{align*}
+
+The remainder term then has has bound
+\begin{align*}
+|&(R(\lambda)d)_i| \\
+&\leq C \left( (e^{-\alpha L} + |G| + |\lambda|)^2 |D_1| + (e^{-\alpha L} + |G| + |\lambda| + \Delta H )|\lambda^2|  + e^{-(\alpha_0 + \alpha - \eta ) L}( |\lambda| +  \sup_{|x| \geq L} |Q(x)| ) \right)|d|
 \end{align*}
 
 This looks good, except we have both $\alpha_0$ and $\alpha$ in here, which is annoying. Recall that $\alpha_0$ refers to the unweighted problem and $\alpha$ refers to the weighted problem. However, we are lucky in that we know exactly what the weight does to the spatial eigenvalues. In fact, we have the following formula for $\alpha$, which can be verified by drawing a picture of the spatial eigenvalues and shifting them by $\eta$.
@@ -2398,17 +2393,26 @@ This looks good, except we have both $\alpha_0$ and $\alpha$ in here, which is a
 If we take $|\eta| \leq \frac{\alpha_0}{2}$ (I think we want a small weight, so this choice makes sense), then $\alpha = \eta$ and this becomes
 
 \begin{align*}
-|(R(\lambda)d)_i| &\leq C \left( e^{-\alpha_0 L}|\lambda| + e^{-2\alpha_0 L} + (e^{-\eta L} + |G| + |\lambda|)^2 |D_1| + (e^{-\eta L} + |G| + |\lambda| + \Delta H )|\lambda^2| \right)|d|
+|&(R(\lambda)d)_i| \\
+&\leq C \left( (e^{-\eta L} + |G| + |\lambda|)^2 |D_1| + (e^{-\eta L} + |G| + |\lambda| + \Delta H )|\lambda^2|  + e^{-\alpha_0 L}( |\lambda| +  \sup_{|x| \geq L} |Q(x)| ) \right)|d|
 \end{align*}
 
-Now rewrite this as
+which we can rewrite as
 
 \begin{align*}
-|(R(\lambda)d)_i| \leq C ( &e^{-(\alpha_0 - \eta) L}e^{-\eta L}|\lambda| + e^{-2(\alpha_0 - \eta) L}e^{-2\eta L} \\
-&+ (e^{-\eta L} + |G| + |\lambda|)^2 |D_1| + (e^{-\eta L} + |G| + |\lambda| + \Delta H )|\lambda^2| ) |d|
+|&(R(\lambda)d)_i| \\
+&\leq C \left( (e^{-\eta L} + |G| + |\lambda|)^2 |D_1| + (e^{-\eta L} + |G| + |\lambda| + \Delta H )|\lambda^2|  + e^{-(\alpha_0 - \eta) L}e^{-\eta L}( |\lambda| +  \sup_{|x| \geq L} |Q(x)| ) \right)|d|
 \end{align*}
 
-If $|\lambda|$ and $|G|$ are order $e^{-\alpha L} = e^{-\eta L}$ and $D_1$ is order $e^{-(\alpha_0 - \eta) L}$ , the overall order of the remainder is $e^{-(\alpha_0 - \eta) L} e^{-2 \eta L} = e^{-(\alpha_0 - \eta) L} e^{-2 \alpha L} $.\\
+Recall that we have
+
+\begin{enumerate}
+	\item $\Delta H$ is order $e^{-(\alpha_0 - \eta)L}$. Since we have chosen $|\eta| \leq \frac{\alpha_0}{2}$, this is higher order than $e^{-\eta L}$.
+	\item $D_1$ is order $e^{-(\alpha_0 - \eta) L}$
+	\item $\sup_{|x| \geq L} |Q(x)| $ is of order $e^{-\alpha_0 L}$
+\end{enumerate}
+
+If we choose $|\lambda|$ and $|G|$ of order $e^{-\alpha L} = e^{-\eta L}$, the overall order of the remainder (in $L$) is $e^{-(\alpha_0 - \eta) L} e^{-2 \eta L}$. This is of order $e^{-(\alpha_0 - \eta) L}$ higher \\
 
 Putting all of this together, we have to solve the following system for $(d_1, d_2)$.
 
