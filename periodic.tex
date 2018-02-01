@@ -1,0 +1,127 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\graphicspath{ {images17/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\begin{document}
+
+\section*{KdV5 with Periodic Boundary Conditions}
+
+Here we look at the case with periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. As before, we are looking to solve the system
+
+\begin{enumerate}[(i)]
+\item $(W_i^\pm)' = A(q) W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
+\item $W_i^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W_i^+(0) - W_i^-(0) \in \C \psi(0) $
+\item $W_1^+(L) - W_2^-(-L) = D_1 d $
+\end{enumerate}
+
+which is the piecewise eigenvalue problem written as a first order system in the unweighted norm. The eigenfunction here is given by $V_i^\pm = (Q' - \lambda Q_c)d_i + W_i\pm$.\\
+
+Let's first look at this for the case of a single pulse, where there is only one join at the center, so the eigenfunction is given by $V\pm = Q' - \lambda Q_c + W_i\pm$, and this becomes
+
+\begin{enumerate}[(i)]
+\item $(W^\pm)' = A(q) W_i^\pm + \lambda B W^\pm - \lambda^2 B Q_c$
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W^+(0) - W^-(0) \in \C \psi(0) $
+\end{enumerate}
+
+Since we have periodic BCs on the interval $[-T, T]$, we need one more condition to ensure the eigenfunction satisfies the BCs, i.e. $V^-(-T) = V^+(T)$. Writing this out, we get
+
+\begin{align*}
+Q'(-T) - \lambda Q_c(-T) + W_i^-(-T) &= Q'(T) - \lambda Q_c(T) + W_i^+(-T) \\
+W_i^-(-T) - W_i^+(-T) &= ( Q'(T) - Q'(-T) ) - \lambda( Q_c(T) - Q_c(-T) )
+\end{align*}
+
+As before, let $\Phi(y, x)$ be the evolution of
+
+\begin{equation}\label{Wprime}
+U' = A(q) U
+\end{equation}
+
+Since we are not in an exponentially weighted space and we know that $Q'$ is a solution to this (we are assuming the kernel of $A(q)$ is 1D and contains only this), $A(q)$ has a center subspace. Thus instead of an exponential dichotomy we have an exponential trichotomy. For now, I am assuming this is the case given we know what the asymptotic matrix looks like. Following Hale and Lin (1985), we will write this as follows. We have projections $P^s(x)$, $P^u(x)$ and $P^c(x) = I - P^s(x) - P^u(x)$ such that
+
+\begin{align*}
+\Phi(y, x)P^s(x) &= P^s(y)\Phi(y, x) \\
+\Phi(y, x)P^u(x) &= P^u(y)\Phi(y, x) \\
+\Phi(y, x)P^c(x) &= P^c(y)\Phi(y, x) \\
+\end{align*}
+
+In other words, it does not matter if you project or evolve first. Using these, we can split the evolution up into evolution on the three subspaces by defining
+
+\begin{align*}
+\Phi^s(y, x) &= \Phi(y, x)P^s(x) \\
+\Phi_u(y, x) &= \Phi(y, x)P^u(x) \\
+\Phi_c(y, x) &= \Phi(y, x)P^c(x) \\
+\end{align*}
+
+We know what the eigenvalues of the asymptotic matrix $A(0)$ are in this specific case. We have one eigenvalue at 0 which we can do nothing about. The remaining eigenvalues have nice symmetry (left/right and complex conjugate, if applicable), and there exists $\alpha > 0$ such that the eigenvalue of smallest positive real part has real part $\alpha$ and the eigenvalue of largest negative real part has real part $-\alpha$. Thus we should have the following estimates, based on Hale and Lin (1985).
+
+\begin{align*}
+\Phi^s(y, x) \leq C e^{-\alpha(y-x)} \\
+\Phi^u(x, y) \leq C e^{-\alpha(y-x)}
+\end{align*}
+
+where $x \leq y$ and $C$ is a constant. For the center subspace, things are a little less clear, but again following Hale and Lin (1985) we should at least have an exponential bound on the growth in the center subspace, i.e.
+
+\begin{align*}
+\Phi^c(y, x) \leq C e^{\epsilon(y-x)} \\
+\Phi^c(x, y) \leq C e^{\epsilon(y-x)}
+\end{align*}
+
+for some small $\epsilon > 0$ (which we get to choose?). So basically in the center subspace we can bound the evolution by a small exponential growth in both directions.\\
+
+At this point, we write down the fixed point equations for the problem. Before we do that, we take a look at where these equations came from. From what I can tell, it is very similar to the variation of constants formula, with the primary difference being that we split the solution up into stable and unstable parts, evolve them separately (each with its own IC), and recombine them. So the fixed point equations should look like those in Sandstede (1998) with the addition of a center evolution term together with an IC in the center subspace. Also since we are no longer integrating out to $\pm \infty$ the ICs $a_i$ are no longer 0. We can choose which way to integrate on the center subspace, but I am not sure how much it matters. 
+
+\begin{align*}
+W^-(x) = \Phi^s(&x, -T)a_- + \Phi^u(x, 0)b^- + \Phi^c(x, 0)c^- \\
+&+ \int_0^x \Phi^u(x, y)[\lambda B W^-(y) - \lambda^2 B Q_c(y) ] dy \\
+&+ \int_{-T}^x \Phi^s(x, y)[\lambda B W^-(y) - \lambda^2 B Q_c(y) ] dy \\
+&+ \int_0^x \Phi^c(x, y)[\lambda B W^-(y) - \lambda^2 B Q_c(y) ] dy \\
+W^+(x) = \Phi^u(&x, T)a^+ + \Phi^s(x, 0)b^+ + \Phi^c(x, 0)c^+ \\
+&+ \int_0^x \Phi^s(x, y)[\lambda B W^+(y) - \lambda^2 B Q_c(y) ] dy \\
+&+ \int_T^x \Phi^u(x, y)[\lambda B W^+(y) - \lambda^2 B Q_c(y) ]dy \\
+&+ \int_0^x \Phi^c(x, y)[\lambda B W^+(y) - \lambda^2 B Q_c(y) ] dy
+\end{align*}
+
+
+
+
+\end{document}
