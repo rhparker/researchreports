@@ -106,9 +106,40 @@ where $x \leq y$ and $C$ is a constant. For the center subspace, things are a li
 \Phi^c(x, y) \leq C e^{\epsilon(y-x)}
 \end{align*}
 
-for some small $\epsilon > 0$ (which we get to choose?). So basically in the center subspace we can bound the evolution by a small exponential growth in both directions.\\
+for some small $\epsilon > 0$ (which we get to choose). So basically in the center subspace we can bound the evolution by a small exponential growth in both directions.\\
 
-At this point, we write down the fixed point equations for the problem. Before we do that, we take a look at where these equations came from. From what I can tell, it is very similar to the variation of constants formula, with the primary difference being that we split the solution up into stable and unstable parts, evolve them separately (each with its own IC), and recombine them. So the fixed point equations should look like those in Sandstede (1998) with the addition of a center evolution term together with an IC in the center subspace. Also since we are no longer integrating out to $\pm \infty$ the ICs $a_i$ are no longer 0. We can choose which way to integrate on the center subspace, but I am not sure how much it matters. 
+The general idea here is that as $T$ increases, the potential exponential growth of the center subspace gets worse, but the decay of all the other terms gets better. So there hopefully is some intermediate value of $T$ where things ``balance'' appropriately.\\
+
+What we really want is to have $\epsilon = \epsilon(\lambda)$, since when $\lambda = 0$ the center subspace is not involved in the decay of the eigenfunction since we know exactly what the eigenfunction is, so in that case we would have $\epsilon(0) = 0$. So we want to incorporate this idea.\\
+
+Let us take the eigenvalue problem $U' = A(q) U + \lambda B U$ and rewrite it as
+
+\begin{equation}\label{Wprime}
+U' = A(\lambda) U + R(x) U
+\end{equation}
+
+where all of the $x$ dependence is via the single pulse $q(x)$ and is all contained in $R(x)$. Everything else (including the $\lambda$) is in the matrix $A(\lambda)$, which is a constant matrix. For $\lambda = 0$, $A(\lambda)$ has an eigenvalue at 0. The characteristic polynomial for $A(\lambda)$ is $f(\lambda, t) = \lambda - c t + t^3 - t^5$, which to leading order is $f(\lambda, t) = \lambda - c t + \mathcal{O}(t^3)$. Thus, to leading order, this polynomial has a zero when $t = \lambda / c$, which is approximately the value of the spatial eigenvalue closest to 0. For small $\lambda$, numerics shows this is really close.\\
+
+Exercise 29 on p. 104 of Coddington and Levinson (1955) says that for the perturbed constant coefficient problem $u' = Au + R(x)u$, where $A$ is diagonalizable and $R$ is integrable, for every eigenvector $p$ with corresponding eigenvalue $\nu$ of $A$ (i.e. for $Ap = \nu p$) there is a solution $u$ such that
+
+\[
+\lim_{x\rightarrow\infty} u(x) e^{-\nu x} = p
+\]
+
+In other words, for large $x$, the solution $u$ resembles the one for the constant coefficient system, which is $e^{\nu x} p$.\\
+
+What does this get us? Taking $A$ to be $A(\lambda)$ above, we have a spatial eigenvalue of $\nu = \lambda / c$, to leading order. Thus for a bound for the growth of the center subspace, we should have something like
+
+\begin{align*}
+\Phi^c(y, x) \leq C e^{\lambda(y-x)/c} \\
+\Phi^c(x, y) \leq C e^{\lambda(y-x)/c}
+\end{align*}
+
+So the (potential) exponential growth rate is limited by $\lambda$, which we know is small.\\
+
+At this point, we write down the fixed point equations for the problem. Before we do that, we take a look at where these equations came from. From what I can tell, it is very similar to the variation of constants formula, with the primary difference being that we split the solution up into stable and unstable parts, evolve them separately (each with its own IC), and recombine them. So the fixed point equations should look like those in Sandstede (1998) with the addition of a center evolution term together with an IC in the center subspace. Also since we are no longer integrating out to $\pm \infty$ the ICs $a_i$ are no longer 0. We can choose which way to integrate on the center subspace, but I am not sure how much it matters. \\
+
+Since we want to use the bound we just found, 
 
 \begin{align*}
 W^-(x) = \Phi^s(&x, -T)a_- + \Phi^u(x, 0)b^- + \Phi^c(x, 0)c^- \\
@@ -120,8 +151,6 @@ W^+(x) = \Phi^u(&x, T)a^+ + \Phi^s(x, 0)b^+ + \Phi^c(x, 0)c^+ \\
 &+ \int_T^x \Phi^u(x, y)[\lambda B W^+(y) - \lambda^2 B Q_c(y) ]dy \\
 &+ \int_0^x \Phi^c(x, y)[\lambda B W^+(y) - \lambda^2 B Q_c(y) ] dy
 \end{align*}
-
-
 
 
 \end{document}
