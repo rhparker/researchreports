@@ -63,93 +63,259 @@ Let's first look at this for the case of a single pulse, where there is only one
 \item $W^+(0) - W^-(0) \in \C \psi(0) $
 \end{enumerate}
 
-Since we have periodic BCs on the interval $[-T, T]$, we need one more condition to ensure the eigenfunction satisfies the BCs, i.e. $V^-(-T) = V^+(T)$. Writing this out, we get
+Now we would like to do this with periodic BCs on the interval $[-T, T]$. For now, we state the following as a hypothesis.
 
-\begin{align*}
-Q'(-T) - \lambda Q_c(-T) + W_i^-(-T) &= Q'(T) - \lambda Q_c(T) + W_i^+(-T) \\
-W_i^-(-T) - W_i^+(-T) &= ( Q'(T) - Q'(-T) ) - \lambda( Q_c(T) - Q_c(-T) )
-\end{align*}
-
-As before, let $\Phi(y, x)$ be the evolution of
-
-\begin{equation}\label{Wprime}
-U' = A(q) U
-\end{equation}
-
-Since we are not in an exponentially weighted space and we know that $Q'$ is a solution to this (we are assuming the kernel of $A(q)$ is 1D and contains only this), $A(q)$ has a center subspace. Thus instead of an exponential dichotomy we have an exponential trichotomy. For now, I am assuming this is the case given we know what the asymptotic matrix looks like. Following Hale and Lin (1985), we will write this as follows. We have projections $P^s(x)$, $P^u(x)$ and $P^c(x) = I - P^s(x) - P^u(x)$ such that
-
-\begin{align*}
-\Phi(y, x)P^s(x) &= P^s(y)\Phi(y, x) \\
-\Phi(y, x)P^u(x) &= P^u(y)\Phi(y, x) \\
-\Phi(y, x)P^c(x) &= P^c(y)\Phi(y, x) \\
-\end{align*}
-
-In other words, it does not matter if you project or evolve first. Using these, we can split the evolution up into evolution on the three subspaces by defining
-
-\begin{align*}
-\Phi^s(y, x) &= \Phi(y, x)P^s(x) \\
-\Phi_u(y, x) &= \Phi(y, x)P^u(x) \\
-\Phi_c(y, x) &= \Phi(y, x)P^c(x) \\
-\end{align*}
-
-We know what the eigenvalues of the asymptotic matrix $A(0)$ are in this specific case. We have one eigenvalue at 0 which we can do nothing about. The remaining eigenvalues have nice symmetry (left/right and complex conjugate, if applicable), and there exists $\alpha > 0$ such that the eigenvalue of smallest positive real part has real part $\alpha$ and the eigenvalue of largest negative real part has real part $-\alpha$. Thus we should have the following estimates, based on Hale and Lin (1985).
-
-\begin{align*}
-\Phi^s(y, x) \leq C e^{-\alpha(y-x)} \\
-\Phi^u(x, y) \leq C e^{-\alpha(y-x)}
-\end{align*}
-
-where $x \leq y$ and $C$ is a constant. For the center subspace, things are a little less clear, but again following Hale and Lin (1985) we should at least have an exponential bound on the growth in the center subspace, i.e.
-
-\begin{align*}
-\Phi^c(y, x) \leq C e^{\epsilon(y-x)} \\
-\Phi^c(x, y) \leq C e^{\epsilon(y-x)}
-\end{align*}
-
-for some small $\epsilon > 0$ (which we get to choose). So basically in the center subspace we can bound the evolution by a small exponential growth in both directions.\\
-
-The general idea here is that as $T$ increases, the potential exponential growth of the center subspace gets worse, but the decay of all the other terms gets better. So there hopefully is some intermediate value of $T$ where things ``balance'' appropriately.\\
-
-What we really want is to have $\epsilon = \epsilon(\lambda)$, since when $\lambda = 0$ the center subspace is not involved in the decay of the eigenfunction since we know exactly what the eigenfunction is, so in that case we would have $\epsilon(0) = 0$. So we want to incorporate this idea.\\
-
-Let us take the eigenvalue problem $U' = A(q) U + \lambda B U$ and rewrite it as
-
-\begin{equation}\label{Wprime}
-U' = A(\lambda) U + R(x) U
-\end{equation}
-
-where all of the $x$ dependence is via the single pulse $q(x)$ and is all contained in $R(x)$. Everything else (including the $\lambda$) is in the matrix $A(\lambda)$, which is a constant matrix. For $\lambda = 0$, $A(\lambda)$ has an eigenvalue at 0. The characteristic polynomial for $A(\lambda)$ is $f(\lambda, t) = \lambda - c t + t^3 - t^5$, which to leading order is $f(\lambda, t) = \lambda - c t + \mathcal{O}(t^3)$. Thus, to leading order, this polynomial has a zero when $t = \lambda / c$, which is approximately the value of the spatial eigenvalue closest to 0. For small $\lambda$, numerics shows this is really close.\\
-
-Exercise 29 on p. 104 of Coddington and Levinson (1955) says that for the perturbed constant coefficient problem $u' = Au + R(x)u$, where $A$ is diagonalizable and $R$ is integrable, for every eigenvector $p$ with corresponding eigenvalue $\nu$ of $A$ (i.e. for $Ap = \nu p$) there is a solution $u$ such that
+\begin{hypothesis}\label{qpexists}
+For some value of $c$ (likely $> 1/4$) a periodic wavetrain solution $q_p(x)$ exists with period $2T$ for $T$ sufficiently large. We can choose the interval $[-T,T]$ so that the center of one of the peaks is at 0. The solution $q_p(x)$ is an even function on $[-T, T]$. The periodic solution is close to the single pulse solution $q(x)$ on $[-T, T]$, where we have the bound
 
 \[
-\lim_{x\rightarrow\infty} u(x) e^{-\nu x} = p
+||q_p(x) - q(x)||_{[-T, T]} \leq C e^{-\alpha T}
 \]
 
-In other words, for large $x$, the solution $u$ resembles the one for the constant coefficient system, which is $e^{\nu x} p$.\\
+which makes sense since the larger $T$ is, the more $q_p$ should resemble the single pulse on $[-T, T]$.
+\end{hypothesis}
 
-What does this get us? Taking $A$ to be $A(\lambda)$ above, we have a spatial eigenvalue of $\nu = \lambda / c$, to leading order. Thus for a bound for the growth of the center subspace, we should have something like
+We need one more condition to ensure the eigenfunction satisfies the BCs. By Hypothesis \ref{qpexists}, a wavetrain solution $q_p(x)$ exists, thus this function and all its derivatives must match at the endpoints of $[-T, T]$.  Thus for the periodic boundary condition for the eigenfunction we must have
 
 \begin{align*}
-\Phi^c(y, x) \leq C e^{\lambda(y-x)/c} \\
-\Phi^c(x, y) \leq C e^{\lambda(y-x)/c}
+Q_p'(-T) - \lambda (Q_p)c(-T) + W_i^-(-T) &= Q_p'(T) - \lambda (Q_p)_c(T) + W_i^+(T) \\
+W_i^-(-T) - W_i^+(T) &= ( Q_p'(T) - Q_p'(-T) ) - \lambda( (Q_p)_c(T) - (Q_p)_c(-T) ) \\
+&= 0
 \end{align*}
 
-So the (potential) exponential growth rate is limited by $\lambda$, which we know is small.\\
+Thus the system we are looking to solve in the periodic case is
 
-At this point, we write down the fixed point equations for the problem. Before we do that, we take a look at where these equations came from. From what I can tell, it is very similar to the variation of constants formula, with the primary difference being that we split the solution up into stable and unstable parts, evolve them separately (each with its own IC), and recombine them. So the fixed point equations should look like those in Sandstede (1998) with the addition of a center evolution term together with an IC in the center subspace. Also since we are no longer integrating out to $\pm \infty$ the ICs $a_i$ are no longer 0. We can choose which way to integrate on the center subspace, but I am not sure how much it matters. \\
+\begin{enumerate}[(i)]
+\item $(W^\pm)' = A(q_p) W_i^\pm + \lambda B W^\pm - \lambda^2 B (Q_p)_c$
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W^+(0) - W^-(0) \in \C \psi(0) $
+\item $W_i^-(-T) - W_i^+(T) = 0 $
+\end{enumerate}
 
-Since we want to use the bound we just found, 
+Before we go to town on this, we will rewrite this in the following way. Let
+
+\[
+\tilde{A}(\lambda, q_p) = A(q_p) + \lambda B
+\]
+
+Then the first equation becomes 
+
+\[
+(W^\pm)' = \tilde{A}(\lambda, q_p) W_i^\pm - \lambda^2 B (Q_p)_c
+\]
+
+We would also like to write this in terms of the single pulse $q$ rather than the periodic solution $q_p$. To do this, let
 
 \begin{align*}
-W^-(x) = \Phi^s(&x, -T)a_- + \Phi^u(x, 0)b^- + \Phi^c(x, 0)c^- \\
-&+ \int_0^x \Phi^u(x, y)[\lambda B W^-(y) - \lambda^2 B Q_c(y) ] dy \\
-&+ \int_{-T}^x \Phi^s(x, y)[\lambda B W^-(y) - \lambda^2 B Q_c(y) ] dy \\
-&+ \int_0^x \Phi^c(x, y)[\lambda B W^-(y) - \lambda^2 B Q_c(y) ] dy \\
-W^+(x) = \Phi^u(&x, T)a^+ + \Phi^s(x, 0)b^+ + \Phi^c(x, 0)c^+ \\
-&+ \int_0^x \Phi^s(x, y)[\lambda B W^+(y) - \lambda^2 B Q_c(y) ] dy \\
-&+ \int_T^x \Phi^u(x, y)[\lambda B W^+(y) - \lambda^2 B Q_c(y) ]dy \\
-&+ \int_0^x \Phi^c(x, y)[\lambda B W^+(y) - \lambda^2 B Q_c(y) ] dy
+\tilde{H} &= -B(Q_p)_c \\
+H &= -BQ_c \\
+G(\lambda) &= \tilde{A}(\lambda, q_p) - \tilde{A}(\lambda, q)
+\end{align*}
+
+Then the first equation becomes 
+
+\[
+(W^\pm)' = \tilde{A}(\lambda, q) W_i^\pm + G(\lambda) W_i^\pm + \lambda^2 \tilde{H}
+\]
+
+For now, we will assume we have these bounds (based on Hypothesis \ref{qpexists}).
+
+\begin{align*}
+|G(\lambda)(x)| &\leq C e^{-\alpha T} && x \in [-T, T]\\
+|\tilde{H}(x) - H(x)| &\leq C e^{-\alpha T} && x \in [-T, T]
+\end{align*}
+
+Now we look at the eigenvalue problem
+
+\begin{equation}
+U' = \tilde{A}(\lambda, q) U = A(\lambda) U + R(q(x)) U
+\end{equation}
+
+where we split up $\tilde{A}(\lambda, q)$ so that all of the $x$ dependence is via the single pulse $q(x)$ and is contained in $R(x)$. Everything else (including the $\lambda$) is in the matrix $A(\lambda)$, which is a constant matrix and different from the $A$ above, but we are seriously running out of letters, so it will do for now. The matrix $\tilde{A}(\lambda, q)$ is exponentially asymptotic (due to the exponential decay properties of $q$ and its derivatives), and its limit as $|x| \rightarrow \infty$ is $A(\lambda)$.\\
+
+For $\lambda = 0$, $A(\lambda)$ has an eigenvalue at 0. The characteristic polynomial for $A(\lambda)$ is $f(\lambda, \nu) = \lambda - c \nu + \nu^3 - \nu^5$, which to leading order is $f(\lambda, \nu) = \lambda - c \nu + \mathcal{O}(\nu^3)$. Thus, to leading order, this polynomial has a zero when $t = \lambda / c$, which is approximately the value of the spatial eigenvalue closest to 0. For small $\lambda$, numerics shows this is really close.\\
+
+Before we continue, we will prove the following lemma, based on Exercise 29 on p. 104 of Coddington and Levinson (1955).
+
+\begin{lemma}Consider the eigenvalue problem
+
+\begin{equation}\label{veigproblem}
+V(x)' = AV(x) + R(x)V(x)
+\end{equation}
+
+where $V(x) \in R^n$, $A$ is a constant, diagonalizable $n \times n$ matrix, and $R(x): \R \rightarrow \R^n$ is an integrable function which is globally Lipschitz continuous in $x$. Let $\nu$ be any eigenvalue of $A$ with corresponding eigenvector $p$, i.e. $A p = \nu p$. Then there is a unique solution $\phi(x)$ to \eqref{veigproblem} such that 
+
+\[
+\lim_{x\rightarrow\infty} \phi(x) e^{-\nu x} = p
+\]
+
+In other words, for large $x$, the solution $\phi(x)$ resembles that of the constant coefficient eigenvalue problem $V(x)' = AV(x)$.
+
+\begin{proof}
+Let $\sigma = \text{Re} \nu$. Let $\nu_1, \dots, \nu_n$ be the $n$ eigenvalues of $A$ with corresponding eigenvectors $p_1, \dots, p_n$. Since we are assuming that $A$ is diagonalizable, we have a complete set of $n$ of these. Order the eigenvalues by increasing real part; if more than one eigenvalue has the same real part, any order is fine, as long as we make sure that any eigenvalue besides $\nu$ with real part $\sigma$ occurs after $\nu$ in the list. Then $\nu = \nu_k$ for some $k$, $\text{Re} \nu_j < \sigma$ for $j < k$ (as long as $k \neq 1$), and $\text{Re} \nu_j \geq \sigma$ for $j \geq k$. \\
+
+Let $e^{Ax}$ be the fundamental matrix solution for $U' = A U$, and split $e^{Ax}$ up into
+\[
+e^{Ax} = Y_1(x) + Y_2(x)
+\]
+where $Y_1$ involves only eigenvectors corresponding to eigenvalues $\nu_1, \dots, \nu_{k-1}$ and $Y_2$ involves only eigenvectors corresponding to eigenvalues $\nu_{k}, \dots, \nu_n$. Choose $\delta$ such that $0 < \delta < \sigma - \text{Re} \nu_{k-1}$, i.e. smaller than the spectral gap between $\nu$ and the eigenvalue with the next smallest real part. (If $k = 1$, $Y_1 = 0$, $Y_2 = e^{Ax}$, and we don't care about $\delta$). Then we can find a constant $C$ such that
+
+\begin{align*} 
+|Y_1(x)| &\leq Ce^{(\sigma - \delta)x} && x \geq 0 \\
+|Y_2(x)| &\leq Ce^{\sigma x} && x \leq 0 
+\end{align*}
+
+Define the exponentially weighted function space with weight $\sigma$
+
+\[
+B_{\sigma, a} = \{ f \in C^0([a, \infty), \R^n) : \sup_{x \in [a, \infty)} |e^{-\sigma x} f(x)| < \infty 
+\]
+
+where $a$ will be chosen later. The norm on this space is given by
+
+\[
+||f||_{\sigma, a} = \sup_{x \in [a, \infty)} |e^{-\sigma x} f(x)|
+\]
+
+In other words, we allow functions in $B_{\sigma, a}$ to grow exponentially as $x \rightarrow \infty$ at a rate of $\sigma$ or slower. It is known that $B_{\sigma, a}$ is a Banach space. Define the operator $F$ on $B_{\sigma, a}$ by
+
+\begin{align*}
+F(\phi)(x) = e^{\nu x} p + \int_a^x Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2(x - y)R(y)\phi(y)dy
+\end{align*}
+
+where the $a$ in the integral is the same as in $B_{\sigma, a}$ and will be chosen later. First we show that $F: B_{\sigma, a} \rightarrow B_{\sigma, a}$. Let $\phi \in B_{\sigma, a}$. For $x \geq a$ we have
+
+\begin{align*}
+|e^{-\sigma x} &F(\phi)(x)| \leq e^{(\nu - \sigma) x} |p| + \int_a^x |Y_1(x - y)||R(y)||\phi(y)| dy + \int_x^\infty |Y_2(x - y)||R(y)||\phi(y)|dy \\
+&\leq |p| + C \left( e^{-\sigma x}  \int_a^x e^{(\sigma - \delta)(x - y)}|R(y)||\phi(y)| dy + e^{-\sigma x}  \int_x^\infty e^{\sigma(x - y)}|R(y)||\phi(y)|dy \right) \\
+&\leq |p| +  C \left( \int_a^x e^{-\delta(x - y)}|R(y)||e^{-\sigma y}\phi(y)| dy + \int_x^\infty |R(y)||e^{-\sigma y} \phi(y)|dy \right) \\
+&\leq |p| + C ||\phi||_{\sigma, a}\left( \int_a^x e^{-\delta(x - y)}|R(y)| dy + \int_x^\infty |R(y)|dy \right) \\
+&\leq |p| + C ||\phi||_{\sigma, a} \int_a^\infty |R(y)| dy 
+\end{align*}
+
+Since $R$ is integrable, the RHS is finite, thus the map $F: B_{\sigma, a} \rightarrow B_{\sigma, a}$ is well defined. Now we show the map $F$ is a contraction. Let $\phi, \psi \in B_{\sigma, a}$. For $x \geq a$ we have
+
+\begin{align*}
+|e^{-\sigma x}( &F(\phi)(x) - F(\psi)(x))| \leq \int_a^x |Y_1(x - y)||R(y)||\phi(y) - \psi(y)| dy + \int_x^\infty |Y_2(x - y)||R(y)||\phi(y) - \psi(y)|dy \\
+&\leq C \left( e^{-\sigma x}  \int_a^x e^{(\sigma - \delta)(x - y)}|R(y)||\phi(y) - \psi(y)| dy + e^{-\sigma x}  \int_x^\infty e^{\sigma(x - y)}|R(y)||\phi(y) - \psi(y)|dy \right) \\
+&\leq C \left( \int_a^x e^{-\delta(x - y)}|R(y)||e^{-\sigma y}(\phi(y) - \psi(y))| dy + \int_x^\infty |R(y)||e^{-\sigma y} (\phi(y) - \psi(y))|dy \right) \\
+&\leq C ||\phi - \psi ||_{\sigma, a}\left( \int_a^x e^{-\delta(x - y)}|R(y)| dy + \int_x^\infty |R(y)|dy \right) \\
+&\leq C ||\phi - \psi ||_{\sigma, a} \int_a^\infty |R(y)| dy 
+\end{align*}
+
+Since $R$ is integrable, we can choose $a$ sufficiently large so that
+
+\[
+\int_a^\infty |R(y)| dy < \frac{1}{2C}
+\]
+
+from which we conclude that
+
+\[
+||F(\phi) - F(\psi) ||_{\sigma, a} \leq \frac{1}{2} ||\phi - \psi ||_{\sigma, a}
+\]
+
+Since $F$ is a contraction on the Banach space $B_{\sigma, a}$, by the Banach Fixed Point Theorem the map $F$ has a unique fixed point, i.e. a unique $\phi(x) \in B_{\sigma, a}$ such that $F(\phi) = \phi$. Note that by the fixed point theorem and definition of $B_{\sigma, a}$, we only have $\phi(x)$ defined for $\phi \geq a$. However, choosing the initial condition $\phi(a)$ at $x = a$, by the existence and uniqueness of solutions to \eqref{veigproblem} and the global Lipschitz condition placed on $R(x)$ (which guarantees global existence of solutions), we can extend $\phi(x)$ uniquely to all of $\R$. This extension of $\phi(x)$ to $\R$ is given by the same formula we have for $\phi(x)$ when $x \geq a$.
+
+\begin{equation}\label{fpphi}
+\phi(x) = e^{\nu x} p + \int_a^x Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2(x - y)R(y)\phi(y)dy
+\end{equation}
+
+To see this, all we need to do is show that it satisfies the ODE \eqref{veigproblem}. Differentiating \eqref{fpphi}, we get
+
+\begin{align*}
+\phi'(x) &= \nu e^{\nu x} p + (Y_1(0) + Y_2(0))R(x)\phi(x) + \int_a^x Y_1'(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2'(x - y)R(y)\phi(y)dy \\
+&= e^{\nu x} A p + e^{0A}R(x)\phi(x) + \int_a^x A Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x A Y_2(x - y)R(y)\phi(y)dy \\
+&= A \left( e^{\nu x} p + \int_a^x Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2(x - y)R(y)\phi(y)dy \right) + R(x) \phi(x) \\
+&= A \phi(x) + R(x) \phi(x)
+\end{align*}
+
+Thus $\phi(x)$ defined in \eqref{fpphi} is the unique extension that we seek. All that remains is to show what happens when $x \rightarrow \infty$. Since we are interested in end behavior, we only need to consider what happens when $x \geq a$. Since $\phi(x) \in B_{\lambda, a}$, $||\phi||_{\sigma, a}$ is finite and independent of $x$. Thus for $x \geq a$, using what we did above, 
+
+\begin{align*}
+|e^{-\sigma x} &(\phi(x) - e^{\nu x} p)| \leq C ||\phi||_{\sigma, a}\left( \int_a^x e^{-\delta(x - y)}|R(y)| dy + \int_x^\infty |R(y)|dy \right) \\
+&\leq C ||\phi||_{\sigma, a}\left( \int_a^{x/2} e^{-\delta(x - y)}|R(y)| dy + \int_{x/2}^x |R(y)|+ \int_x^\infty |R(y)|dy \right)\\
+&\leq C ||\phi||_{\sigma, a}\left( e^{-\delta(x/2)} \int_a^{x/2} e^{-\delta(x/2 - y)}|R(y)| dy + \int_{x/2}^\infty |R(y)|dy \right)\\
+&\leq C ||\phi||_{\sigma, a}\left( e^{-\delta(x/2)} \int_a^{\infty} |R(y)| dy + \int_{x/2}^\infty |R(y)|dy \right)\\
+&\leq ||\phi||_{\sigma, a}\left(\frac{1}{2} e^{-\delta(x/2)} + \int_{x/2}^\infty |R(y)|dy \right)
+\end{align*}
+
+Since $\delta > 0$, $R(x)$ is integrable, and $||\phi||_{\sigma, a}$ is constant, both terms on the RHS go to 0 as $x \rightarrow \infty$. Thus we conclude that
+
+\[
+\lim_{x \rightarrow \infty} |e^{-\sigma x} (\phi(x) - e^{\nu x} p)| = 0
+\]
+
+Pulling out a factor of $e^{\nu x}$, this becomes 
+
+\[
+\lim_{x \rightarrow \infty} |e^{(\nu - \sigma) x}||\phi(x) e^{-\nu x} - p)| = 0
+\]
+
+since $\text{Re} \phi = \nu$, $|e^{(\nu - \sigma) x} = 1$ for all $x$. Thus we conclude that
+
+\[
+\lim_{x \rightarrow \infty} |\phi(x) e^{-\nu x} - p)| = 0
+\]  
+
+from which it follows that
+
+\[
+\lim_{x\rightarrow\infty} \phi(x) e^{-\nu x} = p
+\]
+
+\end{proof}
+\end{lemma}
+
+
+Let $\Phi(y,x; \lambda)$ be the evolution operator for $U' = \tilde{A}(\lambda, q) U$. For $\lambda = 0$, this has a center subspace which will perturb slightly for $\lambda \neq 0$ into a subspace which grows (or decays) exponentially, albeit at a slow rate since the spatial eigenvalue responsible for this is small. Thus instead of an exponential dichotomy we have an exponential trichotomy. Following Hale and Lin (1985), we will write this as follows. We have projections $P^s(x; \lambda)$, $P^u(x; \lambda)$ and $P^c(x; \lambda) = I - P^s(x; \lambda) - P^u(x; \lambda)$ such that
+
+\begin{align*}
+\Phi(y, x; \lambda)P^s(x; \lambda) &= P^s(y; \lambda)\Phi(y, x; \lambda) \\
+\Phi(y, x; \lambda)P^u(x; \lambda) &= P^u(y; \lambda)\Phi(y, x; \lambda) \\
+\Phi(y, x; \lambda)P^c(x; \lambda) &= P^c(y; \lambda)\Phi(y, x; \lambda) \\
+\end{align*}
+
+In other words, it does not matter if you project or evolve first. For $\lambda = 0$ the superscript $c$ actually represents the center subspace, and for small $\lambda$, this is the subspace that the center subspace perturbs to. Using these, we can split the evolution up into evolution on the three subspaces by defining
+
+\begin{align*}
+\Phi^s(y, x; \lambda) &= \Phi(y, x; \lambda)P^s(x; \lambda) \\
+\Phi_u(y, x; \lambda) &= \Phi(y, x; \lambda)P^u(x; \lambda) \\
+\Phi_c(y, x; \lambda) &= \Phi(y, x; \lambda)P^c(x; \lambda) \\
+\end{align*}
+
+For the stable and unstable subspaces, we know what the eigenvalues of $\tilde{A}(0, q)$ are. Let $\alpha$ be the smallest real part of the positive eigenvalues of this and $-\alpha$ be the largest real part of the negative eigenvalues of this. (We get the same $\alpha$ both ways by symmetry of the eigenvalues of $\tilde{A}(0, q)$. For small $\lambda$, the spatial eigenvalues will not perturb much, so for stable and unstable subspaces we will still have the bounds
+
+\begin{align*}
+\Phi^s(y, x; \lambda) \leq C e^{-\alpha(y-x)} \\
+\Phi^u(x, y; \lambda) \leq C e^{-\alpha(y-x)}
+\end{align*}
+where $x \leq y$ and $C$ is a constant. Technicallly we should probably replace $\alpha$ by $\alpha - \delta$ for small $\delta$ to account for the perturbation, but it does not matter for now. For the center subspace, following what we did above, we can use the $\lambda$-dependent bound we found to get
+
+\begin{align*}
+\Phi^c(y, x; \lambda) \leq C e^{\lambda(y-x)/c} \\
+\Phi^c(x, y; \lambda) \leq C e^{\lambda(y-x)/c}
+\end{align*}
+
+So the (potential) exponential growth rate on this center space is limited by $\lambda$, which we know is small.\\
+
+At this point, we write down the fixed point equations for the problem. Before we do that, we take a look at where these equations came from. From what I can tell, it is very similar to the variation of constants formula, with the primary difference being that we split the solution up into stable and unstable parts, evolve them separately (each with its own IC), and recombine them. So the fixed point equations should look like those in Sandstede (1998) with the addition of a center evolution term together with an IC in the center subspace. Also since we are no longer integrating out to $\pm \infty$ the ICs $a_i$ are no longer 0. We can choose which way to integrate on the center subspace, but I am not sure how much it matters. We also note that we have incorporated the $B \lambda$ term into $\tilde{A}(\lambda, q)$ to get the eigenvalue problem
+
+\[
+(W^\pm)' = \tilde{A}(\lambda, q) W_i^\pm - \lambda^2 B Q_c
+\]
+
+Of course, $W$ is dependent on $\lambda$, but we suppress that dependence in the notation since it is annoying. Thus we the fixed point problem looks like
+
+\begin{align*}
+W^-(x) = \Phi^s(&x, -T; \lambda)a_- + \Phi^u(x, 0; \lambda)b^- + \Phi^c(x, 0; \lambda)c^- \\
+&- \lambda^2 \int_0^x \Phi^u(x, y; \lambda) B Q_c(y) ] dy \\
+&- \lambda^2 \int_{-T}^x \Phi^s(x, y; \lambda) B Q_c(y) ] dy \\
+&- \lambda^2 \int_0^x \Phi^c(x, y; \lambda) B Q_c(y) ] dy \\
+W^+(x) = \Phi^u(&x, T; \lambda)a^+ + \Phi^s(x, 0; \lambda)b^+ + \Phi^c(x, 0; \lambda)c^+ \\
+&- \lambda^2 \int_0^x \Phi^s(x, y; \lambda) B Q_c(y) ] dy \\
+&- \lambda^2 \int_T^x \Phi^u(x, y; \lambda) B Q_c(y) ]dy \\
+&- \lambda^2 \int_0^x \Phi^c(x, y; \lambda) B Q_c(y) ] dy
 \end{align*}
 
 
