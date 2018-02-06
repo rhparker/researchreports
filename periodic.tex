@@ -158,7 +158,14 @@ Let $e^{Ax}$ be the fundamental matrix solution for $U' = A U$, and split $e^{Ax
 \[
 e^{Ax} = Y_1(x) + Y_2(x)
 \]
-where $Y_1$ involves only eigenvectors corresponding to eigenvalues $\nu_1, \dots, \nu_{k-1}$ and $Y_2$ involves only eigenvectors corresponding to eigenvalues $\nu_{k}, \dots, \nu_n$. Choose $\delta$ such that $0 < \delta < \sigma - \text{Re} \nu_{k-1}$, i.e. smaller than the spectral gap between $\nu$ and the eigenvalue with the next smallest real part. (If $k = 1$, $Y_1 = 0$, $Y_2 = e^{Ax}$, and we don't care about $\delta$). Then we can find a constant $C$ such that
+where $Y_1$ involves only eigenvectors corresponding to eigenvalues $\nu_1, \dots, \nu_{k-1}$ and $Y_2$ involves only eigenvectors corresponding to eigenvalues $\nu_{k}, \dots, \nu_n$. Since $A$ is a constant-coefficient matrix, we can write down an explicit formula for $Y_1$ and $Y_2$. Essentially, all we need to do is change coordinates to the eigenbasis, evolve along the appropriate eigenvectors, and zero out the other ones. To be specific, let P be the $n \times n$ matrix with columns $p_1, \dots, p_n$. Since we are assuming $A$ is diagonalizable, this matrix is invertible, and $D = P^{-1}AP$ is diagonal with eigenvalues $\nu_1, \dots, \nu_n$ on the diagonal. Recall that the matrix exponential is given by $e^{Ax} = P^{-1}e^{Dx}P$. Starting with the matrix $D$, form the matrix $D_1$ by keeping only the eigenvalues $\nu_1, \dots, \nu_{k-1}$ on the diagonal, and form the matrix $D_2$ by keeping only the eigenvalues $\nu_{k}, \dots, \nu_n$ on the diagonal. Then we have
+
+\begin{align*}
+Y_1(x) &= P^{-1}e^{D_1x}P \\
+Y_1(x) &= P^{-1}e^{D_2x}P \\
+\end{align*}
+ 
+Choose $\delta$ such that $0 < \delta < \sigma - \text{Re} \nu_{k-1}$, i.e. smaller than the spectral gap between $\nu$ and the eigenvalue with the next smallest real part. (If $k = 1$, $Y_1 = 0$, $Y_2 = e^{Ax}$, and we don't care about $\delta$). Then we can find a constant $C$ such that
 
 \begin{align*} 
 |Y_1(x)| &\leq Ce^{(\sigma - \delta)x} && x \geq 0 \\
@@ -268,7 +275,9 @@ from which it follows that
 \end{lemma}
 
 
-Let $\Phi(y,x; \lambda)$ be the evolution operator for $U' = \tilde{A}(\lambda, q) U$. For $\lambda = 0$, this has a center subspace which will perturb slightly for $\lambda \neq 0$ into a subspace which grows (or decays) exponentially, albeit at a slow rate since the spatial eigenvalue responsible for this is small. Thus instead of an exponential dichotomy we have an exponential trichotomy. Following Hale and Lin (1985), we will write this as follows. We have projections $P^s(x; \lambda)$, $P^u(x; \lambda)$ and $P^c(x; \lambda) = I - P^s(x; \lambda) - P^u(x; \lambda)$ such that
+Let $\Phi(y,x; \lambda)$ be the evolution operator for $U' = \tilde{A}(\lambda, q) U$. For $\lambda = 0$, this has a center subspace which will perturb slightly for $\lambda \neq 0$ into a subspace which grows (or decays) exponentially, albeit at a slow rate since the spatial eigenvalue responsible for this is small. Thus instead of an exponential dichotomy we have an exponential trichotomy. We have this separately on $\R^+$ and $\R^-$. We will do this on $\R^+$ below.\\
+
+Following Hale and Lin (1985), we will write this as follows. We have projections $P^s(x; \lambda)$, $P^u(x; \lambda)$ and $P^c(x; \lambda) = I - P^s(x; \lambda) - P^u(x; \lambda)$ such that
 
 \begin{align*}
 \Phi(y, x; \lambda)P^s(x; \lambda) &= P^s(y; \lambda)\Phi(y, x; \lambda) \\
@@ -280,8 +289,8 @@ In other words, it does not matter if you project or evolve first. For $\lambda 
 
 \begin{align*}
 \Phi^s(y, x; \lambda) &= \Phi(y, x; \lambda)P^s(x; \lambda) \\
-\Phi_u(y, x; \lambda) &= \Phi(y, x; \lambda)P^u(x; \lambda) \\
-\Phi_c(y, x; \lambda) &= \Phi(y, x; \lambda)P^c(x; \lambda) \\
+\Phi^u(y, x; \lambda) &= \Phi(y, x; \lambda)P^u(x; \lambda) \\
+\Phi^c(y, x; \lambda) &= \Phi(y, x; \lambda)P^c(x; \lambda) \\
 \end{align*}
 
 For the stable and unstable subspaces, we know what the eigenvalues of $\tilde{A}(0, q)$ are. Let $\alpha$ be the smallest real part of the positive eigenvalues of this and $-\alpha$ be the largest real part of the negative eigenvalues of this. (We get the same $\alpha$ both ways by symmetry of the eigenvalues of $\tilde{A}(0, q)$. For small $\lambda$, the spatial eigenvalues will not perturb much, so for stable and unstable subspaces we will still have the bounds
@@ -290,7 +299,9 @@ For the stable and unstable subspaces, we know what the eigenvalues of $\tilde{A
 \Phi^s(y, x; \lambda) \leq C e^{-\alpha(y-x)} \\
 \Phi^u(x, y; \lambda) \leq C e^{-\alpha(y-x)}
 \end{align*}
-where $x \leq y$ and $C$ is a constant. Technicallly we should probably replace $\alpha$ by $\alpha - \delta$ for small $\delta$ to account for the perturbation, but it does not matter for now. For the center subspace, following what we did above, we can use the $\lambda$-dependent bound we found to get
+where $x \leq y$ and $C$ is a constant. Technically we should probably replace $\alpha$ by $\alpha - \delta$ for small $\delta$ to account for the perturbation, but it does not matter for now.\\
+
+For the center subspace, we can use Lemma \ref{veigproblem}. For small $\lambda$, the perturbed asymptotic matrix $A(\lambda)W' = -A(x)^* W$ has a small spatial eigenvalue at $\nu \approxeq \lambda / c$. If we designate the corresponding eigenvector by $p$, then by Lemma \ref{veigproblem} we can find an eigenfunction $\phi(x)$ of $\tilde{A}(\lambda, q)$ such that $\phi(x) e^{-\nu x} \rightarrow p$ as $x \rightarrow \infty$. Thus we should have a $\lambda$-dependent bound we found to get
 
 \begin{align*}
 \Phi^c(y, x; \lambda) \leq C e^{\lambda(y-x)/c} \\
@@ -298,6 +309,72 @@ where $x \leq y$ and $C$ is a constant. Technicallly we should probably replace 
 \end{align*}
 
 So the (potential) exponential growth rate on this center space is limited by $\lambda$, which we know is small.\\
+
+We would like an explicit form of the projection onto the center space, which we should be able to do in this case since that space is one-dimensional and is given by $\phi(x)$. Since this will involve the adjoint variational equation, we will collect what we know about that here for future reference.
+
+\begin{lemma}Consider the eigenvalue problem $U' = A(x)U$ and the corresponding adjoint problem $W' = -A(x)^* W$, where $A$ is an $n \times n$ matrix depending on $x$. Then the following are true.
+\begin{enumerate}[(i)]
+\item $\frac{d}{dx}\langle U(x), W(x) \rangle = 0$, thus the inner product is constant as $x$ varies.
+\item If $\Phi(y, x)$ is the evolution operator for $U' = A(x)U$, then $\Phi(x, y)^*$ is the evolution operator for the adjoint problem $W' = -A(x)^* W$.
+\end{enumerate}
+\end{lemma}
+
+Let $\nu(\lambda)$ be the small eigenvalue of $A(\lambda)$ with corresponding eigenvector $v_0(\lambda)$. Then $-\overline{\nu(\lambda)}$ is the small eigenvalue of $-A(\lambda)^*$ with corresponding eigenvector $w_0(\lambda)$. Using Lemma \ref{veigproblem}, let $\tilde{v}(x; \lambda)$ and $\tilde{w}(x; \lambda)$ be solutions to the eigenvalue problem and its adjoint problem such that
+
+\begin{align*}
+\lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \tilde{v}(x) = v_0 \\
+\lim_{x \rightarrow \infty} e^{\overline{\nu(\lambda)} x} \tilde{w}(x) = w_0 \\
+\end{align*}
+
+Now let 
+
+\begin{align*}
+\tilde{v}(x) &= e^{\nu(\lambda) x } v(x) \\
+\tilde{w}(x) &= e^{-\overline{\nu(\lambda)} x} w(x) \\
+\end{align*}
+
+Then
+
+\begin{align*}
+\lim_{x \rightarrow \infty} v(x) = v_0 \\
+\lim_{x \rightarrow \infty} w(x) = w_0 \\
+\end{align*}
+
+What we would like to do is write the projection $P^c(x)$ in terms of the adjoint solution $\tilde{w}(x)$. To do this, let $R^s(x; \lambda)$, $R^u(x; \lambda)$, and $R^c(x; \lambda)$ be the ranges of the corresponding projections (stable, unstable, and center ranges; NOT THE SAME AS THE CORRESPONDING MANIFOLDS). The dimensions of these ranges are 2, 2, and 1 (respectively). First we show that $\tilde{w}(0)$ is perpendicular to $R^s(0; \lambda)$. Let $u(0) \in R^s(0; \lambda)$. Then $u(x) = \Phi(x, 0)u(0) \in R^s(x; \lambda)$ for all $x \geq 0$. Since the inner product $\langle u(x), \tilde{w}(x) \rangle$ is constant in $x$, we let $x \rightarrow \infty$ to get
+
+\begin{align*}
+\lim_{x \rightarrow \infty} \langle u(x), \tilde{w}(x) \rangle &= \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \langle u(x), w(x) \rangle \\
+&= \langle \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} u(x), w_0 \rangle \\
+&= 0
+\end{align*}
+since $u(x)$ decays exponentially at a faster rate than $|\nu(\lambda)|$. Thus we have $\tilde{w}(0) \perp R^s(0; \lambda)$ and by the same token, $\tilde{w}(x) \perp R^s(x; \lambda)$ for all $ \geq 0$.\\
+
+Note that we cannot play this same game with $R^u(x; \lambda)$, since to get decay to 0 we would have to take $x \rightarrow -\infty$. Since all these only pertain to the dichotomy/trichotomy on $\R^+$, they are only valid for $x \geq 0$, so we cannot take that limit.\\
+
+However, we really want to have $\tilde{w}(x) \perp R^u(x; \lambda)$. To attain this, let's change coordinates, like we do in the constant coeffient case. The idea is that if we do this at $x = 0$ to get $\tilde{w}(0) \perp R^u(0; \lambda)$, the invariance of the inner product in $x$ should take care of the rest. In fact, we can do this for both the stable and unstable ranges so we might as well do that. Let $\{ a^s_1(0), a^s_2(0)\}$ be a basis for $R^s(0; \lambda)$ and let $\{a^u_1(0), a^u_2(0)\}$ be a basis for $R^u(0; \lambda)$. Then the set $\{ a^s_1(0), a^s_2(0),a^u_1(0), a^u_2(0), \tilde{w}(0) \}$ is linearly independent thus spans $\R^5$ (or $\C^5$). Change coordinates so that $\tilde{w}(0)$ is perpendicular to the span of the other four. Let $a^{s/u}_i(x) = \Phi(x,0)a^{s/u}_i(0)$, i.e. evolve the basis vectors forward. These will (pretty sure) remain linearly independent after evolution, so will be a basis for the appropriate projection ranges at $x$. For simplicity, consider one of these, say $a^s_1(x)$. Since $\Phi(x,0) a^s_1(0)$ solves the eigenvalue problem, therefore by the invariance in $x$ of the inner product of solutions to the eigenvalue problem with solutions to the adjoint eigenvalue problem,
+
+\begin{align*}
+\langle a^s_1(x), \tilde{w}(x) \rangle &= \langle \Phi(x,0) a^s_1(0), \tilde{w}(x) \rangle \\
+&= \langle a^s_1(0), \tilde{w}(0) \rangle = 0
+\end{align*}
+
+Thus a single change of variables at $x = 0$ accomplishes what we want. Then since $\tilde{w}(x) \in R^c(x; \lambda)$ and is perpendicular to the other two spaces, to get the center projection $P^c(x; \lambda)$, all we have to do is take the inner product with $\tilde{w}(x)$. This gives us 
+
+\[
+P^c(x; \lambda)u = \langle u, \tilde{w}(x) \rangle = e^{-\nu(\lambda)x}\langle u, w(x) \rangle
+\]
+
+Thus for an arbitrary solution $u(x)$ to the eigenvalue problem with initial condition $u(0)$, we have
+
+\begin{align*}
+P^c(x; \lambda)u(x) &= P^c(x; \lambda)\Phi(x,0)u(0) \\
+&= \Phi(x,0)P^c(0; \lambda)u(0) \\
+&= \Phi^c(x,0)P^c(0; \lambda)u(0) \\
+&= e^{-\nu(\lambda)x} \Phi^c(x,0) \langle u(0), w(0) \rangle \\
+&= e^{-\nu(\lambda)x} v(x) \langle u(0), w(0) \rangle
+\end{align*}
+
+In the last line, we have projected onto the one-dimensional center space which is invariant under the evolution $\Phi$. Since $v(x)$ also evolves in that space, we must have $\Phi(x,0) = v(x)$.\\
 
 At this point, we write down the fixed point equations for the problem. Before we do that, we take a look at where these equations came from. From what I can tell, it is very similar to the variation of constants formula, with the primary difference being that we split the solution up into stable and unstable parts, evolve them separately (each with its own IC), and recombine them. So the fixed point equations should look like those in Sandstede (1998) with the addition of a center evolution term together with an IC in the center subspace. Also since we are no longer integrating out to $\pm \infty$ the ICs $a_i$ are no longer 0. We can choose which way to integrate on the center subspace, but I am not sure how much it matters. We also note that we have incorporated the $B \lambda$ term into $\tilde{A}(\lambda, q)$ to get the eigenvalue problem
 
@@ -317,6 +394,5 @@ W^+(x) = \Phi^u(&x, T; \lambda)a^+ + \Phi^s(x, 0; \lambda)b^+ + \Phi^c(x, 0; \la
 &- \lambda^2 \int_T^x \Phi^u(x, y; \lambda) B Q_c(y) ]dy \\
 &- \lambda^2 \int_0^x \Phi^c(x, y; \lambda) B Q_c(y) ] dy
 \end{align*}
-
 
 \end{document}
