@@ -301,14 +301,14 @@ For the stable and unstable subspaces, we know what the eigenvalues of $\tilde{A
 \end{align*}
 where $x \leq y$ and $C$ is a constant. Technically we should probably replace $\alpha$ by $\alpha - \delta$ for small $\delta$ to account for the perturbation, but it does not matter for now.\\
 
-For the center subspace, we can use Lemma \ref{veigproblem}. For small $\lambda$, the perturbed asymptotic matrix $\tilde{A}(\lambda, 0)$ has a small spatial eigenvalue at $\nu \approxeq \lambda / c$. If we designate the corresponding eigenvector by $p$, then by Lemma \ref{veigproblem} we can find an eigenfunction $\phi(x)$ of $\tilde{A}(\lambda, q)$ such that $\phi(x) e^{-\nu x} \rightarrow p$ as $x \rightarrow \infty$. Thus we should have a $\lambda$-dependent bound we found to get
+For the center subspace, there is a small eigenvalue which is approximately $\nu = \lambda / c$. Thus we should have a $\lambda$-dependent bound of the form
 
 \begin{align*}
 \Phi^c(y, x; \lambda) \leq C e^{\lambda(y-x)/c} \\
 \Phi^c(x, y; \lambda) \leq C e^{\lambda(y-x)/c}
 \end{align*}
 
-So the (potential) exponential growth rate on this center space is limited by $\lambda$, which we know is small.\\
+indictaing that the (potential) exponential growth rate on this center space is limited by $\lambda$, which we know is small.\\
 
 Now we need to make all of this explicit. Consider the following eigenvalue problem and its adjoint problem.
 
@@ -317,17 +317,47 @@ V' &= \tilde{A}(\lambda, q)V \label{eig:V} \\
 W' &= -\tilde{A}^*(\lambda, q)W \label{eig:W}
 \end{align}
 
-\begin{lemma}Consider the eigenvalue problem $U' = A(x)U$ and the corresponding adjoint problem $W' = -A(x)^* W$, where $A$ is an $n \times n$ matrix depending on $x$. Then the following are true.
+We summarize some things about these sorts of problems in the next lemma. The proof is either obvious, or if not, I have it scribbled in my notes.
+
+\begin{lemma}\label{eigadjoint}
+Consider the eigenvalue problem $U' = A(x)U$ and the corresponding adjoint problem $W' = -A(x)^* W$, where $A$ is an $n \times n$ matrix depending on $x$. Then the following are true.
 \begin{enumerate}[(i)]
 \item $\frac{d}{dx}\langle U(x), W(x) \rangle = 0$, thus the inner product is constant as $x$ varies.
 \item If $\Phi(y, x)$ is the evolution operator for $U' = A(x)U$, then $\Phi(x, y)^*$ is the evolution operator for the adjoint problem $W' = -A(x)^* W$.
 \end{enumerate}
 \end{lemma}
 
-Let $\nu(\lambda)$ be the small eigenvalue of $A(\lambda)$ with corresponding eigenvector $v_0(\lambda)$. Then $-\overline{\nu(\lambda)}$ is the small eigenvalue of $-A(\lambda)^*$ with corresponding eigenvector $w_0(\lambda)$. In other words,
+Let $\nu(\lambda)$ be the small eigenvalue of the asymptotic matrix $\tilde{A}(\lambda,0)$ with corresponding eigenvector $v_0(\lambda)$. Then since $\det(A - \nu I) = 0$ implies $\det(A^* - \overline{\nu}I) = 0$, $-\overline{\nu(\lambda)}$ is the small eigenvalue of $-\tilde{A}(\lambda,0)^*$; let $w_0(\lambda)$ be thecorresponding eigenvector.\\
 
-\begin{align*}
-\end{align*}
+It would be great if there were a nice relationship between $v_0$ and $w_0$ (like we have with the corresponding eigenvalues), but without additional assumptions on $A$ this is not the case. What we would really like, however, is for $\langle v_0, w_0 \rangle \neq 0$. Even this is too much to ask in the generic case, since if we take
+
+\[
+M = \begin{pmatrix}1 & 1 \\ 0 & 1 \end{pmatrix}
+\]
+
+$M$ has a single eigenvector $(1, 0)$ and $M^*$ has a single eigenvector $(0, 1)$, both corresponding to the lone eigenvalue 1. These are clearly orthogonal. Since we suspect the problem might be the Jordan block, we will prove the following lemma.
+
+\begin{lemma}\label{perpeigs}
+Let $A$ be an $n \times n$ matrix, and suppose $v$ and $w$ are solutions to $Av = \lambda v$ and $A^*w = \overline{\lambda}w$, respectively. Suppose $\lambda$ is a simple eigenvalue, i.e. is has algebraic multiplicity of 1. Then $\langle v, w \rangle \neq 0$.
+\begin{proof}
+Since $\lambda$ is simple, $\text{span} \{w\} = \ker(A^* - \overline{\lambda}I)$. Suppose $v \perp w$. Then $v \in \ker(A^* - \overline{\lambda I})^\perp = \text{ran}(A - \lambda I)$, where the equality holds since $A$ is finite dimensional, thus has closed range. But this implies $(A - \lambda I)v_1 = v$ for some $v_1$, which cannot be the case since $\lambda$ is simple, so there cannot be such a generalized eigenvector. We conclude that $\langle v, w \rangle \neq 0$
+\end{proof}
+\end{lemma}
+
+Given this lemma, we make the following hypothesis.
+
+\begin{hypothesis}\label{simplesmalleig}
+For sufficiently small $\lambda$, the small eigenvalue $\nu(\lambda)$ of the matrix $\tilde{A}(\lambda, 0)$ is simple.
+\end{hypothesis}
+
+I am not sure we even need to state this as a hypothesis, since the eigenvalues of $A(\lambda, 0)$ are analytic in $\lambda$, $A(0, 0)$ has an eigenvalue at 0, and the rest of the eigenvalues of $A(0, 0)$ are large, but we might as well put it here.\\
+
+Given Hypothesis \ref{simplesmalleig} (or the argument above), $\nu(\lambda)$ is a simple eigenvalue of $\tilde{A}(\lambda, 0)$, thus by Lemma \ref{perpeigs}, $\langle v_0, w_0 \rangle \neq 0$. Since eigenvalues are defined up to scalar multiples, we can scale $v_0$ and/or $w_0$ such that
+
+\[
+\langle v_0, w_0 \rangle = 1
+\]
+ 
 
 Using Lemma \ref{veigproblem}, let $\tilde{v}(x; \lambda)$ and $\tilde{w}(x; \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V} and its adjoint problem \eqref{eig:W} such that
 
@@ -336,11 +366,11 @@ Using Lemma \ref{veigproblem}, let $\tilde{v}(x; \lambda)$ and $\tilde{w}(x; \la
 \lim_{x \rightarrow \infty} e^{\overline{\nu(\lambda)} x} \tilde{w}(x) = w_0 \\
 \end{align*}
 
-Now let 
+We would like to scale out the exponential growth/decay factor, so let
 
 \begin{align*}
 \tilde{v}(x) &= e^{\nu(\lambda) x } v(x) \\
-\tilde{w}(x) &= e^{-\overline{\nu(\lambda)} x} w(x) \\
+\tilde{w}(x) &= e^{-\overline{\nu(\lambda)} x } w(x) \\
 \end{align*}
 
 Then
@@ -350,7 +380,19 @@ Then
 \lim_{x \rightarrow \infty} w(x) = w_0 \\
 \end{align*}
 
-What we would like to do is write the projection $P^c(x)$ in terms of the adjoint solution $\tilde{w}(x)$. To do this, let $R^s(x; \lambda)$, $R^u(x; \lambda)$, and $R^c(x; \lambda)$ be the ranges of the corresponding projections (stable, unstable, and center ranges. The dimensions of these ranges are 2, 2, and 1 (respectively). Note that since $\tilde{v}(x)$ is in the center range $R^c(x; \lambda)$ and that space is one-dimensional, $\tilde{v}(x)$ is a basis vector for that space. Since we can scale the basis vector by any constant we want, we can divide by $e^{\nu(\lambda) x }$ to see that $v(x)$ is a basis vector for $R^c(x; \lambda)$. Therefore, every element in $R^c(x; \lambda)$ is a scalar multiple of $\tilde{v}(x)$. \\
+Taking $x \rightarrow \infty$ in the inner product $\langle \tilde{v}(x), \tilde{w}(x) \rangle$ we have by the continuity of the inner product
+
+\begin{align*}
+\lim_{x \rightarrow \infty} \langle \tilde{v}(x), \tilde{w}(x) \rangle
+&= \lim_{x \rightarrow \infty} \langle e^{\nu(\lambda) x } v(x), e^{-\overline{\nu(\lambda)} x} \tilde{w}(x) \rangle \\
+&= e^{\nu(\lambda) x } e^{-\nu(\lambda) x } \lim_{x \rightarrow \infty} \langle v(x), w(x) \rangle \\
+&= \langle v_0, w_0 \rangle \\
+&= 1
+\end{align*}
+
+As a consequence of this and Lemma \ref{eigadjoint}, $\langle \tilde{v}(x), \tilde{w}(x) \rangle = 1$ for all $x \geq 0$. Since $\langle \tilde{v}(x), \tilde{w}(x) \rangle = \langle v(x), w(x) \rangle$, it follows that $\langle v(x), w(x) \rangle = 1$ for all $x \geq 0$.\\
+
+What we would like to do now is write the projection $P^c(x)$ in terms of the adjoint solution $\tilde{w}(x)$. To do this, let $R^s(x; \lambda)$, $R^u(x; \lambda)$, and $R^c(x; \lambda)$ be the ranges of the corresponding projections (stable, unstable, and center ranges. The dimensions of these ranges are 2, 2, and 1 (respectively). Note that since $\tilde{v}(x)$ is in the center range $R^c(x; \lambda)$ and that space is one-dimensional, $\tilde{v}(x)$ is a basis vector for that space. Since we can scale the basis vector by any constant we want, we can divide by $e^{\nu(\lambda) x }$ to see that $v(x)$ is a basis vector for $R^c(x; \lambda)$. Therefore, every element in $R^c(x; \lambda)$ is a scalar multiple of $\tilde{v}(x)$. \\
 
 We would like to obtain the projection $P^c(x)$ by projecting on the adjoint solution $w(x)$. First we show that $\tilde{w}(0)$ is perpendicular to $R^s(0; \lambda)$. Let $u(0) \in R^s(0; \lambda)$. Then $u(x) = \Phi(x, 0)u(0) \in R^s(x; \lambda)$ for all $x \geq 0$. Since the inner product $\langle u(x), \tilde{w}(x) \rangle$ is constant in $x$, we let $x \rightarrow \infty$ to get
 
@@ -377,33 +419,48 @@ Since $\tilde{w}(x)$ is a scalar multiple of $w(x)$, we also have for $x \geq 0$
 \langle a^s_1(x), w(x) \rangle = 0
 \]
 
-Thus a single change of variables at $x = 0$ accomplishes what we want. Since $\tilde{w}(x) \in R^c(x; \lambda)$ and is perpendicular to the other two spaces, to get the center range projection $P^c(x; \lambda)$, all we have to do is take the inner product with $\tilde{w}(x)$. This gives us for $x \geq 0$.
-
-\[
-P^c(x; \lambda)u = \langle u, \tilde{w}(x) \rangle = e^{-\nu(\lambda)x}\langle u, w(x) \rangle
-\]
-
-Thus for an arbitrary solution $u(x)$ to the eigenvalue problem with initial condition $u(0)$, we have for $x \geq 0$
+Thus a single change of variables at $x = 0$ accomplishes what we want. Since $\tilde{w}(x) \in R^c(x; \lambda)$ and is perpendicular to the other two spaces, to get the center range projection $P^c(x; \lambda)$, all we have to do is project onto $\tilde{w}(x)$. To do this, we take the inner product with $\tilde{w}(x)$ to get the component in the direction of the basis vector $\tilde{v}(x)$. Thus for $x \geq 0$ and arbitrary $u$ we should have
 
 \begin{align*}
-P^c(x; \lambda)u(x) &= P^c(x; \lambda)\Phi(x,0)u(0) \\
-&= \Phi(x,0)P^c(0; \lambda)u(0) \\
-&= \Phi^c(x,0) \langle u(0), \tilde{w}(0) \rangle  \\
-&= \Phi^c(x,0) \langle u(0), w(0) \rangle \\
-&= \tilde{v}(x) \langle u(0), w(0) \rangle \\
-&= e^{\nu(\lambda)x} \tilde{v}(x) \langle u(0), w(0) \rangle
+P^c(x; \lambda)u &= \langle u, \tilde{w}(x) \rangle \tilde{v}(x) \\
+&= e^{-\nu(\lambda)x} e^{\nu(\lambda) x }\langle u, w(x) \rangle v(x) \\
+&= \langle u, w(x) \rangle v(x)
 \end{align*}
+
+We need to verify that this is in fact a projection. To do this, we show that $P^c(x; \lambda)P^c(x; \lambda) = P^c(x; \lambda)$.
+
+\begin{align*}
+P^c(x; \lambda)( P^c(x; \lambda) u ) &= \langle \langle u, w(x) \rangle v(x), w(x) \rangle v(x) \\
+&= \langle u, w(x) \rangle \langle v(x), w(x) \rangle v(x) \\
+&= \langle u, w(x) \rangle v(x) \\
+&= P^c(x; \lambda) u 
+\end{align*}
+
+where we use the fact (proved above) that $\langle v(x), w(x) \rangle = 1$ for all $x \geq 0$. Thus this is a projection. From our definition of $P^c(x; \lambda)$ and the coordinate change we did above, we have
+
+\begin{align*}
+\ker P^c(x; \lambda) &= ( \text{span }\{ w(x) \})^\perp\\
+\text{ran } P^c(x; \lambda) &= \text{span }\{ v(x) \}
+\end{align*}
+
+If this were to be an orthogonal projection, that would mean that $(\ker P^c(x; \lambda))^
+\perp = \text{ran } P^c(x; \lambda)$, i.e. $\text{span }\{ w(x) \}) = \text{span }\{ v(x) \})$, which would mean that $v(x)$ and $w(x)$ are scalar multiples of each other. Since $\langle v(x), w(x) \rangle = 1$ for all $x \geq 0$, this implies $v(x) = w(x)$, which I do not think is true, thus this is not necessarily an orthogonal projection.\\
 
 In the last line, we have projected onto the one-dimensional center range, which is invariant under the evolution $\Phi$. Since $\tilde{v}(x)$ also evolves in that space, we must have $\Phi(x,0) = v(x)$.\\
 
-We will also want an expression for the center evolution $\Phi^c(x,y)$, so let's do that here. For arbirary $u$, we have for $x, y \geq 0$
+We will also want an expression for the center evolution $\Phi^c(x,y; \lambda)$, so let's do that here. For arbirary $u$, we have for $x, y \geq 0$
 
 \begin{align*}
-\Phi^c(x,y)u &= \Phi^c(x,y) P^c(y) u \\
-&= \Phi^c(x,y) \langle u, \tilde{w}(y) \rangle \\
-&= \tilde{v}(x) e^{-\nu(\lambda)y} \langle u, w(y) \rangle \\
+\Phi^c(x,y; \lambda)u &= \Phi(x,y; \lambda) P^c(y; \lambda) u \\
+&= \Phi(x,y) \langle u, w(y) \rangle v(y) \\
+&= \Phi(x,y) \langle u, w(y) \rangle e^{-\nu(\lambda)y} \tilde{v}(y) \\
+&= \langle u, w(y) \rangle e^{-\nu(\lambda)y} \Phi(x,y) \tilde{v}(y) \\
+&= \langle u, w(y) \rangle e^{-\nu(\lambda)y} \tilde{v}(x) \\
+&= \langle u, w(y) \rangle e^{-\nu(\lambda)y} e^{\nu(\lambda)x} v(x) \\
 &=e^{\nu(\lambda)(x-y)} v(x) \langle u, w(y) \rangle 
 \end{align*}
+
+where we used the fact that $\tilde{v}$ is a solution to the eigenvalue problem, thus under the evolution $\Phi(y, x; \lambda)$ we have $\Phi(y, x; \lambda)\tilde{v}(x) = \tilde{v}(y)$.\\
 
 We will want to do something similar for $x \leq 0$ since we have a dichotomy/trichotomy on $\R^-$ as well. By symmetry, we should get something of the same form, except with a negative sign in front of $\nu(\lambda)$. The functions $v$ and $w$ will likely be different, but since they have similar properties and are defined on different domains, we won't worry abou that for now.\\
 
