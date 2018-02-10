@@ -275,37 +275,37 @@ from which it follows that
 \end{lemma}
 
 
-Let $\Phi(y,x; \lambda)$ be the evolution operator for $U' = \tilde{A}(\lambda, q) U$. For $\lambda = 0$, this has a center subspace which will perturb slightly for $\lambda \neq 0$ into a subspace which grows (or decays) exponentially, albeit at a slow rate since the spatial eigenvalue responsible for this is small. Thus instead of an exponential dichotomy we have an exponential trichotomy. We have this separately on $\R^+$ and $\R^-$. We will do this on $\R^+$ below. The one on $R^-$ is similar.\\
+Let $\Phi(y,x; \lambda)$ be the evolution operator for $U' = \tilde{A}(\lambda, q) U$. For $\lambda = 0$, this has a center subspace which will perturb slightly for $\lambda \neq 0$ into a subspace which grows (or decays) exponentially, albeit at a slow rate since the spatial eigenvalue responsible for this is small. Thus instead of an exponential dichotomy we have an exponential trichotomy. This will occur separately on $\R^+$ and $\R^-$.\\
 
-Following Hale and Lin (1985), we will write this as follows. We have projections $P^s(x; \lambda)$, $P^u(x; \lambda)$ and $P^c(x; \lambda) = I - P^s(x; \lambda) - P^u(x; \lambda)$ such that
+Following Hale and Lin (1985), we will write this as follows. We have projections $P^s_\pm(x; \lambda)$, $P^u_\pm(x; \lambda)$ and $P^c_\pm(x; \lambda) = I - P^s_\pm(x; \lambda) - P^u_\pm(x; \lambda)$ (where the subscripts designate whether the trichotomy is on $\R^+$ or $\R^-$) such that
 
 \begin{align*}
-\Phi(y, x; \lambda)P^s(x; \lambda) &= P^s(y; \lambda)\Phi(y, x; \lambda) \\
-\Phi(y, x; \lambda)P^u(x; \lambda) &= P^u(y; \lambda)\Phi(y, x; \lambda) \\
-\Phi(y, x; \lambda)P^c(x; \lambda) &= P^c(y; \lambda)\Phi(y, x; \lambda) \\
+\Phi(y, x; \lambda)P^s_\pm(x; \lambda) &= P^s_\pm(y; \lambda)\Phi(y, x; \lambda) \\
+\Phi(y, x; \lambda)P^u_\pm(x; \lambda) &= P^u_\pm(y; \lambda)\Phi(y, x; \lambda) \\
+\Phi(y, x; \lambda)P^c_\pm(x; \lambda) &= P^c_\pm(y; \lambda)\Phi(y, x; \lambda) \\
 \end{align*}
 
 In other words, it does not matter if you project or evolve first. For $\lambda = 0$ the superscript $c$ actually represents the center subspace, and for small $\lambda$, this is the subspace that the center subspace perturbs to. Using these, we can split the evolution up into evolution on the three subspaces by defining
 
 \begin{align*}
-\Phi^s(y, x; \lambda) &= \Phi(y, x; \lambda)P^s(x; \lambda) \\
-\Phi^u(y, x; \lambda) &= \Phi(y, x; \lambda)P^u(x; \lambda) \\
-\Phi^c(y, x; \lambda) &= \Phi(y, x; \lambda)P^c(x; \lambda) \\
+\Phi^s_\pm(y, x; \lambda) &= \Phi(y, x; \lambda)P^s_\pm(x; \lambda) \\
+\Phi^u_\pm(y, x; \lambda) &= \Phi(y, x; \lambda)P^u_\pm(x; \lambda) \\
+\Phi^c_\pm(y, x; \lambda) &= \Phi(y, x; \lambda)P^c_\pm(x; \lambda) \\
 \end{align*}
 
 For the stable and unstable subspaces, we know what the eigenvalues of $\tilde{A}(0, q)$ are. Let $\alpha$ be the smallest real part of the positive eigenvalues of this and $-\alpha$ be the largest real part of the negative eigenvalues of this. (We get the same $\alpha$ both ways by symmetry of the eigenvalues of $\tilde{A}(0, q)$. For small $\lambda$, the spatial eigenvalues will not perturb much, so for stable and unstable subspaces we will still have the bounds
 
 \begin{align*}
-\Phi^s(y, x; \lambda) \leq C e^{-\alpha(y-x)} \\
-\Phi^u(x, y; \lambda) \leq C e^{-\alpha(y-x)}
+|\Phi^s(y, x; \lambda)| \leq C e^{-\alpha(y-x)} \\
+|\Phi^u(x, y; \lambda)| \leq C e^{-\alpha(y-x)}
 \end{align*}
 where $x \leq y$ and $C$ is a constant. Technically we should probably replace $\alpha$ by $\alpha - \delta$ for small $\delta$ to account for the perturbation, but it does not matter for now.\\
 
 For the center subspace, there is a small eigenvalue which is approximately $\nu = \lambda / c$. Thus we should have a $\lambda$-dependent bound of the form
 
 \begin{align*}
-\Phi^c(y, x; \lambda) \leq C e^{\lambda(y-x)/c} \\
-\Phi^c(x, y; \lambda) \leq C e^{\lambda(y-x)/c}
+|\Phi^c_+(y, x; \lambda)| &\leq C e^{\lambda(y-x)/c} && y \geq x \geq 0 \\
+|\Phi^c_-(x, y; \lambda)| &\leq C e^{\lambda(y-x)/c} && x \leq y \leq 0 \\
 \end{align*}
 
 indictaing that the (potential) exponential growth rate on this center space is limited by $\lambda$, which we know is small.\\
@@ -317,7 +317,7 @@ V' &= \tilde{A}(\lambda, q)V \label{eig:V} \\
 W' &= -\tilde{A}^*(\lambda, q)W \label{eig:W}
 \end{align}
 
-We summarize some things about these sorts of problems in the next lemma. The proof is either obvious, or if not, I have it scribbled in my notes.
+We summarize some useful facts about this problem in the following lemma. The proof is either obvious, or if not, I have it scribbled in my notes.
 
 \begin{lemma}\label{eigadjoint}
 Consider the eigenvalue problem $U' = A(x)U$ and the corresponding adjoint problem $W' = -A(x)^* W$, where $A$ is an $n \times n$ matrix depending on $x$. Then the following are true.
@@ -358,113 +358,118 @@ Given Hypothesis \ref{simplesmalleig} (or the argument above), $\nu(\lambda)$ is
 \langle v_0, w_0 \rangle = 1
 \]
  
-
-Using Lemma \ref{veigproblem}, let $\tilde{v}(x; \lambda)$ and $\tilde{w}(x; \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V} and its adjoint problem \eqref{eig:W} such that
+Now we will come up with a formula for the projection and evolution on the center space for $x \geq 0$. Using Lemma \ref{veigproblem}, let $\tilde{v}(x; \lambda)$ and $\tilde{w}(x; \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V} and its adjoint problem \eqref{eig:W} such that
 
 \begin{align*}
-\lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \tilde{v}(x) = v_0 \\
-\lim_{x \rightarrow \infty} e^{\overline{\nu(\lambda)} x} \tilde{w}(x) = w_0 \\
+\lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \tilde{v}_+(x) = v_0 \\
+\lim_{x \rightarrow \infty} e^{\overline{\nu(\lambda)} x} \tilde{w}_+(x) = w_0 \\
 \end{align*}
 
 We would like to scale out the exponential growth/decay factor, so let
 
 \begin{align*}
-\tilde{v}(x) &= e^{\nu(\lambda) x } v(x) \\
-\tilde{w}(x) &= e^{-\overline{\nu(\lambda)} x } w(x) \\
+\tilde{v}_+(x) &= e^{\nu(\lambda) x } v_+(x) \\
+\tilde{w}_+(x) &= e^{-\overline{\nu(\lambda)} x } w_+(x) \\
 \end{align*}
 
 Then
 
 \begin{align*}
-\lim_{x \rightarrow \infty} v(x) = v_0 \\
-\lim_{x \rightarrow \infty} w(x) = w_0 \\
+\lim_{x \rightarrow \infty} v_+(x) = v_0 \\
+\lim_{x \rightarrow \infty} w_+(x) = w_0 \\
 \end{align*}
 
-Taking $x \rightarrow \infty$ in the inner product $\langle \tilde{v}(x), \tilde{w}(x) \rangle$ we have by the continuity of the inner product
+Taking $x \rightarrow \infty$ in the inner product $\langle \tilde{v}_+(x), \tilde{w}_+(x) \rangle$ we have by the continuity of the inner product
 
 \begin{align*}
-\lim_{x \rightarrow \infty} \langle \tilde{v}(x), \tilde{w}(x) \rangle
-&= \lim_{x \rightarrow \infty} \langle e^{\nu(\lambda) x } v(x), e^{-\overline{\nu(\lambda)} x} \tilde{w}(x) \rangle \\
-&= e^{\nu(\lambda) x } e^{-\nu(\lambda) x } \lim_{x \rightarrow \infty} \langle v(x), w(x) \rangle \\
+\lim_{x \rightarrow \infty} \langle \tilde{v}_+(x), \tilde{w}_+(x) \rangle
+&= \lim_{x \rightarrow \infty} \langle e^{\nu(\lambda) x } v_+(x), e^{-\overline{\nu(\lambda)} x} \tilde{w}_+(x) \rangle \\
+&= e^{\nu(\lambda) x } e^{-\nu(\lambda) x } \lim_{x \rightarrow \infty} \langle v_+(x), w_+(x) \rangle \\
 &= \langle v_0, w_0 \rangle \\
 &= 1
 \end{align*}
 
-As a consequence of this and Lemma \ref{eigadjoint}, $\langle \tilde{v}(x), \tilde{w}(x) \rangle = 1$ for all $x \geq 0$. Since $\langle \tilde{v}(x), \tilde{w}(x) \rangle = \langle v(x), w(x) \rangle$, it follows that $\langle v(x), w(x) \rangle = 1$ for all $x \geq 0$.\\
+As a consequence of this and Lemma \ref{eigadjoint}, $\langle \tilde{v}_+(x), \tilde{w}_+(x) \rangle = 1$ for all $x \geq 0$. Since $\langle \tilde{v}_+(x), \tilde{w}_+(x) \rangle = \langle v_+(x), w_+(x) \rangle$, it follows that $\langle v_+(x), w_+(x) \rangle = 1$ for all $x \geq 0$.\\
 
-What we would like to do now is write the projection $P^c(x)$ in terms of the adjoint solution $\tilde{w}(x)$. To do this, let $R^s(x; \lambda)$, $R^u(x; \lambda)$, and $R^c(x; \lambda)$ be the ranges of the corresponding projections (stable, unstable, and center ranges. The dimensions of these ranges are 2, 2, and 1 (respectively). Note that since $\tilde{v}(x)$ is in the center range $R^c(x; \lambda)$ and that space is one-dimensional, $\tilde{v}(x)$ is a basis vector for that space. Since we can scale the basis vector by any constant we want, we can divide by $e^{\nu(\lambda) x }$ to see that $v(x)$ is a basis vector for $R^c(x; \lambda)$. Therefore, every element in $R^c(x; \lambda)$ is a scalar multiple of $\tilde{v}(x)$. \\
+What we would like to do now is write the projection $P^c_+(x)$ for $x \geq 0$ in terms of the adjoint solution $\tilde{w}_+(x)$. To do this, let $R^s_+(x; \lambda)$, $R^u_+(x; \lambda)$, and $R^c(x; \lambda)$ be the ranges of the corresponding projections (stable, unstable, and center ranges)
+. The dimensions of these ranges are 2, 2, and 1 (respectively). Note that since $\tilde{v}_+(x)$ is in the center range $R^c(x; \lambda)$ and that space is one-dimensional, $\tilde{v}_+(x)$ is a basis vector for that space. Since we can scale the basis vector by any constant we want, we can divide by $e^{\nu(\lambda) x }$ to see that $v_+(x)$ is a basis vector for $R^c(x; \lambda)$. Therefore, every element in $R^c(x; \lambda)$ is a scalar multiple of $\tilde{v}_+(x)$. \\
 
-We would like to obtain the projection $P^c(x)$ by projecting on the adjoint solution $w(x)$. First we show that $\tilde{w}(0)$ is perpendicular to $R^s(0; \lambda)$. Let $u(0) \in R^s(0; \lambda)$. Then $u(x) = \Phi(x, 0)u(0) \in R^s(x; \lambda)$ for all $x \geq 0$. Since the inner product $\langle u(x), \tilde{w}(x) \rangle$ is constant in $x$, we let $x \rightarrow \infty$ to get
+We would like to obtain the projection $P^c_+(x)$ by projecting on the adjoint solution $w_+(x)$. First we show that $\tilde{w}(0)$ is perpendicular to $R^s_+(0; \lambda)$. Let $u(0) \in R^s_+(0; \lambda)$. Then $u(x) = \Phi(x, 0)u(0) \in R^s_+(x; \lambda)$ for all $x \geq 0$. Since the inner product $\langle u(x), \tilde{w}_+(x) \rangle$ is constant in $x$, we let $x \rightarrow \infty$ to get
 
 \begin{align*}
-\lim_{x \rightarrow \infty} \langle u(x), \tilde{w}(x) \rangle &= \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \langle u(x), w(x) \rangle \\
+\lim_{x \rightarrow \infty} \langle u(x), \tilde{w}_+(x) \rangle &= \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \langle u(x), w_+(x) \rangle \\
 &= \langle \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} u(x), w_0 \rangle \\
 &= 0
 \end{align*}
-since $u(x)$ decays exponentially at a faster rate than $|\nu(\lambda)|$. Thus we have $\tilde{w}(0) \perp R^s(0; \lambda)$ and by the same token, $\tilde{w}(x) \perp R^s(x; \lambda)$ for all $ \geq 0$.\\
 
-Note that we cannot play this same game with $R^u(x; \lambda)$, since to get decay to 0 we would have to take $x \rightarrow -\infty$. Since all these only pertain to the dichotomy/trichotomy on $\R^+$, they are only valid for $x \geq 0$, so we cannot take that limit.\\
+since $u(x)$ decays exponentially at a faster rate than $|\nu(\lambda)|$. Thus we have $\tilde{w}(0) \perp R^s(0; \lambda)$ and by the same token, $\tilde{w}_+(x) \perp R^s_+(x; \lambda)$ for all $ \geq 0$.\\
 
-However, we really want to have $\tilde{w}(x) \perp R^u(x; \lambda)$. Since $\tilde{w}(x)$ is a nonzero scalar multiple of $w(x)$, this is equivalent to $w(x) \perp R^u(x; \lambda)$ (they are the same at $x = 0$). To attain this, let's change coordinates, like we do in the constant coeffient case. The idea is that if we do this at $x = 0$ to get $w(0) \perp R^u(0; \lambda)$, the invariance of the inner product in $x$ should take care of the rest. In fact, we can do this for both the stable and unstable ranges so we might as well do that. Let $\{ a^s_1(0), a^s_2(0)\}$ be a basis for $R^s(0; \lambda)$ and let $\{a^u_1(0), a^u_2(0)\}$ be a basis for $R^u(0; \lambda)$. Then the set $\{ a^s_1(0), a^s_2(0),a^u_1(0), a^u_2(0), w(0) \}$ is linearly independent thus spans $\R^5$ (or $\C^5$). Change coordinates so that $w(0)$ is perpendicular to the span of the other four. Let $a^{s/u}_i(x) = \Phi(x,0)a^{s/u}_i(0)$, i.e. evolve the basis vectors forward. These will remain linearly independent after evolution, so will be a basis for the appropriate projection ranges at $x$. For simplicity, consider one of these, say $a^s_1(x)$. Since $\Phi(x,0) a^s_1(0)$ solves the eigenvalue problem, therefore by the invariance in $x$ of the inner product of solutions to the eigenvalue problem with solutions to the adjoint eigenvalue problem, for $x \geq 0$
+Note that we cannot play this same game with $R^u_+(x; \lambda)$, since to get decay to 0 we would have to take $x \rightarrow -\infty$. Since all these only pertain to the dichotomy/trichotomy on $\R^+$, they are only valid for $x \geq 0$, so we cannot take that limit.\\
+
+However, we really want to have $\tilde{w}_+(x) \perp R^u_+(x; \lambda)$. Since $\tilde{w}_+(x)$ is a nonzero scalar multiple of $w_+(x)$, this is equivalent to $w_+(x) \perp R^u_+(x; \lambda)$ (they are the same at $x = 0$). To attain this, let's change coordinates, like we do in the constant coeffient case. The idea is that if we do this at $x = 0$ to get $w(0) \perp R^u_+(0; \lambda)$, the invariance of the inner product in $x$ should take care of the rest. In fact, we can do this for both the stable and unstable ranges so we might as well do that. Let $\{ a^s_1(0), a^s_2(0)\}$ be a basis for $R^s_+(0; \lambda)$ and let $\{a^u_1(0), a^u_2(0)\}$ be a basis for $R^u_+(0; \lambda)$. Then the set $\{ a^s_1(0), a^s_2(0),a^u_1(0), a^u_2(0), w(0) \}$ is linearly independent thus spans $\R^5$ (or $\C^5$). Change coordinates so that $w(0)$ is perpendicular to the span of the other four. Let $a^{s/u}_i(x) = \Phi(x,0)a^{s/u}_i(0)$, i.e. evolve the basis vectors forward. These will remain linearly independent after evolution, so will be a basis for the appropriate projection ranges at $x$. For simplicity, consider one of these, say $a^s_1(x)$. Since $\Phi(x,0) a^s_1(0)$ solves the eigenvalue problem, therefore by the invariance in $x$ of the inner product of solutions to the eigenvalue problem with solutions to the adjoint eigenvalue problem, for $x \geq 0$
 
 \begin{align*}
-\langle a^s_1(x), \tilde{w}(x) \rangle &= \langle \Phi(x,0) a^s_1(0), \tilde{w}(x) \rangle \\
+\langle a^s_1(x), \tilde{w}_+(x) \rangle &= \langle \Phi(x,0) a^s_1(0), \tilde{w}_+(x) \rangle \\
 &= \langle a^s_1(0), \tilde{w}(0) \rangle \\
 &= \langle a^s_1(0), w(0) \rangle 0
 \end{align*}
 
-Since $\tilde{w}(x)$ is a scalar multiple of $w(x)$, we also have for $x \geq 0$
+Since $\tilde{w}_+(x)$ is a scalar multiple of $w_+(x)$, we also have for $x \geq 0$
 
 \[
-\langle a^s_1(x), w(x) \rangle = 0
+\langle a^s_1(x), w_+(x) \rangle = 0
 \]
 
-Thus a single change of variables at $x = 0$ accomplishes what we want. Since $\tilde{w}(x) \in R^c(x; \lambda)$ and is perpendicular to the other two spaces, to get the center range projection $P^c(x; \lambda)$, all we have to do is project onto $\tilde{w}(x)$. To do this, we take the inner product with $\tilde{w}(x)$ to get the component in the direction of the basis vector $\tilde{v}(x)$. Thus for $x \geq 0$ and arbitrary $u$ we should have
+Thus a single change of variables at $x = 0$ accomplishes what we want. Since $\tilde{w}_+(x) \in R^c(x; \lambda)$ and is perpendicular to the other two spaces, to get the center range projection $P^c_+(x; \lambda)$, all we have to do is project onto $\tilde{w}_+(x)$. To do this, we take the inner product with $\tilde{w}_+(x)$ to get the component in the direction of the basis vector $\tilde{v}_+(x)$. Thus for $x \geq 0$ and arbitrary $u$ we should have
 
 \begin{align*}
-P^c(x; \lambda)u &= \langle u, \tilde{w}(x) \rangle \tilde{v}(x) \\
-&= e^{-\nu(\lambda)x} e^{\nu(\lambda) x }\langle u, w(x) \rangle v(x) \\
-&= \langle u, w(x) \rangle v(x)
+P^c_+(x; \lambda)u &= \langle u, \tilde{w}_+(x) \rangle \tilde{v}_+(x) \\
+&= e^{-\nu(\lambda)x} e^{\nu(\lambda) x }\langle u, w_+(x) \rangle v_+(x) \\
+&= \langle u, w_+(x) \rangle v_+(x)
 \end{align*}
 
-We need to verify that this is in fact a projection. To do this, we show that $P^c(x; \lambda)P^c(x; \lambda) = P^c(x; \lambda)$.
+We need to verify that this is in fact a projection. To do this, we show that $P^c_+(x; \lambda)P^c_+(x; \lambda) = P^c_+(x; \lambda)$.
 
 \begin{align*}
-P^c(x; \lambda)( P^c(x; \lambda) u ) &= \langle \langle u, w(x) \rangle v(x), w(x) \rangle v(x) \\
-&= \langle u, w(x) \rangle \langle v(x), w(x) \rangle v(x) \\
-&= \langle u, w(x) \rangle v(x) \\
-&= P^c(x; \lambda) u 
+P^c_+(x; \lambda)( P^c_+(x; \lambda) u ) &= \langle \langle u, w_+(x) \rangle v_+(x), w_+(x) \rangle v_+(x) \\
+&= \langle u, w_+(x) \rangle \langle v_+(x), w_+(x) \rangle v_+(x) \\
+&= \langle u, w_+(x) \rangle v_+(x) \\
+&= P^c_+(x; \lambda) u 
 \end{align*}
 
-where we use the fact (proved above) that $\langle v(x), w(x) \rangle = 1$ for all $x \geq 0$. Thus this is a projection. From our definition of $P^c(x; \lambda)$ and the coordinate change we did above, we have
+where we use the fact (proved above) that $\langle v_+(x), w_+(x) \rangle = 1$ for all $x \geq 0$. Thus this is a projection. From our definition of $P^c_+(x; \lambda)$ and the coordinate change we did above, we have
 
 \begin{align*}
-\ker P^c(x; \lambda) &= ( \text{span }\{ w(x) \})^\perp\\
-\text{ran } P^c(x; \lambda) &= \text{span }\{ v(x) \}
+\ker P^c_+(x; \lambda) &= ( \text{span }\{ w_+(x) \})^\perp\\
+\text{ran } P^c_+(x; \lambda) &= \text{span }\{ v_+(x) \}
 \end{align*}
 
-If this were to be an orthogonal projection, that would mean that $(\ker P^c(x; \lambda))^
-\perp = \text{ran } P^c(x; \lambda)$, i.e. $\text{span }\{ w(x) \}) = \text{span }\{ v(x) \})$, which would mean that $v(x)$ and $w(x)$ are scalar multiples of each other. Since $\langle v(x), w(x) \rangle = 1$ for all $x \geq 0$, this implies $v(x) = w(x)$, which I do not think is true, thus this is not necessarily an orthogonal projection.\\
+If this were to be an orthogonal projection, that would mean that $(\ker P^c_+(x; \lambda))^
+\perp = \text{ran } P^c_+(x; \lambda)$, i.e. $\text{span }\{ w_+(x) \}) = \text{span }\{ v_+(x) \})$, which would mean that $v_+(x)$ and $w_+(x)$ are scalar multiples of each other. Since $\langle v_+(x), w_+(x) \rangle = 1$ for all $x \geq 0$, this implies $v_+(x) = w_+(x)$, which I do not think is true, thus this is not necessarily an orthogonal projection.\\
 
-In the last line, we have projected onto the one-dimensional center range, which is invariant under the evolution $\Phi$. Since $\tilde{v}(x)$ also evolves in that space, we must have $\Phi(x,0) = v(x)$.\\
+In the last line, we have projected onto the one-dimensional center range, which is invariant under the evolution $\Phi$. Since $\tilde{v}_+(x)$ also evolves in that space, we must have $\Phi(x,0) = v_+(x)$.\\
 
 We will also want an expression for the center evolution $\Phi^c(x,y; \lambda)$, so let's do that here. For arbirary $u$, we have for $x, y \geq 0$
 
 \begin{align*}
-\Phi^c(x,y; \lambda)u &= \Phi(x,y; \lambda) P^c(y; \lambda) u \\
-&= \Phi(x,y) \langle u, w(y) \rangle v(y) \\
-&= \Phi(x,y) \langle u, w(y) \rangle e^{-\nu(\lambda)y} \tilde{v}(y) \\
-&= \langle u, w(y) \rangle e^{-\nu(\lambda)y} \Phi(x,y) \tilde{v}(y) \\
-&= \langle u, w(y) \rangle e^{-\nu(\lambda)y} \tilde{v}(x) \\
-&= \langle u, w(y) \rangle e^{-\nu(\lambda)y} e^{\nu(\lambda)x} v(x) \\
-&=e^{\nu(\lambda)(x-y)} v(x) \langle u, w(y) \rangle 
+\Phi^c_+(x,y; \lambda)u &= \Phi(x,y; \lambda) P^c_+(y; \lambda) u \\
+&= \Phi(x,y) \langle u, w_+(y) \rangle v_+(y) \\
+&= \Phi(x,y) \langle u, w_+(y) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(y) \\
+&= \langle u, w_+(y) \rangle e^{-\nu(\lambda)y} \Phi(x,y) \tilde{v}_+(y) \\
+&= \langle u, w_+(y) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(x) \\
+&= \langle u, w_+(y) \rangle e^{-\nu(\lambda)y} e^{\nu(\lambda)x} v_+(x) \\
+&= e^{\nu(\lambda)(x-y)} v_+(x) \langle u, w_+(y) \rangle 
 \end{align*}
 
-where we used the fact that $\tilde{v}$ is a solution to the eigenvalue problem, thus under the evolution $\Phi(y, x; \lambda)$ we have $\Phi(y, x; \lambda)\tilde{v}(x) = \tilde{v}(y)$.\\
+where we used the fact that $\tilde{v}$ is a solution to the eigenvalue problem, thus under the evolution $\Phi(y, x; \lambda)$ we have $\Phi(y, x; \lambda)\tilde{v}_+(x) = \tilde{v}_+(y)$.\\
 
-We will want to do something similar for $x \leq 0$ since we have a dichotomy/trichotomy on $\R^-$ as well. By symmetry, we should get something of the same form, except with a negative sign in front of $\nu(\lambda)$. The functions $v$ and $w$ will likely be different, but since they have similar properties and are defined on different domains, we won't worry abou that for now.\\
+We can do the same thing we just did for the trichotomy on $\R^-$, which will give us analogous funcions $\tilde{v}_-(x)$, $v_-(x)$, $\tilde{w}_-(x)$, and $w_-(x)$. The equations for the projection $P^c_-(x)$ and the evolution $\Phi^c_-(x,y)$ will be the same except for the subscripts.\\
 
-At this point, we write down the fixed point equations for the problem. Before we do that, we take a look at where these equations came from. These are very similar to the variation of constants formula, with the primary difference being that we split the solution up into stable, unstable, and center parts, evolve them separately (each with its own IC), and recombine them. So the fixed point equations should look like those in Sandstede (1998) with the addition of a center evolution term together with an IC in the center subspace. Since we are no longer integrating out to $\pm \infty$ the ICs $a_i$ are no longer 0. We can also choose which way to integrate on the center subspace, and in fact we will integrate in opposite directions on the plus and minus piece, for reasons which will become clear later. Since we can pick either direction, we will always integrate the center piece from left to right. We also note that we have incorporated the $B \lambda$ term into $\tilde{A}(\lambda, q)$ to get the eigenvalue problem
+At this point, we write down the fixed point equations for the problem. Before we do that, we take a look at where these equations came from. These are very similar to the variation of constants formula, with the primary difference being that we split the solution up into stable, unstable, and center parts, evolve them separately (each with its own IC), and recombine them. So the fixed point equations should look like those in Sandstede (1998) with the addition of a center evolution term together with an IC in the center subspace. Since we are no longer integrating out to $\pm \infty$ the ICs $a_i$ are no longer 0.\\
+
+We can also choose which way to integrate on the ``center'' subspace. Since we need one center initial condition at the end (with the $a^\pm$) and one initial condition at the center (with the $b^\pm$), we will integrate the center part in the forward direction on both pieces. Note that $\nu(\lambda)$ and $\lambda$ have the same sign. Since we need to consider both positive and negative $\lambda$, our estimates will always be for the ``worst-case scenario'' to account for either sign of $\lambda$. \\
+
+The eigenvalue problem we are looking at is, in piecewise form,
 
 \[
 (W^\pm)' = \tilde{A}(\lambda, q) W^\pm + G(\lambda)W^\pm + \lambda^2 \tilde{H}
@@ -473,38 +478,37 @@ At this point, we write down the fixed point equations for the problem. Before w
 Of course, $W$ is dependent on $\lambda$, but we suppress that dependence in the notation since it is annoying. Thus we get the fixed point problem
 
 \begin{align*}
-W^-(x) = \Phi^s(&x, -T; \lambda)a_- + \Phi^u(x, 0; \lambda)b^- + \Phi^c(x, -T; \lambda)a^0 \\
-&+ \int_0^x \Phi^u(x, y; \lambda)[ G(\lambda)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_{-T}^x \Phi^s(x, y; \lambda) [ G(\lambda)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_{-T}^x \Phi^c(x, y; \lambda) [ G(\lambda)W^\pm(y) + \lambda^2 \tilde{H}(y) ]dy \\
-W^+(x) = \Phi^u(&x, T; \lambda)a^+ + \Phi^s(x, 0; \lambda)b^+ + \Phi^c(x, 0; \lambda)b^0 \\
-&+ \int_0^x \Phi^s(x, y; \lambda) [ G(\lambda)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_T^x \Phi^u(x, y; \lambda) [ G(\lambda)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_0^x \Phi^c(x, y; \lambda) [ G(\lambda)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy
+W^-(x) = \Phi^s_-(&x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + \Phi^c_-(x, -T; \lambda)a^0 \\
+&+ \int_0^x \Phi^u_-(x, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^s_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^c_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ]dy \\
+W^+(x) = \Phi^u_+(&x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + \Phi^c_+(x, 0; \lambda)b^0 \\
+&+ \int_0^x \Phi^s_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_0^x \Phi^c_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
 where
 
 \begin{align*}
 (a^-, a^+, a^0) &\in E^s \oplus E^u \oplus E^c \\
-(b^-, b^+, b^0) &\in R^u(0; 0) \oplus R^s(0; 0) \oplus R^c(0; 0)
+(b^-, b^+, b^0) &\in R^u_-(0; 0) \oplus R^s_+(0; 0) \oplus R^c(0; 0)
 \end{align*}
 
-Note that all these spaces refer to the original, unperturbed problem, i.e. with $\lambda = 0$. The projections onto $E^s$, $E^u$, and $E^c$ are given by $P_0^s$, $P_0^u$, and $P_0^c$.
+Note that all these spaces refer to the original, unperturbed problem, i.e. with $\lambda = 0$. The projections onto $E^s$, $E^u$, and $E^c$ are given by $P_0^s$, $P_0^u$, and $P_0^c$.\\
 
-Since we have an expression for $\Phi^c$ (for $x \leq 0$ we use a symmetry argument and will deal with the details it if works), we can substitute it here to get
+Since we have an actual formula for $\Phi^c_\pm$, we can substitute it in to get
 
 \begin{align*}
-W^-(x) = \Phi^s(&x, -T; \lambda)a_- + \Phi^u(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v(x) \langle a^0, w(-T) \rangle  \\
-&+ \int_0^x \Phi^u(x, y; \lambda)[ G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_{-T}^x \Phi^s(x, y; \lambda) [ G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
+W^-(x) = \Phi^s_-(&x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v_-(x) \langle a^0, w_-(-T) \rangle \\
+&+ \int_0^x \Phi^u_-(x, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^s_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_{-T}^x 
-e^{\nu(\lambda)(x-y)} v(x) \langle G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y), w(y) \rangle dy \\
-W^+(x) = \Phi^u(&x, T; \lambda)a^+ + \Phi^s(x, 0; \lambda)b^+ + e^{\nu(\lambda)x} v(x) \langle b^0, w(0) \rangle  \\
-&+ \int_0^x \Phi^s(x, y; \lambda) [ G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_T^x \Phi^u(x, y; \lambda) [ G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_0^x 
-e^{\nu(\lambda)(x-y)} v(x) \langle G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y), w(y) \rangle  dy
+e^{\nu(\lambda)(x-y)} v_-(x) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y) \rangle dy \\
+W^+(x) = \Phi^u_+(&x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + e^{\nu(\lambda)x} v_+(x) \langle b^0, w_+(0) \rangle \\
+&+ \int_0^x \Phi^s_+(x, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_0^x e^{\nu(\lambda)(x-y)} v_+(x) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y) \rangle dy
 \end{align*}
 
 Now we do the same thing we do every night... try to take over the world. Following what was done in Sandstede (1998), we will try to invert this and see what happens. Before we take like 100 pages and do this rigorously (since it might not work), here is a rough list of what needs to happen, together with what the estimates should be. ALSO CAPITAL W AND SMALL w ARE NOT RELATED WHICH GOES AGAINST MY NOTATION CONVENTION BUT WE WILL DEAL WITH THIS LATER IF THIS WORKS.
@@ -514,117 +518,270 @@ Now we do the same thing we do every night... try to take over the world. Follow
 \item Linear operator $L_1$ is stuff from the fixed point equations involving $W$.
 
 \begin{align*}
-(L_1(\lambda)W)^-(x) &= \int_0^x \Phi^u(x, y; \lambda) G(\lambda)(y)W^\pm(y) dy \\
-&+ \int_{-T}^x \Phi^s(x, y; \lambda) G(\lambda)(y)W^\pm(y) dy \\
+(L_1(\lambda)W)^-(x) &= \int_0^x \Phi^u(x, y; \lambda) G(\lambda)(y)W^-(y) dy \\
+&+ \int_{-T}^x \Phi^s(x, y; \lambda) G(\lambda)(y)W^-(y) dy \\
 &+ \int_{-T}^x 
-e^{\nu(\lambda)(x-y)} v(x) \langle G(\lambda)(y)W^\pm(y), w(y) \rangle dy 
+e^{\nu(\lambda)(x-y)} v_-(x) \langle G(\lambda)(y)W^-(y), w_-(y) \rangle dy 
 \end{align*}
 
-The positive piece is similar except for the limits on the third integral. The first two terms on the RHS of this are like what we had before. For the third term we have
+and
 
 \begin{align*}
-\Big| \int_{-T}^x &e^{\nu(\lambda)(x-y)} v(x) \langle G(\lambda)(y)W^\pm(y), w(y) \rangle dy \Big| \\
-&\leq \int_{-T}^x e^{\nu(\lambda)(x-y)} |v(x)| |G(\lambda)|||W|||w(y)|dy \\
-&\leq |G||v||w|||W|| \int_{-T}^x e^{\nu(\lambda)(x-y)} dy \\
-&= |G||v||w|||W|| \frac{e^{\nu(\lambda)(x+T)} - 1}{\nu(\lambda)} \\
-&\leq |G||v||w|||W|| \frac{e^{\nu(\lambda)T}}{\nu(\lambda)} \\
-&\leq C(\lambda) |G| e^{\nu(\lambda)T} ||W||
+(L_1(\lambda)W)^+(x) &= \int_0^x \Phi^s_+(x, y; \lambda) G(\lambda)W^+(y) dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) G(\lambda)W^+(y) dy \\
+&+ \int_0^x e^{\nu(\lambda)(x-y)} v_+(x) \langle G(\lambda)(y)W^+(y), w_+(y) \rangle dy
 \end{align*}
 
-where we used the fact that $x \leq 0$ on the negative piece. Since $v$ and $w$ are bounded and only depend on $\lambda$ (we pulled out the exponential growth/decay in our expressions for $\tilde{v}$ and $\tilde{w}$), we incorporate those bounds into the constant $C$, which depends on $\lambda$. It looks like we are hosed, except recall that $|G|$ is of order $e^{-\alpha T}$ and $\alpha$ is big compared to $\nu$, so we should be ok. Regardless, we have bound
+The first two terms on the RHS of this are like those from Sanstede (1998). For the third term we have for the negative piece,
+
+\begin{align*}
+\Big| \int_{-T}^x &e^{\nu(\lambda)(x-y)} v_-(x) \langle G(\lambda)(y)W^-(y), w_-(y) \rangle dy \Big| \\
+&\leq \int_{-T}^x e^{\nu(\lambda)(x-y)} |v_-(x)| |G(\lambda)|||W|||w_-(y)|dy \\
+&\leq |G||v||w|||W|| \int_{-T}^x e^{\nu(\lambda)(x-y)} dy \\
+&= |G||v||w|||W|| \frac{e^{\nu(\lambda)x} - 1}{\nu(\lambda)} \\
+&\leq C(\lambda) e^{\nu(\lambda)T} |G| \: ||W||
+\end{align*}
+
+where we used the fact that $x \leq 0$ on the negative piece. Since $v$ and $w$ are bounded and only depend on $\lambda$ (we pulled out the exponential growth/decay in our expressions for $\tilde{v}$ and $\tilde{w}$), we incorporate those bounds into the constant $C$, which depends on $\lambda$. The positive piece has a similar bound. Thus we have
 
 \[
-||L_1(\lambda)W|| \leq C(\lambda) |G| e^{\nu(\lambda)T} ||W||
+||L_1(\lambda)W|| \leq C(\lambda) e^{\nu(\lambda)T} |G| \: ||W||
 \]
+
+Since $|G|$ is of order $e^{-\alpha T}$ and $\nu(\lambda)$ is small, we can choose $T$ sufficiently large that the operator norm of this is less than 1.
 
 \item Linear operator $L_2$ is stuff from fixed point equations not involving $W$.
 
 
 \begin{align*}
-(L_2(\lambda)(a,b,c))^-(x) = \Phi^s(&x, -T; \lambda)a^- + \Phi^u(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v(x) \langle a^0, w(-T) \rangle   \\
-&+ \int_0^x \Phi^u(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
-&+ \int_{-T}^x \Phi^s(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
-&+ \int_0^x 
-e^{\nu(\lambda)(x-y)} v(x) \langle \lambda^2 \tilde{H}(y), w(y) \rangle dy
+(L_2(\lambda)(a,b))^-(x) &= \Phi^s_-(x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v_-(x) \langle a^0, w_-(-T) \rangle \\
+&+ \int_0^x \Phi^u_-(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
+&+ \int_{-T}^x \Phi^s_-(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
+&+ \int_{-T}^x 
+e^{\nu(\lambda)(x-y)} v_-(x) \langle \lambda^2 \tilde{H}(y), w_-(y) \rangle dy \\
 \end{align*}
 
-Again, most of this is the same as before. For the $a^0$ term, since $x \leq 0$, we will have
-
-\[
-e^{\nu(\lambda)(x+T)} v(x) \langle a^0, w(-T) \rangle \leq C e^{\nu(\lambda)T} |a^0|  
-\]
-
-The $b^0$ term will also have a similar bound. Since the third integral should just give us an additional $e^{\nu(\lambda)T}$ to what we already have, the bound on $L_2$ should be
-
-\[
-||L_2(\lambda)(a,b,c)|| \leq C(\lambda) e^{\nu(\lambda)T} (|a| + |b| + |\lambda|^2)
-\]
-
-\item We can invert the expression $(I - L_1(\lambda))W = L_2(\lambda)(a,b,d)$ to get $W = W_1(\lambda)(a,b,d)$, where we have the bound
-
-\[
-||W_1(\lambda)(a,b,d)|| \leq C(\lambda) e^{\nu(\lambda)T} (|a| + |b| + |\lambda|^2)
-\]
-
-\item In the non-periodic single-pulse case, $a$ does not exist, i.e. it is 0. In this case, however, since we do not go to $\pm \infty$, $a$ plays a role. I think what we do here is something similar to the double pulse case, except we solve for $a^\pm$ by enforcing the periodic BCs, i.e. $W^-(-T) = W^+(T)$. Note that since we require ICs which span the entire space ($\R^5$ in this case), we will use $a^-$, $a^+$, and $a^0$. (This is the reason we integrate forwards on both center pieces). So let's do that. We have 
+and
 
 \begin{align*}
-W^+(T) &= P^u(T; \lambda)a^+ + \Phi^s(x, 0; \lambda)b^+ + e^{\nu(\lambda)T} v(T) \langle b^0, w(0) \rangle  \\
-&+ \int_0^T \Phi^s(T, y; \lambda) [ G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_0^T 
-e^{\nu(\lambda)(T-y)} v(T) \langle G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y), w(y) \rangle  dy \\
-&= a^+ + (P^u(T; \lambda) - P^u_0)a^+ + \Phi^s(x, 0; \lambda)b^+ + e^{\nu(\lambda)T} v(T) \langle b^0, w(0) \rangle  \\
-&+ \int_0^T \Phi^s(T, y; \lambda) [ G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_0^T 
-e^{\nu(\lambda)(T-y)} v(T) \langle G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y), w(y) \rangle  dy 
+(L_2(\lambda)(a,b))^+(x) &= \Phi^u_+(x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + e^{\nu(\lambda)x} v_+(x) \langle b^0, w_+(0) \rangle \\
+&+ \int_0^x \Phi^s_+(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
+&+ \int_0^x e^{\nu(\lambda)(x-y)} v_+(x) \langle \lambda^2 \tilde{H}(y), w_+(y) \rangle dy
+\end{align*}
+
+Again, most of this is the same as we had before. For the $b^0$ term, we have 
+
+\[
+|e^{\nu(\lambda)x} v_+(x) \langle b^0, w_+(0) \rangle| \leq C e^{\nu(\lambda)T}|b^0| 
+\]
+
+The $a_0$ term will also have a similar bound. 
+
+\[
+e^{\nu(\lambda)(x+T)} v_-(x) \langle a^0, w_-(-T) \rangle \leq C e^{\nu(\lambda)T}|a^0|
+\]
+
+The third integrals are similar to the integral in $L_1$, and the rest of the terms are similar to what we had before. Thus the bound for $L_2$ should be
+
+\[
+||L_2(\lambda)(a,b)|| \leq C(\lambda) e^{\nu(\lambda)T} (|a| + |b| + |\lambda|^2)
+\]
+
+where $a^0$ and $b^0$ are included here with $|a|$ and $|b|$.
+
+\item We can invert the expression $(I - L_1(\lambda))W = L_2(\lambda)(a,b)$ to get $W = W_1(\lambda)(a,b)$, where we have the bound
+
+\[
+||W_1(\lambda)(a,b)|| \leq C(\lambda) e^{\nu(\lambda)T} (|a| + |b| + |\lambda|^2)
+\]
+
+\item In the non-periodic single-pulse case, $a$ does not exist, i.e. it is 0. In this case, however, since we do not go to $\pm \infty$, $a^\pm$ plays a role. I think what we do here is something similar to the double pulse case, except we solve for $a^\pm$ by enforcing the periodic BCs, i.e. $W^-(-T) = W^+(T)$. Note that since we will need ICs which span the entire space ($\R^5$ in this case), we will use $a^-$, $a^+$, and $a^0$. We have 
+
+\begin{align*}
+W^-(-T) &= P^s_-(-T; \lambda)a^- + \Phi^u_-(-T, 0; \lambda)b^- + v_-(-T) \langle a^0, w_-(-T) \rangle \\
+&+ \int_0^{-T} \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&= a^- + (P^s_-(-T; \lambda) - P_0^s)a^- + \Phi^u_-(-T, 0; \lambda)b^- + v_-(-T) \langle a^0, w_-(-T) \rangle \\
+&+ \int_0^{-T} \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 \end{align*}
 
 Similarly,
 
 \begin{align*}
-W^-(-T) &= a^- + a^0 + (P^s(-T; \lambda) - P^s_0)a^- + (P^c(-T; \lambda) - P^c_0)a^0 +\Phi^u(-T, 0; \lambda)b^-  \\
-&+ \int_0^{-T} \Phi^u(-T, y; \lambda)[ G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_0^{-T} 
-e^{-\nu(\lambda)(-T-y)} v(-T) \langle G(\lambda)(y)W^\pm(y) + \lambda^2 \tilde{H}(y), w(y) \rangle dy 
+W^+(T) &= P^u_+(T; \lambda)a^+ + \Phi^s_+(T, 0; \lambda)b^+ + e^{\nu(\lambda)T} v_+(T) \langle b^0, w_+(0) \rangle \\
+&+ \int_0^T \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_0^T e^{\nu(\lambda)(T-y)} v_+(T) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y) \rangle dy \\
+&= a^+ + (P^u_+(T; \lambda) - P^u_0)a^+ + \Phi^s_+(T, 0; \lambda)b^+ + e^{\nu(\lambda)T} v_+(T) \langle b^0, w_+(0) \rangle \\
+&+ \int_0^T \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_0^T e^{\nu(\lambda)(T-y)} v_+(T) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y) \rangle dy
 \end{align*}
 
-where we rewrote the center range projection at $-T$ as $P^c(-T; \lambda)$. Subtracting them, we get
+What was done in Sandstede (1998) will not work here, since we will not get a good enough estimate to do the inversion. So we will need to try something different. Note that since we have explicit formulas for the center projection, we should be able to solve for $a^0$ in terms of everything else.
 
 \begin{align*}
-0 &= W^+(T) - W^-(-T) = (a^+ - a^- - c^-) + L_3(\lambda)(a,b,c)
+v_-(-T) \langle a^0, w_-(-T) \rangle &= W^-(-T) - P^s_-(-T; \lambda)a^- - \Phi^u_-(-T, 0; \lambda)b^- \\
+&-  \int_0^{-T} \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+\langle a^0, w_-(-T) \rangle &= \langle W^-(-T), w^-(-T) \rangle - \langle  P^s_-(-T; \lambda)a^-, w^-(-T) \rangle  - \langle \Phi^u_-(-T, 0; \lambda)b^-, w^-(-T) \rangle  \\
+&- \int_0^{-T} \langle \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ], w^-(-T) \rangle  dy 
 \end{align*}
 
-Where $L_3(a,b,c)$ is the rest of the stuff you get when you do the subtraction. Since $a^+$, $a^-$, and $c^-$ are linearly independent (based on the eigenspaces they live in) we can do the same thing which was done in Sanstede (1998). Let
+where in the second line we took the inner product with $w_-(-T)$ and used the fact that the inner product $\langle v_-(x), w_-(x) \rangle = 1$ for all $x \leq 0$. We now would like to solve for $a^0$. Since $a^0 \in E^c$ and $E^c$ is one-dimensional, we can write $a^0 = k^0 e_1$, where $e_1 = (1, 0, 0, 0, 0)$ is the eigenvector of the asymptotic matrix $\tilde{A}(0, 0)$ corresponding to the zero eigenvalue. Thus we need to solve 
+
+\begin{align*}
+k^0 \langle e_1, w_-(-T) \rangle &= \langle W^-(-T), w^-(-T) \rangle - \langle  P^s_-(-T; \lambda)a^-, w^-(-T) \rangle  - \langle \Phi^u_-(-T, 0; \lambda)b^-, w^-(-T) \rangle  \\
+&- \langle \int_0^{-T} \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy, w^-(-T) \rangle \\
+&= \langle W^-(-T), w^-(-T) \rangle - \langle \Phi^u_-(-T, 0; \lambda)b^-, w^-(-T) \rangle  \\
+&- \langle \int_0^{-T} \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy, w^-(-T) \rangle  
+\end{align*}
+
+where $\langle P^s_-(-T; \lambda)a^-, w^-(-T) \rangle = 0 $ since we changed coordinates above so that the range of $P^s_-(-T)$ is perpendicular to $w^{-T}$. (ACTUALLY WE DID THIS FOR THE PLUS VERSIONS, BUT LET'S SAY WE DID THIS FOR THE MINUS VERSIONS ALSO. IN ANY CASE EVEN IF WE DON'T D THIS I THINK THE ESTIMATE WILL BE GOOD ENOUGH.)\\
+
+The only way this can go awry is if $\langle e_1, w_-(-T) \rangle = 0$. For now, we will argue that for sufficiently large $T$, $v_-(-T)$ is close to $v_0$ (center eigenvector of $\tilde{A}(\lambda, 0)$) which is close to $e_1$ (center eigenvector of $\tilde{A}(0, 0)$) since $\lambda$ is small. Since $\langle v_(-T), w_-(-T) \rangle = 1$ and things are continuous, we won't have $\langle e_1, w_-(-T) \rangle = 0$. Thus we can divide by $\langle e_1, w_-(-T) \rangle$ to solve for $k^0$.
+\\
+
+Note that although there is no explicit dependence on $a^\pm$ in this equation, $a^0$ does depend on $a^\pm$ via $W$. We then have an equation for $a^0$ of the form
+
+\begin{align*}
+a^0 = L^0_3(\lambda)(a, b) e_1
+\end{align*}
+
+Note that $L^0_3(\lambda)(a, b)$ is a scalar. We have the bound
+
+\begin{align*}
+|L^0_3(\lambda)(a, b)| &\leq C( |W^-(-T)| + e^{-\alpha T}|b^\pm| + |G|||W|| + |\lambda^2| )
+\end{align*}
+
+Substituting in the expression for $W_1$ into this, we get
+
+\begin{align*}
+|L^0_3(\lambda)(a, b)| &\leq C( e^{\nu(\lambda)T}|G|(|a| + |b|) + |\lambda^2| )
+\end{align*}
+
+where we ditched the $|W^-(-T)|$ term since it should be order $e^{-(\alpha - \nu(\lambda))T}$, and the other stuff is of that order. \\
+
+Now that we have done this, we should be able to solve for $a^\pm$ by following the usual procedure in Sandstede (1998). To that end, we write
 
 \[
-\rho(T; \lambda) = \sup_{x \geq T} (|P^u(x;\lambda) - P_0^u| + |P^s(-x; \lambda) - P_0^s| + |P^c(-x;\lambda) - P_0^c| )
-\]
+0 = a^+ - a^- + L_3(\lambda)(a^\pm,b)
+\] 
 
-If the center term were not there, this would be of order $e^{-\alpha T}$, or maybe a slightly smaller decay constant since we are perturbing $\lambda$. With the center term, I am not sure what will happen, but we will carry the $\rho(T; \lambda)$ term through and see what we will need it to be.\\
+Where $L_3(a,b,c)$ is the rest of the stuff you get when you do the subtraction, after substituting $k^0 e_1$ for $a^0$. Note that because of the substitution, $L_3$ no longer depends on $a^0$. Since $a^+$, $a^-$ are linearly independent (based on the eigenspaces they live in) we can do the same thing which was done in Sanstede (1998), i.e. if we solve for $a^+ - a^-$, we are good since by linear independence that uniquely determines $a^\pm$.\\ 
 
-We then get a bound on $L_3$ similar to what we have from before. Dealing with the new terms similar to above, the bound should look like
-
-\[
-||L_3(\lambda)(a,b,c)|| \leq C(\lambda)(\rho(T; \lambda)|a| + e^{\nu(\lambda)T}( |b| + |G|||W|| + |\lambda|^2 )
-\]
-
-Substitute in the estimate for $W_1$ to get something like
+Now we get a bound on $L_3$. As before, let
 
 \[
-||L_3(\lambda)(a,b,c)|| \leq C(\lambda)((\rho(T) + |G|)|a| + (e^{-\alpha T} + |G|)|b| + e^{\nu(\lambda)T}(e^{\nu(\lambda)T}|G| + 1)(|c| + |\lambda|^2 ))
+p(T;\lambda) = \sup_{x \geq T} (|P^u(x;\lambda) - P_0^u| + |P^s(-x;\lambda) - P_0^s|)
 \]
 
-Following the same procedure, we should be able to write $a = A_1(\lambda)(b,c)$, where
+which should be order $e^{-\alpha T}$. This gives the following bound on $L_3$.
+
+\begin{align*}
+||L_3(\lambda)(a^\pm,b)|| &\leq C(\lambda)(\rho(T; \lambda)|a^\pm| + |W^-(-T)| + e^{-\alpha T}|b^\pm| + e^{\nu(\lambda)T}( |b^0| + |G|||W|| + |\lambda|^2)) )\\
+&\leq C(\lambda)(\rho(T; \lambda)|a^\pm| + e^{-\alpha T}|b^\pm| + e^{\nu(\lambda)T}( |b^0| + |G|||W|| + |\lambda|^2)) )
+\end{align*}
+
+where we ditched the $|W^-(-T)|$ from the estimate like we did above since it should be order $e^{-(\alpha - \nu(\lambda))T}$ and there's already stuff of that order in the estimate. Substituting in the estimate for $W_1$, we get something like
 
 \[
-|A_1(\lambda)(b,c)| \leq C(\lambda)((e^{-\alpha T} + |G|)|b| + e^{\nu(\lambda)T}(e^{\nu(\lambda)T}|G| + 1)(|c| + |\lambda|^2 ))
+||L_3(\lambda)(a^\pm, b)|| \leq C(\lambda)((\rho(T; \lambda) + e^{2 \nu(\lambda)T}|G|)|a^\pm| + (e^{-\alpha T}+ e^{2\nu(\lambda)T}|G|)|b| + e^{\nu(\lambda)T}( |b^0| + |\lambda|^2)) )
 \]
 
-Now plug this into $W_1$ to get $W_2(\lambda)(b,c)$ which has bound
+Now we have
+
+\begin{align*}
+0 &= a^+ - a^- + L_3(\lambda)(a^\pm,b) \\
+a^+ - a^- + L_3(\lambda)(a^\pm,0) &= - L_3(\lambda)(0,b) \\
+\end{align*} 
+
+Applying the projection $P^u_0 + P^s_0$ to both sides above, we get
+
+\begin{align*}
+0 &= a^+ - a^- + L_3(\lambda)(a^\pm,b) \\
+a^+ - a^- + (P^u_0 + P^s_0) L_3(\lambda)(a^\pm,0) &= -(P^u_0 + P^s_0) L_3(\lambda)(0,b) \\
+\end{align*} 
+
+From above, we also have
+
+\begin{align*}
+a^0 &= ( L^0_3(\lambda)(a, 0) + L^0_3(\lambda)(0, b) ) e_1 \\
+a^0 - L^0_3(\lambda)(a, 0) e_1 &= L^0_3(\lambda)(0, b) ) e_1
+\end{align*}
+
+Combining these, we have the following
+
+\begin{align*}
+\begin{pmatrix}a^+ - a^- \\ a^0 \end{pmatrix}
++ \begin{pmatrix}(P^u_0 + P^s_0) L_3(\lambda)(a^\pm,0) \\ - L^0_3(\lambda)(a, 0) e_1
+\end{pmatrix}
+=
+\begin{pmatrix}-(P^u_0 + P^s_0) L_3(\lambda)(0,b) \\ L^0_3(\lambda)(0, b) ) e_1
+\end{pmatrix}
+\end{align*}
+
+
+Let $J_1 a = (a^+ - a^-, a^0)$, which is an isomorphism on $\C^n$. Let 
 
 \[
-||W_1(\lambda)(b,c)|| \leq C(\lambda)(|b| + e^{\nu(\lambda)T}(e^{\nu(\lambda)T}|G| + 1)(|c| + |\lambda|^2 ))
+\tilde{L_3}(\lambda)(a,b) = \begin{pmatrix}
+(P^u_0 + P^s_0) L_3(\lambda)(a^\pm,b) \\
+-L^0_3(\lambda)(a, b) ) e_1
+\end{pmatrix}
 \]
+
+Then this becomes
+
+\begin{align*}
+J_1 a + \tilde{L_3}(\lambda)(a,0) &= -\tilde{L_3}(\lambda)(0,b) \\
+J_1 (I a + J_1^{-1} \tilde{L_3}(\lambda)(a,0) ) &= -\tilde{L_3}(\lambda)(0,b)
+\end{align*}
+
+Define the operator $S_1$ by
+
+\begin{align*}
+S_1 a = J_1 (Ia + J_1^{-1} \tilde{L_3}(\lambda)(a,0) )
+\end{align*} 
+
+Then this equation is
+
+\begin{align*}
+S_1 a &= -\tilde{L_3}(\lambda)(0,b)
+\end{align*}
+
+We have the following estimate for $\tilde{L_3}(\lambda)(a,0)$.
+
+\[
+||\tilde{L_3}(\lambda)(a,0)|| \leq C(\lambda)((\rho(T; \lambda) + e^{2 \nu(\lambda)T}|G|)|a^\pm| +e^{\nu(\lambda)T} |\lambda|^2) 
+\]
+
+For sufficiently small $\lambda$ and sufficiently large $T$, we can make this norm less than 1, thus the operator $S_1$ is invertible, and so we have
+
+\begin{align*}
+a &= A_1(\lambda)(b) = -S_1^{-1} \tilde{L_3}(\lambda)(0,b)
+\end{align*}
+
+Since we have an estimate for $\tilde{L_3}(\lambda)$, this has bound
+
+\[
+|A_1(\lambda)(b)| \leq C ( (e^{-\alpha T}+ e^{2\nu(\lambda)T}|G|)|b| + e^{\nu(\lambda)T}( |b^0| + |\lambda|^2))
+\]
+
+Since $e^{2\nu(\lambda)T}|G|$ is higher order than $e^{-\alpha T}$, this becomes
+
+\[
+|A_1(\lambda)(b)| \leq C ( e^{2\nu(\lambda)T}|G| |b| + e^{\nu(\lambda)T} |b^0| + e^{\nu(\lambda)T} |\lambda|^2)
+\]
+
+Now we substitute this into our expression $W_1$ to get 
+
+\[
+W_2(\lambda)(a,b) = W_1(\lambda)(A^1(\lambda)(b),b)
+\]
+
+where we have estimate
+
+\begin{align*}
+||W_2(\lambda)(b)|| \leq C e^{\nu(\lambda)T} (|b| + e^{\nu(\lambda)T} |b^0| + e^{\nu(\lambda)T} |\lambda^2| )
+\end{align*}
 
 
 
