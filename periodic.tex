@@ -59,7 +59,7 @@ Let's first look at this for the case of a wave train composed of single pulses.
 
 \begin{enumerate}[(i)]
 \item $(W^\pm)' = A(q) W_i^\pm + \lambda B W^\pm - \lambda^2 B Q_c$
-\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0$
 \item $W^+(0) - W^-(0) \in \C \psi(0) $
 \end{enumerate}
 
@@ -783,6 +783,81 @@ where we have estimate
 ||W_2(\lambda)(b)|| \leq C e^{\nu(\lambda)T} (|b| + e^{\nu(\lambda)T} |b^0| + e^{\nu(\lambda)T} |\lambda^2| )
 \end{align*}
 
+\item Now we look at the conditions
+
+\begin{enumerate}[(i)]
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0$
+\item $W^+(0) - W^-(0) \in \C \psi(0) $ 
+\end{enumerate}
+
+Taking $x = 0$ in the fixed point equations gets us
+
+\begin{align*}
+W^-(0) = \Phi^s_-(&0, -T; \lambda)a^- + P^u_-(0; \lambda)b^- + e^{\nu(\lambda)(T)} v_-(0) \langle a^0, w_-(-T) \rangle \\
+&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y) \rangle dy \\
+W^+(0) = \Phi^u_+(&0, T; \lambda)a^+ + P^s_+(0; \lambda)b^+ + v_+(0) \langle b^0, w_+(0) \rangle \\
+&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+\end{align*}
+
+Recall that the initial conditions $b$ were chosen from the appropriate spaces when $\lambda = 0$, thus the various projections above do not just disappear. However, we hope they will be near identities. Let
+
+\[
+\tilde{\rho}(\lambda) = |P^u_-(0;\lambda) - P^u_-(0; 0)| + |P^s_+(0;\lambda) - P^s_+(0;0)| + |P^c_+(0;\lambda) - P^c_+(0;0)|
+\]
+
+We will deal with this later, though it should hopefully scale like $e^{-C/\lambda}$. To use this, we write the above as
+
+\begin{align*}
+W^-(0) = \Phi^s_-(&0, -T; \lambda)a^- + b^- + (P^u_-(0;\lambda) - P^u_-(0; 0))b^- + e^{\nu(\lambda)(T)} v_-(0) \langle a^0, w_-(-T) \rangle \\
+&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y) \rangle dy \\
+W^+(0) = \Phi^u_+(&0, T; \lambda)a^+ + b^+ + (P^s_+(0;\lambda) - P^s_+(0;0))b^+ + b^0 + (P^c_+(0;\lambda) - P^c_+(0;0))b^0 \\
+&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+\end{align*}
+
+We can use $W_2$ and $A_1$ from above in this. Since the stable and unstable range spaces at $\lambda = 0$ both contain $\C Q'(0)$, we can decompose $b^\pm$ uniquely as $b^\pm = x^\pm + y^\pm$, where $x^\pm \in \C Q'(0)$ and $y^\pm \in Y^\pm$. We don't have to do this with $b^0$. Then since
+
+\begin{equation}\label{directsum}
+\C^n = \C\Psi(0) \oplus \C Q'(0) \oplus Y^+ \oplus Y^- \oplus Y^0
+\end{equation}
+
+(each of these is 1D in this case), the conditions above are equivalent to the following projections
+
+\begin{align*}
+P(\C Q'(0))W^-(0) &= 0 \\
+P(\C Q'(0))W^+(0) &= 0 \\
+P(Y^+ \oplus Y^- \oplus Y^0) (W^+(0) - W^-(0) ) &= 0
+\end{align*}
+
+where the range of each projection is indicated, and the kernel of each projection is just the other elements of the direct sum \eqref{directsum}. Since the first two equations wipe out any component in $\C Q'(0))$, we don't need to put that in the range of the third projection.\\
+
+If we plug in the fixed point equations into the above set of projections, we get the matrix equation
+
+\[ 
+\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ + b^0 - y_i^- \end{pmatrix} + L_4(\lambda)(b) = 0
+\]
+
+where $L_4(\lambda)(b)$ is the rest of the terms. Since the third component contain the other ones and we are taking the max over all components, all we need to do is bound the third component of $L_4$. Doing stuff similar to above, we get the bound
+
+\[
+|L_4(\lambda)(b)| \leq C( e^{-\alpha T}|a| + \tilde{\rho}(\lambda)|b| + e^{\nu(\lambda)T}(|a^0| + |G|||W|| + |\lambda^2|)
+\]
+
+Now substitute in $A_1$ and $W_2$ from above to get
+
+\[
+|L_4(\lambda)(b)| \leq C( (e^{3\nu(\lambda)T} + \tilde{\rho}(\lambda))|b| + e^{2\nu(\lambda)T}|b^0| + e^{\nu(\lambda)T} |\lambda^2| )
+\]
+
+Everything here is fine except the $b^0$ term, which we cannot make arbitrarily small. Thus we will have to do something like we did above with $a^0$, i.e. solve for it explicitly. We solve the $W^+(0)$ equation for $b^0$ to get
+
+\begin{align*}
+b^0 &= W^+(0) - \Phi^u_+(0, T; \lambda)a^+ - b^+ - (P^s_+(0;\lambda) - P^s_+(0;0))b^+ - (P^c_+(0;\lambda) - P^c_+(0;0))b^0 \\
+&- \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy  
+\end{align*}
 
 
 \end{enumerate}
