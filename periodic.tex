@@ -123,7 +123,7 @@ For now, we will assume we have these bounds (based on Hypothesis \ref{qpexists}
 
 \begin{align*}
 |G(\lambda)(x)| &\leq C e^{-\alpha T} && x \in [-T, T]\\
-|\tilde{H}(x) - H(x)| &\leq C e^{-\alpha T} && x \in [-T, T]
+|\Delta H(x)| = |\tilde{H}(x) - H(x)| &\leq C e^{-\alpha T} && x \in [-T, T]
 \end{align*}
 
 Now we look at the eigenvalue problem
@@ -954,8 +954,156 @@ Substitutiting this into $A_1$ and $W_2$ gives us $A_3$ and $W_3$ with bounds
 ||W_3(\lambda)|| \leq C(\lambda) e^{2 \nu(\lambda)T}|\lambda|^2
 \]
 
+\item For the single pulse we have no $d$, so we should not need $A_2$ or $A_4$. For multipulses we will need these.
+
+\item Now we can estimate the jump
+
+\[
+\langle \Psi(0), W^-(0) - W^+(0) \rangle 
+\]
+
+Recall here that $\Psi(0)$ is the adjoint solution for the unperturbed problem, i.e. when $\lambda = 0$. The equations for $W$ contain the evolution operator $\Phi^(s/u)_\pm(x, y; \lambda)$ which are for the perturbed system with $\lambda \neq 0$. I think we can do the same thing here as in Sandstede (1998) and use Lemma 2.2, which allows us to substitute $\Psi(0; \lambda)$ for $\Psi(0)$ (only at $x = 0$). SO WE WILL ASSUME WE CAN DO THIS.\\  
+
+For the adjoint solution $\Psi$, we assume an estimate similar to that which we used before
+
+\[
+|\Psi(x; \lambda)| \leq C e^{\alpha|x|}
+\]
+
+I THINK THIS IS LEGIT. WE KNOW EXACTLY WHAT $\Psi(x)$ IS, i.e. THE LAST COMPONENT IS $Q$ AND THE OTHER COMPONENTS INVOLVE ONLY DERIVATIVES OF $Q$, AND WE KNOW HOW THEY ALL DECAY. THE ONLY REAL ASSUMPTION HERE IS THAT $\Psi(x; \lambda)$ IS SUFFICIENTLY CLOSE TO $\Psi(x)$ THAT THE DECAY PROPERTIES ARE BASICALLY THE SAME.\\
+
+So the jump is given by
+
+\[
+\langle \Psi(0; \lambda), W^-(0) - W^+(0) \rangle 
+\]
+
+\item Terms involving $a$
+
+\begin{align*}
+\langle \Psi(0; \lambda), \Phi^s_-(0, -T; \lambda )a^- \rangle &= \langle \Phi^s_-(-T, 0; \lambda )^* \Psi(0; \lambda), a^- \rangle \\
+&= \langle \Psi(-T; \lambda), a^- \rangle 
+\end{align*}
+
+and, using $A_3(\lambda)$ we have bound
+
+\[
+|\langle \Psi(0; \lambda), \Phi^s_-(0, -T; \lambda )a^- \rangle| \leq C  e^{-\alpha T} |\lambda^2|
+\]
+
+The other one has the same bound. Note that since $d$ is not involved, we will not get another term here.
+
+\item Terms involving $b$.\\
+
+These involve $P^{(u/s)}_\pm(0; \lambda)b^\pm$, which is perpendicular to adjoint solution $\Psi(0; \lambda)$, so these terms should die.
+
+\item Terms involving $c$.\\
+
+These terms look like
+
+\begin{align*}
+&e^{\nu(\lambda)(T)}  \langle c^-, w_-(-T) \rangle v_-(0) \\
+&e^{\nu(\lambda)(-T)} \langle c^+, w_+(T) \rangle v_+(0) 
+\end{align*}
+
+Let's do the first one.
+
+\begin{align*}
+e^{\nu(\lambda)(-T)} \langle c^+, w_+(T) \rangle v_+(0)  &= \Phi^c_+(0, T; \lambda)c^+\\
+&= \Phi(0, T; \lambda) P^c_+(T;\lambda ) c^+
+\end{align*}
+
+So we have
+
+\begin{align*}
+\langle \Psi(0; \lambda), e^{\nu(\lambda)(-T)} \langle c^+, w_+(T) \rangle v_+(0) \rangle
+&= \langle \Psi(0; \lambda), \Phi(0, T; \lambda) P^c_+(T;\lambda ) c^+ \rangle \\ 
+&= \langle \Phi(T, 0; \lambda)^* \Psi(0; \lambda),  P^c_+(T;\lambda ) c^+ \rangle \\
+&= \langle \Phi(T, 0; \lambda)^* \Psi(0; \lambda),  P^c_+(T;\lambda ) c^+ \rangle \\
+&= \langle \Psi(T; \lambda), P^c_+(T;\lambda ) c^+ \rangle 
+\end{align*}
+
+\[
+|\langle \Psi(0; \lambda), e^{\nu(\lambda)(-T)} \langle c^+, w_+(T) \rangle v_+(0) \rangle| \leq C e^{-\alpha T} |c| = C e^{-\alpha T} e^{\nu(\lambda)T}|\lambda|^2
+\]
+
+The other one is similar.
+
+\item Now we do the integral terms. The ``noncenter'' ones should be just like the ones we already have done. The one involving $H$ (which is multiplied by $|\lambda^2|$ should give us
+
+\[
+\int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}(e^{-\alpha T}||H|| + \Delta H)
+\]
+
+The one involving $G$ should be of order
+
+\[
+|G| e^{2 \nu(\lambda)T}|\lambda|^2
+\]
+
+\item This leaves us with the last two integrals, which involve the ``center'' space and will get bigger as $T$ increases.\\
+
+For the ``minus'' integral term we have
+
+\begin{align*}
+\langle \Psi(0; \lambda) &, \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y) \rangle dy \rangle \\
+&= \langle \Psi(0; \lambda) , \int_{-T}^0 
+\Phi(0, y; \lambda) P^c_-(y;\lambda ) ( G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y)) dy \rangle \\
+&= \int_{-T}^0 
+\langle \Psi(y; \lambda), P^c_-(y;\lambda ) ( G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y))  \rangle dy  \\
+&= \int_{-T}^0 
+\langle \Psi(y; \lambda), \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y) \rangle v_-(y) \rangle dy  \\
+\end{align*}
+
+The ``plus'' integral term is 
+
+\[
+\int_{T}^0 
+\langle \Psi(y; \lambda), \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_+(y) \rangle v_+(y) \rangle dy  \\
+\]
+
+
+If we do the standard thing and write $\tilde{H} = H + \Delta H$, then these integrals give us three terms. The first two are of order
+
+\begin{align*}
+|G| ||W|| +|\lambda^2||\Delta H| &=
+e^{2 \nu(\lambda)T}|\lambda|^2 |G| + |\lambda^2||\Delta H| \\
+&= ( e^{2 \nu(\lambda)T}|G| + |\Delta H|)|\lambda|^2 
+\end{align*}
+
+Every term we have gotten so far is higher order than $|\lambda|^2$, except for the higher-order Melnikov term, which is order $|\lambda|^2$. This is good.\\
+
+The last term (the one involving $H$) is the following
+
+\begin{align*}
+\int_{-T}^0 &e^{-\nu(\lambda)y} v_-(0) \langle \lambda^2 H(y), w_-(y) \rangle dy - \int_T^0 e^{-\nu(\lambda)y} v_+(0) \langle \lambda^2 H(y), w_+(y) \rangle dy \\
+&= \lambda^2 \left( \int_{-T}^0 e^{-\nu(\lambda)y} v_-(0) \langle H(y), w_-(y) \rangle dy + \int_0^T e^{-\nu(\lambda)y} v_+(0) \langle H(y), w_+(y) \rangle dy \right)
+\end{align*}
+
+Whatever this thing is, it is not a lower order term. A bound on this would be
+
+\[
+C |\lambda^2| e^{\nu(\lambda)T} \int_{-T}^T \langle H(y), w_\pm(y) \rangle dy 
+\]
+
+So this is actually a lower order term than the Melnikov term.
+
+
 
 \end{enumerate}
+
+\begin{align*}
+W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
+&+ e^{\nu(\lambda)T} \tilde{c}^- y_0 + e^{\nu(\lambda)T} \tilde{c}^- ( (v_-(0) - y_0) + v_-(0) \langle  v_0, w_-(-T) - w_0 \rangle) \\
+&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y) \rangle dy \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
+&+ e^{-\nu(\lambda)T} \tilde{c}^+ y_0 + e^{-\nu(\lambda)T} \tilde{c}^+ ( (v_+(0) - y_0) + v_+(0) \langle  v_0, w_+(T) - w_0 \rangle) \\
+&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^0 e^{-\nu(\lambda)y} v_+(0) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y) \rangle dy
+\end{align*}
 
 
 
