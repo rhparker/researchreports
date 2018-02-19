@@ -798,8 +798,6 @@ We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has b
 \end{align*}
 
 
-
-
 \item Now we look at the conditions
 
 \begin{enumerate}[(i)]
@@ -825,7 +823,7 @@ Recall that the initial conditions $b$ were chosen from the appropriate spaces w
 \tilde{\rho}(\lambda) = |P^u_-(0;\lambda) - P^u_-(0; 0)| + |P^s_+(0;\lambda) - P^s_+(0;0)|
 \]
 
-We will deal with this later. Then we have
+We will deal with this later, but this should be small.
 
 \begin{align*}
 W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- + e^{\nu(\lambda)T} v_-(0) \langle c^-, w_-(-T) \rangle \\
@@ -851,32 +849,110 @@ P(\C Q'(0))W^+(0) &= 0 \\
 P(Y^+ \oplus Y^- \oplus Y^0) (W^+(0) - W^-(0) ) &= 0
 \end{align*}
 
-where the range of each projection is indicated, and the kernel of each projection is just the other elements of the direct sum \eqref{directsum}. Since the first two equations wipe out any component in $\C Q'(0))$, we don't need to put that in the range of the third projection.\\
+where the range of each projection is indicated, and the kernel of each projection is just the other elements of the direct sum \eqref{directsum}. Since the first two equations wipe out any component in $\C Q'(0))$, we don't need to put that in the range of the third projection. \\
+
+The only thing extra we need to deal with is the $c$ terms. Both $c$ terms are scalar multiples of $v_\pm(0)$, which (since $\lambda$ is small) is a small perturbation of $y^0$, a basis vector for the center space $Y^0$ which is scaled so that it equals $v_\pm(0)$ when $\lambda = 0$. Thus we have
+
+\begin{align*}
+e^{\nu(\lambda)T} v_-(0) \langle c^-, w_-(-T) \rangle &= e^{\nu(\lambda)T} v_-(0) \langle \tilde{c}^- v_0, w_-(-T) \rangle \\
+&= e^{\nu(\lambda)T} v_-(0) \tilde{c}^- (\langle  v_0, w_0 \rangle + \langle  v_0, w_-(-T) - w_0 \rangle) \\
+&= e^{\nu(\lambda)T} \tilde{c}^- v_-(0) + e^{\nu(\lambda)T} \tilde{c}^- v_-(0)  \langle  v_0, w_-(-T) - w_0 \rangle) \\
+&= e^{\nu(\lambda)T} \tilde{c}^- y_0 + e^{\nu(\lambda)T} \tilde{c}^- ( (v_-(0) - y_0) + v_-(0) \langle  v_0, w_-(-T) - w_0 \rangle)
+\end{align*}
+
+For the bound which we need later, let
+
+\[
+r(\lambda) = |v_-(0) - y_0| + |v_+(0) - y_0|
+\]
+
+where the $\lambda$-dependence comes from the fact that $v_\pm(x)$ depends on $\lambda$.
+
+Similarly, we have
+
+\begin{align*}
+e^{-\nu(\lambda)T} v_+(0) \langle c^+, w_+(T) \rangle &= e^{-\nu(\lambda)T} \tilde{c}^+ y_0 + e^{-\nu(\lambda)T} \tilde{c}^+ ( (v_+(0) - y_0) + v_+(0) \langle  v_0, w_+(T) - w_0 \rangle)
+\end{align*}
+
+Substituting these in above, we get
+
+\begin{align*}
+W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
+&+ e^{\nu(\lambda)T} \tilde{c}^- y_0 + e^{\nu(\lambda)T} \tilde{c}^- ( (v_-(0) - y_0) + v_-(0) \langle  v_0, w_-(-T) - w_0 \rangle) \\
+&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y) \rangle dy \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
+&+ e^{-\nu(\lambda)T} \tilde{c}^+ y_0 + e^{-\nu(\lambda)T} \tilde{c}^+ ( (v_+(0) - y_0) + v_+(0) \langle  v_0, w_+(T) - w_0 \rangle) \\
+&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^0 e^{-\nu(\lambda)y} v_+(0) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y) \rangle dy
+\end{align*}
+
+Of course, this is not quite what we want, since we solved for $\Delta c$ already and would like to use that. So we rewrite this as
+
+\begin{align*}
+W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
+&+ e^{\nu(\lambda)T} \tilde{c}^- y_0 + e^{\nu(\lambda)T} \tilde{c}^- ( (v_-(0) - y_0) + v_-(0) \langle  v_0, w_-(-T) - w_0 \rangle) \\
+&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y) \rangle dy \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
+&+ e^{-\nu(\lambda)T} (\tilde{c}^- + \Delta c) y_0 + e^{-\nu(\lambda)T} (\tilde{c}^- + \Delta c) ( (v_+(0) - y_0) + v_+(0) \langle  v_0, w_+(T) - w_0 \rangle) \\
+&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^0 e^{-\nu(\lambda)y} v_+(0) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y) \rangle dy
+\end{align*}
+
 
 If we plug in the fixed point equations into the above set of projections, we get the matrix equation
 
-\[ 
-\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ + b^0 - y_i^- \end{pmatrix} + L_4(\lambda)(b) = 0
-\]
-
-where $L_4(\lambda)(b)$ is the rest of the terms. Since the third component contain the other ones and we are taking the max over all components, all we need to do is bound the third component of $L_4$. Doing stuff similar to above, we get the bound
-
 \[
-|L_4(\lambda)(b)| \leq C( e^{-\alpha T}|a| + \tilde{\rho}(\lambda)|b| + e^{\nu(\lambda)T}(|a^0| + |G|||W|| + |\lambda^2|)
+\begin{pmatrix}x^- \\ x^+ \\ y^+ - y^- + (e^{-\nu(\lambda)T} - e^{\nu(\lambda)T}) \tilde{c}^- y_0 \end{pmatrix} + L_4(\lambda)(b, c^-) = 0
 \]
+
+where $L_4(\lambda)(b, c^-)$ is the rest of the terms. $L_4(\lambda)(b, c^-)$ does not depend on $a$ or $\Delta c$ because we plug in $A_1$ for that.\\
+
+Since the third component contain the other ones and we are taking the max over all components, all we need to do is bound the third component of $L_4$. Doing stuff similar to above, we get the bound
+
+\begin{align*}
+|L_4(\lambda)(b, c^-)| \leq C( e^{-\alpha T}|a| + \tilde{\rho}(\lambda)|b| + 
+(r(\lambda) + \delta_c )|c^-| + e^{\nu(\lambda)T}( |G|||W|| + |\lambda^2| + |\Delta c| ))
+\end{align*}
 
 Now substitute in $A_1$ and $W_2$ from above to get
 
+\begin{align*}
+|L_4&(\lambda)(b, c^-)| \leq C( e^{-\alpha T}( (e^{-\alpha T} + |G|)|b| + |G|e^{\nu(\lambda)T}|c^-| + |\lambda^2|) \\ 
+&+ \tilde{\rho}(\lambda)|b| + 
+(r(\lambda) + \delta_c )|c^-| \\
+&+ e^{\nu(\lambda)T} |G|(|b| + e^{\nu(\lambda)T}|c^-| + e^{\nu(\lambda)T}|\lambda|^2)\\
+&+ e^{\nu(\lambda)T}|\lambda^2| + e^{\nu(\lambda)T}( (e^{-\alpha T} + |G|)|b| + |G|e^{\nu(\lambda)T}|c^-| + |\lambda^2|)) \\
+&\leq C( ( e^{-2\alpha T} + \tilde{\rho}(\lambda) + e^{\nu(\lambda)T} |G|)|b| +
+(r(\lambda) + \delta_c + e^{2\nu(\lambda)T} |G| )|c^-| +  e^{\nu(\lambda)T}|\lambda|^2) )
+\end{align*}
+
+Following what we did above, we can make the coefficients of $|b|$ and $|c^-|$ as small as we want, so we can do the inversion. Leaving out the details for now, this should give us an operator $B_1(\lambda)$ such that
+
 \[
-|L_4(\lambda)(b)| \leq C( (e^{3\nu(\lambda)T} + \tilde{\rho}(\lambda))|b| + e^{2\nu(\lambda)T}|b^0| + e^{\nu(\lambda)T} |\lambda^2| )
+(b, c^-) = B_1(\lambda)
 \]
 
-Everything here is fine except the $b^0$ term, which we cannot make arbitrarily small. Thus we will have to do something like we did above with $a^0$, i.e. solve for it explicitly. We solve the $W^+(0)$ equation for $b^0$ to get
+with bound
 
-\begin{align*}
-b^0 &= W^+(0) - \Phi^u_+(0, T; \lambda)a^+ - b^+ - (P^s_+(0;\lambda) - P^s_+(0;0))b^+ - (P^c_+(0;\lambda) - P^c_+(0;0))b^0 \\
-&- \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy  
-\end{align*}
+\[
+|B_1(\lambda)| \leq C e^{\nu(\lambda)T}|\lambda|^2
+\]
+
+Essentially, we should be able to solve for $(e^{-\nu(\lambda)T} - e^{\nu(\lambda)T}) \tilde{c}^- y_0$, from which we can easily get $c^- = \tilde{c}^- v_0$ since the stuff in front of $\tilde{c}^-$ is a bunch of constants that we know. Then we use $\Delta c$ to give us $c^+$.\\
+
+Substitutiting this into $A_1$ and $W_2$ gives us $A_3$ and $W_3$ with bounds
+
+\[
+|A_3(\lambda)| \leq C(\lambda)|\lambda^2|
+\]
+
+\[
+||W_3(\lambda)|| \leq C(\lambda) e^{2 \nu(\lambda)T}|\lambda|^2
+\]
 
 
 \end{enumerate}
