@@ -1072,39 +1072,71 @@ e^{2 \nu(\lambda)T}|\lambda|^2 |G| + |\lambda^2||\Delta H| \\
 &= ( e^{2 \nu(\lambda)T}|G| + |\Delta H|)|\lambda|^2 
 \end{align*}
 
-Every term we have gotten so far is higher order than $|\lambda|^2$, except for the higher-order Melnikov term, which is order $|\lambda|^2$. This is good.\\
+Every term we have gotten so far is higher order than $|\lambda|^2$, except for the higher-order Melnikov term, which is order $|\lambda|^2$. This is good. The final term, however, may present a problem.\\
 
 The last term (the one involving $H$) is the following
 
 \begin{align*}
-\int_{-T}^0 &e^{-\nu(\lambda)y} v_-(0) \langle \lambda^2 H(y), w_-(y) \rangle dy - \int_T^0 e^{-\nu(\lambda)y} v_+(0) \langle \lambda^2 H(y), w_+(y) \rangle dy \\
-&= \lambda^2 \left( \int_{-T}^0 e^{-\nu(\lambda)y} v_-(0) \langle H(y), w_-(y) \rangle dy + \int_0^T e^{-\nu(\lambda)y} v_+(0) \langle H(y), w_+(y) \rangle dy \right)
+\int_{-T}^0 
+\langle \Psi(y; \lambda), \langle \lambda^2 H(y), w_-(y) \rangle v_-(y) \rangle dy &= 
+\overline{\lambda}^2 \int_{-T}^0 \langle w_-(y), H(y) \rangle
+\langle \Psi(y; \lambda), v_-(y) \rangle dy \\
 \end{align*}
 
-Whatever this thing is, it is not a lower order term. A bound on this would be
-
-\[
-C |\lambda^2| e^{\nu(\lambda)T} \int_{-T}^T \langle H(y), w_\pm(y) \rangle dy 
-\]
-
-So this is actually a lower order term than the Melnikov term.
-
-
-
-\end{enumerate}
+The other one is
 
 \begin{align*}
-W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
-&+ e^{\nu(\lambda)T} \tilde{c}^- y_0 + e^{\nu(\lambda)T} \tilde{c}^- ( (v_-(0) - y_0) + v_-(0) \langle  v_0, w_-(-T) - w_0 \rangle) \\
-&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_{-T}^0 
-e^{-\nu(\lambda)y} v_-(0) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y) \rangle dy \\
-W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
-&+ e^{-\nu(\lambda)T} \tilde{c}^+ y_0 + e^{-\nu(\lambda)T} \tilde{c}^+ ( (v_+(0) - y_0) + v_+(0) \langle  v_0, w_+(T) - w_0 \rangle) \\
-&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_T^0 e^{-\nu(\lambda)y} v_+(0) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y) \rangle dy
+\int_{T}^0 
+\langle \Psi(y; \lambda), \langle \lambda^2 H(y), w_+(y) \rangle v_+(y) \rangle dy &= 
+\overline{\lambda}^2 \int_{T}^0 \langle w_+(y), H(y) \rangle
+\langle \Psi(y; \lambda), v_+(y) \rangle dy \\
 \end{align*}
 
+In both cases, we reversed the first inner product to undo the complex conjugation which happened when we pulled it out of the second component of the other inner product.\\
 
+There's a bunch of stuff we could do with this, but ultimately this thing is order $|\lambda^2|$, which is the same order as the Melnikov term.\\
+
+Here is one thing we could do. Let's look at the second inner product term $\langle \Psi(y; \lambda), v_-(y) \rangle$. 
+
+\begin{align*}
+\langle \Psi(y; \lambda), v_-(y) \rangle &= e^{-\overline{\nu(\lambda)}y} \langle \Psi(y; \lambda), \tilde{v}_-(y) \rangle \\
+&= e^{-\overline{\nu(\lambda)}y} \langle \Psi(0; \lambda), \tilde{v}_-(0) \rangle \\
+&= e^{-\overline{\nu(\lambda)}y} \langle \Psi(0; \lambda), v_-(0) \rangle \\
+&= e^{-\overline{\nu(\lambda)}y} \langle \Psi(0), v_-(0) \rangle \\
+\end{align*}
+
+In the second line we used the fact that $\Psi(y; \lambda)$ is a solution to the adjoint variational problem and $\tilde{v}_-(y)$ is a solution to the variational problem, thus the inner product is constant and we can just take $y = 0$. In the third line, we used $\tilde{v}_-(0) = v_-(0)$ since the exponential term dies at 0. In the last line, Lemma 2.2 of Sandstede (1998) says that $\Psi(0; \lambda) = \Psi(0)$, so we used that. Thus, plugging this in, we get
+
+\begin{align*}
+\int_{-T}^0 
+\langle \Psi(y; \lambda), \langle \lambda^2 H(y), w_-(y) \rangle v_-(y) \rangle dy &= 
+\overline{\lambda}^2 \int_{-T}^0 \langle w_-(y), H(y) \rangle e^{-\overline{\nu(\lambda)}y} \langle \Psi(0), v_-(0) \rangle dy \\
+&= \overline{\lambda}^2 \int_{-T}^0 \langle e^{-\overline{\nu(\lambda)}y} w_-(y), H(y) \rangle  \langle \Psi(0), v_-(0) \rangle dy \\
+&= \overline{\lambda}^2  \langle \Psi(0), v_-(0) \rangle \int_{-T}^0 \langle \tilde{w}_-(y), H(y) \rangle  dy \\
+\end{align*}
+
+The other one is 
+
+\begin{align*}
+\int_{T}^0 
+\langle \Psi(y; \lambda), \langle \lambda^2 H(y), w_+(y) \rangle v_+(y) \rangle dy &= 
+\overline{\lambda}^2  \langle \Psi(0), v_+(0) \rangle \int_{-T}^0 \langle \tilde{w}_+(y), H(y) \rangle \rangle dy \\
+\end{align*}
+
+Suppose we were able to show that $\langle \Psi(0), v_-(0) \rangle = \langle \Psi(0), v_+(0) \rangle$, or maybe we can scale something to make this the case. Then, subtracting these two things we would have the term
+
+\begin{align*} 
+C \overline{\lambda}^2 \int_{-T}^T \langle \tilde{w}_\pm(y), H(y) \rangle dy \\
+\end{align*}
+
+This is still the same order as the Melnikov term. If we like we can extend the limits out to $\pm \infty$ since $H = -Q_c$ and we know how it decays so its tails are order $e^{-\alpha T}$. The tails of $\tilde{w}_\pm(y)$ are at worst order $e^{\nu(\lambda)T}$, and since $\nu(\lambda)$ is small compared to $\alpha$, we still get exponential decay of the inner product at both ends. Thus the tails can be tossed into the higher order terms.\\ 
+
+\item So for our jump we have something more or less like
+
+\[
+\xi = \lambda^2 \left( \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + C \int_{-T}^T \langle \tilde{w}_\pm(y), H(y) \rangle dy \right) + \text{h.o.t.}
+\]
+
+\end{enumerate}
 
 \end{document}
