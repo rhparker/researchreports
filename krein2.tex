@@ -1,0 +1,298 @@
+% \documentclass{book}
+
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+% \usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{amssymb}               
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\newtheorem{theorem}{Theorem}
+
+\DeclareMathOperator{\spn}{span}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\begin{document}
+
+\section*{Krein Matrix for KdV5}
+
+This is based on Todd Kapitula's unpublished paper Krein matrix for star-even operator polynomials (2016), which is a reformulation of the Krein matrix that is much easier to work with.\\
+
+For our KdV5 problem $\partial_x L v = \lambda v$, let $s_1, s_2$ be the two eigenfunctions of the energy $L$ corresponding to eigenvalues near 0, where $s_1$ is actually in the kernel of $L$, i.e. it is the derivative of the stationary solution. Let $\nu_2$ (small) be the eigenvalue corresponding to $s_2$. Assume these have been normalized and have been made orthogonal.\\
+
+The eigenvalue problem is written as the polynomial $P(\lambda) = A_0 + \lambda A_1 = 0$, where $A_0 = L$. $A_1 = -J^{-1}$, and the issue we have to deal with here is that the differentiation operator $\partial_x$ is not invertible since the constant functions are in its kernel.\\
+
+\subsection*{Periodic case}
+
+One way around this it the Bloch wave formulation, which works for the periodic problem only by shifting the (discrete, purely imaginary) spectrum of the (periodic) differential operator up (or down) by a small $\mu$ to knock the zero eigenvalue off of zero. In other words, we replace the operator $\partial_x$ by $\partial_x + i \mu$ (in both $A_1$ and $A_2$). This does not affect the symmetric / skew-symmetric nature of these operators since $\partial_x + i \mu$ is skew-symmetric.\\
+
+Thus we have $A_1 = -J_\mu^{-1}$, where $J_\mu = \partial_x + i \mu$. The replacement of the differential operator is also done for $A_0$. In this formulation, $A_0$ is still symmetric and $A_1$ is still skew-symmetric. This trick allows the (approximate) differential operator $A_1$ to be invertible on the periodic domain. For the full line, this will not work, but we can return to this later.\\
+
+The Krein matrix $K(\lambda)$ can be written as the sum of two matrices
+
+\[
+K(\lambda) = K_1(\lambda) - K_2(\lambda)
+\]
+
+which we will evaluate separately. For the space $S$ we use $\spn \{ s_1, s_2\}$, since we know that we expect the interaction eigenfunction to be ``close`` to these eigenfunctions.\\
+
+First we look at $(K_2)_{ij} = \langle s_i, P(\lambda) s_j \rangle$. For the individual terms we have
+
+\begin{align*}
+\langle s_1, P(\lambda) s_1 \rangle &= \langle s_1, A_0 s_1 + \lambda A_1 s_1 \rangle \\
+&= \lambda \langle s_1, A_1 s_1 \rangle\\
+\langle s_2, P(\lambda) s_2 \rangle &= \langle s_2, A_0 s_2 + \lambda A_1 s_2 \rangle \\
+&= \langle s_2, \epsilon s_2 \rangle + \langle s_2, \lambda A_1 s_2 \rangle \\
+&= \epsilon + \lambda \langle s_2, A_1 s_2 \rangle \\
+\langle s_1, P(\lambda) s_2 \rangle &= \langle s_1, A_0 s_2 + \lambda A_1 s_2 \rangle \\
+&= \lambda \langle s_1, A_1 s_2 \rangle
+\end{align*}
+
+Letting $\alpha_{ij} = \langle s_i, A_1 s_j \rangle$ we have
+
+\[
+K_1 = \begin{pmatrix}
+\lambda \alpha_{11} & \lambda \alpha_{12} \\
+\overline{\lambda} \overline{\alpha_{12}} & \nu_2 + \lambda \alpha_{22}
+\end{pmatrix}
+\]
+
+Next we look at $(K_2)_{ij} = \langle P_{S^\perp} P(\lambda) s_i, ( P_{S^\perp} P(\lambda) P_{S^\perp})^{-1} P_{S^\perp} P(\lambda) s_j \rangle$. Note that this formula only works for $\lambda = i z$, since in that case the operator $P(i z)$ is Hermitian. Since we have
+
+\begin{align*}
+P_{S^\perp} P(\lambda) s_i &= P_{S^\perp} (A_0 s_i + \lambda A_1 s_i) \\
+&= P_{S^\perp} \nu_i s_i + P_{S^\perp} \lambda A_1 s_i \\
+&= \lambda P_{S^\perp} A_1 s_i 
+\end{align*}
+
+which reduces $K_2$ to $(K_2)_{ij} = \langle \lambda P_{S^\perp} A_1 s_i, \lambda ( P_{S^\perp} P(\lambda) P_{S^\perp})^{-1} P_{S^\perp} A_1 s_j \rangle$. Extracting the $\lambda$, this becomes 
+
+\[
+(K_2)_{ij} = |\lambda|^2 \langle P_{S^\perp} A_1 s_i, ( P_{S^\perp} P(\lambda) P_{S^\perp})^{-1} P_{S^\perp} A_1 s_j \rangle
+\]
+
+The only $\lambda-$dependence other the term out front is via the $( P_{S^\perp} P(\lambda) P_{S^\perp})^{-1}$ term.\\
+
+Let's say that we can replace $P(\lambda)$ by $A_0$ inside $( P_{S^\perp} P(\lambda) P_{S^\perp})^{-1}$ without committing too much error. The ``justification'' for this is as follows.
+
+\begin{align*}
+( P_{S^\perp} P(\lambda) P_{S^\perp})^{-1} 
+&= ( P_{S^\perp} (A_0 + \lambda A_1) P_{S^\perp})^{-1} \\ 
+&= ( I P_{S^\perp} A_0 P_{S^\perp} + \lambda P_{S^\perp} A_1 P_{S^\perp})^{-1} \\
+&= ( I P_{S^\perp} A_0 P_{S^\perp} + \lambda P_{S^\perp} A_1 P_{S^\perp}A_0^{-1} A_0 P_{S^\perp}P_{S^\perp})^{-1} \\
+&= ( I P_{S^\perp} A_0 P_{S^\perp} + \lambda P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1} P_{S^\perp} P_{S^\perp}A_0 P_{S^\perp})^{-1} \\
+&= (( I + \lambda P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1}P_{S^\perp} )(P_{S^\perp}A_0 P_{S^\perp})^{-1} \\
+&= (P_{S^\perp}A_0 P_{S^\perp})^{-1} ( I + \lambda P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1}P_{S^\perp} )^{-1}
+\end{align*}
+
+where we used the fact that $P_{s^\perp}$ is a spectral projection, thus commutes with $A_0$. The first term on the RHS is the one we want. If we can bound $P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1}P_{S^\perp}$, since we can take $\lambda$ as small as we want, we can then expand this in a Taylor series and ditch higher order terms. Of course, that could be tricky since $A_1$ is unbounded. We do, however, have a nice bound on $P_{S^\perp}A_0^{-1}P_{S^\perp}$ since we know what the spectrum of $A_0$ is , and when we did the projection, we ditched all the spectrum near the origin, thus the spectrum of $P_{S^\perp}A_0^{-1}P_{S^\perp}$ is contained in a ball around the origin. The general idea here is that $A_1$ involves (the inverse of) the first derivative, whereas $A_0$ is a fourth-order differentiation operator, so that should win over the first derivative operator. You could think, say, of how these work in Fourier space. This should be doable.\\
+
+Assuming we can do this, expanding in a Taylor series (i.e. using the known formula for $(I - A)^{-1}$ with $||A|| < 1$, we have
+
+\[
+(K_2)_{ij} = |\lambda|^2 \langle P_{S^\perp} A_1 s_i, ( P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_j \rangle + \mathcal{O} (\lambda^3)
+\]
+
+where now the inner product involved does not depend on $\lambda$. From here on, we drop the higher order term. Letting 
+
+\[
+\beta_{ij} = \langle P_{S^\perp} A_1 s_i, ( P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_j \rangle
+\]
+
+we have for our matrix $K(\lambda)$ approximately
+
+\[
+K(\lambda) = \begin{pmatrix}
+\lambda \alpha_{11} - |\lambda|^2 \beta_{11} & \lambda \alpha_{12} - |\lambda|^2 \beta_{12} \\
+\overline{\lambda} \overline{\alpha_{12}} - |\lambda|^2 \overline{\beta_{12}} & \nu_2 + \lambda \alpha_{22} - |\lambda|^2 \beta_{22}
+\end{pmatrix}
+\]
+
+At this point we take $\lambda = i z$, since that's what we care about. Then $\overline{\lambda} = -iz$ and $|\lambda|^2 = z^2$.
+
+\[
+K(z) = \begin{pmatrix}
+iz \alpha_{11} - z^2 \beta_{11} & iz \alpha_{12} - z^2 \beta_{12} \\
+-iz \overline{\alpha_{12}} - z^2 \overline{\beta_{12}} & \nu_2 + iz \alpha_{22} - z^2 \beta_{22}
+\end{pmatrix}
+\]
+
+Since $A_1$ is skew symmetric, $\alpha_{11}$ is purely imaginary, so $iz \alpha_{11}$ is real. Same deal with $iz \alpha_{22}$. Let $\tilde{\alpha}_{ii} = i \alpha_{ii} \in \R$.\\
+
+We can probably show $\beta_{ii}$ is real as well (numerics suggests it is so, also the entire Krein matrix is Hermitian, which makes the diagonal real). The off-diagonal entries are complex conjugates of each other. Thus the determinant will be real. 
+
+\begin{align*}
+\det K(z) &= (z \tilde{\alpha}_{11} - z^2 \beta_{11})(\nu_2 + z \tilde{\alpha}_{22} - z^2 \beta_{22}) - z^2(i \alpha_{12} - z \beta_{12})(-i \overline{\alpha_{12}} - z \overline{\beta_{12}} ) \\
+&= z((\tilde{\alpha}_{11} - z \beta_{11})(\nu_2 + z \tilde{\alpha}_{22} - z^2 \beta_{22}) - z|i \alpha_{12} - z \beta_{12}|^2)\\
+&= z[\tilde{\alpha}_{11} \nu_2 + (-\alpha_{12} \overline{\alpha_{12}} + \tilde{\alpha}_{11} \tilde{\alpha}_{22} - \beta_{11}\nu_2)z \\
+&+ (-\tilde{\alpha}_{22}\beta_{11} - i \overline{\alpha_{12}} \beta_{12} + i \alpha_{12} \overline{\beta_{12}} - \tilde{\alpha}_{11}\beta_{22})z^2 + (-\beta_{12}\overline{\beta_{12}} + \beta_{11}\beta_{22})z^3]
+\end{align*}
+
+So I actually tried this numerically with the double pulse I have. Besides the obvious root of 0, there is another root close to 0 (order 1e-6) and a pair of roots which are approximately $z = \pm 0.0691$, which is pretty much spot on. There is an order 1e-16 imaginary part to these last three since the matrix $A_1$ (in Matlab) is not quite skew symmetric and I didn't modify it to make that the case.\\
+
+Now let's play the what-stuff-are-small game. We expect $\alpha_{11}$ and $\alpha_{22}$ to be really small since the inverse of the differentiation operator $\partial_x + \mu I$ is kind of like antidifferentiation (if the $i \mu$ were not there), and should approximately turn even functions into odd functions and vice versa. Matlab shows these to be of high order, so let's ditch them.
+
+\begin{align*}
+\det K(z) 
+&= z[ (-\alpha_{12} \overline{\alpha_{12}} - \beta_{11}\nu_2)z
++(- i \overline{\alpha_{12}} \beta_{12} + i \alpha_{12} \overline{\beta_{12}})z^2 + (-\beta_{12}\overline{\beta_{12}} + \beta_{11}\beta_{22})z^3] \\
+&= z^2 [ (-|\alpha_{12}|^2 - \beta_{11}\nu_2)
++ 2 \text{ Im }\overline{\alpha_{12}} \beta_{12} z + (\beta_{11}\beta_{22} - |\beta_{12}|^2)z^2] 
+\end{align*}
+
+This one is simpler, has a double root at 0, and still gives us (very close to) the interaction eigenvalues we want. We can eliminate even more terms if we want. The largest terms by far are the $\beta_{ii}$, so just keeping them we have
+
+\begin{align*}
+\det K(z) 
+&= z^2 ( \beta_{11}\beta_{22} z^2 -\beta_{11}\nu_2 ) \\
+&= \beta_{11} z^2 ( \beta_{22} z^2 - \nu_2 ) 
+\end{align*}
+
+This corresponds to the diagonal matrix
+
+\[
+K(z) = \begin{pmatrix}
+- z^2 \beta_{11} & 0 \\
+0 & \nu_2  - z^2 \beta_{22}
+\end{pmatrix}
+\]
+
+so we are essentially claiming that the Krein matrix here is diagonally dominant, i.e. the off-diagonal terms are higher order and can be neglected. Thus we have (approximately) for the interaction eigenvalues
+
+\[
+z^2 = \frac{\nu_2}{\beta_{22}}
+\]
+
+
+This is still pretty much spot on, and has the advantage of only depending on two terms and of producing something of the form $\pm z$, which we want.\\
+
+The same thing works (approximately of course) for multipulses, where for each additional pair of interaction eigenvalues (for the case when the multipulse is ``stable'' so the interaction eigenvalues are pure imaginary) we have
+
+\[
+z^2 = \frac{\nu_k}{\beta_{kk}}
+\]
+
+Essentially in this case, the Krein matrix is approximately
+
+\[
+\text{diag }( \nu_i  - z^2 \beta_{ii})
+\]
+where $\nu_1 = 0$ since that corresponds to the kernel eigenfunction.\\
+
+We verified this numerically.\\
+
+\subsection*{Real line}
+
+For the problem on the full line, we cannot use the Bloch wave decomposition. However, we can use a small exponential weight to (hopefully) accomplish the same thing. This time we replace $\partial_x$ with $\partial_x + \eta$ for $\eta$ small and do exactly what we did above. If we do this, $A_0$ is no longer symmetric and $A_1$ is no longer skew symmetric, but that should not cause too much trouble.\\
+
+If we do to this, the numerics work out well; they are essentially unchanged from the Bloch wave version, and we can find the (approximate) eigenvalues using the same easy formulation. Using this formulation, we note the following.
+
+\begin{enumerate}
+\item $P_{S^\perp} A_0^{-1} P_{S^\perp}$ is a bounded linear operator. The small exponential weight $\eta$ does not shift the essential spectrum of $A_0$ very much and keeps it bounded away from 0, so once we ditch the kernel and approximate kernel, this is bounded for the same reasons as above.
+
+\item $A_1 = -J_\eta^{-1}$ is a bounded linear operator, with bound $1/\eta$, since $J_\eta$ is a bounded linear operator with bound $\eta$. This is easy to see since the exponential weight shifts the essential spectrum of $\partial_x$, which is the entire imaginary axis, by $\eta$.
+
+\item $( I + \lambda P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1}P_{S^\perp} )^{-1}$ can be expanded in a Taylor series in $\lambda$ for small $\lambda$ since $P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1}P_{S^\perp}$ is bounded by the previous two items.
+\item Thus we have for sufficiently small $\lambda$
+
+\[
+(P_{S^\perp} P(\lambda) P_{S^\perp})^{-1} = (P_{S^\perp} A_0 P_{S^\perp})^{-1} + \mathcal{O}(\lambda)
+\]
+
+\item Since the matrices $A_0$ and $A_1$ are no longer symmetric/skew-symmetric, the second part of the Krein matrix has the more general form
+
+\[
+(K_2)_{ij} = \langle s_i, P(\lambda) P_{S^\perp} ( P_{S^\perp} P(\lambda) P_{S^\perp})^{-1} P_{S^\perp} P(\lambda) s_j \rangle
+\]
+Substituting in the appropriate things, we get
+
+\begin{align*}
+(K_2)_{ij} &= \langle s_i, (A_0 + \lambda A_1) P_{S^\perp} ( P_{S^\perp} A_0 P_{S^\perp})^{-1}(I + \mathcal{O}(\lambda) )\lambda P_{S^\perp} A_1 s_i \rangle\\
+&= \overline{\lambda} \langle s_i, A_0 P_{S^\perp} ( P_{S^\perp} A_0 P_{S^\perp})^{-1}(I + \mathcal{O}(\lambda) ) P_{S^\perp} A_1 s_i  \rangle 
++ \overline{\lambda}^2 \langle s_i, A_1 P_{S^\perp} ( P_{S^\perp} A_1 P_{S^\perp}^{-1}) P_{S^\perp} A_1 s_i  \rangle + \mathcal{O}(\lambda^3) 
+\end{align*}
+
+The first term on the RHS is only order $\lambda$ so we will actually need the order $\lambda$ term in our Taylor series from above. The higher order terms will be lumped into the $\mathcal{O}(\lambda^3)$. This term is
+
+\[
+\lambda P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1}P_{S^\perp}
+\]
+
+So this term looks like 
+
+\begin{align*}
+\overline{\lambda} &\langle s_i, A_0 P_{S^\perp} ( P_{S^\perp} A_0 P_{S^\perp})^{-1} \lambda P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1}P_{S^\perp} P_{S^\perp} A_1 s_i \rangle \\
+&= \overline{\lambda}^2 \langle s_i, A_0 P_{S^\perp} ( P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 P_{S^\perp} A_0^{-1} P_{S^\perp} A_1 s_i \rangle 
+\end{align*}
+
+\item This is unfinished for now.
+
+\end{enumerate}
+
+\section*{Things done / to do}
+
+\begin{enumerate}
+\item Choose correct space $S$ for projection. We have chosen $S$ to be the span of the eigenfunctions of the energy corresponding to eigenvalues at or near 0. This appears to work really well.
+
+\item Justify approximation of resolvent operator $( P_{S^\perp} P(\lambda) P_{S^\perp})^{-1}$, i.e. expansion of this in Taylor series. This requires control of the norm of $\lambda P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1}P_{S^\perp}$, i.e. we need this to be less than 1. Since $\lambda$ is a parameter, this boils down to controlling the norm of $P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1}P_{S^\perp}$.
+
+\begin{enumerate}
+	\item In all cases, we know that the small eigenvalues $\lambda$ decay exponentially in magnitude as the distance $2L$ between the pulses increases. We know this from Lin's method / my modification of Sandstede (1998) using exponentially weighted spaces, where we were able to compute these eigenvalues to leading order. 
+
+	\item For the periodic case, we use the Bloch wave decomposition to make the differential operator invertible. We should be able to argue that the composition $P_{S^\perp} A_1 P_{S^\perp}P_{S^\perp}A_0^{-1}P_{S^\perp}$ is bounded, even though the ``inverse differential operator'' $A_1$ is not bounded.
+
+	\item For the unbounded case, we use an exponentially weighted space with parameter $\eta$ to make the differential operator bounded. Since we know what happens to the essential spectrum, $A_1$ has bound $1/\eta$. $A_0^{-1}$ will have some bound $C$ (argued above), thus the thing we care about has bound $C |\lambda|/|\eta|$. Small $\eta$ makes this worse, small $\lambda$ makes this better. If we fix $\eta$, we know from the Lin's method construction that we can always pick the pulse distance $2L$ sufficiently large to make $\lambda$ sufficiently small to make this expansion possible and to make the higher order terms small.
+
+	\item Using this expansion, write down the Krein matrix explicitly for the two cases. For the unbounded case, the operators involved are no longer Hermitian / skew-symmetric, so either we have to deal with the adjoint operators or have to leave everything on one side of the inner product. The adjoint operators should not be hard to compute, since $(\partial_x + \eta)^* = -\partial_x + \eta$ if we decide to go that way.
+\end{enumerate}
+
+\item Show Krein matrix is approximately diagonally dominant, i.e.
+
+\[
+K(z) = D(z) + R(z)
+\]
+where $D(z) = \text{diag }( \nu_i  - z^2 \beta_{ii})$ is the diagonal matrix we expect, and $R(z)$ is a small perturbation. 
+
+\item The Krein eigenvalues should just be small perturbations of the diagonal elements of $D(z)$. We are running out of letters for eigenvalues, so let $\gamma_i$ be the Krein eigenvalues. Then we should have
+
+\[
+\gamma_i(z) = \nu_i  - z^2 \beta_{ii} + r(z)
+\]
+
+where the remainder term $r(z)$ is cubic or higher order in $z$. So this is basically a parabola which crosses the $z-$axis transversely at $z_i^\pm = \pm \sqrt{\nu_i / \beta_{ii}}$. The idea is that even with the small perturbation $r(z)$ there will still be a crossing of zero near $z_i^\pm$ so we will still have a purely imaginary eigenvalue (not just to leading order). The advantage of this method is that we finding purely imaginary eigenvalues in terms of roots of a curve which we should be able to show crosses 0.
+
+\item Numerically, this works for the purely real eigenvalues of the unstable pulses as well, so we should be able to adapt things to this case. The only real difference is that the assumption that $P(\lambda)$ is of the form $P(iz)$ makes that operator Hermitian, which allowed us to manipulate the inner product in nice ways. In the periodic case, we know about the symmetries of $A_0$ and $A_1$ so we can probably derive something for general $\lambda$ which will work for all cases. In the nonperiodic case, we don't have nice symmetries for $A_0$ and $A_1$, so it doesn't matter. This method should be able to find the eigenvalues of all sorts of multipulses, including those which have ``mixed'' stabilities.
+
+\item For the periodic case we should be done. For the full-line case, we did use an exponential weight, so we need to be careful. However, if we can complete the previous step, we have shown that with exponential weight $\eta$ we have found a purely imaginary eigenvalue $\beta i$ which (unlike the Lin's method version) is not just to leading order. Then we should be all set. My version of the matrix from Sandstede (1998) must also have $\beta i$ as a solution, so the we can take the opposite exponential weight $-\eta$ which by symmetry has to again yield an eigenvalue $\beta i$. Then since it works with both exponential weights we should be all set.
+
+
+\end{enumerate}
+
+\end{document}
