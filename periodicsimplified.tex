@@ -1,0 +1,230 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\begin{document}
+
+\section*{Single pulse, periodic, simplified version}
+
+Since the estimate we got is not good enough, we will look at a simplified version where we ditch all the terms that will not cause us trouble. 
+
+\[
+(W^\pm)' = \tilde{A}(\lambda, q) W^\pm
+\]
+
+For this, we have fixed point equations
+
+\begin{align*}
+W^-(x) = \Phi^s_-(&x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + \Phi^c_-(x, -T; \lambda)c^- \\
+W^+(x) = \Phi^u_+(&x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + \Phi^c_+(x, T; \lambda)c^+ 
+\end{align*}
+
+These are basically just the evolution equation broken three components. The initial conditions are located in the following spaces, which refer to the unperturbed problem ($\lambda = 0$).
+
+\begin{align*}
+(a^-, a^+) &\in E^s \oplus E^u\\
+(b^-, b^+) &\in R^u_-(0; 0) \oplus R^s_+(0; 0)\\
+c^\pm &= \tilde{c}^\pm v_0(\lambda)
+\end{align*}
+
+The center evolution is known, so upon substitution this becomes
+\begin{align*}
+W^-(x) = \Phi^s_-(&x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle c^-, w_-(-T; \lambda) \rangle \\
+W^+(x) = \Phi^u_+(&x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + e^{\nu(\lambda)(x - T)} v_+(x; \lambda) \langle c^+, w_+(T; \lambda) \rangle 
+\end{align*}
+
+We don't have to deal with $W$ at all, which is nice. 
+
+\begin{enumerate}
+
+\item Use condition $W^-(-T) = W^+(T)$ to solve for $a, \Delta c$ in terms of $b, c^-$.\\
+
+Plug in $\pm T$ and $c^\pm = \tilde{c}^\pm v_0$
+\begin{align*}
+W^-(-T) &= P^s_-(-T; \lambda)a^- + \Phi^u_-(-T, 0; \lambda)b^- + v_-(-T; \lambda) \langle \tilde{c}^- v_0(\lambda), w_-(-T; \lambda) \rangle \\
+W^+(T) &= P^u_+(T; \lambda)a^+ + \Phi^s_+(T, 0; \lambda)b^+ + v_+(T; \lambda) \langle \tilde{c}^+ v_0(\lambda), w_+(T; \lambda) \rangle 
+\end{align*}
+
+Subtract these to get
+
+\begin{align*}
+0 &= a^+ - a^- + (c^+ - c^-) \\
+&+ (P^u_+(T; \lambda) - P_0^u)a^+ - (P^s_-(-T; \lambda) - P_0^s)a^- \\
+&+ \Phi^s_+(T, 0; \lambda)b^+ - \Phi^u_-(-T, 0; \lambda)b^- \\
+&+ \tilde{c}^+ \Delta v_+(T; \lambda) + \tilde{c}^+ v_+(T; \lambda) \langle v_0(\lambda), \Delta w_+(T; \lambda) \rangle \\
+&- \tilde{c}^- \Delta v_-(-T; \lambda) - \tilde{c}^- v_-(-T; \lambda) \langle v_0(\lambda), \Delta w_-(-T; \lambda) \rangle \\
+\end{align*}
+
+Let
+
+\begin{align*}
+p_1(T;\lambda) &= \sup_{x \geq T} (|P^u(x;\lambda) - P_0^u| + |P^s(-x;\lambda) - P_0^s|) \\
+p_2(T; \lambda) &= |\Delta v_\pm(\pm T, \lambda)| + |\Delta w_\pm(\pm T, \lambda)|\\
+&= |v_\pm(\pm T; \lambda) - v_0(\lambda)| + |w_\pm(\pm T; \lambda) - w_0(\lambda)|
+\end{align*}
+
+both of which can be made as small as we like by choosing $T$ sufficiently large. We can easily write the above in terms of $\Delta c = c^+ - c^-$ and $c^-$, so we have
+
+\[
+0 = a^+ - a^- + \Delta c + L_3(\lambda)(a, b, \Delta c, c^-)
+\]
+
+with bound
+
+\begin{align*}
+|L_3(\lambda)(a, b, \Delta c, c^-)| \leq C( p_1(T; \lambda)|a| + e^{-\alpha T} |b| + p_2(T; \lambda)|\Delta c| + p_2(T; \lambda)(c^-) )
+\end{align*}
+
+Then we can solve to get $(a, \Delta c) = A_1(\lambda)(b, c^-)$, with
+
+\[
+|A_1(\lambda)(b, c^-)| \leq C( e^{-\alpha T} |b| + p_2(T; \lambda)|c^-| )
+\]
+
+\item Use conditions at $x = 0$ to solve for $b, c^-$. These conditions require projections onto the subspaces for the $\lambda = 0$ problem, which will perturb slightly for $\lambda$ small. Taking $x = 0$ in the fixed point equations gives us
+
+\begin{align*}
+W^-(0) &= \Phi^s_-(0, -T; \lambda)a^- + P^u_-(0; \lambda)b^- + \tilde{c}^- e^{\nu(\lambda)T} v_-(0; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + P^s_+(0; \lambda)b^+ + \tilde{c}^+ e^{-\nu(\lambda)T} v_+(0; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle 
+\end{align*}
+
+Let $y_0 = v^\pm(0; 0)$ be the basis vector for the center subspace when $\lambda = 0$. Then this should be close (order $\lambda$) to $v_\pm(0,\lambda)$. Then we have perturbation bounds
+
+\begin{align*}
+p_3(\lambda) &= |P^u_-(0;\lambda) - P^u_-(0; 0)| + |P^s_+(0;\lambda) - P^s_+(0;0)|\\
+p_4(\lambda) &= |v_\pm(0; \lambda) - y_0|
+\end{align*}
+
+which should both be order $\lambda$. We can then rewrite the above as
+
+\begin{align*}
+W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
+&+ e^{\nu(\lambda)T} \tilde{c}^- y_0 + e^{\nu(\lambda)T} \tilde{c}^- ( v_-(0; \lambda) - y_0) \\
+&+ e^{\nu(\lambda)T} \tilde{c}^- v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda)\rangle \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
+&+ e^{-\nu(\lambda)T} (\tilde{c}^- + \Delta c) y_0 + e^{-\nu(\lambda)T} (\tilde{c}^- + \Delta c) ( v_+(0; \lambda) - y_0) \\
+&+ e^{-\nu(\lambda)T} (\tilde{c}^- + \Delta c) v_+(0, \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda)\rangle
+\end{align*}
+
+This is a little weird since we don't have $\tilde{c}^-$ by itself, but I don't think it's possible to get that. We are essentially solving for $(e^{-\nu(\lambda)T} - e^{\nu(\lambda)T}) \tilde{c}^- y_0$ instead. But we can do that as long as we have the same thing multiplying $\tilde{c}^-$ on the RHS. We will get that when we subtract for the terms multiplied by $y_0$, but we need that for the other terms.\\
+
+For convenience, let $f(T; \lambda) = (e^{-\nu(\lambda)T} - e^{\nu(\lambda)T})$. Also let $g^\pm(T; \lambda) = e^{\pm \nu(\lambda)T} / f(T; \lambda)$, which has magnitude less than 1. Then we can rewrite this as
+
+\begin{align*}
+W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
+&+ e^{\nu(\lambda)T} \tilde{c}^- y_0 + f(T; \lambda) \tilde{c}^- g^+(T; \lambda) ( v_-(0; \lambda) - y_0) \\
+&+ f(T; \lambda)  \tilde{c}^- g^+(T; \lambda) v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda)\rangle \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
+&+ e^{-\nu(\lambda)T} (\tilde{c}^- + \Delta c) y_0 + f(T; \lambda)  (\tilde{c}^- + \Delta c) g^-(T; \lambda) ( v_+(0; \lambda) - y_0) \\
+&+ f(T; \lambda)  (\tilde{c}^- + \Delta c) g^-(T; \lambda) v_+(0, \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda)\rangle
+\end{align*}
+
+Using the projections we always use
+
+\begin{align*}
+P(\C Q'(0))W^-(0) &= 0 \\
+P(\C Q'(0))W^+(0) &= 0 \\
+P(Y^+ \oplus Y^- \oplus Y^0) (W^+(0) - W^-(0) ) &= 0
+\end{align*}
+
+We want to solve something like
+
+\[
+\begin{pmatrix}x^- \\ x^+ \\ y^+ - y^- + f(T; \lambda) \tilde{c}^- y_0 \end{pmatrix} + L_4(\lambda)(b, f(T; \lambda) c^-) = 0
+\]
+
+where we should have a bound on $L_4$ which looks like
+
+\begin{align*}
+|L_4(\lambda)(b, f(T; \lambda) c^-)| &\leq C( e^{-\alpha T}|a| + p_3(\lambda)|b| + 
+(p_2(\lambda) + p_4(\lambda))f(T; \lambda) c^- + e^{\nu(\lambda)T}|\Delta c|) \\
+&\leq C( e^{-\alpha T}(e^{-\alpha T} |b| + p_2(T; \lambda)|c^-|) + p_3(\lambda)|b| + 
+(p_2(\lambda) + p_4(\lambda))f(T; \lambda) |c^-| \\
+&+ e^{\nu(\lambda)T}(e^{-\alpha T} |b| + p_2(T; \lambda)|c^-|))\\
+&\leq C ( (e^{\nu(\lambda) T} e^{-\alpha T } + p_3(\lambda))|b|
++ (p_2(\lambda) + p_4(\lambda))f(T; \lambda)|c^-| + e^{\nu(\lambda)T} p_2(\lambda) |c^-|) \\
+&\leq C ( (e^{\nu(\lambda) T} e^{-\alpha T } + p_3(\lambda))|b|
++ (p_2(\lambda) + p_4(\lambda))f(T; \lambda)|c^-| + g^+(T; \lambda) p_2(\lambda) f(T; \lambda) |c^-|) \\
+&\leq C ( (e^{\nu(\lambda) T} e^{-\alpha T } + p_3(\lambda))|b|
++ (p_2(\lambda) + p_4(\lambda))f(T; \lambda)|c^-| ) \\
+\end{align*}
+
+The problem before was that we had $f(T; \lambda)c^-$ on the LHS but only $c^-$ on the RHS, which, like, doesn't work.\\
+
+Using the fact that the various $p_i(\lambda)$ are order $\lambda$, we can get their coefficients less than 1 to perform the inversion. Thus we should be able to $(b, f(T; \lambda) c^-) = B_1(\lambda)$, with
+
+\begin{align*}
+|B_1(\lambda)| \leq 1
+\end{align*}
+
+which makes $\tilde{c}^-$ order $e^{-|\nu(\lambda)T|}$.\\
+
+Sticking this into $A_1$ we get
+
+\[
+|A_3(\lambda)| \leq C( e^{-\alpha T} + p_2(T; \lambda)e^{-|\nu(\lambda)T|} )
+\]
+
+which makes $\tilde{c}^+ = \Delta c + \tilde{c}^-$ order $e^{-\alpha T} + p_2(T; \lambda)e^{-|\nu(\lambda)T|} + e^{-|\nu(\lambda)T|}$, which is order $e^{-|\nu(\lambda)T|}$. Thus $\tilde{c}^\pm$ are the same order, which of course makes sense.
+
+\item Jump at $x = 0$\\
+
+\begin{align*}
+W^-(0) = \Phi^s_-(&0, -T; \lambda)a^- + b^- + (P^u_-(0; \lambda) - P^u_0)b^- + e^{\nu(\lambda)T} v_-(0; \lambda) \langle c^-, w_-(-T; \lambda) \rangle \\
+W^+(0) = \Phi^u_+(&0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_0)b^+ + e^{-\nu(\lambda)T} v_+(0; \lambda) \langle c^+, w_+(T; \lambda) \rangle 
+\end{align*}
+
+When we hit this with the inner product of $\Psi(0)$, the $b^\pm$ terms (by themselves) cancel. The $a$ terms are order $e^{-\alpha T}$. The other $b^\pm$ terms are order $p_3(\lambda)$, which is order $\lambda$. $\tilde{c}^-$ is order $e^{-|\nu(\lambda)T|}$ which cancels the $e^{\nu(\lambda)T}$ out front, leaving that term with order 1. But we can expand $v_-(0; \lambda)$ in a Taylor series, which when we take the inner product with $\Psi$ makes that term order $\lambda$. The other one is similar. Thus we have for the jump,
+
+\[
+\xi = \langle \Psi(0), W^-(0) - W^+(0) \rangle
+\]
+
+where $|\xi| \leq C( e^{-\alpha T} + p_3(\lambda) + |\lambda| )$
+
+This should be good since everything is higher order than 1 (this would be multiplied by $\lambda^2$ in the full version, but we ditched the integrals which give us this), and nothing blows up with $T$.
+
+
+
+\end{enumerate}
+
+
+\end{document}
