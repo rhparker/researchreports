@@ -856,11 +856,11 @@ We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has b
 where we recall that these spaces refer to the unperturbed $\lambda = 0$ case. Taking $x = 0$ in the fixed point equations gets us
 
 \begin{align*}
-W^-(0) &= \Phi^s_-(0, -T; \lambda)a^- + P^u_-(0; \lambda)b^- + e^{\nu(\lambda)T} v_-(0; \lambda) \langle c^-, w_-(-T; \lambda) \rangle \\
+W^-(0) &= \Phi^s_-(0, -T; \lambda)a^- + P^u_-(0; \lambda)b^- + e^{\nu(\lambda)T} v_-(0; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
 &+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_{-T}^0 
 e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
-W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + P^s_+(0; \lambda)b^+ + e^{-\nu(\lambda)T} v_+(0; \lambda) \langle c^+, w_+(T; \lambda) \rangle \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + P^s_+(0; \lambda)b^+ + e^{-\nu(\lambda)T} v_+(0; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
 &+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_T^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
@@ -874,11 +874,11 @@ p_3(\lambda) = |P^u_-(0;\lambda) - P^u_-(0; 0)| + |P^s_+(0;\lambda) - P^s_+(0;0)
 We will deal with this later, but this should be order $\lambda$. We rewrite this as
 
 \begin{align*}
-W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- + e^{\nu(\lambda)T} v_-(0; \lambda) \langle c^-, w_-(-T; \lambda) \rangle \\
+W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- + e^{\nu(\lambda)T} v_-(0; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
 &+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_{-T}^0 
 e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
-W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ + e^{-\nu(\lambda)T} v_+(0; \lambda) \langle c^+, w_+(T; \lambda) \rangle \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ + e^{-\nu(\lambda)T} v_+(0; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
 &+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_T^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
@@ -899,14 +899,13 @@ P(Y^+ \oplus Y^- \oplus Y^0) (W^+(0) - W^-(0) ) &= 0
 
 where the range of each projection is indicated, and the kernel of each projection is just the other elements of the direct sum \eqref{directsum}. Since the first two equations wipe out any component in $\C Q'(0))$, we don't need to put that in the range of the third projection. \\
 
-The only thing extra we need to deal with is the $c$ terms. Both $c$ terms are scalar multiples of $v_\pm(0)$, which (since $\lambda$ is small) is a small perturbation of $y^0$, a basis vector for the center space $Y^0$ which is scaled so that it equals $v_\pm(0)$ when $\lambda = 0$. Thus we have
+The only thing extra we need to deal with is the $c$ terms. Since $\lambda$ is small, $v_\pm(0)$, which is a small perturbation of $y^0$, a basis vector for the center space $Y^0$ which is scaled so that it equals $v_\pm(0)$ when $\lambda = 0$. Thus we have
 
 \begin{align*}
-e^{\nu(\lambda)T} v_-(0; \lambda) \langle c^-, w_-(-T; \lambda) \rangle &= e^{\nu(\lambda)T} v_-(0; \lambda) \langle \tilde{c}^- v_0(\lambda), w_-(-T; \lambda) \rangle \\
-&= e^{\nu(\lambda)T} v_-(0; \lambda) \tilde{c}^- (\langle  v_0(\lambda), w_0(\lambda) \rangle + \langle  v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle) \\
-&= e^{\nu(\lambda)T} \tilde{c}^- v_-(0; \lambda) + e^{\nu(\lambda)T} \tilde{c}^- v_-(0; \lambda)  \langle  v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle) \\
-&= e^{\nu(\lambda)T} \tilde{c}^- y_0 + e^{\nu(\lambda)T} \tilde{c}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle) \\
-&= e^{\nu(\lambda)T} \tilde{c}^- y_0 + e^{\nu(\lambda)T} \tilde{c}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda) \rangle)
+e^{\nu(\lambda)T} &v_-(0; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^-= e^{\nu(\lambda)T} v_-(0; \lambda) c^- (\langle  v_0(\lambda), w_0(\lambda) \rangle + \langle  v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle) \\
+&= e^{\nu(\lambda)T} c^- v_-(0; \lambda) + e^{\nu(\lambda)T} c^- v_-(0; \lambda)  \langle  v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle) \\
+&= e^{\nu(\lambda)T} c^- y_0 + e^{\nu(\lambda)T} c^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle) \\
+&= e^{\nu(\lambda)T} c^- y_0 + e^{\nu(\lambda)T} c^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda) \rangle)
 \end{align*}
 
 For our bound, let
@@ -920,20 +919,20 @@ We expect this to also be order $\lambda$.
 Similarly, we have
 
 \begin{align*}
-e^{-\nu(\lambda)T} v_+(0; \lambda) \langle c^+, w_+(T; \lambda) \rangle &= e^{-\nu(\lambda)T} \tilde{c}^+ y_0 + e^{-\nu(\lambda)T} \tilde{c}^+ ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), w_+(T; \lambda) - w_0(\lambda) \rangle) \\
-&= e^{-\nu(\lambda)T} \tilde{c}^+ y_0 + e^{-\nu(\lambda)T} \tilde{c}^+ ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle)
+e^{-\nu(\lambda)T} v_+(0; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ &= e^{-\nu(\lambda)T} c^+ y_0 + e^{-\nu(\lambda)T} c^+ ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), w_+(T; \lambda) - w_0(\lambda) \rangle) \\
+&= e^{-\nu(\lambda)T} c^+ y_0 + e^{-\nu(\lambda)T} c^+ ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle)
 \end{align*}
 
 Substituting these in above, we get
 
 \begin{align*}
 W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
-&+ e^{\nu(\lambda)T} \tilde{c}^- y_0 + e^{\nu(\lambda)T} \tilde{c}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda) \rangle) \\
+&+ e^{\nu(\lambda)T} c^- y_0 + e^{\nu(\lambda)T} c^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda) \rangle) \\
 &+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_{-T}^0 
 e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
 W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
-&+ e^{-\nu(\lambda)T} \tilde{c}^+ y_0 + e^{-\nu(\lambda)T} \tilde{c}^+ ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle) \\
+&+ e^{-\nu(\lambda)T} c^+ y_0 + e^{-\nu(\lambda)T} c^+ ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle) \\
 &+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_T^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
@@ -942,12 +941,12 @@ This is not quite what we want, since we solved for $\Delta c$ already and would
 
 \begin{align*}
 W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
-&+ e^{\nu(\lambda)T} \tilde{c}^- y_0 + e^{\nu(\lambda)T} \tilde{c}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda) \rangle) \\
+&+ e^{\nu(\lambda)T} c^- y_0 + e^{\nu(\lambda)T} c^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda) \rangle) \\
 &+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_{-T}^0 
 e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
 W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
-&+ e^{-\nu(\lambda)T} (\tilde{c}^- + \Delta \tilde{c}) y_0 + e^{-\nu(\lambda)T} (\tilde{c}^- + \Delta \tilde{c}) ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle) \\
+&+ e^{-\nu(\lambda)T} (c^- + \Delta c) y_0 + e^{-\nu(\lambda)T} (c^- + \Delta c) ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle) \\
 &+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_T^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
@@ -956,10 +955,10 @@ W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^
 If we plug in the fixed point equations into the above set of projections, we get the matrix equation
 
 \[
-\begin{pmatrix}x^- \\ x^+ \\ y^+ - y^- + (e^{-\nu(\lambda)T} - e^{\nu(\lambda)T}) \tilde{c}^- y_0 \end{pmatrix} + L_4(\lambda)(b, \tilde{c}^-) = 0
+\begin{pmatrix}x^- \\ x^+ \\ y^+ - y^- + (e^{-\nu(\lambda)T} - e^{\nu(\lambda)T}) c^- y_0 \end{pmatrix} + L_4(\lambda)(b, c^-) = 0
 \]
 
-where $L_4(\lambda)(b, \tilde{c}^-)$ is the rest of the terms. $L_4(\lambda)(b, \tilde{c}^-)$ does not depend on $a$ or $\Delta c$ because we plug in $A_1$ for that. But this is not what we want, since the first term contains $(e^{-\nu(\lambda)T} - e^{\nu(\lambda)T}) \tilde{c}^-$ and the second term contains $\tilde{c}^-$ by itself. We need to make these terms match. This is where the fun begins.
+where $L_4(\lambda)(b, c^-)$ is the rest of the terms. $L_4(\lambda)(b, c^-)$ does not depend on $a$ or $\Delta c$ because we plug in $A_1$ for that. But this is not what we want, since the first term contains $(e^{-\nu(\lambda)T} - e^{\nu(\lambda)T}) c^-$ and the second term contains $c^-$ by itself. We need to make these terms match. This is where the fun begins.
 \\
 
 First we define the following functions scalar functions of $T$ and $\lambda \neq 0$. (We know that $\nu(\lambda) \neq 0$ for $\lambda \neq 0$).
@@ -970,17 +969,17 @@ f^-(T; \lambda) &= e^{\nu(\lambda)T} / f(T; \lambda) \\
 f^+(T; \lambda) &= e^{-\nu(\lambda)T} / f(T; \lambda)
 \end{align*}
 
-The minuses and pluses are opposite on $f^\pm$, but this is intentional so that the minus sticks with the $W^-(0)$ equation and same for the plus. Note that for any $\lambda \neq 0$, $|f^\pm(T; \lambda)| \leq 1$. So all we are going to do now is multiply and divide by stuff to replace each occurrence of $\tilde{c}^-$ (other than the leading order ones, which vanish in the first two projections and do the right thing when subtracted for the third projection) with $f(T; \lambda) \tilde{c}^-$. This gives us
+The minuses and pluses are opposite on $f^\pm$, but this is intentional so that the minus sticks with the $W^-(0)$ equation and same for the plus. Note that for any $\lambda \neq 0$, $|f^\pm(T; \lambda)| \leq 1$. So all we are going to do now is multiply and divide by stuff to replace each occurrence of $c^-$ (other than the leading order ones, which vanish in the first two projections and do the right thing when subtracted for the third projection) with $f(T; \lambda) c^-$. This gives us
 
 \begin{align*}
 W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
-&+ e^{\nu(\lambda)T} \tilde{c}^- y_0 + f(T; \lambda) \tilde{c}^- f^-(T; \lambda) ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda) \rangle) \\
+&+ e^{\nu(\lambda)T} c^- y_0 + f(T; \lambda) c^- f^-(T; \lambda) ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda) \rangle) \\
 &+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_{-T}^0 
 e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
 W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
-&+ e^{-\nu(\lambda)T} \tilde{c}^- y_0 + f(T; \lambda) \tilde{c}^- f^+(T; \lambda) ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle) \\
-&+ e^{-\nu(\lambda)T} \Delta \tilde{c} y_0 + e^{-\nu(\lambda)T} \Delta \tilde{c} ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle) \\
+&+ e^{-\nu(\lambda)T} c^- y_0 + f(T; \lambda) c^- f^+(T; \lambda) ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle) \\
+&+ e^{-\nu(\lambda)T} \Delta c y_0 + e^{-\nu(\lambda)T} \Delta c ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle) \\
 &+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_T^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
@@ -988,7 +987,7 @@ W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^
 Thus we have
 
 \[
-\begin{pmatrix}x^- \\ x^+ \\ y^+ - y^- + f(T; \lambda) \tilde{c}^- y_0 \end{pmatrix} + L_4(\lambda)(b, f(T; \lambda) \tilde{c}^-) = 0
+\begin{pmatrix}x^- \\ x^+ \\ y^+ - y^- + f(T; \lambda) c^- y_0 \end{pmatrix} + L_4(\lambda)(b, f(T; \lambda) c^-) = 0
 \]
 
 To get the bound we need on this, we need a better bound for the integral term involving $\tilde{H}$ and $e^{\pm \nu(\lambda)y}$. We can accomplish this since $\tilde{H}$ decays exponentially at both ends with rate $\alpha$.
@@ -1004,14 +1003,14 @@ To get the bound we need on this, we need a better bound for the integral term i
 The ``positive'' one is similar. Thus we have the following bound on $L_4(\lambda)$. 
 
 \begin{align*}
-|L_4(\lambda)(b, f(T; \lambda) \tilde{c}^-)| &\leq C( e^{-\alpha T}|a| + p_3(\lambda)|b| + (p_2(T; \lambda) + p_4(\lambda)) |f(T; \lambda) c^-|  \\
+|L_4(\lambda)(b, f(T; \lambda) c^-)| &\leq C( e^{-\alpha T}|a| + p_3(\lambda)|b| + (p_2(T; \lambda) + p_4(\lambda)) |f(T; \lambda) c^-|  \\
 &+ e^{\nu(\lambda)T}|\Delta c| + e^{\nu(\lambda)T}|G|||W|| + |\lambda^2|)
 \end{align*}
 
 Now substitute in $A_1$ (recalling that this gives us both $a$ and $\Delta c$) and $W_2$ from above to get
 
 \begin{align*}
-|L_4(\lambda)(b, f(T; \lambda) \tilde{c}^-)| &\leq C( (e^{-\alpha T} + e^{\nu(\lambda)T})(e^{-\alpha T} + |G|)|b| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c^-| + e^{-|\nu(\lambda)|T} |\lambda^2|) \\
+|L_4(\lambda)(b, f(T; \lambda) c^-)| &\leq C( (e^{-\alpha T} + e^{\nu(\lambda)T})(e^{-\alpha T} + |G|)|b| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c^-| + e^{-|\nu(\lambda)|T} |\lambda^2|) \\
 &+ p_3(\lambda)|b| + (p_2(T; \lambda) + p_4(\lambda)) |f(T; \lambda) c^-|  \\
 &+ e^{\nu(\lambda)T}|G|(|b| + e^{\nu(\lambda)T}(|c^-| + |\lambda|^2)) + |\lambda^2|)\\
 &\leq C( (e^{\nu(\lambda)T}(e^{-\alpha T} + |G|) + p_3(\lambda))|b| \\
@@ -1020,10 +1019,10 @@ Now substitute in $A_1$ (recalling that this gives us both $a$ and $\Delta c$) a
 \end{align*}
 
 
-Following what we did above, we can make the coefficients of $|b|$ and $|f(T; \lambda) \tilde{c}^-|$ as small as we want, so we can do the inversion. Leaving out the details for now, this will give us an operator $B_1(\lambda)$ such that
+Following what we did above, we can make the coefficients of $|b|$ and $|f(T; \lambda) c^-|$ as small as we want, so we can do the inversion. Leaving out the details for now, this will give us an operator $B_1(\lambda)$ such that
 
 \[
-(b, f(T; \lambda) \tilde{c}^-) = B_1(\lambda)
+(b, f(T; \lambda) c^- y_0) = B_1(\lambda)
 \]
 
 with bound
@@ -1032,7 +1031,7 @@ with bound
 |B_1(\lambda)| \leq C|\lambda|^2
 \]
 
-In particular, this means that $b$ is of order $|\lambda|^2$ and $\tilde{c}^-$ is order $e^{-|\nu(\lambda)T|} |\lambda|^2$, since we divide by $f(T; \lambda)$ which is order $e^{|\nu(\lambda)T|}$.\\
+In particular, this means that $b$ is of order $|\lambda|^2$ and $c^-$ is order $e^{-|\nu(\lambda)T|} |\lambda|^2$, since we divide by $f(T; \lambda)$ which is order $e^{|\nu(\lambda)T|}$.\\
 
 Substitutiting this into $A_1$ and $W_2$ gives us $A_3$ and $W_3$ with bounds
 
@@ -1107,20 +1106,14 @@ where in the last line we substituted $B_1(\lambda)$ for $b^\pm$.
 These terms look like
 
 \begin{align*}
-&e^{\nu(\lambda)T}  \langle c^-, w_-(-T; \lambda) \rangle v_-(0; \lambda) \\
-&e^{-\nu(\lambda)T} \langle c^+, w_+(T; \lambda) \rangle v_+(0; \lambda) 
+&e^{\nu(\lambda)T}  \langle v_0(\lambda), w_-(-T; \lambda) \rangle v_-(0; \lambda) c^- \\
+&e^{-\nu(\lambda)T} \langle v_0(\lambda), w_+(T; \lambda) \rangle v_+(0; \lambda) c^+
 \end{align*}
 
-Let's do the first one. First, we put in $c^- = \tilde{c}^- v_0(\lambda)$ to get
+Let's do the first one. Next we take the inner product with $\Psi(0)$, which only hits the $v_-(0; \lambda)$ term since everything else is a scalar. This gives us 
 
 \begin{align*}
-e^{\nu(\lambda)T} \langle \tilde{c}^- v_0(\lambda), w_-(-T; \lambda) \rangle v_-(0; \lambda) &= e^{\nu(\lambda)(T)} \tilde{c}^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle v_-(0; \lambda)
-\end{align*}
-
-Next we take the inner product with $\Psi(0)$, which only hits the $v_-(0; \lambda)$ term since everything else is a scalar. This gives us 
-
-\begin{align*}
-e^{\nu(\lambda)T} \tilde{c}^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle
+e^{\nu(\lambda)T} c^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle
 \end{align*}
 
 We would like to do something useful with the second inner product, but we cannot at the moment since one term is a solution to the adjoint when $\lambda = 0$ and the other term is a solution to the perturbed eigenvalue problem when $\lambda \neq 0$. To do this, we will expand $v_-(0; \lambda)$ in a Taylor series about $\lambda = 0$. THIS ASSUMES OF COURSE THAT WE CAN DO THIS; FOR NOW WE WILL ASSUME WE CAN.
@@ -1132,7 +1125,7 @@ v_-(0; \lambda) = v_-(0; 0) + \lambda \frac{\partial}{\partial \lambda}v_-(0; \l
 I don't know if we can compute $\frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0}$, but it should just be a constant which depends only on the initial setup of the problem. Assuming that is the case, we have 
 
 \begin{align*}
-|&e^{\nu(\lambda)T} \tilde{c}^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|\\
+|&e^{\nu(\lambda)T} c^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|\\
 &\leq e^{\nu(\lambda)T}|c| |\langle v_0(\lambda), w_-(-T; \lambda) \rangle|\langle \Psi(0), v_-(0; 0) + \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} + \mathcal{O}(\lambda^2) \rangle| \\
 &\leq e^{\nu(\lambda)T}|c| |\langle v_0(\lambda), w_-(-T; \lambda) \rangle| \left( |\langle \Psi(0), v_-(0; 0) \rangle| +  |\langle \Psi(0), \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} \rangle| + \mathcal{O}(|\lambda|^2) \right)
 \end{align*}
@@ -1140,14 +1133,14 @@ I don't know if we can compute $\frac{\partial}{\partial \lambda}v_-(0; \lambda)
 For sufficiently large $T$, $\langle v_0(\lambda), w_-(-T; \lambda) \rangle$ is approximately 1 (add/subtract $w_0(\lambda)$ and do what we did above). We also have $\langle \Psi(0), v_-(0; 0) \rangle = 0$ since $\langle \Psi(0), v_-(0; 0) \rangle = \langle \Psi(0), \tilde{v}_-(0; 0) \rangle$, the inner product of this is constant in $x$ by Lemma \ref{eigadjoint}, and $\Psi(x)$ decays to 0 at $-\infty$ faster than any growth in $\tilde{v}_-(x; 0)$ at $-\infty$. Thus this becomes (taking $\frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0}$ as a constant),
 
 \begin{align*}
-|&e^{\nu(\lambda)T} \tilde{c}^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|
+|&e^{\nu(\lambda)T} c^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|
 \leq C e^{\nu(\lambda)T}|c| (|\lambda| + \mathcal{O}(\lambda^2) )
 \end{align*}
 
 Using the estimate for $|c|$, i.e. that $|c|$ is order $e^{-|\nu(\lambda)T|} |\lambda|^2$, this becomes 
 
 \begin{align*}
-|&e^{\nu(\lambda)T} \tilde{c}^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|\\
+|&e^{\nu(\lambda)T} c^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|\\
 &\leq C |\lambda|^3
 \end{align*}
 
