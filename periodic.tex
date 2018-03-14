@@ -541,23 +541,34 @@ where
 c^\pm &= \tilde{c}^\pm v_0(\lambda)
 \end{align*}
 
-Note that the first two of these spaces refer to the original, unperturbed problem, i.e. with $\lambda = 0$. The projections onto $E^s$, $E^u$, and $E^c$ are given by $P_0^s$, $P_0^u$, and $P_0^c$.\\
+Note that the first two of these spaces refer to the original, unperturbed problem, i.e. with $\lambda = 0$. The projections onto $E^s$, $E^u$, and $E^c$ are given by $P_0^s$, $P_0^u$, and $P_0^c$. Since tildes are annoying, we will write the initial conditions on the ``center'' subspace as $c^\pm v_0(\lambda)$, which gives us the fixed point problem
+
+\begin{align*}
+W^-(x) = \Phi^s_-(&x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + \Phi^c_-(x, -T; \lambda)c^- v_0(\lambda) \\
+&+ \int_0^x \Phi^u_-(x, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^s_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^c_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ]dy \\
+W^+(x) = \Phi^u_+(&x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + \Phi^c_+(x, T; \lambda)c^+ v_0(\lambda) \\
+&+ \int_0^x \Phi^s_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x \Phi^c_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy
+\end{align*}
 
 Since we have an actual formula for $\Phi^c_\pm$, we can substitute it in to get
 
 \begin{align*}
-W^-(x) = \Phi^s_-(&x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle c^-, w_-(-T; \lambda) \rangle \\
+W^-(x) = \Phi^s_-(&x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
 &+ \int_0^x \Phi^u_-(x, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_{-T}^x \Phi^s_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_{-T}^x 
 e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
-W^+(x) = \Phi^u_+(&x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + e^{\nu(\lambda)(x - T)} v_+(x; \lambda) \langle c^+, w_+(T; \lambda) \rangle \\
+W^+(x) = \Phi^u_+(&x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + e^{\nu(\lambda)(x - T)} v_+(x; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
 &+ \int_0^x \Phi^s_+(x, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_T^x \Phi^u_+(x, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
 &+ \int_T^x e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
 
-Now we do the same thing we do every night... try to take over the world. Following what was done in Sandstede (1998), we will try to invert this and see what happens. Before we take like 100 pages and do this rigorously (since it might not work), here is a rough list of what needs to happen, together with what the estimates should be. ALSO CAPITAL W AND SMALL w ARE NOT RELATED WHICH GOES AGAINST MY NOTATION CONVENTION BUT WE WILL DEAL WITH THIS LATER IF THIS WORKS.
+Now we do the same thing we do every night... try to take over the world. Following what was done in Sandstede (1998), we will try to invert this and see what happens. Before we take like 100 pages and do this rigorously (since it might not work), here is a rough list of what needs to happen, together with what the estimates should be. ALSO CAPITAL W AND SMALL w ARE NOT RELATED WHICH GOES AGAINST MY NOTATION CONVENTION BUT WE WILL DEAL WITH THIS LATER.
 
 \begin{enumerate}
 
@@ -598,9 +609,8 @@ Since $|G|$ is of order $e^{-\alpha T}$ and $\nu(\lambda)$ is small, we can choo
 
 \item Linear operator $L_2$ is stuff from fixed point equations not involving $W$.
 
-
 \begin{align*}
-(L_2(\lambda)(a,b,c))^-(x) &= \Phi^s_-(x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle c^-, w_-(-T; \lambda) \rangle \\
+(L_2(\lambda)(a,b,c))^-(x) &= \Phi^s_-(x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
 &+ \int_0^x \Phi^u_-(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
 &+ \int_{-T}^x \Phi^s_-(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
 &+ \int_{-T}^x 
@@ -610,7 +620,7 @@ e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle \lambda^2 \tilde{H}(y), w_-(y; \la
 and
 
 \begin{align*}
-(L_2(\lambda)(a,b,c))^+(x) &= \Phi^u_+(x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + e^{\nu(\lambda)(x - T)} v_+(x; \lambda) \langle c^+, w_+(T; \lambda) \rangle\\
+(L_2(\lambda)(a,b,c))^+(x) &= \Phi^u_+(x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + e^{\nu(\lambda)(x - T)} v_+(x; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
 &+ \int_0^x \Phi^s_+(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
 &+ \int_T^x \Phi^u_+(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
 &+ \int_T^x e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
@@ -619,7 +629,7 @@ and
 Again, most of this is the same as we had before. For the $c$ term, we have 
 
 \[
-|e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle c^-, w_-(-T; \lambda) \rangle | \leq C e^{\nu(\lambda)T}|c^-|
+|e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- | \leq C e^{\nu(\lambda)T}|c^-|
 \]
 
 and similar for the $c^+$. We have an $e^{\nu(\lambda)T}$ in the bound, but for now there is nothing we can do about that.
@@ -642,15 +652,15 @@ The third integrals are similar to the integral in $L_1$. The $\tilde{H}$ bound 
 
 
 \begin{align*}
-W^-(-T) &= P^s_-(-T; \lambda)a^- + \Phi^u_-(-T, 0; \lambda)b^- + v_-(-T; \lambda) \langle c^-, w_-(-T; \lambda) \rangle \\
-&+ \int_0^{-T} \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+W^-(-T) &= P^s_-(-T; \lambda)a^- + \Phi^u_-(-T, 0; \lambda)b^- + v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
+&+ \int_{-T}^0 \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 \end{align*}
 
 and
 
 \begin{align*}
-W^+(T) &= P^u_+(T; \lambda)a^+ + \Phi^s_+(T, 0; \lambda)b^+ + v_+(T; \lambda) \langle c^+, w_+(T; \lambda) \rangle \\
-&+ \int_0^T \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+W^+(T) &= P^u_+(T; \lambda)a^+ + \Phi^s_+(T, 0; \lambda)b^+ + v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
+&+ \int_T^0 \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
 \end{align*}
 
 As we did before, let
@@ -662,26 +672,26 @@ p_1(T;\lambda) = \sup_{x \geq T} (|P^u(x;\lambda) - P_0^u| + |P^s(-x;\lambda) - 
 which should be order $e^{-\alpha T}$. Then we write these as
 
 \begin{align*}
-W^-(-T) &= a^- + (P^s_-(-T; \lambda) - P_0^s)a^- + \Phi^u_-(-T, 0; \lambda)b^- + v_-(-T; \lambda) \langle c^-, w_-(-T; \lambda) \rangle \\
-&+ \int_0^{-T} \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+W^-(-T) &= a^- + (P^s_-(-T; \lambda) - P_0^s)a^- + \Phi^u_-(-T, 0; \lambda)b^- + v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^-\\
+&+ \int_{-T}^0 \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
 \end{align*}
 
 and
 
 \begin{align*}
-W^+(T) &= a^+ + (P^u_+(T; \lambda) - P_0^u)a^+ + \Phi^s_+(T, 0; \lambda)b^+ + v_+(T; \lambda) \langle c^+, w_+(T; \lambda) \rangle \\
-&+ \int_0^T \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+W^+(T) &= a^+ + (P^u_+(T; \lambda) - P_0^u)a^+ + \Phi^s_+(T, 0; \lambda)b^+ + v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
+&+ \int_T^0 \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
 \end{align*}
 
-We want to solve $W^-(-T) - W^+(T) = 0$, which we write as
+We want to solve $W^+(-T) - W^-(T) = 0$, which we write as
 
 \begin{align*}
 0 &= a^+ - a^- \\
 &+ (P^u_+(T; \lambda) - P_0^u)a^+ - (P^s_-(-T; \lambda) - P_0^s)a^- \\
 &+ \Phi^s_+(T, 0; \lambda)b^+ - \Phi^u_-(-T, 0; \lambda)b^- \\
-&+ v_+(T; \lambda) \langle c^+, w_+(T; \lambda) \rangle - v_-(-T; \lambda) \langle c^-, w_-(-T; \lambda) \rangle \\
-&+ \int_0^{-T} \Phi^u_-(-T, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^T \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy
+&+ v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ - v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
+&+ \int_{T}^0 \Phi^s_+(T, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_{-T}^0 \Phi^s_-(-T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
 i.e. 
@@ -690,27 +700,20 @@ i.e.
 0 &= a^+ - a^- + L_3(\lambda)(a, b, c)
 \end{align*}
 
-where $L_3(\lambda)$ is the rest of the garbage on the RHS. Everything besides the new term in $c$ should work the way it did before. For the term in $c$, we have chosen $c^\pm \in \text{span }\{v_0(\lambda)\}$. Recall that $v_0(\lambda)$ is the eigenvector of the asymptotic matrix $A(\lambda, 0)$ corresponding to the small eigenvalue $\nu(\lambda)$. This space is not $E^0$, the center eigenspace of $A(0, 0)$, although it is close for small $\lambda$. I think we are okay doing this, since we know exactly what this space is and it's 1D. Thus we write the initial conditions as 
-
-\[
-c^\pm = \tilde{c}^\pm v_0(\lambda)
-\]
-
-where here the $\tilde{c}^\pm$ are scalars. I think I am a little too into these tildes, but that's the least of my problems.
+where $L_3(\lambda)$ is the rest of the garbage on the RHS. Everything besides the new term in $c$ should work the way it did before. For the term in $c$, recall that $v_0(\lambda)$ is the eigenvector of the asymptotic matrix $A(\lambda, 0)$ corresponding to the small eigenvalue $\nu(\lambda)$. This space is not $E^0$, the center eigenspace of $A(0, 0)$, although it is close for small $\lambda$, so for small $\lambda$, $v_0(\lambda)$ will still be linearly independent from $E^{s/u}$. For the term involving $c$ we have 
 
 \begin{align*}
-v_+(T; \lambda) &\langle \tilde{c}^+ v_0(\lambda), w_+(T; \lambda) \rangle - v_-(-T; \lambda) \langle \tilde{c}^- v_0(\lambda), w_-(-T; \lambda) \rangle \\
-&= \tilde{c}^+ v_+(T; \lambda)\langle v_0(\lambda), w_+(T; \lambda) \rangle - \tilde{c}^- v_-(-T; \lambda) \langle  v_0(\lambda), w_-(-T; \lambda) \rangle \\
-&= \tilde{c}^+ v_+(T; \lambda)\langle v_0(\lambda), w_0(\lambda) \rangle + \tilde{c}^+ v_+(T; \lambda)( \langle v_0(\lambda), w_+(T; \lambda) \rangle - \langle v_0(\lambda), w_0(\lambda) \rangle )\\
-&- \tilde{c}^- v_-(-T; \lambda)\langle v_0(\lambda), w_0(\lambda) \rangle - \tilde{c}^- v_-(-T; \lambda)( \langle v_0(\lambda), w_-(-T; \lambda) \rangle - \langle v_0(\lambda), w_0(\lambda) \rangle )\\
-&= \tilde{c}^+ v_+(T; \lambda) + \tilde{c}^+ v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) - w_0(\lambda) \rangle \\
-&- \tilde{c}^- v_-(-T; \lambda) - \tilde{c}^- v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle \\
-&= \tilde{c}^+ v_0(\lambda) + \tilde{c}^+( v_+(T; \lambda) - v_0(\lambda)) + \tilde{c}^+ v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) - w_0(\lambda) \rangle \\
-&- \tilde{c}^- v_0(\lambda) - \tilde{c}^-( v_-(-T; \lambda) - v_0(\lambda)) - \tilde{c}^- v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle \\
-&= c^+ + \tilde{c}^+( v_+(T; \lambda) - v_0(\lambda)) + \tilde{c}^+ v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) - w_0(\lambda) \rangle \\
-&- c^- - \tilde{c}^-( v_-(-T; \lambda) - v_0(\lambda)) - \tilde{c}^- v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle \\
-&= c^+ + \tilde{c}^+ \Delta v_+(T; \lambda) + \tilde{c}^+ v_+(T; \lambda) \langle v_0(\lambda), \Delta w_+(T; \lambda) \rangle \\
-&- c^- - \tilde{c}^- \Delta v_-(-T; \lambda) - \tilde{c}^- v_-(-T; \lambda) \langle v_0(\lambda), \Delta w_-(-T; \lambda) \rangle \\
+c^+ &v_+(T; \lambda)\langle v_0(\lambda), w_+(T; \lambda) \rangle - c^- v_-(-T; \lambda) \langle  v_0(\lambda), w_-(-T; \lambda) \rangle \\
+&= c^+ v_+(T; \lambda)\langle v_0(\lambda), w_0(\lambda) \rangle + c^+ v_+(T; \lambda)( \langle v_0(\lambda), w_+(T; \lambda) \rangle - \langle v_0(\lambda), w_0(\lambda) \rangle )\\
+&- c^- v_-(-T; \lambda)\langle v_0(\lambda), w_0(\lambda) \rangle - c^- v_-(-T; \lambda)( \langle v_0(\lambda), w_-(-T; \lambda) \rangle - \langle v_0(\lambda), w_0(\lambda) \rangle )\\
+&= c^+ v_+(T; \lambda) + c^+ v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) - w_0(\lambda) \rangle \\
+&- c^- v_-(-T; \lambda) - c^- v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle \\
+&= c^+ v_0(\lambda) + c^+( v_+(T; \lambda) - v_0(\lambda)) + c^+ v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) - w_0(\lambda) \rangle \\
+&- c^- v_0(\lambda) - c^-( v_-(-T; \lambda) - v_0(\lambda)) - c^- v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle \\
+&= c^+ v_0(\lambda) + c^+( v_+(T; \lambda) - v_0(\lambda)) + c^+ v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) - w_0(\lambda) \rangle \\
+&- c^- v_0(\lambda) - c^-( v_-(-T; \lambda) - v_0(\lambda)) - c^- v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) - w_0(\lambda) \rangle \\
+&= c^+ v_0(\lambda) + c^+ \Delta v_+(T; \lambda) + c^+ v_+(T; \lambda) \langle v_0(\lambda), \Delta w_+(T; \lambda) \rangle \\
+&- c^- v_0(\lambda) - c^- \Delta v_-(-T; \lambda) - c^- v_-(-T; \lambda) \langle v_0(\lambda), \Delta w_-(-T; \lambda) \rangle \\
 \end{align*}
 
 where 
@@ -732,19 +735,19 @@ where we can choose $T$ sufficiently large so that $p_2(T)$ is less than any fix
 Thus we have
 
 \begin{align*}
-0 &= a^+ - a^- + (c^+ - c^-) \\
+0 &= a^+ - a^- + (c^+ - c^-)v_0(\lambda) \\
 &+ (P^u_+(T; \lambda) - P_0^u)a^+ - (P^s_-(-T; \lambda) - P_0^s)a^- \\
 &+ \Phi^s_+(T, 0; \lambda)b^+ - \Phi^u_-(-T, 0; \lambda)b^- \\
-&+ \tilde{c}^+ \Delta v_+(T; \lambda) + \tilde{c}^+ v_+(T; \lambda) \langle v_0(\lambda), \Delta w_+(T; \lambda) \rangle \\
-&- \tilde{c}^- \Delta v_-(-T; \lambda) - \tilde{c}^- v_-(-T; \lambda) \langle v_0(\lambda), \Delta w_-(-T; \lambda) \rangle \\
-&+ \int_0^{-T} \Phi^u_-(-T, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^T \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy
+&+ c^+ \Delta v_+(T; \lambda) + c^+ v_+(T; \lambda) \langle v_0(\lambda), \Delta w_+(T; \lambda) \rangle \\
+&- c^- \Delta v_-(-T; \lambda) - c^- v_-(-T; \lambda) \langle v_0(\lambda), \Delta w_-(-T; \lambda) \rangle \\
+&+ \int_{T}^0 \Phi^s_+(T, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_{-T}^0 \Phi^s_-(-T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
 so we have
 
 \begin{align*}
-0 &= a^+ - a^- + (c^+ - c^-) + L_3(\lambda)(a, b, c)
+0 &= a^+ - a^- + (c^+ - c^-)v_0(\lambda) + L_3(\lambda)(a, b, c)
 \end{align*}
 
 where we redefine $L_3(\lambda)$ to be the rest of the stuff on the RHS this time around. The stuff making up $L_3(\lambda)$ is sufficiently small that we can get a nice bound on it. 
@@ -754,7 +757,7 @@ where we redefine $L_3(\lambda)$ to be the rest of the stuff on the RHS this tim
 + e^{-\alpha T}|b| + p_2(T; \lambda)|c| + |G|||W|| + |\lambda^2| )
 \]
 
-It turns out, however, that this bound is not good enough. The culprit is the $|\lambda|^2$ term, which comes from the integral involving $\tilde{H}$.
+It turns out, however, that this bound is not good enough. The culprit is the $|\lambda|^2$ term, which comes from the integral involving $\tilde{H}$. But we can get a better bound.
 
 \begin{align*}
 \left| \int_0^T \Phi^s_+(T, y; \lambda) |\tilde{H}(y)| dy \right| 
@@ -783,25 +786,25 @@ Plugging in $W_1$ above for $W$, this bound becomes
 &\leq C ( (p_1(T; \lambda) + |G|)|a| + (e^{-\alpha T} + |G|)|b| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c| + e^{-|\nu(\lambda)|T} |\lambda^2| ) 
 \end{align*}
 
-All coefficients here are small, which is good. We now play the same trick as in Sanstede (1998), which works because $E^s \oplus E^u \oplus E^c = \C^n$, thus since $\text{span }\{v_0(\lambda)\}$ is close to $E^c$, $E^s \oplus E^u \oplus \text{span }\{v_0(\lambda)\} = \C^n$. WE SHOULD PROBABLY ACTUALLY SHOW THIS TOO AT SOME POINT. Let $\Delta c = c^+ - c^- \in \text{span }\{v_0(\lambda)\}$. Note that since we only have 5 dimensions to play with, we can solve for $(a^+, a^-, \Delta c)$ but we have to wait until the next step to actually solve for the $c^\pm$.\\
+All coefficients here are small, which is good. We now play the same trick as in Sanstede (1998), which works because $E^s \oplus E^u \oplus E^c = \C^n$, thus since $\text{span }\{v_0(\lambda)\}$ is close to $E^c$, $E^s \oplus E^u \oplus \text{span }\{v_0(\lambda)\} = \C^n$. WE SHOULD PROBABLY ACTUALLY SHOW THIS TOO AT SOME POINT. Let $\Delta c = c^+ - c^-$. Note that since we only have 5 dimensions to play with, we can solve for $(a^+, a^-, \Delta c)$ but we have to wait until the next step to actually solve for the $c^\pm$.\\
 
 Before we continue, $L_3$ is a function of $c$, but we need it to be a function of $\Delta c$. To make this happen, all we have to do is rewrite the problem a bit. We substitute $c^+ = \Delta c + c^-$ to get
 
 \begin{align*}
-0 &= a^+ - a^- + \Delta c \\
+0 &= a^+ - a^- + \Delta c \: v_0(\lambda) \\
 &+ (P^u_+(T; \lambda) - P_0^u)a^+ - (P^s_-(-T; \lambda) - P_0^s)a^- \\
 &+ \Phi^s_+(T, 0; \lambda)b^+ - \Phi^u_-(-T, 0; \lambda)b^- \\
-&+ (\tilde{\Delta c} + \tilde{c}^-) \Delta v_+(T; \lambda) + (\tilde{\Delta c} + \tilde{c}^-) v_+(T; \lambda) \langle v_0(\lambda), \Delta w_+(T; \lambda) \rangle \\
-&- \tilde{c}^- \Delta v_-(-T; \lambda) - \tilde{c}^- v_-(-T; \lambda) \langle v_0(\lambda), \Delta w_-(-T; \lambda) \rangle \\
-&+ \int_0^{-T} \Phi^u_+(-T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^T \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy
+&+ (\Delta c + c^-) \Delta v_+(T; \lambda) + (\Delta c + c^-) v_+(T; \lambda) \langle v_0(\lambda), \Delta w_+(T; \lambda) \rangle \\
+&- c^- \Delta v_-(-T; \lambda) - c^- v_-(-T; \lambda) \langle v_0(\lambda), \Delta w_-(-T; \lambda) \rangle \\
+&+ \int_{T}^0 \Phi^s_+(T, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_{-T}^0 \Phi^s_-(-T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
 with bound
 
 \begin{align*}
 |L_3(\lambda)(a, b, \Delta c, c^-)| &\leq C ( (p_1(T; \lambda) + |G|)|a| + (e^{-\alpha T} + |G|)|b| \\
-&+ ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c|+ e^{-|\nu(\lambda)|T} |\lambda^2| )
+&+ ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|\Delta c| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c^-|+ e^{-|\nu(\lambda)|T} |\lambda^2| )
 \end{align*}
 
 So now we have 
