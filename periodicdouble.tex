@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\graphicspath{ {images17/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\begin{document}
+
+\section*{Double Pulse}
+
+Now we repeat the above in the case of a periodic double pulse $q_{2p}$. Here the pulse separation is $L$ and the period is $T$. The system of equations we want to solve is
+
+\begin{enumerate}[(i)]
+\item $(W_i^\pm)' = A(q; \lambda) W_i^\pm + G_i(\lambda)^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
+\item $W_i^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0$
+\item $W_i^+(0) - W_i^-(0) \in \C \psi(0) $
+\item $W_1^+(L) - W_2^-(-L) = D_1 d $
+\item $W_2^+(T) - W_1^-(-T) = 0$
+\end{enumerate}
+
+where
+
+\begin{align*}
+G_i(\lambda)^\pm &= (A(q_{2p};\lambda) - A(q_2;\lambda)) + (A(q_{2};\lambda) - A(q;\lambda)) \\
+D_1 d &= d_2(Q_{2p}'(-L) + \lambda (Q_{2p})_c(-L)) 
+- d_1 ( Q_{2p}'(L) + \lambda (Q_{2p})_c(L) )
+\tilde{H} &= -B(Q_{2p})_c \\
+H &= -B Q_c \\
+\Delta H &= \tilde{H} - H
+\end{align*}
+
+For these we should have
+
+\begin{align*}
+G_i(\lambda) &= \mathcal{O}(e^{-\alpha T} + e^{-\alpha L}) \\
+\Delta H &= \mathcal{O}(e^{-\alpha T} + e^{-\alpha L}) \\
+D_1 &= ( Q'(L) + Q'(-L) )(d_2 - d_1 ) + \mathcal{O} \left( e^{-\alpha L} \left( |\lambda| +  e^{-\alpha L}  \right) |d| \right)
+\end{align*}
+
+The fixed point equations are 
+
+\begin{align*}
+W_i^-(x) = \Phi^s_-(&x, -T; \lambda)a_i^- + \Phi^u_-(x, 0; \lambda)b_i^- + e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c_i^- \\
+&+ \int_0^x \Phi^u_-(x, y; \lambda)[ G_i^-(\lambda)W_i^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^s_-(x, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x 
+e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+W_i^+(x) = \Phi^u_+(&x, T; \lambda)a_i^+ + \Phi^s_+(x, 0; \lambda)b_i^+ + e^{\nu(\lambda)(x - T)} v_+(x; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c_i^+ \\
+&+ \int_0^x \Phi^s_+(x, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+
+\end{document}
