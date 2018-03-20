@@ -48,7 +48,7 @@
 Now we repeat the above in the case of a periodic double pulse $q_{2p}$. Here the pulse separation is $L$ and the period is $T$. The system of equations we want to solve is
 
 \begin{enumerate}[(i)]
-\item $(W_i^\pm)' = A(q; \lambda) W_i^\pm + G_i(\lambda)^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
+\item $(W_i^\pm)' = A(q; \lambda) W_i^\pm + G_i(\lambda)^\pm W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
 \item $W_i^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0$
 \item $W_i^+(0) - W_i^-(0) \in \C \psi(0) $
 \item $W_1^+(L) - W_2^-(-L) = D_1 d $
@@ -66,7 +66,9 @@ H &= -B Q_c \\
 \Delta H &= \tilde{H} - H
 \end{align*}
 
-For these we should have
+Again we do not have a $\lambda B W_i^\pm$ term since this has been absorbed into $A(q; \lambda) W_i^\pm$. 
+
+For these we should have bounds
 
 \begin{align*}
 G_i(\lambda) &= \mathcal{O}(e^{-\alpha T} + e^{-\alpha L}) \\
@@ -74,19 +76,231 @@ G_i(\lambda) &= \mathcal{O}(e^{-\alpha T} + e^{-\alpha L}) \\
 D_1 &= ( Q'(L) + Q'(-L) )(d_2 - d_1 ) + \mathcal{O} \left( e^{-\alpha L} \left( |\lambda| +  e^{-\alpha L}  \right) |d| \right)
 \end{align*}
 
-The fixed point equations are 
+For the double pulse, we have
+
+\[
+X = (X_0, X_1, X_2) = (T, L, T)
+\]
+
+Then the fixed point equations are 
 
 \begin{align*}
-W_i^-(x) = \Phi^s_-(&x, -T; \lambda)a_i^- + \Phi^u_-(x, 0; \lambda)b_i^- + e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c_i^- \\
-&+ \int_0^x \Phi^u_-(x, y; \lambda)[ G_i^-(\lambda)W_i^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_{-T}^x \Phi^s_-(x, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_{-T}^x 
-e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
-W_i^+(x) = \Phi^u_+(&x, T; \lambda)a_i^+ + \Phi^s_+(x, 0; \lambda)b_i^+ + e^{\nu(\lambda)(x - T)} v_+(x; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c_i^+ \\
-&+ \int_0^x \Phi^s_+(x, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_T^x \Phi^u_+(x, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_T^x e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
+W_i^-(x) = \Phi^s_-(&x, -X_{i-1}; \lambda)a_{i-1}^- + \Phi^u_-(x, 0; \lambda)b_i^- + e^{\nu(\lambda)(x+X_{i-1})} v_-(x; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^- \\
+&+ \int_0^x \Phi^u_-(x, y; \lambda)[ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{-X_{i-1}}^x \Phi^s_-(x, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{-X_{i-1}}^x 
+e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+W_i^+(x) = \Phi^u_+(&x, X_i; \lambda)a_i^+ + \Phi^s_+(x, 0; \lambda)b_i^+ + e^{\nu(\lambda)(x - X_i)} v_+(x; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle c_i^+ \\
+&+ \int_0^x \Phi^s_+(x, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{X_i}^x \Phi^u_+(x, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{X_i}^x e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
 
+So now we do the same thing we did with the single pulse. The main difference here is the presence of the $d_i$ in the $\tilde{H}$ terms. 
+
+\begin{enumerate}
+
+\item Solve for $W_i$ in terms of the other stuff. The estimates should be the same as the single pulse, with the addition of the $d$ term, so this should be
+
+\[
+||W_1(\lambda)(a,b,c,d)|| \leq C (|a| + |b| + e^{\nu(\lambda)T}(|c| + |\lambda|^2 |d| ))
+\]
+
+\item Solve for the joins which are not at 0, i.e. solve
+
+\begin{align*}
+W_2^+(T) - W_1^-(-T) &= 0 \\
+W_1^+(L) - W_2^-(-L) &= D_1 d \\
+\end{align*}
+
+To solve these, we have two equations. The first one is the periodic matching, which we have in the single pulse case.
+
+\begin{align*}
+0 &= a_2^+ - a_0^- \\
+&+ (P^u_+(T; \lambda) - P_0^u)a_2^+ - (P^s_-(-T; \lambda) - P_0^s)a_0^- \\
+&+ \Phi^s_+(T, 0; \lambda)b_2^+ - \Phi^u_-(-T, 0; \lambda)b_1^- \\
+&+ v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c_2^+ - v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c_0^- \\
+&+ \int_0^T \Phi^u_+(T, y; \lambda) [ G(\lambda)W^-(y) + d_2 \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_0^{-T} \Phi^s_-(-T, y; \lambda) [ G(\lambda)W^+(y) + d_1 \lambda^2 \tilde{H}(y) ] dy
+\end{align*}
+
+The second one is the center matching at $\pm L$.
+
+\begin{align*}
+D_1 d &= a_1^+ - a_1^- \\
+&+ (P^u_+(L; \lambda) - P_0^u)a_1^+ - (P^s_-(-L; \lambda) - P_0^s)a_1^- \\
+&+ \Phi^s_+(L, 0; \lambda)b_1^+ - \Phi^u_-(-L, 0; \lambda)b_2^- \\
+&+ v_+(L; \lambda) \langle v_0(\lambda), w_+(L; \lambda) \rangle c_1^+ - v_-(-L; \lambda) \langle v_0(\lambda), w_-(-L; \lambda) \rangle c_1^- \\
+&+ \int_0^{L} \Phi^u_+(L, y; \lambda) [ G(\lambda)W^-(y) + d_1 \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_0^{-L} \Phi^s_-(-L, y; \lambda) [ G(\lambda)W^+(y) + d_2 \lambda^2 \tilde{H}(y) ] dy
+\end{align*}
+
+Since the collections of initial conditions do not overlap between these two, we can actually solve them separately. To do this, note for each one we will have somehting like
+
+\begin{align*}
+S_1^L(a) &= D_1 d - L_3(\lambda)(0, b, c, d) \\
+S_1^T(a) &= - L_3^b(\lambda) (0, b, c, d)
+\end{align*}
+
+where the superscript indicates which length parameter is the key one. The idea is, at least for now, that $L$ and $T$ may be vastly different, and even in the case of multiples, the various $L_n$ will be the same order of magnitide, so it makes sense to separate out the one for the periodic BCs.\\
+
+We should now be able to solve for $a, \Delta c$ as we did in the single pulse case, i.e. we should have 
+
+\begin{align*}
+(a_{L}, \Delta c_{L}) &= A_1^{L}(\lambda)(b_{L}, c_{L}^-,d) \\
+(a_{T}, \Delta c_{T}) &= A_1^{T}(\lambda)(b_{T}, c_{T}^-,d) 
+\end{align*}
+
+for appropriate subscripts, e.g.
+
+\begin{align*}
+\Delta c^L &+ c_1^+ - c_1^- \\
+\Delta c^T &= c_2^- - c_0^-
+\end{align*}
+
+ These should have bounds
+
+\begin{align*}
+|A_1^T(\lambda)(b_T, c_T^-, d)| &\leq C ( (e^{-\alpha L} + |G|)|b_T| \\
+&+ ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c_T^-| \\
+&+ e^{-|\nu(\lambda)|T} |\lambda^2||d|)
+\end{align*}
+
+and
+
+\begin{align*}
+|A_1^L(\lambda)(b_L, c_L^-, d)| &\leq C ( ( e^{-\alpha L} + |G|)|b_L| \\
+&+ ( p_2(L; \lambda) + |G|e^{\nu(\lambda)L})|c_L^-| \\
+&+ (e^{-|\nu(\lambda)|L}|\lambda^2| + |D_1|)|d|)
+\end{align*}
+
+where
+
+\begin{align*}
+p_2(x; \lambda) &= |\Delta v_\pm(\pm x, \lambda)| + |\Delta w_\pm(\pm x, \lambda)| 
+\end{align*}
+
+We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has bound
+
+\begin{align*}
+||W_2(\lambda)(b,c^-, d)|| &\leq C (|b| + (e^{\nu(\lambda)T} + e^{\nu(\lambda)L})(|c^-| + |\lambda|^2))
+\end{align*}
+
+With a multipulse, we will need an analogue of (3.25) in Sandstede (1998). Starting with the $L$-match (the other one is not useful, since there is no term in $D_1 d$)
+
+\[
+D_1 d = a_1^+ - a_1^- + \Delta c_1 v_0(\lambda) + L_3(\lambda)(a, b, \Delta c, c^-)
+\]
+
+we write this as
+
+\[
+a_1^+ - a_1^- + \Delta c_1 v_0(\lambda) = -D_1 d - L_3(\lambda)(a, b, \Delta c, c^-)
+\]
+
+Then we take projections $P^s_0$ and $P^u_0$. Recalling where the $a_i^\pm$ live, this becomes 
+
+\begin{align*}
+a_1^+ &= -P^u_0 D_1 d - P^u_0 \Delta c_1 v_0(\lambda) - P^u_0 L_3(\lambda)(a, b, \Delta c, c^-) \\
+a_1^- &=  P^s_0 D_1 d + P^s_0 \Delta c_1 v_0(\lambda) - P^s_0 L_3(\lambda)(a, b, \Delta c, c^-)
+\end{align*}
+
+Thus we have
+
+\begin{align*}
+a_1^+ &= -P^u_0 D_1 d + (A_2^L(\lambda)(b_L, c_L^-, d))_1^+\\
+a_1^- &=  P^s_0 D_1 d + (A_2^L(\lambda)(b_L, c_L^-, d))_1^-
+\end{align*}
+
+where the bound on $A_2$ is the same as that on $A_1$ except we have two more terms to deal with. The first is the $P^{u/s}_0 \Delta c_1$ term. For $\lambda = 0$, this is wiped out by the projection. So if we write
+
+\[
+v_0(\lambda) = (v_0(\lambda) - v_0(0)) + v_0(0)
+\]
+
+$v_0(0)$ is wiped out by the two projections, and for the other term, we can use the bound
+
+\[
+p_5(\lambda) = |v_0(\lambda) - v_0(0)| 
+\]
+
+which should be order $\lambda$.
+
+\begin{align*}
+|A_2^L(\lambda)(b_L, c_L^-, d)| &\leq C ( ( e^{-\alpha L} + |G|)|b_L| \\
+&+ ( p_2(L; \lambda) + p_5(\lambda) + |G|e^{\nu(\lambda)L})|c_L| \\
+&+ (e^{-|\nu(\lambda)|L}|\lambda^2| + |D_1|)|d|)
+\end{align*}
+
+\item Next we use the projections 
+
+\begin{align*}
+P(\C Q'(0))W^-(0) &= 0 \\
+P(\C Q'(0))W^+(0) &= 0 \\
+P(Y^+ \oplus Y^- \oplus Y^0) (W^+(0) - W^-(0) ) &= 0
+\end{align*}
+
+to implement what happens at $x = 0$ (on both pieces). Note that the $T$ and $L$ terms will mix here. At $x = 0$, the fixed point equations become
+
+\begin{align*}
+W_i^-(0) = \Phi^s_-(&0, -X_{i-1}; \lambda)a_i^- + b_i^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
+&+ e^{\nu(\lambda)(X_{i-1})} v_-(0; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle c_i^- \\
+&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{-X_{i-1}}^0
+e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+W_i^+(0) = \Phi^u_+(&0, X_i; \lambda)a_i^+ + b_i^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+ \\
+&+ e^{\nu(\lambda)(-X_i)} v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle c_i^+ \\
+&+ \int_{X_i}^0 \Phi^u_+(0, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{X_i}^0 e^{\nu(\lambda)(-y)} v_+(0; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+Using the same setup as in the single pulse case and doing the same projections, we should have
+
+\[
+\begin{pmatrix}x^- \\ x_i^+ \\ y_i^+ - y_i^- + (e^{-\nu(\lambda)X_i} - e^{\nu(\lambda)X_{i-1}}) c_{i-1}^- y_0 \end{pmatrix} + L_4(\lambda)(b, c_{i-1}^-) = 0
+\]
+
+We should be able to play the same game we did in the single pulse case and define
+
+\begin{align*}
+f_i(\lambda) &= e^{-\nu(\lambda)X_i} - e^{\nu(\lambda)X_{i-1}}  \\
+f_i^-(\lambda) &= e^{\nu(\lambda)X_{i-1}} / f_i(\lambda) \\
+f_i^+(\lambda) &= e^{-\nu(\lambda)X_{i}} / f_i(\lambda)
+\end{align*}
+
+where as before we have $|f_i^\pm| \leq 1$. Then this should look like
+
+\[
+\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- + f_i(\lambda) c_{i-1}^- y_0 \end{pmatrix} + L_4(\lambda)(b_i, f_i(\lambda) c_{i-1}^-) = 0
+\]
+
+So the same thing should work that we did before, i.e. we should have a bound which looks like 
+
+\[
+|B_1(\lambda)| \leq C|\lambda|^2
+\]
+
+which makes $c_{i-1}$ be of order $|\lambda^2| / f$. This is annoying but maybe things will work out nice in the end. 
+
+
+Substitutiting this into $A_1$ and $W_2$ gives us $A_3$ and $W_3$ with bounds
+
+\begin{align*}
+|A_3(\lambda)(b, c^-)| &\leq C ( (e^{-\alpha T} + |G|)|\lambda|^2 + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})e^{-|\nu(\lambda)T|} |\lambda|^2 + e^{-|\nu(\lambda)|T} |\lambda^2|) \\
+&\leq C e^{-|\nu(\lambda)T|} |\lambda|^2
+\end{align*}
+
+This implies that $c^+$ and $c^-$ are the same order, which is good. We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has bound
+
+\begin{align*}
+||W_2(\lambda)(b,c^-)|| &\leq C (|\lambda|^2 + e^{\nu(\lambda)T}(e^{-|\nu(\lambda)T|} |\lambda|^2 + |\lambda|^2)) \\
+&\leq C e^{\nu(\lambda)T} |\lambda|^2
+\end{align*}
+
+
+
+
+
+\end{enumerate}
 
 \end{document}
