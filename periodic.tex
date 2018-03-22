@@ -56,6 +56,8 @@ Here we look at the case with periodic boundary conditions. Note that we cannot 
 
 which is the piecewise eigenvalue problem written as a first order system in the unweighted norm. The eigenfunction here is given by $V_i^\pm = (Q' - \lambda Q_c)d_i + W_i\pm$.\\
 
+For the single pulse solution, we know that the exponential decay rate at both ends is given by $\alpha > 0$, where $\alpha$ is the absolute value of the real part of the eigenvalues of the linearization about the zero-solution.\\
+
 Let's first look at this for the case of a wave train composed of single pulses. Recall that for the single pulse $q$, where there is only one join at the center, the eigenfunction is given by $V\pm = Q' - \lambda Q_c + W_i\pm$, and this becomes
 
 \begin{enumerate}[(i)]
@@ -572,6 +574,13 @@ Now we do the same thing we do every night... try to take over the world. Follow
 
 \begin{enumerate}
 
+\item Fix $\tilde{\alpha}$, with $0 < \tilde{\alpha} < \alpha$. 
+
+\begin{enumerate}[(i)]
+	\item Ideally, $\tilde{\alpha}$ will be close to $\alpha$
+	\item We choose $\lambda$ sufficiently small, i.e. $|\lambda| < \delta$ for some fixed $\delta$. We must choose $\delta$ so that $|\nu(\lambda)| < \tilde{\alpha}$ for all $|\lambda| < \delta$.
+\end{enumerate}
+
 \item Linear operator $L_1$ is stuff from the fixed point equations involving $W$.
 
 \begin{align*}
@@ -762,18 +771,17 @@ It turns out, however, that this bound is not good enough. The culprit is the $|
 \begin{align*}
 \left| \int_0^T \Phi^s_+(T, y; \lambda) |\tilde{H}(y)| dy \right| 
 &\leq C \int_0^T e^{-\alpha (T - y)}|\tilde{H}(y)| dy \\
-&= C e^{-|\nu(\lambda)|T} \int_0^T e^{|\nu(\lambda)|T} e^{-\alpha (T - y)} e^{-|\nu(\lambda)|y} e^{|\nu(\lambda)|y}|\tilde{H}(y)| dy \\
-&= C e^{-|\nu(\lambda)|T} \int_0^T e^{|\nu(\lambda)|T} e^{-\alpha T} e^{\alpha y} e^{-|\nu(\lambda)|y} e^{|\nu(\lambda)|y}|\tilde{H}(y)| dy \\
-&= C e^{-|\nu(\lambda)|T} \int_0^T e^{-(\alpha - |\nu(\lambda)|)T} e^{(\alpha -|\nu(\lambda)|)y} | e^{|\nu(\lambda)|y} \tilde{H}(y)| dy \\
-&= C e^{-|\nu(\lambda)|T} \int_0^T e^{-(\alpha - |\nu(\lambda)|)(T - y)}| e^{|\nu(\lambda)|y} \tilde{H}(y)| dy \\
-&\leq C e^{-|\nu(\lambda)|T}
+&= C e^{-\tilde{\alpha}T} \int_0^T e^{-\alpha T} e^{\alpha y}  e^{\tilde{\alpha}T} e^{-\tilde{\alpha}y} |e^{\tilde{\alpha}y} \tilde{H}(y)| \\
+&= C e^{-\tilde{\alpha}T} \int_0^T e^{-(\alpha - \tilde{\alpha})(T-y)} |e^{\tilde{\alpha}y} \tilde{H}(y)|\\
+&\leq C e^{-\tilde{\alpha}T} 
+
 \end{align*}
 
-where we used the fact that $|e^{|\nu(\lambda)|y} \tilde{H}(y)|$ since $\nu(\lambda)|y$ is smaller than $\alpha$, and $\tilde{H}(y)$ decays with rate $\alpha$. Thus we have the improved bound
+where we used the fact that $|e^{\tilde{\alpha}y} \tilde{H}(y)|$ is bounded, since $\tilde{\alpha}$ is smaller than $\alpha$, and $\tilde{H}(y)$ decays with rate $\alpha$. This makes the constant $C$ bigger, but we don't care about that. Thus we have the improved bound
 
 \[
 |L_3(\lambda)(a, b, c)| \leq C ( p_1(T; \lambda)|a|
-+ e^{-\alpha T}|b| + p_2(T; \lambda)|c| + |G|||W|| + e^{-|\nu(\lambda)|T} |\lambda^2| )
++ e^{-\alpha T}|b| + p_2(T; \lambda)|c| + |G|||W|| + e^{-\tilde{\alpha}T} |\lambda^2| )
 \]
 
 Plugging in $W_1$ above for $W$, this bound becomes
@@ -782,8 +790,8 @@ Plugging in $W_1$ above for $W$, this bound becomes
 \begin{align*}
 |L_3(\lambda)(a, b, c)| &\leq C ( p_1(T; \lambda)|a|
 + e^{-\alpha T}|b| + p_2(T; \lambda)|c| \\
-&+ |G||(|a| + |b| + e^{\nu(\lambda)T}(|c| + |\lambda|^2)) + e^{-|\nu(\lambda)|T} |\lambda^2| ) \\
-&\leq C ( (p_1(T; \lambda) + |G|)|a| + (e^{-\alpha T} + |G|)|b| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c| + e^{-|\nu(\lambda)|T} |\lambda^2| ) 
+&+ |G||(|a| + |b| + e^{\nu(\lambda)T}(|c| + |\lambda|^2)) + e^{-\tilde{\alpha}T}|\lambda^2| ) \\
+&\leq C ( (p_1(T; \lambda) + |G|)|a| + (e^{-\alpha T} + |G|)|b| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c| + e^{-\tilde{\alpha}T}|\lambda^2| ) 
 \end{align*}
 
 All coefficients here are small, which is good. We now play the same trick as in Sanstede (1998), which works because $E^s \oplus E^u \oplus E^c = \C^n$, thus since $\text{span }\{v_0(\lambda)\}$ is close to $E^c$, $E^s \oplus E^u \oplus \text{span }\{v_0(\lambda)\} = \C^n$. WE SHOULD PROBABLY ACTUALLY SHOW THIS TOO AT SOME POINT. Let $\Delta c = c^+ - c^-$. Note that since we only have 5 dimensions to play with, we can solve for $(a^+, a^-, \Delta c)$ but we have to wait until the next step to actually solve for the $c^\pm$.\\
@@ -804,7 +812,7 @@ with bound
 
 \begin{align*}
 |L_3(\lambda)(a, b, \Delta c, c^-)| &\leq C ( (p_1(T; \lambda) + |G|)|a| + (e^{-\alpha T} + |G|)|b| \\
-&+ ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|\Delta c| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c^-|+ e^{-|\nu(\lambda)|T} |\lambda^2| )
+&+ ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|\Delta c| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c^-|+ e^{-\tilde{\alpha} T} |\lambda^2| )
 \end{align*}
 
 So now we have 
@@ -834,14 +842,14 @@ Thus we have
 We have the following bound on $A_1(\lambda)$.
 
 \[
-|A_1(\lambda)(b, c^-)| \leq C ( (e^{-\alpha T} + |G|)|b| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c^-| + e^{-|\nu(\lambda)|T} |\lambda^2|)
+|A_1(\lambda)(b, c^-)| \leq C ( (e^{-\alpha T} + |G|)|b| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c^-| + e^{-\tilde{\alpha}T} |\lambda^2|)
 \]
 
 We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has bound
 
 
 \begin{align*}
-||W_2(\lambda)(b,c^-)|| &\leq C (e^{\nu(\lambda)T}(e^{-\alpha T} + |G|)|b| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c^-| + e^{-|\nu(\lambda)|T} |\lambda^2|) \\
+||W_2(\lambda)(b,c^-)|| &\leq C (e^{\nu(\lambda)T}(e^{-\alpha T} + |G|)|b| + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})|c^-| + e^{-\tilde{\alpha}T} |\lambda^2|) \\
 &+ |b| + e^{\nu(\lambda)T}(|c^-| + |\lambda|^2)) \\
 &\leq C (|b| + e^{\nu(\lambda)T}(|c^-| + |\lambda|^2))
 \end{align*}
@@ -996,11 +1004,11 @@ To get the bound we need on this, we need a better bound for the integral term i
 \left| \lambda^2 \int_{-T}^0 e^{-\nu(\lambda)y} \tilde{H}(y) dy \right|
 &\leq |\lambda^2| \int_{-T}^0 e^{-\nu(\lambda)y} e^{(\alpha - |\nu(\lambda)|)y} e^{-(\alpha - |\nu(\lambda)|)y}|\tilde{H}(y)| dy \\
 &\leq |\lambda^2| \int_{-T}^0 e^{-\nu(\lambda)y} e^{(\alpha - |\nu(\lambda)|)y} | e^{-(\alpha - |\nu(\lambda)|)y}\tilde{H}(y)| dy \\
-&\leq C |\lambda^2| \int_{-T}^0 e^{(\alpha - 2 |\nu(\lambda)|)y} | e^{(\alpha - |\nu(\lambda)|)y}\tilde{H}(y)| dy \\
+&\leq C |\lambda^2| \int_{-T}^0 e^{(\alpha - 2 |\nu(\lambda)|)y} | e^{-(\alpha - |\nu(\lambda)|)y}\tilde{H}(y)| dy \\
 &\leq C |\lambda^2|
 \end{align*}
 
-The ``positive'' one is similar. Thus we have the following bound on $L_4(\lambda)$. 
+where the integral is independent of $T$ as long as $2 |\nu(\lambda)|) < \alpha$. We didn't use the $\tilde{\alpha}$ here since the bound we get is only dependent on $\lambda$. The ``positive'' one is similar. Thus we have the following bound on $L_4(\lambda)$. 
 
 \begin{align*}
 |L_4(\lambda)(b, f(T; \lambda) c^-)| &\leq C( e^{-\alpha T}|a| + p_3(\lambda)|b| + (p_2(T; \lambda) + p_4(\lambda)) |f(T; \lambda) c^-|  \\
@@ -1033,14 +1041,14 @@ with bound
 
 In particular, this means that $b$ is of order $|\lambda|^2$ and $c^-$ is order $e^{-|\nu(\lambda)T|} |\lambda|^2$, since we divide by $f(T; \lambda)$ which is order $e^{|\nu(\lambda)T|}$.\\
 
-Substitutiting this into $A_1$ and $W_2$ gives us $A_3$ and $W_3$ with bounds
+Substituting this into $A_1$ and $W_2$ gives us $A_3$ and $W_3$ with bounds
 
 \begin{align*}
-|A_3(\lambda)(b, c^-)| &\leq C ( (e^{-\alpha T} + |G|)|\lambda|^2 + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})e^{-|\nu(\lambda)T|} |\lambda|^2 + e^{-|\nu(\lambda)|T} |\lambda^2|) \\
+|A_3(\lambda)(b, c^-)| &\leq C ( (e^{-\alpha T} + |G|)|\lambda|^2 + ( p_2(T; \lambda) + |G|e^{\nu(\lambda)T})e^{-|\nu(\lambda)T|} |\lambda|^2 + e^{-\tilde{\alpha}T}  |\lambda^2|) \\
 &\leq C e^{-|\nu(\lambda)T|} |\lambda|^2
 \end{align*}
 
-This implies that $c^+$ and $c^-$ are the same order, which is good. We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has bound
+This implies that $c^+$ and $c^-$ are the same order (since $|\nu(\lambda)| < \tilde{\alpha}$), which is good. We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has bound
 
 \begin{align*}
 ||W_2(\lambda)(b,c^-)|| &\leq C (|\lambda|^2 + e^{\nu(\lambda)T}(e^{-|\nu(\lambda)T|} |\lambda|^2 + |\lambda|^2)) \\
@@ -1085,7 +1093,13 @@ Using $A_3(\lambda)$ we have the bound
 |\langle \Psi(0), \Phi^s_-(0, -T; \lambda )a^- \rangle| \leq C e^{-\alpha T} |\lambda^2|
 \]
 
-The other one has the same bound. Note that since $d$ is not involved, we will not get another term here.
+We actually have the bound 
+
+\[
+|\langle \Psi(0), \Phi^s_-(0, -T; \lambda )a^- \rangle| \leq C e^{-\alpha T} e^{-|\nu(\lambda)|T} |\lambda^2|
+\]
+
+but that's better than we need. The other one has the same bound. Note that since $d$ is not involved, we will not get another term here.
 
 \item Terms involving $b$.\\
 
@@ -1162,7 +1176,7 @@ For the one involving $H$ (which is multiplied by $|\lambda^2|$), we have
 \int_{-T}^0 \langle \Psi(0), (\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)) \tilde{H}(y) \rangle dy
 \end{align*}
 
-where we need to play this trick to replace the $\lambda$-dependent evolution with the evolution when $\lambda = 0$ in order to get the Melnikov term we want. At present I have no idea how to bound the difference $|\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)|$. We do know that they individually decay like $e^{-\alpha y}$, but that is not sufficnet. If you were to Taylor about $\lambda = 0$ you would start with an order $\lambda$ term, so we will assume we have something like
+where we need to play this trick to replace the $\lambda$-dependent evolution with the evolution when $\lambda = 0$ in order to get the Melnikov term we want. At present I have no idea how to bound the difference $|\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)|$. We do know that they individually decay like $e^{-\alpha y}$, but that is not sufficient. If you were to Taylor about $\lambda = 0$ you would start with an order $\lambda$ term, so we will assume we have something like
 
 \[
 |\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)| \leq C |\lambda| e^{-\alpha y}
