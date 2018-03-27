@@ -169,7 +169,7 @@ for appropriate subscripts, e.g.
 
 \begin{align*}
 \Delta c_{L_1} &= c_1^+ - c_1^- \\
-\Delta c_{L_2} &= c_2^- - c_0^-
+\Delta c_{L_2} &= c_2^+ - c_0^-
 \end{align*}
 
  These should have bounds
@@ -277,16 +277,16 @@ Plugging $A_1^{L_1}$ in for $a$ and $\Delta c_{L_1}$ we get
 \item Next we use the projections 
 
 \begin{align*}
-P(\C Q'(0))W^-(0) &= 0 \\
-P(\C Q'(0))W^+(0) &= 0 \\
-P(Y^+ \oplus Y^- \oplus Y^0) ( W^+(0) - W^-(0) ) &= 0
+P(\C Q'(0))W_i^-(0) &= 0 \\
+P(\C Q'(0))W_i^+(0) &= 0 \\
+P(Y^+ \oplus Y^- \oplus Y^0) ( W_i^+(0) - W_i^-(0) ) &= 0
 \end{align*}
 
 to implement what happens at $x = 0$ (on both pieces). Note that the $L_1$ and $L_2$ terms will mix here. At $x = 0$, the fixed point equations become
 
 \begin{align*}
-W_i^-(0) = \Phi^s_-(&0, -X_{i-1}; \lambda)a_i^- + b_i^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
-&+ e^{\nu(\lambda)(X_{i-1})} v_-(0; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle c_i^- \\
+W_i^-(0) = \Phi^s_-(&0, -X_{i-1}; \lambda)a_{i-1}^- + b_i^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
+&+ e^{\nu(\lambda)(X_{i-1})} v_-(0; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^- \\
 &+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
 &+ \int_{-X_{i-1}}^0
 e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
@@ -296,98 +296,84 @@ W_i^+(0) = \Phi^u_+(&0, X_i; \lambda)a_i^+ + b_i^+ + (P^s_+(0; \lambda) - P^s_-(
 &+ \int_{X_i}^0 e^{\nu(\lambda)(-y)} v_+(0; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
 
-Using the same setup as in the single pulse case and doing the same projections, we should have
+Using the same setup as in the single pulse case and doing the same projections, we would like to get something like
 
 \[
-\begin{pmatrix}x^- \\ x_i^+ \\ y_i^+ - y_i^- + (e^{-\nu(\lambda)X_i} - e^{\nu(\lambda)X_{i-1}}) c_{i-1}^- y_0 \end{pmatrix} + L_4(\lambda)(b, c_{i-1}^-) = 0
+\begin{pmatrix}x^- \\ x_i^+ \\ y_i^+ - y_i^- + (e^{-\nu(\lambda)X_i} - e^{\nu(\lambda)X_{i-1}}) c^- y_0 \end{pmatrix} + L_4(\lambda)(b, c^-,d) = 0
 \]
 
-We should be able to play the same game we did in the single pulse case and define
+It turns out it's not that simple, but let's see what we can get. First, let's look at the 3rd component of this. The bound on $L_4$ will be determined by this, since the same bound will hold for the first two components.
 
 \begin{align*}
-f_i(\lambda) &= e^{-\nu(\lambda)X_i} - e^{\nu(\lambda)X_{i-1}}  \\
-f_i^-(\lambda) &= e^{\nu(\lambda)X_{i-1}} / f_i(\lambda) \\
-f_i^+(\lambda) &= e^{-\nu(\lambda)X_{i}} / f_i(\lambda)
-\end{align*}
-
-where as before we have $|f_i^\pm| \leq 1$. Note that each $f_i$ involves one $L_1$ and one $L_2$. Then this should look like
-
-\[
-\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- + f_i(\lambda) c_{i-1}^- y_0 \end{pmatrix} + L_4(\lambda)(b_i, f_i(\lambda) c_{i-1}^-) = 0
-\]
-
-First we need a bound on $L_4$. This is a little tricky since we are mixing the two $L$s. Let's look at the two halves separately, i.e. $(L_4)_1$ and $(L_4)_2$. To get the bound, we look at $W_i^+(0) - W_i^-(0)$ (since a bound on this works for the first two components) and remove the stuff that doesn't appear in $L_4$. Let's call this part $L_5$.
-
-\begin{align*}
-L_5(\lambda)_i &= \Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_i^- \\
-&+ (P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+  - (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
-&+ e^{\nu(\lambda)T} c^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda) \rangle) \\
-&- e^{-\nu(\lambda)T} (c^- + \Delta c) y_0 + e^{-\nu(\lambda)T} (c^- + \Delta c) ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle) \\
-W_i^-(0) =  + b_i^- +  \\
-&+ e^{\nu(\lambda)(X_{i-1})} v_-(0; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle c_i^- \\
+W_i^+(0) - W_i^-(0) ) &= \Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_i^- \\
+&+ b_i^+ - b_i^- + (P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+  - (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
+&+ e^{-\nu(\lambda)X_i} c_i^+ y_0 + e^{-\nu(\lambda)X_i} c_i^+( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle) \\
+&- e^{\nu(\lambda)X_{i-1}} c_{i-1}^- y_0 - e^{\nu(\lambda)X_{i-1}} c_{i-1}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle) \\
 &+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
 &+ \int_{-X_{i-1}}^0
 e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
-W_i^+(0) =  + b_i^+ + \\
-&+ e^{\nu(\lambda)(-X_i)} v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle c_i^+ \\
 &+ \int_{X_i}^0 \Phi^u_+(0, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
 &+ \int_{X_i}^0 e^{\nu(\lambda)(-y)} v_+(0; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
 
-\begin{align*}
-W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
-&+ e^{\nu(\lambda)T} c^- y_0 + e^{\nu(\lambda)T} c^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-T; \lambda) \rangle) \\
-&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_{-T}^0 
-e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
-W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
-&+ e^{-\nu(\lambda)T} (c^- + \Delta c) y_0 + e^{-\nu(\lambda)T} (c^- + \Delta c) ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(T; \lambda) \rangle) \\
-&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
-&+ \int_T^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
-\end{align*}
-
+When we make the $\Delta c$ substitution, the coefficients will mix, since
 
 \begin{align*}
-|L_4(\lambda)&(b_i, f_i(\lambda) c_{i-1}^-)| \leq C( e^{-\alpha L_m}|a| + p_3(\lambda)|b| + (p_2(T; \lambda) + p_4(\lambda)) |f(T; \lambda) c^-|  \\
-&+ e^{\nu(\lambda)L_M}|\Delta c| + e^{\nu(\lambda)T}|G|||W|| + |\lambda^2| |d| ) \\
-&\leq C( (e^{-\alpha L_m}+e^{\nu(\lambda)L_M}) ( ( e^{-\alpha L_m} + |G|)|b|
-+ ( p_2(L_m; \lambda) + |G|e^{\nu(\lambda) L_M})|c^-| 
-+ (e^{-\tilde{\alpha}L_m}|\lambda^2| + |D_1|)|d|) \\
-&+ p_3(\lambda)|b| + p_2(T; \lambda) + p_4(\lambda)) |f(T; \lambda) c^-| \\
-&+ e^{\nu(\lambda)T}|G|(|b| + e^{\nu(\lambda)L_M}(|c^-| + |\lambda|^2)) + |\lambda^2| |d| ) 
+c_1^+ &= c_1^- + \Delta c_{L_1} \\
+c_2^+ &= c_0^- + \Delta c_{L_2} 
 \end{align*}
+
+To allow us to do this with one set of notation, let $c_2^- = c_0^-$, and define 
+
+\begin{align*}
+c_1^+ &= c_1^- + \Delta c_1 \\
+c_2^+ &= c_0^- + \Delta c_0
+\end{align*}
+
+Then we have
+
+\begin{align*}
+W_i^+(0) - W_i^-(0) &= b_i^+ - b_i^- + e^{-\nu(\lambda)X_i} c_i^- y_0 - e^{\nu(\lambda)X_{i-1}} c_{i-1}^- y_0\\
+&+ \Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_i^- \\
+&+ (P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+  - (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
+&+ e^{-\nu(\lambda)X_i} \Delta c_i y_0 \\
+&+ e^{-\nu(\lambda)X_i} \Delta c_i ( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle) \\
+&+ e^{-\nu(\lambda)X_i} c_i^-( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle  v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle) \\
+&- e^{\nu(\lambda)X_{i-1}} c_{i-1}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle) \\
+&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{-X_{i-1}}^0
+e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+&+ \int_{X_i}^0 \Phi^u_+(0, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{X_i}^0 e^{\nu(\lambda)(-y)} v_+(0; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+Then our matrix-equation becomes
 
 \[
-|B_1(\lambda)| \leq C|\lambda|^2
+\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- + (e^{-\nu(\lambda)X_i} c_i^- - e^{\nu(\lambda)X_{i-1}} c_{i-1}^-) y_0 \end{pmatrix} + L_4(\lambda)(b_i, e^{-\nu(\lambda)X_i} c_i^-, e^{\nu(\lambda)X_{i-1}} c_{i-1}^-, d) = 0
 \]
 
-which makes $c_{i-1}$ be of order $|\lambda^2| / |f_i(\lambda)|$. This is annoying but we can get something useful out of this since $f_i$ involves one term in $L_1$ and one term in $L_2$. One of these (the one which has a positive exponential) will be large. Since we don't know which one, the best we can do is say that we have $c_{i-1} = \mathcal{O}e^{-|\nu(\lambda)|L_m}|\lambda^2|$
+where we plugged in the approprate things from above for $W$, $a$, and $\Delta c$. Unfortunately, this is not what we want. To do the inversion, we would like this to be
 
-Substitutiting this into $A_1$, $W_2$, and $A_2$ gives us $A_3$, $W_3$, and $A_4$ with bounds
+\[
+\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- + (e^{-\nu(\lambda)X_i} c_i^- - e^{\nu(\lambda)X_{i-1}} c_{i-1}^-) y_0 \end{pmatrix} + L_4(\lambda)(b_i, (e^{-\nu(\lambda)X_i} c_i^- + e^{\nu(\lambda)X_{i-1}} c_{i-1}^-), d) = 0
+\]
 
-\begin{align*}
-|A_3^{L_2}(\lambda)(d)| &\leq C ( (e^{-\alpha L} + |G|)|\lambda|^2 \\
-&+ ( p_2(L_2; \lambda) + |G|e^{\nu(\lambda)L_2})e^{-|\nu(\lambda)|L_m}|\lambda^2| \\
-&+ e^{-\tilde{\alpha}L_2} |\lambda^2||d|)
-\end{align*}
+so then the terms on the RHS and LHS would match. I am not sure if I see a way to get this. One thing I tried was taking the sum and the difference of our matrix equations for $i = 1, 2$. If we can solve those, then we can solve the original set of two equations. If we do that, the LHS of the two equations become
 
 \begin{align*}
-|A_3^{L_1}(\lambda)(d)| &\leq C ( ( e^{-\alpha L_1} + |G|)|\lambda|^2 \\
-&+ ( p_2(L_1; \lambda) + |G|e^{\nu(\lambda) L_1})e^{-|\nu(\lambda)|L_m}|\lambda^2| \\
-&+ (e^{-\tilde{\alpha}L_1}|\lambda^2| + |D_1|)|d|)
+&\begin{pmatrix}x_1^- - x_2^- \\ x_1^+ - x_2^+ \\ (y_1^+ - y_1^-) - (y_2^+ - y_2^-) + (e^{-\nu(\lambda)X_1} c_1^- - e^{\nu(\lambda)X_{0}} c_{0}^-) y_0 - (e^{-\nu(\lambda)X_2} c_2^- - e^{\nu(\lambda)X_{1}} c_{1}^-)\end{pmatrix} \\
+&= \begin{pmatrix}x_1^- - x_2^- \\ x_1^+ - x_2^+ \\ (y_1^+ - y_1^-) - (y_2^+ - y_2^-) + [(e^{-\nu(\lambda)L_1} + e^{\nu(\lambda)L_1}) c_1^- - (e^{-\nu(\lambda)L_2} + e^{\nu(\lambda)L_2})c_0^-]y_0 \end{pmatrix} 
 \end{align*}
+
+and 
 
 \begin{align*}
-||W_3(\lambda)(d)|| &\leq C (|\lambda|^2 + e^{\nu(\lambda)L_M}(e^{-|\nu(\lambda)|L_m}|\lambda^2| + |\lambda|^2)) \\
-&\leq C e^{\nu(\lambda)L_M} |\lambda|^2
+&\begin{pmatrix}x_1^- + x_2^- \\ x_1^+ + x_2^+ \\ (y_1^+ - y_1^-) + (y_2^+ - y_2^-) + (e^{-\nu(\lambda)X_1} c_1^- - e^{\nu(\lambda)X_{0}} c_{0}^-) y_0 - (e^{-\nu(\lambda)X_2} c_2^- - e^{\nu(\lambda)X_{1}} c_{1}^-)\end{pmatrix} \\
+&= \begin{pmatrix}x_1^- + x_2^- \\ x_1^+ + x_2^+ \\ (y_1^+ - y_1^-) + (y_2^+ - y_2^-) + [(e^{-\nu(\lambda)L_1} - e^{\nu(\lambda)L_1}) c_1^- + (e^{-\nu(\lambda)L_2} - e^{\nu(\lambda)L_2})c_0^-]y_0 \end{pmatrix} \\
 \end{align*}
 
-\begin{align*}
-|A_4(\lambda)(d)| &\leq C( e^{-\alpha L_1} + |G|)|\lambda^2| + ( p_2(L_1; \lambda) + |G|e^{\nu(\lambda)L_1})e^{-|\nu(\lambda)|L_m}|\lambda^2| \\
-&+ (( p_1(L_1; \lambda) + p_2(L_1; \lambda) + p_5(\lambda) + |G|e^{\nu(\lambda)L_1})|D_1| + e^{-\tilde{\alpha}L_1}|\lambda^2|)|d| ) 
-\end{align*}
-
-
+These look rather nice, but the RHS of them again is not what we need to do the inversion. I am not sure what the right thing to do here is, since it appears the ``mixing'' of the coefficients $c_i^\pm$ is causing all the problems.
 
 
 \end{enumerate}
