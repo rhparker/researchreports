@@ -134,8 +134,8 @@ To solve these, we have two equations. The first one is the periodic matching, w
 &+ (P^u_+(L_2; \lambda) - P_0^u)a_2^+ - (P^s_-(-L_2; \lambda) - P_0^s)a_0^- \\
 &+ \Phi^s_+(L_2, 0; \lambda)b_2^+ - \Phi^u_-(-L_2, 0; \lambda)b_1^- \\
 &+ v_+(L_2; \lambda) \langle v_0(\lambda), w_+(L_2; \lambda) \rangle c_2^+ - v_-(-L_2; \lambda) \langle v_0(\lambda), w_-(-L_2; \lambda) \rangle c_0^- \\
-&+ \int_0^{L_2} \Phi^u_+(L_2, y; \lambda) [ G(\lambda)W^-(y) + d_2 \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-L_2} \Phi^s_-(-L_2, y; \lambda) [ G(\lambda)W^+(y) + d_1 \lambda^2 \tilde{H}(y) ] dy
+&+ \int_0^{L_2} \Phi^u_+(L_2, y; \lambda) [ G(\lambda)W_2^+(y) + d_2 \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_0^{-L_2} \Phi^s_-(-L_2, y; \lambda) [ G(\lambda)W_1^-(y) + d_1 \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
 The second one is the center matching at $\pm L$.
@@ -145,67 +145,112 @@ D_1 d &= a_1^+ - a_1^- \\
 &+ (P^u_+(L_1; \lambda) - P_0^u)a_1^+ - (P^s_-(-L_1; \lambda) - P_0^s)a_1^- \\
 &+ \Phi^s_+(L_1, 0; \lambda)b_1^+ - \Phi^u_-(-L_1, 0; \lambda)b_2^- \\
 &+ v_+(L_1; \lambda) \langle v_0(\lambda), w_+(L_1; \lambda) \rangle c_1^+ - v_-(-L_1; \lambda) \langle v_0(\lambda), w_-(-L_1; \lambda) \rangle c_1^- \\
-&+ \int_0^{L_1} \Phi^u_+(L_1, y; \lambda) [ G(\lambda)W^-(y) + d_1 \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-L_1} \Phi^s_-(-L_1, y; \lambda) [ G(\lambda)W^+(y) + d_2 \lambda^2 \tilde{H}(y) ] dy
+&+ \int_0^{L_1} \Phi^u_+(L_1, y; \lambda) [ G(\lambda)W_1^+(y) + d_1 \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_0^{-L_1} \Phi^s_-(-L_1, y; \lambda) [ G(\lambda)W_2^-(y) + d_2 \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
-Since the collections of initial conditions do not overlap between these two, we can actually solve them separately. To do this, note for each one we will have somehting like
+Since the collections of initial conditions do not overlap between these two, we can solve them separately. To write this as a single set of equations, we let $c_2^- = c_0^-$, $a_2^- = a_0^-$, $b_0^- = b_2^-$, $d_0 = d_2$ and $D_2 = 0$. This notation makes sense, since periodic BCs means we are basically ``wrapping around''. Then we have
+
 
 \begin{align*}
-S_1^{L_1}(a) &= D_1 d - L_3^{L_1}(\lambda)(0, b, c, d) \\
-S_1^{L_2}(a) &= - L_3^{L_2}(\lambda) (0, b, c, d)
+D_i d &= a_i^+ - a_i^- \\
+&+ (P^u_+(L_i; \lambda) - P_0^u)a_i^+ - (P^s_-(-L_i; \lambda) - P_0^s)a_i^- \\
+&+ \Phi^s_+(L_i, 0; \lambda)b_i^+ - \Phi^u_-(-L_i, 0; \lambda)b_{i-1}^- \\
+&+ v_+(L_1; \lambda) \langle v_0(\lambda), w_+(L_1; \lambda) \rangle c_1^+ - v_-(-L_1; \lambda) \langle v_0(\lambda), w_-(-L_1; \lambda) \rangle c_1^- \\
+&+ \int_0^{L_i} \Phi^u_+(L_i, y; \lambda) [ G(\lambda)W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_0^{-L_i} \Phi^s_-(-L_i, y; \lambda) [ G(\lambda)W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
-where the superscript indicates which length parameter is the key one. This notation is kind of terrible, but at least it indicates which one we are dealing with. The idea is, at least for now, that $L_1$ and $L_2$ may be quite different, so it makes sense to separate out the one for the periodic BCs for now.\\
-
-We should now be able to solve for $a, \Delta c$ as we did in the single pulse case, i.e. we should have 
+We follow what we did in the single pulse case, but this time we solve for $c_i^+$ in terms of $c_i^-$ rather than doing the $\Delta c$ thing. First, after manipulating things to get a $c^+ v_0(\lambda)$ term (as in the single pulse version) we rewrite this as
 
 \begin{align*}
-(a_{L_1}, \Delta c_{L_1}) &= A_1^{L_1}(\lambda)(b_{L_1}, c_{L_1}^-,d) \\
-(a_{L_2}, \Delta c_{L_2}) &= A_1^{L_2}(\lambda)(b_{L_2}, c_{L_2}^-,d) 
-\end{align*}
-
-for appropriate subscripts, e.g.
-
-\begin{align*}
-\Delta c_{L_1} &= c_1^+ - c_1^- \\
-\Delta c_{L_2} &= c_2^+ - c_0^-
-\end{align*}
-
- These should have bounds
-
-\begin{align*}
-|A_1^{L_2}(\lambda)(b_{L_2}, c_{L_2}^-, d)| &\leq C ( (e^{-\alpha L} + |G|)|b_{L_2}| \\
-&+ ( p_2(L_2; \lambda) + |G|e^{\nu(\lambda)L_2})|c_{L_2}^-| \\
-&+ e^{-\tilde{\alpha}L_2} |\lambda^2||d|)
-\end{align*}
-
-and
-
-\begin{align*}
-|A_1^{L_1}(\lambda)(b_{L_1}, c_{L_1}^-, d)| &\leq C ( ( e^{-\alpha L_1} + |G|)|b_{L_1}| \\
-&+ ( p_2(L_1; \lambda) + |G|e^{\nu(\lambda) L_1})|c_{L_1}^-| \\
-&+ (e^{-\tilde{\alpha}L_1}|\lambda^2| + |D_1|)|d|)
+D_i d &= a_i^+ - a_i^- + c_i^+ v_0(\lambda) \\
+&+ (P^u_+(L_i; \lambda) - P_0^u)a_i^+ - (P^s_-(-L_i; \lambda) - P_0^s)a_i^- \\
+&+ \Phi^s_+(L_i, 0; \lambda)b_i^+ - \Phi^u_-(-L_i, 0; \lambda)b_{i-1}^- \\
+&+ c_i^+ \Delta v_+(L_i; \lambda) + c^+ v_+(L_i; \lambda) \langle v_0(\lambda), \Delta w_+(L_i; \lambda) \rangle \\
+&- c_i^- v_-(-L_i; \lambda) \langle v_0(\lambda), w_-(-L_i; \lambda) \rangle \\
+&+ \int_0^{L_i} \Phi^u_+(L_i, y; \lambda) [ G(\lambda)W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_0^{-L_i} \Phi^s_-(-L_i, y; \lambda) [ G(\lambda)W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
 where
 
 \begin{align*}
-p_2(x; \lambda) &= |\Delta v_\pm(\pm x, \lambda)| + |\Delta w_\pm(\pm x, \lambda)| 
+\Delta v_\pm(x; \lambda) &= v_\pm(x; \lambda) - v_0(\lambda) \\
+\Delta w_\pm(x; \lambda) &= w_\pm(x; \lambda) - w_0(\lambda)
 \end{align*}
 
-We will need a bound which combines $L_1$ and $L_2$, so to do this we always assume the worst case scenario
+Then we have 
 
 \begin{align*}
-|A_1(\lambda)(b, c^-, d)| &\leq C ( ( e^{-\alpha L_m} + |G|)|b|
-+ ( p_2(L_m; \lambda) + |G|e^{\nu(\lambda) L_M})|c^-| 
-+ (e^{-\tilde{\alpha}L_m}|\lambda^2| + |D_1|)|d|)
+0 &= a_i^+ - a_i^- + c_i^+ v_0(\lambda) + L_3(\lambda)_i(a_i, b, c_i^+, c_i^-, d)
+\end{align*}
+
+We have the bound 
+
+\[
+|L_3(\lambda)_i(a_i, b, c_i^+, c_i^-, d)| \leq C ( p_1(L_i; \lambda)|a_i|
++ e^{-\alpha L_i}|b| + p_2(L_i; \lambda)|c_i^+| + |c_i^-| + |G| ||W|| + e^{-\tilde{\alpha} L_i} |\lambda^2| |d| )
+\]
+
+where
+
+\begin{align*}
+p_1(X;\lambda) = \sup_{x \geq X} (|P^u(x;\lambda) - P_0^u| + |P^s(-x;\lambda) - P_0^s|)
+\end{align*}
+
+and
+
+\begin{align*}
+p_2(T; \lambda) &= |\Delta v_\pm(\pm T, \lambda)| + |\Delta w_\pm(\pm T, \lambda)|\\
+&= |v_\pm(\pm T; \lambda) - v_0(\lambda)| + |w_\pm(\pm T; \lambda) - w_0(\lambda)|
+\end{align*}
+
+and we did the same $\tilde{\alpha}$ thing that we did for the single pulse. Plugging in $W_1$ above for $W$, this bound becomes
+
+\begin{align*}
+|L_3&(\lambda)_i(a_i, b, c_i^+, c_i^-, d)| \leq C ( p_1(L_i; \lambda)|a_i|
++ e^{-\alpha L_i}|b| + p_2(L_i; \lambda)|c_i^+| + |c_i^-| + e^{-\tilde{\alpha} L_i} |\lambda^2| |d| ) \\
+&+ |G| (|a| + |b| + e^{\nu(\lambda)L_M}(|c^+| + |c^-| + |\lambda|^2 |d| )) \\
+&= C( (p_1(L_i; \lambda) + |G|)|a| + (e^{-\alpha L_i} + |G|) |b| + ( p_2(L_i; \lambda) + e^{\nu(\lambda)L_M} |G|) |c^+| \\
+&+ |c^-| + (e^{-\tilde{\alpha} L_i} + e^{\nu(\lambda)L_M} |G|) |\lambda|^2 |d| )
+\end{align*}
+
+Note that when we plug in $W_1(\lambda)$, each half of this involves both pieces of $W$, so the coefficients mix. Since we have bounds for all of them it does not matter.\\ 
+
+Let $J_1: V_a \times \text{span }\{v_0(\lambda)\} \rightarrow \C^n$ be defined by $J_i(a_i, c_i^+) = (a_i^+ - a_i^-, c_i^+)$. The map $J_i$ is a linear isomorphism. Now consider the map
+
+\[
+S_i(a_i, c_i^+) = J_i (a_i, c_i^+) + L_3(\lambda)_i(a_i, 0, c_i^+, 0, 0) = J_i( I + J_i^{-1} L_3(\lambda)_i(a_i, 0, c_i^+, 0, 0))
+\]
+
+
+For suffiently small $\delta$, we can get the operator norm $||J_i^{-1} L_3(\lambda)_i(\cdot, 0, \cdot, 0, 0)|| < 1$, thus the map $(a_i, c_i^+) \rightarrow I + J_1^{-1} L_3(\lambda)_i(a_i, 0, c_i^+, 0, 0)$ is invertible and so the operator $S_i$ is invertible.\\
+
+Thus we have
+
+\[
+(a_i, c_i^+) = A_1(\lambda)_i(b, c_i^-, d) = S_i^{-1}(D_i d - L_3(\lambda)_i(0, b, 0, c_i^-, d))
+\]
+
+This will have bound
+
+\begin{align*}
+|A_1&(\lambda)_i(b, c_i^-, d)| \leq C( (e^{-\alpha L_i} + |G|) |b| + |c^-| + (e^{-\tilde{\alpha} L_i} + e^{\nu(\lambda)L_M} |G|) |\lambda|^2 + |D_i|) |d| )
+\end{align*}
+
+The overall bound (worst case scenario) combines $L_1$ and $L_2$ to get
+
+\begin{align*}
+|A_1&(\lambda)(b, c^-, d)| \leq C( (e^{-\alpha L_m} + |G|) |b| + |c^-| + (e^{-\tilde{\alpha} L_m} + e^{\nu(\lambda)L_M} |G|) |\lambda|^2 + |D|) |d| )
 \end{align*}
 
 We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has bound
 
 \begin{align*}
-||W_2(\lambda)(b,c^-, d)|| &\leq C (|b| + e^{\nu(\lambda)L_M}(|c^-| + |\lambda|^2))
+||W_2&(\lambda)(b,c^-, d)|| \leq C(|b| + e^{\nu(\lambda)L_M}(|c^-| + |\lambda|^2 |d|) \\
+&+ e^{\nu(\lambda)L_M}((e^{-\alpha L_m} + |G|) |b| + |c^-| + (e^{-\tilde{\alpha} L_m} + e^{\nu(\lambda)L_M} |G|) |\lambda|^2 + |D|) |d| )\\
+&\leq C(|b| + e^{\nu(\lambda)L_M}|c^-| + (e^{\nu(\lambda)L_M} |\lambda|^2 + |D|)|d| )
 \end{align*}
 
 With a multipulse, we will need an analogue of (3.25) in Sandstede (1998). Starting with the $L_1$-match (the other one is not useful, since there is no term in $D_1 d$)
