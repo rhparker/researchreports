@@ -346,14 +346,76 @@ Then our matrix-equation becomes
 \begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- - e^{\nu(\lambda)X_{i-1}} c_{i-1}^- y_0 \end{pmatrix} + L_4(\lambda)_i(b_i, e^{\nu(\lambda)X_{i-1}} c_{i-1}^-, d) = 0
 \]
 
-We have the following bound for $L_4$, where we use the $\tilde{\alpha}$ trick like we did for the single pulse.
+It turns out that this will not quite work. The basic reason this is the case is that since we do not know the sign of $\nu(\lambda)$, thus we know nothing about the magnitude of $e^{\nu(\lambda)X_{i-1}}$. We can hopefully get around this by adding and subtracting the ``other-sign'' version in the ``negative'' fixed point equation at $x = 0$.
 
 \begin{align*}
-|L_4&(\lambda)_i(b_i, e^{\nu(\lambda)X_{i-1}} c_{i-1}^-, d)|\\ 
+W_i^-(0) = \Phi^s_-(&0, -X_{i-1}; \lambda)a_{i-1}^- + b_i^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
+&+ (e^{\nu(\lambda)X_{i-1}} + e^{-\nu(\lambda)X_{i-1}} - e^{-\nu(\lambda)X_{i-1}}) c_{i-1}^- y_0 \\
+&+ e^{\nu(\lambda)X_{i-1}} c_{i-1}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle) \\
+&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{-X_{i-1}}^0
+e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy
+\end{align*}
+
+Making this change, we have
+
+\[
+\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- - (e^{\nu(\lambda)X_{i-1}} + e^{-\nu(\lambda)X_{i-1}})c_{i-1}^- y_0 \end{pmatrix} + L_4(\lambda)_i(b_i, e^{\nu(\lambda)X_{i-1}} c_{i-1}^-, d) = 0
+\]
+
+Note that the RHS does not match the LHS, but we will get there. For convenience, let
+
+\begin{align*}
+f(X; \lambda) = e^{\nu(\lambda)X} + e^{-\nu(\lambda)X} &= 2 \cosh (\nu(\lambda) X) \\
+f^+(X; \lambda) &= e^{\nu(\lambda)X} / f(X; \lambda) \\
+f^-(X; \lambda) &= e^{-\nu(\lambda)X} / f(X; \lambda)
+\end{align*}
+
+This is nice, since $|f(X; \lambda)| \geq 1|$ and $0 < |f^\pm(X; \lambda)| < 1$. So we have
+
+\[
+\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- - f(X_{i-1}; \lambda)c_{i-1}^- y_0 \end{pmatrix} + L_4(\lambda)_i(b_i, f(X_{i-1}; \lambda) c_{i-1}^-, d) = 0
+\]
+
+where we have written RHS to match the LHS. Of course, we need to show that is possible, which is what we do now. Once again, we look at $W_i^+(0) - W_i^-(0)$.
+
+\begin{align*}
+W_i^+(0) - W_i^-(0) &= b_i^+ - b_i^- - f(X_{i-1}; \lambda) c_{i-1}^- y_0 \\
+&+ \Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \\
+&+(P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+  - (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
+&+ c_i^+ e^{-\nu(\lambda)X_i} v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle c_i^+ \\
+&+ e^{-\nu(\lambda)X_{i-1}} c_{i-1}^- y_0 - e^{\nu(\lambda)X_{i-1}} c_{i-1}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle) \\
+&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{-X_{i-1}}^0
+e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+&+ \int_{X_i}^0 \Phi^u_+(0, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{X_i}^0 e^{\nu(\lambda)(-y)} v_+(0; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+Upon substituting the various $f$ things, this becomes
+ 
+\begin{align*}
+W_i^+(0) - W_i^-(0) &= b_i^+ - b_i^- - f(X_{i-1}; \lambda) c_{i-1}^- y_0 \\
+&+ \Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \\
+&+(P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+  - (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
+&+ c_i^+ e^{-\nu(\lambda)X_i} v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle \\
+&+ f^-(X_{i-1}; \lambda)f(X_{i-1}; \lambda) c_{i-1}^- y_0 \\
+&- f^+(X_{i-1}; \lambda)f(X_{i-1}; \lambda) c_{i-1}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle) \\
+&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{-X_{i-1}}^0
+e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+&+ \int_{X_i}^0 \Phi^u_+(0, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{X_i}^0 e^{\nu(\lambda)(-y)} v_+(0; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+We have the following bound for $L_4$, where we use the $\tilde{\alpha}$ trick like we did for the single pulse. Note that the bound will depend on all the things in $W_i^+(0) - W_i^-(0)$ other than the first line.
+
+\begin{align*}
+|L_4&(\lambda)_i(b_i, f(X_{i-1}; \lambda) c_{i-1}^-, d)|\\ 
 &\leq C( e^{- \alpha X_i} |a_i^+| +  e^{-\alpha X_{i-1}} |a_{i-1}^-| \\
-&+ p_3(\lambda) |b_i| + (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | e^{\nu(\lambda)X_{i-1}} c_{i-1}^-| \\
+&+ p_3(\lambda) |b_i| + (f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
 &+ e^{\nu(\lambda)X_{i}} |c_i^+| \\
-&+ e^{\nu(\lambda)X_M}|G| ||W|| + |\lambda^2||d|)
+&+ e^{\nu(\lambda)X_M}|G| ||W|| + |\lambda^2| |d|)
 \end{align*}
 
 where
@@ -368,23 +430,38 @@ and
 p_4(\lambda) = |v_-(0; \lambda) - y_0| + |v_+(0; \lambda) - y_0|
 \]
 
-Now we plug in $A_1$ and $W_2$ into this. Note that because of the ``mixing'' of coefficents ($a_i$ in particular), we need to plug in both $A_1(\lambda)_i$ and $A_1(\lambda)_{i-1}$. For now, since we only have $i = 1, 2$, let's do them separately. For $i = 1$, we have
+To finish the bound, we need to plug in $A_1$ and $W_2$. Note that because of the ``mixing'' of coefficents ($a_i$ and $c_i$), we need to plug in both $A_1(\lambda)_i$ and $A_1(\lambda)_{i-1}$. For now, since we only have $i = 1, 2$, let's do them separately. Recall that $X_0 = X_2$ and the other ``wraparounds'' we have above. For $i = 1$, we have
 
 \begin{align*}
-|L_4&(\lambda)_1(b_1, e^{\nu(\lambda)X_2} c_2^-, d)|\\ 
-&\leq C( e^{-\alpha X_1} |a_1^+| +  e^{-\alpha X_2} |a_2^-| \\
-&+ p_3(\lambda) |b_1| + (p_2(\lambda; X_2) + p_4(\lambda)) |e^{\nu(\lambda)X_2} c_2^-| \\
-&+ e^{-\nu(\lambda)X_1} |c_1^+| \\
-&+ e^{\nu(\lambda)X_M}|G| ||W|| + |\lambda^2||d|) \\
-&\leq C ( e^{-\alpha X_1}( (e^{-\alpha X_1} + |G|) |b| + |c_1^-| + (e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| )\\
-&+ e^{-\alpha X_2} (e^{-\alpha X_2} + |G|) |b| + |c_2^-| + (e^{-\tilde{\alpha} X_2} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| ) \\
-&+ p_3(\lambda) |b_1| + (p_2(\lambda; X_2) + p_4(\lambda)) |e^{\nu(\lambda)X_2} c_2^-|\\
-&+ e^{\nu(\lambda)X_1} (e^{-\alpha X_1} + |G|) |b| + |c_1^-| + (e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| ) \\
-&+ |G| (|b| + e^{\nu(\lambda)X_M}|c^-| + (e^{\nu(\lambda)X_M} |\lambda|^2 + |D|)|d| ) + \lambda^2||d|) \\
-&\leq C( 
+|L_4&(\lambda)_1(b_1, f(X_2; \lambda) c_2^-, d)|\\ 
+&\leq C( e^{-\alpha X_1} |a_1^+| + e^{-\alpha X_2} |a_2^-| \\
+&+ p_3(\lambda) |b_1| \\
+&+ (f^-(X_2; \lambda) + f^+(X_2; \lambda) (p_2(\lambda; X_2) + p_4(\lambda)) | f(X_2; \lambda) c_2^-| \\
+&+ e^{\nu(\lambda)X_1} |c_1^+| \\
+&+ e^{\nu(\lambda)X_M}|G| ||W|| + |\lambda^2||d|)
 \end{align*}
 
-where we recall that $X_0 = X_2$ and the other ``wraparounds'' we have above.
+Making the substitutions, this becomes
+
+\begin{align*}
+|L_4&(\lambda)_1(b_1, f(X_2; \lambda) c_2^-, d)|\\ 
+&\leq C ( e^{-\alpha X_1}( (e^{-\alpha X_1} + |G|) |b| + |c_1^-| + (e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| )\\
+&+ e^{-\alpha X_2} (e^{-\alpha X_2} + |G|) |b| + |c_2^-| + (e^{-\tilde{\alpha} X_2} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| ) \\
+&+ p_3(\lambda) |b_1| + (f^-(X_2; \lambda) + f^+(X_2; \lambda) (p_2(\lambda; X_2) + p_4(\lambda)) | f(X_2; \lambda) c_2^-| \\
+&+ e^{\nu(\lambda)X_1} (e^{-\alpha X_1} + |G|) |b| + |c_1^-| + (e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| ) \\
+&+ |G| (|b| + e^{\nu(\lambda)X_M}|c^-| + (e^{\nu(\lambda)X_M} |\lambda|^2 + |D|)|d| ) + \lambda^2||d|) \\
+&\leq C ( e^{-\alpha X_1}( (e^{-\alpha X_1} + |G|) |b| + |c_1^-| + (e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| )\\
+&+ e^{-\alpha X_2} ((e^{-\alpha X_2} + |G|) |b| + |c_2^-| + (e^{-\tilde{\alpha} X_2} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| ) \\
+&+ p_3(\lambda) |b_1| + (f^-(X_2; \lambda) + f^+(X_2; \lambda) (p_2(\lambda; X_2) + p_4(\lambda)) | f(X_2; \lambda) c_2^-| \\
+&+ e^{\nu(\lambda)X_1} (e^{-\alpha X_1} + |G|) |b| + |c_1^-| + (e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| ) \\
+&+ |G| (|b| + e^{\nu(\lambda)X_M}|c^-| + (e^{\nu(\lambda)X_M} |\lambda|^2 + |D|)|d| ) + |\lambda^2||d|) \\
+&\leq C( (|G| + e^{-2\alpha X_1} + e^{-2\alpha X_1} + p_3(\lambda))|b| \\
+&+ (f^-(X_2; \lambda) + f^+(X_2; \lambda) (p_2(\lambda; X_2) + p_4(\lambda)) + e^{-\alpha X_2} + e^{\nu(\lambda)(X_M - X_m)}|G|)| f(X_2; \lambda) c_2^-| \\
+&+ (f^+(X_1; \lambda) + e^{-\alpha X_1} + e^{\nu(\lambda)(X_M - X_m)}|G|)| f(X_1; \lambda) c_1^-| \\
+&+ ((1 + e^{2 \nu(\lambda) X_M }|G|)|\lambda|^2 + e^{\nu(\lambda)X_1}|D|)|d| )
+\end{align*}
+
+
 
 \begin{align*}
 |A_1&(\lambda)_2(b, c_2^-, d)| \leq C( (e^{-\alpha X_2} + |G|) |b| + |c_2^-| + (e^{-\tilde{\alpha} X_2} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| )
@@ -394,6 +471,18 @@ where we recall that $X_0 = X_2$ and the other ``wraparounds'' we have above.
 |A_1&(\lambda)_1(b, c_1^-, d)| \leq C( (e^{-\alpha X_1} + |G|) |b| + |c_1^-| + (e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| )
 \end{align*}
 
+
+
+
+To do the inversion, we need for the coefficients of $b_i$ and $| f(X_{i-1}; \lambda) c_{i-1}^-|$ to have magnitude less than 1. For $b_i$ we are all set, since $p_3(\lambda)$ is order $\lambda$, and we can choose $\lambda$ as small as we want. For the other one, we note that 
+
+\[
+f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) = 1
+\]
+
+and both terms on the LHS are positive. Since $(p_2(\lambda; X_{i-1}) + p_4(\lambda))$ can be made as small as we want by choosing $\lambda$ small, this coefficient also has magnitude less than 1. Thus we can do the inversion. \\
+
+Now we plug in $A_1$ and $W_2$ into this. 
 
 
 \end{enumerate}
