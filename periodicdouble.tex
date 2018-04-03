@@ -135,8 +135,7 @@ where we used the max $X_M$ here since the growth on the ``center'' space gets w
 Although this bound certainly works, it would be nice to have separate bounds for the $c_i$ since the two length scales $X_1$ and $X_2$ could be very different. This will turn out to be useful. Thus we have 
 
 \[
-||W_1(\lambda)(a,b,c,d)|| \leq C (|a| + |b| + e^{\nu(\lambda)X_1}|c_1| + e^{\nu(\lambda)X_2}|c_2|
-+ e^{\nu(\lambda)X_M}|\lambda|^2 |d| )
+||W_1(\lambda)(a,b,c,d)|| \leq C (|a| + |b| + e^{\nu(\lambda)X_1}|c_1| + e^{\nu(\lambda)X_2}|c_2| + e^{\nu(\lambda)X_M}|\lambda|^2 |d| )
 \]
 
 \item Solve for the joins which are not at 0, i.e. solve
@@ -228,14 +227,40 @@ p_2(T; \lambda) &= |\Delta v_\pm(\pm T, \lambda)| + |\Delta w_\pm(\pm T, \lambda
 and we did the same $\tilde{\alpha}$ thing that we did for the single pulse. So far this is nice, since it looks like only the initial conditions with subscript $i$ are involved. This, unfortunately, is deceptive since both $W_1$ and $W_2$ are involved, thus via $W$ we involve the other subscript. We see this ``mixing'' when we plug in $W_1$ for $W$.
 
 \begin{align*}
-|L_3&(\lambda)_i(a_i, b, c_i^+, c_i^-, d)| \leq C ( p_1(X_i; \lambda)|a_i|
+|L_3&(\lambda)_i(a, b, c^+, c^-, d)| \leq C ( p_1(X_i; \lambda)|a_i|
 + e^{-\alpha X_i}|b| + p_2(X_i; \lambda)|c_i^+| + |c_i^-| + e^{-\tilde{\alpha} X_i} |\lambda^2| |d| ) \\
-&+ |G| (|a| + |b| + e^{\nu(\lambda)X_M}(|c^+| + |c^-| + |\lambda|^2 |d| )) \\
+&+ |G| (|a| + |b| + e^{\nu(\lambda)X_1}|c_1| + e^{\nu(\lambda)X_2}|c_2| + e^{\nu(\lambda)X_M}|\lambda|^2 |d| ) \\
 &= C( (p_1(X_i; \lambda) + |G|)|a| + (e^{-\alpha X_i} + |G|) |b| + ( p_2(X_i; \lambda) + e^{\nu(\lambda)X_M} |G|) |c^+| \\
-&+ |c^-| + (e^{-\tilde{\alpha} X_i} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 |d| )
+&+ (1 + e^{\nu(\lambda)X_M} |G|)|c^-| + (e^{-\tilde{\alpha} X_i} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 |d| )
 \end{align*}
 
-Note that when we plug in $W_1(\lambda)$, each half of this involves both pieces of $W$, so the coefficients mix. Since we have bounds for all of them it does not matter.\\ 
+Note that when we plug in $W_1(\lambda)$, each half of this involves both pieces of $W$, so the coefficients mix. Since we have bounds for all of them it should not matter.\\ 
+
+At this point, we have a small complication. Since we have (or are assuming) that $|G|$ is order $e^{-\alpha X_m}$, we have several terms which are order $e^{\nu(\lambda)X_M - \alpha x_m)}$, and there is no telling what this going to do as we increase our two length parameters. If, say, $X_M$ is way bigger than $x_m$, this could actually blow up. There are likely multiple ways around this. The simplest one is to have $X_2$ depend on $X_1$, so we can simplify all the things.\\
+
+Since (using the way we have set it up) it is likely that $X_2 > X_1$, we will let $X_2 = k X_1$, where $k \geq 1$. Of course, since this is periodic and we can think of this as happening on a cylinder, what really matters is the ratio of $X_2$ to $X_1$, since we can take the origin to be wherever we want. Thus we have $X_M = k X_1$ and $X_m = X_1$. Using this relationship, our equation becomes
+
+\begin{align*}
+|L_3&(\lambda)_i(a, b, c^+, c^-, d)| \leq C (p_1(X_i; \lambda) + |G|)|a| + (e^{-\alpha X_i} + |G|) |b| + ( p_2(X_i; \lambda) + e^{\nu(\lambda) k X_1 } |G|) |c^+| \\
+&+ (1 + e^{\nu(\lambda) k X_1} |G|)|c^-| + (e^{-\tilde{\alpha} X_i} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 |d| )
+\end{align*}
+
+For the inversion to work, we need the following:
+
+\begin{enumerate}[(i)]
+\item Choose $\delta > 0$ small
+\item Choose $0 < \tilde{\delta} \leq \delta$ such that for all $|\lambda| < \tilde{\delta}$ we also have $|\nu{\lambda}| \leq \delta$. Since $\nu(\lambda)$ has order $\lambda$, this is possible
+\item Choose $k$ so that $\delta k < \alpha$. 
+\item This implies $\alpha - \nu(\lambda) k > 0$ for all $|\lambda| < \tilde{\delta}$
+\item In particular, this means that all the $e^{\nu(\lambda)k X_1} |G|$ terms are uniformly bounded and decay in $X_1$
+\end{enumerate}
+
+Having done this, the bound becomes
+
+\begin{align*}
+|L_3&(\lambda)_i(a, b, c^+, c^-, d)| \leq C (p_1(X_i; \lambda) + |G|)|a| + (e^{-\alpha X_i} + |G|) |b| + ( p_2(X_i; \lambda) + e^{\nu(\lambda) k X_1 } |G|) |c^+| \\
+&+ |c^-| + (e^{-\tilde{\alpha} X_i} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 |d| )
+\end{align*}
 
 Let $J_1: V_a \times \text{span }\{v_0(\lambda)\} \rightarrow \C^n$ be defined by $J_i(a_i, c_i^+) = (a_i^+ - a_i^-, c_i^+)$. The map $J_i$ is a linear isomorphism. Now consider the map
 
@@ -244,32 +269,33 @@ S_i(a_i, c_i^+) = J_i (a_i, c_i^+) + L_3(\lambda)_i(a_i, 0, c_i^+, 0, 0) = J_i( 
 \]
 
 
-For suffiently small $\delta$, we can get the operator norm $||J_i^{-1} L_3(\lambda)_i(\cdot, 0, \cdot, 0, 0)|| < 1$, thus the map $(a_i, c_i^+) \rightarrow I + J_1^{-1} L_3(\lambda)_i(a_i, 0, c_i^+, 0, 0)$ is invertible and so the operator $S_i$ is invertible.\\
+For suffiently small $\delta$, by what we have above, we can get the operator norm $||J_i^{-1} L_3(\lambda)_i(\cdot, 0, \cdot, 0, 0)|| < 1$, thus the map $(a_i, c^+) \rightarrow I + J_1^{-1} L_3(\lambda)_i(a_i, 0, c^+, 0, 0)$ is invertible and so the operator $S_i$ is invertible.\\
 
 Thus we have
 
 \[
-(a_i, c_i^+) = A_1(\lambda)_i(b, c_i^-, d) = S_i^{-1}(D_i d - L_3(\lambda)_i(0, b, 0, c_i^-, d))
+(a_i, c_i^+) = A_1(\lambda)_i(b, c_i, d) = S_i^{-1}(D_i d - L_3(\lambda)_i(0, b, 0, c_i, d))
 \]
 
 This will have bound
 
 \begin{align*}
-|A_1&(\lambda)_i(b, c_i^-, d)| \leq C( (e^{-\alpha X_i} + |G|) |b| + |c_i^-| + (e^{-\tilde{\alpha} X_i} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D_i|) |d| )
+|A_1&(\lambda)_i(b, c_i, d)| \leq C ((e^{-\alpha X_i} + |G|) |b| + |c^-| + ((e^{-\tilde{\alpha} X_i} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 + |D|) |d| )
 \end{align*}
 
 The overall bound (worst case scenario) combines $X_1$ and $X_2$ to get
 
 \begin{align*}
-|A_1&(\lambda)(b, c^-, d)| \leq C( (e^{-\alpha X_m} + |G|) |b| + |c^-| + (e^{-\tilde{\alpha} X_m} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| )
+|A_1&(\lambda)(b, c^-, d)| \leq C( (e^{-\alpha X_1} + |G|) |b| + |c^-| + (e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 + |D|) |d| )
 \end{align*}
 
 We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has bound
 
+
 \begin{align*}
-||W_2&(\lambda)(b,c^-, d)|| \leq C(|b| + e^{\nu(\lambda)X_M}(|c^-| + |\lambda|^2 |d|) \\
-&+ e^{\nu(\lambda)X_M}((e^{-\alpha X_m} + |G|) |b| + |c^-| + (e^{-\tilde{\alpha} X_m} + e^{\nu(\lambda)X_M} |G|) |\lambda|^2 + |D|) |d| )\\
-&\leq C(|b| + e^{\nu(\lambda)X_M}|c^-| + (e^{\nu(\lambda)X_M} |\lambda|^2 + |D|)|d| )
+||W_2&(\lambda)(b,c^-,d)|| \leq C (|b| + e^{\nu(\lambda)k X_1}|\lambda|^2 |d|\\
+&+ e^{\nu(\lambda)k X_1} ( (e^{-\alpha X_1} + |G|) |b| + |c^-| + (e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 + |D|) |d| ) \\
+&\leq C( |b| + e^{\nu(\lambda)k X_1} |c^-| +  e^{\nu(\lambda)k X_1}(|\lambda|^2 + |D|) |d| )
 \end{align*}
 
 With a multipulse, we will need an analogue of (3.25) in Sandstede (1998). Starting with the $X_1$-match (the other one is not useful, since there is no term in $D_1 d$), we have
