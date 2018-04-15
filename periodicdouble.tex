@@ -59,32 +59,34 @@ The equations we are looking to solve are
 \item $(W_i^\pm)' = A(q; \lambda) W_i^\pm + G_i(\lambda)^\pm W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
 \item $W_i^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0$
 \item $W_i^+(0) - W_i^-(0) \in \C \psi(0) $
-\item $W_1^+(X_1) - W_2^-(-X_1) = D_1 d $
-\item $W_2^+(X_2) - W_1^-(-X_2) = 0$
+\item $W_1^+(X_1) - W_2^-(-X_1) = D_1 d$
+\item $W_2^+(X_2) - W_1^-(-X_2) = D_2 d$
 \end{enumerate}
 
 where
 
 \begin{align*}
 G_i(\lambda)^\pm &= A(q_{2p};\lambda) - A(q;\lambda)) \\
-D_1 d &= d_2(Q_{2p}'(-X_1) + \lambda (Q_{2p})_c(-X_1)) 
+D_1 d &= d_2(Q_{2p}'(-X_1) + \lambda (Q_{2p})_c(-X_1))
 - d_1 ( Q_{2p}'(X_1) + \lambda (Q_{2p})_c(X_1) ) \\
+D_1 d &= d_1(Q_{2p}'(-X_2) + \lambda (Q_{2p})_c(-X_2))
+- d_2 ( Q_{2p}'(X_2) + \lambda (Q_{2p})_c(X_2) ) \\
 \tilde{H} &= -B(Q_{2p})_c \\
 H &= -B Q_c \\
 \Delta H &= \tilde{H} - H
 \end{align*}
 
-Again we do not have a $\lambda B W_i^\pm$ term since this has been absorbed into $A(q; \lambda) W_i^\pm$. \\
+NOTE TO SELF: DOUBLE CHECK THE SIGN FOR $D_2 d$. We do not have a $\lambda B W_i^\pm$ term since this has been absorbed into $A(q; \lambda) W_i^\pm$. \\
 
 Let $X_m = \min\{ X_1, X_2 \}$ and $X_M = \max\{ X_1, X_2 \}$. Then we should have bounds
 
 \begin{align*}
 G_i(\lambda) &= \mathcal{O}(e^{-\alpha X_m}) \\
 \Delta H &= \mathcal{O}(e^{-\alpha X_m}) \\
-D_1 &= ( Q'(X_1) + Q'(-X_1 )(d_2 - d_1 ) + \mathcal{O} \left( e^{-\alpha X_m} \left( |\lambda| +  e^{-\alpha X_m}  \right) |d| \right)
+D_i &= ( Q'(X_i) + Q'(-X_i)(d_2 - d_1 ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
 \end{align*}
 
-The idea behind these (unproven) bounds is that deviation from the single pulse, nonperiodic case decreases exponentially with distance from the center, so by defining $Y$ to be the minimum of the two distances we are using, we are letting the ``worst offender'' dictate the behavior. The $D_1$ equation does not depend on $X_2$, so its bound is dictated by $X_1$ alone.\\
+The idea behind these (unproven) bounds is that deviation from the single pulse, nonperiodic case decreases exponentially with distance from the center, so we are letting the ``worst offender'' dictate the behavior. The $D_i$ equations only depend on $X_i$, so the bound only involves that. \\
 
 For the setup, let
 
@@ -92,7 +94,7 @@ For the setup, let
 X = (X_0, X_1, X_2) = (X_2, X_1, X_2)
 \]
 
-The fixed point equations then become
+YES THIS IS AWFUL NOTATION, CAN FIX IF THIS WORKS. The fixed point equations then become
 
 \begin{align*}
 W_i^-(x) = \Phi^s_-(&x, -X_{i-1}; \lambda)a_{i-1}^- + \Phi^u_-(x, 0; \lambda)b_i^- + e^{\nu(\lambda)(x+X_{i-1})} v_-(x; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^- \\
@@ -146,42 +148,19 @@ This should be the best bound we can get here, so I think we are good until this
 \item Solve for the joins which are not at 0, i.e. solve
 
 \begin{align*}
-W_2^+(X_2) - W_1^-(-X_2) &= 0 \\
+W_2^+(X_2) - W_1^-(-X_2) &= D_2 d \\
 W_1^+(X_1) - W_2^-(-X_1) &= D_1 d \\
 \end{align*}
 
-To solve these, we have two equations. The first one is the periodic matching, which we have in the single pulse case.
-
-\begin{align*}
-0 &= a_2^+ - a_0^- \\
-&+ (P^u_+(X_2; \lambda) - P_0^u)a_2^+ - (P^s_-(-X_2; \lambda) - P_0^s)a_0^- \\
-&+ \Phi^s_+(X_2, 0; \lambda)b_2^+ - \Phi^u_-(-X_2, 0; \lambda)b_1^- \\
-&+ v_+(X_2; \lambda) \langle v_0(\lambda), w_+(X_2; \lambda) \rangle c_2^+ - v_-(-X_2; \lambda) \langle v_0(\lambda), w_-(-X_2; \lambda) \rangle c_0^- \\
-&+ \int_0^{X_2} \Phi^u_+(X_2, y; \lambda) [ G(\lambda)W_2^+(y) + d_2 \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_2} \Phi^s_-(-X_2, y; \lambda) [ G(\lambda)W_1^-(y) + d_1 \lambda^2 \tilde{H}(y) ] dy
-\end{align*}
-
-The second one is the center matching at $\pm L$.
-
-\begin{align*}
-D_1 d &= a_1^+ - a_1^- \\
-&+ (P^u_+(X_1; \lambda) - P_0^u)a_1^+ - (P^s_-(-X_1; \lambda) - P_0^s)a_1^- \\
-&+ \Phi^s_+(X_1, 0; \lambda)b_1^+ - \Phi^u_-(-X_1, 0; \lambda)b_2^- \\
-&+ v_+(X_1; \lambda) \langle v_0(\lambda), w_+(X_1; \lambda) \rangle c_1^+ - v_-(-X_1; \lambda) \langle v_0(\lambda), w_-(-X_1; \lambda) \rangle c_1^- \\
-&+ \int_0^{X_1} \Phi^u_+(X_1, y; \lambda) [ G(\lambda)W_1^+(y) + d_1 \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_1} \Phi^s_-(-X_1, y; \lambda) [ G(\lambda)W_2^-(y) + d_2 \lambda^2 \tilde{H}(y) ] dy
-\end{align*}
-
-Using our notation convention we can write this as
-
+To solve these, we have two equations for $i = 1, 2$. Using our notation convention for ``wrapping around'', these become
 
 \begin{align*}
 D_i d &= a_i^+ - a_i^- \\
 &+ (P^u_+(X_i; \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \lambda) - P_0^s)a_i^- \\
 &+ \Phi^s_+(X_i, 0; \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \lambda)b_{i-1}^- \\
 &+ v_+(X_i; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle c_i^+ - v_-(-X_i; \lambda) \langle v_0(\lambda), w_-(-X_i; \lambda) \rangle c_i^- \\
-&+ \int_0^{X_i} \Phi^u_+(X_i, y; \lambda) [ G(\lambda)W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_i} \Phi^s_-(-X_i, y; \lambda) [ G(\lambda)W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
+&+ \int_0^{-X_i} \Phi^u_+(-X_i, y; \lambda) [ G(\lambda)W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_0^{X_i} \Phi^s_-(X_i, y; \lambda) [ G(\lambda)W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
 We follow what we did in the single pulse case, but this time we solve for $c_i^+$ in terms of $c_i^-$ rather than doing the $\Delta c$ thing. First, after manipulating things to get a $c^+ v_0(\lambda)$ term (as in the single pulse version) we rewrite this as
@@ -192,8 +171,8 @@ D_i d &= a_i^+ - a_i^- + c_i^+ v_0(\lambda) \\
 &+ \Phi^s_+(X_i, 0; \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \lambda)b_{i-1}^- \\
 &+ c_i^+ \Delta v_+(X_i; \lambda) + c_i^+ v_+(X_i; \lambda) \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle \\
 &- c_i^- v_-(-X_i; \lambda) \langle v_0(\lambda), w_-(-X_i; \lambda) \rangle \\
-&+ \int_0^{X_i} \Phi^u_+(X_i, y; \lambda) [ G(\lambda)W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_i} \Phi^s_-(-X_i, y; \lambda) [ G(\lambda)W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
+&+ \int_0^{-X_i} \Phi^u_+(-X_i, y; \lambda) [ G(\lambda)W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_0^{X_i} \Phi^s_-(X_i, y; \lambda) [ G(\lambda)W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
 where
@@ -206,10 +185,22 @@ where
 Then we have 
 
 \begin{align*}
-0 &= a_i^+ - a_i^- + c_i^+ v_0(\lambda) + L_3(\lambda)_i(a_i, b, c_i^+, c_i^-, d)
+D_i d &= a_i^+ - a_i^- + c_i^+ v_0(\lambda) + L_3(\lambda)_i(a_i, b, c_i^+, c_i^-, d)
 \end{align*}
 
-We have the bound 
+To get a bound for this, we will use the $\tilde{\alpha}$ trick we used in the single pulse case. We can do this since we know the decay rate of $\tilde{H}$.
+
+\begin{align*}
+\left| \int_0^{X_i} \Phi^s_+(X_i, y; \lambda) \tilde{H}(y) dy \right| 
+&\leq C \int_0^{X_i} e^{-\alpha (X_i - y)}|\tilde{H}(y)| dy \\
+&= C e^{-\tilde{\alpha}X_i} \int_0^{X_i} e^{-\alpha X_i} e^{\alpha y}  e^{\tilde{\alpha}X_i} e^{-\tilde{\alpha}y} |e^{\tilde{\alpha}y} \tilde{H}(y)| \\
+&= C e^{-\tilde{\alpha}X_i} \int_0^{X_i} e^{-(\alpha - \tilde{\alpha})(X_i-y)} |e^{\tilde{\alpha}y} \tilde{H}(y)|\\
+&\leq C e^{-\tilde{\alpha}X_i} 
+\end{align*}
+
+where we used the fact that $|e^{\tilde{\alpha}y} \tilde{H}(y)|$ is bounded, since $\tilde{\alpha}$ is smaller than $\alpha$, and $\tilde{H}(y)$ decays with rate $\alpha$.\\
+
+Thus we have the bound 
 
 \[
 |L_3(\lambda)_i(a_i, b, c_i^+, c_i^-, d)| \leq C ( p_1(X_i; \lambda)|a_i|
@@ -229,7 +220,7 @@ p_2(X; \lambda) &= |\Delta v_\pm(\pm X, \lambda)| + |\Delta w_\pm(\pm X, \lambda
 &= |v_\pm(\pm X; \lambda) - v_0(\lambda)| + |w_\pm(\pm X; \lambda) - w_0(\lambda)|
 \end{align*}
 
-and we did the same $\tilde{\alpha}$ thing that we did for the single pulse. So far this is nice, since it looks like only the initial conditions with subscript $i$ are involved. This, unfortunately, is deceptive since both $W_1$ and $W_2$ are involved, thus via $W$ we involve the other subscript. We see this ``mixing'' when we plug in $W_1$ for $W$.
+So far this is nice, since it looks like only the initial conditions with subscript $i$ are involved. This, unfortunately, is deceptive since both $W_1$ and $W_2$ are involved, thus via $W$ we involve the other subscript. We see this ``mixing'' when we plug in $W_1$ for $W$.
 
 \begin{align*}
 |L_3&(\lambda)_i(a, b, c^+, c^-, d)| \leq C ( p_1(X_i; \lambda)|a_i|
@@ -265,11 +256,21 @@ For the inversion to work, we need the following:
 Having done this, the bound becomes
 
 \begin{align*}
-|L_3&(\lambda)_1(a, b, c^+, c^-, d)| \leq C (p_1(X_1; \lambda) + |G|)|a| + (e^{-\alpha X_1} + |G|) |b| + ( p_2(X_1; \lambda) + e^{\nu(\lambda) k X_1 } |G|) |c^+| \\
-&+ |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| + (e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 |d| ) \\
-|L_3&(\lambda)_2(a, b, c^+, c^-, d)| \leq C (p_1(k X_1; \lambda) + |G|)|a| + (e^{-\alpha k X_1} + |G|) |b| + ( p_2(k X_1; \lambda) + e^{\nu(\lambda) k X_1 } |G|) |c^+| \\
-&+ |c_2^-| + e^{\nu(\lambda)X_1} |G||c_1^-| + (e^{-\tilde{\alpha} k X_1} + |G|) |\lambda|^2 |d| )
+|L_3&(\lambda)_1(a, b, c^+, c^-, d)| \leq C (p_1(X_1; \lambda) + |G|)|a| + (e^{-\alpha X_1} + |G|) |b|\\
+&+ ( p_2(X_1; \lambda) + e^{\nu(\lambda) k X_1 } |G|) |c^+| 
++ |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| + (e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 |d| ) \\
+|L_3&(\lambda)_2(a, b, c^+, c^-, d)| \leq C (p_1(k X_1; \lambda) + |G|)|a| + (e^{-\alpha k X_1} + |G|) |b| \\
+&+ ( p_2(k X_1; \lambda) + e^{\nu(\lambda) k X_1 } |G|) |c^+| 
++ |c_2^-| + e^{\nu(\lambda)X_1} |G||c_1^-| + (e^{-\tilde{\alpha} k X_1} + |G|) |\lambda|^2 |d| )
 \end{align*}
+
+For $i = 1, 2$ this is
+
+\begin{align*}
+|L_3&(\lambda)_i(a, b, c^+, c^-, d)| \leq C (p_1(X_i; \lambda) + |G|)|a| + (e^{-\alpha X_i} + |G|) |b| + ( p_2(X_i; \lambda) + e^{\nu(\lambda) X_{i-1} } |G|) |c^+| \\
+&+ |c_i^-| + e^{\nu(\lambda)X_{i-1}} |G||c_{i-1}^-| + (e^{-\tilde{\alpha} X_i} + |G|) |\lambda|^2 |d| )
+\end{align*}
+
 
 Let $J_1: V_a \times \text{span }\{v_0(\lambda)\} \rightarrow \C^n$ be defined by $J_i(a_i, c_i^+) = (a_i^+ - a_i^-, c_i^+)$. The map $J_i$ is a linear isomorphism. Now consider the map
 
@@ -290,56 +291,56 @@ This will have bound
 
 \begin{align*}
 |A_1&(\lambda)_1(b, c^-, d)| \leq C ((e^{-\alpha X_1} + |G|) |b| + |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| + ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + |D_1| )|d| ) \\
-|A_2&(\lambda)_2(b, c^-, d)| \leq C ((e^{-\alpha k X_1} + |G|) |b| + |c_2^-| + e^{\nu(\lambda) X_1} |G||c_1^-| + ((e^{-\tilde{\alpha} k X_1} + |G|) |\lambda|^2 |d| ) \\
+|A_1&(\lambda)_2(b, c^-, d)| \leq C ((e^{-\alpha k X_1} + |G|) |b| + |c_2^-| + e^{\nu(\lambda) X_1} |G||c_1^-| + ((e^{-\tilde{\alpha} k X_1} + |G|) |\lambda|^2  + |D_2|)|d| ) \\
 \end{align*}
 
 The overall bound (worst case scenario) is 
 
 \begin{align*}
-|A_1&(\lambda)(b, c^-, d)| \leq C( (e^{-\alpha X_1} + |G|) |b| + |c^-| + ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + |D_1|) |d| )
+|A_1&(\lambda)(b, c^-, d)| \leq C( (e^{-\alpha X_1} + |G|) |b| + |c^-| + ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + |D|) |d| )
 \end{align*}
 
-This bound is similar in form to (3.24) in Sanstede (1998) with the exceptions of: an additional $|c^-|$ since we have a ``center'' space in play; and a better bound for the $|\lambda|^2$ term, thanks to the $\tilde{\alpha}$ trick. The $|D_1| |d| $ term is by itself, as in Sanstede (1998). I think this bound is the best we can get here.
+This bound is similar in form to (3.24) in Sanstede (1998) with the exceptions of: an additional $|c^-|$ since we have a ``center'' space in play; and a better bound for the $|\lambda|^2$ term, thanks to the $\tilde{\alpha}$ trick. The $|D| |d| $ term is by itself, as in Sanstede (1998). I think this bound is the best we can get here.
 
 We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has bound
 
 \begin{align*}
 ||W_2&(\lambda)(b,c^-,d)|| \leq C (|b| + |\lambda|^2 |d|\\
 &+ ( (e^{-\alpha X_1} + |G|) |b| + |c^-| + (e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + |D_1|) |d| ) \\
-&+ e^{\nu(\lambda)X_1} ((e^{-\alpha X_1} + |G|) |b| + |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| + (e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + |D_1|)|d| ) \\
-&+ e^{\nu(\lambda)k X_1} ((e^{-\alpha k X_1} + |G|) |b| + |c_2^-| + e^{\nu(\lambda) X_1} |G||c_1^-| + (e^{-\tilde{\alpha} k X_1} + |G|) |\lambda|^2 |d| ) \\
-&\leq C( |b| + e^{\nu(\lambda) X_1} |c_1^-| +  e^{\nu(\lambda) k X_1} |c_2^-| + (|\lambda|^2 + e^{\nu(\lambda) X_1} |D_1|) |d| )
+&+ e^{\nu(\lambda)X_1} ((e^{-\alpha X_1} + |G|) |b| + |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| + ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + |D_1|)|d| ) \\
+&+ e^{\nu(\lambda)k X_1} ((e^{-\alpha k X_1} + |G|) |b| + |c_2^-| + e^{\nu(\lambda) X_1} |G||c_1^-| + ((e^{-\tilde{\alpha} k X_1} + |G|) |\lambda|^2 + |D_2|)|d| ) \\
+&\leq C( |b| + e^{\nu(\lambda) X_1} |c_1^-| +  e^{\nu(\lambda) k X_1} |c_2^-| + (|\lambda|^2 + e^{\nu(\lambda) X_1} |D_1| + e^{\nu(\lambda) k X_1} |D_2|)|d| )
 \end{align*}
 
 This is essentially the same as the $W_1$ bound, which is fine.\\
 
-With a multipulse, we will need an analogue of (3.25) in Sandstede (1998). Starting with the $X_1$-match (the other one is not useful, since there is no term in $D_1 d$), we have
+With a multipulse, we will need an analogue of (3.25) in Sandstede (1998).
 
 \[
-D_1 d = a_1^+ - a_1^- + c_1^+ v_0(\lambda) + L_3(\lambda)_1(a_i, b, c_i^+, c_i^-, d)
+D_i d = a_i^+ - a_i^- + c_i^+ v_0(\lambda) + L_3(\lambda)_i(a_i, b, c_i^+, c_i^-, d)
 \]
 
 we write this as
 
 \[
-a_1^+ - a_1^- + c_1^+ v_0(0) = -D_1 d - c_1^+ (v_0(\lambda) - v_0(0)) - L_3(\lambda)_1(a_1, b, c_1^+, c_1^-, d)
+a_i^+ - a_i^- + c_1^+ v_0(0) = -D_i d - c_1^+ (v_0(\lambda) - v_0(0)) - L_3(\lambda)_i(a_i, b, c_i^+, c_i^-, d)
 \]
 
-Then we take projections $P^s_0$ and $P^u_0$. Recalling where the $a_1^\pm$ live and that $v_0(0)$ is wiped out by both projections, this becomes 
+Then we take projections $P^s_0$ and $P^u_0$. Recalling where the $a_i^\pm$ live and that $v_0(0)$ is wiped out by both projections, this becomes 
 
 \begin{align*}
-a_1^+ &= -P^u_0 D_1 d - c_1^+ P^u_0 (v_0(\lambda) - v_0(0)) - P^u_0 L_3(\lambda)_1(a_1, b, c_1^+, c_1^-, d) \\
-a_1^- &=  P^s_0 D_1 d + c_1^+ P^s_0 (v_0(\lambda) + v_0(0)) - P^s_0 L_3(\lambda)_1(a_1, b, c_1^+, c_1^-, d)
+a_i^+ &= -P^u_0 D_i d - c_i^+ P^u_0 (v_0(\lambda) - v_0(0)) - P^u_0 L_3(\lambda)_i(a_i, b, c_i^+, c_i^-, d) \\
+a_i^- &=  P^s_0 D_i d + c_i^+ P^s_0 (v_0(\lambda) + v_0(0)) - P^s_0 L_3(\lambda)_i(a_i, b, c_i^+, c_i^-, d)
 \end{align*}
 
-Defining $A_2$ to be all the stuff on the RHS other than the $D_1 d$ term, we have
+Defining $A_2$ to be all the stuff on the RHS other than the $D_i d$ term, we have
 
 \begin{align*}
-a_1^+ &= -P^u_0 D_1 d + A_2(\lambda)_1^+(b, c_1^-, d))\\
-a_1^- &=  P^s_0 D_1 d + A_2(\lambda)_1^-(b, c_1^-, d))
+a_i^+ &= -P^u_0 D_i d + A_2(\lambda)_i^+(b, c_i^-, d))\\
+a_i^- &=  P^s_0 D_i d + A_2(\lambda)_i^-(b, c_i^-, d))
 \end{align*}
 
-where we will plug $A_1(\lambda)_1$ in for $a_1$ and $c_1^+$. Let 
+where we will plug $A_1(\lambda)_i$ in for $a_i$ and $c_i^+$. Let 
 
 \[
 p_5(\lambda) = |v_0(\lambda) - v_0(0)| 
@@ -348,15 +349,14 @@ p_5(\lambda) = |v_0(\lambda) - v_0(0)|
 Then the bound for $A_2$ is
 
 \begin{align*}
-|A_2&(\lambda)_1(b, c_1^-, d))| \\
-&\leq C( p_5(\lambda) |c_1^-| + (p_1(X_1; \lambda) + |G|)|a| + (e^{-\alpha X_1} + |G|) |b| + ( p_2(X_1; \lambda) + e^{\nu(\lambda)k X_1} |G|) |c^+| \\
-&+ |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| + (e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 |d| ) ) \\
-&= C( (e^{-\alpha X_1} + |G|) |b| + p_5(\lambda) |c_1^-| + |c_1^-| + (e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 |d| \\
+|A_2&(\lambda)_i(b, c_i^-, d))| \\
+&\leq C (p_5(\lambda) |c_i^-| + p_1(X_i; \lambda) + |G|)|a| + (e^{-\alpha X_i} + |G|) |b| + ( p_2(X_i; \lambda) + e^{\nu(\lambda) X_{i-1} } |G|) |c^+| \\
+&+ |c_i^-| + e^{\nu(\lambda)X_{i-1}} |G||c_{i-1}^-| + (e^{-\tilde{\alpha} X_i} + |G|) |\lambda|^2 |d| ) \\
+&\leq C( (e^{-\alpha X_1} + |G|) |b| + p_5(\lambda) |c_1^-| + |c_1^-| + (e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 |d| \\
 &+ (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda) k X_1} |G|) \\
-&\:\:\:\:\:( ( e^{-\alpha X_1} + |G|) |b| + |c_1^-| + (e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + |D_1|) |d| )\\
-&+ e^{\nu(\lambda)k X_1} |G||c_2^-| \\
-&\leq C( (e^{-\alpha X_1} + |G|) |b| + |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| \\
-&+ ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda)k X_1} |G|)|D_1|)|d| ) \\
+&\:\:\:\:\:( (e^{-\alpha X_1} + |G|) |b| + |c^-| + ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + |D|) |d| ) \\
+&\leq C( (e^{-\alpha X_1} + |G|) |b| + |c_i^-| + e^{\nu(\lambda) X_{i-1}} |G||c_{i-1}^-| \\
+&+ ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda)k X_1} |G|)|D|)|d| ) \\
 \end{align*}
 
 This is similar to (3.26) in Sandstede (1998), with the addition of the bounds on $|c_i^-|$, so this should be ok. 
@@ -513,18 +513,18 @@ Note that we changed the coefficient for $|c_1^+|$ to $e^{\nu(\lambda)X_1}$ (pos
 
 \begin{align*}
 |L_4&(\lambda)_1(b_1, f(X_2; \lambda) c_2^-, d)|\\ 
-&\leq C( e^{-\alpha X_1}((e^{-\alpha X_1} + |G|) |b| + |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| + ((e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 + |D_1| )|d| ) \\
-&+ e^{-\alpha X_2} ((e^{-\alpha k X_1} + |G|) |b| + |c_2^-| + e^{\nu(\lambda) X_1} |G||c_1^-| + (e^{-\tilde{\alpha} k X_1} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 |d| ) \\
+&\leq C( e^{-\alpha X_1}((e^{-\alpha X_1} + |G|) |b| + |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| + ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + |D_1| )|d| ) \\
+&+ e^{-\alpha X_2} ((e^{-\alpha k X_1} + |G|) |b| + |c_2^-| + e^{\nu(\lambda) X_1} |G||c_1^-| + ((e^{-\tilde{\alpha} k X_1} + |G|) |\lambda|^2 + |D_2|)|d| ) \\
 &+ p_3(\lambda) |b_1| \\
 &+ (f^-(X_2; \lambda) + f^+(X_2; \lambda) (p_2(\lambda; X_2) + p_4(\lambda)) | f(X_2; \lambda) c_2^-| \\
-&+ e^{\nu(\lambda)X_1} ((e^{-\alpha X_1} + |G|) |b| + |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| + ((e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 + |D_1| )|d| ) \\
-&+ e^{\nu(\lambda)k X_1}|G| ( |b| + e^{\nu(\lambda) X_1} |c_1^-| +  e^{\nu(\lambda) k X_1} |c_2^-| + (e^{\nu(\lambda)k X_1}|\lambda|^2 + e^{\nu(\lambda) X_1} |D_1|) |d| )\\
+&+ e^{\nu(\lambda)X_1} ((e^{-\alpha X_1} + |G|) |b| + |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| + ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + |D_1| )|d| ) \\
+&+ e^{\nu(\lambda)k X_1}|G| ( |b| + e^{\nu(\lambda) X_1} |c_1^-| +  e^{\nu(\lambda) k X_1} |c_2^-| + (|\lambda|^2 + e^{\nu(\lambda) X_1} |D_1| + e^{\nu(\lambda)k X_1}|D_2|) |d| )\\
 &+ |\lambda^2||d|) \\
 &\leq C( ( p_3(\lambda) + e^{\nu(\lambda)X_1} (e^{-\alpha X_1} + |G|)) |b| \\
 &+ e^{\nu(\lambda)X_1} |c_1^-| + e^{2 \nu(\lambda)k X_1}|G| |c_2^-| \\
 &+ (f^-(X_2; \lambda) + f^+(X_2; \lambda) (p_2(\lambda; X_2) + p_4(\lambda)) | f(X_2; \lambda) c_2^-| \\
 &+ (1 + e^{2 \nu(\lambda)k X_1}|G|)|\lambda^2||d| \\
-&+ (e^{\nu(\lambda)X_1} + e^{2 \nu(\lambda)k X_1}|G| )|D_1||d
+&+ (e^{\nu(\lambda)X_1} + e^{2 \nu(\lambda)k X_1}|G| )|D_1||d| + e^{2 \nu(\lambda)k X_1}|G||D_2||d|
 \end{align*}
 
 NOTE THAT WHEN WE MAKE THE SUBSTITUTION OF THE $A_1$ BOUND FOR $|c_1^+|$, WE INTRODUCE A TERM $e^{\nu(\lambda)X_1} |D_1| |d|$, WHICH WE WILL NOT BE ABLE TO GET RID OF.\\
@@ -536,15 +536,15 @@ At this point, to make things simpler, we will take $k$ sufficiently small so th
 &\leq C( ( p_3(\lambda) + e^{\nu(\lambda)X_1} (e^{-\alpha X_1} + |G|)) |b| \\
 &+ e^{\nu(\lambda)X_1} |c_1^-| + e^{2 \nu(\lambda)k X_1}|G| |c_2^-| \\
 &+ (f^-(k X_1; \lambda) + f^+(k X_1; \lambda) (p_2(\lambda; k X_1) + p_4(\lambda)) | f(k X_1; \lambda) c_2^-| \\
-&+ (|\lambda^2| + e^{\nu(\lambda)X_1}|D_1|)|d| \\
+&+ (|\lambda^2| + e^{\nu(\lambda)X_1}|D_1| + e^{2 \nu(\lambda)k X_1}|G||D_2|)|d| \\
 &\leq C( ( p_3(\lambda) + e^{\nu(\lambda)X_1} (e^{-\alpha X_1} + |G|)) |b| \\
 &+ f^-( X_1; \lambda) |f(X_1; \lambda) c_1^-| + e^{\nu(\lambda)k X_1}|G| f^+( k X_1; \lambda)| f(k X_1; \lambda) c_2^-| \\
 &+ (f^-(k X_1; \lambda) + f^+(k X_1; \lambda) (p_2(\lambda; k X_1) + p_4(\lambda)) | f(k X_1; \lambda) c_2^-| \\
-&+ (|\lambda^2| + e^{\nu(\lambda)X_1}|D_1|)|d| \\
+&+ (|\lambda^2| + e^{\nu(\lambda)X_1}|D_1| + e^{2 \nu(\lambda)k X_1}|G||D_2|)|d| \\
 &\leq C( ( p_3(\lambda) + e^{\nu(\lambda)X_1} (e^{-\alpha X_1} + |G|)) |b| \\
 &+ f^-( X_1; \lambda) |f(X_1; \lambda) c_1^-| \\
 &+ (f^-(k X_1; \lambda) + f^+(k X_1; \lambda) (p_2(\lambda; k X_1) + p_4(\lambda) + e^{\nu(\lambda)k X_1}|G| ) | f(k X_1; \lambda) c_2^-| \\
-&+ (|\lambda^2| + e^{\nu(\lambda)X_1}|D_1|)|d|
+&+ (|\lambda^2| + e^{\nu(\lambda)X_1}|D_1| + e^{2 \nu(\lambda)k X_1}|G||D_2|)|d|
 \end{align*}
 
 
@@ -563,28 +563,26 @@ Assume that the bound for $|L_4(\lambda)_2|$ is similar, i.e. we swap the 1s and
 &\leq C( ( p_3(\lambda) + e^{\nu(\lambda)k X_1} (e^{-\alpha k X_1} + |G|)) |b| \\
 &+ f^-( k X_1; \lambda) |f(k X_1; \lambda) c_2^-| \\
 &+ (f^-(X_1; \lambda) + f^+(X_1; \lambda) (p_2(\lambda; X_1) + p_4(\lambda) + e^{\nu(\lambda)X_1}|G| ) | f(X_1; \lambda) c_1^-| \\
-&+ (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_1|)|d|
+&+ (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_2| + e^{2 \nu(\lambda)k X_1}|G||D_1|)|d|
 \end{align*} 
 
 Then we can solve for $b$ and $f(X_i; \lambda) c_i^-$ to get $(b_i, f(X_i; \lambda) c_i^-) = B_1(\lambda)(d)$ which (assuming the $i = 2$ case is similar) should have a bound like
 
 \begin{align}
-|B_1(\lambda)(d)|_1 \leq C(|\lambda^2| + e^{\nu(\lambda) X_1}|D_1|)|d| \\
-|B_1(\lambda)(d)|_2 \leq C(|\lambda^2| + e^{\nu(\lambda)k X_1}|D_1|)|d|
+|B_1(\lambda)(d)|_1 \leq C(|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{2 \nu(\lambda)k X_1}|G||D_2|)|d| \\
+|B_1(\lambda)(d)|_2 \leq C(|\lambda^2| + e^{\nu(\lambda)k X_1}|D_2| + e^{2 \nu(\lambda)k X_1}|G||D_1|)|d|
 \end{align}
 
-Note that since this solves for $f(X_i; \lambda) c_i^-$, $c_i^-$ is of order $e^{-|\nu(\lambda)|X_i}$ multiplied by this, which means that $c_i^-$ is order $(e^{-|\nu(\lambda)|X_i}|\lambda^2| + |D_1|)|d|$.
-
-THIS IS VERY DIFFERENT FROM (3.37) in Sandstede (1998), in that we have $|D_1|$ either multiplied by $e^{\nu(\lambda)X_1}$, which could be growing exponentially (for $b$) or $|D_1|$ by itself (for $c_i^-$). In Sandstede (1998), the $|D_1|$ is multiplied by things of order $e^{-\alpha X_1}$, which is what we need for the remainder term at the end to be higher order. The $|\lambda^2|$ bound, which is the only one we have in the single pulse case, is good enough. The $|D_1|$ bound is not good enough.\\
+Note that since this solves for $f(X_i; \lambda) c_i^-$, $c_i^-$ is of order $e^{-|\nu(\lambda)|X_i}$ multiplied by this, which means that $c_i^-$ is order $(e^{-|\nu(\lambda)|X_i}|\lambda^2| + |D|)|d|$.
 
 Then we can plug this into all the other things to get
 
 \begin{align*}
-|A_3&(\lambda)_1(b, c^-, d)| \leq C ((e^{-\alpha X_1} + |G|) (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_1|)|d| \\
-&+ e^{-|\nu(\lambda)| X_1}(|\lambda^2| + e^{\nu(\lambda) X_1}|D_1|)|d| \\
-&+ e^{-|\nu(\lambda)| k X_1} e^{\nu(\lambda)k X_1} |G| (|\lambda^2| + e^{\nu(\lambda) k X_1}|D_1|)|d|\\
+|A_3&(\lambda)_1(b, c^-, d)| \leq C ((e^{-\alpha X_1} + |G|) (|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{\nu(\lambda)k X_1}|D_2|)|d| \\
+&+ e^{-|\nu(\lambda)| X_1}(|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{2 \nu(\lambda)k X_1}|G||D_2|)|d| \\
+&+ e^{-|\nu(\lambda)| k X_1} e^{\nu(\lambda)k X_1} |G| (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_2| + e^{2 \nu(\lambda)k X_1}|G||D_1|)|d|\\
 &+ ((e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 + |D_1| )|d| ) \\
-&\leq C( e^{-|\nu(\lambda)|X_1} |\lambda|^2 + |D_1|) |d| 
+&\leq C( e^{-|\nu(\lambda)|X_1} |\lambda|^2 + |D_1| + |D_2|) |d| 
 \end{align*}
 
 The coefficient in front of the $|\lambda|^2$ term will only be useful to cancel something later.\\
@@ -592,7 +590,7 @@ The coefficient in front of the $|\lambda|^2$ term will only be useful to cancel
 Similarly, 
 
 \begin{align*}
-|A_3&(\lambda)_2(b, c^-, d)| \leq C( e^{-|\nu(\lambda)| k X_1} |\lambda|^2 + |D_1|) |d|
+|A_3&(\lambda)_2(b, c^-, d)| \leq C( e^{-|\nu(\lambda)| k X_1} |\lambda|^2 + |D_1| + |D_2|) |d|
 \end{align*}
 
 This is similar to the bound (3.37) in Sandstede (1998), which is good.\\
@@ -600,24 +598,29 @@ This is similar to the bound (3.37) in Sandstede (1998), which is good.\\
 We also have
 
 \begin{align*}
-||W_3&(\lambda)(b,c^-,d)|| \leq C( (|\lambda^2| + e^{\nu(\lambda) k X_1}|D_1|)|d| \\
-&+ e^{\nu(\lambda) X_1} e^{-|\nu(\lambda)| X_1} (|\lambda^2| + e^{\nu(\lambda) X_1}|D_1|)|d| \\
-&+ e^{\nu(\lambda) k X_1} e^{-|\nu(\lambda)| X_1} (|\lambda^2| + e^{\nu(\lambda) k X_1}|D_1|)|d|\\
-&+ (e^{\nu(\lambda)k X_1}|\lambda|^2 + e^{\nu(\lambda) X_1} |D_1|) |d| )\\
-&\leq C e^{\nu(\lambda)k X_1} ( |\lambda|^2 + |D_1| )|d|
+||W_3&(\lambda)(b,c^-,d)|| \leq C( (|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{\nu(\lambda)k X_1}|D_2|)|d| \\
+&+ e^{\nu(\lambda) X_1} e^{-|\nu(\lambda)| X_1}(|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{2 \nu(\lambda)k X_1}|G||D_2|)|d| \\
+&+ e^{\nu(\lambda) k X_1} e^{-|\nu(\lambda)| k X_1} e^{\nu(\lambda)k X_1} |G| (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_2| + e^{2 \nu(\lambda)k X_1}|G||D_1|)|d|\\
+&+ (|\lambda|^2 + e^{\nu(\lambda) X_1} |D_1| + e^{\nu(\lambda)k X_1}|D_2|) |d| )\\
+&\leq C ( |\lambda|^2 + e^{\nu(\lambda) X_1} |D_1| + e^{\nu(\lambda)k X_1} |D_2| )|d|
 \end{align*}
 
-and
+For $A_4$ we have
 
 \begin{align*}
 |A_4&(\lambda)_1(d)| \\
-&\leq C( (e^{-\alpha X_1} + |G|) (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_1|)|d| \\ 
-&+ e^{-|\nu(\lambda)| X_1} (|\lambda^2| + e^{\nu(\lambda)X_1}|D_1|)|d| \\
-&+ ((e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 + (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda) k X_1} |G|)|D_1|)|d| )\\
-&\leq C(|\lambda|^2 + |D_1|) |d|
+&\leq C( (e^{-\alpha X_1} + |G|) (|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{\nu(\lambda)k X_1}|D_2|)|d| \\
+&+ e^{-|\nu(\lambda)| X_1} (|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{2 \nu(\lambda)k X_1}|G||D_2|)|d|\\
+&+ e^{\nu(\lambda) k X_1} |G| e^{-|\nu(\lambda)| k X_1} (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_2| + e^{2 \nu(\lambda)k X_1}|G||D_1|)|d|\\
+&+ ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda)k X_1} |G|)|D|)|d| ) \\
+&\leq C(|\lambda|^2 + |D_1| + |D_2| )|d|
 \end{align*}
 
-Again, this one is not good enough. Compare to (3.39) in Sandstede (1998). The substitution of the $B_1$ bound (with the $e^{-|\nu(\lambda)| X_1} $ multiplier) for $|c^-|$ gives us a $|D_1|$ term by itself. We need this to be something of order $e^{-\alpha X_1}|D_1|$ to get the bound we need.
+If we like we can get a better bound on the $D_2$ part of this, but hopefully we don't need it. The other bound is then the same.
+
+\begin{align*}
+|A_4&(\lambda)_1(d)| \leq C(|\lambda|^2 + |D_1| + |D_2| )|d|
+\end{align*}
 
 \item Now we can estimate the jumps
 
@@ -658,18 +661,18 @@ e^{\nu(\lambda)y} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 
 
 \item Terms involving $a$
 
-Here we plug in $A_3(\lambda)(d)$ for $a_0^-$ and $a_2^+$. For $a_1^\pm$ we have
+For $a_i^\pm$ we have
 
 \begin{align*}
-a_1^+ &= -P^u_0 D_1 d + A_4(\lambda)_1^+(d))\\
-a_1^- &=  P^s_0 D_1 d + A_4(\lambda)_1^-(d))
+a_i^+ &= -P^u_0 D_i d + A_4(\lambda)_i^+(d))\\
+a_i^- &=  P^s_0 D_i d + A_4(\lambda)_i^-(d))
 \end{align*}
 
 For $i = 1$ we have
 
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_1; \lambda) a_1^+ \rangle = -\langle \Psi(0), \Phi^u_+(0, X_1; \lambda) P^u_0 D_1 d \rangle + \langle \Psi(0), \Phi^u_+(0, X_1; \lambda) A_4(\lambda)_1^+(d) \rangle \\
-\end{align*}
+\end{align*} 
 
 This is all fine and good, but the adjoint $\Psi(0)$ is unperturbed by $\lambda$, whereas the evolution $\Phi^u_+(0, X_i; \lambda)$ is perturbed by $\lambda$. Let
 
@@ -686,19 +689,19 @@ p_6(y; \lambda) \leq C |\lambda| e^{-\alpha y}
 Then we have
 
 \begin{align*}
-\langle \Psi(0), &\Phi^u_+(0, X_i; \lambda) a_i^+ \rangle \\
-&= -\langle \Psi(0), \Phi^u_+(0, X_1; 0) P^u_0 D_1 d \rangle + \mathcal{O}( p_6(X_1; \lambda) e^{-\alpha X_1}|D_1||d| + e^{-\alpha X_1} (|\lambda|^2 + |D_1|) |d|) \\
-&= -\langle \Psi(X_1), P^u_0 D_1 d \rangle + \mathcal{O}( e^{-\alpha X_1}( |\lambda|^2 + |D_1|)|d|)
+\langle \Psi(0), &\Phi^u_+(0, X_1; \lambda) a_1^+ \rangle \\
+&= -\langle \Psi(0), \Phi^u_+(0, X_1; 0) P^u_0 D_1 d \rangle + \mathcal{O}( p_6(X_1; \lambda) e^{-\alpha X_1}|D_1||d| + e^{-\alpha X_1} (|\lambda|^2 + |D_1| + |D_2| )|d| \\
+&= -\langle \Psi(X_1), P^u_0 D_1 d \rangle + \mathcal{O}( e^{-\alpha X_1}( |\lambda|^2 + |D_1| + |D_2|)|d|)
 \end{align*}
 
-For the $a_{i-1}$ term, we just use $A_3$.
+Similarly we have
 
 \begin{align*}
-\langle \Psi(0), &\Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \rangle \\
-&\leq C e^{-\alpha k X_1} ( |\lambda|^2 + |D_1|) |d|
+\langle \Psi(0), &\Phi^s_-(0, -k X_1); \lambda)a_2^- \rangle \\
+&= \langle \Psi(0), \Phi^u_+(0, X_1; 0) P^u_0 D_1 d \rangle + \mathcal{O}( p_6(X_1; \lambda) e^{-\alpha k X_1}|D_1||d| + e^{-\alpha k X_1} (|\lambda|^2 + |D_1| + |D_2| )|d| \\
+&= \langle \Psi(X_1), P^u_0 D_1 d \rangle + \mathcal{O}( e^{-\alpha k X_1}( |\lambda|^2 + |D_1| + |D_2|)|d|)
 \end{align*}
 
-These should (hopefully) be okay.
 
 \item Terms involving $b$.\\
 
