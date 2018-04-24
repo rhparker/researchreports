@@ -45,8 +45,7 @@
 
 \section*{KdV5 with Periodic Boundary Conditions}
 
-Here we look at the case with periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. As before, we are looking to solve the system
-
+Here we look at the case with periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. In general (following Sanstede, 1998), we are looking to solve a system which looks like 
 \begin{enumerate}[(i)]
 \item $(W_i^\pm)' = A(q) W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
 \item $W_i^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
@@ -54,15 +53,40 @@ Here we look at the case with periodic boundary conditions. Note that we cannot 
 \item $W_1^+(L) - W_2^-(-L) = D_1 d $
 \end{enumerate}
 
-which is the piecewise eigenvalue problem written as a first order system in the unweighted norm. The eigenfunction here is given by $V_i^\pm = (Q' - \lambda Q_c)d_i + W_i\pm$.\\
+which is the piecewise eigenvalue problem written as a first order system, this time in the unweighted norm. The eigenfunction here is given by $V_i^\pm = (Q' - \lambda Q_c)d_i + W_i\pm$.\\
+
+The additional complication here is that the matrix $A(q)$ is not hyperbolic, since there is an eigenvalue of 0. We also cannot use an exponential weight to get rid of this problem since we are considering the periodic case. Thus we will have to deal with some sort of ``center'' subspace, which will give us an exponential trichotomy instead of an exponential dichotomy.\\
 
 For the single pulse solution, we know that the exponential decay rate at both ends is given by $\alpha > 0$, where $\alpha$ is the absolute value of the real part of the eigenvalues of the linearization about the zero-solution.\\
 
 Let's first look at this for the case of a wave train composed of single pulses. Recall that for the single pulse $q$, where there is only one join at the center, the eigenfunction is given by $V\pm = Q' - \lambda Q_c + W_i\pm$, and this becomes
 
+\[
+\item (W^\pm)' = A(q) W_i^\pm + \lambda B W^\pm - \lambda^2 B Q_c
+\]
+
+We now need to formulate the other conditions. Recall that for the exponentially weighted case (or the hyperbolic case) the other conditions are given by
+
 \begin{enumerate}[(i)]
-\item $(W^\pm)' = A(q) W_i^\pm + \lambda B W^\pm - \lambda^2 B Q_c$
-\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0$
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W^+(0) - W^-(0) \in \C \psi(0) $
+\end{enumerate}
+
+Let's recall what the various spaces are. All these things are defined at $x = 0$, since that is the ``middle'' of the homoclinic orbit.
+
+\begin{enumerate}
+	\item $\text{span }\{Q'(0)\}$ is the span of the derivative of the pulse at $x = 0$. This is in both the stable and unstable manifolds of 0.
+	\item $Y^+$ is the remaining dimension of the 2D stable manifold.
+	\item $Y^-$ is the remaining dimension of the 2D unstable manifold.
+	\item $\C \Psi(0)$ is the span of the solution to the adjoint variational equation, and since it is perpendicular to the unstable and stable manifolds, it fills out $\C^4$ when combined with the three things above.
+\end{enumerate}
+
+In our case, we will have an additional ``center'' space at $x = 0$, which gives us one more dimension. For now, we will call this $Y^0$, but this will become more specific later. What we need to do now is figure out what role this plays in our conditions. Elements in the center space may blow up (not necessarily exponentially) at one of the ends. Thus if we want to look for a localized eigenfunction, it is important that the initial condition at $x = 0$ not have a component in this space. \\
+
+This essentially tells us where our perturbation must live. Since we are specifying our eigenfunction as $V\pm = Q' - \lambda Q_c + W_i\pm$, and we know that $Q'(0)$ and $Q_c(0)$ have no component in the $Y^0$ (since they both decay exponentially at both ends), this implies that $W^i\pm(0)$ cannot have a component in $Y^0$. This also implies that $W^+(0) - W^-(0)$ cannot have a component in $Y^0$. Thus the conditions are the same as for the version without the ``center'' space, i.e. 
+
+\begin{enumerate}[(i)]
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
 \item $W^+(0) - W^-(0) \in \C \psi(0) $
 \end{enumerate}
 
