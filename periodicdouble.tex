@@ -57,8 +57,6 @@ The equations we are looking to solve are
 
 \begin{enumerate}[(i)]
 \item $(W_i^\pm)' = A(q; \lambda) W_i^\pm + G_i(\lambda)^\pm W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
-\item $W_i^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0$
-\item $W_i^+(0) - W_i^-(0) \in \C \psi(0) $
 \item $W_1^+(X_1) - W_2^-(-X_1) = D_1 d$
 \item $W_2^+(X_2) - W_1^-(-X_2) = D_2 d$
 \end{enumerate}
@@ -69,7 +67,7 @@ where
 G_i(\lambda)^\pm (x) &= A(q_{2p}(x);\lambda) - A(q(x);\lambda)) \\
 D_1 d &= d_2(Q_{2p}'(-X_1) + \lambda (Q_{2p})_c(-X_1))
 - d_1 ( Q_{2p}'(X_1) + \lambda (Q_{2p})_c(X_1) ) \\
-D_1 d &= d_1(Q_{2p}'(-X_2) + \lambda (Q_{2p})_c(-X_2))
+D_2 d &= d_1(Q_{2p}'(-X_2) + \lambda (Q_{2p})_c(-X_2))
 - d_2 ( Q_{2p}'(X_2) + \lambda (Q_{2p})_c(X_2) ) \\
 \tilde{H} &= -B(Q_{2p})_c \\
 H &= -B Q_c \\
@@ -78,12 +76,37 @@ H &= -B Q_c \\
 
 NOTE TO SELF: DOUBLE CHECK THE SIGN FOR $D_2 d$ DOES NOT MATTER FOR THE BOUND BUT WE NEED TO GET IT RIGHT. We do not have a $\lambda B W_i^\pm$ term since this has been absorbed into $A(q; \lambda) W_i^\pm$. \\
 
+We also have some conditions about which spaces various things should lie in. From prior problems (without the ``center'' space), these look like
+
+\begin{enumerate}[(i)]
+\item $W_i^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W_i^+(0) - W_i^-(0) \in \C \psi(0) $
+\end{enumerate}
+
+These will be slightly different for the periodic wavetrain. Let's recall what the various spaces are. All these things are defined at $x = 0$, since that is the ``middle'' of the homoclinic orbit. All these are also for the unperturbed situation, i.e. when $\lambda = 0$.
+
+\begin{enumerate}
+	\item $\text{span }\{Q'(0)\}$ is the span of the derivative of the pulse at $x = 0$. This is in both the stable and unstable manifolds of 0.
+	\item $Y^+$ is the remaining dimension of the 2D stable manifold.
+	\item $Y^-$ is the remaining dimension of the 2D unstable manifold.
+	\item $\C \Psi(0)$ is the span of the solution to the adjoint variational equation, and since it is perpendicular to the unstable and stable manifolds, it fills out $\C^4$ when combined with the three things above.
+\end{enumerate}
+
+In our case, we will have an additional ``center'' space at $x = 0$, which gives us one more dimension. For now, we will call this $Y^0$, but this will become more specific later. What we need to do now is figure out what role this plays in our conditions. Elements in the center space may blow up (not necessarily exponentially) at one of the ends. Thus if we want to look for a localized eigenfunction, it is important that the initial condition at $x = 0$ not have a component in this space. \\
+
+This essentially tells us where our perturbation must live. Since we are specifying our eigenfunction as $V\pm = Q' - \lambda Q_c + W_i\pm$, and we know that $Q'(0)$ and $Q_c(0)$ have no component in the $Y^0$ (since they both decay exponentially at both ends), this implies that $W^i\pm(0)$ cannot have a component in $Y^0$. This also implies that $W^+(0) - W^-(0)$ cannot have a component in $Y^0$. Thus the conditions are the same as for the version without the ``center'' space, i.e. 
+
+\begin{enumerate}[(i)]
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W^+(0) - W^-(0) \in \C \psi(0) $
+\end{enumerate}
+
 Let $X_m = \min\{ X_1, X_2 \}$ and $X_M = \max\{ X_1, X_2 \}$. Then we should have bounds WHICH WE SHOULD SHOW IF THIS ALL WORKS
 
 \begin{align*}
 G_i(\lambda) &= \mathcal{O}(e^{-\alpha X_m}) \\
 \Delta H &= \mathcal{O}(e^{-\alpha X_m}) \\
-D_i &= ( Q'(X_i) + Q'(-X_i)(d_2 - d_1 ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
+D_i &= ( Q'(X_i) + Q'(-X_i)(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
 \end{align*}
 
 The idea behind these (unproven) bounds is that deviation from the single pulse, nonperiodic case decreases exponentially with distance from the center, so we are letting the ``worst offender'' dictate the behavior. The $D_i$ equations only depend on $X_i$, so the bound only involves that. \\
@@ -506,11 +529,10 @@ Collecting terms and dropping higher order terms, this becomes
 &+ |G| |D_{i-1}| |d| \Big)
 \end{align*} 
 
-
 Thus the final bound is
 
 \begin{align*}
-|A_2&(\lambda)_i(b, c_i^-, d)| \\
+|A_2&(\lambda)_i(b, c, d)| \\
 &\leq \Big( (e^{-\alpha X_i} + |G| )|b| \\
 &+ (p_7(X_i; \lambda) + e^{\nu(\lambda)X_i} |G|) |c_i| + e^{\nu(\lambda)X_{i-1}} |G| |c_{i-1}| \\
 &+ (e^{-\tilde{\alpha} X_i} + |G|)|\lambda|^2 |d| 
@@ -518,7 +540,7 @@ Thus the final bound is
 + |G| |D_{i-1}| |d| \Big)
 \end{align*}
 
-\item Next we use the projections 
+\item Next we want to satisfy the conditions
 
 \begin{align*}
 P(\C Q'(0))W_i^-(0) &= 0 \\
@@ -526,7 +548,50 @@ P(\C Q'(0))W_i^+(0) &= 0 \\
 P(Y^+ \oplus Y^- \oplus Y^0) ( W_i^+(0) - W_i^-(0) ) &= 0
 \end{align*}
 
-to implement what happens at $x = 0$ (on both pieces). Note that the $X_1$ and $X_2$ terms will mix here. At $x = 0$, the fixed point equations become
+Since the stable and unstable range spaces at $\lambda = 0$ both contain $\C Q'(0)$, we can decompose $b^\pm$ uniquely as $b^\pm = x^\pm + y^\pm$, where $x^\pm \in \C Q'(0)$ and $y^\pm \in Y^\pm$. Then since
+
+\begin{equation}\label{directsum}
+\C^n = \C\Psi(0) \oplus \C Q'(0) \oplus Y^+ \oplus Y^- \oplus Y^0
+\end{equation}
+
+(each of these is 1D in this case), the conditions above are equivalent to the following projections
+
+\begin{align*}
+P(\C Q'(0) \oplus Y^0 )W^-(0) &= 0 \\
+P(\C Q'(0) \oplus Y^0 )W^+(0) &= 0 \\
+P(Y^+ \oplus Y^-) (W^+(0) - W^-(0) ) &= 0
+\end{align*}
+
+where the range of each projection is indicated, and the kernel of each projection is just the other elements of the direct sum \eqref{directsum}. Since the first two equations wipe out any component in $\C Q'(0) \oplus Y^0$, we don't need to put that in the range of the third projection. \\
+
+Let $y_0 = v_\pm(0; 0)$ be a unit vector for $Y^0$. Since there is only a small order $\lambda$ perturbation when we go from $y_0$ to $v_\pm(0; \lambda)$ the following two direct sums hold as well.
+
+\begin{equation}\label{directsum}
+\C^n = \C\Psi(0) \oplus \C Q'(0) \oplus Y^+ \oplus Y^- \oplus v_\pm(0; \lambda)
+\end{equation}
+
+(It is two direct sums because we can choose either of $v_\pm(0; \lambda)$ for the last component).\\
+
+So we should be able to use the following projections instead
+
+\begin{align*}
+P(\C Q'(0) \oplus \C v_-(0; \lambda) )W^-(0) &= 0 \\
+P(\C Q'(0) \oplus \C v_+(0; \lambda) )W^+(0) &= 0 \\
+P(Y^+ \oplus Y^-) (W^+(0) - W^-(0) ) &= 0
+\end{align*}
+
+We can write this as five projections
+\begin{align*}
+P(\C Q'(0) )W^-(0) &= 0 \\
+P(\C Q'(0) )W^+(0) &= 0 \\
+P(\C v_-(0; \lambda))W^-(0) &= 0 \\
+P(\C v_+(0; \lambda))W^+(0) &= 0 \\
+P(Y^+ \oplus Y^-) (W^+(0) - W^-(0) ) &= 0
+\end{align*}
+
+which as the advantage of separating out the various coefficients in a nice way. It also eliminates any center component of $W^\pm(0)$ in the perturbed version, and I think we want to do that since we want the eigenfunction to be localized.\\
+
+At $x = 0$, the fixed point equations become
 
 \begin{align*}
 W_i^-(0) = \Phi^s_-(&0, -X_{i-1}; \lambda)a_{i-1}^- + b_i^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
@@ -540,7 +605,7 @@ W_i^+(0) = \Phi^u_+(&0, X_i; \lambda)a_i^+ + b_i^+ + (P^s_+(0; \lambda) - P^s_-(
 &+ \int_{X_i}^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
 
-where we have added and subtracted $P^s_-(0; 0))b_i^+$ and $P^u_-(0; 0))b_i^-$ since we want the $b_i$ to disappear when we take the projection. Recall that we always take the projection in the $\lambda = 0$ setting. For this, we will have a bound
+where we have added and subtracted $P^s_-(0; 0))b_i^+$ and $P^u_-(0; 0))b_i^-$ since we want the $b_i$ to disappear when we take the projection. We will have a bound
 
 \[
 p_3(\lambda) = |P^u_-(0;\lambda) - P^u_-(0; 0)| + |P^s_+(0;\lambda) - P^s_+(0;0)|
@@ -548,311 +613,232 @@ p_3(\lambda) = |P^u_-(0;\lambda) - P^u_-(0; 0)| + |P^s_+(0;\lambda) - P^s_+(0;0)
 
 which should be order $|\lambda|$.\\
 
-Using the same setup as in the single pulse case and doing the same projections, we would like to get something like
-
-\[
-\begin{pmatrix}x^- \\ x_i^+ \\ y_i^+ - y_i^- + \text{\{some stuff involving $c_i^-$\} $y_0$} \end{pmatrix}+ L_4(\lambda)(b, c_i^-,d) = 0
-\]
-
-Let's see what we can get. First, let's look at the 3rd component of this. The bound on $L_4$ will be determined by this, since the same bound will hold for the first two components. Before we do that, we need to do something with the $c_i^-$ terms since we would like place the largest component of those terms in the space $Y_0$ (since we are projecting onto that space in the third projection and that space is in the kernel fo the first two projections). Looking at the $c_{i-1}^-$ term, we have
+Before we start hitting things with all sorts of projections, we need to get the $c_i^\pm$ term into a form we can deal with. 
 
 \begin{align*}
-c_{i-1}^- &e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle \\
-&= c_{i-1}^- e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), w_0(\lambda) \rangle + c_{i-1}^- e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(X_i; \lambda) \rangle \\
-&= c_{i-1}^- e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) + c_{i-1}^- e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(X_i; \lambda) \rangle \\
-&= c_{i-1}^- e^{\nu(\lambda)X_{i-1}} y_0 +  c_{i-1}^- e^{\nu(\lambda)X_{i-1}} (v_-(0; \lambda) - y_0) + c_{i-1}^- e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(X_i; \lambda) \rangle \\
-&= c_{i-1}^- e^{\nu(\lambda)X_{i-1}} y_0 + c_{i-1}^- e^{\nu(\lambda)X_{i-1}}( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(X_i; \lambda) \rangle \\
-\end{align*} 
-
-The $c_i^+$ term is similar (should we choose to do this). For this we have a bound
-
-\[
-p_4(\lambda) = |v_-(0; \lambda) - y_0| + |v_+(0; \lambda) - y_0|
-\]
-
-which should be order $|\lambda|$, again by a Taylor series argument or a geometric argument.\\
-
-Then we have
-
-\begin{align*}
-W_i^+(0) &- W_i^-(0) = \Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \\
-&+ b_i^+ - b_i^- + (P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+  - (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
-&+ c_i^+ e^{-\nu(\lambda)X_i} y_0 + c_i^+ e^{-\nu(\lambda)X_i}( (v_+(0; \lambda) - y_0) + v_+(0; \lambda) \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle\\
-&- c_{i-1}^- e^{\nu(\lambda)X_{i-1}} y_0 + c_{i-1}^- e^{\nu(\lambda)X_{i-1}}( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(X_i; \lambda) \rangle \\
-&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
-&+ \int_{-X_{i-1}}^0
-e^{\nu(\lambda)y} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
-&+ \int_{X_i}^0 \Phi^u_+(0, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
-&+ \int_{X_i}^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
+e^{\nu(\lambda)X_{i-1}} &v_-(0; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^- \\
+&= e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), w_0(\lambda) \rangle c_{i-1}^- + e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^- \\
+&= e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) c_{i-1}^- + e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^-
 \end{align*}
 
-Our matrix-equation becomes
-
-\[
-\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- - e^{\nu(\lambda)X_{i-1}} c_{i-1}^- y_0 \end{pmatrix} + L_4(\lambda)_i(b_i, e^{\nu(\lambda)X_{i-1}} c_{i-1}^-, d) = 0
-\]
-
-It turns out that this will not quite work, since we do not know the sign of $\nu(\lambda)$, thus we know nothing about in which direction the $e^{\nu(\lambda)X_{i-1}}$ will blow up in. We can (hopefully) get around this by adding and subtracting the ``other-sign'' version in the ``negative'' fixed point equation at $x = 0$.
+where 
 
 \begin{align*}
-W_i^-(0) = \Phi^s_-(&0, -X_{i-1}; \lambda)a_{i-1}^- + b_i^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
-&+ (e^{\nu(\lambda)X_{i-1}} + e^{-\nu(\lambda)X_{i-1}} - e^{-\nu(\lambda)X_{i-1}}) c_{i-1}^- y_0 \\
-&+ e^{\nu(\lambda)X_{i-1}} c_{i-1}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle) \\
-&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
-&+ \int_{-X_{i-1}}^0
-e^{\nu(\lambda)y} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy
+\Delta v_\pm(x; \lambda) &= v_\pm(x; \lambda) - v_0(\lambda) \\
+\Delta w_\pm(x; \lambda) &= w_\pm(x; \lambda) - w_0(\lambda)
 \end{align*}
 
-Making this change, we have the revised matrix equation
+These things approach 0 as $x \rightarrow \pm \infty$, but we do not have a rate of convergence since we pulled out the exponential factor above when we defined these things.\\
 
-\[
-\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- - (e^{\nu(\lambda)X_{i-1}} + e^{-\nu(\lambda)X_{i-1}})c_{i-1}^- y_0 \end{pmatrix} + L_4(\lambda)_i(b_i, e^{\nu(\lambda)X_{i-1}} c_{i-1}^-, d) = 0
-\]
+Similarly, we have
 
-Note that the RHS does not match the LHS, but we will get there. For convenience, let
+\begin{align*}
+e^{-\nu(\lambda)X_i} &v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle c_i^+ \\
+&= e^{-\nu(\lambda)X_i} v_-(0; \lambda) \langle v_0(\lambda), w_0(\lambda) \rangle c_i^- + e^{-\nu(\lambda)X_i} v_+(0; \lambda) \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle c_i^+ \\
+&= e^{-\nu(\lambda)X_i} v_+(0; \lambda) c_i^- + e^{-\nu(\lambda)X_i} v_+(0; \lambda) \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle c_i^+
+\end{align*}
+
+Next we note that the $c_i^\pm$ have coefficients like $e^{\pm \nu(\lambda) }X_i$. One of these is potentially bad, but we do not know which one. To get around this, we will add and subtract the other version. \\
+
+To make this less messy, we define the following functions scalar functions of $X$ and $\lambda \neq 0$. (We know that $\nu(\lambda) \neq 0$ for $\lambda \neq 0$).
 
 \begin{align*}
 f(X; \lambda) = e^{\nu(\lambda)X} + e^{-\nu(\lambda)X} &= 2 \cosh (\nu(\lambda) X) \\
-f^+(X; \lambda) &= e^{\nu(\lambda)X} / f(X; \lambda) \\
-f^-(X; \lambda) &= e^{-\nu(\lambda)X} / f(X; \lambda)
+f^-(X; \lambda) &= e^{-\nu(\lambda)X} / f(X; \lambda) \\
+f^+(X; \lambda) &= e^{\nu(\lambda)X} / f(X; \lambda)
 \end{align*}
 
-This is nice, since $|f(X; \lambda)| \geq 1|$ and $0 < |f^\pm(X; \lambda)| < 1$. So we would like to have
+Note that we always have $|f^\pm(X; \lambda)| < 1$.\\
 
-\[
-\begin{pmatrix}x_i^- \\ x_i^+ \\ y_i^+ - y_i^- - f(X_{i-1}; \lambda)c_{i-1}^- y_0 \end{pmatrix} + L_4(\lambda)_i(b_i, f(X_{i-1}; \lambda) c_{i-1}^-, d) = 0
-\]
-
-where we have written RHS to match the LHS. We need to show that is possible, which is what we do now. Once again, we look at $W_i^+(0) - W_i^-(0)$. This time we leave the $c_i^+$ term as $c_i^+ e^{-\nu(\lambda)X_i} v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle$ (i.e. don't do what we did for the $c_i^-$ term).
+Using these, we have
 
 \begin{align*}
-W_i^+(0) - W_i^-(0) &= b_i^+ - b_i^- - f(X_{i-1}; \lambda) c_{i-1}^- y_0 \\
-&+ \Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \\
-&+(P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+  - (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
-&+ c_i^+ e^{-\nu(\lambda)X_i} v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle \\
-&+ e^{-\nu(\lambda)X_{i-1}} c_{i-1}^- y_0 - e^{\nu(\lambda)X_{i-1}} c_{i-1}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle) \\
-&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
-&+ \int_{-X_{i-1}}^0
-e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
-&+ \int_{X_i}^0 \Phi^u_+(0, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
-&+ \int_{X_i}^0 e^{\nu(\lambda)(-y)} v_+(0; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
+e^{\nu(\lambda)X_{i-1}} c_{i-1}^- &= (e^{\nu(\lambda)X_{i-1}} + e^{-\nu(\lambda)X_{i-1}})c_{i-1}^- - e^{-\nu(\lambda)X_{i-1}})c_{i-1}^- \\
+&= f(X_{i-1}; \lambda) c_{i-1}^- - f^-(X_{i-1}; \lambda)f(X_{i-1}; \lambda) c_{i-1}^-
 \end{align*}
 
-Upon substituting the various $f$ things, this becomes
- 
+Similarly,
+
 \begin{align*}
-W_i^+(0) - W_i^-(0) &= b_i^+ - b_i^- - f(X_{i-1}; \lambda) c_{i-1}^- y_0 \\
-&+ \Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \\
-&+(P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+  - (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
-&+ c_i^+ e^{-\nu(\lambda)X_i} v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle \\
-&+ f^-(X_{i-1}; \lambda)f(X_{i-1}; \lambda) c_{i-1}^- y_0 \\
-&- f^+(X_{i-1}; \lambda)f(X_{i-1}; \lambda) c_{i-1}^- ( (v_-(0; \lambda) - y_0) + v_-(0; \lambda) \langle  v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle) \\
+e^{-\nu(\lambda)X_i} c_i^+ &= f(X_i; \lambda) c_i^+ - f^+(X_i; \lambda)f(X_i; \lambda) c_i^+
+\end{align*}
+
+Plugging all of these into the fixed point equation at $x = 0$, we have
+
+\begin{align*}
+W_i^-(0) &= x_i^- + y_i^- + v_-(0; \lambda) f(X_{i-1}; \lambda) c_{i-1}^-  \\
+&+\Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- + b_i^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
+&- f^-(X_{i-1}; \lambda) v_-(0; \lambda) f(X_{i-1}; \lambda) c_{i-1}^- \\
+&+ \langle v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle 
+f^+(X_{i-1}; \lambda) v_-(0; \lambda) f(X_{i-1}; \lambda) c_{i-1}^- \\
 &+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(\lambda)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
 &+ \int_{-X_{i-1}}^0
-e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+e^{\nu(\lambda)y} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+W_i^+(0) &= x_i^+ + y_i^+ + v_+(0; \lambda) f(X_i; \lambda) c_i^+ \\
+&+\Phi^u_+(0, X_i; \lambda)a_i^+ + b_i^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+ \\
+&- f^+(X_i; \lambda) v_+(0; \lambda) f(X_i; \lambda) c_i^+ \\
+&+ \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle 
+f^-(X_i; \lambda)f(X_i; \lambda) v_+(0; \lambda) c_i^+ \\
 &+ \int_{X_i}^0 \Phi^u_+(0, y; \lambda) [ G_i^+(\lambda)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
 &+ \int_{X_i}^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G_i^+(\lambda)(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
 
-We have the following bound for $L_4$. Note that the bound will depend on all the things in $W_i^+(0) - W_i^-(0)$ other than the first line, since the terms in the first line are not involved in $L_4$. As before, we use the $\tilde{\alpha}$ trick for the integrals involving $\tilde{H}$ to absorb the $e^{\nu(\lambda)y}$ so that we don't have an exponential growth factor in front of the $|\lambda|^2$ term.
+If we plug in the fixed point equations into the above set of projections, we get the matrix equation
+
+\[
+\begin{pmatrix}x_i^- \\ x_i^+ \\ 
+f(X_{i-1}; \lambda) v_-(0; \lambda) c_{i-1}^- \\
+f(X_i; \lambda) v_+(0; \lambda) c_i^+ \\
+y_i^+ - y_i^- \end{pmatrix} + L_4(\lambda)(b, c) = 0
+\]
+
+
+where $L_4(\lambda)(b, c)$ is the rest of the terms that don't get eliminated outright by the projections.\\
+
+We have the following bound on $L_4(\lambda)$. 
 
 \begin{align*}
-|L_4&(\lambda)_i(b_i, f(X_{i-1}; \lambda) c_{i-1}^-, d)|\\ 
-&\leq C \Big( e^{-\alpha X_i} |a_i^+| +  e^{-\alpha X_{i-1}} |a_{i-1}^-| \\
-&+ p_3(\lambda) |b_i| + (f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ e^{\nu(\lambda)X_{i}} |c_i^+| \\
+|L_4&(\lambda)_i(b, c, d)|\\ 
+&\leq C \Big( e^{-\alpha X_i} |a_i^+| +  e^{-\alpha X_{i-1}} |a_{i-1}^-| + p_3(\lambda) |b_i| \\
+&+ (f^+(T; \lambda) p_2(X_{i-1}; \lambda) + f^-(X_{i-1}; \lambda)) v_-(0; \lambda)  f(X_{i-1}; \lambda) |c_{i-1}^-| \\
+&+ (f^-(X_i; \lambda) p_2(X_i; \lambda) + f^+(X_i; \lambda)) v_+(0; \lambda) f(X_i; \lambda)  |c_i^+| \\
 &+ (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ||W|| + |\lambda^2| |d| \Big)
 \end{align*}
 
-To finish the bound, we need to plug in $A_1$ and $W_2$ for $|a|$ and $||W||$. Note that because of the ``mixing'' of coefficents ($a_i$ and $c_i$), we need to plug in both $A_1(\lambda)_i$ and $A_1(\lambda)_{i-1}$. Also note that when the ``mixing'' is done, this bound will depend on both $f(X_{i-1}; \lambda) c_{i-1}^-$ and $f(X_i; \lambda) c_i^-$. Plugging in $A_1$ and $W_2$, we have the bound
+where
 
 \begin{align*}
-|L_4&(\lambda)_i(b, f(X_i; \lambda) c_i^-, f(X_{i-1}; \lambda) c_{i-1}^-, d)|\\ 
-&\leq C\Big( e^{-\alpha X_i} |a_i^+| \\
-&+  e^{-\alpha X_{i-1}} |a_{i-1}^-| \\
-&+ e^{\nu(\lambda)X_{i}} |c_i^+| \\
-&+ (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ||W|| \\
-&+ p_3(\lambda) |b_i| + (f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+|\lambda^2| |d| \Big) \\
-&\leq C\Big( e^{-\alpha X_i} |A_1(\lambda)_i(b, c^-, d)| \\
-&+  e^{-\alpha X_{i-1}} |A_1(\lambda)_{i-1}(b, c^-, d)| \\
-&+ e^{\nu(\lambda)X_{i}} |A_1(\lambda)_i(b, c^-, d)|  \\
-&+ (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ||W_2(\lambda)(b,c^-,d)|| \\
-&+ p_3(\lambda) |b_i| + (f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+|\lambda^2| |d| \Big)
+p_2(X; \lambda) &= |\Delta v_\pm(\pm X, \lambda)| + |\Delta w_\pm(\pm X, \lambda)|\\
+&= |v_\pm(\pm X; \lambda) - v_0(\lambda)| + |w_\pm(\pm X; \lambda) - w_0(\lambda)|
 \end{align*}
 
-Note that for the $|A_1(\lambda)_i(b, c^-, d)|$ coefficient, $e^{\nu(\lambda)X_{i}}$ is much lower order than $e^{-\alpha X_i}$, so we can drop the higher order set of terms. This time we plug in the actual bounds for $A_1$ and $W_2$ to get
+To finish the bound, we need to plug in $A_1$ and $W_2$ for $|a|$ and $||W||$.
 
 \begin{align*}
-|L_4&(\lambda)_i(b, f(X_i; \lambda) c_i^-, f(X_{i-1}; \lambda) c_{i-1}^-, d)|\\ 
-&\leq C\Big( e^{\nu(\lambda)X_{i}} |A_1(\lambda)_i(b, c^-, d)| \\
-&+  e^{-\alpha X_{i-1}} |A_1(\lambda)_{i-1}(b, c^-, d)| \\
-&+ (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ||W_2(\lambda)(b,c^-,d)|| \\
-&+ p_3(\lambda) |b_i| + (f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+|\lambda^2| |d|) \\
-&\leq C\Big( e^{\nu(\lambda)X_{i}} ((e^{-\alpha X_i} + |G|) |b| 
-+ |c_i^-| + e^{\nu(\lambda)X_{i-1}} |G||c_{i-1}^-| + (e^{-\tilde{\alpha} X_i} + |G|) |\lambda|^2 |d| + |D_i||d|)\\
-&+  e^{-\alpha X_{i-1}} ((e^{-\alpha X_{i-1}} + |G|) |b| 
-+ |c_{i-1}^-| + e^{\nu(\lambda)X_i} |G||c_i^-| + (e^{-\tilde{\alpha} X_{i-1}} + |G|) |\lambda|^2 |d| + |D_{i-1}||d|) \\
-&+ (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ( |b| + e^{\nu(\lambda) X_i} |c_i^-| +  e^{\nu(\lambda) X_{i-1}} |c_{i-1}^-| + |\lambda|^2 |d| \\
-&\:\:\:\:\:\:\:+ e^{\nu(\lambda) X_i} |D_i| |d| + e^{\nu(\lambda) X_{i-1}} |D_{i-1}| |d| ) \\
-&+ p_3(\lambda) |b_i| + (f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+|\lambda^2| |d|)
+|L_4&(\lambda)_i(b, c, d)|\\ 
+&\leq C \Big( e^{-\alpha X_i} |A_1(\lambda)_i(b, c, d)| +  e^{-\alpha X_{i-1}} |A_1(\lambda)_{i-1}(b, c, d)| + p_3(\lambda) |b_i| \\
+&+ (f^+(T; \lambda) p_2(X_{i-1}; \lambda) + f^-(X_{i-1}; \lambda)) v_-(0; \lambda)  f(X_{i-1}; \lambda) |c_{i-1}^-| \\
+&+ (f^-(X_i; \lambda) p_2(X_i; \lambda) + f^+(X_i; \lambda)) v_+(0; \lambda) f(X_i; \lambda)  |c_i^+| \\
+&+ (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ||W_2(\lambda)(b,c,d)|| + |\lambda^2| |d| \Big) \\
+&\leq C \Big( e^{-\alpha X_i} ( (e^{-\alpha X_i} + |G|) |b| 
++ ( p_7(X_i; \lambda) + e^{\nu(\lambda)X_i} |G|) |c_i| + e^{\nu(\lambda)X_{i-1}} |G| |c_{i-1}| \\
+&+ (e^{-\tilde{\alpha} X_i} + |G|) |\lambda|^2 |d| + |D_i||d| ) \\
+&+ e^{-\alpha X_{i-1}} ( (e^{-\alpha X_{i-1}} + |G|) |b| 
++ ( p_7(X_{i-1}; \lambda) + e^{\nu(\lambda)X_{i-1}} |G|) |c_i| + e^{\nu(\lambda)X_i} |G| |c_i| \\
+&+ (e^{-\tilde{\alpha} X_{i-1}} + |G|) |\lambda|^2 |d| + |D_{i-1}||d| ) \\
+&+ p_3(\lambda) |b_i| \\
+&+ (f^+(T; \lambda) p_2(X_{i-1}; \lambda) + f^-(X_{i-1}; \lambda)) v_-(0; \lambda)  f(X_{i-1}; \lambda) |c_{i-1}| \\
+&+ (f^-(X_i; \lambda) p_2(X_i; \lambda) + f^+(X_i; \lambda)) v_+(0; \lambda) f(X_i; \lambda)  |c_i| \\
+&+ (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ( |b| + e^{\nu(\lambda)X_i} |c_i| + e^{\nu(\lambda)X_{i-1}} |c_{i-1}| 
++ |\lambda|^2 |d| + |D_i||d| + |D_{i-1}||d|)\\ 
+&+ |\lambda^2| |d| \Big) \\
 \end{align*}
 
-Now we collect like terms to get
+Collecting terms (and dropping some higher order ones), we have
 
 \begin{align*}
-|L_4&(\lambda)_i(b, f(X_i; \lambda) c_i^-, f(X_{i-1}; \lambda) c_{i-1}^-, d)|\\ 
-&\leq C\Big( e^{\nu(\lambda)X_{i}} ((e^{-\alpha X_i} + |G|) |b| 
-+ |c_i^-| + e^{\nu(\lambda)X_{i-1}} |G||c_{i-1}^-| + (e^{-\tilde{\alpha} X_i} + |G|) |\lambda|^2 |d| + |D_i||d|)\\
-&+  e^{-\alpha X_{i-1}} ((e^{-\alpha X_{i-1}} + |G|) |b| 
-+ |c_{i-1}^-| + e^{\nu(\lambda)X_i} |G||c_i^-| + (e^{-\tilde{\alpha} X_{i-1}} + |G|) |\lambda|^2 |d| + |D_{i-1}||d|) \\
-&+ (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ( |b| + e^{\nu(\lambda) X_1} |c_1^-| +  e^{\nu(\lambda) k X_1} |c_2^-| + |\lambda|^2 |d| \\
-&\:\:\:\:\:\:\:+ e^{\nu(\lambda) X_1} |D_1| |d| + e^{\nu(\lambda) k X_1} |D_2| |d| ) \\
-&+ p_3(\lambda) |b_i| + (f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+|\lambda^2| |d|) \\
-&\leq C\Big( 
-(e^{\nu(\lambda)X_{i}} (e^{-\alpha X_i} + |G|) + e^{-\alpha X_{i-1}} (e^{-\alpha X_{i-1}} + |G|) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| + p_3(\lambda)) |b| \\
-&+ (e^{\nu(\lambda)X_i} + e^{-\alpha X_{i-1}} e^{\nu(\lambda)X_i} |G|
-+ e^{\nu(\lambda)X_i} (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G|)|c_i^-| \\
-&+ (e^{\nu(\lambda)X_i} e^{\nu(\lambda)X_{i-1}} |G| +  e^{-\alpha X_{i-1}} 
-+ e^{\nu(\lambda)X_{i-1}} (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G|) |c_{i-1}^-| \\
-&+ (f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ (1 + e^{\nu(\lambda)X_i}(e^{-\tilde{\alpha} X_i} + |G|) 
-+ e^{-\alpha X_{i-1}} (e^{-\tilde{\alpha} X_{i-1}} + |G|) 
-(e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G|) )|\lambda|^2 |d| \\ 
-&+ e^{\nu(\lambda)X_i}(1 + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G|) |D_i||d| \\
-&+ (e^{-\alpha X_{i-1}} + e^{\nu(\lambda)X_{i-1}} (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G|) |D_{i-1}||d| \Big)
+|L_4&(\lambda)_i(b, c, d)|\\ 
+&\leq C\Big(( p_3(\lambda) + e^{-\alpha X_i}( e^{-\alpha X_i} + |G|) + e^{-\alpha X_{i-1}}( e^{-\alpha X_{i-1}} + |G|) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| )|b| \\ 
+&+ ((f^+(X_i; \lambda) (p_2(X_i; \lambda) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}})|G|) + f^-(X_i; \lambda) ) f(X_i; \lambda) |c_i| \\
+&+ ((f^-(X_{i-1}; \lambda) (p_2(X_{i-1}; \lambda) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}})|G|) + f^+(X_{i-1}; \lambda) ) f(X_{i-1}; \lambda) |c_{i-1}| \\
+&+ ( e^{-\alpha X_i}(e^{-\tilde{\alpha} X_i} + |G|) + e^{-\alpha X_{i-1}}(e^{-\tilde{\alpha} X_{i-1}} + |G|) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| + 1) |\lambda|^2 |d| \\ 
+&+ (e^{-\alpha X_i} + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ) |D_i||d| \\
+&+ (e^{-\alpha X_{i-1}} + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ) |D_{i-1}||d|\Big)  \\
 \end{align*}
 
-At this point we will simplify this by dropping some higher order terms.
+Dropping some more higher order terms, this becomes
 
 \begin{align*}
-|L_4&(\lambda)_i(b, f(X_i; \lambda) c_i^-, f(X_{i-1}; \lambda) c_{i-1}^-, d)|\\ 
-&\leq C\Big( 
-(e^{\nu(\lambda)X_i} |G| + e^{\nu(\lambda)X_{i-1}} |G| + p_3(\lambda)) |b| \\
-&+ e^{\nu(\lambda)X_i} |c_i^-| \\
-&+ e^{\nu(\lambda)X_{i-1}} (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| |c_{i-1}^-| \\
-&+ (f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ |\lambda|^2 |d| \\ 
-&+ e^{\nu(\lambda)X_i} |D_i||d| \\
-&+ e^{\nu(\lambda)X_{i-1}} (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| |D_{i-1}||d| \Big)
+|L_4&(\lambda)_i(b, c, d)|\\ 
+&\leq C\Big(( p_3(\lambda) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| )|b| \\ 
+&+ ((f^+(X_i; \lambda) (p_2(X_i; \lambda) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}})|G|) + f^-(X_i; \lambda) ) f(X_i; \lambda) |c_i| \\
+&+ ((f^-(X_{i-1}; \lambda) (p_2(X_{i-1}; \lambda) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}})|G|) + f^+(X_{i-1}; \lambda) ) f(X_{i-1}; \lambda) |c_{i-1}| \\
+&+ (e^{-\alpha X_i} + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ) |D_i||d| \\
+&+ (e^{-\alpha X_{i-1}} + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| ) |D_{i-1}||d| \\
+&+ |\lambda|^2 |d| \Big) \\
 \end{align*}
 
-Finally, we need to put the RHS in terms of the ``$f$-stuff''.
+To do the inversion, we need for the coefficients of $|b|$, $|f(X_i; \lambda) c_i|$, and $|f(X_{i-1}; \lambda) c_{i-1}|$ to have magnitude less than 1. For $|b|$ we are all set, since $p_3(\lambda)$ is order $\lambda$, and we can choose $\lambda$ as small as we want; all other coefficients of $|b|$ exponentially decay in $X_i$ since $|G|$ is order $e^{-\alpha X_1}$. \\
 
-\begin{align*}
-|L_4&(\lambda)_i(b, f(X_i; \lambda) c_i^-, f(X_{i-1}; \lambda) c_{i-1}^-, d)|\\ 
-&\leq C\Big( 
-(e^{\nu(\lambda)X_i} |G| + e^{\nu(\lambda)X_{i-1}} |G| + p_3(\lambda)) |b| \\
-&+ f^+(X_i; \lambda) |f(X_i; \lambda) c_i^-| \\
-&+ (f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda)(e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G|) |f(X_{i-1}; \lambda)c_{i-1}^-| \\
-&+ f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ |\lambda|^2 |d| \\ 
-&+ e^{\nu(\lambda)X_i} |D_i||d| \\
-&+ e^{\nu(\lambda)X_{i-1}} (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| |D_{i-1}||d| \Big)\\
-&\leq C\Big( 
-(e^{\nu(\lambda)X_i} |G| + e^{\nu(\lambda)X_{i-1}} |G| + p_3(\lambda)) |b| \\
-&+ f^+(X_i; \lambda) |f(X_i; \lambda) c_i^-| \\
-&+ f^-(X_{i-1}; \lambda)|f(X_{i-1}; \lambda)c_{i-1}^-| \\
-&+ f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G|) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ |\lambda|^2 |d| \\ 
-&+ e^{\nu(\lambda)X_i} |D_i||d| \\
-&+ e^{\nu(\lambda)X_{i-1}} (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| |D_{i-1}||d| \Big)
-\end{align*}
-
-Simplifying this, we get 
-
-\begin{align*}
-|L_4&(\lambda)_i(b, f(X_i; \lambda) c_i^-, f(X_{i-1}; \lambda) c_{i-1}^-, d)|\\ 
-&\leq C\Big( 
-(e^{\nu(\lambda)X_i} |G| + e^{\nu(\lambda)X_{i-1}} |G| + p_3(\lambda)) |b| \\
-&+ f^+(X_i; \lambda) |f(X_i; \lambda) c_i^-| \\
-&+ ( f^-(X_{i-1}; \lambda) + 
-f^+(X_{i-1}; \lambda) (p_2(\lambda; X_{i-1}) + p_4(\lambda) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G|)) | f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ |\lambda|^2 |d| \\ 
-&+ e^{\nu(\lambda)X_i} |D_i||d| \\
-&+ e^{\nu(\lambda)X_{i-1}} (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| |D_{i-1}||d| \Big)
-\end{align*}
-
-We are finally where we want to be. Yay! At this point, we will want to take $k$ sufficiently small so that $2 \delta k < \alpha$. That way, the $D_{i-1}$ term does not grow exponentially.\\
-
-To do the inversion, we need for the coefficients of $|b|$, $|f(X_i; \lambda) c_i^-|$, and $|f(X_{i-1}; \lambda) c_{i-1}^-|$ to have magnitude less than 1. For $|b|$ we are all set, since $p_3(\lambda)$ is order $\lambda$, and we can choose $\lambda$ as small as we want; all other coefficients of $|b|$ exponentially decay in $X_i$. For $|f(X_i; \lambda) c_i^-|$ we are all set since $f^-(X_i; \lambda) < 1$. For $|f(X_{i-1}; \lambda) c_{i-1}^-|$, we note that by our definitions above for the ``$f$-stuff'',
+For $|f(X_i; \lambda) c_i|$, note that 
 
 \[
-f^-(X_{i-1}; \lambda) + f^+(X_{i-1}; \lambda) = 1
+f^-(X_i; \lambda) + f^+(X_i; \lambda) = 1
 \]
 
-and both terms on the LHS are positive. Since $p_2(\lambda; X_{i-1}) + p_4(\lambda) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G|$ can be made as small as we want by choosing $\lambda$ sufficiently small and $X_i, X_{i-1}$ sufficiently large, we can obtain a coefficient of $|f(X_{i-1}; \lambda) c_{i-1}^-|$ of magnitude less than 1. Thus we can do the inversion.\\
+and both terms on the LHS are positive. Since $(p_2(X_i; \lambda) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}})|G|)$ can be made as small as we want by choosing $\lambda$ sufficiently small and $X_i, X_{i-1}$ sufficiently large, we can obtain a coefficient of $|f(X_i)c_i|$ of magnitude less than 1. The same holds for $|f(X_{i-1})c_{i-1}|$. Thus we can do the inversion. Leaving out the details for now, this will give us an operator $B_1(\lambda)$ such that
 
-The details of the inversion are similar to Sandstede (1998) and are omitted for now. Thus we can solve for $b$ and $f(X_i; \lambda) c_i^-$ to get $(b_i, f(X_i; \lambda) c_i^-) = B_1(\lambda)(d)$ will have a bound based on $|L_4(\lambda)_i(0, 0,0, d)|$. This bound will look like
+\[
+(b, f(X_i; \lambda) c_i, f(X_{i-1}; \lambda) c_{i-1} ) = B_1(\lambda)
+\]
 
-\begin{align}
-|B_1(\lambda)_i(d)| \leq C(|\lambda|^2 |d| + e^{\nu(\lambda)X_i} |D_i||d|
-+ e^{\nu(\lambda)X_{i-1}} (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G| |D_{i-1}||d|
-\end{align}
+with bound
 
-Note that $B_1(\lambda)_i$ solves for both $b$ and for $f(X_{i-1}; \lambda) c_{i-1}^-$ (not $f(X_i; \lambda) c_{i-1}^-$) and that $f(X_{i-1}; \lambda)$ is of order $e^{|\nu(\lambda)|X_{i-1}}$. When we divide by $f(X_{i-1}; \lambda)$, we will have a problem, since dividing by $f(X_{i-1}; \lambda)$ will only cancel the $e^{\nu(\lambda)X_i}$ in front of $|D_i||d|$ in the case where $X_{i+1} \geq X_i$ (i.e. for $i = 1$).\\
+\[
+|B_1(\lambda)| \leq C( (e^{-\alpha X_i} + e^{-\alpha X_{i-1}}) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}}) |G|) |D||d| + |\lambda|^2 |d|)
+\]
 
-I HAVE STOPPED HERE FOR NOW since I think the issue has occurred by this point. Compare to (3.31) in Sandstede (1998). I would like to have something decaying in front of both of the $D_i$. Here we only have it for $D_{i-1}$ but not for $D_i$. 
+For convenience, let
 
-\pagebreak
+\[
+K(X, \lambda) = (e^{-\alpha X_i} + e^{-\alpha X_{i-1}}) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}})
+\]
+
+Then we have
+
+\[
+|B_1(\lambda)| \leq C( K(X, \lambda) |D|+ |\lambda|^2 )|d|
+\]
+
 
 From here, we plug this into $A_1$, $W_2$, and $A_2$ to get new estimates which are only functions of $d$ and $\lambda$.\\
 
-First, we plug this $A_1(\lambda)(b, c^-, d)$ to $A_3(\lambda)(d)$.
+First, we plug this into $A_1(\lambda)(b, c, d)$ to get $A_3(\lambda)(d)$. Note that we plug $|B_1(\lambda)|$ in for $c_i$, we can cancel a factor of $e^{\nu(\lambda)}$ since $|B_1(\lambda)|$ solves for $f(X_i; \lambda) c_i$. If we do not have such a factor, there is nothing we can do since the real part of $\nu(\lambda)$ can be 0.
 
 \begin{align*}
-|A_1&(\lambda)_i(b, c^-, d)| \\
-&\leq C \Big( (e^{-\alpha X_i} + |G|) |b| 
-+ |c_i^-| + e^{\nu(\lambda)X_{i-1}} |G||c_{i-1}^-| + (e^{-\tilde{\alpha} X_i} + |G|) |\lambda|^2 |d| + |D_i||d| \Big)
-\end{align*} 
-
-\begin{align*}
-|A_3&(\lambda)_1(b, c^-, d)| \leq C ((e^{-\alpha X_1} + |G|) (|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{\nu(\lambda)k X_1}|D_2|)|d| \\
-&+ e^{-|\nu(\lambda)| X_1}(|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{2 \nu(\lambda)k X_1}|G||D_2|)|d| \\
-&+ e^{-|\nu(\lambda)| k X_1} e^{\nu(\lambda)k X_1} |G| (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_2| + e^{2 \nu(\lambda)k X_1}|G||D_1|)|d|\\
-&+ ((e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 + |D_1| )|d| ) \\
-&\leq C( e^{-|\nu(\lambda)|X_1} |\lambda|^2 + |D_1| + |D_2|) |d| 
+|A_3&(\lambda)_i(d)| \\
+&\leq C \Big( (e^{-\alpha X_i} + |G|) |b|
++ ( p_7(X_i; \lambda) + e^{\nu(\lambda)X_i} |G|) |c_i| + e^{\nu(\lambda)X_{i-1}} |G| |c_{i-1}| \\
+&+ (e^{-\tilde{\alpha} X_i} + |G|) |\lambda|^2 |d| + |D_i||d| \Big) \\
+&\leq C \Big( (e^{-\alpha X_i} + |G| + p_7(X_i; \lambda) )|B_1(\lambda)(d)|\\
+&+ (e^{-\tilde{\alpha} X_i} + |G|) |\lambda|^2 |d| + |D_i||d| \Big) \\
+&\leq C \Big( (e^{-\alpha X_i} + |G| + p_7(X_i; \lambda) )( K(X, \lambda) |D|+ |\lambda|^2 )|d|\\
+&+ (e^{-\tilde{\alpha} X_i} + |G|) |\lambda|^2 |d| + |D_i||d| \Big) \\
+&\leq C \Big( (e^{-\tilde{\alpha} X_i} + |G| + p_7(X_i; \lambda) ) |\lambda|^2  + |D|)|d| \Big) \\
 \end{align*}
 
-The coefficient in front of the $|\lambda|^2$ term will only be useful to cancel something later.\\
-
-Similarly, 
+Next, we plug this into $W_2(\lambda)(b, c, d)$ to get $W_3(\lambda)(d)$
 
 \begin{align*}
-|A_3&(\lambda)_2(b, c^-, d)| \leq C( e^{-|\nu(\lambda)| k X_1} |\lambda|^2 + |D_1| + |D_2|) |d|
+||W_3&(\lambda)(b,c,d)|| \\
+&\leq C \Big( |b| + e^{\nu(\lambda)X_i} |c_i| + e^{\nu(\lambda)X_{i-1}} |c_{i-1}| 
++ |\lambda|^2 |d| + |D_i||d| + |D_{i-1}||d|) \\
+&\leq C( |B_1(\lambda)(d)|+ |\lambda|^2 |d| + |D_i||d| + |D_{i-1}||d|) \\
+&\leq C( ( K(X, \lambda) |D|+ |\lambda|^2 )|d| + |\lambda|^2 |d| + |D_i||d| + |D_{i-1}||d|) \\
+&\leq C( |\lambda|^2 + |D|)|d|
 \end{align*}
 
-This is similar to the bound (3.37) in Sandstede (1998), which is good.\\
-
-We also have
+Finally, we plug this into $A_2(\lambda)(b, c, d)$ to get $A_4(\lambda)(d)$
 
 \begin{align*}
-||W_3&(\lambda)(b,c^-,d)|| \leq C( (|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{\nu(\lambda)k X_1}|D_2|)|d| \\
-&+ e^{\nu(\lambda) X_1} e^{-|\nu(\lambda)| X_1}(|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{2 \nu(\lambda)k X_1}|G||D_2|)|d| \\
-&+ e^{\nu(\lambda) k X_1} e^{-|\nu(\lambda)| k X_1} e^{\nu(\lambda)k X_1} |G| (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_2| + e^{2 \nu(\lambda)k X_1}|G||D_1|)|d|\\
-&+ (|\lambda|^2 + e^{\nu(\lambda) X_1} |D_1| + e^{\nu(\lambda)k X_1}|D_2|) |d| )\\
-&\leq C ( |\lambda|^2 + e^{\nu(\lambda) X_1} |D_1| + e^{\nu(\lambda)k X_1} |D_2| )|d|
-\end{align*}
-
-For $A_4$ we have
-
-\begin{align*}
-|A_4&(\lambda)_1(d)| \\
-&\leq C( (e^{-\alpha X_1} + |G|) (|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{\nu(\lambda)k X_1}|D_2|)|d| \\
-&+ e^{-|\nu(\lambda)| X_1} (|\lambda^2| + e^{\nu(\lambda) X_1}|D_1| + e^{2 \nu(\lambda)k X_1}|G||D_2|)|d|\\
-&+ e^{\nu(\lambda) k X_1} |G| e^{-|\nu(\lambda)| k X_1} (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_2| + e^{2 \nu(\lambda)k X_1}|G||D_1|)|d|\\
-&+ ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda)k X_1} |G|)|D|)|d| ) \\
-&\leq C(|\lambda|^2 + |D_1| + |D_2| )|d|
-\end{align*}
-
-If we like we can get a better bound on the $D_2$ part of this, but hopefully we don't need it. The other bound is then the same.
-
-\begin{align*}
-|A_4&(\lambda)_1(d)| \leq C(|\lambda|^2 + |D_1| + |D_2| )|d|
+|A_4&(\lambda)_i(b, c, d)| \\
+&\leq \Big( (e^{-\alpha X_i} + |G| )|b| \\
+&+ (p_7(X_i; \lambda) + e^{\nu(\lambda)X_i} |G|) |c_i| + e^{\nu(\lambda)X_{i-1}} |G| |c_{i-1}| \\
+&+ (e^{-\tilde{\alpha} X_i} + |G|)|\lambda|^2 |d| 
++ (p_1(X_i; \lambda) + |G|) |D_i| |d| 
++ |G| |D_{i-1}| |d| \Big) \\
+&\leq C \Big( (e^{-\alpha X_i} + |G| + p_7(X_i; \lambda))|B_1(\lambda)(d)|\\
+&+ (e^{-\tilde{\alpha} X_i} + |G|)|\lambda|^2 |d| 
++ (p_1(X_i; \lambda) + |G|) |D_i| |d| 
++ |G| |D_{i-1}| |d| \Big) \\
+&\leq C \Big( (e^{-\alpha X_i} + |G| + p_7(X_i; \lambda))
+( K(X, \lambda) |D|+ |\lambda|^2 )|d|\\
+&+ (e^{-\tilde{\alpha} X_i} + |G|)|\lambda|^2 |d| 
++ (p_1(X_i; \lambda) + |G|) |D_i| |d| 
++ |G| |D_{i-1}| |d| \Big) \\
+&\leq C \Big( (e^{-\tilde{\alpha} X_i} + |G| + p_7(X_i; \lambda))|\lambda|^2 |d| \\ 
+&+ (p_1(X_i; \lambda) + |G| + K(X, \lambda) ) |D| |d| \Big) \\
+&\leq C \Big( (e^{-\tilde{\alpha} X_i} + |G| + p_7(X_i; \lambda))|\lambda|^2 + (p_1(X_i; \lambda) + K(X, \lambda) ) |D| \Big)|d|
 \end{align*}
 
 \item Now we can estimate the jumps
@@ -897,14 +883,14 @@ e^{\nu(\lambda)y} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 
 For $a_i^\pm$ we have
 
 \begin{align*}
-a_i^+ &= -P^u_0 D_i d + A_4(\lambda)_i^+(d))\\
-a_i^- &=  P^s_0 D_i d + A_4(\lambda)_i^-(d))
+a_i^+ &= P^u_0 D_i d + A_4(\lambda)_i^+(d))\\
+a_i^- &= -P^s_0 D_i d + A_4(\lambda)_i^-(d))
 \end{align*}
 
-For $i = 1$ we have
+For the ``plus'' one we have
 
 \begin{align*}
-\langle \Psi(0), &\Phi^u_+(0, X_1; \lambda) a_1^+ \rangle = -\langle \Psi(0), \Phi^u_+(0, X_1; \lambda) P^u_0 D_1 d \rangle + \langle \Psi(0), \Phi^u_+(0, X_1; \lambda) A_4(\lambda)_1^+(d) \rangle \\
+\langle \Psi(0), &\Phi^u_+(0, X_i; \lambda) a_i^+ \rangle = \langle \Psi(0), \Phi^u_+(0, X_i; \lambda) P^u_0 D_i d \rangle + \langle \Psi(0), \Phi^u_+(0, X_1; \lambda) A_4(\lambda)_i^+(d) \rangle \\
 \end{align*} 
 
 This is all fine and good, but the adjoint $\Psi(0)$ is unperturbed by $\lambda$, whereas the evolution $\Phi^u_+(0, X_i; \lambda)$ is perturbed by $\lambda$. Let
@@ -913,7 +899,7 @@ This is all fine and good, but the adjoint $\Psi(0)$ is unperturbed by $\lambda$
 p_6(y; \lambda) = |\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)| + |\Phi^u_-(0, -y; \lambda) - \Phi^s_-(0, -y; 0)| 
 \]
 
-We will assume for now (as in the single pulse case) that
+We will assume for now (as in the single pulse case, BUT WE SHOULD SHOW THIS) that
 
 \[
 p_6(y; \lambda) \leq C |\lambda| e^{-\alpha y}
@@ -922,19 +908,29 @@ p_6(y; \lambda) \leq C |\lambda| e^{-\alpha y}
 Then we have
 
 \begin{align*}
-\langle \Psi(0), &\Phi^u_+(0, X_1; \lambda) a_1^+ \rangle \\
-&= -\langle \Psi(0), \Phi^u_+(0, X_1; 0) P^u_0 D_1 d \rangle + \mathcal{O}( p_6(X_1; \lambda) e^{-\alpha X_1}|D_1||d| + e^{-\alpha X_1} (|\lambda|^2 + |D_1| + |D_2| )|d| \\
-&= -\langle \Psi(X_1), P^u_0 D_1 d \rangle + \mathcal{O}( e^{-\alpha X_1}( |\lambda|^2 + |D_1| + |D_2|)|d|)
+\langle \Psi(0), &\Phi^u_+(0, X_i; \lambda) a_i^+ \rangle \\
+&= \langle \Psi(0), \Phi^u_+(0, X_i; 0) P^u_0 D_i d \rangle + \langle \Psi(0), (\Phi^u_+(0, X_i; \lambda) - \Phi^u_+(0, X_i; 0)) P^u_0 D_i d \rangle \\
+&+ \langle \Psi(0), \Phi^u_+(0, X_i; \lambda) A_4(\lambda)_i^+(d) \rangle \\
+&= \langle \Psi(X_i), P^u_0 D_i d \rangle + \mathcal{O}(|\lambda| e^{-\alpha X_i}|D_i||d|) + \langle \Psi(0), \Phi^u_+(0, X_i; \lambda) A_4(\lambda)_i^+(d) \rangle 
+\end{align*}
+
+Plugging in the bound for $A_4(\lambda)$, this becomes
+
+\begin{align*}
+\langle \Psi(0), &\Phi^u_+(0, X_i; \lambda) a_i^+ \rangle \\
+&= \langle \Psi(X_i), P^u_0 D_i d \rangle  + \mathcal{O}(|\lambda| e^{-\alpha X_i}|D_i||d|) \\
+&+ \mathcal{O}(e^{-\alpha X_i}(e^{-\tilde{\alpha} X_i} + |G| + p_7(X_i; \lambda))|\lambda|^2 + (p_1(X_i; \lambda) + K(X, \lambda) ) |D|)|d|) \\
+&= \langle \Psi(X_i), P^u_0 D_i d \rangle \\
+&+ \mathcal{O}(e^{-\alpha X_i}(e^{-\tilde{\alpha} X_i} + |G| + p_7(X_i; \lambda))|\lambda|^2 + e^{-\alpha X_i}(p_1(X_i; \lambda) + K(X, \lambda) + |\lambda|) |D|)|d|)
 \end{align*}
 
 Similarly we have
 
 \begin{align*}
-\langle \Psi(0), &\Phi^s_-(0, -k X_1); \lambda)a_2^- \rangle \\
-&= \langle \Psi(0), \Phi^u_+(0, X_1; 0) P^u_0 D_1 d \rangle + \mathcal{O}( p_6(X_1; \lambda) e^{-\alpha k X_1}|D_1||d| + e^{-\alpha k X_1} (|\lambda|^2 + |D_1| + |D_2| )|d| \\
-&= \langle \Psi(X_1), P^u_0 D_1 d \rangle + \mathcal{O}( e^{-\alpha k X_1}( |\lambda|^2 + |D_1| + |D_2|)|d|)
+\langle \Psi(0), &\Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \rangle \\
+&= -\langle \Psi(-X_{i-1}), P^s_0 D_{i-1} d \rangle \\
+&+ \mathcal{O}(e^{-\alpha X_{i-1}}(e^{-\tilde{\alpha} X_{i-1}} + |G| + p_7(X_{i-1}; \lambda))|\lambda|^2 + e^{-\alpha X_{i-1}}(p_1(X_{i-1}; \lambda) + K(X, \lambda) + |\lambda|) |D|)|d|)
 \end{align*}
-
 
 \item Terms involving $b$.\\
 
@@ -943,14 +939,13 @@ The terms involving $b^\pm$ by themselves will die since they are in the spaces 
 The other terms involving $b$ look like $(P^u_-(0; \lambda) - P^u_-(0; 0))b_i^-$ (and similar for the other one). A bound on these terms looks like
 
 \begin{align*}
-|\langle \Psi(0), (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \rangle|
-&\leq |\Psi(0)| p_3(\lambda)|b_i^-| \\
-&\leq C p_3(\lambda) (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_1|)|d|
+|\langle \Psi(0), &(P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \rangle|
+\leq |\Psi(0)| p_3(\lambda)|b_i^-| \\
+&\leq |\Psi(0)| p_3(\lambda)|B_1(\lambda)(d)| \\
+&\leq C p_3(\lambda) ( K(X, \lambda) |D|+ |\lambda|^2 )|d|
 \end{align*}
 
 where in the last line we substituted $B_1(\lambda)(d)$ for $b_i^\pm$.\\
-
-THIS IS NOT OKAY SINCE WE ARE MULTIPLYING $|D_1|$ by $e^{\nu(\lambda)k X_1}$. THIS PROBLEM COMES FROM THE BOUND $B_1$ AS WE DISCUSSED ABOVE.
 
 \item Terms involving $c$.\\
 
@@ -961,13 +956,13 @@ These terms look like
 &e^{-\nu(\lambda)X_i} v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle c_i^+ \\
 \end{align*}
 
-Again take $i = 1$ (and remember the ``wrap-around''). Let's do the first one. Taking the inner product with $\Psi(0)$, which only hits the $v_-(0; \lambda)$ term since everything else is a scalar, gives us 
+Let's do the first one. Taking the inner product with $\Psi(0)$ only hits the $v_-(0; \lambda)$ term since everything else is a scalar. This gives us 
 
 \begin{align*}
-e^{\nu(\lambda)k X_1} \langle \Psi(0), v_-(0; \lambda) \rangle \langle v_0(\lambda), w_-(-k X_1; \lambda) \rangle c_2^- 
+e^{\nu(\lambda)X_{i-1}} \langle \Psi(0), v_-(0; \lambda) \rangle \langle v_0(\lambda), w_-(X_{i-1}; \lambda) \rangle c_{i-1}^-
 \end{align*}
 
-We would like to do something useful with the second inner product, but we cannot at the moment since one term is a solution to the adjoint when $\lambda = 0$ and the other term is a solution to the perturbed eigenvalue problem when $\lambda \neq 0$. To do this, we will expand $v_-(0; \lambda)$ in a Taylor series about $\lambda = 0$. FOR NOW WE WILL ASSUME WE CAN ACTUALLY DO THIS.
+Before we plug in our bound, we would like to do something useful with the second inner product, but we cannot at the moment since one term is a solution to the adjoint when $\lambda = 0$ and the other term is a solution to the perturbed eigenvalue problem when $\lambda \neq 0$. To do this, we will expand $v_-(0; \lambda)$ in a Taylor series about $\lambda = 0$. FOR NOW WE WILL ASSUME WE CAN ACTUALLY DO THIS.
 
 \[
 v_-(0; \lambda) = v_-(0; 0) + \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} + \mathcal{O}(\lambda^2)
@@ -976,38 +971,36 @@ v_-(0; \lambda) = v_-(0; 0) + \lambda \frac{\partial}{\partial \lambda}v_-(0; \l
 I don't know if we can compute $\frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0}$, but it is a constant which depends only on the initial setup of the problem, so we should not care what it is. Then we have
 
 \begin{align*}
-|&e^{\nu(\lambda)k X_1} c_2^- \langle v_0(\lambda), w_-(-k X_1; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|\\
-&\leq e^{\nu(\lambda)k X_1}|c_2^-| |\langle v_0(\lambda), w_-(-k X_1; \lambda) \rangle|\langle \Psi(0), v_-(0; 0) + \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} + \mathcal{O}(\lambda^2) \rangle| \\
-&\leq e^{\nu(\lambda)k X_1}|c_2^-| |\langle v_0(\lambda), w_-(-k X_1; \lambda) \rangle| \left( |\langle \Psi(0), v_-(0; 0) \rangle| +  |\langle \Psi(0), \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} \rangle| + \mathcal{O}(|\lambda|^2) \right) \\
-&\leq e^{\nu(\lambda)k X_1}|c_2^-| |\langle v_0(\lambda), w_-(-k X_1; \lambda) \rangle| \left( |\langle \Psi(0), \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} \rangle| + \mathcal{O}(|\lambda|^2) \right)
+|&e^{\nu(\lambda)X_{i-1}} c_{i-1}^- \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|\\
+&\leq e^{\nu(\lambda)X_{i-1}}|c_{i-1}^-| |\langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle|\langle \Psi(0), v_-(0; 0) + \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} + \mathcal{O}(\lambda^2) \rangle| \\
+&\leq e^{\nu(\lambda)X_{i-1}}|c_{i-1}^-| |\langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle| \left( |\langle \Psi(0), v_-(0; 0) \rangle| +  |\langle \Psi(0), \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} \rangle| + \mathcal{O}(|\lambda|^2) \right) \\
+&\leq e^{\nu(\lambda)X_{i-1}}|c_{i-1}^-| |\langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle| \left( |\langle \Psi(0), \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} \rangle| + \mathcal{O}(|\lambda|^2) \right)
 \end{align*}
 
 In the last line, we used the fact that $\langle \Psi(0), v_-(0; 0) \rangle = 0$ since $\langle \Psi(0), v_-(0; 0) \rangle = \langle \Psi(0), \tilde{v}_-(0; 0) \rangle$, the inner product of this is constant in $x$, and $\Psi(x)$ decays to 0 at $-\infty$ faster than any growth in $\tilde{v}_-(x; 0)$ at $-\infty$. Taking $\frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0}$ as a constant, we have
 
 \begin{align*}
-|&e^{\nu(\lambda)k X_1} c_2^- \langle v_0(\lambda), w_-(-k X_1; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle| \\
-&\leq C e^{\nu(\lambda)k X_1}|c_2^-| (\langle v_0(\lambda), w_0(\lambda) \rangle + \langle v_0(\lambda), \Delta w_-(-k X_1; \lambda) \rangle) (|\lambda| + \mathcal{O}(\lambda^2) ) \\
-&\leq C e^{\nu(\lambda)k X_1}|c_2^-| (1 + p_2(k X_1; \lambda) (|\lambda| + \mathcal{O}(\lambda^2) )
+|&e^{\nu(\lambda)X_{i-1}} c_{i-1}^- \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle| \\
+&\leq C e^{\nu(\lambda)X_{i-1}}|c_{i-1}^-| (\langle v_0(\lambda), w_0(\lambda) \rangle + \langle v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle) (|\lambda| + \mathcal{O}(\lambda^2) ) \\
+&\leq C e^{\nu(\lambda)X_{i-1}}|c_{i-1}^-| (1 + p_2(X_{i-1}; \lambda) (|\lambda| + \mathcal{O}(\lambda^2) )
 \end{align*}
 
-Since $p_2(k X_1; \lambda)$ is small for sufficiently small $\lambda$ and sufficiently large $X_1$, this becomes
+Since $p_2(X_{i-1}; \lambda)$ is small for sufficiently small $\lambda$ and sufficiently large $X_1$, this becomes
 
 \begin{align*}
 |&e^{\nu(\lambda)k X_1} c_2^- \langle v_0(\lambda), w_-(-k X_1; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle| \\
 &\leq C e^{\nu(\lambda)k X_1}|c_2^-| (|\lambda| + \mathcal{O}(\lambda^2) )
 \end{align*}
 
-Now we plug in our estimate for $|c_2^-|$. Recall from our discussion in the $B_1$ section that this is of order $e^{-|\nu(\lambda)|X_1} |\lambda|^2 + |D_1|) |d|$. The bound for $|c_1^+|$ is similar order, so this works for both. This means we for the $|\lambda|^2$ term that we can cancel the exponential factor out front. However, we cannot do this for the $|D_1|$ term. Thus we have
+Now we plug in our estimate for $|c_{i-1}^-|$. Recall from our discussion in the $B_1$ section that this is of order $e^{-|\nu(\lambda)|X_{i-1}} B_1(\lambda)(d)$. This means we can cancel the exponential factor out front! 
 
 \begin{align*}
-|&e^{\nu(\lambda)k X_1} c_2^- \langle v_0(\lambda), w_-(-k X_1; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle| \\
-&\leq C e^{\nu(\lambda)k X_1} e^{-|\nu(\lambda)|k X_1} |\lambda|^2 + |D_1|) |d| (|\lambda| + \mathcal{O}(\lambda^2) ) \\
-&\leq C |\lambda| (|\lambda|^2 + e^{\nu(\lambda)k X_1} |D_1|)|d|
+|&e^{\nu(\lambda)X_{i-1}} c_{i-1}^- \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle| \\
+&\leq C e^{\nu(\lambda)X_{i-1}} e^{-|\nu(\lambda)|X_{i-1}} |B_1(\lambda)(d)| (|\lambda| + \mathcal{O}(\lambda^2) ) \\
+&\leq C |\lambda| ( K(X, \lambda) |D|+ |\lambda|^2 )|d|
 \end{align*}
 
 The other one is similar.\\
-
-THIS BOUND IS NOT OKAY SINCE HERE WE HAVE THE EXPONENTIAL GROWTH TERM $e^{\nu(\lambda)k X_1}$ MULTIPLYING THE $|D_1|$ term, SO THIS WILL NOT GIVE US A UNIFORM BOUND IN $X_1$.
 
 \item ``Noncenter'' integral terms
 
@@ -1016,12 +1009,83 @@ THIS BOUND IS NOT OKAY SINCE HERE WE HAVE THE EXPONENTIAL GROWTH TERM $e^{\nu(\l
 \item Integrals not involving $H$. For these we only do the ``minus'' half. The ``plus'' half is similar
 
 \begin{align*}
-\left| \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) G_i^-(\lambda)W_i^-(y) dy \right| 
+\left| \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; \lambda) G_i^-(\lambda)W_i^-(y) \rangle dy \right| 
 &\leq C |G| ||W|| \\
-&\leq C |G| e^{\nu(\lambda)k X_1} ( |\lambda|^2 + |D_1| )|d|
+&\leq C |G| ( |\lambda|^2 + |D|)|d|
 \end{align*}
 
-We might need a better estimate here.
+where we plugged in $W_3(\lambda)(d)$ for $W$. We need a better estimate here. We will try what we did in the exponentially weighted case, and what was done in Sanstede (1998).
+
+\item Improved estimate for $W$
+
+Since we have 
+\[
+W_i^\pm = L_1(\lambda)W_i^\pm + L_2(\lambda)W_i^\pm 
+\]
+
+we can use the estimate for $L_1(\lambda)$ together with an improved estimate for $L_2(\lambda)$. We use the same estimate for $L_1(\lambda)$ as we have above. We will do the negative piece here. The positive piece is similar.
+
+\[
+||L_1(\lambda)W|| \leq C e^{\nu(\lambda)X_M} |G| \: ||W||
+\]
+
+For $L_2(\lambda)$ we will use the following estimate for the negative piece.
+
+\begin{align*}
+| (L_2(\lambda)(a, b, c, d)_i^-)(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b| + e^{\nu(\lambda)X_i} |c_i| + e^{\nu(\lambda)X_{i-1}} |c_{i-1}| |\lambda|^2 |d_i| \right)
+\end{align*}
+
+Combining these, we have
+
+\begin{align*}
+| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b| + e^{\nu(\lambda)X_i} |c_i| + e^{\nu(\lambda)X_{i-1}} |c_{i-1}| |\lambda|^2 |d_i| + e^{\nu(\lambda)X_M} |G| ||W|| \right)
+\end{align*}
+
+Substituting in $A_3(\lambda)$, $B_1(\lambda)$, and $W_3(\lambda)$, and recalling that we cancel the exponential factors $e^{\nu(\lambda)X_i}$ when we substitute for the $c$, this estimate becomes
+
+\begin{align*}
+| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |A_3(\lambda)| + |B_1(\lambda)| + |G| ||W_3(\lambda)|| + |\lambda|^2 |d_i|  \right) \\
+&\leq \Big( e^{-\alpha^s(x + X_{i-1})}( (e^{-\tilde{\alpha} X_i} + |G| + p_7(X_i; \lambda) ) |\lambda|^2  + |D|)|d|) \\
+&+ ( K(X; \lambda) |D|+ |\lambda|^2 )|d| \\
+&+ |G| ( |\lambda|^2 + |D|)|d| + |\lambda|^2 |d_i| \Big) \\
+&\leq C( (e^{-\alpha^s(x + X_{i-1})} + K(X; \lambda))|D| + |\lambda^2|)|d|
+\end{align*}
+
+Similarly
+
+\begin{align*}
+| W_i^+(x)| \leq C ( (e^{\alpha^u(x - X_i)} + K(X; \lambda))|D| + |\lambda|^2 )|d|
+\end{align*}
+
+\item Better integral bound
+
+Now we use this to get a better integral bound. Doing the ``minus'' one, we have
+
+\begin{align*}
+&\left| \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; \lambda) G_i^-(\lambda)W_i^-(y) \rangle dy \right| \\
+&\leq C |G| |d| \int_{-X_{i-1}}^0 | \langle \Psi(0), \Phi^s_-(0, y; \lambda) ( (e^{-\alpha^s(y + X_{i-1})} + K(X; \lambda))|D| + |\lambda^2|) \rangle | dy
+\end{align*}
+
+The only one which is tricky is the one involving ${-\alpha^s(y + X_{i-1})}$, so let's look at that separately. For convenience, let $\tilde{\delta} = \alpha - \tilde{\alpha} > 0$.
+
+\begin{align*}
+\int_{-X_{i-1}}^0 &| \langle \Psi(0), \Phi^s_-(0, y; \lambda) (e^{-\alpha^s(y + X_{i-1})} |D| \rangle | dy \leq C |D| \int_{-X_{i-1}}^0 e^{\alpha y} e^{-\alpha(y + X_{i-1})} dy \\
+&\leq C |D| \int_{-X_{i-1}}^0 e^{-\alpha X_{i-1}} dy \\
+&= C |D| \int_{-X_{i-1}}^0 e^{-\tilde{\delta} y} e^{\tilde{\delta} y}  e^{-\alpha X_{i-1}} dy \\
+&\leq C |D| \int_{-X_{i-1}}^0 e^{\tilde{\delta} X_{i-1}} e^{\tilde{\delta} y}  e^{-\alpha X_{i-1}} dy \\
+&\leq C |D| \int_{-X_{i-1}}^0 e^{-(\alpha - \tilde{\delta}) X_{i-1}} e^{\tilde{\delta} y} dy \\
+&\leq C e^{-\tilde{\alpha} X_{i-1}} |D| \int_{-X_{i-1}}^0 e^{\tilde{\delta} y} dy \\
+&\leq C e^{-\tilde{\alpha} X_{i-1}} |D|
+\end{align*}
+
+This is similar to what we have in Sandstede (1998), except the exponential factor is $\tilde{\alpha}$ instead of $\alpha$, which is fine. Now that we have done the first part of the integral bound, the rest is no problem. We have 
+
+\begin{align*}
+&\left| \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; \lambda) G_i^-(\lambda)W_i^-(y) \rangle dy \right| \\
+&\leq C |G| ( e^{-\tilde{\alpha} X_{i-1}} + K(X; \lambda))|D| + |\lambda^2|)|d|
+\end{align*}
+
+The other ones are similar.
 
 \item Integrals involving $H$
 
@@ -1033,13 +1097,13 @@ Recall that these integrals are multiplied by $d_i \lambda^2$. We will omit that
 \int_{-X_{i-1}}^0 \langle \Psi(0), (\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)) \tilde{H}(y) \rangle dy
 \end{align*}
 
-where we need to play this trick to replace the $\lambda$-dependent evolution with the evolution when $\lambda = 0$ in order to get the Melnikov term we want. I still have no idea how to bound the difference $|\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)|$. We do know that they individually decay like $e^{-\alpha y}$, but that is not sufficient. If you were to Taylor about $\lambda = 0$ you would start with an order $\lambda$ term, so we will assume we a bound of the form
+where we need to play this trick to replace the $\lambda$-dependent evolution with the evolution when $\lambda = 0$ in order to get the Melnikov term we want. Again, we will assume we have a bound of the form
 
 \[
 |\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)| \leq C |\lambda| e^{-\alpha y}
 \]
 
-which is the same $p_6$ above. It is at least reasonable, and will get us what we want, BUT WE SHOULD ACTUALLY SHOW IT AT SOME POINT. (The specific decay rate here does not really matter, just that it decays exponentially.) With this bound, the second integral above is order $|\lambda|$. For the first integral, we have 
+which is the same $p_6$ above. With this bound, the second integral above is order $|\lambda|$. For the first integral, we have 
 
 \begin{align*}
 \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; 0) \tilde{H}(y) \rangle dy &= 
@@ -1048,11 +1112,10 @@ which is the same $p_6$ above. It is at least reasonable, and will get us what w
 &+ \int_{-X_{i-1}}^0 \langle \Psi(y), \Delta H(y) \rangle dy 
 \end{align*}
 
-The first integral is half of our Melnikov integral. The second is order $e^{-\alpha X_{i-1}}$. The third is order $e^{-\alpha X_1}$ (the order of $\Delta H$). When we do the ``plus'' piece, the first integral is the other half of the Melnikov integral; the second integral is order $e^{-\alpha X_i}$; and the third integral is the same order.
-Thus these integral terms look like
+The first integral on the RHS is half of our Melnikov integral. The second is order $e^{-\alpha X_{i-1}}$. The third is order $e^{-\alpha X_1}$ (the order of $\Delta H$). When we do the ``plus'' piece, the first integral is the other half of the Melnikov integral; the second integral is order $e^{-\alpha X_i}$; and the third integral is the same order. Thus these integral terms look like
 
 \begin{align*}
-d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}( ( |\lambda|^3 + e^{-\alpha X_1} |\lambda|^2 )|d|)
+d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}( ( |\lambda| + e^{-\alpha X_i} + e^{-\alpha X_{i-1}} ) |\lambda|^2 |d|)
 \end{align*}
 
 \end{enumerate}
@@ -1068,15 +1131,32 @@ e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^
 e^{\nu(\lambda)(y)} \langle \Psi(0), v_-(0; \lambda) \rangle \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy 
 \end{align*}
 
-If we do the standard thing and write $\tilde{H} = H + \Delta H$, then these integrals give us three terms. The first one has bound
+For this bound, we will use what we did above and have
+
+\[
+\langle \Psi(0), v_-(0; \lambda) \rangle = \mathcal{O}(\lambda)
+\]
+
+Next we do the standard thing and write $\tilde{H} = H + \Delta H$; then these integrals give us three terms. For the first one, we need to use our improved bound for $||W||$. Recall that we are taking $\nu(\lambda) > 0$.
 
 \begin{align*}
 &\left| \int_{-X_{i-1}}^0
-e^{\nu(\lambda)(y)} \langle \Psi(0), v_-(0; \lambda) \rangle \langle G_i^-(\lambda)(y)W_i^-(y), w_-(y; \lambda) \rangle dy \right| \\
-&\leq C e^{\nu(\lambda) X_{i-1}} |G| ||W|| \\
-&\leq C e^{\nu(\lambda) X_{i-1}} |G| e^{\nu(\lambda)k X_1} ( |\lambda|^2 + |D_1| )|d| \\
-&\leq C e^{2 \nu(\lambda) k X_1} |G| ( |\lambda|^2 + |D_1| )|d|
+e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle \langle G_i^-(\lambda)(y)W_i^-(y), w_-(y; \lambda) \rangle dy \right| \\
+&\leq C |\lambda| |G| \int_{-X_{i-1}}^0 e^{\nu(\lambda)y} ||W_i^-|| dy \\
+&\leq C |\lambda| |G| \int_{-X_{i-1}}^0 e^{\nu(\lambda)y} ( (e^{-\alpha^s(y + X_{i-1})} + K(X; \lambda))|D| + |\lambda|^2 )|d| dy \\
 \end{align*}
+
+For the first piece of this we have
+
+\begin{align*}
+\int_{-X_{i-1}}^0 &e^{\nu(\lambda)y} e^{-\alpha^s(y + X_{i-1})}dy \\
+&\leq \int_{-X_{i-1}}^0 e^{\nu(\lambda)y} e^{-\alpha y} e^{-\alpha X_{i-1}}dy \\
+&\leq \int_{-X_{i-1}}^0 e^{-(\alpha \nu(\lambda)y} e^{-\alpha y} e^{-\alpha X_{i-1}}dy
+\end{align*}
+
+recall that we have rigged the system so that $|\nu(\lambda) < \tilde{\delta}$. 
+
+For the last two pieces of this, we can just do the integral since we are taking $\nu(\lambda) > 0$ to get $(K(X; \lambda)|D| + |\lambda|^2 )|d|$.\\
 
 The second one (which is multiplied by $d_i \lambda^2$) has bound
 
@@ -1111,217 +1191,137 @@ The ``plus'' terms are similar.
 Now that we have bounds on all the things, we have our expression for the jump.
 
 \begin{align*}
-\langle \Psi(0), &W_1^-(0) - W_1^+(0) \rangle = 
--\langle \Psi(X_1), P^u_0 D_1 d \rangle + d_1 \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + R(\lambda)_1(d)
+\langle \Psi(0), &W_i^+(0) - W_i^-(0) \rangle = 
+\langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^u_0 D_{i-1} d \rangle + d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + R(\lambda)_i(d)
 \end{align*}
 
 where
 
 \begin{align*}
-R(\lambda)(d) &\leq C( e^{-\alpha X_1}( |\lambda|^2 + |D_1|)|d|) + e^{-\alpha k X_1} ( |\lambda|^2 + |D_1|) |d| \\
-&+ p_3(\lambda) (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_1|)|d| \\
-&+ |\lambda| (|\lambda|^2 + e^{\nu(\lambda)k X_1} |D_1|)|d| \\
-&+ |G| e^{\nu(\lambda)k X_1} ( |\lambda|^2 + |D_1| )|d| \\ 
-&+ |\lambda|^3 + e^{-\alpha X_1} |\lambda|^2 )|d| \\
-&+ e^{2 \nu(\lambda) k X_1} |G| ( |\lambda|^2 + |D_1| )|d| \\
-&+ (e^{\nu(\lambda)k X_1} e^{-\alpha X_1} + |\lambda|)|\lambda|^2|d|\\
+R(\lambda)(d) &\leq C()
 \end{align*}
 
-BECAUSE OF WHAT WE MENTIONED ABOUT WITH THE INDIVIDUAL ELEMENTS THAT COMPRISE THIS, THIS BOUND MIGHT NOT BE NOT GOOD ENOUGH. THE $|\lambda|^2$ TERMS SHOULD BE OKAY, AS THEY ALSO APPEAR IN THE SINGLE PULSE CASE, SO THE SAME DEAL APPLIES HERE. THE $|D_1|$ TERMS MIGHT NOT BE OKAY SINCE, FOR EXAMPLE, WE HAVE $|\lambda| e^{\nu(\lambda)k X_1} |D_1|$, WHICH GROWS EXPONENTIALLY IN $X_1$.\\
+\item Plug in stuff \\
 
-Let's actually plug in $D_1$ and see if we can make anything of this. Recall that we have the following expression/bound for $D_1$ (which is a reasonable guess but unproven)
+Let's actually now plug in $D_i$ and see if we can make anything of this. Recall that we have the following expression/bound for $D_i$ (which is a reasonable guess but unproven)
 
 \[
-D_1 = ( Q'(X_1) + Q'(-X_1 )(d_2 - d_1) + \mathcal{O} \left( e^{-\alpha X_1} \left( |\lambda| +  e^{-\alpha X_1}  \right) |d| \right)
+D_i = ( Q'(X_i) + Q'(-X_i)(d_2 - d_1) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
 \]
 
-First, we substitute this into the term $\langle \Psi(X_1), P^u_0 D_1 d \rangle$. Using the fact that $\Psi(\pm X_1)$ is order $e^{-\alpha X_1}$, we have
+First, we substitute this into the term $\langle \Psi(X_i), P^u_0 D_i d \rangle$. Using the fact that $\Psi(\pm X_i)$ is order $e^{-\alpha X_i}$, we have
 
 \begin{align*}
-\langle \Psi(X_1), P^u_0 D_1 d \rangle &= \langle \Psi(X_1), (Q'(X_1) + Q'(-X_1 )(d_2 - d_1 ) \rangle + \mathcal{O} \left( e^{-2 \alpha X_1} \left( |\lambda| +  e^{-\alpha X_1}  \right) |d| \right)
+\langle \Psi(X_i), P^u_0 D_i d \rangle &= \langle \Psi(X_1), (Q'(X_1) + Q'(-X_1 )(d_{i+1} - d_i ) \rangle + \mathcal{O} \left( e^{-2 \alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
 \end{align*}
 
 Now we assume what was done in (3.36) in Sandstede (1998) applies here. We do need to verify this, since this was assumed in the exponentially weighted version as well. With this assumption, this becomes
 
 \begin{align*}
-\langle \Psi(X_1), P^u_0 D_1 d \rangle &= \langle \Psi(X_1), Q'(-X_1) \rangle (d_2 - d_1 ) + \mathcal{O} \left( e^{-2 \alpha X_1} \left( |\lambda| +  e^{-\alpha X_1}  \right) |d| \right)
+\langle \Psi(X_i), P^u_0 D_i d \rangle &= \langle \Psi(X_i), Q'(-X_i) \rangle (d_{i+1} - d_i ) + \mathcal{O} \left( e^{-2 \alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
 \end{align*}
 
-We want the first term on the RHS. The second term on the RHS will go into the remainder. For the remainder term, since we are using a bound on $D_1$ in its entirety (the bound includes the $Q'(\pm X_1)$ terms, not just the second part of the bound) we have
+Similarly, we have
+
+\begin{align*}
+\langle \Psi(-X_{i-1}), P^u_0 D_{i-1} d \rangle &= \langle \Psi(-X_{i-1}), Q'(X_{i-1}) \rangle (d_i - d_{i-1} ) + \mathcal{O} \left( e^{-2 \alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
+\end{align*}
+
+Thus, to leading order, the jump is given by
+
+\begin{align*}
+\xi_i &= \langle \Psi(0), W_i^+(0) - W_i^-(0) \rangle \\
+&= \langle \Psi(X_i), Q'(-X_i) \rangle (d_{i+1} - d_i ) + \langle \Psi(-X_{i-1}), Q'(X_{i-1}) \rangle (d_i - d_{i-1} ) + \lambda^2 d_i M
+\end{align*}
+
+Taking $i = 1, 2$, this becomes
+
+\begin{align*}
+\xi_1 &= \langle \Psi(X_1), Q'(-X_1) \rangle (d_2 - d_1 ) + \langle \Psi(-X_2), Q'(X_2) \rangle (d_1 - d_2 ) + \lambda^2 d_1 M \\
+\xi_2 &= \langle \Psi(X_2), Q'(-X_2) \rangle (d_1 - d_2 ) + \langle \Psi(-X_1), Q'(X_1) \rangle (d_2 - d_1 ) + \lambda^2 d_2 M
+\end{align*}
+
+If we define
+
+\begin{align*}
+a_i &= \langle \Psi (X_i), Q'(-X_i) \rangle \\
+\tilde{a}_i &= \langle \Psi(-X_i), Q'(X_i) \rangle
+\end{align*}
+
+then in matrix form our jump equations say that there is a nonzero solution if and only if
 
 \[
-|D_1| \leq C e^{-\alpha X_1}|d|
+E(\lambda) = \det S(\lambda) = \det(A + \lambda^2 MI + R(\lambda) ) = 0
 \]
 
-Substituting this into the remainder, and adding in the additional term into the bound, we have
+where $M$ is the higher order Melnikov integral
 
-\begin{align*}
-R(\lambda)(d) &\leq C( e^{-\alpha X_1}( |\lambda|^2 + e^{-\alpha X_1})|d|) + e^{-\alpha k X_1} ( |\lambda|^2 + e^{-\alpha X_1}) |d| \\
-&+ p_3(\lambda) (|\lambda^2| + e^{\nu(\lambda)k X_1}e^{-\alpha X_1})|d| \\
-&+ |\lambda| (|\lambda|^2 + e^{\nu(\lambda)k X_1} e^{-\alpha X_1})|d| \\
-&+ |G| e^{\nu(\lambda)k X_1} ( |\lambda|^2 + e^{-\alpha X_1} )|d| \\ 
-&+ (|\lambda|^3 + e^{-\alpha X_1} |\lambda|^2 )|d| \\
-&+ e^{2 \nu(\lambda) k X_1} |G| ( |\lambda|^2 + e^{-\alpha X_1} )|d| \\
-&+ (e^{\nu(\lambda)k X_1} e^{-\alpha X_1} + |\lambda|)|\lambda|^2|d|\\
-&+ e^{-2 \alpha X_1} \left( |\lambda| +  e^{-\alpha X_1}  \right) |d|\\
-&\leq C( ( e^{-(\alpha - \nu(\lambda) k)X_1 }) + p_3(\lambda) + |\lambda| + |G|e^{2 \nu(\lambda) k X_1})|\lambda|^2 \\ 
-&+ e^{-2 \alpha X_1} + e^{-(\alpha - \nu(\lambda) k)X_1 }(p_3(\lambda) + |\lambda| + |G| e^{\nu(\lambda)k X_1}))|d|
-\end{align*}
-
-Thus we have 
-
-\begin{align*}
-\langle \Psi(0), &W_1^-(0) - W_1^+(0) \rangle = 
--\langle \Psi(X_1), Q'(-X_1) \rangle (d_2 - d_1 ) + d_1 \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + R(\lambda)_1(d)
-\end{align*}
-
-where 
-
-\begin{align*}
-|R_1(\lambda)(d)| &\leq C( ( e^{-(\alpha - \nu(\lambda) k)X_1 }) + p_3(\lambda) + |\lambda| + |G|e^{2 \nu(\lambda) k X_1})|\lambda|^2 \\ 
-&+ e^{-2 \alpha X_1} + e^{-(\alpha - \nu(\lambda) k)X_1 }(p_3(\lambda) + |\lambda| + |G| e^{\nu(\lambda)k X_1}))|d|
-\end{align*}
-
-The good news is that everything in the remainder decays exponentially in $X_1$. The bad news that $\langle \Psi(X_1), Q'(-X_1) \rangle$ decays exponentially like $e^{-2 \alpha X_1}$, and there are terms in the remainder that decay at the same rate or even slower (like the $e^{-(\alpha - \nu(\lambda) k)X_1 } |\lambda|$ term).
-
-\item Can we fix this?\\
-
-Here is one thing we can try. Suppose we were able to show the equivalent of Lemma 2.1 in Sandstede (1998, also from 1993 thesis). THIS IS ENTIRELY WISHFUL THINKING. IN FACT, I AM NOT EVEN SURE THE IDEA MAKES SENSE SINCE $\lambda$ IS BOTH THE POTENTIAL EIGENVALUE AND THE PARAMETER.
-
-\begin{lemma}There exists a smooth change of coordinates such that at the origin we have
-\begin{enumerate}
-	\item $W^s_{loc}(0; \lambda) \subset E^s$
-	\item $W^u_{loc}(0; \lambda) \subset E^u$
-	\item $v_0(\lambda) = v_0(0)$
-\end{enumerate}
-and near $q(0)$ we have for some $\delta > 0$
-\begin{enumerate}
-	\item $W^s(0; \lambda) \cap U_\delta(q(0) \subset q(0) + \R q'(0) \oplus Y^+ $
-	\item $W^u(0; \lambda) \cap U_\delta(q(0) \subset q(0) + \R q'(0) \oplus Y^- $
-	\item $v^+(0; \lambda), v^-(0; \lambda) \subset Y^0$
-\end{enumerate}
-\end{lemma}
-
-The entire point of doing this is that our projections will kill many terms in their entirety instead of leaving a $\lambda$ depedent remainder. Also we may have forgotten this remainder a few times above, so how we don't have to worrk about it. In particular, we have the following.
-
-\begin{align*}
-D_i d &= a_i^+ - a_i^- + c_i^+ v_0(\lambda) - c_i^- v_0(\lambda) \\
-&+ (P^u_+(X_i; \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \lambda) - P_0^s)a_i^- \\
-&+ \Phi^s_+(X_i, 0; \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \lambda)b_{i-1}^- \\
-&+ c_i^+ \Delta v_+(X_i; \lambda) + c_i^+ v_+(X_i; \lambda) \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle \\
-&- c_i^- \Delta v_-(X_-; \lambda) - c_i^- v_-(-X_i; \lambda) \langle v_0(\lambda), \Delta w_-(-X_i; \lambda) \rangle \\
-&+ \int_0^{X_i} \Phi^u_+(X_i, y; \lambda) [ G(\lambda)W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_i} \Phi^s_-(-X_i, y; \lambda) [ G(\lambda)W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
-\end{align*}
-
-So when we do the projections and get $A_2$, both $c_1^\pm v_0(\lambda)$ terms die, so we have
-
-\begin{align*}
-a_1^+ &= -P^u_0 D_1 d + A_2(\lambda)_1^+(b, c_1^-, d))\\
-a_1^- &=  P^s_0 D_1 d + A_2(\lambda)_1^-(b, c_1^-, d))
-\end{align*}
-
-where
-
-\begin{align*}
-|A_2&(\lambda)_1(b, c_1^-, d))| \\
-&\leq C( (e^{-\alpha X_1} + |G|) |b| + p_2(\lambda; X_1) |c_1^-| + e^{\nu(\lambda)k X_1} |G||c_2^-| \\
-&+ ((e^{-\tilde{\alpha} X_1} + |G|) |\lambda|^2 + (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda)k X_1} |G|)|D_1|)|d| ) \\
-\end{align*}
-
-which improves the $c_1^-$ bound a little.\\
-
-For the next step, where we solve for $B_1$, this takes $p_3$ and $p_4$ out of the picture, but since those are small and only needed to do the inversion, it only makes things simpler. The end result should be the same.\\
-
-For the $A_4$ bound, this is now
-
-\begin{align*}
-|A_4&(\lambda)_1(d)| \\
-&\leq C( (e^{-\alpha X_1} + |G|) (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_1|)|d| \\ 
-&+ p_2(\lambda; X_1) e^{-|\nu(\lambda)| X_1} (|\lambda^2| + e^{\nu(\lambda)X_1}|D_1|)|d| \\
-&+ ((e^{-\tilde{\alpha} X_1} + e^{\nu(\lambda)k X_1} |G|) |\lambda|^2 + (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda) k X_1} |G|)|D_1|)|d| )\\
-&\leq C(|\lambda|^2 + (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda) k X_1} |G|)|D_1|) |d|
-\end{align*}
-
-which is only slightly better than what we had before; i.e. instead of $|D_1|$ alone, it is multiplied by stuff which is order $\lambda$.\\
-
-When we do the projection with $\Psi(0)$ to find the jump, the change of coordinates lets us get ride of all the $b_i$ terms in their entirety, which is good, so one set of nuisance terms is now gone. That leaves the $c_i$ terms to deal with. Assuming this change of coordinates works, since the $c_i$ are now in the direction of $v_\pm(0; \lambda)$ which has been coordinate-changed to be in the span of $Y^0$, this term dies as well, which is awesome. \\
-
-Let's look at again at the terms involving $a$. For $i = 1$ we have
-
-\begin{align*}
-\langle \Psi(0), &\Phi^u_+(0, X_i; \lambda) a_i^+ \rangle \\
-&= -\langle \Psi(0), \Phi^u_+(0, X_1; 0) P^u_0 D_1 d \rangle + \mathcal{O}( p_6(X_1; \lambda) e^{-\alpha X_1}|D_1||d| \\
-&+ e^{-\alpha X_1} (|\lambda|^2 + (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda) k X_1} |G|)|D_1|) |d|) \\
-&= -\langle \Psi(X_1), P^u_0 D_1 d \rangle + \mathcal{O}( e^{-\alpha X_1}( |\lambda|^2 + (p_1(X_1; \lambda) + p_2(X_1; \lambda) + e^{\nu(\lambda) k X_1} |G|)|D_1|)|d|)
-\end{align*}
-
-This might not be quite good enough, since it will give us an order $e^{-\alpha X_1} |\lambda||D_1|$, but it is better than what we had before.\\
-
-For the $a_{i-1}$ term, we just use $A_3$.
-
-\begin{align*}
-\langle \Psi(0), &\Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \rangle \\
-&\leq C e^{-\alpha k X_1} ( |\lambda|^2 + |D_1|) |d|
-\end{align*}
-
-This should be okay as long as $k > 1$, which we have assumed.\\
-
-\item A better bound for $W$, maybe?.\\
-
-Here we try to adapt a lemma from the weighted case.\\
-
-Since we have 
 \[
-W_i^\pm = L_1(\lambda)W_i^\pm + L_2(\lambda)W_i^\pm 
+M = \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy
 \]
 
-we can use the usual estimate for $L_1(\lambda)$ together with an improved estimate for $L_2(\lambda)$. This essentially involves leaving the $a$ bound in terms of $x$. We will do the negative piece here. This will give us a bound 
+and the matrix $A$ is defined by
+
+\[
+A = 
+\begin{pmatrix}
+-a_1 + \tilde{a}_2 & a_1 - \tilde{a}_2 \\
+-\tilde{a}_1 + a_2 & \tilde{a}_1 - a_2 
+\end{pmatrix}
+\]
+
+As in the exponentially weighted case, we have (using even and oddness of the functions involved)
+
+\[
+\tilde{a}_i = \langle \Psi(-X_i), Q'(X_i) \rangle = -\langle \Psi(X_i), Q'(-X_i) \rangle = -a_i
+\]
+
+Thus the matrix $A$ becomes
+
+\[
+A = 
+\begin{pmatrix}
+-a_1 - a_2 & a_1 + a_2 \\
+a_1 + a_2 & -a_1 - a_2 
+\end{pmatrix}
+\]
+
+If we let $a = a_1 + a_2$, and redefine $A$ by
+
+\[
+A = 
+\begin{pmatrix}
+-1 & 1 \\
+1 & -1
+\end{pmatrix}
+\]
+
+then we have the matrix equation
+
+\[
+E(\lambda) = \det S(\lambda) = \det(a A + \lambda^2 MI + R(\lambda) ) = 0
+\]
+
+Thus to leading order we are computing the determinant of $a A + \lambda^2 MI$, i.e. 
+
+\[
+a A + \lambda^2 MI = 
+\begin{pmatrix}
+-a + \lambda^2 M & a \\
+a & -a + \lambda^2 M
+\end{pmatrix}
+\]
+
+The characteristic polynomial for this is
 
 \begin{align*}
-| W_i^-(x)| &\leq C \left( e^{-\alpha^s(x + X_{i-1})} |a^-_{i-1}| + |b_i^-| + e^{\nu(\lambda)X_1}|c_1| + e^{\nu(\lambda)X_2}|c_2| + (e^{\nu(\lambda)X_2} |G| + |\lambda|)||W|| + |\lambda|^2 |d|  \right)
+0 &= (-a + \lambda^2 M)^2 - a^2 \\
+&= a^2 - 2 a \lambda^2 M + \lambda^4 M^2 - a^2 \\
+&= - 2 a \lambda^2 M + \lambda^4 M^2 \\
+&= \lambda^2 M (-2a + M \lambda^2 )
 \end{align*}
 
-Substituting in $A_3(\lambda)$, $B_1(\lambda)$, and $W_3(\lambda)$, this estimate becomes
-
-\begin{align}
-|B_1(\lambda)(d)|_1 \leq C(|\lambda^2| + e^{\nu(\lambda) X_1}|D_1|)|d| \\
-|B_1(\lambda)(d)|_2 \leq C(|\lambda^2| + e^{\nu(\lambda)k X_1}|D_1|)|d|
-\end{align}
-
-\begin{align*}
-|A_3&(\lambda)_1(b, c^-, d)| \leq C( e^{-|\nu(\lambda)|X_1} |\lambda|^2 + |D_1|) |d| 
-\end{align*}
-
-\begin{align*}
-|A_3&(\lambda)_2(b, c^-, d)| \leq C( e^{-|\nu(\lambda)| k X_1} |\lambda|^2 + |D_1|) |d|
-\end{align*}
-
-\begin{align*}
-||W_3&(\lambda)(b,c^-,d)|| \leq C e^{\nu(\lambda)k X_1} ( |\lambda|^2 + |D_1| )|d|
-\end{align*}
-
-\begin{align*}
-| W_i^-(x)| &\leq C ( e^{-\alpha^s(x + X_{i-1})} ( |\lambda|^2 + |D_1|) |d| \\
-&+ (|\lambda^2| + e^{\nu(\lambda)k X_1}|D_1|)|d| \\
-&+ ( |\lambda|^2 + e^{\nu(\lambda)k X_1} |D_1|) |d| \\
-&+ (e^{\nu(\lambda)k X_1} |G| + |\lambda|) e^{\nu(\lambda)k X_1} ( |\lambda|^2 + |D_1| )|d| \\
-&+ |\lambda|^2 |d| ) \\
-&\leq C(|\lambda|^2 + e^{\nu(\lambda)k X_1}|D_1|)|d|  )
-\end{align*}
-
-This unfortunately is not a significant improvement.
-
-
-\item This makes our remainder term have bound
-
-\begin{align*}
-R(\lambda)(d) &\leq C( e^{-\alpha X_1}( |\lambda|^2 + |D_1|)|d|) + e^{-\alpha k X_1} ( |\lambda|^2 + |D_1|) |d| \\
-&+ |G| e^{\nu(\lambda)k X_1} ( |\lambda|^2 + |D_1| )|d| \\ 
-&+ |\lambda|^3 + e^{-\alpha X_1} |\lambda|^2 )|d| \\
-&+ e^{2 \nu(\lambda) k X_1} |G| ( |\lambda|^2 + |D_1| )|d| \\
-&+ (e^{\nu(\lambda)k X_1} e^{-\alpha X_1} + |\lambda|)|\lambda|^2|d|\\
-\end{align*}
+This has two roots at 0 (which are expected) as well as two roots at $\pm \sqrt{2a/M}$. This agrees with the leading-order versino for the exponentially weighted case, except the $a$ here is a little different and there is no negative sign (COULD BE A MISTAKE, SHOULD CHECK).
 
 \end{enumerate}
 
