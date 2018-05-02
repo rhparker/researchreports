@@ -781,7 +781,7 @@ with bound
 For convenience, let
 
 \[
-K(X, \lambda) = (e^{-\alpha X_i} + e^{-\alpha X_{i-1}}) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}})
+K(X, \lambda) = (e^{-\alpha X_i} + e^{-\alpha X_{i-1}}) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}})|G|
 \]
 
 Then we have
@@ -1078,7 +1078,7 @@ The only one which is tricky is the one involving ${-\alpha^s(y + X_{i-1})}$, so
 &\leq C e^{-\tilde{\alpha} X_{i-1}} |D|
 \end{align*}
 
-This is similar to what we have in Sandstede (1998), except the exponential factor is $\tilde{\alpha}$ instead of $\alpha$, which is fine. Now that we have done the first part of the integral bound, the rest is no problem. We have 
+This is similar to what we have in Sandstede (1998), except the exponential factor is $\tilde{\alpha}$ instead of $\alpha$, which is fine. Now that we have done the first part of the integral bound, the rest is no problem. We have for the entire thing 
 
 \begin{align*}
 &\left| \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; \lambda) G_i^-(\lambda)W_i^-(y) \rangle dy \right| \\
@@ -1126,9 +1126,9 @@ The ``minus'' integral term is
 
 \begin{align*}
 \langle \Psi(0) &, \int_{-X_{i-1}}^0
-e^{\nu(\lambda)(y)} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \rangle \\
+e^{\nu(\lambda)y} v_-(0; \lambda) \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \rangle \\
 &= \int_{-X_{i-1}}^0
-e^{\nu(\lambda)(y)} \langle \Psi(0), v_-(0; \lambda) \rangle \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy 
+e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle \langle G_i^-(\lambda)(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy 
 \end{align*}
 
 For this bound, we will use what we did above and have
@@ -1137,54 +1137,66 @@ For this bound, we will use what we did above and have
 \langle \Psi(0), v_-(0; \lambda) \rangle = \mathcal{O}(\lambda)
 \]
 
-Next we do the standard thing and write $\tilde{H} = H + \Delta H$; then these integrals give us three terms. For the first one, we need to use our improved bound for $||W||$. Recall that we are taking $\nu(\lambda) > 0$.
+Next we do the standard thing and write $\tilde{H} = H + \Delta H$; then these integrals give us three terms, so we have these three integrals to deal with.
+
+\begin{align*}
+&\int_{-X_{i-1}}^0
+e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle \langle G_i^-(\lambda)(y)W_i^-(y) , w_-(y; \lambda) \rangle dy \\
+&+\int_{-X_{i-1}}^0
+e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle \langle \lambda^2 d_i \Delta H(y), w_-(y; \lambda) \rangle dy \\
+&+\int_{-X_{i-1}}^0
+e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle \langle \lambda^2 d_i H(y), w_-(y; \lambda) \rangle dy 
+\end{align*}
+
+\begin{enumerate}
+
+\item Integral involving $W$ \\
+
+For this one, we need to use our improved bound for $||W||$. Recall that we are taking $\nu(\lambda) > 0$.
 
 \begin{align*}
 &\left| \int_{-X_{i-1}}^0
 e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle \langle G_i^-(\lambda)(y)W_i^-(y), w_-(y; \lambda) \rangle dy \right| \\
 &\leq C |\lambda| |G| \int_{-X_{i-1}}^0 e^{\nu(\lambda)y} ||W_i^-|| dy \\
 &\leq C |\lambda| |G| \int_{-X_{i-1}}^0 e^{\nu(\lambda)y} ( (e^{-\alpha^s(y + X_{i-1})} + K(X; \lambda))|D| + |\lambda|^2 )|d| dy \\
+&\leq C |\lambda| |G| e^{\nu(\lambda)X_{i-1}} (( 1 + K(X; \lambda))|D| + |\lambda|^2 )|d| \\
+&\leq C |\lambda| |G| e^{\nu(\lambda)X_{i-1}} (|D| + |\lambda|^2 )|d| \\
 \end{align*}
 
-For the first piece of this we have
+We could have used the regular bound $W_3$ here, but I have left it this way in case we need something better. The other integral has the same bound except it involves $X_i$.
 
-\begin{align*}
-\int_{-X_{i-1}}^0 &e^{\nu(\lambda)y} e^{-\alpha^s(y + X_{i-1})}dy \\
-&\leq \int_{-X_{i-1}}^0 e^{\nu(\lambda)y} e^{-\alpha y} e^{-\alpha X_{i-1}}dy \\
-&\leq \int_{-X_{i-1}}^0 e^{-(\alpha \nu(\lambda)y} e^{-\alpha y} e^{-\alpha X_{i-1}}dy
-\end{align*}
+\item Integrals not involving $W$ \\
 
-recall that we have rigged the system so that $|\nu(\lambda) < \tilde{\delta}$. 
-
-For the last two pieces of this, we can just do the integral since we are taking $\nu(\lambda) > 0$ to get $(K(X; \lambda)|D| + |\lambda|^2 )|d|$.\\
-
-The second one (which is multiplied by $d_i \lambda^2$) has bound
+The first of these (which is multiplied by $d_i \lambda^2$) has bound
 
 \begin{align*}
 \left| \int_{-X_{i-1}}^0
 e^{\nu(\lambda)(y)} \langle \Psi(0), v_-(0; \lambda) \rangle \langle \Delta H(y), w_-(y; \lambda) \rangle dy \right| 
-&\leq C e^{\nu(\lambda)X_{i-1}} |\Delta H| \\
-&\leq C e^{\nu(\lambda)k X_1} e^{-\alpha X_1}
+&\leq C |\lambda| e^{\nu(\lambda)X_{i-1}} |\Delta H| \\
+&\leq C |\lambda| e^{\nu(\lambda)X_{i-1}} e^{-\alpha X_1}
 \end{align*}
 
-Recalling what we did above, the third one (which is also multiplied by $d_i \lambda^2$) has bound
+Recalling what we did above, the other one (which is also multiplied by $d_i \lambda^2$) has bound
 
 \begin{align*}
 &\left| \int_{-X_{i-1}}^0 e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle
 \langle H(y), w_-(y; \lambda) \rangle dy \right| \\
 &\leq C |\langle \Psi(0), v_-(0; \lambda) \rangle| \int_{-X_{i-1}}^0 e^{\tilde{\alpha}y}e^{\nu(\lambda)y} | e^{-\tilde{\alpha} y} H(y)|dy\\
-&\leq C |\langle \Psi(0), v_-(0; \lambda) \rangle|
-\end{align*}
-
-where $|e^{-\tilde{\alpha} y} H(y)|$ is bounded since we know the decay properties of $H$, and the integral is uniformly bounded in $X_{i-1}$ since $|\nu(\lambda)| < \tilde{\alpha}$. In order to get a better bound, we use the same trick we used above and expand $v_-(0; \lambda)$ as a Taylor series in $\lambda$ about $v_-(0; \lambda)$. Since $\langle \Psi(0), v_-(0; \lambda) \rangle = 0$ as discussed above and the coefficient of the $\lambda$ term is a constant not involving $\lambda$, this becomes (following what we did above)
-
-\begin{align*}
-\left| \int_{-X_{i-1}}^0 e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle
-\langle H(y), w_-(y; \lambda) \rangle dy \right| 
 &\leq C |\lambda| 
 \end{align*}
 
-The ``plus'' terms are similar.
+where $|e^{-\tilde{\alpha} y} H(y)|$ is bounded since we know the decay properties of $H$, and the integral is uniformly bounded in $X_{i-1}$ since $|\nu(\lambda)| < \tilde{\alpha}$. \\
+
+The ``plus'' terms are similar (although they involve $X_i)$. Thus we have an overall bound for these two integral terms which is of order
+
+\begin{align*}
+(|\lambda| e^{\nu(\lambda)X_{i-1}} e^{-\alpha X_1} + |\lambda|)|\lambda|^2 |d|
+&= (1 + e^{\nu(\lambda)X_{i-1}} e^{-\alpha X_1})|\lambda|^3 |d| \\
+&= |\lambda|^3 |d|
+\end{align*}
+
+\end{enumerate}
+
 
 \item Put all of this together\\
 
@@ -1192,18 +1204,96 @@ Now that we have bounds on all the things, we have our expression for the jump.
 
 \begin{align*}
 \langle \Psi(0), &W_i^+(0) - W_i^-(0) \rangle = 
-\langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^u_0 D_{i-1} d \rangle + d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + R(\lambda)_i(d)
+\langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^u_0 D_{i-1} d \rangle \\
+&+ d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + R(\lambda)_i(d)
 \end{align*}
 
-where
+where we have remainder bound (which incorporates $i = 1, 2$)
 
 \begin{align*}
-R(\lambda)(d) &\leq C()
+R&(\lambda)(d) \leq C \Big( \\
+&(e^{-\alpha X_{i-1}}(e^{-\tilde{\alpha} X_{i-1}} + |G| + p_7(X_{i-1}; \lambda))|\lambda|^2 + e^{-\alpha X_{i-1}}(p_1(X_{i-1}; \lambda) + K(X, \lambda) + |\lambda|) |D|)|d| \\
+&+(e^{-\alpha X_i}(e^{-\tilde{\alpha} X_i} + |G| + p_7(X_i; \lambda))|\lambda|^2 + e^{-\alpha X_i}(p_1(X_i; \lambda) + K(X, \lambda) + |\lambda|) |D|)|d|\\
+&+ p_3(\lambda) ( K(X, \lambda) |D|+ |\lambda|^2 )|d| \\
+&+ |\lambda| ( K(X, \lambda) |D|+ |\lambda|^2 )|d| \\
+&+ |G| ( e^{-\tilde{\alpha} X_{i-1}} + e^{-\tilde{\alpha} X_i} + K(X; \lambda))|D| + |\lambda^2|)|d| \\
+&+ ( |\lambda| + e^{-\alpha X_i} + e^{-\alpha X_{i-1}} ) |\lambda|^2 |d| \\
+&+ |\lambda| |G| (e^{\nu(\lambda)X_{i-1}} + e^{\nu(\lambda)X_i})(|D| + |\lambda|^2 )|d|  \\
+&+ |\lambda|^3 |d| \Big)
+\end{align*}
+
+For convenience, let
+
+\begin{align*}
+K_2(X, \lambda) &= (e^{-\alpha X_i} + e^{-\alpha X_{i-1}} + |G| + p_3(\lambda) + |\lambda|) \\
+K_3(X, \alpha) &= e^{-\alpha X_i} + e^{-\alpha X_{i-1}}
+\end{align*}
+
+$K_2(X, \lambda)$ has order $(e^{-\alpha X_i} + e^{-\alpha X_{i-1}} + |\lambda|$. Collecting terms above and dropping some of the higher order ones, this becomes
+
+\begin{align*}
+R&(\lambda)(d) \leq C \Big( \\
+&K_2(X, \lambda)|\lambda|^2 |d| \\
+&(K_2(X, \lambda)K(X, \lambda) + K_3(X, \alpha)|\lambda| + K_3(X, \tilde{\alpha})|G| + |\lambda| |G| (e^{\nu(\lambda)X_{i-1}} + e^{\nu(\lambda)X_i})\\
+&+ e^{-\alpha X_i}(p_1(X_i; \lambda) + e^{-\alpha X_{i-1}}(p_1(X_{i-1}; \lambda))|D||d| \Big)
 \end{align*}
 
 \item Plug in stuff \\
 
-Let's actually now plug in $D_i$ and see if we can make anything of this. Recall that we have the following expression/bound for $D_i$ (which is a reasonable guess but unproven)
+First, we plug in our known (or guessed) for the components of the remainder term. If this is not good enough, we need to rethink the whole thing, so it's good to do this first.\\
+
+Recall that we have the following bounds (and that we have $X_2 = k X_1 \geq X_1$)
+
+\begin{align*}
+|G| &\leq C e^{-\alpha X_1} \\
+D_i &\leq C e^{-\alpha X_1} |d| \\
+K(X, \lambda) &= (e^{-\alpha X_i} + e^{-\alpha X_{i-1}}) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}})|G| \\
+&\leq C(e^{-\alpha X_1} + e^{\nu(\lambda)k X_1} e^{-\alpha X_1} ) \\
+&\leq C e^{-\alpha X_1} e^{k \nu(\lambda) X_1} \\
+K_2(X, \lambda) &\leq C(e^{-\alpha X_i} + e^{-\alpha X_{i-1}} + |\lambda|) \\
+&\leq C(e^{-\alpha X_1} + |\lambda|) \\
+K_3(X, \alpha) &= e^{-\alpha X_i} + e^{-\alpha X_{i-1}} \\
+&\leq C e^{-\alpha X_i} \\
+p_1(X_i; \lambda) &\leq C e^{-\alpha X_i} \\
+&\leq C e^{-\alpha X_1} \\
+\end{align*}
+
+Using these, the coefficient of $|\lambda|^2 |d|$ is 
+
+\[
+e^{-\alpha X_1} + |\lambda|
+\]
+
+The $|D|$ coefficient has bound
+
+\begin{align*}
+(e&^{-\alpha X_1} + |\lambda|) e^{-\alpha X_1} e^{\nu(\lambda) k X_1}\\
+&+ e^{-\alpha X_1}|\lambda| \\
+&+ e^{-\tilde{\alpha} X_1}e^{-\alpha X_1} \\
+&+ |\lambda| e^{-\alpha X_1} e^{\nu(\lambda) k X_1}\\
+&+ e^{-\alpha X_1}e^{-\alpha X_1} \\
+&= e^{-\alpha X_1}( e^{-\alpha X_1} e^{k \nu(\lambda) X_1} + e^{-\tilde{\alpha} X_1}) + e^{-\alpha X_1} e^{k \nu(\lambda) X_1} |\lambda|
+\end{align*}
+
+To get the remainder bound, we plug in the bound for $|D|$ to get
+
+\begin{align*}
+R&(\lambda)(d) \leq C \Big( (e^{-\alpha X_1} + |\lambda|)|\lambda|^2 |d| 
++ e^{-\alpha X_1}(e^{-\alpha X_1}( e^{-\alpha X_1} e^{k \nu(\lambda) X_1} + e^{-\tilde{\alpha} X_1}) + e^{-\alpha X_1} e^{k \nu(\lambda) X_1} |\lambda|) \Big)
+\end{align*}
+
+Combining terms and simplifying, we get our final remainder bound
+
+\begin{align*}
+R&(\lambda)(d) \leq C \Big( (e^{-\alpha X_1} + |\lambda|)|\lambda|^2 
++ e^{-2 \alpha X_1}( e^{-\alpha X_1} e^{k \nu(\lambda) X_1} + e^{-\tilde{\alpha} X_1}) + e^{-2\alpha X_1} e^{k \nu(\lambda) X_1} |\lambda|) \Big)
+\end{align*}
+
+As long as $|\lambda|$ is order $e^{-2 \alpha X_1}$, which is what we expect from our leading order computations, etc, we are all set!\\
+
+\item Make the matrix \\
+
+Finally, we plug in $D_i$ and see what we get. Recall that we have the following expression/bound for $D_i$ (which is a reasonable guess but unproven)
 
 \[
 D_i = ( Q'(X_i) + Q'(-X_i)(d_2 - d_1) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
