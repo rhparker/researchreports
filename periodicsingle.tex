@@ -1,0 +1,1284 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\graphicspath{ {images17/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\begin{document}
+
+\section*{KdV5 with Periodic Boundary Conditions}
+
+Here we look at the case with periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. In general (following Sanstede, 1998), we are looking to solve a system which looks like 
+\begin{enumerate}[(i)]
+\item $(W_i^\pm)' = A(q) W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
+\item $W_i^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W_i^+(0) - W_i^-(0) \in \C \psi(0) $
+\item $W_1^+(L) - W_2^-(-L) = D_1 d $
+\end{enumerate}
+
+which is the piecewise eigenvalue problem written as a first order system, this time in the unweighted norm. The eigenfunction here is given by $V_i^\pm = (Q' - \lambda Q_c)d_i + W_i\pm$.\\
+
+The additional complication here is that the matrix $A(q)$ is not hyperbolic, since there is an eigenvalue of 0. We also cannot use an exponential weight to get rid of this problem since we are considering the periodic case. Thus we will have to deal with some sort of ``center'' subspace, which will give us an exponential trichotomy instead of an exponential dichotomy.\\
+
+For the single pulse solution, we know that the exponential decay rate at both ends is given by $\alpha > 0$, where $\alpha$ is the absolute value of the real part of the eigenvalues of the linearization about the zero-solution.\\
+
+Let's first look at this for the case of a wave train composed of single pulses. Recall that for the single pulse $q$, where there is only one join at the center, the eigenfunction is given by $V\pm = Q' - \lambda Q_c + W_i\pm$, and this becomes
+
+\[
+(W^\pm)' = A(q) W_i^\pm + \lambda B W^\pm - \lambda^2 B Q_c
+\]
+
+We now need to formulate the other conditions. Recall that for the exponentially weighted case (or the hyperbolic case) the other conditions are given by
+
+\begin{enumerate}[(i)]
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W^+(0) - W^-(0) \in \C \psi(0) $
+\end{enumerate}
+
+Let's recall what the various spaces are. All these things are defined at $x = 0$, since that is the ``middle'' of the homoclinic orbit.
+
+\begin{enumerate}
+	\item $\text{span }\{Q'(0)\}$ is the span of the derivative of the pulse at $x = 0$. This is in both the stable and unstable manifolds of 0.
+	\item $Y^+$ is the remaining dimension of the 2D stable manifold.
+	\item $Y^-$ is the remaining dimension of the 2D unstable manifold.
+	\item $\C \Psi(0)$ is the span of the solution to the adjoint variational equation, and since it is perpendicular to the unstable and stable manifolds, it fills out $\C^4$ when combined with the three things above.
+\end{enumerate}
+
+In our case, we will have an additional ``center'' space at $x = 0$, which gives us one more dimension. For now, we will call this $Y^0$, but this will become more specific later. What we need to do now is figure out what role this plays in our conditions. Elements in the center space may blow up (not necessarily exponentially) at one of the ends. Thus if we want to look for a localized eigenfunction, it is important that the initial condition at $x = 0$ not have a component in this space. \\
+
+This essentially tells us where our perturbation must live. Since we are specifying our eigenfunction as $V\pm = Q' - \lambda Q_c + W_i\pm$, and we know that $Q'(0)$ and $Q_c(0)$ have no component in the $Y^0$ (since they both decay exponentially at both ends), this implies that $W^i\pm(0)$ cannot have a component in $Y^0$. This also implies that $W^+(0) - W^-(0)$ cannot have a component in $Y^0$. Thus the conditions are the same as for the version without the ``center'' space, i.e. 
+
+\begin{enumerate}[(i)]
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W^+(0) - W^-(0) \in \C \psi(0) $
+\end{enumerate}
+
+To do this for the wave train, we will use periodic BCs on the interval $[-T, T]$. For now, we state the existence of such wave trains as a hypothesis.
+
+\begin{hypothesis}\label{qpexists}
+For some value of $c$ (likely $> 1/4$) a periodic wavetrain solution $q_Tz(x)$ exists with period $2T$ for $T$ sufficiently large. We can choose the interval $[-T,T]$ so that the center of one of the peaks is at 0. The solution $q_T(x)$ is an even function on $[-T, T]$. The periodic solution is close to the single pulse solution $q(x)$ on $[-T, T]$, where we have the bound 
+
+\[
+||q_T(x) - q(x)||_{[-T, T]} \leq C e^{-\alpha T}
+\]
+
+which makes sense since the larger $T$ is, the more $q_T$ should resemble the single pulse on $[-T, T]$.
+\end{hypothesis}
+
+We need one more condition to ensure the eigenfunction satisfies the BCs. By Hypothesis~\ref{qpexists}, a wavetrain solution $q_p(x)$ exists, thus this function and all its derivatives must match at the endpoints of $[-T, T]$.  Thus for the periodic boundary condition for the eigenfunction we must have
+
+\begin{align*}
+Q_p'(-T) - \lambda (Q_p)c(-T) + W_i^-(-T) &= Q_p'(T) - \lambda (Q_p)_c(T) + W_i^+(T) \\
+W_i^-(-T) - W_i^+(T) &= ( Q_p'(T) - Q_p'(-T) ) - \lambda( (Q_p)_c(T) - (Q_p)_c(-T) ) \\
+&= 0
+\end{align*}
+
+Thus the system we are looking to solve in the periodic case is
+
+\begin{enumerate}[(i)]
+\item $(W^\pm)' = A(q_p) W_i^\pm + \lambda B W^\pm - \lambda^2 B (Q_p)_c$
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W^+(0) - W^-(0) \in \C \psi(0) $
+\item $W_i^-(-T) - W_i^+(T) = 0$
+\end{enumerate}
+
+Why do we not have something like $W_i^-(-T) - W_i^+(T) = D d$ here for the last condition? Since we are matching the eigenfunction corresponding to the single pulse at $\pm T$, and since the single pulse $Q$ and the derivative $Q_c$ are even functions, in this case $D$ will be 0.\\
+
+Before we go to town on this, we will rewrite this in the following way. Let
+
+\[
+\tilde{A}(\lambda, q_p) = A(q_p) + \lambda B
+\]
+
+Then the first equation becomes 
+
+\[
+(W^\pm)' = \tilde{A}(\lambda, q_p) W_i^\pm - \lambda^2 B (Q_p)_c
+\]
+
+We would also like to write this in terms of the single pulse $q$ rather than the periodic solution $q_p$. To do this, let
+
+\begin{align*}
+\tilde{H} &= -B(Q_p)_c \\
+H &= -B Q_c \\
+G(\lambda) &= \tilde{A}(\lambda, q_p) - \tilde{A}(\lambda, q)
+\end{align*}
+
+Then the first equation becomes 
+
+\[
+(W^\pm)' = \tilde{A}(\lambda, q) W_i^\pm + G(\lambda) W_i^\pm + \lambda^2 \tilde{H}
+\]
+
+For now, we will assume we have these bounds (based on Hypothesis \ref{qpexists}).
+
+\begin{align*}
+|G(\lambda)(x)| &\leq C e^{-\alpha T} && x \in [-T, T]\\
+|\Delta H(x)| = |\tilde{H}(x) - H(x)| &\leq C e^{-\alpha T} && x \in [-T, T]
+\end{align*}
+
+Now we look at the eigenvalue problem
+
+\begin{equation}
+U' = \tilde{A}(\lambda, q) U = A(\lambda) U + R(q(x)) U
+\end{equation}
+
+where we split up $\tilde{A}(\lambda, q)$ so that all of the $x$ dependence is via the single pulse $q(x)$ and is contained in $R(x)$. Everything else (including the $\lambda$) is in the matrix $A(\lambda)$, which is a constant matrix and different from the $A$ above, but we are seriously running out of letters, so it will do for now. The matrix $\tilde{A}(\lambda, q)$ is exponentially asymptotic (due to the exponential decay properties of $q$ and its derivatives), and its limit as $|x| \rightarrow \infty$ is $A(\lambda)$.\\
+
+For $\lambda = 0$, $A(\lambda)$ has an eigenvalue at 0. The characteristic polynomial for $A(\lambda)$ is $f(\lambda, \nu) = \lambda - c \nu + \nu^3 - \nu^5$, which to leading order is $f(\lambda, \nu) = \lambda - c \nu + \mathcal{O}(\nu^3)$. Thus, to leading order, this polynomial has a zero when $t = \lambda / c$, which is approximately the value of the spatial eigenvalue closest to 0. For small $\lambda$, numerics shows this is really close.\\
+
+Before we continue, we will prove the following lemma, based on Exercise 29 on p. 104 of Coddington and Levinson (1955).
+
+\begin{lemma}Consider the eigenvalue problem
+
+\begin{equation}\label{veigproblem}
+V(x)' = AV(x) + R(x)V(x)
+\end{equation}
+
+where $V(x) \in R^n$, $A$ is a constant, diagonalizable $n \times n$ matrix, and $R(x): \R \rightarrow \R^n$ is an integrable function which is globally Lipschitz continuous in $x$. Let $\nu$ be any eigenvalue of $A$ with corresponding eigenvector $p$, i.e. $A p = \nu p$. Then there is a unique solution $\phi(x)$ to \eqref{veigproblem} such that 
+
+\[
+\lim_{x\rightarrow\infty} \phi(x) e^{-\nu x} = p
+\]
+
+In other words, for large $x$, the solution $\phi(x)$ resembles that of the constant coefficient eigenvalue problem $V(x)' = AV(x)$.
+
+\begin{proof}
+Let $\sigma = \text{Re} \nu$. Let $\nu_1, \dots, \nu_n$ be the $n$ eigenvalues of $A$ with corresponding eigenvectors $p_1, \dots, p_n$. Since we are assuming that $A$ is diagonalizable, we have a complete set of $n$ of these. Order the eigenvalues by increasing real part; if more than one eigenvalue has the same real part, any order is fine, as long as we make sure that any eigenvalue besides $\nu$ with real part $\sigma$ occurs after $\nu$ in the list. Then $\nu = \nu_k$ for some $k$, $\text{Re} \nu_j < \sigma$ for $j < k$ (as long as $k \neq 1$), and $\text{Re} \nu_j \geq \sigma$ for $j \geq k$. \\
+
+Let $e^{Ax}$ be the fundamental matrix solution for $U' = A U$, and split $e^{Ax}$ up into
+\[
+e^{Ax} = Y_1(x) + Y_2(x)
+\]
+where $Y_1$ involves only eigenvectors corresponding to eigenvalues $\nu_1, \dots, \nu_{k-1}$ and $Y_2$ involves only eigenvectors corresponding to eigenvalues $\nu_{k}, \dots, \nu_n$. Since $A$ is a constant-coefficient matrix, we can write down an explicit formula for $Y_1$ and $Y_2$. Essentially, all we need to do is change coordinates to the eigenbasis, evolve along the appropriate eigenvectors, and zero out the other ones. To be specific, let P be the $n \times n$ matrix with columns $p_1, \dots, p_n$. Since we are assuming $A$ is diagonalizable, this matrix is invertible, and $D = P^{-1}AP$ is diagonal with eigenvalues $\nu_1, \dots, \nu_n$ on the diagonal. Recall that the matrix exponential is given by $e^{Ax} = P^{-1}e^{Dx}P$. Starting with the matrix $D$, form the matrix $D_1$ by keeping only the eigenvalues $\nu_1, \dots, \nu_{k-1}$ on the diagonal, and form the matrix $D_2$ by keeping only the eigenvalues $\nu_{k}, \dots, \nu_n$ on the diagonal. Then we have
+
+\begin{align*}
+Y_1(x) &= P^{-1}e^{D_1x}P \\
+Y_1(x) &= P^{-1}e^{D_2x}P \\
+\end{align*}
+ 
+Choose $\delta$ such that $0 < \delta < \sigma - \text{Re} \nu_{k-1}$, i.e. smaller than the spectral gap between $\nu$ and the eigenvalue with the next smallest real part. (If $k = 1$, $Y_1 = 0$, $Y_2 = e^{Ax}$, and we don't care about $\delta$). Then we can find a constant $C$ such that
+
+\begin{align*} 
+|Y_1(x)| &\leq Ce^{(\sigma - \delta)x} && x \geq 0 \\
+|Y_2(x)| &\leq Ce^{\sigma x} && x \leq 0 
+\end{align*}
+
+Define the exponentially weighted function space with weight $\sigma$
+
+\[
+B_{\sigma, a} = \{ f \in C^0([a, \infty), \R^n) : \sup_{x \in [a, \infty)} |e^{-\sigma x} f(x)| < \infty 
+\]
+
+where $a$ will be chosen later. The norm on this space is given by
+
+\[
+||f||_{\sigma, a} = \sup_{x \in [a, \infty)} |e^{-\sigma x} f(x)|
+\]
+
+In other words, we allow functions in $B_{\sigma, a}$ to grow exponentially as $x \rightarrow \infty$ at a rate of $\sigma$ or slower. It is known that $B_{\sigma, a}$ is a Banach space. Define the operator $F$ on $B_{\sigma, a}$ by
+
+\begin{align*}
+F(\phi)(x) = e^{\nu x} p + \int_a^x Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2(x - y)R(y)\phi(y)dy
+\end{align*}
+
+where the $a$ in the integral is the same as in $B_{\sigma, a}$ and will be chosen later. First we show that $F: B_{\sigma, a} \rightarrow B_{\sigma, a}$. Let $\phi \in B_{\sigma, a}$. For $x \geq a$ we have
+
+\begin{align*}
+|e^{-\sigma x} &F(\phi)(x)| \leq e^{(\nu - \sigma) x} |p| + \int_a^x |Y_1(x - y)||R(y)||\phi(y)| dy + \int_x^\infty |Y_2(x - y)||R(y)||\phi(y)|dy \\
+&\leq |p| + C \left( e^{-\sigma x}  \int_a^x e^{(\sigma - \delta)(x - y)}|R(y)||\phi(y)| dy + e^{-\sigma x}  \int_x^\infty e^{\sigma(x - y)}|R(y)||\phi(y)|dy \right) \\
+&\leq |p| +  C \left( \int_a^x e^{-\delta(x - y)}|R(y)||e^{-\sigma y}\phi(y)| dy + \int_x^\infty |R(y)||e^{-\sigma y} \phi(y)|dy \right) \\
+&\leq |p| + C ||\phi||_{\sigma, a}\left( \int_a^x e^{-\delta(x - y)}|R(y)| dy + \int_x^\infty |R(y)|dy \right) \\
+&\leq |p| + C ||\phi||_{\sigma, a} \int_a^\infty |R(y)| dy 
+\end{align*}
+
+Since $R$ is integrable, the RHS is finite, thus the map $F: B_{\sigma, a} \rightarrow B_{\sigma, a}$ is well defined. Now we show the map $F$ is a contraction. Let $\phi, \psi \in B_{\sigma, a}$. For $x \geq a$ we have
+
+\begin{align*}
+|e^{-\sigma x}( &F(\phi)(x) - F(\psi)(x))| \leq \int_a^x |Y_1(x - y)||R(y)||\phi(y) - \psi(y)| dy + \int_x^\infty |Y_2(x - y)||R(y)||\phi(y) - \psi(y)|dy \\
+&\leq C \left( e^{-\sigma x}  \int_a^x e^{(\sigma - \delta)(x - y)}|R(y)||\phi(y) - \psi(y)| dy + e^{-\sigma x}  \int_x^\infty e^{\sigma(x - y)}|R(y)||\phi(y) - \psi(y)|dy \right) \\
+&\leq C \left( \int_a^x e^{-\delta(x - y)}|R(y)||e^{-\sigma y}(\phi(y) - \psi(y))| dy + \int_x^\infty |R(y)||e^{-\sigma y} (\phi(y) - \psi(y))|dy \right) \\
+&\leq C ||\phi - \psi ||_{\sigma, a}\left( \int_a^x e^{-\delta(x - y)}|R(y)| dy + \int_x^\infty |R(y)|dy \right) \\
+&\leq C ||\phi - \psi ||_{\sigma, a} \int_a^\infty |R(y)| dy 
+\end{align*}
+
+Since $R$ is integrable, we can choose $a$ sufficiently large so that
+
+\[
+\int_a^\infty |R(y)| dy < \frac{1}{2C}
+\]
+
+from which we conclude that
+
+\[
+||F(\phi) - F(\psi) ||_{\sigma, a} \leq \frac{1}{2} ||\phi - \psi ||_{\sigma, a}
+\]
+
+Since $F$ is a contraction on the Banach space $B_{\sigma, a}$, by the Banach Fixed Point Theorem the map $F$ has a unique fixed point, i.e. a unique $\phi(x) \in B_{\sigma, a}$ such that $F(\phi) = \phi$. Note that by the fixed point theorem and definition of $B_{\sigma, a}$, we only have $\phi(x)$ defined for $\phi \geq a$. However, choosing the initial condition $\phi(a)$ at $x = a$, by the existence and uniqueness of solutions to \eqref{veigproblem} and the global Lipschitz condition placed on $R(x)$ (which guarantees global existence of solutions), we can extend $\phi(x)$ uniquely to all of $\R$. This extension of $\phi(x)$ to $\R$ is given by the same formula we have for $\phi(x)$ when $x \geq a$.
+
+\begin{equation}\label{fpphi}
+\phi(x) = e^{\nu x} p + \int_a^x Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2(x - y)R(y)\phi(y)dy
+\end{equation}
+
+To see this, all we need to do is show that it satisfies the ODE \eqref{veigproblem}. Differentiating \eqref{fpphi}, we get
+
+\begin{align*}
+\phi'(x) &= \nu e^{\nu x} p + (Y_1(0) + Y_2(0))R(x)\phi(x) + \int_a^x Y_1'(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2'(x - y)R(y)\phi(y)dy \\
+&= e^{\nu x} A p + e^{0A}R(x)\phi(x) + \int_a^x A Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x A Y_2(x - y)R(y)\phi(y)dy \\
+&= A \left( e^{\nu x} p + \int_a^x Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2(x - y)R(y)\phi(y)dy \right) + R(x) \phi(x) \\
+&= A \phi(x) + R(x) \phi(x)
+\end{align*}
+
+Thus $\phi(x)$ defined in \eqref{fpphi} is the unique extension that we seek. All that remains is to show what happens when $x \rightarrow \infty$. Since we are interested in end behavior, we only need to consider what happens when $x \geq a$. Since $\phi(x) \in B_{\lambda, a}$, $||\phi||_{\sigma, a}$ is finite and independent of $x$. Thus for $x \geq a$, using what we did above, 
+
+\begin{align*}
+|e^{-\sigma x} &(\phi(x) - e^{\nu x} p)| \leq C ||\phi||_{\sigma, a}\left( \int_a^x e^{-\delta(x - y)}|R(y)| dy + \int_x^\infty |R(y)|dy \right) \\
+&\leq C ||\phi||_{\sigma, a}\left( \int_a^{x/2} e^{-\delta(x - y)}|R(y)| dy + \int_{x/2}^x |R(y)|+ \int_x^\infty |R(y)|dy \right)\\
+&\leq C ||\phi||_{\sigma, a}\left( e^{-\delta(x/2)} \int_a^{x/2} e^{-\delta(x/2 - y)}|R(y)| dy + \int_{x/2}^\infty |R(y)|dy \right)\\
+&\leq C ||\phi||_{\sigma, a}\left( e^{-\delta(x/2)} \int_a^{\infty} |R(y)| dy + \int_{x/2}^\infty |R(y)|dy \right)\\
+&\leq ||\phi||_{\sigma, a}\left(\frac{1}{2} e^{-\delta(x/2)} + \int_{x/2}^\infty |R(y)|dy \right)
+\end{align*}
+
+Since $\delta > 0$, $R(x)$ is integrable, and $||\phi||_{\sigma, a}$ is constant, both terms on the RHS go to 0 as $x \rightarrow \infty$. Thus we conclude that
+
+\[
+\lim_{x \rightarrow \infty} |e^{-\sigma x} (\phi(x) - e^{\nu x} p)| = 0
+\]
+
+Pulling out a factor of $e^{\nu x}$, this becomes 
+
+\[
+\lim_{x \rightarrow \infty} |e^{(\nu - \sigma) x}||\phi(x) e^{-\nu x} - p)| = 0
+\]
+
+since $\text{Re} \phi = \nu$, $|e^{(\nu - \sigma) x} = 1$ for all $x$. Thus we conclude that
+
+\[
+\lim_{x \rightarrow \infty} |\phi(x) e^{-\nu x} - p)| = 0
+\]  
+
+from which it follows that
+
+\[
+\lim_{x\rightarrow\infty} \phi(x) e^{-\nu x} = p
+\]
+
+\end{proof}
+\end{lemma}
+
+\begin{corollary}The same result holds as $x \rightarrow -\infty$, i.e. there is a unique solution $\tilde{\phi}(x)$ to \eqref{veigproblem} such that 
+
+\[
+\lim_{x\rightarrow -\infty} \tilde{\phi}(x) e^{-\nu x} = p
+\]
+
+This function in general will not be the same as $\phi(x)$ above.
+
+\begin{proof}
+First we replace $x$ with $-x$ in \eqref{veigproblem}
+
+\begin{align*}
+V'(-x) = A V(-x) + R(-x)V(-x)
+\end{align*}
+
+Let $\tilde{V}(x) = V(-x)$ and $\tilde{R}(x) = -R(-x)$. Then since $\tilde{V}'(x) = -V'(-x)$, we get
+
+\begin{align*}
+\tilde{V}'(x) = -A \tilde{V}(x) + \tilde{R}(x)\tilde{V}(x)
+\end{align*}
+
+Now we use the above lemma on $\tilde{V}$ (for $x \geq 0$). Since $-A$ has an eigenvector $p$ with corresponding eigenvalue $-\nu$, by the above lemma we can find a unique solution $\psi(x)$ such that 
+
+\[
+\lim_{x\rightarrow \infty} \psi(x) e^{(-\nu)(-x)} = p
+\]
+
+Let $\tilde{\phi(x)} = \psi(-x)$. Then $\tilde{\phi(x)}$ solves the original problem, and
+
+\[
+\lim_{x\rightarrow -\infty} \tilde{\phi}(x) e^{-\nu x } = p
+\]
+
+
+\end{proof}
+\end{corollary}
+
+
+Let $\Phi(y,x; \lambda)$ be the evolution operator for $U' = \tilde{A}(\lambda, q) U$. For $\lambda = 0$, this has a center subspace which will perturb slightly for $\lambda \neq 0$ into a subspace which grows (or decays) exponentially, albeit at a slow rate since the spatial eigenvalue responsible for this is small. Thus instead of an exponential dichotomy we have an exponential trichotomy. WE WILL ASSUME THIS ACTUALLY HAPPENS; IF NECESSARY WILL FILL IN DETAILS IF THIS ALL WORKS. This will occur separately on $\R^+$ and $\R^-$.\\
+
+Following Hale and Lin (1985), we will write this as follows. We have projections $P^s_\pm(x; \lambda)$, $P^u_\pm(x; \lambda)$ and $P^c_\pm(x; \lambda) = I - P^s_\pm(x; \lambda) - P^u_\pm(x; \lambda)$ (where the subscripts designate whether the trichotomy is on $\R^+$ or $\R^-$) such that
+
+\begin{align*}
+\Phi(y, x; \lambda)P^s_\pm(x; \lambda) &= P^s_\pm(y; \lambda)\Phi(y, x; \lambda) \\
+\Phi(y, x; \lambda)P^u_\pm(x; \lambda) &= P^u_\pm(y; \lambda)\Phi(y, x; \lambda) \\
+\Phi(y, x; \lambda)P^c_\pm(x; \lambda) &= P^c_\pm(y; \lambda)\Phi(y, x; \lambda) \\
+\end{align*}
+
+In other words, it does not matter if you project or evolve first. For $\lambda = 0$ the superscript $c$ actually represents the center subspace, and for small $\lambda$, this is the subspace that the center subspace perturbs to. Using these, we can split the evolution up into evolution on the three subspaces by defining
+
+\begin{align*}
+\Phi^s_\pm(y, x; \lambda) &= \Phi(y, x; \lambda)P^s_\pm(x; \lambda) \\
+\Phi^u_\pm(y, x; \lambda) &= \Phi(y, x; \lambda)P^u_\pm(x; \lambda) \\
+\Phi^c_\pm(y, x; \lambda) &= \Phi(y, x; \lambda)P^c_\pm(x; \lambda) \\
+\end{align*}
+
+For the stable and unstable subspaces, we know what the eigenvalues of $\tilde{A}(0, q)$ are. Let $\alpha$ be the smallest real part of the positive eigenvalues of this and $-\alpha$ be the largest real part of the negative eigenvalues of this. (We get the same $\alpha$ both ways by symmetry of the eigenvalues of $\tilde{A}(0, q)$. For small $\lambda$, the spatial eigenvalues will not perturb much, so for stable and unstable subspaces we will still have the bounds
+
+\begin{align*}
+|\Phi^s(y, x; \lambda)| \leq C e^{-\alpha(y-x)} \\
+|\Phi^u(x, y; \lambda)| \leq C e^{-\alpha(y-x)}
+\end{align*}
+where $x \leq y$ and $C$ is a constant. Technically we should probably replace $\alpha$ by $\alpha - \delta$ for small $\delta$ to account for the perturbation, but it does not matter for now.\\
+
+For the center subspace, there is a small eigenvalue which is approximately $\nu = \lambda / c$. Thus we should have a $\lambda$-dependent bound of the form
+
+\begin{align*}
+|\Phi^c_+(y, x; \lambda)| &\leq C e^{\lambda(y-x)/c} && y \geq x \geq 0 \\
+|\Phi^c_-(x, y; \lambda)| &\leq C e^{\lambda(y-x)/c} && x \leq y \leq 0 \\
+\end{align*}
+
+indictaing that the (potential) exponential growth rate on this center space is limited by $\lambda$, which we know is small.\\
+
+Now we need to make all of this explicit. Consider the following eigenvalue problem and its adjoint problem.
+
+\begin{align}
+V' &= \tilde{A}(\lambda, q)V \label{eig:V} \\
+W' &= -\tilde{A}^*(\lambda, q)W \label{eig:W}
+\end{align}
+
+We summarize some useful facts about this problem in the following lemma. The proof is either obvious, or if not, I have it scribbled in my notes.
+
+\begin{lemma}\label{eigadjoint}
+Consider the eigenvalue problem $U' = A(x)U$ and the corresponding adjoint problem $W' = -A(x)^* W$, where $A$ is an $n \times n$ matrix depending on $x$. Then the following are true.
+\begin{enumerate}[(i)]
+\item $\frac{d}{dx}\langle U(x), W(x) \rangle = 0$, thus the inner product is constant as $x$ varies.
+\item If $\Phi(y, x)$ is the evolution operator for $U' = A(x)U$, then $\Phi(x, y)^*$ is the evolution operator for the adjoint problem $W' = -A(x)^* W$.
+\end{enumerate}
+Note that we have defined the inner product on $\C^n$ by $\langle x, y \rangle = \sum x_i \bar{y_i}.$, i.e. the complex conjugation is on the second component.
+\end{lemma}
+
+Let $\nu(\lambda)$ be the small eigenvalue of the asymptotic matrix $\tilde{A}(\lambda,0)$ with corresponding eigenvector $v_0(\lambda)(\lambda)$. Then since $\det(A - \nu I) = 0$ implies $\det(A^* - \overline{\nu}I) = 0$, $-\overline{\nu(\lambda)}$ is the small eigenvalue of $-\tilde{A}(\lambda,0)^*$; let $w_0(\lambda)(\lambda)$ be the corresponding eigenvector.\\
+
+It would be great if there were a nice relationship between $v_0(\lambda)(\lambda)$ and $w_0(\lambda)(\lambda)$ (like we have with the corresponding eigenvalues), but without additional assumptions on $A$ this is not the case. What we would really like, however, is for $\langle v_0(\lambda)(\lambda), w_0(\lambda)(\lambda) \rangle \neq 0$. Even this is too much to ask in the generic case, since if we take
+
+\[
+M = \begin{pmatrix}1 & 1 \\ 0 & 1 \end{pmatrix}
+\]
+
+$M$ has a single eigenvector $(1, 0)$ and $M^*$ has a single eigenvector $(0, 1)$, both corresponding to the lone eigenvalue 1. These are clearly orthogonal. Since we suspect the problem might be the Jordan block, we will prove the following lemma.
+
+\begin{lemma}\label{perpeigs}
+Let $A$ be an $n \times n$ matrix, and suppose $v$ and $w$ are solutions to $Av = \lambda v$ and $A^*w = \overline{\lambda}w$, respectively. Suppose $\lambda$ is a simple eigenvalue, i.e. is has algebraic multiplicity of 1. Then $\langle v, w \rangle \neq 0$.
+\begin{proof}
+Since $\lambda$ is simple, $\text{span} \{w\} = \ker(A^* - \overline{\lambda}I)$. Suppose $v \perp w$. Then $v \in \ker(A^* - \overline{\lambda I})^\perp = \text{ran}(A - \lambda I)$, where the equality holds since $A$ is finite dimensional, thus has closed range. But this implies $(A - \lambda I)v_1 = v$ for some $v_1$, which cannot be the case since $\lambda$ is simple, so there cannot be such a generalized eigenvector. We conclude that $\langle v, w \rangle \neq 0$
+\end{proof}
+\end{lemma}
+
+Given this lemma, we make the following hypothesis.
+
+\begin{hypothesis}\label{simplesmalleig}
+For sufficiently small $\lambda$, the small eigenvalue $\nu(\lambda)$ of the matrix $\tilde{A}(\lambda, 0)$ is simple.
+\end{hypothesis}
+
+I am not sure we even need to state this as a hypothesis, since the eigenvalues of $A(\lambda, 0)$ are analytic in $\lambda$, $A(0, 0)$ has a simple eigenvalue at 0, and the rest of the eigenvalues of $A(0, 0)$ are large, but we might as well put it here.\\
+
+Given Hypothesis \ref{simplesmalleig} (or the argument above), $\nu(\lambda)$ is a simple eigenvalue of $\tilde{A}(\lambda, 0)$, thus by Lemma \ref{perpeigs}, $\langle v_0(\lambda)(\lambda), w_0(\lambda)(\lambda) \rangle \neq 0$. Since eigenvalues are defined up to scalar multiples, we can scale $v_0(\lambda)(\lambda)$ and/or $w_0(\lambda)(\lambda)$ such that
+
+\[
+\langle v_0(\lambda)(\lambda), w_0(\lambda)(\lambda) \rangle = 1
+\]
+ 
+Now we will come up with a formula for the projection and evolution on the center space for $x \geq 0$. Using Lemma \ref{veigproblem}, let $\tilde{v}_+(x; \lambda)$ and $\tilde{w}_+(x; \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V} and its adjoint problem \eqref{eig:W} such that
+
+\begin{align*}
+\lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \tilde{v}_+(x; \lambda) = v_0(\lambda) \\
+\lim_{x \rightarrow \infty} e^{\overline{\nu(\lambda)} x} \tilde{w}_+(x; \lambda) = w_0(\lambda) \\
+\end{align*}
+
+We would like to scale out the exponential growth/decay factor, so let
+
+\begin{align*}
+\tilde{v}_+(x; \lambda) &= e^{\nu(\lambda) x } v_+(x; \lambda) \\
+\tilde{w}_+(x; \lambda) &= e^{-\overline{\nu(\lambda)} x } w_+(x; \lambda) \\
+\end{align*}
+
+Then
+
+\begin{align*}
+\lim_{x \rightarrow \infty} v_+(x; \lambda) = v_0(\lambda) \\
+\lim_{x \rightarrow \infty} w_+(x; \lambda) = w_0(\lambda) \\
+\end{align*}
+
+Taking $x \rightarrow \infty$ in the inner product $\langle \tilde{v}_+(x; \lambda), \tilde{w}_+(x; \lambda) \rangle$ we have by the continuity of the inner product
+
+\begin{align*}
+\langle \tilde{v}_+(x; \lambda), \tilde{w}_+(x; \lambda) \rangle
+&= \langle e^{\nu(\lambda) x } v_+(x; \lambda), e^{-\overline{\nu(\lambda)} x} \tilde{w}_+(x; \lambda) \rangle \\
+&= e^{\nu(\lambda) x } e^{-\nu(\lambda) x } \langle v_+(x; \lambda), w_+(x; \lambda) \rangle \\
+&= \langle v_+(x; \lambda), w_+(x; \lambda) \rangle
+\end{align*}
+
+By Lemma \ref{eigadjoint}, $\langle \tilde{v}_+(x; \lambda), \tilde{w}_+(x; \lambda) \rangle$ is constant for all $x \geq 0$. Thus, taking $x \rightarrow \infty$, we conclude that 
+
+
+\[
+\langle \tilde{v}_+(x; \lambda), \tilde{w}_+(x; \lambda) \rangle = \langle v_0(\lambda), w_0(\lambda) \rangle = 1
+\]
+
+for all $x \geq 0$. Since $\langle \tilde{v}_+(x; \lambda), \tilde{w}_+(x; \lambda) \rangle = \langle v_+(x; \lambda), w_+(x; \lambda) \rangle$, it follows that $\langle v_+(x; \lambda), w_+(x; \lambda) \rangle = 1$ for all $x \geq 0$.\\
+
+What we would like to do now is write the projection $P^c_+(x)$ for $x \geq 0$ in terms of the adjoint solution $\tilde{w}_+(x; \lambda)$. To do this, let $R^s_+(x; \lambda)$, $R^u_+(x; \lambda)$, and $R^c(x; \lambda)$ be the ranges of the corresponding projections (stable, unstable, and center ranges)
+. The dimensions of these ranges are 2, 2, and 1 (respectively). Note that since $\tilde{v}_+(x; \lambda)$ is in the center range $R^c(x; \lambda)$ and that space is one-dimensional, $\tilde{v}_+(x; \lambda)$ is a basis vector for that space. Since we can scale the basis vector by any constant we want, we can divide by $e^{\nu(\lambda) x }$ to see that $v_+(x; \lambda)$ is a basis vector for $R^c(x; \lambda)$. Therefore, every element in $R^c(x; \lambda)$ is a scalar multiple of $\tilde{v}_+(x; \lambda)$. \\
+
+We would like to obtain the projection $P^c_+(x)$ by projecting on the adjoint solution $w_+(x; \lambda)$. First we show that $\tilde{w}(0)$ is perpendicular to $R^s_+(0; \lambda)$. Let $u(0) \in R^s_+(0; \lambda)$. Then $u(x) = \Phi(x, 0)u(0) \in R^s_+(x; \lambda)$ for all $x \geq 0$. Since the inner product $\langle u(x), \tilde{w}_+(x; \lambda) \rangle$ is constant in $x$, we let $x \rightarrow \infty$ to get
+
+\begin{align*}
+\lim_{x \rightarrow \infty} \langle u(x), \tilde{w}_+(x; \lambda) \rangle &= \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \langle u(x), w_+(x; \lambda) \rangle \\
+&= \langle \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} u(x), w_0(\lambda) \rangle \\
+&= 0
+\end{align*}
+
+since $u(x)$ decays exponentially at a faster rate than $|\nu(\lambda)|$. Thus we have $\tilde{w}(0) \perp R^s(0; \lambda)$ and by the same token, $\tilde{w}_+(x; \lambda) \perp R^s_+(x; \lambda)$ for all $ \geq 0$.\\
+
+Note that we cannot play this same game with $R^u_+(x; \lambda)$, since to get decay to 0 we would have to take $x \rightarrow -\infty$. Since all these only pertain to the dichotomy/trichotomy on $\R^+$, they are only valid for $x \geq 0$, so we cannot take that limit.\\
+
+However, we really want to have $\tilde{w}_+(x; \lambda) \perp R^u_+(x; \lambda)$. Since $\tilde{w}_+(x; \lambda)$ is a nonzero scalar multiple of $w_+(x; \lambda)$, this is equivalent to $w_+(x; \lambda) \perp R^u_+(x; \lambda)$ (they are the same at $x = 0$). To attain this, let's change coordinates, like we do in the constant coeffient case. The idea is that if we do this at $x = 0$ to get $w(0) \perp R^u_+(0; \lambda)$, the invariance of the inner product in $x$ should take care of the rest. In fact, we can do this for both the stable and unstable ranges so we might as well do that. Let $\{ a^s_1(0), a^s_2(0)\}$ be a basis for $R^s_+(0; \lambda)$ and let $\{a^u_1(0), a^u_2(0)\}$ be a basis for $R^u_+(0; \lambda)$. Then the set $\{ a^s_1(0), a^s_2(0),a^u_1(0), a^u_2(0), w(0) \}$ is linearly independent thus spans $\R^5$ (or $\C^5$). Change coordinates so that $w(0)$ is perpendicular to the span of the other four. Let $a^{s/u}_i(x) = \Phi(x,0)a^{s/u}_i(0)$, i.e. evolve the basis vectors forward. These will remain linearly independent after evolution, so will be a basis for the appropriate projection ranges at $x$. For simplicity, consider one of these, say $a^s_1(x)$. Since $\Phi(x,0) a^s_1(0)$ solves the eigenvalue problem, therefore by the invariance in $x$ of the inner product of solutions to the eigenvalue problem with solutions to the adjoint eigenvalue problem, for $x \geq 0$
+
+\begin{align*}
+\langle a^s_1(x), \tilde{w}_+(x; \lambda) \rangle &= \langle \Phi(x,0) a^s_1(0), \tilde{w}_+(x; \lambda) \rangle \\
+&= \langle a^s_1(0), \tilde{w}(0) \rangle \\
+&= \langle a^s_1(0), w(0) \rangle 0
+\end{align*}
+
+Since $\tilde{w}_+(x; \lambda)$ is a scalar multiple of $w_+(x; \lambda)$, we also have for $x \geq 0$
+
+\[
+\langle a^s_1(x), w_+(x; \lambda) \rangle = 0
+\]
+
+Thus a single change of variables at $x = 0$ accomplishes what we want. Since $\tilde{w}_+(x; \lambda) \in R^c(x; \lambda)$ and is perpendicular to the other two spaces, to get the center range projection $P^c_+(x; \lambda)$, all we have to do is project onto $\tilde{w}_+(x; \lambda)$. To do this, we take the inner product with $\tilde{w}_+(x; \lambda)$ to get the component in the direction of the basis vector $\tilde{v}_+(x; \lambda)$. Thus for $x \geq 0$ and arbitrary $u$ we should have
+
+\begin{align*}
+P^c_+(x; \lambda)u &= \langle u, \tilde{w}_+(x; \lambda) \rangle \tilde{v}_+(x; \lambda) \\
+&= e^{-\nu(\lambda)x} e^{\nu(\lambda) x }\langle u, w_+(x; \lambda) \rangle v_+(x; \lambda) \\
+&= \langle u, w_+(x; \lambda) \rangle v_+(x; \lambda)
+\end{align*}
+
+We need to verify that this is in fact a projection. To do this, we show that $P^c_+(x; \lambda)P^c_+(x; \lambda) = P^c_+(x; \lambda)$.
+
+\begin{align*}
+P^c_+(x; \lambda)( P^c_+(x; \lambda) u ) &= \langle \langle u, w_+(x; \lambda) \rangle v_+(x; \lambda), w_+(x; \lambda) \rangle v_+(x; \lambda) \\
+&= \langle u, w_+(x; \lambda) \rangle \langle v_+(x; \lambda), w_+(x; \lambda) \rangle v_+(x; \lambda) \\
+&= \langle u, w_+(x; \lambda) \rangle v_+(x; \lambda) \\
+&= P^c_+(x; \lambda) u 
+\end{align*}
+
+where we use the fact (proved above) that $\langle v_+(x; \lambda), w_+(x; \lambda) \rangle = 1$ for all $x \geq 0$. Thus this is a projection. From our definition of $P^c_+(x; \lambda)$ and the coordinate change we did above, we have
+
+\begin{align*}
+\ker P^c_+(x; \lambda) &= ( \text{span }\{ w_+(x; \lambda) \})^\perp\\
+\text{ran } P^c_+(x; \lambda) &= \text{span }\{ v_+(x; \lambda) \}
+\end{align*}
+
+If this were to be an orthogonal projection, that would mean that $(\ker P^c_+(x; \lambda))^
+\perp = \text{ran } P^c_+(x; \lambda)$, i.e. $\text{span }\{ w_+(x; \lambda) \}) = \text{span }\{ v_+(x; \lambda) \})$, which would mean that $v_+(x; \lambda)$ and $w_+(x; \lambda)$ are scalar multiples of each other. Since $\langle v_+(x; \lambda), w_+(x; \lambda) \rangle = 1$ for all $x \geq 0$, this implies $v_+(x; \lambda) = w_+(x; \lambda)$, which I do not think is true, thus this is not necessarily an orthogonal projection.\\
+
+In the last line, we have projected onto the one-dimensional center range, which is invariant under the evolution $\Phi$. Since $\tilde{v}_+(x; \lambda)$ also evolves in that space, we must have $\Phi(x,0) = v_+(x; \lambda)$.\\
+
+We will also want an expression for the center evolution $\Phi^c(x,y; \lambda)$, so let's do that here. For arbirary $u$, we have for $x, y \geq 0$
+
+\begin{align*}
+\Phi^c_+(x,y; \lambda)u &= \Phi(x,y; \lambda) P^c_+(y; \lambda) u \\
+&= \Phi(x,y) \langle u, w_+(y; \lambda) \rangle v_+(y) \\
+&= \Phi(x,y) \langle u, w_+(y; \lambda) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(y) \\
+&= \langle u, w_+(y; \lambda) \rangle e^{-\nu(\lambda)y} \Phi(x,y) \tilde{v}_+(y) \\
+&= \langle u, w_+(y; \lambda) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(x; \lambda) \\
+&= \langle u, w_+(y; \lambda) \rangle e^{-\nu(\lambda)y} e^{\nu(\lambda)x} v_+(x; \lambda) \\
+&= e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle u, w_+(y; \lambda) \rangle 
+\end{align*}
+
+where we used the fact that $\tilde{v}$ is a solution to the eigenvalue problem, thus under the evolution $\Phi(y, x; \lambda)$ we have $\Phi(y, x; \lambda)\tilde{v}_+(x; \lambda) = \tilde{v}_+(y)$.\\
+
+We can do the same thing we just did for the trichotomy on $\R^-$, which will give us analogous funcions $\tilde{v}_-(x; \lambda)$, $v_-(x; \lambda)$, $\tilde{w}_-(x; \lambda)$, and $w_-(x; \lambda)$. The equations for the projection $P^c_-(x)$ and the evolution $\Phi^c_-(x,y)$ will be the same except for the subscripts.\\
+
+At this point, we write down the fixed point equations for the problem. Before we do that, we take a look at where these equations came from. These are very similar to the variation of constants formula, with the primary difference being that we split the solution up into stable, unstable, and center parts, evolve them separately (each with its own IC), and recombine them. So the fixed point equations should look like those in Sandstede (1998) with the addition of a center evolution term together with an IC in the center subspace. Since we are no longer integrating out to $\pm \infty$ the ICs $a_i$ are no longer 0.\\
+
+We can also choose which way to integrate on the ``center'' subspace. For consistency, we will always integrate in the same direction, i.e. from outside in.\\
+
+The eigenvalue problem we are looking at is, in piecewise form,
+
+
+\begin{enumerate}[(i)]
+\item $(W^\pm)' = \tilde{A}(\lambda, q) W^\pm + G(\lambda)W^\pm + \lambda^2 \tilde{H}$
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W^+(0) - W^-(0) \in \C \psi(0)$
+\item $W_i^-(-T) - W_i^+(T) = 0$
+\end{enumerate}
+
+Of course, $W$ is dependent on $\lambda$, but we suppress that dependence in the notation since it is annoying. Thus we get the fixed point problem
+
+\begin{align*}
+W^-(x) = \Phi^s_-(&x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + \Phi^c_-(x, -T; \lambda)c^- \\
+&+ \int_0^x \Phi^u_-(x, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^s_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^c_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ]dy \\
+W^+(x) = \Phi^u_+(&x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + \Phi^c_+(x, T; \lambda)c^+ \\
+&+ \int_0^x \Phi^s_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x \Phi^c_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy
+\end{align*}
+
+where
+
+\begin{align*}
+(a^-, a^+) &\in E^s \oplus E^u\\
+(b^-, b^+) &\in R^u_-(0; 0) \oplus R^s_+(0; 0)\\
+c^\pm &= \tilde{c}^\pm v_0(\lambda)
+\end{align*}
+
+Note that the first two of these spaces refer to the original, unperturbed problem, i.e. with $\lambda = 0$. The projections onto $E^s$, $E^u$, and $E^c$ are given by $P_0^s$, $P_0^u$, and $P_0^c$. Since tildes are annoying, we will write the initial conditions on the ``center'' subspace as $c^\pm v_0(\lambda)$, which gives us the fixed point problem
+
+\begin{align*}
+W^-(x) = \Phi^s_-(&x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + \Phi^c_-(x, -T; \lambda)c^- v_0(\lambda) \\
+&+ \int_0^x \Phi^u_-(x, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^s_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^c_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ]dy \\
+W^+(x) = \Phi^u_+(&x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + \Phi^c_+(x, T; \lambda)c^+ v_0(\lambda) \\
+&+ \int_0^x \Phi^s_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x \Phi^c_+(x, y; \lambda) [ G(\lambda)W+(y) + \lambda^2 \tilde{H}(y) ] dy
+\end{align*}
+
+Since we have an actual formula for $\Phi^c_\pm$, we can substitute it in to get
+
+\begin{align*}
+W^-(x) = \Phi^s_-(&x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
+&+ \int_0^x \Phi^u_-(x, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x \Phi^s_-(x, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^x 
+e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+W^+(x) = \Phi^u_+(&x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + e^{\nu(\lambda)(x - T)} v_+(x; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
+&+ \int_0^x \Phi^s_+(x, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^x e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+Now we do the same thing we do every night... try to take over the world. Following what was done in Sandstede (1998), we will try to invert this and see what happens. Before we take like 100 pages and do this rigorously (since it might not work), here is a rough list of what needs to happen, together with what the estimates should be. ALSO CAPITAL W AND SMALL w ARE NOT RELATED WHICH GOES AGAINST MY NOTATION CONVENTION BUT WE WILL DEAL WITH THIS LATER.
+
+\begin{enumerate}
+
+\item Fix $\tilde{\alpha}$, with $0 < \tilde{\alpha} < \alpha$. 
+
+\begin{enumerate}[(i)]
+	\item Ideally, $\tilde{\alpha}$ will be close to $\alpha$
+	\item We choose $\lambda$ sufficiently small, i.e. $|\lambda| < \delta$ for some fixed $\delta$. We must choose $\delta$ so that $|\nu(\lambda)| < \tilde{\alpha}$ for all $|\lambda| < \delta$.
+\end{enumerate}
+
+\item Linear operator $L_1$ is stuff from the fixed point equations involving $W$.
+
+\begin{align*}
+(L_1(\lambda)W)^-(x) &= \int_0^x \Phi^u(x, y; \lambda) G(\lambda)(y)W^-(y) dy \\
+&+ \int_{-T}^x \Phi^s(x, y; \lambda) G(\lambda)(y)W^-(y) dy \\
+&+ \int_{-T}^x 
+e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G(\lambda)(y)W^-(y), w_-(y; \lambda) \rangle dy 
+\end{align*}
+
+and
+
+\begin{align*}
+(L_1(\lambda)W)^+(x) &= \int_0^x \Phi^s_+(x, y; \lambda) G(\lambda)W^+(y) dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) G(\lambda)W^+(y) dy \\
+&+ \int_0^x e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle G(\lambda)(y)W^+(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+The first two terms on the RHS of this are like those from Sanstede (1998). For the third term we have for the negative piece,
+
+\begin{align*}
+\Big| \int_{-T}^x &e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G(\lambda)(y)W^-(y), w_-(y; \lambda) \rangle dy \Big| \\
+&\leq \int_{-T}^x e^{\nu(\lambda)(x-y)} |v_-(x; \lambda)| |G(\lambda)|||W|||w_-(y; \lambda)|dy \\
+&\leq |G||v||w|||W|| \int_{-T}^x e^{\nu(\lambda)(x-y)} dy \\
+&= |G||v||w|||W|| \frac{e^{\nu(\lambda)x} - 1}{\nu(\lambda)} \\
+&\leq C e^{\nu(\lambda)T} |G| \: ||W||
+\end{align*}
+
+where we used the fact that $x \leq 0$ on the negative piece. Since $v$ and $w$ are bounded and only depend on $\lambda$ (we pulled out the exponential growth/decay in our expressions for $\tilde{v}$ and $\tilde{w}$), we incorporate those bounds into the constant $C$, which depends on $\lambda$. The positive piece has a similar bound. Thus we have
+
+\[
+||L_1(\lambda)W|| \leq C e^{\nu(\lambda)T} |G| \: ||W||
+\]
+
+Since $|G|$ is of order $e^{-\alpha T}$ and $\nu(\lambda)$ is small, we can choose $T$ sufficiently large that the operator norm of this is less than 1.
+
+\item Linear operator $L_2$ is stuff from fixed point equations not involving $W$.
+
+\begin{align*}
+(L_2(\lambda)(a,b,c))^-(x) &= \Phi^s_-(x, -T; \lambda)a^- + \Phi^u_-(x, 0; \lambda)b^- + e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
+&+ \int_0^x \Phi^u_-(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
+&+ \int_{-T}^x \Phi^s_-(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
+&+ \int_{-T}^x 
+e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+\end{align*}
+
+and
+
+\begin{align*}
+(L_2(\lambda)(a,b,c))^+(x) &= \Phi^u_+(x, T; \lambda)a^+ + \Phi^s_+(x, 0; \lambda)b^+ + e^{\nu(\lambda)(x - T)} v_+(x; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
+&+ \int_0^x \Phi^s_+(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
+&+ \int_T^x \Phi^u_+(x, y; \lambda) \lambda^2 \tilde{H}(y) dy \\
+&+ \int_T^x e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+Again, most of this is the same as we had before. For the $c$ term, we have 
+
+\[
+|e^{\nu(\lambda)(x+T)} v_-(x; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- | \leq C e^{\nu(\lambda)T}|c^-|
+\]
+
+and similar for the $c^+$. We have an $e^{\nu(\lambda)T}$ in the bound, but for now there is nothing we can do about that.
+\\
+
+The third integrals are similar to the integral in $L_1$. For the third integrals (involving $\tilde{H}$), we use the $\tilde{\alpha}$ trick to get a better bound which does not involve a potential exponential growth term. For this term we have
+
+\begin{align*}
+&\left| \int_{-T}^x 
+e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \right| \\
+&\leq C |\lambda|^2 e^{\tilde{\alpha}x} \int_{-T}^x e^{-\tilde{\alpha}x} e^{\tilde{\alpha}y} e^{\nu(\lambda)(x-y)} |e^{-\tilde{\alpha}y}\tilde{H}(y)|dy \\
+&\leq C |\lambda|^2 e^{\tilde{\alpha}x} \int_{-T}^x e^{-\tilde{\alpha}(x-y)} e^{\nu(\lambda)(x-y)} |e^{-\tilde{\alpha}y}\tilde{H}(y)|dy \\
+&\leq C |\lambda|^2 \int_{-T}^0 e^{(\tilde{\alpha}-\nu(\lambda))y} |e^{-\tilde{\alpha}y}\tilde{H}(y)|dy \\
+&\leq C |\lambda|^2
+\end{align*}
+
+Thus we have bound
+
+\[
+||L_2(\lambda)(a,b,c)|| \leq C (|a| + |b| + e^{\nu(\lambda)T} |c| + |\lambda|^2)
+\]
+
+
+\item We can invert the expression $(I - L_1(\lambda))W = L_2(\lambda)(a,b)$ to get $W = W_1(\lambda)(a,b)$, where we have the bound
+
+\[
+||W_1(\lambda)(a,b,c)|| \leq C (|a| + |b| + e^{\nu(\lambda)T}|c| + |\lambda|^2)
+\]
+
+\item In the non-periodic single-pulse case, $a$ does not exist, i.e. it is 0. In this case, however, since we do not go to $\pm \infty$, $a^\pm$ plays a role. What we do here is something similar to the double pulse case, except we solve for $a^\pm$ by enforcing the periodic BCs, i.e. $W^-(-T) = W^+(T)$. We have 
+
+\begin{align*}
+W^-(-T) &= P^s_-(-T; \lambda)a^- + \Phi^u_-(-T, 0; \lambda)b^- + v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
+&+ \int_0^{-T} \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+\end{align*}
+
+and
+
+\begin{align*}
+W^+(T) &= P^u_+(T; \lambda)a^+ + \Phi^s_+(T, 0; \lambda)b^+ + v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
+&+ \int_0^T \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+\end{align*}
+
+As we did before, let
+
+\[
+p_1(T;\lambda) = \sup_{x \geq T} (|P^u(x;\lambda) - P_0^u| + |P^s(-x;\lambda) - P_0^s|)
+\]
+
+which should be order $e^{-\alpha T}$. Then we write these as
+
+\begin{align*}
+W^-(-T) &= a^- + (P^s_-(-T; \lambda) - P_0^s)a^- + \Phi^u_-(-T, 0; \lambda)b^- + v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^-\\
+&+ \int_0^{-T} \Phi^u_-(-T, y; \lambda)[ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+\end{align*}
+
+and
+
+\begin{align*}
+W^+(T) &= a^+ + (P^u_+(T; \lambda) - P_0^u)a^+ + \Phi^s_+(T, 0; \lambda)b^+ + v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
+&+ \int_0^T \Phi^s_+(T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+\end{align*}
+
+We want to solve $W^+(-T) - W^-(T) = 0$, which we write as
+
+\begin{align*}
+0 &= a^+ - a^- \\
+&+ (P^u_+(T; \lambda) - P_0^u)a^+ - (P^s_-(-T; \lambda) - P_0^s)a^- \\
+&+ \Phi^s_+(T, 0; \lambda)b^+ - \Phi^u_-(-T, 0; \lambda)b^- \\
+&+ v_+(T; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ - v_-(-T; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
+&+ \int_0^{T} \Phi^s_+(T, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&- \int_0^{-T} \Phi^u_-(-T, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy
+\end{align*}
+
+i.e. 
+
+\begin{align*}
+0 &= a^+ - a^- + L_3(\lambda)(a, b, c)
+\end{align*}
+
+where $L_3(\lambda)$ is the rest of the garbage on the RHS. What we are going to do this time is leave the $c$ coefficients until the next step, so we can work with what we have above.\\
+
+The stuff making up $L_3(\lambda)$ is sufficiently small that we can get a nice bound on it. 
+
+\[
+|L_3(\lambda)(a, b, c)| \leq C ( p_1(T; \lambda)|a|
++ e^{-\alpha T}|b| + |c| + |G|||W|| + |\lambda^2| )
+\]
+
+It turns out, however, that this bound is not good enough. The culprit is the $|\lambda|^2$ term, which comes from the integral involving $\tilde{H}$. But we can get a better bound.
+
+\begin{align*}
+\left| \int_0^T \Phi^s_+(T, y; \lambda) \tilde{H}(y) dy \right| 
+&\leq C \int_0^T e^{-\alpha (T - y)}|\tilde{H}(y)| dy \\
+&= C e^{-\tilde{\alpha}T} \int_0^T e^{-\alpha T} e^{\alpha y}  e^{\tilde{\alpha}T} e^{-\tilde{\alpha}y} |e^{\tilde{\alpha}y} \tilde{H}(y)| \\
+&= C e^{-\tilde{\alpha}T} \int_0^T e^{-(\alpha - \tilde{\alpha})(T-y)} |e^{\tilde{\alpha}y} \tilde{H}(y)|\\
+&\leq C e^{-\tilde{\alpha}T} 
+\end{align*}
+
+where we used the fact that $|e^{\tilde{\alpha}y} \tilde{H}(y)|$ is bounded, since $\tilde{\alpha}$ is smaller than $\alpha$, and $\tilde{H}(y)$ decays with rate $\alpha$. This makes the constant $C$ bigger, but we don't care about that. Thus we have the improved bound
+
+\[
+|L_3(\lambda)(a, b, c)| \leq C ( p_1(T; \lambda)|a|
++ e^{-\alpha T}|b| + |c| + |G|||W|| + e^{-\tilde{\alpha}T} |\lambda^2| )
+\]
+
+Plugging in $W_1$ above for $W$, this bound becomes
+
+
+\begin{align*}
+|L_3(\lambda)(a, b, c)| &\leq C ( p_1(T; \lambda)|a|
++ e^{-\alpha T}|b| + |c| + |G|||W_1(\lambda)(a,b,c)|| + e^{-\tilde{\alpha}T} |\lambda^2| ) \\ 
+&\leq C ( p_1(T; \lambda)|a|
++ e^{-\alpha T}|b| + |c| + |G||(|a| + |b| + e^{\nu(\lambda)T}(|c| + |\lambda|^2)) + e^{-\tilde{\alpha}T}|\lambda^2| ) \\
+&\leq C ( (p_1(T; \lambda) + |G|)|a| + (e^{-\alpha T} + |G|)|b| + |c| + e^{-\tilde{\alpha}T}|\lambda^2| ) 
+\end{align*}
+
+All coefficients of $|a|$ are small, which is good. We now play the same trick as in Sanstede (1998), which works because $E^s \oplus E^u = \C^4$. Thus we can solve for $(a^+, a^-)$ here.\\
+
+A NOTE BEFORE CONTINUING. WE CAN ACTUALLY HIT THIS WHOLE THINGS WITH THE PROJECTION ON $E^s \oplus E^u$ IF WE NEED, WHICH MIGHT GIVE US A BETTER ESTIMATE.\\
+
+Let $J_1: V_a \rightarrow \C^4$ be defined by $J_1(a) = (a^+ - a^-)$. By what we have above, the map $J_1$ is a linear isomorphism. Now consider the map
+
+\[
+S_1(a) = J_1 (a) + L_3(\lambda)(a, 0, 0) = J_1( I + J_1^{-1} L_3(\lambda)(a, 0, 0) )
+\]
+
+For suffiently small $\delta$, we can get the operator norm $||J_1^{-1} L_3(\lambda)(\cdot, 0, 0)|| < 1$, thus the map $a \rightarrow I + J_1^{-1} L_3(\lambda)(a, 0, 0)$ is invertible and so the operator $S_1$ is invertible.\\
+
+Thus we have
+
+\[
+a = A_1(\lambda)(b, c) = S_1^{-1}(- L_3(\lambda)(0, b, c))
+\]
+
+We have the following bound on $A_1(\lambda)$ (from the bound on $L_3$).
+
+\[
+|A_1(\lambda)(b, c)| \leq C ( (e^{-\alpha T} + |G|)|b| + |c| + e^{-\tilde{\alpha}T} |\lambda^2|)
+\]
+
+We can plug this into our expression for $W_1$ to get $W_2(\lambda)$ which has bound
+
+
+\begin{align*}
+||W_2(\lambda)&(b,c)|| \leq C (|A_1(\lambda)(b, c)| + |b| + e^{\nu(\lambda)T}|c| + |\lambda|^2) \\
+&\leq C ((e^{-\alpha T} + |G|)|b| + |c| + e^{-\tilde{\alpha}T} |\lambda|^2 + |b| + e^{\nu(\lambda)T}|c| + |\lambda|^2) \\
+&= C (|b| + e^{\nu(\lambda)T}|c| + |\lambda|^2) 
+\end{align*}
+
+\item Now we look at the conditions
+
+\begin{enumerate}[(i)]
+\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W^+(0) - W^-(0) \in \C \psi(0)$ 
+\end{enumerate}
+
+where we recall that these spaces refer to the unperturbed $\lambda = 0$ case. Taking $x = 0$ in the fixed point equations gets us
+
+\begin{align*}
+W^-(0) &= \Phi^s_-(0, -T; \lambda)a^- + P^u_-(0; \lambda)b^- + e^{\nu(\lambda)T} v_-(0; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
+&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + P^s_+(0; \lambda)b^+ + e^{-\nu(\lambda)T} v_+(0; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
+&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+Recall that the initial conditions $b$ were chosen from the appropriate spaces when $\lambda = 0$, thus the various projections above do not just disappear. However, we hope they will be near identities. Let
+
+\[
+p_3(\lambda) = |P^u_-(0;\lambda) - P^u_-(0; 0)| + |P^s_+(0;\lambda) - P^s_+(0;0)|
+\]
+
+We will deal with this later, but this should be order $\lambda$. We rewrite this as
+
+\begin{align*}
+W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- + e^{\nu(\lambda)T} v_-(0; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
+&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ + e^{-\nu(\lambda)T} v_+(0; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
+&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+Since the stable and unstable range spaces at $\lambda = 0$ both contain $\C Q'(0)$, we can decompose $b^\pm$ uniquely as $b^\pm = x^\pm + y^\pm$, where $x^\pm \in \C Q'(0)$ and $y^\pm \in Y^\pm$. Then since
+
+\begin{equation}\label{directsum}
+\C^n = \C\Psi(0) \oplus \C Q'(0) \oplus Y^+ \oplus Y^- \oplus Y^0
+\end{equation}
+
+(each of these is 1D in this case), the conditions above are equivalent to the following projections
+
+\begin{align*}
+P(\C Q'(0) \oplus Y^0 )W^-(0) &= 0 \\
+P(\C Q'(0) \oplus Y^0 )W^+(0) &= 0 \\
+P(Y^+ \oplus Y^-) (W^+(0) - W^-(0) ) &= 0
+\end{align*}
+
+where the range of each projection is indicated, and the kernel of each projection is just the other elements of the direct sum \eqref{directsum}. Since the first two equations wipe out any component in $\C Q'(0))$, we don't need to put that in the range of the third projection. \\
+
+Let $y_0 = v_\pm(0; 0)$ be a unit vector for $Y^0$. Since there is only a small order $\lambda$ perturbation when we go from $y_0$ to $v_\pm(0; \lambda)$ we have the following two direct sums
+
+\begin{equation}\label{directsum}
+\C^n = \C\Psi(0) \oplus \C Q'(0) \oplus Y^+ \oplus Y^- \oplus v_\pm(0; \lambda)
+\end{equation}
+
+(It is two direct sums because we can choose either of $v_\pm(0; \lambda)$ for the last component). 
+
+So we should be able to use the following projections
+
+\begin{align*}
+P(\C Q'(0) \oplus \C v_-(0; \lambda) )W^-(0) &= 0 \\
+P(\C Q'(0) \oplus \C v_+(0; \lambda) )W^+(0) &= 0 \\
+P(Y^+ \oplus Y^-) (W^+(0) - W^-(0) ) &= 0
+\end{align*}
+
+We can write this as five projections instead
+\begin{align*}
+P(\C Q'(0) )W^-(0) &= 0 \\
+P(\C Q'(0) )W^+(0) &= 0 \\
+P(\C v_-(0; \lambda)) &= 0 \\
+P(\C v_+(0; \lambda)) &= 0 \\
+P(Y^+ \oplus Y^-) (W^+(0) - W^-(0) ) &= 0
+\end{align*}
+
+where the appropriate direct sum is used in the projection to wipe out the things we don't want. This lets us ``split up'' many of the coefficients and should help us get what we want. Hopefully.
+
+\begin{align*}
+W^-(0) &= \Phi^s_-(0, -T; \lambda )a^- + b^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- + e^{\nu(\lambda)T} v_-(0; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
+&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+W^+(0) &= \Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ + e^{-\nu(\lambda)T} v_+(0; \lambda) \langle v_0(\lambda), w_+(T; \lambda) \rangle c^+ \\
+&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+Before we start hitting this thing with all sorts of projections, we need to get the $c^\pm$ term into a form we can deal with. 
+
+\begin{align*}
+e^{\nu(\lambda)T} &v_-(0; \lambda) \langle v_0(\lambda), w_-(-T; \lambda) \rangle c^- \\
+&= e^{\nu(\lambda)T} v_-(0; \lambda) \langle v_0(\lambda), w_0(\lambda) \rangle c^- + e^{\nu(\lambda)T} v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(-T; \lambda) \rangle c^- \\
+&= e^{\nu(\lambda)T} v_-(0; \lambda) c^- + e^{\nu(\lambda)T} v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(-T; \lambda) \rangle c^- 
+\end{align*}
+
+where 
+
+\begin{align*}
+\Delta v_\pm(x; \lambda) &= v_\pm(x; \lambda) - v_0(\lambda) \\
+\Delta w_\pm(x; \lambda) &= w_\pm(x; \lambda) - w_0(\lambda)
+\end{align*}
+
+These things approach 0 as $x \rightarrow \pm \infty$, but we do not have a rate of convergence since we pulled out the exponential factor above when we defined these things.\\
+
+Next we note that the $c^\pm$ now have coefficients $e^{\pm \nu(\lambda) }T$. One of these is potentially bad, but we do not know which one. To get around this, we will add and subtract the other version. \\
+
+To make this less messy, we define the following functions scalar functions of $T$ and $\lambda \neq 0$. (We know that $\nu(\lambda) \neq 0$ for $\lambda \neq 0$).
+
+\begin{align*}
+f(T; \lambda) = e^{\nu(\lambda)T} + e^{-\nu(\lambda)T} &= 2 \cosh (\nu(\lambda) T) \\
+f^-(T; \lambda) &= e^{-\nu(\lambda)T} / f(T; \lambda) \\
+f^+(T; \lambda) &= e^{\nu(\lambda)T} / f(T; \lambda)
+\end{align*}
+
+Note that we always have $|f^\pm(T; \lambda)| < 1$.\\
+
+Using these, we have
+
+\begin{align*}
+e^{\nu(\lambda)T} c^- &= (e^{\nu(\lambda)T} + e^{-\nu(\lambda)T})c^- - e^{-\nu(\lambda)T})c^- \\
+&= f(T; \lambda) c^- - f^-(T; \lambda)f(T; \lambda) c^-
+\end{align*}
+
+Similarly,
+
+\begin{align*}
+e^{-\nu(\lambda)T} c^+ &= f(T; \lambda) c^+ - f^+(T; \lambda)f(T; \lambda) c^+
+\end{align*}
+
+Thus the fixed point equations at $x = 0$ look like
+
+\begin{align*}
+W^-(0) &= x^- + y^- + v_-(0; \lambda) f(T; \lambda) c^- \\
+&+\Phi^s_-(0, -T; \lambda )a^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \\
+&- f^-(T; \lambda) v_-(0; \lambda) f(T; \lambda) c^- \\
+&+ \langle v_0(\lambda), \Delta w_-(-T; \lambda) \rangle 
+f^+(T; \lambda) v_-(0; \lambda) f(T; \lambda) c^- \\
+&+ \int_{-T}^0 \Phi^s_-(0, y; \lambda) [ G(\lambda)W^-(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
+W^+(0) &= x^+ + y^+ + v_+(0; \lambda) f(T; \lambda) c^+ \\
+&+\Phi^u_+(0, T; \lambda)a^+ + b^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b^+ \\
+&- f^+(T; \lambda) v_+(0; \lambda) f(T; \lambda) c^+ \\
+&+ \langle v_0(\lambda), \Delta w_+(T; \lambda) \rangle 
+f^-(T; \lambda)f(T; \lambda) v_+(0; \lambda) c^+ \\
+&+ \int_T^0 \Phi^u_+(0, y; \lambda) [ G(\lambda)W^+(y) + \lambda^2 \tilde{H}(y) ] dy \\
+&+ \int_T^0 e^{-\nu(\lambda)y} v_+(0; \lambda) \langle G(\lambda)(y)W^+(y) + \lambda^2 \tilde{H}(y), w_+(y; \lambda) \rangle dy
+\end{align*}
+
+
+If we plug in the fixed point equations into the above set of projections, we get the matrix equation
+
+\[
+\begin{pmatrix}x^- \\ x^+ \\ 
+f(T; \lambda) v_-(0; \lambda) c^- \\
+f(T; \lambda) v_+(0; \lambda) c^+ \\
+y^+ - y^- \end{pmatrix} + L_4(\lambda)(b, c) = 0
+\]
+
+where $L_4(\lambda)(b, c)$ is the rest of the terms that don't get eliminated outright by the projections.
+\\
+
+Thus we have the following bound on $L_4(\lambda)$. 
+
+\begin{align*}
+|L_4(\lambda)(b, c)| &\leq C( e^{-\alpha T}|a| + p_3(\lambda)|b| \\ 
+&+ (f^+(T; \lambda) p_2(T; \lambda) + f^-(T; \lambda)) f(T; \lambda) v_-(0; \lambda) |c^-| \\
+&+ (f^-(T; \lambda) p_2(T; \lambda) + f^+(T; \lambda)) f(T; \lambda) v_+(0; \lambda) |c^+| \\
+&+ e^{\nu(\lambda)T}|G|||W|| + |\lambda^2|)
+\end{align*}
+
+where
+
+\begin{align*}
+p_2(T; \lambda) &= |\Delta v_\pm(\pm T, \lambda)| + |\Delta w_\pm(\pm T, \lambda)|\\
+&= |v_\pm(\pm T; \lambda) - v_0(\lambda)| + |w_\pm(\pm T; \lambda) - w_0(\lambda)|
+\end{align*}
+
+and
+
+\[
+p_3(\lambda) = |P^u_-(0;\lambda) - P^u_-(0; 0)| + |P^s_+(0;\lambda) - P^s_+(0;0)|
+\]
+
+$p_3(\lambda)$ should be order $\lambda$. As discussed above, $p_2$ decays to 0 in $T$, but we have no order or rate for it. For the last integral we used the $\tilde{\alpha}$ trick to absorb the exponential factor $e^{\pm \nu(\lambda) T}$. To complete the bound, we substitute $A_1(\lambda)(b,c)$ for $|a|$ and $W_2(\lambda)(b,c)$ to get
+
+\begin{align*}
+|L_4(\lambda)&(b, c)| \\
+&\leq C( e^{-\alpha T}|A_1(\lambda)(b,c)| \\
+&+ p_3(\lambda)|b| \\ 
+&+ (f^+(T; \lambda) p_2(T; \lambda) + f^-(T; \lambda)) f(T; \lambda) v_-(0; \lambda) |c^-| \\
+&+ (f^-(T; \lambda) p_2(T; \lambda) + f^+(T; \lambda)) f(T; \lambda) v_+(0; \lambda) |c^+| \\
+&+ e^{\nu(\lambda)T}|G|||W_2(\lambda)(b,c)|| \\
+&+ |\lambda^2|) \\
+&\leq C( e^{-\alpha T}( (e^{-\alpha T} + |G|)|b| + |c| + e^{-\tilde{\alpha}T} |\lambda^2|)\\
+&+ p_3(\lambda)|b| \\ 
+&+ (f^+(T; \lambda) p_2(T; \lambda) + f^-(T; \lambda)) f(T; \lambda) v_-(0; \lambda) |c^-| \\
+&+ (f^-(T; \lambda) p_2(T; \lambda) + f^+(T; \lambda)) f(T; \lambda) v_+(0; \lambda) |c^+| \\
+&+ e^{\nu(\lambda)T}|G|(|b| + e^{\nu(\lambda)T}|c| + |\lambda|^2)  \\
+&+ |\lambda^2|)
+\end{align*}
+
+Simplifying this and dropping higher order terms, this becomes
+
+\begin{align*}
+|L_4(\lambda)&(b, c)| \\
+&\leq C\Big(( p_3(\lambda) + e^{-\alpha T}( e^{-\alpha T} + |G|) +  e^{\nu(\lambda)T}|G|)|b| \\ 
+&+ (f^+(T; \lambda) (p_2(T; \lambda) + e^{\nu(\lambda)T}|G|) + f^-(T; \lambda) + e^{-\alpha T} ) f(T; \lambda) v_-(0; \lambda) |c^-| \\
+&+ (f^-(T; \lambda) (p_2(T; \lambda) + e^{\nu(\lambda)T}|G|) + f^+(T; \lambda) + e^{-\alpha T} ) f(T; \lambda) v_+(0; \lambda) |c^+| \\
+&+ ( e^{\nu(\lambda)T}|G| + e^{-(\alpha + \tilde{\alpha}) T} + 1) |\lambda|^2 \Big) \\
+&\leq C\Big(( p_3(\lambda) +  e^{\nu(\lambda)T}|G|)|b| \\ 
+&+ (f^+(T; \lambda) (p_2(T; \lambda) + e^{\nu(\lambda)T}|G|) + f^-(T; \lambda) + e^{-\alpha T} ) f(T; \lambda) v_-(0; \lambda) |c^-| \\
+&+ (f^-(T; \lambda) (p_2(T; \lambda) + e^{\nu(\lambda)T}|G|) + f^+(T; \lambda) + e^{-\alpha T} ) f(T; \lambda) v_+(0; \lambda) |c^+| \\
+&+ |\lambda|^2 \Big) \\
+\end{align*}
+
+
+Following what we did above, we can make the coefficients of $|b|$ and $|f(T; \lambda) c^\pm|$ as small as we want. For $|b|$ this is easy. For $|f(T; \lambda) c^\pm|$, note that 
+
+\[
+f^-(T; \lambda) + f^+(T; \lambda) = 1
+\]
+
+and both terms on the LHS are positive. Since $p_2(T; \lambda) + e^{\nu(\lambda)T}|G|$ can be made as small as we want by choosing $\lambda$ sufficiently small and $T$ sufficiently large, and since we can make $e^{-\alpha T}$ as small as we want, we can obtain a coefficient of $|f(T)c^\pm|$ of magnitude less than 1. Thus we can do the inversion. Leaving out the details for now, this will give us an operator $B_1(\lambda)$ such that
+
+\[
+(b, f(T; \lambda) c ) = B_1(\lambda)
+\]
+
+with bound
+
+\[
+|B_1(\lambda)| \leq C|\lambda|^2
+\]
+
+In particular, this means that $b$ is of order $|\lambda|^2$ and $c^-$ is order $e^{-|\nu(\lambda)T|} |\lambda|^2$, since we divide by $f(T; \lambda)$ which is order $e^{|\nu(\lambda)T|}$.\\
+
+Substituting this into $A_1$ gives us $A_3$ with bound
+
+\begin{align*}
+|A_3(\lambda)&(b, c)| \leq C ( (e^{-\alpha T} + |G|)|b| + e^{-|\nu(\lambda)T|}|f(T; \lambda) c| + e^{-\tilde{\alpha}T} |\lambda^2|) \\
+&\leq C ( (e^{-\alpha T} + |G|)|B_1(\lambda)| + e^{-|\nu(\lambda)T|}|B_1(\lambda)| + e^{-\tilde{\alpha}T} |\lambda^2|) \\
+&\leq C ( (e^{-\alpha T} + |G|)|\lambda|^2 + e^{-|\nu(\lambda)T|}|\lambda|^2 + e^{-\tilde{\alpha}T} |\lambda^2|) \\
+&\leq C e^{-|\nu(\lambda)T|} |\lambda|^2
+\end{align*}
+
+Substituting this into $W_2$ gives us $W_3$ with bound
+
+\begin{align*}
+||W_3(\lambda)&|| \leq C (|b| + e^{\nu(\lambda)T}|c| + |\lambda|^2) \\
+&\leq C (|b| + |f(T; \lambda) c| + |\lambda|^2) \\
+&\leq C( B_1(\lambda) + |\lambda|^2)\\
+&\leq C |\lambda|^2
+\end{align*}
+
+\item For the single pulse we have no $d$, so we will need $A_2$ or $A_4$. For multipulses we will need these.
+
+\item Now we can estimate the jump
+
+\[
+\langle \Psi(0), W^-(0) - W^+(0) \rangle 
+\]
+
+Recall here that $\Psi(0)$ is the adjoint solution for the unperturbed problem, i.e. when $\lambda = 0$, so it does not depend on $\lambda$. The equations for $W$ contain the evolution operator $\Phi^{(s/u)}_\pm(x, y; \lambda)$ which are for the perturbed system with $\lambda \neq 0$. So we cannot quite do the same thing as was done in Sanstede (1998), but hopefully we can work something out.\\
+
+For the adjoint solution $\Psi(x)$, we have estimate 
+
+\[
+|\Psi(x)| \leq C e^{-\alpha|x|}
+\]
+
+which holds since we know exactly what $\Psi$ is in this case. Note as well that $\Psi(0)$ is just a fixed constant.\\
+
+Thus the jump is given by
+
+\[
+\langle \Psi(0), W^-(0) - W^+(0) \rangle 
+\]
+
+\item Terms involving $a$
+
+\begin{align*}
+|\langle \Psi(0), \Phi^s_-(0, -T; \lambda )a^- \rangle| &\leq |\Psi(0)||\Phi^s_-(-T, 0; \
+)\lambda||a^-| \\
+&\leq C e^{-\alpha T} |a^-|
+\end{align*}
+
+Using $A_3(\lambda)$ we have the bound
+
+\[
+|\langle \Psi(0), \Phi^s_-(0, -T; \lambda )a^- \rangle| \leq C e^{-\alpha T} |\lambda|^2
+\]
+
+We actually have the bound 
+
+\[
+|\langle \Psi(0), \Phi^s_-(0, -T; \lambda )a^- \rangle| \leq C e^{-\alpha T} e^{-|\nu(\lambda)|T} |\lambda^2|
+\]
+
+but that's better than we need. The other one has the same bound. Note that since $d$ is not involved, we will not get another term here.
+
+\item Terms involving $b$.\\
+
+The terms involving $b^\pm$ by themselves will die since they are in the spaces $R^u_-(0; 0) \oplus R^s_+(0; 0)$ which are perpendicular to $\Psi(0)$.\\
+
+The other terms involving $b$ look like $(P^u_-(0; \lambda) - P^u_-(0; 0))b^-$ (and similar for the other one). A bound on these terms looks like
+
+\begin{align*}
+|\langle \Psi(0), (P^u_-(0; \lambda) - P^u_-(0; 0))b^- \rangle|
+&\leq |\Psi(0)| p_3(\lambda)|b| \\
+&\leq C p_3(\lambda) |\lambda|^2
+\end{align*}
+
+where in the last line we substituted $B_1(\lambda)$ for $b^\pm$.
+
+\item Terms involving $c$.\\
+
+These terms look like
+
+\begin{align*}
+&e^{\nu(\lambda)T} \langle v_0(\lambda), w_-(-T; \lambda) \rangle v_-(0; \lambda) c^- \\
+&e^{-\nu(\lambda)T} \langle v_0(\lambda), w_+(T; \lambda) \rangle v_+(0; \lambda) c^+
+\end{align*}
+
+Let's do the first one. We take the inner product with $\Psi(0)$, which only hits the $v_-(0; \lambda)$ term since everything else is a scalar. This gives us 
+
+\begin{align*}
+e^{\nu(\lambda)T} c^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle
+\end{align*}
+
+We would like to do something useful with the second inner product, but we cannot at the moment since one term is a solution to the adjoint when $\lambda = 0$ and the other term is a solution to the perturbed eigenvalue problem when $\lambda \neq 0$. To do this, we will expand $v_-(0; \lambda)$ in a Taylor series about $\lambda = 0$. THIS ASSUMES OF COURSE THAT WE CAN DO THIS; FOR NOW WE WILL ASSUME WE CAN.
+
+\[
+v_-(0; \lambda) = v_-(0; 0) + \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} + \mathcal{O}(\lambda^2)
+\]
+
+I don't know if we can compute $\frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0}$, but it should just be a constant which depends only on the initial setup of the problem. Assuming that is the case, we have 
+
+\begin{align*}
+|&e^{\nu(\lambda)T} c^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|\\
+&\leq e^{\nu(\lambda)T}|c| |\langle v_0(\lambda), w_-(-T; \lambda) \rangle|\langle \Psi(0), v_-(0; 0) + \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} + \mathcal{O}(\lambda^2) \rangle| \\
+&\leq e^{\nu(\lambda)T}|c| |\langle v_0(\lambda), w_-(-T; \lambda) \rangle| \left( |\langle \Psi(0), v_-(0; 0) \rangle| +  |\langle \Psi(0), \lambda \frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0} \rangle| + \mathcal{O}(|\lambda|^2) \right)
+\end{align*}
+
+For sufficiently large $T$, $\langle v_0(\lambda), w_-(-T; \lambda) \rangle$ is approximately 1 (add/subtract $w_0(\lambda)$ and do what we did above). We also have $\langle \Psi(0), v_-(0; 0) \rangle = 0$ since $\langle \Psi(0), v_-(0; 0) \rangle = \langle \Psi(0), \tilde{v}_-(0; 0) \rangle$, the inner product of this is constant in $x$ by Lemma \ref{eigadjoint}, and $\Psi(x)$ decays to 0 at $-\infty$ faster than any growth in $\tilde{v}_-(x; 0)$ at $-\infty$. Thus this becomes (taking $\frac{\partial}{\partial \lambda}v_-(0; \lambda)\Big|_{\lambda = 0}$ as a constant),
+
+\begin{align*}
+|&e^{\nu(\lambda)T} c^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|
+\leq C e^{\nu(\lambda)T}|c| (|\lambda| + \mathcal{O}(\lambda^2) )
+\end{align*}
+
+Using the estimate for $|c|$, i.e. that $|c|$ is order $e^{-|\nu(\lambda)T|} |\lambda|^2$, this becomes 
+
+\begin{align*}
+|&e^{\nu(\lambda)T} c^- \langle v_0(\lambda), w_-(-T; \lambda) \rangle \langle \Psi(0), v_-(0; \lambda) \rangle|\\
+&\leq C |\lambda|^3
+\end{align*}
+
+The other one is similar.
+
+\item Now we do the integral terms. The ``noncenter'' ones should be just like the ones we already have done. Doing just the ``minus'' ones we have for the one not involving $H$
+
+\begin{align*}
+\left| \langle \Psi(0), \int_{-T}^0 \Phi^s_-(0, y; \lambda) G(\lambda)W^-(y) dy \rangle \right|
+&\leq C |G| ||W|| \\
+&\leq C |G| e^{\nu(\lambda)T}|\lambda|^2 
+\end{align*}
+
+For the one involving $H$ (which is multiplied by $|\lambda^2|$), we have
+
+\begin{align*}
+\langle \Psi(0)&, \int_{-T}^0 \Phi^s_-(0, y; \lambda) \tilde{H}(y) dy \rangle \\ 
+&= \int_{-T}^0 \langle \Psi(0), \Phi^s_-(0, y; 0) \tilde{H}(y) \rangle dy + 
+\int_{-T}^0 \langle \Psi(0), (\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)) \tilde{H}(y) \rangle dy
+\end{align*}
+
+where we need to play this trick to replace the $\lambda$-dependent evolution with the evolution when $\lambda = 0$ in order to get the Melnikov term we want. At present I have no idea how to bound the difference $|\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)|$. We do know that they individually decay like $e^{-\alpha y}$, but that is not sufficient. If you were to Taylor about $\lambda = 0$ you would start with an order $\lambda$ term, so we will assume we have something like
+
+\[
+|\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)| \leq C |\lambda| e^{-\alpha y}
+\]
+
+It is at least reasonable, and will get us what we want. IF WE THINK THIS IS CORRECT WE SHOULD ACTUALLY SHOW IT. (The specific decay rate here does not really matter, just that it decays exponentially.) With this bound, the second integral above is order $|\lambda|$. For the first integral, we have 
+
+\begin{align*}
+\int_{-T}^0 \langle \Psi(0), \Phi^s_-(0, y; 0) \tilde{H}(y) \rangle dy &= 
+\int_{-T}^0 \langle \Psi(y), H(y) \rangle dy + \int_{-T}^0 \langle \Psi(y), \Delta H(y) \rangle dy \\
+&= \int_{-\infty}^0 \langle \Psi(y), H(y) \rangle dy - \int_{-\infty}^{-T} \langle \Psi(y), H(y) \rangle dy + \int_{-T}^0 \langle \Psi(y), \Delta H(y) \rangle dy 
+\end{align*}
+
+The first integral is half of our Melnikov integral. The second and third ones are order $e^{-\alpha T}$ (for different reasons). Thus if we put all of this together, we get that these ``noncenter'' integral terms are
+
+\begin{align*}
+\lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy &+ \mathcal{O}( |G| e^{2 \nu(\lambda)T}|\lambda|^2 + |\lambda|^3 + |\lambda|^2 e^{-\alpha T}) \\
+&= \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}( |\lambda^2|(|G| e^{\nu(\lambda)T} + |\lambda|+ e^{-\alpha T}))
+\end{align*}
+
+The remainder terms are all of order greater than $|\lambda|^2$, so that is good.
+
+\item This leaves us with the last two integrals, which involve the ``center'' space and will get bigger as $T$ increases.\\
+
+The ``minus'' integral term is
+
+\begin{align*}
+\langle \Psi(0) &, \int_{-T}^0 
+e^{-\nu(\lambda)y} v_-(0; \lambda) \langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy \rangle \\
+&= \int_{-T}^0 e^{-\nu(\lambda)y} \langle \Psi(0),v_-(0; \lambda) \rangle
+\langle G(\lambda)(y)W^-(y) + \lambda^2 \tilde{H}(y), w_-(y; \lambda) \rangle dy 
+\end{align*}
+
+If we do the standard thing and write $\tilde{H} = H + \Delta H$, then these integrals give us three terms. The first one has bound
+
+\begin{align*}
+\left| \int_{-T}^0 e^{-\nu(\lambda)y} \langle \Psi(0),v_-(0; \lambda) \rangle
+\langle G(\lambda)(y)W^-(y), w_-(y; \lambda) \rangle dy \right| 
+&\leq C e^{\nu(\lambda)T} |G| ||W|| \\
+&\leq C e^{2\nu(\lambda)T} |G| |\lambda|^2
+\end{align*}
+
+The second one (which is multiplied by $\lambda^2$) has bound
+
+\begin{align*}
+\left| \int_{-T}^0 e^{-\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle
+\langle \Delta H(y), w_-(y; \lambda) \rangle dy \right| 
+&\leq C e^{\nu(\lambda)T} |\Delta H| \\
+&\leq C e^{\nu(\lambda)T} e^{-\alpha T}
+\end{align*}
+
+Recalling what we did above, the third one (which is also multiplied by $\lambda^2$) has bound
+
+\begin{align*}
+\left| \int_{-T}^0 e^{-\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle
+\langle H(y), w_-(y; \lambda) \rangle dy \right| 
+&\leq C |\langle \Psi(0), v_-(0; \lambda) \rangle| \int_{-T}^0 |e^{-\nu(\lambda)y} H(y)|dy\\
+&\leq C |\langle \Psi(0), v_-(0; \lambda) \rangle| \int_{-T}^0 |e^{-|\nu(\lambda)y|} H(y)|dy\\
+&\leq C |\langle \Psi(0), v_-(0; \lambda) \rangle|
+\end{align*}
+
+where $|e^{-|\nu(\lambda)y|} H(y)|$ is bounded since we know the decay properties of $H$. In order to get a better bound, we use the same trick we used above and expand $v_-(0; \lambda)$ as a Taylor series in $\lambda$ about $v_-(0; \lambda)$. Since $\langle \Psi(0), v_-(0; \lambda) \rangle = 0$ as discussed above and the coefficient of the $\lambda$ term is a constant not involving $\lambda$, this becomes (following what we did above)
+
+\begin{align*}
+\left| \int_{-T}^0 e^{-\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle
+\langle H(y), w_-(y; \lambda) \rangle dy \right|
+&\leq C |\lambda|
+\end{align*}
+
+The ``plus'' terms are similar.
+
+\item Putting this all together, we have for our jump
+
+\begin{align*}
+\xi &= \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}( |\lambda^2|(|G| e^{\nu(\lambda)T} + |\lambda|+ e^{-\alpha T}) + e^{-\alpha T} |\lambda^2| + p_3(\lambda) |\lambda|^2 + |\lambda|^3) \\
+&= \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}( |\lambda^2|(|G| e^{\nu(\lambda)T} + |\lambda| + e^{-\alpha T} + p_3(\lambda))\\
+\end{align*}
+
+This should all work out!
+
+\end{enumerate}
+
+\end{document}

@@ -226,7 +226,37 @@ since $|e^{-\tilde{\alpha}y}\tilde{H}(y)|$ is bounded (decay rate of $\tilde{H}$
 |L_2(\lambda)(a,b,c,d)| \leq C (|a| + |b| + e^{\nu(\lambda)X_1}|c_1| + e^{\nu(\lambda)X_2}|c_2| + |\lambda|^2 |d| )
 \]
 
-Now we do the inversion like we have done in the past, and as in Sandstede (1998). Omitting the details of this for now, we can invert the expression $(I - L_1(\lambda))W = L_2(\lambda)(a,b,c,d)$ to get $W = W_1(\lambda)(a,b,c,d)$, where we have the bound
+Now we do the inversion like we have done in the past, and as in Sandstede (1998). There is one detail we do have to take care of to do this inversion. Recall that the bound for $L_1(\lambda)$ is given by
+
+\[
+||L_1(\lambda)W|| \leq C e^{\nu(\lambda)X_M} |G| \: ||W||
+\]
+
+We want the operator norm to be less than 1 regardless of the $X_i$. But from our (assumed) bounds above, $e^{\nu(\lambda)X_M} |G|$ is order $e^{\nu(\lambda)X_M} e^{-\alpha X_m}$. So if the two length scales are vastly different, it is hard to tell what will happen with this.\\
+
+To get around this (for now), we will do the following.\\
+
+First, we take $X_2 \geq X_1$ without loss of generality. We can do this since it does not matter where the ``center'' of the wavetrain is since it is periodic. Thus we will have $X_M = X_2$ and $X_m = X_1$. \\
+
+Now we have to address the small complication mentioned above. The simplest way to do this is to have $X_2$ depend on $X_1$. THERE MIGHT BE ANOTHER WAY TO DO THIS SINCE $G$ IS A FUNCITON OF $x$, BUT WE WILL KEEP IT SIMPLE FOR NOW. Let's do the easy thing and let
+
+\[
+X_2 = k X_1
+\]
+
+where $k \geq 1$. Then for the inversion to work, we need the following:
+
+\begin{enumerate}[(i)]
+\item Choose $\delta > 0$ small
+\item Choose $0 < \tilde{\delta} \leq \delta$ such that for all $|\lambda| < \tilde{\delta}$ we also have $|\nu{\lambda}| \leq \delta$. Since $\nu(\lambda)$ has order $\lambda$, this is possible.
+\item Choose $k$ so that $\delta k < \alpha$. 
+\item This implies $\alpha - \nu(\lambda) k > 0$ for all $|\lambda| < \tilde{\delta}$
+\item In particular, this means that all the $e^{\nu(\lambda)k X_1} |G|$ terms are uniformly bounded and decay in $X_1$
+\end{enumerate}
+
+Assume we have done this. For simplicity, we will often leave these bounds in terms of the subscript $i$ (rather than writing $X_1$ and $k X_1$), but these conditions are necessary for the bounds to make sense in the first place. \\
+
+Having accomplished this, we can invert the expression $(I - L_1(\lambda))W = L_2(\lambda)(a,b,c,d)$ to get $W = W_1(\lambda)(a,b,c,d)$, where we have the bound
 
 \[
 ||W_1(\lambda)(a,b,c,d)|| \leq C (|a| + |b| + e^{\nu(\lambda)X_1}|c_1| + e^{\nu(\lambda)X_2}|c_2| + |\lambda|^2 |d| )
@@ -273,7 +303,7 @@ For a bound on the ``projection difference'', let
 p_1(X;\lambda) = \sup_{x \geq X} (|P^u(x;\lambda) - P_0^u| + |P^s(-X;\lambda) - P_0^s|)
 \]
 
-Note that this will change with both $\lambda$ and with $X$, but the effect will not be multiplicative (since this will still happen if we take $\lambda = 0$. Thus this should be order $e^{-\alpha X} + |\lambda|$. These two things should (eventually) be of the same order, so that is ok.
+Note that this will change with both $\lambda$ and with $X$, but the effect will not be multiplicative (since this will still happen if we take $\lambda = 0$. Thus this should be order $e^{-\alpha X} + |\lambda|$. These two things should (eventually) be of the same order, so that is okay.
 \\
 
 As in the (revised) single pulse version, we will only solve for the $a_i^\pm$ at this stage. To see why this makes sense, we will rearrange the above slightly to get
@@ -295,7 +325,7 @@ p_7(\lambda; X) = |v_\pm(\pm X_i; \lambda) - v_0(0)|
 
 is order $\lambda$, or again is sufficiently small. It turns out that $p_7(\lambda, X)$ is not a part of the final bound, so we actually don't care about its decay rate, only that we can make it as small as we want.\\
 
- Then we can hit the equation above with the projection $P_0^\pm$ onto $E^s \oplus E^u$ which leaves the LHS unchanged but eliminates ``most'' of $v_\pm(\pm X_i; \lambda)$. First we write this as
+Then we can hit the equation above with the projection $P_0^\pm$ onto $E^s \oplus E^u$ which leaves the LHS unchanged but eliminates ``most'' of $v_\pm(\pm X_i; \lambda)$. First we write this as
 
 \begin{align*}
 a_i^- &- a_i^+ = -D_i d + (P^u_+(X_i; \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \lambda) - P_0^s)a_i^- \\
@@ -371,26 +401,7 @@ Note that so far this involves only $a_i$, whereas it involves both $b_i$ and $b
 &+ (e^{-\tilde{\alpha} X_i} + |G|) |\lambda|^2 |d| \Big)
 \end{align*} 
 
-At this point we will take $X_2 \geq X_1$ without loss of generality. We can do this since it does not matter where the ``center'' of the wavetrain is since it is periodic. Thus we will have $X_M = X_2$ and $X_m = X_1$. \\
 
-At this point, we have a small complication. Since we have (or are assuming!) that $|G|$ is order $e^{-\alpha X_m} = e^{-\alpha X_1}$, and since we have both $e^{\nu(\lambda)X_i} |G|$ and $e^{\nu(\lambda)X_{i-1}} |G|$ terms, one of these will have a term which is order $e^{\nu(\lambda)X_2} e^{-\alpha X_1}$. The simplest way to do this is to have $X_2$ depend on $X_1$. THERE MIGHT BE ANOTHER WAY TO DO THIS SINCE $G$ IS A FUNCITON OF $x$, BUT WE WILL KEEP IT SIMPLE FOR NOW. Let's do the easy thing and let
-
-\[
-X_2 = k X_1
-\]
-
-where $k \geq 1$. Then for the inversion to work, we need the following:
-
-\begin{enumerate}[(i)]
-\item Choose $\delta > 0$ small
-\item Choose $0 < \tilde{\delta} \leq \delta$ such that for all $|\lambda| < \tilde{\delta}$ we also have $|\nu{\lambda}| \leq \delta$. Since $\nu(\lambda)$ has order $\lambda$, this is possible.
-\item Choose $k$ so that $\delta k < \alpha$. 
-\item This implies $\alpha - \nu(\lambda) k > 0$ for all $|\lambda| < \tilde{\delta}$
-\item In particular, this means that all the $e^{\nu(\lambda)k X_1} |G|$ terms are uniformly bounded and decay in $X_1$
-\item Choose $X_1$ sufficiently large so that $p_2(X_i; \lambda) < \delta$.
-\end{enumerate}
-
-Assume we have done this. For simplicity, we will often leave these bounds in terms of the subscript $i$, but these conditions are necessary for the bounds to make sense in the first place. Thus we have the bound 
 
 \begin{align*}
 |L_3&(\lambda)_i(a, b, c, d)| \\
@@ -405,7 +416,7 @@ Let $J_1: V_a \rightarrow \C^4$ be defined by $J_i(a_i) = (a_i^+ - a_i^-)$. The 
 S_i(a_i) = J_i (a_i) + L_3(\lambda)_i(a_i, 0, 0, 0) = J_i( I + J_i^{-1} L_3(\lambda)_i(a_i, 0, 0, 0))
 \]
 
-For suffiently small $\delta$, by what we have above, we can get the operator norm 
+For sufficiently small $\delta$, recalling what we have done above (letting $X_2$ depend on $X_1$, so that terms like $e^{\nu(\lambda)X_{i-1}} |G|$ always decay), we can get the operator norm 
 
 \[
 J_i^{-1} L_3(\lambda)_i(\cdot, 0, 0, 0)|| < 1
@@ -716,7 +727,7 @@ p_2(X; \lambda) &= |\Delta v_\pm(\pm X, \lambda)| + |\Delta w_\pm(\pm X, \lambda
 &= |v_\pm(\pm X; \lambda) - v_0(\lambda)| + |w_\pm(\pm X; \lambda) - w_0(\lambda)|
 \end{align*}
 
-Luchkily, $p_2(X; \lambda)$ does not enter into the final bound, since we do not have a decay rate for it, but only know that its limit is 0 as $|X| \rightarrow \infty$.\\
+Luckily, $p_2(X; \lambda)$ does not enter into the final bound, since we do not have a decay rate for it, but only know that its limit is 0 as $|X| \rightarrow \infty$.\\
 
 To finish the bound, we need to plug in $A_1$ and $W_2$ for $|a|$ and $||W||$.
 
@@ -1422,7 +1433,7 @@ The characteristic polynomial for this is
 &= \lambda^2 M (2a + M \lambda^2 )
 \end{align*}
 
-This has two roots at 0 (which are expected) as well as two roots at $\pm \sqrt{-2a/M}$. This agrees with the leading-order versino for the exponentially weighted case. Again, these will be purely imaginary or real depending on the sign of $a$.
+This has two roots at 0 (which are expected) as well as two roots at $\pm \sqrt{-2a/M}$. This agrees with the leading-order version for the exponentially weighted case. Again, these will be purely imaginary or real depending on the sign of $a$.
 
 \end{enumerate}
 
