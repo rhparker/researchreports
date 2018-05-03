@@ -33,136 +33,134 @@
 \def\Q{\mathbb{Q}}
 \def\ind{{\mathbb I}}
 
-\graphicspath{ {images17/} }
+\graphicspath{ {periodic/} }
 
 \newtheorem{lemma}{Lemma}
 \newtheorem{corollary}{Corollary}
 \newtheorem{definition}{Definition}
 \newtheorem{assumption}{Assumption}
 \newtheorem{hypothesis}{Hypothesis}
+\newtheorem{notation}{Notation}
 
 \begin{document}
 
-\section*{KdV5 with Periodic Boundary Conditions}
+\section{KdV5 with Periodic Boundary Conditions}
 
-Here we look at the case with periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. In general (following Sanstede, 1998), we are looking to solve a system which looks like 
-\begin{enumerate}[(i)]
-\item $(W_i^\pm)' = A(q) W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
-\item $W_i^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
-\item $W_i^+(0) - W_i^-(0) \in \C \psi(0) $
-\item $W_1^+(L) - W_2^-(-L) = D_1 d $
-\end{enumerate}
+\subsection{Background and Setup}
 
-which is the piecewise eigenvalue problem written as a first order system, this time in the unweighted norm. The eigenfunction here is given by $V_i^\pm = (Q' - \lambda Q_c)d_i + W_i\pm$.\\
+In this section we will look at multipulse solutions to KdV5 in the case where we have periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. For now, we will hypothesize that such solutions exist.
 
-The additional complication here is that the matrix $A(q)$ is not hyperbolic, since there is an eigenvalue of 0. We also cannot use an exponential weight to get rid of this problem since we are considering the periodic case. Thus we will have to deal with some sort of ``center'' subspace, which will give us an exponential trichotomy instead of an exponential dichotomy.\\
+\begin{hypothesis}
+Let $q(x; c)$ be a single pulse solution to KdV5 with wave speed $c$. Then for $c > 1/4$, there exists a double pulse, periodic wavetrain solution $q_{2p}(x; c)$ to KdV5. The centers of the two pulses are separated by a distance $2 X_1$, and the centers of the two pulse are each a distance $X_2$ from the periodic boundary.
+\end{hypothesis}
 
-For the single pulse solution, we know that the exponential decay rate at both ends is given by $\alpha > 0$, where $\alpha$ is the absolute value of the real part of the eigenvalues of the linearization about the zero-solution.\\
+Here is a diagram of the situation we have described.
 
-Let's first look at this for the case of a wave train composed of single pulses. Recall that for the single pulse $q$, where there is only one join at the center, the eigenfunction is given by $V\pm = Q' - \lambda Q_c + W_i\pm$, and this becomes
+\begin{figure}[H]
+\includegraphics[width=8.5cm]{dpimage}
+\end{figure}
+
+Without loss of generality, we will take $X_2 \geq X_1$, since we are on the periodic domain, thus it does not matter what we choose to be the ``middle''.\\
+
+To assess the stability of such double pulse solutions, we will look at the spectrum of the linearization of KdV5 about these periodic, double pulse solutions. As in the case on the unbounded domain with an exponential weight, we first write the eigenvalue problem as a first order system. We know that there are two eigenvalues at 0. We also know there will be two or four small eigenvalues from the pulse interactions. To locate those eigenvalues, we will follow the same procedure as in the unbounded case and as in San98. Thus, we will write the eigenfunction $V$ piecewise as
 
 \[
-(W^\pm)' = A(q) W_i^\pm + \lambda B W^\pm - \lambda^2 B Q_c
+V_i^\pm(x) = d_i(q_{2p}'(x) + \lambda (q_{2p})_c(x)) + \W_i^\pm 
 \]
 
-We now need to formulate the other conditions. Recall that for the exponentially weighted case (or the hyperbolic case) the other conditions are given by
+Plugging this into the eigenvalue problem, we want to a system of the following form
 
 \begin{enumerate}[(i)]
-\item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
-\item $W^+(0) - W^-(0) \in \C \psi(0) $
+\item $(W_i^\pm)' = A(q(x)) W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
+\item $W_1^+(X_1) - W_2^-(-X_1) = D_1 d$
+\item $W_2^+(X_2) - W_1^-(-X_2) = D_2 d$
 \end{enumerate}
 
-Let's recall what the various spaces are. All these things are defined at $x = 0$, since that is the ``middle'' of the homoclinic orbit.
+where $A(q(x))$ is the Jacobian of the linearization about the nonperiodic single pulse, $B$ is the matrix defined previously, and 
+
+\begin{align*}
+G(\lambda)_i^\pm (x) &= A(q_{2p}(x)) - A(q(x)) \\
+D_1 d &= d_2(Q_{2p}'(-X_1) + \lambda (Q_{2p})_c(-X_1))
+- d_1 ( Q_{2p}'(X_1) + \lambda (Q_{2p})_c(X_1) ) \\
+D_2 d &= d_1(Q_{2p}'(-X_2) + \lambda (Q_{2p})_c(-X_2))
+- d_2 ( Q_{2p}'(X_2) + \lambda (Q_{2p})_c(X_2) ) \\
+\tilde{H} &= -B(Q_{2p})_c \\
+H &= -B Q_c \\
+\Delta H &= \tilde{H} - H
+\end{align*}
+
+The additional complication here is that the matrix $A(q)$ is not hyperbolic, since there is an eigenvalue of 0. Thus the results of San98 do not directly apply. In addition, we cannot use an exponential weight to get rid of this problem since we are considering the periodic case. Thus we will have a center subspace in play, which will give us an exponential trichotomy instead of an exponential dichotomy.\\
+
+We now need to formulate the other conditions for the problem. Recall that for the exponentially weighted case (or the hyperbolic case) the other conditions are given by
+
+\begin{enumerate}[(i)]
+\item $W_i^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
+\item $W_i^+(0) - W_i^-(0) \in \C \psi(0)$
+\end{enumerate}
+
+Let us briefly recall what the various spaces are involved in these conditions. Note at that all of the conditions are specified at $x = 0$, which is at the peak of the two pulses.
 
 \begin{enumerate}
 	\item $\text{span }\{Q'(0)\}$ is the span of the derivative of the pulse at $x = 0$. This is in both the stable and unstable manifolds of 0.
-	\item $Y^+$ is the remaining dimension of the 2D stable manifold.
-	\item $Y^-$ is the remaining dimension of the 2D unstable manifold.
+	\item $Y^+$ is the remaining dimension of the two-dimensional stable manifold.
+	\item $Y^-$ is the remaining dimension of the two-dimensional unstable manifold.
 	\item $\C \Psi(0)$ is the span of the solution to the adjoint variational equation, and since it is perpendicular to the unstable and stable manifolds, it fills out $\C^4$ when combined with the three things above.
 \end{enumerate}
 
-In our case, we will have an additional ``center'' space at $x = 0$, which gives us one more dimension. For now, we will call this $Y^0$, but this will become more specific later. What we need to do now is figure out what role this plays in our conditions. Elements in the center space may blow up (not necessarily exponentially) at one of the ends. Thus if we want to look for a localized eigenfunction, it is important that the initial condition at $x = 0$ not have a component in this space. \\
+In this case, we will have an additional center space at $x = 0$, which gives us one more dimension. Let $Y^0$ be this center space. We will characterize this more fully later, but what we need to do now is figure out what role this plays in our conditions. Elements in the center space may blow up (not necessarily exponentially) at one of the ends. Thus if seek a localized eigenfunction, it is important that the initial condition at $x = 0$ not have a component in this center space. \\
 
-This essentially tells us where our perturbation must live. Since we are specifying our eigenfunction as $V\pm = Q' - \lambda Q_c + W_i\pm$, and we know that $Q'(0)$ and $Q_c(0)$ have no component in the $Y^0$ (since they both decay exponentially at both ends), this implies that $W^i\pm(0)$ cannot have a component in $Y^0$. This also implies that $W^+(0) - W^-(0)$ cannot have a component in $Y^0$. Thus the conditions are the same as for the version without the ``center'' space, i.e. 
+This condition tells us where our perturbation must live. Since we are specifying our eigenfunction as $V_i^\pm(x) = d_i(q_{2p}'(x) + \lambda (q_{2p})_c(x)) + \W_i^\pm $, and we know that $q_{2p}(x)$ and its derivatives have no component in the $Y^0$ since they both decay exponentially at both ends, this implies that $W_i^\pm(0)$ cannot have a component in $Y^0$. This also implies that $W_i^+(0) - W_i^-(0)$ cannot have a component in $Y^0$. Thus the conditions are exactly the same as for the version without the center space.\\
 
-\begin{enumerate}[(i)]
+\begin{enumerate}
 \item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
 \item $W^+(0) - W^-(0) \in \C \psi(0) $
 \end{enumerate}
 
-To do this for the wave train, we will use periodic BCs on the interval $[-T, T]$. For now, we state the existence of such wave trains as a hypothesis.
+Before we continue, we will rewrite the problem slightly. The idea is the following. The matrix $A(q(x))$ has an eigenvalue at 0, which gives it a center subspace. What we would like to do is combine the matrices $A(q(x))$ and $\lambda B$ to get a matrix (depending on $B$). In this new, $\lambda$-dependent matrix, the eigenvalue at 0 will perturb slightly to a small eigenvalue in a $\lambda$-dependent fashion.\\
 
-\begin{hypothesis}\label{qpexists}
-For some value of $c$ (likely $> 1/4$) a periodic wavetrain solution $q_Tz(x)$ exists with period $2T$ for $T$ sufficiently large. We can choose the interval $[-T,T]$ so that the center of one of the peaks is at 0. The solution $q_T(x)$ is an even function on $[-T, T]$. The periodic solution is close to the single pulse solution $q(x)$ on $[-T, T]$, where we have the bound 
+We will still call the eigenspace corresponding to the small eigenvalue a center space, even though it might not technically be one. Thus we define
 
 \[
-||q_T(x) - q(x)||_{[-T, T]} \leq C e^{-\alpha T}
+\tilde{A}(q(x); \lambda) = A(q(x)) + \lambda B
 \]
 
-which makes sense since the larger $T$ is, the more $q_T$ should resemble the single pulse on $[-T, T]$.
-\end{hypothesis}
+The first equation in the problem then becomes
 
-We need one more condition to ensure the eigenfunction satisfies the BCs. By Hypothesis~\ref{qpexists}, a wavetrain solution $q_p(x)$ exists, thus this function and all its derivatives must match at the endpoints of $[-T, T]$.  Thus for the periodic boundary condition for the eigenfunction we must have
+\[
+(W_i^\pm)' = \tilde{A}(q(x); \lambda) W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
+\]
 
-\begin{align*}
-Q_p'(-T) - \lambda (Q_p)c(-T) + W_i^-(-T) &= Q_p'(T) - \lambda (Q_p)_c(T) + W_i^+(T) \\
-W_i^-(-T) - W_i^+(T) &= ( Q_p'(T) - Q_p'(-T) ) - \lambda( (Q_p)_c(T) - (Q_p)_c(-T) ) \\
-&= 0
-\end{align*}
-
-Thus the system we are looking to solve in the periodic case is
+At this point, we drop the tilde over $A$ and the final version of the problem becomes
 
 \begin{enumerate}[(i)]
-\item $(W^\pm)' = A(q_p) W_i^\pm + \lambda B W^\pm - \lambda^2 B (Q_p)_c$
+\item $(W_i^\pm)' = A(q(x); \lambda) W_i^\pm + G_i^\pm W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
+\item $W_1^+(X_1) - W_2^-(-X_1) = D_1 d$
+\item $W_2^+(X_2) - W_1^-(-X_2) = D_2 d$
 \item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
 \item $W^+(0) - W^-(0) \in \C \psi(0) $
-\item $W_i^-(-T) - W_i^+(T) = 0$
 \end{enumerate}
 
-Why do we not have something like $W_i^-(-T) - W_i^+(T) = D d$ here for the last condition? Since we are matching the eigenfunction corresponding to the single pulse at $\pm T$, and since the single pulse $Q$ and the derivative $Q_c$ are even functions, in this case $D$ will be 0.\\
-
-Before we go to town on this, we will rewrite this in the following way. Let
-
-\[
-\tilde{A}(\lambda, q_p) = A(q_p) + \lambda B
-\]
-
-Then the first equation becomes 
+As a justification for the $\lambda$-dependent perturbation of the center eigenvalue of $A(q(x); 0)$, we give the following heuristic argument.
+The matrix $A(q(x); \lambda)$ is exponentially asymptotic (due to the exponential decay properties of $q(x)$ and its derivatives). Let 
 
 \[
-(W^\pm)' = \tilde{A}(\lambda, q_p) W_i^\pm - \lambda^2 B (Q_p)_c
+A(\lambda) = \lim_{|x| \rightarrow \infty} A(q(x); 0)
 \]
 
-We would also like to write this in terms of the single pulse $q$ rather than the periodic solution $q_p$. To do this, let
+For $\lambda = 0$, $A(\lambda)$ has an eigenvalue at 0. The characteristic polynomial for $A(\lambda)$ is $f(\nu; \lambda) = \lambda - c \nu + \nu^3 - \nu^5$, which to leading order is $f(\nu; \lambda) = \lambda - c \nu + \mathcal{O}(\nu^3)$. Thus, to leading order, this polynomial has a zero when $t = \lambda / c$, which is approximately the value of the spatial eigenvalue closest to 0. For small $\lambda$, numerics shows this is very close.\\
 
+Before we continue, we will hypothesize the following bounds on the elements of our problem. We will eventually prove these, of course. The idea behind these hypothesized bounds is that deviation from the single pulse, nonperiodic case decreases exponentially with distance from the center, so we are letting the ``worst offender'' dictate the behavior. Since the $D_i$ equations only depend on $X_i$, the bound only involves that length parameter.
+
+\begin{hypothesis}We have the following bounds on terms in our problem
 \begin{align*}
-\tilde{H} &= -B(Q_p)_c \\
-H &= -B Q_c \\
-G(\lambda) &= \tilde{A}(\lambda, q_p) - \tilde{A}(\lambda, q)
+|G_i^\pm)| &= \mathcal{O}(e^{-\alpha X_1}) \\
+\Delta H &= \mathcal{O}(e^{-\alpha X_1}) \\
+D_i &= ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
 \end{align*}
 
-Then the first equation becomes 
+SPECULATION: Since $G_i(\lambda(x)$ depends on $x$, we might be able to get a bound of the form $C e^{-\alpha X_1}e^{-\alpha |x|}$, as long as we stay on the appropriate ``piece'' of the problem. We will return to this later.
 
-\[
-(W^\pm)' = \tilde{A}(\lambda, q) W_i^\pm + G(\lambda) W_i^\pm + \lambda^2 \tilde{H}
-\]
-
-For now, we will assume we have these bounds (based on Hypothesis \ref{qpexists}).
-
-\begin{align*}
-|G(\lambda)(x)| &\leq C e^{-\alpha T} && x \in [-T, T]\\
-|\Delta H(x)| = |\tilde{H}(x) - H(x)| &\leq C e^{-\alpha T} && x \in [-T, T]
-\end{align*}
-
-Now we look at the eigenvalue problem
-
-\begin{equation}
-U' = \tilde{A}(\lambda, q) U = A(\lambda) U + R(q(x)) U
-\end{equation}
-
-where we split up $\tilde{A}(\lambda, q)$ so that all of the $x$ dependence is via the single pulse $q(x)$ and is contained in $R(x)$. Everything else (including the $\lambda$) is in the matrix $A(\lambda)$, which is a constant matrix and different from the $A$ above, but we are seriously running out of letters, so it will do for now. The matrix $\tilde{A}(\lambda, q)$ is exponentially asymptotic (due to the exponential decay properties of $q$ and its derivatives), and its limit as $|x| \rightarrow \infty$ is $A(\lambda)$.\\
-
-For $\lambda = 0$, $A(\lambda)$ has an eigenvalue at 0. The characteristic polynomial for $A(\lambda)$ is $f(\lambda, \nu) = \lambda - c \nu + \nu^3 - \nu^5$, which to leading order is $f(\lambda, \nu) = \lambda - c \nu + \mathcal{O}(\nu^3)$. Thus, to leading order, this polynomial has a zero when $t = \lambda / c$, which is approximately the value of the spatial eigenvalue closest to 0. For small $\lambda$, numerics shows this is really close.\\
+\subsection{Characterization of Center Subspace}
 
 Before we continue, we will prove the following lemma, based on Exercise 29 on p. 104 of Coddington and Levinson (1955).
 
