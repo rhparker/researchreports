@@ -1051,7 +1051,7 @@ For the first integral on the RHS, we have
 &\leq C |c_i^+| 
 \end{align*}
 
-where we use the inequality in the first line to handle either possible sign of the real part of $\nu(\lambda)$. The ``negative'' piece is similar. Note that this works out the way we want, since the ``negative'' piece involves $W_{i-1}$, but the bound for $W_{i-1}$ involves $c_i^-$.
+where we use the inequality in the first line to handle either possible sign of the real part of $\nu(\lambda)$. The ``negative'' piece is similar. Note that this works out the way we want, since the ``negative'' piece involves $W_{i-1}$, but the bound for $W_{i-1}$ involves $c_i^-$.\\
 
 Thus we have the following bound for $L_3$.
 
@@ -1253,63 +1253,50 @@ We hypothesize the following bound for $p_5$
 $p_5(\lambda) = \mathcal{O}(|\lambda|)$
 \end{hypothesis}
 
-Before we start hitting things with all sorts of projections, we need to get the $c_i^\pm$ term into a form we can deal with. 
+Before we start hitting things with all sorts of projections, we need to get the $c_i^\pm$ term into a useful form.
 
 \begin{align*}
 e^{\nu(\lambda)X_{i-1}} &v_-(0; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^- \\
 &= e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), w_0(\lambda) \rangle c_{i-1}^- + e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^- \\
-&= e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) c_{i-1}^- + e^{\nu(\lambda)X_{i-1}} v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^-
+&= e^{\nu(\lambda)X_{i-1}} c_{i-1}^- v_-(0; \lambda) + e^{\nu(\lambda)X_{i-1}} c_{i-1}^- v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle 
 \end{align*}
 
-where $\Delta v$ and $\Delta w$ are defined in Lemma \ref{endjoins}. Similarly, we have
+where $\Delta v$ and $\Delta w$ are defined in Lemma \ref{endjoins} and $\langle v_0(\lambda), w_0(\lambda) \rangle = 1$. Similarly, we have
 
 \begin{align*}
 e^{-\nu(\lambda)X_i} &v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle c_i^+ \\
 &= e^{-\nu(\lambda)X_i} v_-(0; \lambda) \langle v_0(\lambda), w_0(\lambda) \rangle c_i^- + e^{-\nu(\lambda)X_i} v_+(0; \lambda) \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle c_i^+ \\
-&= e^{-\nu(\lambda)X_i} v_+(0; \lambda) c_i^- + e^{-\nu(\lambda)X_i} v_+(0; \lambda) \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle c_i^+
+&= e^{-\nu(\lambda)X_i} c_i^+ v_+(0; \lambda) + e^{-\nu(\lambda)X_i} c_i^+ v_+(0; \lambda) \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle 
 \end{align*}
 
-Next we note that the $c_i^\pm$ have coefficients like $e^{\pm \nu(\lambda) }X_i$. One of these is potentially bad (the one with positive exponential growth), but we do not know which one. To get around this, we will add and subtract the version with the other sign. \\
-
-To make this less messy, we define the following functions scalar functions of $X$ and $\lambda \neq 0$. (We know that $\nu(\lambda) \neq 0$ for $\lambda \neq 0$).
+Next, we let
 
 \begin{align*}
-f(X; \lambda) = e^{\nu(\lambda)X} + e^{-\nu(\lambda)X} &= 2 \cosh (\nu(\lambda) X) \\
-f^-(X; \lambda) &= e^{-\nu(\lambda)X} / f(X; \lambda) \\
-f^+(X; \lambda) &= e^{\nu(\lambda)X} / f(X; \lambda)
+\tilde{c}_i^- &= e^{\nu(\lambda)X_i} c_i^- \\
+\tilde{c}_i^+ &= e^{-\nu(\lambda)X_i} c_i^+
 \end{align*}
 
-Note that we always have $|f^\pm(X; \lambda)| < 1$.\\
-
-Using these, we have
+Then these become
 
 \begin{align*}
-e^{\nu(\lambda)X_{i-1}} c_{i-1}^- &= (e^{\nu(\lambda)X_{i-1}} + e^{-\nu(\lambda)X_{i-1}})c_{i-1}^- - e^{-\nu(\lambda)X_{i-1}})c_{i-1}^- \\
-&= f(X_{i-1}; \lambda) c_{i-1}^- - f^-(X_{i-1}; \lambda)f(X_{i-1}; \lambda) c_{i-1}^-
+e^{\nu(\lambda)X_{i-1}} &v_-(0; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^- \\
+&= \tilde{c}_{i-1}^- v_-(0; \lambda) + \tilde{c}_{i-1}^- v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle \\
+e^{-\nu(\lambda)X_i} &v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle c_i^+ \\
+&= \tilde{c}_i^+ v_+(0; \lambda) + \tilde{c}_i^+ v_+(0; \lambda) \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle 
 \end{align*}
 
-Similarly,
+Substituting these into the fixed point equations at $x = 0$, we have
 
 \begin{align*}
-e^{-\nu(\lambda)X_i} c_i^+ &= f(X_i; \lambda) c_i^+ - f^+(X_i; \lambda)f(X_i; \lambda) c_i^+
-\end{align*}
-
-Plugging all of these into the fixed point equation at $x = 0$, we have
-
-\begin{align*}
-W_i^-(0) &= x_i^- + y_i^- + v_-(0; \lambda) f(X_{i-1}; \lambda) c_{i-1}^-  \\
+W_i^-(0) &= x_i^- + y_i^- + v_-(0; \lambda) \tilde{c}_{i-1}^- v_-(0; \lambda) \\
 &+\Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- + b_i^- + (P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \\
-&- f^-(X_{i-1}; \lambda) v_-(0; \lambda) f(X_{i-1}; \lambda) c_{i-1}^- \\
-&+ \langle v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle 
-f^+(X_{i-1}; \lambda) v_-(0; \lambda) f(X_{i-1}; \lambda) c_{i-1}^- \\
+&+ \tilde{c}_{i-1}^- v_-(0; \lambda) \langle v_0(\lambda), \Delta w_-(-X_{i-1}; \lambda) \rangle \\
 &+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) [ G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
 &+ \int_{-X_{i-1}}^0
 e^{\nu(\lambda)y} v_-(0; \lambda) \langle G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
-W_i^+(0) &= x_i^+ + y_i^+ + v_+(0; \lambda) f(X_i; \lambda) c_i^+ \\
+W_i^+(0) &= x_i^+ + y_i^+ + v_+(0; \lambda) \tilde{c}_i^+ v_+(0; \lambda) \\
 &+\Phi^u_+(0, X_i; \lambda)a_i^+ + b_i^+ + (P^s_+(0; \lambda) - P^s_-(0; 0))b_i^+ \\
-&- f^+(X_i; \lambda) v_+(0; \lambda) f(X_i; \lambda) c_i^+ \\
-&+ \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle 
-f^-(X_i; \lambda)f(X_i; \lambda) v_+(0; \lambda) c_i^+ \\
+&+ \tilde{c}_i^+ v_+(0; \lambda) \langle v_0(\lambda), \Delta w_+(X_i; \lambda) \rangle \\  
 &+ \int_{X_i}^0 \Phi^u_+(0, y; \lambda) [ G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
 &+ \int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \lambda) \langle G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
 \end{align*}
@@ -1318,14 +1305,14 @@ If we plug in the fixed point equations into the above set of projections, we ge
 
 \[
 \begin{pmatrix}x_i^- \\ x_i^+ \\ 
-f(X_{i-1}; \lambda) c_{i-1}^- v_-(0; \lambda) \\
-f(X_i; \lambda) c_i^+ v_+(0; \lambda) \\
-y_i^+ - y_i^- \end{pmatrix} + L_4(\lambda)(b, c) = 0
+\tilde{c}_{i-1}^- v_-(0; \lambda) \\
+\tilde{c}_i^+ v_+(0; \lambda) \\
+y_i^+ - y_i^- \end{pmatrix} + L_4(\lambda)(b, \tilde{c}) = 0
 \]
 
-where $L_4(\lambda)(b, c)$ is the rest of the terms that don't get eliminated outright by the projections. Note that we have written $L_4$ entirely in terms of $f(X_i; \lambda) c_i^+$ and the like, which is necessary in order to perform the inversion. \\
+where $L_4(\lambda)(b, \tilde{c})$ is the rest of the terms that don't get eliminated outright by the projections. Note that so far we have written $L_4$ entirely in terms of $\tilde{c}$. We will make sure this remains the case when we perform the substitutions for $W$ and $a$.\\
 
-For the bound on $L_4$, we need to get bounds on the integral terms involving $W$ in a similar fashion to what we did before. Let us find a bound for the center integral involving $W$ on the ``minus'' piece.
+For the bound on $L_4$, we need to get bounds on the integral terms involving $W$ in a similar fashion to what we did before. First, we find a bound for the center integral involving $W$ on the ``minus'' piece.
 
 \begin{align*}
 &\left| \int_{-X_{i-1}}^0
@@ -1334,78 +1321,121 @@ e^{\nu(\lambda)y} v_-(0; \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \lambda) \ran
 &\leq C \int_{-X_{i-1}}^0 e^{\alpha y} e^{\nu(\lambda)y} ||G|| ( |b| + e^{\nu(\lambda)(y + X_{i-1})}|c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) dy \\
 &\leq C ||G|| \int_{-X_{i-1}}^0 e^{(\alpha - 2 \nu(\lambda)) y} ( |b| + e^{\nu(\lambda)X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) dy \\
 &\leq C ||G|| ( |b| + e^{\nu(\lambda)X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) dy \\
-&\leq C ||G|| ( |b| + f^+(X_{i-1}; \lambda) |f(X_{i-1}; \lambda)c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) dy
+&\leq C ||G|| ( |b| + |\tilde{c}_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| )
 \end{align*}
 
-where in the antipenultimate line we will take $\lambda$ sufficiently small so that $2 |\nu(\lambda)| < \alpha$, and we changed the sign on $\nu(\lambda)$ so that this holds regardless of the sign of $\nu(\lambda)$. \\
+where in the antepenultimate line we will take $\lambda$ sufficiently small so that $2 |\nu(\lambda)| < \alpha$, and we changed the sign on $\nu(\lambda)$ so that this holds regardless of the sign of $\nu(\lambda)$. \\
 
-We will get the same bound for the noncenter integral on the minus piece, since we can perform the integral using the exponential decay of $\Phi^s_-(0, y; \lambda)$ and can just use the uniform bound for $||G||$.\\
+We will get the same bound for the noncenter integral on the ``minus'' piece, since we can perform the integral using the exponential decay of $\Phi^s_-(0, y; \lambda)$ and can just use the uniform bound for $||G||$.\\
 
 Similarly, for the center integral involving $W$ on the the ``plus'' piece, we will have a bound
 
 \begin{align*}
 &\left| \int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \lambda) \langle G_i^+(y)W_i^+(y), w_+(y; \lambda) \rangle dy \right| \\
-&\leq C ||G|| ( |b| + f^-(X_i; \lambda) |f(X_i; \lambda)c_i| + (|\lambda|^2 + |D_i|)|d| ) dy
+&\leq C ||G|| ( |b| + |\tilde{c}_i| + (|\lambda|^2 + |D_i|)|d| )
 \end{align*}
 
-Thus we have the following bound on $L_4(\lambda)$. 
+The integrals not involving $W$ can be evaluated using the $\tilde{\alpha}$ trick, as we have done before. Thus we have the following bound on $L_4(\lambda)$. 
 
 \begin{align*}
 |L_4&(\lambda)_i(b, c, d)|\\ 
 &\leq C \Big( e^{-\alpha X_i} |a_i^+| +  e^{-\alpha X_{i-1}} |a_{i-1}^-| + p_5(\lambda) |b_i| \\
-&+ (f^+(T; \lambda) p_2(X_{i-1}; \lambda) + f^-(X_{i-1}; \lambda)) |f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ (f^-(X_i; \lambda) p_2(X_i; \lambda) + f^+(X_i; \lambda)) | f(X_i; \lambda) c_i^+| \\
-&+ ||G|| ( |b| + f^+(X_{i-1}; \lambda) |f(X_{i-1}; \lambda)c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) \\
-&+ ||G|| ( |b| + f^-(X_i; \lambda) |f(X_i; \lambda)c_i| + (|\lambda|^2 + |D_i|)|d| + |\lambda|^2|d|)
-\Big)\\
+&+ p_2(X_{i-1}; \lambda) |\tilde{c}_{i-1}| + p_2(X_i; \lambda) |\tilde{c}_i| \\
+&+ ||G|| ( |b| + |\tilde{c}_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) \\
+&+ ||G|| ( |b| + |\tilde{c}_i| + (|\lambda|^2 + |D_i|)|d| )  \\
+&+ |\lambda|^2 |d| \Big)\\
 &\leq C \Big( e^{-\alpha X_i} |a_i^+| +  e^{-\alpha X_{i-1}} |a_{i-1}^-| + (p_5(\lambda) + ||G||) |b_i| \\
-&+ (f^+(T; \lambda)( p_2(X_{i-1}; \lambda) + ||G||) + f^-(X_{i-1}; \lambda)) |f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ (f^-(X_i; \lambda)( p_2(X_i; \lambda) + ||G||) + f^+(X_i; \lambda)) | f(X_i; \lambda) c_i^+| \\
+&+ (p_2(X_{i-1}; \lambda) + ||G||) |\tilde{c}_{i-1}| + (p_2(X_i; \lambda) + ||G||)|\tilde{c}_i| \\
 &+ ||G|| |D||d| + |\lambda|^2|d|
 \Big)
 \end{align*}
 
-where $p_2(X; \lambda)$ is defined in Lemma \ref{endjoins}. Luckily, $p_2(X; \lambda)$ does not enter into the final bound, since we do not have a decay rate for it, but we know that its limit is 0 as $|X| \rightarrow \infty$.\\
+where $p_2(X; \lambda)$ is defined in Lemma \ref{endjoins}. Luckily, $p_2(X; \lambda)$ does not enter into the final bound, since we do not have a decay rate for it, but we know that its limit is 0 as $|X| \rightarrow \infty$, which is all we need.\\
 
 To finish the bound, we need to plug in $A_1$ for $|a|$
 
 \begin{align*}
 |L_4&(\lambda)_i(b, c, d)|\\ 
-&\leq C \Big(e^{-\alpha X_i} |A_1(\lambda)_i(b, c, d)| +  e^{-\alpha X_{i-1}} |A_1(\lambda)_{i-1}(b, c, d)| \\
+&\leq C \Big( e^{-\alpha X_i} |A_1(\lambda)_i(b, c, d)| \\
+&+  e^{-\alpha X_{i-1}} |A_1(\lambda)_{i-1}(b, c, d)| \\
 &+ (p_5(\lambda) + ||G||) |b_i| \\
-&+ (f^+(T; \lambda)( p_2(X_{i-1}; \lambda) + ||G||) + f^-(X_{i-1}; \lambda)) |f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ (f^-(X_i; \lambda)( p_2(X_i; \lambda) + ||G||) + f^+(X_i; \lambda)) | f(X_i; \lambda) c_i^+| \\
-&+ ||G|| |D||d| + |\lambda|^2|d| \Big) \\
-&\leq C \Big(e^{-\alpha X_i} ( (e^{-\alpha X_i} + ||G||) |b| + ( p_4(X_i; \lambda) + ||G|| )|c_i|
+&+ (p_2(X_{i-1}; \lambda) + ||G||) |\tilde{c}_{i-1}| + (p_2(X_i; \lambda) + ||G||)|\tilde{c}_i| \\
+&+ ||G|| |D||d| + |\lambda|^2|d|
+\Big)\\
+&\leq C \Big( e^{-\alpha X_i} ( (e^{-\alpha X_i} + ||G||) |b| + ( p_4(X_i; \lambda) + ||G|| )|c_i|
 + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + |D_i||d| ) \\
 &+  e^{-\alpha X_{i-1}} ( (e^{-\alpha X_{i-1}} + ||G||) |b| + ( p_4(X_{i-1}; \lambda) + ||G|| )|c_{i-1}|
-+ (e^{-\tilde{\alpha} X_{i-1}} + ||G||) |\lambda^2| |d| + |D_{i-1}||d| )\\
++ (e^{-\tilde{\alpha} X_{i-1}} + ||G||) |\lambda^2| |d| + |D_{i-1}||d| ) \\
 &+ (p_5(\lambda) + ||G||) |b_i| \\
-&+ (f^+(T; \lambda)( p_2(X_{i-1}; \lambda) + ||G||) + f^-(X_{i-1}; \lambda)) |f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ (f^-(X_i; \lambda)( p_2(X_i; \lambda) + ||G||) + f^+(X_i; \lambda)) | f(X_i; \lambda) c_i^+| \\
-&+ ||G|| |D||d| + |\lambda|^2|d| \Big) \\
+&+ (p_2(X_{i-1}; \lambda) + ||G||) |\tilde{c}_{i-1}| + (p_2(X_i; \lambda) + ||G||)|\tilde{c}_i| \\
+&+ ||G|| |D||d| + |\lambda|^2|d|
+\Big)\\
 \end{align*}
 
-Simplifying this, and discarding higher order terms, this becomes
+Simplifying and eliminating higher order terms, this becomes
 
 \begin{align*}
 |L_4&(\lambda)_i(b, c, d)|\\ 
-&\leq C \Big( ( e^{-\alpha X_i} + e^{-\alpha X_{i-1}} + p_5(\lambda) + ||G||)|b| \\
-&+ (f^+(T; \lambda)( p_2(X_{i-1}; \lambda) + ||G||) + f^-(X_{i-1}; \lambda) + e^{-\alpha X_{i-1}}) |f(X_{i-1}; \lambda) c_{i-1}^-| \\
-&+ (f^-(X_i; \lambda)( p_2(X_i; \lambda) + ||G||) + f^+(X_i; \lambda) + e^{-\alpha X_i}) | f(X_i; \lambda) c_i^+| \\
-&+ (||G|| + e^{-\alpha X_i})|D_i||d| + (||G|| + e^{-\alpha X_{i-1}})|D_{i-1}||d| \\
-&+ |\lambda|^2|d| \Big) \\
+&\leq C \Big( ( p_4(X_i; \lambda) + ||G|| ) e^{-\alpha X_i} |c_i|
++ ( p_4(X_{i-1}; \lambda) + ||G|| )e^{-\alpha X_{i-1}}|c_{i-1}| \\
+&+ (p_5(\lambda) + ||G||) |b_i| \\
+&+ (p_2(X_{i-1}; \lambda) + ||G||) |\tilde{c}_{i-1}| + (p_2(X_i; \lambda) + ||G||)|\tilde{c}_i| \\
+&+ (e^{-\alpha X_i} + ||G||) |D_i||d| + (e^{-\alpha X_{i-1}} + ||G||) |D_{i-1}||d| +|\lambda|^2|d|
+\Big)\\
 \end{align*}
 
-To do the inversion, we need for the coefficients of $|b|$, $|f(X_i; \lambda) c_i|$, and $|f(X_{i-1}; \lambda) c_{i-1}|$ to have magnitude less than 1. For $|b|$ we are all set, since $p_5(\lambda)$ is order $\lambda$, and we can choose $\lambda$ as small as we want; all other coefficients of $|b|$ exponentially decay in $X_i$ since $||G||$ is order $e^{-\alpha X_1}$. \\
+In order to do the inversion, we need the RHS of $L_4$ to be entirely in terms of the $\tilde{c}$ coefficients. Luckily, this is not hard. We have
 
-For $|f(X_i; \lambda) c_i|$, note that 
+\begin{align*}
+e^{-\alpha X_i} |c_i| &\leq C e^{-\alpha X_i} ( |c_i^+| + |c_i^-| ) \\
+&\leq C e^{-\alpha X_i} ( e^{\nu(\lambda)X_i } |\tilde{c}_i^+| 
++ | e^{-\nu(\lambda)X_i }\tilde{c}_i^-| )\\
+&\leq C e^{-(\alpha - \nu(\lambda)) X_i} |\tilde{c}_i|
+\end{align*}
 
+where the inequality in the last line holds regardless of the sign of $\nu(\lambda)$. The $c_{i-1}$ term is similar. Thus we have
+
+\begin{align*}
+|L_4&(\lambda)_i(b, c, d)|\\ 
+&\leq C \Big( (p_5(\lambda) + ||G||) |b_i| \\
+&+ (p_2(X_{i-1}; \lambda) + ||G|| + ( p_4(X_{i-1}; \lambda) + ||G|| )e^{-(\alpha - \nu(\lambda)) X_{i-1}} ) |\tilde{c}_{i-1}| \\
+&+ (p_2(X_i; \lambda) + ||G|| + ( p_4(X_i; \lambda) + ||G|| )e^{-(\alpha - \nu(\lambda)) X_i })|\tilde{c}_i| \\
+&+ (e^{-\alpha X_i} + ||G||) |D_i||d| + (e^{-\alpha X_{i-1}} + ||G||) |D_{i-1}||d| +|\lambda|^2|d|
+\Big)\\
+\end{align*}
+
+
+To do the inversion, we need to be able to make the coefficients of $|b|$, $|\tilde{c}_i|$, and $|\tilde{c}_{i-1}|$ be as small as we want. Since all these coefficients can be made arbitrarily small for sufficiently large $X_i$ and sufficiently small $\lambda$, we are all set. \\
+
+Since the map $J_2$ defined by
 \[
-f^-(X_i; \lambda) + f^+(X_i; \lambda) = 1
+J_2( (x_i^+, x_i^-),(y_i^+, y_i^-), \tilde{c}_{i-1}^-, \tilde{c}_i^+ ) \rightarrow ( x_i^+, x_i^-, \tilde{c}_{i-1}^-, \tilde{c}_i^+, y_i^+ -  y_i^- )
 \]
 
-and both terms on the LHS are positive. Since $(p_2(X_i; \lambda) + (e^{\nu(\lambda)X_i} + e^{\nu(\lambda)X_{i-1}})||G||)$ can be made as small as we want by choosing $\lambda$ sufficiently small and $X_i, X_{i-1}$ sufficiently large, we can obtain a coefficient of $|f(X_i)c_i|$ of magnitude less than 1. The same holds for $|f(X_{i-1})c_{i-1}|$. Thus we can do the inversion. Leaving out the details for now, this will give us an operator $B_1(\lambda)$ such that
+is an isomorphism, the operator
+
+\[
+S_2(x,y, \tilde{c}) = J_2(x+y, \tilde{c}) + L_4(\lambda)(x+y,\tilde{c}, 0)
+\]
+
+is invertible (as in the previous lemma). Thus we have
+
+\begin{equation}
+(b,\tilde{c}) = B_1(\lambda)(d) = -S_2^{-1} L_4(\lambda)(0, 0, d)
+\end{equation}
+
+where we have the following bound on $B_1$
+
+\begin{align*}
+|B_1(\lambda)(d)| &\leq C ( (e^{-\alpha X_i} + ||G||) |D_i|+ (e^{-\alpha X_{i-1}} + ||G||) |D_{i-1}| +|\lambda|^2 )|d|
+\Big)\\
+\end{align*}
+
+
+
+
+
+$B_1(\lambda)$ such that
 
 \[
 (b, f(X_i; \lambda) c_i, f(X_{i-1}; \lambda) c_{i-1} ) = B_1(\lambda)(d)
