@@ -600,11 +600,20 @@ We will take the following notational conventions, which we use for simplicity. 
 \item For convenience (to avoid numerous absolute value signs), we will take $\text{Re }\nu(\lambda) \geq 0$. That being said, we will be careful to ensure that the analysis works regardless of the sign of $\text{Re }\nu(\lambda)$
 \end{enumerate}
 
-Before performing the inversion, we will do the following.\\
+Before performing the inversion, we will do the following two things.\\
 
-Fix a constant $\tilde{\alpha}$, with $0 < \tilde{\alpha} < \alpha$. The idea here is that we want $\tilde{\alpha}$ to be close to $\alpha$. Then choose $\delta> 0$ such that $\delta < \tilde{\alpha}$ and $\delta < \alpha - \tilde{\alpha}$. Finally, choose $\lambda$ sufficiently small so that both $|\lambda| < \delta$ and $|\nu(\lambda)| < \delta$ for all $|\lambda| < \delta|$. Since $\nu(\lambda) = \mathcal{O}(\lambda)$, we can accomplish this. \\
+First, we fix a constant $\tilde{\alpha}$, with $0 < \tilde{\alpha} < \alpha$. The idea here is that we want $\tilde{\alpha}$ to be close to $\alpha$. Then choose $\delta> 0$ such that $\delta < \tilde{\alpha}$ and $\delta < \alpha - \tilde{\alpha}$. Finally, choose $\lambda$ sufficiently small so that both $|\lambda| < \delta$ and $|\nu(\lambda)| < \delta$ for all $|\lambda| < \delta|$. Since $\nu(\lambda) = \mathcal{O}(\lambda)$, we can accomplish this. \\
 
-Now, as in San98 and the exponentially weighted case, we will perform the inversion of our problem in a series of lemmas. The first step is to solve for $W$ in terms of $(a, b, c, d)$.\\
+Second, we let
+
+\begin{align*}
+\tilde{c}_i^- &= e^{\nu(\lambda)X_i} c_i^- \\
+\tilde{c}_i^+ &= e^{-\nu(\lambda)X_i} c_i^+
+\end{align*}
+
+These will come in handy, as the the coefficients $c$ are often multiplied by an exponential factor.\\
+
+Now, as in San98 and the exponentially weighted case, we will perform the inversion of our problem in a series of lemmas. The first step is to solve for $W$ in terms of $(a, b, \tilde{c}, d)$.\\
 
 First, we obtain a bound on the terms from the fixed point equations which involve $W$. 
 
@@ -625,7 +634,7 @@ e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \lambda) 
 where $G_i^\pm$ is uniformly bounded with norm $||G||$. Then $L_1(\lambda): V_w \rightarrow V_w$ is a bounded linear operator with bound
 
 \begin{equation}\label{L1bound}
-||L_1(\lambda)W|| \leq C e^{\nu(\lambda)X_2} ||G|| \: ||W||
+||L_1(\lambda)W|| \leq C e^{\nu(\lambda)X_2} ||G|| ||W||
 \end{equation}
 
 \begin{proof}
@@ -654,7 +663,9 @@ We would like a more useful bound than this for the following reason. Since
 e^{\nu(\lambda)X_2} ||G|| = \mathcal{O} e^{\nu(\lambda)X_2} e^{-\alpha X_1}
 \]
 
-there is a small problem since $e^{\nu(\lambda)X_2}$ grows in $X_2$ and $e^{-\alpha X_1}$ decays in $X_1$, there is no telling what will happen as we vary $X_1$ and $X_2$ independently. To get around this problem, we will use the improved bound on $|G_i^\pm(x)|$ from Hypothesis \ref{Gbound}.
+there is a small problem since $e^{\nu(\lambda)X_2}$ grows in $X_2$ and $e^{-\alpha X_1}$ decays in $X_1$. Thus, there is no telling what will happen as we vary $X_1$ and $X_2$ independently. One workaround is to make $X_1$ and $X_2$ depend on each other, e.g. $X_2 = k X_1$ for some $k \geq 0$. Then as long as we take $\lambda$ sufficiently small, $||G||$ can absorb $e^{\nu(\lambda)X_2} = e^{\nu(\lambda)k X_1}$. This does work (and we have shown it does!) but we do not want the two length parameters to be related, since we would like to send $X_2$ to $\infty$ without altering $X_1$.\\
+
+For another way around this problem, we will use the improved bound on $|G_i^\pm(x)|$ from Hypothesis \ref{Gbound}.
 
 % inversion lemma 1a - improved bound on L1
 
@@ -677,12 +688,12 @@ The first two integrals on the RHS of $L_1$ have the same bound as in San98 and 
 &= C ||W|| ||G|| \frac{1}{\alpha - \nu(\lambda)} ( e^{\alpha x} - e^{-\alpha X_{i-1}} e^{\nu(\lambda)(X_{i-1} + x)}) \\
 \end{align*}
 
-First, note that $|\nu(\lambda)|$ is small compared to $\alpha$, so the $\alpha - \nu(\lambda)$ term in the denominator cannot blow up. Next, recall that we are taking $\text{Re }\nu(\lambda) \geq 0$ (for convenience). Since on this piece, $x \in [-X_{i-1}, 0]$, the terms $e^{\alpha x}$ and $e^{\nu(\lambda)(X_{i-1} + x)})$ are largest in magnitude at $x = 0$, we have the following bound, which is uniform in $x$
+First, note that $|\nu(\lambda)|$ is small compared to $\alpha$, so the $\alpha - \nu(\lambda)$ term in the denominator cannot blow up. Next, recall that $x \in [-X_{i-1}, 0]$ on this piece, so $X_{i-1} + x \geq 0$ on this piece. If $\nu(\lambda) < 0$, then $e^{\nu(\lambda)(X_{i-1} + x)} \leq 1$. If $\nu(\lambda) \geq 0$, then $e^{\nu(\lambda)(X_{i-1} + x)} \leq e^{\nu(\lambda)(X_{i-1}}$. Thus, we have the following bound, which is uniform in $x$ and is independent of the sign of $\nu(\lambda)$.
 
 \begin{align*}
 \Big| \int_{-X_{i-1}}^x &e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \lambda) \rangle dy \Big| \\
-&\leq C ||W|| ||G|| \frac{1}{\alpha - \nu(\lambda)} (1 - e^{-\alpha X_{i-1}} e^{\nu(\lambda)X_{i-1}}) \\
-&= C ||W|| ||G|| \frac{1}{\alpha - \nu(\lambda)} (1 - e^{-(\alpha - \nu(\lambda)) X_{i-1}} ) \\ 
+&\leq C ||W|| ||G|| \frac{1}{\alpha - \nu(\lambda)} (1 - e^{-\alpha X_{i-1}} e^{|\nu(\lambda)|X_{i-1}}) \\
+&= C ||W|| ||G|| \frac{1}{\alpha - \nu(\lambda)} (1 - e^{-(\alpha - |\nu(\lambda)|) X_{i-1}} ) \\ 
 &\leq C ||W||\: ||G||
 \end{align*}
 
@@ -726,8 +737,8 @@ Then $L_2$ is a bounded linear operator with bound
 We also have the following piecewise, $x$-dependent bounds on $L_2$.
 
 \begin{align*}
-|L_2(\lambda)(a,b,c,d)_i^-(x)| &\leq C (|a_{i-1}| + |b| + e^{\nu(\lambda)(x + X_{i-1})}|c_{i-1}^-| + |\lambda|^2 |d| ) \\
-|L_2(\lambda)(a,b,c,d)_i^+(x)| &\leq C (|a_i| + |b| + e^{\nu(\lambda)(x - X_i)}|c_i^+| + |\lambda|^2 |d| ) 
+|L_2(\lambda)(a,b,c,d)_i^-(x)| &\leq C (e^{-\alpha(x + X_{i-1})}|a_{i-1}^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| ) \\
+|L_2(\lambda)(a,b,c,d)_i^+(x)| &\leq C (e^{-\alpha(x - X_i)}|a_i^+| + |b| + e^{\nu(\lambda)x} |\tilde{c}_i^+| + |\lambda|^2 |d| ) 
 \end{align*}
 
 \begin{proof}
@@ -748,17 +759,18 @@ e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle \lambda^2 d_i \tilde{H}(y), w_-(y;
 &\leq C |\lambda|^2 |d|
 \end{align*}
 
-where in the penultimate line we use the facts that $|e^{-\tilde{\alpha}y}\tilde{H}(y)|$ is bounded (since the decay rate of $\tilde{H}$ is known) and that $|\nu(\lambda)| < \tilde{\alpha}$. The other center integral term has a similar bound. Thus we attain the bound 
+where in the penultimate line we use the facts that $|e^{-\tilde{\alpha}y}\tilde{H}(y)|$ is bounded (since the decay rate of $\tilde{H}$ is known) and that $|\nu(\lambda)| < \tilde{\alpha}$. The other center integral term has a similar bound. Thus, we attain the bound 
 
-\[
-|L_2(\lambda)(a,b,c,d)_i^-(x)| \leq C (|a_{i-1}| + |b| + e^{\nu(\lambda)(x + X_{i-1})}|c_{i-1}^-| + |\lambda|^2 |d| )
-\]
+\begin{align*}
+|L_2(\lambda)(a,b,c,d)_i^-(x)| &\leq C (e^{-\alpha(x + X_{i-1})}|a_{i-1}^-| + |b| + e^{\nu(\lambda)(x + X_{i-1})} |c_{i-1}^-| + |\lambda|^2 |d| ) \\
+&= C (e^{-\alpha(x + X_{i-1})}|a_{i-1}^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| ) 
+\end{align*}
 
-Similarly,
+For the ``positive'' piece,
 
-\[
-|L_2(\lambda)(a,b,c,d)_i^+(x)| \leq C (|a_i| + |b| + e^{\nu(\lambda)(x - X_i)}|c_i^+| + |\lambda|^2 |d| )
-\]
+\begin{align*}
+|L_2(\lambda)(a,b,c,d)_i^+(x)| &\leq C (e^{-\alpha(x - X_i)}|a_i^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_i^-| + |\lambda|^2 |d| ) 
+\end{align*}
 
 The overall, uniform bound is
 
@@ -786,11 +798,11 @@ This operator is analytic in $\lambda$ and linear in $(a, b, c, d)$. The operato
 ||W_1(\lambda)(a,b,c,d)|| \leq C ( |a| + |b| + e^{\nu(\lambda)X_i}|c_i| + e^{\nu(\lambda)X_{i-1}}|c_{i-1}| + |\lambda|^2 |d| )
 \end{equation}
 
-We also have the piecewise, $x$-dependent bounds
+We also have the piecewise bounds
 
 \begin{align*}
-|W_1(\lambda)(a,b,c,d)_i^-(x)| &\leq C ( |a_{i-1}| + |b| + e^{\nu(\lambda)(x + X_{i-1})}|c_{i-1}^-| + |\lambda|^2 |d| ) \\
-|W_1(\lambda)(a,b,c,d)_i^+(x)| &\leq C ( |a_i| + |b| + e^{\nu(\lambda)(x - X_i)}|c_i^+| + |\lambda|^2 |d| )
+||W_1(\lambda)(a,b,c,d)_i^-|| &\leq C ( |a| + |b| + e^{\nu(\lambda)X_{i-1}}|c_{i-1}| + |\lambda|^2 |d| ) \\
+||W_1(\lambda)(a,b,c,d)_i^+|| &\leq C ( |a| + |b| + e^{\nu(\lambda)X_i}|c_i| + |\lambda|^2 |d| )
 \end{align*}
 
 \begin{proof}
@@ -816,15 +828,33 @@ We can then write $W$ as
 W = W_1(\lambda)(a,b,c,d) = (I - L_1(\lambda))^{-1} L_2(\lambda)(a,b,c,d)
 \]
 
-which depends linearly on $(a,b,c,d)$ and analytically on $\lambda$. Since the operator norm of $L_1$ is bounded by a constant (independent of the $X_i$), we have the bound
+which depends linearly on $(a,b,c,d)$ and analytically on $\lambda$. Since the operator norm of $L_1$ is bounded by a constant (independent of the $X_i$), we have the uniform bound
 
 \[
 ||W_1(\lambda)(a,b,c,d)|| \leq C (|a| + |b| + e^{\nu(\lambda)X_i}|c_i| + e^{\nu(\lambda)X_{i-1}}|c_{i-1}| + |\lambda|^2 |d| )
 \]
 
-We get the piecewise bounds by using the piecewise bounds for $L_2$. \\
+The piecewise bounds are obtained by noting which piece of $L_2$ is involved with which piece of $W$.\\
 
-I AM PRETTY SURE THIS IS LEGIT BECAUSE THIS IS ESSENTIALLY SOLVING FOR $W_i^\pm$ ON EACH PIECE SEPARATELY, WHICH WE CAN DO SINCE THEY DON'T DEPEND ON EACH OTHER. THEY DEPEND ON SOME OF THE SAME ICs, BUT THAT IS OK.
+We can obtain a better, piecewise bound for $W$ by substituting the $W_1$ bound into the expression $W = L_1 + L_2$, and using the bounds for $L_1$ and $L_2$ from the previous lemmas.
+
+\begin{align*}
+|W_i^-(x)| &\leq |(L_1(\lambda)W)_i^-(x)| + |L_2(\lambda)(a,b,c,d)_i^-(x)| \\
+&\leq C \Big( ||G|| ||W_i^-|| + e^{-\alpha(x + X_{i-1})}|a_{i-1}^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| ) \\
+&\leq \Big( ||G|| (|a| + |b| + e^{\nu(\lambda)X_{i-1}}|c_{i-1}| + |\lambda|^2 |d|) + e^{-\alpha(x + X_{i-1})}|a_{i-1}^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| )
+\end{align*}
+
+Thus we have
+
+\begin{align*}
+|W_i^-(x)| &\leq \Big( ||G|| |a| + e^{-\alpha(x + X_{i-1})}|a_{i-1}^-| + |b| + ||G|| e^{\nu(\lambda)X_{i-1}}|c_{i-1}| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| ) \\
+\end{align*}
+
+Similarly, 
+
+\begin{align*}
+|W_i^+(x)| &\leq \Big( ||G|| |a| + e^{-\alpha(x - X_i)}|a_i^+| + |b| + ||G|| e^{\nu(\lambda)X_i}|c_i| + e^{\nu(\lambda)x} |\tilde{c}_i^+| + |\lambda|^2 |d| ) \\
+\end{align*}
 
 \end{proof}
 \end{lemma}
@@ -846,7 +876,7 @@ The next lemma performs this inversion.
 
 % second inversion lemma
 
-\begin{lemma}\label{endjoins}
+\begin{lemma}\label{inv2}
 There exist operators
 
 \begin{align*}
@@ -867,14 +897,6 @@ and
 |W_2(\lambda)(b,c,d)|| 
 \leq C \Big( |b| + e^{\nu(\lambda)X_i}|c_i| + e^{\nu(\lambda)X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D|)|d| \Big)
 \end{equation} 
-
-In addition, we have $x$-dependent, piecewise bounds
-
-\begin{align*}
-|W_2&(\lambda)(b,c,d)_i^+(x)| \leq C \Big( |b| + e^{\nu(\lambda)(x - X_i)}|c_i| + (|\lambda|^2 + |D_i|)|d| \Big) \\
-|W_2&(\lambda)(b,c,d)_i^-(x)| 
-\leq C \Big( |b| + e^{\nu(\lambda)(x + X_{i-1})}|c_{i-1}| + (|\lambda|^2 + |D_i|)|d| \Big)
-\end{align*}
 
 Furthermore, 
 
@@ -1027,31 +1049,36 @@ For the bound on $L_3$, we have seen most of the terms before. For the bound on 
 
 where we again used the fact that $|e^{\tilde{\alpha}y} \tilde{H}(y)|$ is bounded, which holds since $\tilde{\alpha}$ is smaller than $\alpha$ and $\tilde{H}(y)$ decays with rate $\alpha$. The ``negative'' piece is simlar.\\
 
-For the integral term involving $W$, we use the piecewise, $x$-dependent bound on $W$ from Lemma \ref{W1bound}. For the ``positive'' piece, we have
+For the integral term involving $W$, we use the piecewise bound on $W$ from Lemma \ref{W1bound}. For the ``positive'' piece, we have
 
 \begin{align*}
 &\left| \int_0^{X_i} \Phi^s_+(X_i, y; \lambda) G_i^+(y) W_i^+(y) \right| \\
-&\leq C ||G|| \int_0^{X_i} e^{-\alpha(X_i - y)}(|a| + |b| + e^{\nu(\lambda)(y - X_i)}|c_i^+| + |\lambda|^2 |d| ) dy \\
-&\leq C \left( \int_0^{X_i} e^{-\alpha(X_i - y)}e^{-\nu(\lambda)(X_i - y)}|c_i^+|dy + \int_0^{X_i} e^{-\alpha(X_i - y)}(|a| + |b| + |\lambda|^2 |d| ) dy \right)
+&\leq C \int_0^{X_i} e^{-\alpha(X_i - y)}|G_i^+(y)|(|a| + |b| + e^{\nu(\lambda)X_i}|c_i^+| + |\lambda|^2 |d| ) dy \\
+&\leq C \left( ||G||(|a| + |b| + |\lambda|^2 |d|) + \int_0^{X_i} e^{-\alpha(X_i - y)}|G_i^+(y)|e^{\nu(\lambda)X_i}|c_i^+| dy \right) \\
+&\leq C ||G|| \left( |a| + |b| + |\lambda|^2 |d| + \int_0^{X_i} e^{-\alpha(X_i - y)}e^{-\alpha y} e^{\nu(\lambda)X_i}|c_i^+| dy \right)
 \end{align*}
 
-For the second integral on the RHS, we have
+For the integral on the RHS, we have
 
 \begin{align*}
-\int_0^{X_i} e^{-\alpha(X_i - y)}(|a| + |b| + |\lambda|^2 |d| ) dy &\leq (|a| + |b| + |\lambda|^2 |d|)\frac{1 - e^{-\alpha X_i}}{\alpha} \\
-&\leq C (|a| + |b| + |\lambda|^2 |d|)
+\int_0^{X_i} e^{-\alpha(X_i - y)}e^{-\alpha y} e^{\nu(\lambda)X_i}|c_i^+| dy
+&\leq |c_i^+| \int_0^{X_i} e^{-(\alpha - \nu(\lambda))X_i}e^{\alpha y} e^{-\alpha y} dy \\
+&\leq |c_i^+| \int_0^{X_i} e^{-(\alpha - \nu(\lambda))X_i}e^{\tilde{\alpha} y} e^{-\tilde{\alpha} y} dy \\
+&\leq |c_i^+| \int_0^{X_i} e^{-(\alpha - \nu(\lambda))(X_i - y)} e^{-\tilde{\alpha} y} dy \\
+&\leq |c_i^+| \int_0^{X_i} e^{-(\alpha - \nu(\lambda))(X_i - y)} dy \\
+&\leq |c_i^+|
 \end{align*}
 
-For the first integral on the RHS, we have
+where we used the fact that $|\nu(\lambda)| \leq \alpha - \tilde{\alpha}$. Note that this works regardless of the sign of the real part of $\nu(\lambda)$. 
+
+Thus we have
 
 \begin{align*}
-\int_0^{X_i} e^{-\alpha(X_i - y)}e^{-\nu(\lambda)(X_i - y)}|c_i^+|dy &\leq
-|c_i^+| \int_0^{X_i} e^{-(\alpha - \nu(\lambda))(X_i - y)} dy \\
-&= |c_i^+| \frac{1 - e^{-(\alpha - \nu(\lambda)) X_i}}{\alpha - \nu(\lambda)} \\
-&\leq C |c_i^+| 
+&\left| \int_0^{X_i} \Phi^s_+(X_i, y; \lambda) G_i^+(y) W_i^+(y) \right| \\
+&\leq C ||G|| \left( |a| + |b| + |c_i^+| + \lambda|^2 |d| \right)
 \end{align*}
 
-where we use the inequality in the first line to handle either possible sign of the real part of $\nu(\lambda)$. The ``negative'' piece is similar. Note that this works out the way we want, since the ``negative'' piece involves $W_{i-1}$, but the bound for $W_{i-1}$ involves $c_i^-$.\\
+The ``negative'' piece is similar. This works out the way we want, since the ``negative'' piece involves $W_{i-1}$, but the bound for $W_{i-1}$ involves $c_i^-$.\\
 
 Thus we have the following bound for $L_3$.
 
@@ -1103,26 +1130,8 @@ Using the bound on $L_3$ together with $|D_i|$, $A_1$ will have bound
 + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + |D_i||d| \Big)
 \end{align*} 
 
-We can plug this into our expression for $W_1$ to get $W_2(\lambda)$.\\
+We can plug this into our expression for $W_1$ to get $W_2(\lambda)$, which has uniform bound
 
-For the $x$-dependent, piecewise verison, we have for the ``plus'' pieces
-
-\begin{align*}
-|W_2&(\lambda)(b,c,d)_i^+(x)| \leq C ( |A_1(\lambda)_i(b, c, d)| + |b| + e^{\nu(\lambda)(x - X_i)}|c_i^+| + |\lambda|^2 |d| ) \\
-&\leq C \Big( (e^{-\alpha X_i} + ||G||)|b| + ( p_4(X_i; \lambda) + ||G|| )|c_i|
-+ (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + |D_i||d| \\
-&+ |b| + e^{\nu(\lambda)(x - X_i)}|c_i^+| + |\lambda|^2 |d| \Big)\\
-&\leq C \Big( |b| + e^{\nu(\lambda)(x - X_i)}|c_i| + (|\lambda|^2 + |D_i|)|d| \Big)
-\end{align*}
-
-The ``minus'' pieces are similar.
-
-\begin{align*}
-|W_2&(\lambda)(b,c,d)_i^-(x)| 
-\leq C \Big( |b| + e^{\nu(\lambda)(x + X_{i-1})}|c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| \Big)
-\end{align*}
-
-The overall uniform bound is
 \begin{align*}
 |W_2&(\lambda)(b,c,d)|| 
 \leq C \Big( |b| + e^{\nu(\lambda)X_i}|c_i| + e^{\nu(\lambda)X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D|)|d| \Big)
@@ -1226,6 +1235,8 @@ P(\C v_-(0; \lambda))W^-(0) &= 0 \\
 P(\C v_+(0; \lambda))W^+(0) &= 0 \\
 P(Y^+ \oplus Y^-) (W^+(0) - W^-(0) ) &= 0
 \end{align*}
+
+NOTE: THIS LEMMA IS NOT TRUE AS WRITTEN SINCE IT RELIES ON A BOUND WHICH WE DO NOT IN FACT HAVE.
 
 \begin{lemma}
 There exist an operator
@@ -1346,7 +1357,9 @@ y_i^+ - y_i^- \end{pmatrix} + L_4(\lambda)(b, \tilde{c}) = 0
 
 where $L_4(\lambda)(b, \tilde{c})$ is the rest of the terms that don't get eliminated outright by the projections. Note that so far we have written $L_4$ entirely in terms of $\tilde{c}$. We will make sure this remains the case when we perform the substitutions for $W$ and $a$.\\
 
-For the bound on $L_4$, we need to get bounds on the integral terms involving $W$ in a similar fashion to what we did before. First, we find a bound for the center integral involving $W$ on the ``minus'' piece.
+For the bound on $L_4$, we need to get bounds on the integral terms involving $W$ in a similar fashion to what we did before. First, we find a bound for the center integral involving $W$ on the ``minus'' piece.\\
+
+EVERYTHING IS OK TO HERE. THIS NEXT PART IS NOT TRUE SINCE IT RELIES ON A BOUND WE DO NOT HAVE.
 
 \begin{align*}
 &\left| \int_{-X_{i-1}}^0
@@ -1707,21 +1720,11 @@ The other one is similar.\\
 \end{proof} 
 \end{lemma}
 
-``Noncenter'' integral terms
+Next, we look at the integral terms in the jump $\xi_i$. First, we look at the ``noncenter'' integral terms. Before we do that, we will need an improved estimate for $W$.
 
-\begin{enumerate}[(i)]
-
-\item Integrals not involving $H$. For these we only do the ``minus'' half. The ``plus'' half is similar
-
-\begin{align*}
-\left| \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; \lambda) G_i^-(\lambda)W_i^-(y) \rangle dy \right| 
-&\leq C ||G|| ||W|| \\
-&\leq C ||G|| ( |\lambda|^2 + |D|)|d|
-\end{align*}
-
-where we plugged in $W_3(\lambda)(d)$ for $W$. We need a better estimate here. We will try what we did in the exponentially weighted case, and what was done in Sanstede (1998).
-
-\item Improved estimate for $W$
+\begin{lemma}
+We have the following improved, piecewise, $x$-dependent estimate for $W$
+\begin{proof}
 
 Since we have 
 \[
@@ -1762,8 +1765,22 @@ Similarly
 \begin{align*}
 | W_i^+(x)| \leq C ( (e^{\alpha^u(x - X_i)} + K(X; \lambda))|D| + |\lambda|^2 )|d|
 \end{align*}
+\end{proof}
+\end{lemma}
 
-\item Better integral bound
+Integrals not involving $H$. For these we only do the ``minus'' half. The ``plus'' half is similar
+
+\begin{align*}
+\left| \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; \lambda) G_i^-(\lambda)W_i^-(y) \rangle dy \right| 
+&\leq C ||G|| ||W|| \\
+&\leq C ||G|| ( |\lambda|^2 + |D|)|d|
+\end{align*}
+
+where we plugged in $W_3(\lambda)(d)$ for $W$. We need a better estimate here. We will try what we did in the exponentially weighted case, and what was done in Sanstede (1998).
+
+
+
+Better integral bound
 
 Now we use this to get a better integral bound. Doing the ``minus'' one, we have
 
@@ -1793,7 +1810,7 @@ This is similar to what we have in Sandstede (1998), except the exponential fact
 
 The other ones are similar.
 
-\item Integrals involving $H$
+Integrals involving $H$
 
 Recall that these integrals are multiplied by $d_i \lambda^2$. We will omit that for now when obtaining the bound. Then we have
 
@@ -1824,7 +1841,7 @@ The first integral on the RHS is half of our Melnikov integral. The second is or
 -d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}( ( |\lambda| + e^{-\alpha X_i} + e^{-\alpha X_{i-1}} ) |\lambda|^2 |d|)
 \end{align*}
 
-\end{enumerate}
+
 
 ``Center'' integral terms
 
