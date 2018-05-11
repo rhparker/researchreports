@@ -1552,7 +1552,7 @@ p_6(y; \lambda) = |\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)| + |\Phi^u_-(0, -
 
 For now, we take the following hypothesis, which should follow from the Taylor theorem
 
-\begin{hypothesis}
+\begin{hypothesis}\label{p6}
 \begin{equation}\label{p6bound}
 p_6(y; \lambda) \leq C |\lambda| e^{-\alpha |y|}
 \end{equation}
@@ -1844,41 +1844,18 @@ Similarly, for the other integral,
 \end{proof}
 \end{lemma}
 
+Now we take a look at the ``noncenter'' integrals involving $H$. These will give us our higher order Melnikov integral.
 
-
-Better integral bound
-
-Now we use this to get a better integral bound. Doing the ``minus'' one, we have
+\begin{lemma}
 
 \begin{align*}
-&\left| \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; \lambda) G_i^-(\lambda)W_i^-(y) \rangle dy \right| \\
-&\leq C ||G|| |d| \int_{-X_{i-1}}^0 | \langle \Psi(0), \Phi^s_-(0, y; \lambda) ( (e^{-\alpha^s(y + X_{i-1})} + K(X; \lambda))|D| + |\lambda^2|) \rangle | dy
+\langle \Psi(0), &\int_{X_i}^0 \Phi^u_+(0, y; \lambda) \lambda^2 d_i \tilde{H}(y) dy - \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) \lambda^2 d_i \tilde{H}(y) dy \rangle \\ 
+&= -d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}( ( |\lambda| + e^{-\alpha X_i} + e^{-\alpha X_{i-1}} ) |\lambda|^2 |d|)
 \end{align*}
 
-The only one which is tricky is the one involving ${-\alpha^s(y + X_{i-1})}$, so let's look at that separately. For convenience, let $\tilde{\delta} = \alpha - \tilde{\alpha} > 0$.
+\begin{proof}
 
-\begin{align*}
-\int_{-X_{i-1}}^0 &| \langle \Psi(0), \Phi^s_-(0, y; \lambda) (e^{-\alpha^s(y + X_{i-1})} |D| \rangle | dy \leq C |D| \int_{-X_{i-1}}^0 e^{\alpha y} e^{-\alpha(y + X_{i-1})} dy \\
-&\leq C |D| \int_{-X_{i-1}}^0 e^{-\alpha X_{i-1}} dy \\
-&= C |D| \int_{-X_{i-1}}^0 e^{-\tilde{\delta} y} e^{\tilde{\delta} y}  e^{-\alpha X_{i-1}} dy \\
-&\leq C |D| \int_{-X_{i-1}}^0 e^{\tilde{\delta} X_{i-1}} e^{\tilde{\delta} y}  e^{-\alpha X_{i-1}} dy \\
-&\leq C |D| \int_{-X_{i-1}}^0 e^{-(\alpha - \tilde{\delta}) X_{i-1}} e^{\tilde{\delta} y} dy \\
-&\leq C e^{-\tilde{\alpha} X_{i-1}} |D| \int_{-X_{i-1}}^0 e^{\tilde{\delta} y} dy \\
-&\leq C e^{-\tilde{\alpha} X_{i-1}} |D|
-\end{align*}
-
-This is similar to what we have in Sandstede (1998), except the exponential factor is $\tilde{\alpha}$ instead of $\alpha$, which is fine. Now that we have done the first part of the integral bound, the rest is no problem. We have for the entire thing 
-
-\begin{align*}
-&\left| \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; \lambda) G_i^-(\lambda)W_i^-(y) \rangle dy \right| \\
-&\leq C ||G|| ( e^{-\tilde{\alpha} X_{i-1}} + K(X; \lambda))|D| + |\lambda^2|)|d|
-\end{align*}
-
-The other ones are similar.
-
-Integrals involving $H$
-
-Recall that these integrals are multiplied by $d_i \lambda^2$. We will omit that for now when obtaining the bound. Then we have
+Looking at the ``negative'' integral (which is multipled by $d_i \lambda^2$), we write it as
 
 \begin{align*}
 \langle \Psi(0)&, \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \lambda) \tilde{H}(y) dy \rangle \\ 
@@ -1886,13 +1863,9 @@ Recall that these integrals are multiplied by $d_i \lambda^2$. We will omit that
 \int_{-X_{i-1}}^0 \langle \Psi(0), (\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)) \tilde{H}(y) \rangle dy
 \end{align*}
 
-where we need to play this trick to replace the $\lambda$-dependent evolution with the evolution when $\lambda = 0$ in order to get the Melnikov term we want. Again, we will assume we have a bound of the form
+where we use this trick to replace the $\lambda$-dependent evolution with the evolution when $\lambda = 0$ in order to get the Melnikov term we want. Again, we will assume the bound from Hypothesis \ref{p6}. Using this, the second integral above is order $|\lambda|$.\\
 
-\[
-|\Phi^s_-(0, y; \lambda) - \Phi^s_-(0, y; 0)| \leq C |\lambda| e^{-\alpha y}
-\]
-
-which is the same $p_6$ above. With this bound, the second integral above is order $|\lambda|$. For the first integral, we have 
+For the first integral, we manipulate things to bring the limits out to $\pm \infty$ (to get the higher order Melnikov integral) and to replace $\tilde{H}$ by $H$ (so tha the Melnikov integral only involves the single pulse).
 
 \begin{align*}
 \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; 0) \tilde{H}(y) \rangle dy &= 
@@ -1901,13 +1874,10 @@ which is the same $p_6$ above. With this bound, the second integral above is ord
 &+ \int_{-X_{i-1}}^0 \langle \Psi(y), \Delta H(y) \rangle dy 
 \end{align*}
 
-The first integral on the RHS is half of our Melnikov integral. The second is order $e^{-\alpha X_{i-1}}$. The third is order $e^{-\alpha X_1}$ (the order of $\Delta H$). When we do the ``plus'' piece, the first integral is the other half of the Melnikov integral; the second integral is order $e^{-\alpha X_i}$; and the third integral is the same order. Thus these integral terms look like (note the signs in the equation for $W_i^+(0) - W_{i-1}^-(0)$)
+The first integral on the RHS is half of our Melnikov integral. The second is order $e^{-\alpha X_{i-1}}$, since we know the decay rate of $H$. The third is order $e^{-\alpha X_1}$ (the order of $\Delta H$). When we do the ``plus'' piece, the first integral is the other half of the Melnikov integral; the second integral is order $e^{-\alpha X_i}$; and the third integral is the same order. Combining all of this gives us our desired result.
+\end{proof}
 
-\begin{align*}
--d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}( ( |\lambda| + e^{-\alpha X_i} + e^{-\alpha X_{i-1}} ) |\lambda|^2 |d|)
-\end{align*}
-
-
+\end{lemma}
 
 ``Center'' integral terms
 
