@@ -1,0 +1,251 @@
+% \documentclass{book}
+
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+% \usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{amssymb}               
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\DeclareMathOperator{\spn}{span}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\graphicspath{ {periodic/} }
+
+\begin{document}
+
+\section{Periodic Pulses and Multipulses}
+
+We are interested in proving existence of periodic, multipulse solutions to KdV5 together with estimates sufficient to use for the stability problem. This method (or attempt) is based on San97.\\
+
+Since we are only intererested in the existence problem here, we can use the 4th order (integrated) equation
+
+\begin{equation}\label{4thorder}
+f(u) = u_{xxxx} - u_{xx} + c u - u^2 = 0
+\end{equation}
+
+We know that single pulse solutions exist for $c > 0$ and that multipulse solutions exist for $c > 1/4$. Choose $c > 1/4$, and let $q(x)$ be the corresponding single pulse solution. (We could write this as $q(x; c)$, but we suppress the dependence on $c$ for convenience. Write this as a first order system as
+
+\[
+U'(x) = F(U) = LU + N(U)
+\]
+
+where $N$ is strictly nonlinear. Let $A$ be the linearization of \eqref{4thorder} about the equilibrium at 0 (which persists for all values of $c$). Then we know $A$ is hyperbolic, has two stable and two unstable directions, and the magnitude of the real part of all of them is given by $\alpha$. 
+\\
+
+What we want to do now is paramaterize the stable and unstable manifolds near $q(0)$. To do that we first write
+
+\begin{align*}
+T_{q(0)}W^u(0) &= \R Q'(0) \oplus Y^- \\
+T_{q(0)}W^s(0) &= \R Q'(0) \oplus Y^+ \\
+Z &= \R \Psi(0)
+\end{align*}
+
+These four things are one-dimensional and span $\R^4$, and we have shown before that $Z$ is perpendicular to the other three. \\
+
+In San97, the ODE under consideration is parameterized by $\mu$. The only parameter we have available here is the speed $c$, so we will go ahead and use that as our parameter. This is a little weird, since we would like this to work for all $c > 0$ (or $c > 1/4$ for multipulses), rather than assuming there is a homoclinic orbit for a speed $c_0$ and then proving that a periodic pulse (wavetrain) exists for a nearby $c$. That being said, we will do it this way for now, and see what happens.\\
+
+We now write $W^u(0)$ and $W^s(0)$ as graphs over their own tangent spaces near $Q(0)$. Following San97, we can paramaterize the unstable and stable manifolds near $Q(0)$ by
+
+\begin{align*}
+Q^-(\alpha, \beta^-, c) \\
+Q^+(\alpha, \beta^+, c)
+\end{align*}
+
+where $\alpha \in \R$, $\beta^\pm \in Y^\pm$ and we have set things up so that $Q^+(\alpha, \beta^+, c) - Q^-(\alpha, \beta^-, c) \in Z$. \\
+
+Since, in our case, the homoclinic orbit persists for all $c > 0$ (this has been shown), we should have for all $c > 0$
+
+\[
+Q^-(0, 0, c) = Q^+(0, 0, c)
+\]
+
+though it is hard to say at this point if this will be useful or not.\\
+
+To construct a periodic single pulse, we want to solve the following periodic BVP for some $X > 0$
+
+\begin{align*}
+U' - LU - N(U) &= 0 \\
+U(X) - U(-X) &= 0 
+\end{align*}
+
+Since for $c > 1/4$ we have ``twisting manifolds'', $X$ may be restricted to be approximately an integer multiple of some phase parameter.\\
+
+Using the parameterization of the stable and unstable manifolds, we want to then solve the problem for piecewise $U$ given by
+
+\begin{align*}
+U^-(x) &= Q^-(\alpha, \beta^-, c)(x) + V-^(x) \\
+U^+(x) &= Q^+(\alpha, \beta^+, c)(x) + V-+(x)
+\end{align*}
+
+where $Q^-(\alpha, \beta^-, c)(x)$ is the unique solution to our ODE with IC $Q^-(\alpha, \beta^-, c)$ for $x \leq 0$, and similar for the other one. We will choose $V^\pm(x)$ so that
+
+\begin{align*}
+V^-(0) &\in Z \oplus Y^- \\
+V^+(0) &\in Z \oplus Y^+
+\end{align*}
+
+since the other directions are covered by the $\alpha$ and $\beta^\pm$.\\
+
+Much of Lemma 4.1 in San97 should hold as written. However, the Melnikov integral in (H2) will be 0. To see this, take any $c > 0$. Then the (standard) Melnikov integral is
+
+\begin{align*}
+M &= \int_{-\infty}^\infty \langle \psi(x), D_c f(q(x), c) \rangle dx \\
+&= \int_{-\infty}^\infty \langle \psi(x), q(x) \rangle dx \\
+&= \int_{-\infty}^\infty \langle q'(x), q(x) \rangle dx \\
+&= 0
+\end{align*}
+
+In the penultimate line, we used the following facts
+
+\begin{enumerate}
+
+\item The linearization of $f$ is self-adjoint, thus the solutions to the variational equation and the adjoint variational equation are identical.
+\item Thus $\psi(x) = q'(x)$, since $q'(x)$ solves the variational equation.
+\item $q(x)$ is even and $q'(x)$ is odd
+\item For $D_c f(q, c)$ we have
+\begin{align*}
+D_c f(q, c) &= q_{xxxxc} - q_{xxc} + c q_c + q - 2qq_c \\
+&= \frac{\partial}{\partial c}(q_{xxxx} - q_{xx} + cq - q^2) + q \\
+&= q
+\end{align*}
+
+\end{enumerate}
+
+Thus we will need a version of Lemma 4.1 that uses our higher order Melnikov integral, which is nonzero by hypothesis. \\
+
+We will return to the problem, and see where this comes up, which should hopefully give us an idea of what to do.\\
+
+For convenience, we take 
+
+\[
+\gamma^\pm = (\alpha, \beta^\pm, c)
+\]
+
+and we let $\Phi_\pm(c^\pm, t, s)$ be the evolution operator for the variational equation
+
+\begin{equation}
+V' = A(Q^\pm(\alpha, \beta^\pm, c)(x), c) V
+\end{equation}
+
+For convenience, let
+
+\begin{align*}
+\Phi^s_\pm(\gamma, t, s) &= \Phi_\pm(\gamma, t, s) P^s_\pm(\gamma, s) \\
+\Phi^u_\pm(\gamma, t, s) &= \Phi_\pm(\gamma, t, s) P^u_\pm(\gamma, s) 
+\end{align*}
+
+The estimates in Lemma 5.1 in San97 are similar to those we have been using this entire time, and should hold as written.\\
+
+Then, plugging in our piecewise expression for $U$, $U^\pm$ solves the ODE $U' = F(U, c)$ if and only if $V\pm$ solves
+
+\begin{align*}
+(V\pm)' = A(Q^\pm(\gamma^\pm)(x), c)V^\pm + G^\pm(x, V^\pm, \gamma^\pm) 
+\end{align*}
+
+where $G = \mathcal{O}(|V|^2)$ (Taylor).\\
+
+We then write the ODE as a piecewise integral equation on the intervals $[-X, 0]$ and $[0, X]$. This is pretty much the same thing we always do. The IC is taken 
+
+\begin{align*}
+V^+(x) &= \Phi^u_+(\gamma^+, x, X) a^+ + \Phi^s_+(\gamma^+, x, 0) b^+ \\
+&+ \int_{-X}^x \Phi_+^u(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\
+&+ \int_0^x \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
+V^-(x) &= \Phi^s_-(\gamma^-, x, -X) a^- + \Phi^u_-(\gamma^-, x, 0) b^- \\
+&+ \int_X^x \Phi_-^s(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+&+ \int_0^x \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+\end{align*}
+
+where for the ICs on the two parts of the exponential dichotomy we have
+
+\begin{align*}
+a^+ &\in E_0^u \\
+a^- &\in E_0^s \\
+\end{align*}
+
+We also need to specify where the ICs $b^\pm$ live. Intuitively I would take $b^\pm \in Y^\pm \oplus Z$, which would mean the projection at $x = 0$ is the identity. However, since these disappear in (5.8) in San97, it looks like we might want to take them to be a space which is wiped out by the appropriate projection. To accomplish this, we could take $b^\pm \in Y^\mp \oplus Z$. For now, we will do that since it gets rid of something, but maybe we want to keep the $b^\pm$ around to do the matching at $x = 0$.\\
+
+Thus we have
+
+\begin{align*}
+V^+(x) &= \Phi^u_+(\gamma^+, x, X) a^+  \\
+&+ \int_{-X}^x \Phi_+^u(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\
+&+ \int_0^x \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
+V^-(x) &= \Phi^s_-(\gamma^-, x, -X) a^-  \\
+&+ \int_X^x \Phi_-^s(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+&+ \int_0^x \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+\end{align*}
+
+Define the exponentially weighted norms
+
+\begin{align*}
+||V||_+ = sup_{x \in [0, X]} e^{\alpha(X - x)}|V(x)| \\
+||V||_- = sup_{x \in [-X, 0]} e^{\alpha(x + X)}|V(x)| \\
+\end{align*}
+
+and let $C^\pm$ be the spaces equipped with these norms. These are known to be Banach spaces. Let $B_\rho^\pm$ be the ball of radius $\rho$ in these norms about the zero function.\\
+
+In Lemma 5.2 in San97, we use the IFT to solve for $V^\pm$ in terms of the ICs $a_^\pm$. This should work as it does there, so for now assume we can do this, and we can fill in details as needed. Thus we have the estimate
+
+\[
+||V^\pm||_\pm \leq C |a^\pm|
+\]
+
+Now we look at the matching BC at $\pm X$. Recall that the matching BC is for $U$ not $V$. Substituting this into the fixed point equations, we get
+
+\begin{align*}
+V^+(X) &= P^u_+(\gamma^+, X) a^+ + \int_0^X \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
+V^-(-X) &= P^s_-(\gamma^-, -X) a^- + \int_0^{-X} \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+\end{align*}
+
+Adding and subtracting $P_0^{s/u}$ and recalling where the $a_i$ live, this becomes
+
+\begin{align*}
+V^+(X) &= a^+ + (P^u_+(\gamma^+, X) - P^u_0) a^+ + \int_0^X \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
+V^-(-X) &= a^- + (P^s_-(\gamma^-, -X) - P^s_0) a^- + \int_0^{-X} \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+\end{align*}
+
+Now set these equal and solve for $a^+ + a^-$. We can invert this in the usual fashion, so what we need to do is get a bound on the integrals in terms of stuff we can deal with. Recall that $G^+$ is order $(V^+)^2$
+
+\begin{align*}
+\left| \int_0^X \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \right| 
+\leq C \int_0^X e^{-\alpha(x-y)} |V^+(y)|^2 dy
+\end{align*}
+
+
+\end{document}
