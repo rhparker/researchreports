@@ -220,32 +220,52 @@ Define the exponentially weighted norms
 
 and let $C^\pm$ be the spaces equipped with these norms. These are known to be Banach spaces. Let $B_\rho^\pm$ be the ball of radius $\rho$ in these norms about the zero function.\\
 
-In Lemma 5.2 in San97, we use the IFT to solve for $V^\pm$ in terms of the ICs $a_^\pm$. This should work as it does there, so for now assume we can do this, and we can fill in details as needed. Thus we have the estimate
+In Lemma 5.2 in San97, we use the IFT to solve for $V^\pm$ in terms of the ICs $a^\pm$. This should work as it does there, so for now assume we can do this, and we can fill in details as needed. Thus we have the estimate
 
 \[
 ||V^\pm||_\pm \leq C |a^\pm|
 \]
 
-Now we look at the matching BC at $\pm X$. Recall that the matching BC is for $U$ not $V$. Substituting this into the fixed point equations, we get
+Now we look at the matching BC at $\pm X$. Recall that the matching BC is for $U$ not $V$. Substituting in the fixed point equations we get
 
 \begin{align*}
-V^+(X) &= P^u_+(\gamma^+, X) a^+ + \int_0^X \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
-V^-(-X) &= P^s_-(\gamma^-, -X) a^- + \int_0^{-X} \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+U^+(X) &= Q^+(\gamma^+)(X) + P^u_+(\gamma^+, X) a^+ + \int_0^X \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
+U^-(-X) &= Q^-(\gamma^-)(-X) + P^s_-(\gamma^-, -X) a^- + \int_0^{-X} \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
 \end{align*}
 
 Adding and subtracting $P_0^{s/u}$ and recalling where the $a_i$ live, this becomes
 
 \begin{align*}
-V^+(X) &= a^+ + (P^u_+(\gamma^+, X) - P^u_0) a^+ + \int_0^X \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
-V^-(-X) &= a^- + (P^s_-(\gamma^-, -X) - P^s_0) a^- + \int_0^{-X} \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+U^+(X) &= Q^+(\gamma^+)(X) + a^+ + (P^u_+(\gamma^+, X) - P^u_0) a^+ + \int_0^X \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
+U^-(-X) &= Q^-(\gamma^-)(-X) + a^- + (P^s_-(\gamma^-, -X) - P^s_0) a^- + \int_0^{-X} \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
 \end{align*}
 
-Now set these equal and solve for $a^+ + a^-$. We can invert this in the usual fashion, so what we need to do is get a bound on the integrals in terms of stuff we can deal with. Recall that $G^+$ is order $(V^+)^2$
+Now set these equal and solve for $a^+ + a^-$, which then gives us $a^\pm$ since $E^s$ and $E^u$ are linearly independendent. Our estimates should be good enough to do this, so we be able to solve for the $a^\pm$ in terms of the $c^\pm$ with estimates
 
 \begin{align*}
-\left| \int_0^X \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \right| 
-\leq C \int_0^X e^{-\alpha(x-y)} |V^+(y)|^2 dy
+|a^\pm| \leq C |Q^\pm(\gamma^\pm)(\pm X)| \leq C e^{-\alpha X}
 \end{align*}
+
+To get a solution to the full problem, we need to match our two pieces of $U$ at $X = 0$. At $x = 0$, we have
+
+\begin{align*}
+U^+(0) &= Q^+(\gamma^+) + V^+(0) \\
+U^-(0) &= Q^-(\gamma^-) + V^-(0)
+\end{align*}
+
+which we can write out as
+
+\begin{align*}
+U^+(0) &= Q^+(\gamma^+) + \Phi^u_+(\gamma^+, 0, X) a^+ + \int_{-X}^0 \Phi_+^u(\gamma^+, 0, y) G^+(y, V^+(y),\gamma^+)dy \\
+U^-(0) &= Q^-(\gamma^-) + \Phi^s_-(\gamma^-, 0, -X) a^- - \int_0^X \Phi_-^s(\gamma^-, 0, y) G^-(y, V^-(y),\gamma^-)dy \\
+\end{align*}
+
+We can solve $U^+(0) - U^-(0)$ by taking projections on the pieces of $\R^4 = \R Q'(0) \oplus Z \oplus Y^- \oplus Y^+$. Since we have chosen $V^\pm(0) \in Z \oplus Y^\pm$, we should be able to show that the projection on $\R Q'^(0)$ is automatically 0. Thus it suffices to consider the other ones.\\
+
+The projection on $Z = \R \Psi(0)$ should give us the Melnikov integral, so let's make sure that will actually happen, especially since the lower order Melnikov integral is 0.\\
+
+From what I understand, the $P_Z( Q^+(\gamma^+) - Q^-(\gamma^-) )$ term should be the one that gives us the Melnikov integral, although I am not sure how at this time.
+
 
 
 \end{document}
