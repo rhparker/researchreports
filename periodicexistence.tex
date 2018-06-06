@@ -78,26 +78,20 @@ Z &= \R \Psi(0)
 
 These four things are one-dimensional and span $\R^4$, and we have shown before that $Z$ is perpendicular to the other three. \\
 
-In San97, the ODE under consideration is parameterized by $\mu$. The only parameter we have available here is the speed $c$, so we will go ahead and use that as our parameter. This is a little weird, since we would like this to work for all $c > 0$ (or $c > 1/4$ for multipulses), rather than assuming there is a homoclinic orbit for a speed $c_0$ and then proving that a periodic pulse (wavetrain) exists for a nearby $c$. That being said, we will do it this way for now, and see what happens.\\
+In San97, the ODE under consideration is parameterized by $\mu$. The only parameter we have available here is the speed $c$, but since we know that single pulses exist for all $c > 0$ (and multipulses for all $c > 1/4$), we will not use this as a parameter. So we choose such a $c$ and keep going.\\
 
 We now write $W^u(0)$ and $W^s(0)$ as graphs over their own tangent spaces near $Q(0)$. Following San97, we can paramaterize the unstable and stable manifolds near $Q(0)$ by
 
 \begin{align*}
-Q^-(\alpha, \beta^-, c) \\
-Q^+(\alpha, \beta^+, c)
+Q^-(\alpha, \beta^-) \\
+Q^+(\alpha, \beta^+)
 \end{align*}
 
-where $\alpha \in \R$, $\beta^\pm \in Y^\pm$ and we have set things up so that $Q^+(\alpha, \beta^+, c) - Q^-(\alpha, \beta^-, c) \in Z$. \\
+where $\alpha \in \R$, $\beta^\pm \in Y^\pm$ and we have set things up so that $Q^+(\alpha, \beta^+) - Q^-(\alpha, \beta^-) \in Z$. Note that $Q^+(0, 0) = Q^-(0, 0) = Q(0)$. What we have done here is write the stable and unstable manifolds as graphs over the tangent spaces of those same manifolds at $Q(0)$.\\
 
-Since, in our case, the homoclinic orbit persists for all $c > 0$ (this has been shown), we should have for all $c > 0$
+\subsection*{Periodic Single Pulse}
 
-\[
-Q^-(0, 0, c) = Q^+(0, 0, c)
-\]
-
-though it is hard to say at this point if this will be useful or not.\\
-
-To construct a periodic single pulse, we want to solve the following periodic BVP for some $X > 0$
+To construct a periodic single pulse, we want to solve the following periodic BVP for some $X > 0$ (which might get some restrictions on it at some point).
 
 \begin{align*}
 U' - LU - N(U) &= 0 \\
@@ -109,11 +103,11 @@ Since for $c > 1/4$ we have ``twisting manifolds'', $X$ may be restricted to be 
 Using the parameterization of the stable and unstable manifolds, we want to then solve the problem for piecewise $U$ given by
 
 \begin{align*}
-U^-(x) &= Q^-(\alpha, \beta^-, c)(x) + V-^(x) \\
-U^+(x) &= Q^+(\alpha, \beta^+, c)(x) + V-+(x)
+U^-(x) &= Q^-(\alpha, \beta^-)(x) + V^-(x) \\
+U^+(x) &= Q^+(\alpha, \beta^+)(x) + V^+(x)
 \end{align*}
 
-where $Q^-(\alpha, \beta^-, c)(x)$ is the unique solution to our ODE with IC $Q^-(\alpha, \beta^-, c)$ for $x \leq 0$, and similar for the other one. We will choose $V^\pm(x)$ so that
+where $Q^-(\alpha, \beta^-)(x)$ is the unique solution to our ODE with IC $Q^-(\alpha, \beta^-)$ for $x \leq 0$, and similar for the other one. We will choose $V^\pm(x)$ so that
 
 \begin{align*}
 V^-(0) &\in Z \oplus Y^- \\
@@ -147,27 +141,19 @@ D_c f(q, c) &= q_{xxxxc} - q_{xxc} + c q_c + q - 2qq_c \\
 
 \end{enumerate}
 
-Thus we will need a version of Lemma 4.1 that uses our higher order Melnikov integral, which is nonzero by hypothesis. \\
+Hopefully the fact that the Melnikov integral is 0 will not matter.\\
 
-We will return to the problem, and see where this comes up, which should hopefully give us an idea of what to do.\\
-
-For convenience, we take 
-
-\[
-\gamma^\pm = (\alpha, \beta^\pm, c)
-\]
-
-and we let $\Phi_\pm(c^\pm, t, s)$ be the evolution operator for the variational equation
+Since the parameter $\alpha$ just determines the phase and we don't need it for our estimate, we will take $\alpha = 0$. We still need it in our paramaterization of the manifolds since they are two dimensional manifolds. Let $\Phi_\pm(\beta^\pm, t, s)$ be the evolution operator for the variational equation
 
 \begin{equation}
-V' = A(Q^\pm(\alpha, \beta^\pm, c)(x), c) V
+V' = A(Q^\pm(\beta^\pm, 0)(x), c) V
 \end{equation}
 
 For convenience, let
 
 \begin{align*}
-\Phi^s_\pm(\gamma, t, s) &= \Phi_\pm(\gamma, t, s) P^s_\pm(\gamma, s) \\
-\Phi^u_\pm(\gamma, t, s) &= \Phi_\pm(\gamma, t, s) P^u_\pm(\gamma, s) 
+\Phi^s_\pm(\beta^\pm, x, y) &= \Phi_\pm(\beta^\pm, x, y) P^s_\pm(\beta^\pm, y) \\
+\Phi^u_\pm(\beta^\pm, x, y) &= \Phi_\pm(\beta^\pm, x, y) P^u_\pm(\beta^\pm, y) 
 \end{align*}
 
 The estimates in Lemma 5.1 in San97 are similar to those we have been using this entire time, and should hold as written.\\
@@ -175,20 +161,20 @@ The estimates in Lemma 5.1 in San97 are similar to those we have been using this
 Then, plugging in our piecewise expression for $U$, $U^\pm$ solves the ODE $U' = F(U, c)$ if and only if $V\pm$ solves
 
 \begin{align*}
-(V\pm)' = A(Q^\pm(\gamma^\pm)(x), c)V^\pm + G^\pm(x, V^\pm, \gamma^\pm) 
+(V\pm)' = A(Q^\pm(\beta^\pm, 0)(x), c)V^\pm + G^\pm(x, V^\pm, \beta^\pm) 
 \end{align*}
 
-where $G = \mathcal{O}(|V|^2)$ (Taylor).\\
+where $G = \mathcal{O}(|V|^2)$ (the nonlinear part, estimate by Taylor).\\
 
 We then write the ODE as a piecewise integral equation on the intervals $[-X, 0]$ and $[0, X]$. This is pretty much the same thing we always do. The IC is taken 
 
 \begin{align*}
-V^+(x) &= \Phi^u_+(\gamma^+, x, X) a^+ + \Phi^s_+(\gamma^+, x, 0) b^+ \\
-&+ \int_{-X}^x \Phi_+^u(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\
-&+ \int_0^x \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
-V^-(x) &= \Phi^s_-(\gamma^-, x, -X) a^- + \Phi^u_-(\gamma^-, x, 0) b^- \\
-&+ \int_X^x \Phi_-^s(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
-&+ \int_0^x \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+V^+(x) &= \Phi^u_+(\beta^+, x, X) a^+ + \Phi^s_+(\beta^+, x, 0) b^+ \\
+&+ \int_{X}^x \Phi_+^u(\beta^+, x, y) G^+(y, V^+(y),\beta^+)dy \\
+&+ \int_0^x \Phi_+^s(\beta^+, x, y) G^+(y, V^+(y),\beta^+)dy \\ 
+V^-(x) &= \Phi^s_-(\beta^-, x, -X) a^- + \Phi^u_-(\beta^-, x, 0) b^- \\
+&+ \int_{-X}^x \Phi_-^s(\beta^-, x, y) G^-(y, V^-(y),\beta^-)dy \\
+&+ \int_0^x \Phi_-^u(\beta^-, x, y) G^-(y, V^-(y),\beta^-)dy \\
 \end{align*}
 
 where for the ICs on the two parts of the exponential dichotomy we have
@@ -198,17 +184,17 @@ a^+ &\in E_0^u \\
 a^- &\in E_0^s \\
 \end{align*}
 
-We also need to specify where the ICs $b^\pm$ live. Intuitively I would take $b^\pm \in Y^\pm \oplus Z$, which would mean the projection at $x = 0$ is the identity. However, since these disappear in (5.8) in San97, it looks like we might want to take them to be a space which is wiped out by the appropriate projection. To accomplish this, we could take $b^\pm \in Y^\mp \oplus Z$. For now, we will do that since it gets rid of something, but maybe we want to keep the $b^\pm$ around to do the matching at $x = 0$.\\
+We also need to specify where the ICs $b^\pm$ live. Intuitively I would take $b^\pm \in Y^\pm \oplus Z$, which would mean the projection at $x = 0$ is the identity. However, since these disappear in (5.8) in San97, it looks like we might want to take them to be a space which is wiped out by the appropriate projection. To accomplish this, we could take $b^\pm \in Y^\mp \oplus Z$. For now, we will do that since it gets rid of something, but maybe we want to keep the $b^\pm$ around to do the matching at $x = 0$. I think it's okay to ditch these since the $\beta^\pm$ serve as the ICs in the middle. \\
 
 Thus we have
 
 \begin{align*}
-V^+(x) &= \Phi^u_+(\gamma^+, x, X) a^+  \\
-&+ \int_{-X}^x \Phi_+^u(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\
-&+ \int_0^x \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
-V^-(x) &= \Phi^s_-(\gamma^-, x, -X) a^-  \\
-&+ \int_X^x \Phi_-^s(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
-&+ \int_0^x \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+V^+(x) &= \Phi^u_+(\beta^+, x, X) a^+  \\
+&+ \int_{X}^x \Phi_+^u(\beta^+, x, y) G^+(y, V^+(y),\beta^+)dy \\
+&+ \int_0^x \Phi_+^s(\beta^+, x, y) G^+(y, V^+(y),\beta^+)dy \\ 
+V^-(x) &= \Phi^s_-(\beta^-, x, -X) a^-  \\
+&+ \int_{-X}^x \Phi_-^s(\beta^-, x, y) G^-(y, V^-(y),\beta^-)dy \\
+&+ \int_0^x \Phi_-^u(\beta^-, x, y) G^-(y, V^-(y),\beta^-)dy \\
 \end{align*}
 
 Define the exponentially weighted norms
@@ -229,43 +215,310 @@ In Lemma 5.2 in San97, we use the IFT to solve for $V^\pm$ in terms of the ICs $
 Now we look at the matching BC at $\pm X$. Recall that the matching BC is for $U$ not $V$. Substituting in the fixed point equations we get
 
 \begin{align*}
-U^+(X) &= Q^+(\gamma^+)(X) + P^u_+(\gamma^+, X) a^+ + \int_0^X \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
-U^-(-X) &= Q^-(\gamma^-)(-X) + P^s_-(\gamma^-, -X) a^- + \int_0^{-X} \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+U^+(X) &= Q^+(\beta^+, 0)(X) + P^u_+(\beta^+, X) a^+ + \int_0^X \Phi_+^s(\beta^+, x, y) G^+(y, V^+(y),\beta^+)dy \\ 
+U^-(-X) &= Q^-(\beta^-, 0)(-X) + P^s_-(\beta^-, -X) a^- + \int_0^{-X} \Phi_-^u(\beta^-, x, y) G^-(y, V^-(y),\beta^-)dy \\
 \end{align*}
 
 Adding and subtracting $P_0^{s/u}$ and recalling where the $a_i$ live, this becomes
 
 \begin{align*}
-U^+(X) &= Q^+(\gamma^+)(X) + a^+ + (P^u_+(\gamma^+, X) - P^u_0) a^+ + \int_0^X \Phi_+^s(\gamma^+, x, y) G^+(y, V^+(y),\gamma^+)dy \\ 
-U^-(-X) &= Q^-(\gamma^-)(-X) + a^- + (P^s_-(\gamma^-, -X) - P^s_0) a^- + \int_0^{-X} \Phi_-^u(\gamma^-, x, y) G^-(y, V^-(y),\gamma^-)dy \\
+U^+(X) &= Q^+(\beta^+, 0)(X) + a^+ + (P^u_+(\beta^+, X) - P^u_0) a^+ + \int_0^X \Phi_+^s(\beta^+, x, y) G^+(y, V^+(y),\beta^+)dy \\ 
+U^-(-X) &= Q^-(\beta^-, 0)(-X) + a^- + (P^s_-(\beta^-, -X) - P^s_0) a^- + \int_0^{-X} \Phi_-^u(\beta^-, x, y) G^-(y, V^-(y),\beta^-)dy \\
 \end{align*}
 
 Now set these equal and solve for $a^+ + a^-$, which then gives us $a^\pm$ since $E^s$ and $E^u$ are linearly independendent. Our estimates should be good enough to do this, so we be able to solve for the $a^\pm$ in terms of the $c^\pm$ with estimates
 
 \begin{align*}
-|a^\pm| \leq C |Q^\pm(\gamma^\pm)(\pm X)| \leq C e^{-\alpha X}
+|a^\pm| \leq C |Q^\pm(\beta^\pm, 0)(\pm X)| \leq C e^{-\alpha X}
 \end{align*}
 
 To get a solution to the full problem, we need to match our two pieces of $U$ at $X = 0$. At $x = 0$, we have
 
 \begin{align*}
-U^+(0) &= Q^+(\gamma^+) + V^+(0) \\
-U^-(0) &= Q^-(\gamma^-) + V^-(0)
+U^+(0) &= Q^+(\beta^+, 0) + V^+(0) \\
+U^-(0) &= Q^-(\beta^-, 0) + V^-(0)
 \end{align*}
 
 which we can write out as
 
 \begin{align*}
-U^+(0) &= Q^+(\gamma^+) + \Phi^u_+(\gamma^+, 0, X) a^+ + \int_{-X}^0 \Phi_+^u(\gamma^+, 0, y) G^+(y, V^+(y),\gamma^+)dy \\
-U^-(0) &= Q^-(\gamma^-) + \Phi^s_-(\gamma^-, 0, -X) a^- - \int_0^X \Phi_-^s(\gamma^-, 0, y) G^-(y, V^-(y),\gamma^-)dy \\
+U^+(0) &= Q^+(\beta^+, 0) + \Phi^u_+(\beta^+, 0, X) a^+ + \int_{X}^0 \Phi_+^u(\beta^+, 0, y) G^+(y, V^+(y),\beta^+)dy \\
+U^-(0) &= Q^-(\beta^-, 0) + \Phi^s_-(\beta^-, 0, -X) a^- - \int_0^{-X} \Phi_-^s(\beta^-, 0, y) G^-(y, V^-(y),\beta^-)dy \\
 \end{align*}
 
-We can solve $U^+(0) - U^-(0)$ by taking projections on the pieces of $\R^4 = \R Q'(0) \oplus Z \oplus Y^- \oplus Y^+$. Since we have chosen $V^\pm(0) \in Z \oplus Y^\pm$, we should be able to show that the projection on $\R Q'^(0)$ is automatically 0. Thus it suffices to consider the other ones.\\
+We can solve $U^+(0) - U^-(0)$ by taking projections on the pieces of $\R^4 = \R Q'(0) \oplus Z \oplus Y^- \oplus Y^+$. Since we have chosen $V^\pm(0) \in Z \oplus Y^\pm$, we can to show that the projection on $\R Q'^(0)$ is automatically 0. Thus it suffices to consider the other ones.\\
 
-The projection on $Z = \R \Psi(0)$ should give us the Melnikov integral, so let's make sure that will actually happen, especially since the lower order Melnikov integral is 0.\\
+When we subtract these we will get a term $Q^+(\beta^+) - Q^-(\beta^-)$, and we would ideally like this to vanish when we project on $Z$ and for it to be nice when we project on $Y^\pm$. \\
 
-From what I understand, the $P_Z( Q^+(\gamma^+) - Q^-(\gamma^-) )$ term should be the one that gives us the Melnikov integral, although I am not sure how at this time.
+First, let's consider the projection on the adjoint space $Z = \R \Psi(0)$. Recall that we have $\Psi(x) \perp Q'(x)$ for all $x$ (has been shown before), so 
+$\Psi(0) \perp Q'(0)$ is automatic. For $\beta^\pm$ small, by continuity of $F$, $\Psi(0)$ and $Q^\pm(\beta^\pm)$ should be close to perpendicular. We want to rig the system so that they are actually perpendicular. \\
 
+If we could straighten out $W^u$ in the $Y^-$ direction and $W^s$ in the $Y^+$ direction, we would be all set. We should be able to do this by using the ``flow box'' technique, which lets us do this and also has the advantage of ensuring that the intersection of the manifolds still contains our homoclinic orbit.\\
 
+To do this, we will change coordinates using the ``flow-box'' technique. In other words, near $Q(0)$ we will make a smooth change of coordinates so that all the trajectories are parallel and have constant velocity.\\
+
+We know that $F(Q(0)) \neq 0$, i.e. the center of the pulse is not an equilibrium of the vector field $F$. What we want is a three-dimensional section which is perpendicular to $F(Q(0))$ at $Q(0)$. First, note that
+
+\[
+\R^4 = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^-
+\]
+
+$\Psi(0)$ (and thus $Z$) is already perpendicular to $Q'(0)$. So we make (our first) change of coordinates so that $Y^+$ and $Y^-$ are also perpendicular to $Q'(0)$. Let $Y = Y^- \oplus Y^+ \oplus Z$. We now have $Y \perp Q'(0) = F(Q(0))$. We paramaterize $Y$ by the coordinates $(\beta^-, \beta^+, \gamma)$.\\
+
+Since $F(Q(0)) \neq 0$, by continuity of $F$ we can find a ball $B_0$ around $Q(0)$ such that $F(x) \neq 0$ in $B_0 \cap Y$. We note that all trajectories $B_0$ cross $B_0 \cap Y$ in the same direction.\\
+
+Next we construct a ``flow box'' near $Q(0)$. Let $S_y(p)$ be the solution operator for the original (nonlinear) ODE $U' = F(U)$, i.e. be the operator which sends the initial condition $p$ to the point on the unique solution through $p$ at $y$. \\
+
+Then we define the map $\Psi$ from a neighborhood $N$ of the origin in $\R \times \R^3$ to a neighborhood of $Q(0)$ by
+
+\begin{equation}
+\Psi(y; \beta^-, \beta^-, \gamma) = S_y(Q(0) + Q^-(\beta^-, 0) + Q^-(\beta^-, 0) + \gamma \Psi(0))
+\end{equation}
+
+If we take $y = 0$, then $\Psi(0; \beta^-, \beta^+, \gamma)$ maps to $Y$, or rather $Q(0) + Y$. If we fix $(\beta^-, \beta^+, \gamma)$, then $\Psi(y; \beta^-, \beta^+, \gamma)$ maps to a trajectory of our system with IC $Q(0) + Q^-(\beta^-,0) + Q^-(\beta^+,0)  + \gamma \Psi(0)$.\\ 
+
+Now we show that this map does the thing we want it to do. We note that near $Q(0)$ we have for small $x, \beta^\pm$
+
+\begin{align*}
+W^u &= \Psi(x; \beta^-, 0, 0) \\
+W^s &= \Psi(x; 0, \beta^+, 0) 
+\end{align*}
+
+and their intersection (for small $x$) is $Q'(x) = \Psi(x; 0, 0, 0)$. So everything looks good.\\
+
+For a sufficiently small neighborhood $N$ about the origin in $\R \times \R^3$, this map should be invertible (not hard to show, just take Jacobian, show nonsingular, and use inverse function theorem). Since everything we are dealing with is smooth, this map is smooth as well, thus, in a hand-wavey fashion, it suffices to look at the jump distance $U^+(0) - U^-(0)$ after we change coordinates by applying the inverse of this map near $Q(0)$.
+\\
+
+So, having done this, we look at the projection of $U^+(0) - U^-(0)$ on $Z$ and $Y^+ \oplus Y^-$, i.e. we look to solve the equations
+
+\begin{align*}
+P_Z(U^+(0) - U^-(0)) &= 0 \\
+P_{Y^\pm}(U^+(0) - U^-(0)) &= 0
+\end{align*}
+
+For now, we will assume the first equation is satisfied (look at strut paper, something to do with conservation of energy). Then we only need to look at the second equation
+
+\begin{equation}
+H(\beta^+, \beta^-) = P_{Y^\pm}(U^+(0) - U^-(0))
+\end{equation}
+
+From our change of coordinates, we have
+
+\begin{align*}
+P_z(Q^+(\beta^+, 0) - Q^-(\beta^-, 0)) &= 0 \\
+P_{Y^\pm}(Q^+(\beta^+, 0) - Q^-(\beta^-, 0)) &= \beta^+ - \beta^-
+\end{align*}
+
+Thus the equation we want to solve looks like
+
+\begin{equation}
+H(\beta^+, \beta^-) = 
+\beta^+ - \beta^- + P_{Y^\pm}(\tilde{U}^+(0; \beta^+, X) - \tilde{U}^-(0; \beta^-, X)) = 0
+\end{equation}
+
+where
+
+\begin{align*}
+\tilde{U}^+(0; \beta^+, X) &= \Phi^u_+(\beta^+, 0, X) a^+ + \int_{X}^0 \Phi_+^u(\beta^+, 0, y) G^+(y, V^+(y),\beta^+) dy \\ 
+\tilde{U}^-(0; \beta^-, X) &= \Phi^s_-(\beta^-, 0, -X) a^- + \int_{-X}^0 \Phi_-^s(\beta^-, 0, y) G^-(y, V^-(y),\beta^-) dy 
+\end{align*}
+
+Note that since the codomain of $H$ is $Y^\pm$, we have (essentially) $H:\R^2 \rightarrow \R^2$. If we like, we can simplify this a bit by noting that $\tilde{U}^+(0; \beta^+, X)$ evolves in the unstable manifold and $\tilde{U}^-(0; \beta^-, X)$ evolves in the stable manifold. Since we have changed coordinates at $Q(0)$ to make $Y^+ \perp Y^-$, we can project the $H$ equation onto $Y^+$ and $Y^-$ to get the equivalent formulation
+
+\begin{equation}
+H(\beta^+, \beta^-) = 
+\begin{pmatrix}
+\beta^+ - P_{Y^+}(\tilde{U}^-(0; \beta^-, X)) \\
+\beta^- - P_{Y^-}(\tilde{U}^+(0; \beta^+, X)) 
+\end{pmatrix}
+= 0
+\end{equation}
+
+Note the the $\beta^\pm$ ``mix''.\\
+
+Now we estimate the terms involved in $\tilde{U}$. We need to estimate the derivative of the terms with respect to $\beta^\pm$, since what we really want is the derivative of $H$ with respect to $\beta^\pm$. Since the same estimates for $G$ and $\Phi$ also apply to the derivatives with respect to $\beta^\pm$, this is not hard to do.\\
+
+For the $a^\pm$ terms we have
+
+\begin{align*}
+\left| \frac{\partial}{\partial \beta^+} \Phi^u_+(\beta^+, 0, X) a^+ \right| \leq C e^{-\alpha X}|a^+|
+& \leq C  e^{-2 \alpha X}
+\end{align*}
+
+and similar for the other one. For the integral terms, we have
+
+\begin{align*}
+\left| \frac{\partial}{\partial \beta^-} \int_{-X}^0 \Phi_-^s(\beta^-, 0, y) G^-(y, V^-(y),\beta^-)dy \right| 
+&\leq C \int_{-X}^0 e^{\alpha y} | V^-(y) |^2 dy \\
+&\leq C \int_{-X}^0 e^{\alpha y} | |a^-|^2 dy \\
+&\leq C e^{-2 \alpha X}
+\end{align*}
+
+Thus we have
+
+\[
+\left| \frac{\partial}{\partial \beta^\pm} \tilde{U}^-(0; \beta^-, X) \right| 
+\leq C e^{-2 \alpha X}
+\]
+
+So following p.448 in San97, we should be good. Comparing to the notation in p.447 of San97, we have
+
+\begin{align*}
+w^+(c^+, \nu) &= \tilde{U}^+(\beta^+, X) \\
+w^-(c^-, \nu) &= \tilde{U}^-(\beta^-, X) \\
+d(X) &= e^{-2 \alpha X}
+\end{align*}
+
+The Jacobian of $H$ is given by 
+
+\begin{equation}
+D H(\beta^+, \beta^-) = 
+\begin{pmatrix}
+1 & \mathcal{O}(e^{-2 \alpha X}) \\
+\mathcal{O}(e^{-2 \alpha X}) &  1 
+\end{pmatrix}
+\end{equation}
+
+which has determinant $1 + \mathcal{O}(e^{-4 \alpha X})$, thus is invertible for sufficiently large $X$. Using the inverse function theorem, we can invert $H$ in a neighborhood of $Q(0)$, which corresponds to $(\beta^+, \beta^-) = (0, 0)$. Thus we have 
+
+\[
+(\beta^+, \beta^-) = H^{-1}(0, 0)
+\]
+
+Now we would like to get an estimate on this. By the inverse function theorem, $D H^{-1}$ is also bounded, thus we have 
+
+\begin{align*}
+| (\beta^+, \beta^-) | &= | H^{-1}(0, 0) | \\
+&= | H^{-1}(0, 0) - (0, 0) | \\
+&= | H^{-1}(0, 0) - ^{-1}(H(0, 0)) | \\
+& \leq C | (0, 0) - H(0, 0) | \\
+& \leq C |H(0, 0)|
+
+\end{align*}
+
+Since $H(0, 0) \leq C e^{2 \alpha X}$ by our definition of $H$, this becomes
+
+\[
+| (\beta^+, \beta^-) | \leq C e^{2 \alpha X}
+\]
+
+Next we get an estimate on $V$. Just doing $V^+$, we recall that
+
+\begin{align*}
+||V^+||_+ = sup_{x \in [0, X]} e^{\alpha(X - x)}|V(x)| \leq C |a^+| \leq C e^{-\alpha X}
+\end{align*}
+
+This gives us for all $x \in [0, X]$
+
+\begin{align*}
+e^{\alpha(X - x)}|V^+(x)| \leq e^{-\alpha X} 
+\end{align*}
+
+so we have 
+
+\begin{align*}
+|V^+(x)| \leq e^{-\alpha X} e^{-\alpha(X - x)}
+\end{align*}
+
+which is the thing we want. $V^-$ is similar. It also agrees with our estimate for $\beta^\pm$, since we should get that if we plug in $x = 0$ to this.\\
+
+Of course, this is the estimate on $V$, which is not the entire story. We actually want the difference between $U^\pm(x)$ and the original single pulse $Q(x)$, so we also have to take a look at the difference $Q(x) - Q^\pm(\beta^\pm, 0)(x)$. This one is actually ok, however, since the biggest difference between these things will be at $x = 0$ since that is where we take the IC, and they both follow the stable/unstable manifolds, so are both decaying as we get farther from 0. Thus we have
+
+\[
+|Q(x) - Q^\pm(\beta^\pm, 0)(x)| \leq |\beta^\pm| = \mathcal{O}(e^{-2 \alpha X})
+\]
+
+which is subsumed by the $x$-dependent bound for $V$.\\
+
+\subsection*{Periodic Double pulse}
+
+The million dollar (more like 25 cent) question is what happens for a multipulse. Here we have four pieces to our problem. From L to R, these are given by
+$U_1^-$, $U_1^+$, $U_2^-$, $U_2^+$. As before, we write $U$ as
+
+\begin{align*}
+U_i^-(x) &= Q^-(\alpha_i, \beta_i^-)(x) + V_i^-(x) \\
+U_i^+(x) &= Q^+(\alpha_i, \beta_i^+)(x) + V_i^+(x)
+\end{align*}
+
+The fixed point equations for $V$ are
+
+\begin{align*}
+V_i^+(x) &= \Phi^u_+(\beta_i^+, x, X_i) a_i^+ \\
+&+ \int_{X_i}^x \Phi_+^u(\beta_i^+, x, y) G^+(y, V_i^+(y),\beta_i^+)dy \\
+&+ \int_0^x \Phi_+^s(\beta_i^+, x, y) G^+(y, V_i^+(y),\beta_i^+)dy \\ 
+V_i^-(x) &= \Phi^s_-(\beta_i^-, x, -X_{i-1}) a_{i-1}^- \\
+&+ \int_{X_{i-1}}^x \Phi_-^s(\beta_i^-, x, y) G^-(y, V_i^-(y),\beta_i^-)dy \\
+&+ \int_0^x \Phi_-^u(\beta_i^-, x, y) G^-(y, V_i^-(y),\beta_i^-)dy \\
+\end{align*}
+
+ICs for these pieces are $a_i^\pm$ which are in the appropriate spaces $E^{s/u}$. We have the Banach spaces with norms
+
+\begin{align*}
+||V||_i^+ = sup_{x \in [0, X_i]} e^{\alpha(X_i - x)}|V(x)| \\
+||V||_i^- = sup_{x \in [-X_{i-1}, 0]} e^{\alpha(x + X_{i-1})}|V(x)| \\
+\end{align*}
+
+We should be able to get (as above)
+\[
+||V_i^\pm||_i^\pm \leq C |a_i^\pm|
+\]
+
+since the $V_i^\pm$ only depend on the $a_i\pm$.\\
+
+When we solve for the $a_i^\pm$, we don't mix the $X_i$, since those are done at $\pm X_i$. That should give us the bound we want on the $V_i^\pm$, i.e. the ``inner'' pieces depend on $X_1$ and the ``outer'' pieces depend on $X_2$.
+
+\begin{align*}
+|V_i^-(x)| &\leq e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + x)} \\
+|V_i^+(x)| &\leq e^{-\alpha X_i} e^{-\alpha(X_i - x)} \\
+\end{align*}
+
+The matching at 0 could potentially give us problems so let's look at that, since the two $X_i$ will ``mix'' there. The $V_i^\pm$ are okay, so we need to look at the $\beta_i^\pm$. Since we have two ``joins'' at $x = 0$, we solve the equationa
+
+\begin{equation}
+G_i(\beta_i^+, \beta_i^-) = 
+\begin{pmatrix}
+P_Z(U_i^+(0) - U_i^-(0)) \\
+P_{Y^\pm}(U_i^+(0) - U_i^-(0))
+\end{pmatrix} = 0
+\end{equation}
+
+If we do the same change of coordinates as above, we will have
+
+\begin{align*}
+P_z(Q^+(\beta_i^+, 0) - Q^-(\beta_i^-, 0)) &= 0 \\
+P_{Y^\pm}(Q^+(\beta_i^+, 0) - Q^-(\beta_i^-, 0)) &= \beta_i^+ - \beta_i^-
+\end{align*}
+
+Making the appropriate substitutions, this becomes
+
+\begin{equation}
+G_i(\beta_i^+, \beta_i^-) = 
+\begin{pmatrix}
+P_Z(\tilde{U}_i^+(\beta_i^+, X_i) - \tilde{U}_i^-(\beta_i^-, X_{i-1})) \\
+\beta_i^+ - \beta_i^- + P_{Y^\pm}(\tilde{U}_i^+(\beta_i^+, X_i) - \tilde{U}_i^-(\beta_i^-, X_{i-1}))
+\end{pmatrix} = 0
+\end{equation}
+
+where
+
+\begin{align*}
+\tilde{U}_i^+(\beta_i^+, X_i) &= \Phi^u_+(\beta_i^+, 0, X_i) a_i^+ + \int_{X_i}^0 \Phi_+^u(\beta_i^+, 0, y) G^+(y, V^+(y),\beta_i^+)dy \\ 
+\tilde{U}_i^-(\beta_i^-, X_{i-1}) &= \Phi^s_-(\beta_i^-, 0, -X_{i-1}) a_{i-1}^- + \int_{-X_{i-1}}^0 \Phi_-^s(\beta_i^-, 0, y) G^-(y, V^-(y),\beta_i^-)dy 
+\end{align*}
+
+The estimates on the (derivatives of the) terms are the same as above, except for the subscripts on the $X_i$. Since each ``join'' involves both $X_i$, we have (using the notation of Lemma 4.2 in San97)
+
+\[
+d(X) = e^{-2 \alpha X_1} + e^{-2 \alpha X_2}
+\]
+
+so the bound is controlled by whichever of the $X_i$ is smaller. \\
+
+As in the single pulse case, the bound on $U(x)$ is determined by the bound on $V(x)$ as well as that on $Q(x) - Q^\pm(\beta_i^\pm, 0)(x)$.
+
+\begin{align*}
+|V_i^-(x)| &\leq e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + x)} \\
+|V_i^+(x)| &\leq e^{-\alpha X_i} e^{-\alpha(X_i - x)} \\
+\end{align*}
 
 \end{document}
