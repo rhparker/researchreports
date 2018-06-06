@@ -49,7 +49,7 @@
 
 \section{KdV5 with Periodic Boundary Conditions}
 
-\subsection{Background and Setup}
+\subsection{Background}
 
 In this section we will look at multipulse solutions to KdV5 in the case where we have periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. For now, we will hypothesize that such solutions exist.
 
@@ -65,6 +65,49 @@ Here is a diagram of the situation we have described.
 
 Without loss of generality, we will take $X_2 \geq X_1$, since we are on the periodic domain, thus it does not matter what we choose to be the ``middle''.\\
 
+We would like to write the periodic double pulse as a small (piecewise) perturbation of the single pulse as was done in San98 (and San93). The method in those papers, however, does not give us the estimates we need. Instead, we will give another construction based on San97.
+
+\subsection{Construction of Periodic Double Pulse}
+
+For now the details will be omitted, since what really matters here is if we can use this result to get what we want. If this works, the details will be added in here.
+
+\begin{proposition}\label{2pconstruction}
+Let $Q_{2p}(x)$ be a periodic double pulse solution with lengths $X_1$, $X_2$ as described above. Then $Q_{2p}(x)$ can be written piecewise as
+
+\begin{align*}
+\begin{cases}
+Q^-(0, \beta_i^-)(x) + U_i^-(x) \\
+Q^+(0, \beta_i^+)(x) + U_i^+(x)
+\end{cases}
+\end{align*}
+
+where $Q^-(\alpha, \beta^-)(0)$ parameterizes the unstable manifold near $Q(0)$ and $Q^+(\alpha, \beta^+)(0)$ parameterizes the stable manifold near $Q(0)$. We have changed coordinates using the flow-box method so that
+
+\begin{align*}
+Q^-(\alpha, \beta_-)(0) - Q(0) \in Y^- \oplus \R Q'(0) \\
+Q^+(\alpha, \beta_+)(0) - Q(0) \in Y^+ \oplus \R Q'(0) \\
+\end{align*}
+
+(we will always take $\alpha = 0$, but it is part of the parameterization.) The $x$ dependence of $Q^\pm(x)$ is the evolution along the appropriate manifold in the appropriate direction. For $U_i^\pm(x)$ we have bounds
+
+\begin{align*}
+|U_i^-(x)| &\leq C e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + x)} \\
+|U_i^+(x)| &\leq C e^{-\alpha X_i} e^{-\alpha(X_i - x)} \\
+\end{align*}
+
+We also have bounds
+
+\begin{align*}
+|Q^\pm(0, \beta_i^\pm)(0) - Q(0)| \leq 
+C \left( e^{-\alpha X_1} + e^{-\alpha X_2} \right)
+\end{align*}
+
+although we should not need these.
+
+\end{proposition}
+
+\subsection{Setup of Eigenvalue Problem}
+
 To assess the stability of such double pulse solutions, we will look at the spectrum of the linearization of KdV5 about these periodic, double pulse solutions. As in the case on the unbounded domain with an exponential weight, we first write the eigenvalue problem as a first order system. We know that there are two eigenvalues at 0. We also know there will be two or four small eigenvalues from the pulse interactions. To locate those eigenvalues, we will follow the same procedure as in the unbounded case and as in San98. Thus, we will write the eigenfunction $V$ piecewise as
 
 \[
@@ -74,15 +117,14 @@ V_i^\pm(x) = d_i (Q_{2p}'(x) + \lambda (Q_{2p})_c(x)) + W_i^\pm
 Plugging this into the eigenvalue problem, we want to a system of the following form
 
 \begin{enumerate}[(i)]
-\item $(W_i^\pm)' = A(q(x)) W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
+\item $(W_i^\pm)' = A(q_{2p}(x)) W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
 \item $W_1^+(X_1) - W_2^-(-X_1) = D_1 d$
 \item $W_2^+(X_2) - W_1^-(-X_2) = D_2 d$
 \end{enumerate}
 
-where $A(q(x))$ is the Jacobian of the linearization about the nonperiodic single pulse, $B$ is the matrix defined previously, and 
+where $A(q_{2p}(x))$ is the Jacobian of the linearization about the periodic double pulse, $B$ is the matrix defined previously, and 
 
 \begin{align*}
-G(\lambda)_i^\pm (x) &= A(q_{2p}(x)) - A(q(x)) \\
 D_1 d &= d_2(Q_{2p}'(-X_1) + \lambda (Q_{2p})_c(-X_1))
 - d_1 ( Q_{2p}'(X_1) + \lambda (Q_{2p})_c(X_1) ) \\
 D_2 d &= d_1(Q_{2p}'(-X_2) + \lambda (Q_{2p})_c(-X_2))
@@ -92,7 +134,27 @@ H &= -B Q_c \\
 \Delta H &= \tilde{H} - H
 \end{align*}
 
-The additional complication here is that the matrix $A(q)$ is not hyperbolic, since there is an eigenvalue of 0. Thus the results of San98 do not directly apply. In addition, we cannot use an exponential weight to get rid of this problem since we are considering the periodic case. Thus we will have a center subspace in play, which will give us an exponential trichotomy instead of an exponential dichotomy.\\
+We would like to exploit the construction of the periodic double pulse in Proposition \ref{2pconstruction}. To do this, we note that the Jacobian $A(q(x))$ depends linearly on $q(x)$ and its derivatives. Thus we have (piecewise)
+
+\begin{equation}
+A(q_{2p}(x)) = A(q^\pm(0, \beta_i^\pm)(x)) + A(u^\pm(x)) 
+\end{equation}
+
+For convenience, we let
+
+\begin{align*}
+G_i^\pm &= A(u^\pm(x))
+\end{align*}
+
+Then our system of equations to solve becomes
+
+\begin{enumerate}[(i)]
+\item $(W_i^\pm)' = A(q^\pm(0, \beta_i^\pm)(x)) W_i^\pm + \lambda B W_i^\pm + G_i^\pm W_i^\pm \lambda^2 d_i \tilde{H}_i^\pm$
+\item $W_1^+(X_1) - W_2^-(-X_1) = D_1 d$
+\item $W_2^+(X_2) - W_1^-(-X_2) = D_2 d$
+\end{enumerate}
+
+An important difference between this and the exponentially weighted case on the full line is that instead of a single term $A W_i^\pm$ we have the piecewise terms $A(q^\pm(0, \beta_i^\pm)(x)) $. We should be okay, since in all cases the functions $q^\pm(0, \beta_i^\pm)$ decay in the appropriate directions along the appropriate manifold. In San98, we have two piecewise terms $A^\pm W_i^\pm$ which depend on the parameter $\mu$. We can think of our case as similar, except we have four (fixed) parameters $\beta_i^\pm$, which give initial conditions on the appropriate manifolds.\\
 
 We now need to formulate the other conditions for the problem. Recall that for the exponentially weighted case (or the hyperbolic case) the other conditions are given by
 
@@ -119,107 +181,107 @@ This condition tells us where our perturbation must live. Since we are specifyin
 \item $W^+(0) - W^-(0) \in \C \psi(0) $
 \end{enumerate}
 
-Before we continue, we will rewrite the problem slightly. The idea is the following. The matrix $A(q(x))$ has an eigenvalue at 0, which gives it a center subspace. What we would like to do is combine the matrices $A(q(x))$ and $\lambda B$ to get a matrix (depending on $B$). In this new, $\lambda$-dependent matrix, the eigenvalue at 0 will perturb slightly to a small eigenvalue in a $\lambda$-dependent fashion.\\
+Before we continue, we will rewrite the problem slightly. The idea is the following. The matrix $A(0)$ has an eigenvalue at 0, which gives it a center subspace. What we would like to do is combine the matrices $A(q^\pm(0, \beta_i^\pm)(x)) $ and $\lambda B$ to get a new matrix (depending on $\lambda$). In this new, $\lambda$-dependent matrix, the eigenvalue at 0 will perturb slightly to a small eigenvalue in a $\lambda$-dependent fashion.\\
 
 We will still call the eigenspace corresponding to the small eigenvalue a center space, even though it might not technically be one. Thus we define
 
 \[
-\tilde{A}(q(x); \lambda) = A(q(x)) + \lambda B
+\tilde{A}(q^\pm(0, \beta_i^\pm)(x); \lambda) = A(q^\pm(0, \beta_i^\pm)(x)) + \lambda B
 \]
 
 The first equation in the problem then becomes
 
 \[
-(W_i^\pm)' = \tilde{A}(q(x); \lambda) W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm
+(W_i^\pm)' = \tilde{A}(q^\pm(0, \beta_i^\pm)(x); \lambda) W_i^\pm + G_i^\pm W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm
 \]
 
 At this point, we drop the tilde over $A$ and the final version of the problem becomes
 
 \begin{enumerate}[(i)]
-\item $(W_i^\pm)' = A(q(x); \lambda) W_i^\pm + G_i^\pm W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
+\item $(W_i^\pm)' = A(q^\pm(0, \beta_i^\pm)(x); \lambda) W_i^\pm + G_i^\pm W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
 \item $W_1^+(X_1) - W_2^-(-X_1) = D_1 d$
 \item $W_2^+(X_2) - W_1^-(-X_2) = D_2 d$
 \item $W^\pm(0) \in \C \psi(0) \oplus Y^+ \oplus Y^-$
 \item $W^+(0) - W^-(0) \in \C \psi(0) $
 \end{enumerate}
 
-As a justification for the $\lambda$-dependent perturbation of the center eigenvalue of $A(q(x); 0)$, we give the following heuristic argument.
-The matrix $A(q(x); \lambda)$ is exponentially asymptotic (due to the exponential decay properties of $q(x)$ and its derivatives). Let 
+As a justification for the $\lambda$-dependent perturbation of the center eigenvalue of $A(q^\pm(0, \beta_i^\pm)(x); \lambda)$, we give the following heuristic argument. The matrix $A(q^\pm(0, \beta_i^\pm)(x); \lambda)$ is exponentially asymptotic (due to the exponential decay properties of $q^\pm(0, \beta_i^\pm)(x)$ and its derivatives in the appropriate directions). Let 
 
 \[
-A(\lambda) = \lim_{|x| \rightarrow \infty} A(q(x); 0) = A(0; 0)
+A(\lambda) = \lim_{x \rightarrow \infty} A(q^+(0, \beta_i^+)(x); \lambda) 
+= \lim_{x \rightarrow -\infty} A(q^-(0, \beta_i^-)(x); \lambda) = A(0; \lambda)
 \]
 
-For $\lambda = 0$, $A(\lambda)$ has an eigenvalue at 0. The characteristic polynomial for $A(\lambda)$ is $f(\nu; \lambda) = \lambda - c \nu + \nu^3 - \nu^5$, which to leading order is $f(\nu; \lambda) = \lambda - c \nu + \mathcal{O}(\nu^3)$. Thus, to leading order, this polynomial has a zero when $t = \lambda / c$, which is approximately the value of the spatial eigenvalue closest to 0. For small $\lambda$, numerics shows this is very close.\\
+Note that the limits do not depend on $i$ and that the two limits are equal due to decay properties of $q^\pm(0, \beta_i^\pm)(x)$ and its derivatives.\\
+
+For $\lambda = 0$, $A(0)$ has an eigenvalue at 0. The characteristic polynomial for $A(\lambda)$ is $f(\nu; \lambda) = \lambda - c \nu + \nu^3 - \nu^5$, which to leading order is $f(\nu; \lambda) = \lambda - c \nu + \mathcal{O}(\nu^3)$. Thus, to leading order, this polynomial has a zero when $t = \lambda / c$, which is approximately the value of the spatial eigenvalue closest to 0. For small $\lambda$, numerics shows this is very close.\\
 
 Before we continue, we will hypothesize the following bounds on the elements of our problem. We will eventually prove these, of course. The idea behind these hypothesized bounds is that deviation from the single pulse, nonperiodic case decreases exponentially with distance from the center, so we are letting the ``worst offender'' dictate the behavior. Since the $D_i$ equations only depend on $X_i$, the bound only involves that length parameter.
 
 \begin{hypothesis}\label{problembounds}
 We have the following estimates/bounds on terms in our problem
 \begin{align*}
-||G_i^\pm|| &= \mathcal{O}(e^{-\alpha X_1}) \\
 \Delta H &= \mathcal{O}(e^{-\alpha X_1}) \\
 D_i &= ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
 \end{align*}
 \end{hypothesis}
 
-Note that the bound for $G_i^\pm$ above is a uniform bound, i.e. independent of $x$. It will be useful to have bound for $G_i^\pm(x)$ which is an improved bound, but which depends on $x$. We hypothesize a bound of the following form
+From Proposition \ref{2pconstruction}, we have the following piecewise bound for $G_i^\pm$
 
-\begin{hypothesis}\label{Gbound}
 \begin{align*}
 |G_i^-(x)| &\leq C e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + x) } \\
 |G_i^+(x)| &\leq C e^{-\alpha X_i} e^{-\alpha(X_i - x) } \\
 \end{align*}
-where this bound holds piecewise on the appropriate pieces.
-\end{hypothesis}
 
-Note that the bound is best at $x = 0$ and is not as strong at $\pm X_i$. Hopefully this will be okay, since it is likely the best bound we can get.
+Note that the bound is strongest at $x = 0$ and is weaker at $\pm X_i$. 
 
 \subsection{Characterization of Center Subspace}
 
-Consider the first order linear system
+Consider the first order linear system on $[0, \infty)$
 
 \begin{equation}\label{justA}
-V' = A(q(x); \lambda) V
+V' = A(q^+(0, \beta^+)(x); \lambda) V
 \end{equation}
 
-Let $\Phi(y, x; \lambda)$ be the evolution operator for \eqref{justA}. For $\lambda = 0$, as mentioned above, the matrix $A$ has a center subspace. As we peturb $\lambda$ slightly, this center subspace may peturb into a subspace which grows (or decays) exponentially, albeit at a slow rate since the spatial eigenvalue responsible for this is small. Thus instead of an exponential dichotomy, as in the hyperbolic case, we have an exponential trichotomy. This trichotomy will occur separately on $\R^+$ and $\R^-$.\\
+Note that this paramaterized by both $\beta^+$ (the IC on the stable manifold) and by $\lambda$.\\
 
-Following HaleLin85, we will write this exponential trichotomy as follows. We have $\lambda$-dependent projections $P^s_\pm(x; \lambda)$, $P^u_\pm(x; \lambda)$ and $P^c_\pm(x; \lambda) = I - P^s_\pm(x; \lambda) - P^u_\pm(x; \lambda)$ (where the subscripts designate whether the trichotomy is on $\R^+$ or $\R^-$) such that
+Let $\Phi(y, x; \beta^+, \lambda)$ be the evolution operator for \eqref{justA}. For $\lambda = 0$, as mentioned above, the matrix $A$ has a center subspace. As we peturb $\lambda$ slightly, this center subspace may peturb into a subspace which grows (or decays) exponentially, albeit at a slow rate since the spatial eigenvalue responsible for this is small. Thus instead of an exponential dichotomy, as in the hyperbolic case, we have an exponential trichotomy. This trichotomy will occur separately on $\R^+$ and $\R^-$.\\
+
+Following HaleLin85, we will write this exponential trichotomy as follows. We have $\lambda$-dependent projections $P^s_\pm(x; \beta^+, \lambda)$, $P^u_\pm(x; \beta^+, \lambda)$ and $P^c_\pm(x; \beta^+, \lambda) = I - P^s_\pm(x; \beta^+, \lambda) - P^u_\pm(x; \beta^+, \lambda)$ (where the subscripts designate whether the trichotomy is on $\R^+$ or $\R^-$) such that
 
 \begin{align*}
-\Phi(y, x; \lambda)P^s_\pm(x; \lambda) &= P^s_\pm(y; \lambda)\Phi(y, x; \lambda) \\
-\Phi(y, x; \lambda)P^u_\pm(x; \lambda) &= P^u_\pm(y; \lambda)\Phi(y, x; \lambda) \\
-\Phi(y, x; \lambda)P^c_\pm(x; \lambda) &= P^c_\pm(y; \lambda)\Phi(y, x; \lambda) \\
+\Phi(y, x; \beta^+, \lambda)P^s_\pm(x; \beta^+, \lambda) &= P^s_\pm(y; \beta^+, \lambda)\Phi(y, x; \beta^+, \lambda) \\
+\Phi(y, x; \beta^+, \lambda)P^u_\pm(x; \beta^+, \lambda) &= P^u_\pm(y; \beta^+, \lambda)\Phi(y, x; \beta^+, \lambda) \\
+\Phi(y, x; \beta^+, \lambda)P^c_\pm(x; \beta^+, \lambda) &= P^c_\pm(y; \beta^+, \lambda)\Phi(y, x; \beta^+, \lambda) \\
 \end{align*}
 
 In other words, the projections commute with the evolution, so it does not matter if you project or evolve first. For $\lambda = 0$ the superscript $c$ is an actual center subspace, and for small $\lambda$, this is the subspace that the center subspace perturbs to. Using these projections, we can split the evolution up into evolution on the three subspaces by defining
 
 \begin{align*}
-\Phi^s_\pm(y, x; \lambda) &= \Phi(y, x; \lambda)P^s_\pm(x; \lambda) \\
-\Phi^u_\pm(y, x; \lambda) &= \Phi(y, x; \lambda)P^u_\pm(x; \lambda) \\
-\Phi^c_\pm(y, x; \lambda) &= \Phi(y, x; \lambda)P^c_\pm(x; \lambda) \\
+\Phi^s_\pm(y, x; \beta^+, \lambda) &= \Phi(y, x; \beta^+, \lambda)P^s_\pm(x; \beta^+, \lambda) \\
+\Phi^u_\pm(y, x; \beta^+, \lambda) &= \Phi(y, x; \beta^+, \lambda)P^u_\pm(x; \beta^+, \lambda) \\
+\Phi^c_\pm(y, x; \beta^+, \lambda) &= \Phi(y, x; \beta^+, \lambda)P^c_\pm(x; \beta^+, \lambda) \\
 \end{align*}
 
-For the stable and unstable subspaces, we know what the eigenvalues of $A(0)$ are. In particular, we have a constant $\alpha$ for which $\alpha$ is the smallest real part of the positive eigenvalues of $A(0)$ and $-\alpha$ is the largest real part of the negative eigenvalues of $A(0)$. For small $\lambda$, the spatial eigenvalues will not perturb much, so for stable and unstable subspaces we will still have the bounds
+For the stable and unstable subspaces, we know what the eigenvalues of $A(0, 0)$ are. In particular, we have a constant $\alpha$ for which $\alpha$ is the smallest real part of the positive eigenvalues of $A(0)$ and $-\alpha$ is the largest real part of the negative eigenvalues of $A(0)$. For small $\lambda$ and $\beta^+$, the spatial eigenvalues will not perturb much, so for stable and unstable subspaces we will still have the bounds
 
 \begin{align*}
-|\Phi^s(y, x; \lambda)| \leq C e^{-\alpha(y-x)} \\
-|\Phi^u(x, y; \lambda)| \leq C e^{-\alpha(y-x)}
+|\Phi^s(y, x; \beta^+, \lambda)| \leq C e^{-\alpha(y-x)} \\
+|\Phi^u(x, y; \beta^+, \lambda)| \leq C e^{-\alpha(y-x)}
 \end{align*}
 
-where $x \leq y$ and $C$ is a constant. Technically, we should probably replace $\alpha$ by $\alpha - \delta$ for small $\delta$ to account for the perturbation, but it does not matter for now.\\
+Technically, we should probably replace $\alpha$ by $\alpha - \delta$ for small $\delta$ to account for the perturbation, but it does not matter for now. Also, since $\beta^+$ is just the IC on the stable manifold, the decay rate does not change when this is altered.\\
 
 For the center subspace, there is a small eigenvalue which is approximately $\nu = \lambda / c$. Thus we expect to have a $\lambda$-dependent bound for the center evolution resembling.
 
 \begin{align*}
-|\Phi^c_+(y, x; \lambda)| &\leq C e^{(\text{Re }\lambda)(y-x)/c} && y \geq x \geq 0 \\
-|\Phi^c_-(x, y; \lambda)| &\leq C e^{(\text{Re }\lambda)/c} && x \leq y \leq 0 \\
+|\Phi^c_+(y, x; \beta^+, \lambda)| &\leq C e^{(\text{Re }\lambda)(y-x)/c} && y \geq x \geq 0 \\
+|\Phi^c_-(x, y; \beta^+, \lambda)| &\leq C e^{(\text{Re }\lambda)/c} && x \leq y \leq 0 \\
 \end{align*}
 
 At this point, we want to make all of this precise. We start by proving the following lemma, based on Exercise 29 on p. 104 of Coddington and Levinson (1955).
 
-\begin{lemma}Consider the eigenvalue problem
+\begin{lemma}Consider the eigenvalue problem on $\R^+$
 
 \begin{equation}\label{veigproblem}
 V(x)' = AV(x) + R(x)V(x)
@@ -357,7 +419,7 @@ from which it follows that
 \end{proof}
 \end{lemma}
 
-\begin{corollary}The same result holds as $x \rightarrow -\infty$, i.e. there is a unique solution $\tilde{\phi}(x)$ to \eqref{veigproblem} such that 
+\begin{corollary}The same result holds on $(-\infty, 0]$ if we take $x \rightarrow -\infty$, i.e. there is a unique solution $\tilde{\phi}(x)$ to \eqref{veigproblem} such that 
 
 \[
 \lim_{x\rightarrow -\infty} \tilde{\phi}(x) e^{-\nu x} = p
@@ -396,11 +458,11 @@ Let $\tilde{\phi(x)} = \psi(-x)$. Then $\tilde{\phi(x)}$ solves the original pro
 Using this, we can derive an expression for the evolution on the center subspace. First, consider the following eigenvalue problem and its adjoint problem.
 
 \begin{align}
-V' &= A(q(x); \lambda) V \label{eig:V} \\
-W' &= -A(q(x); \lambda)W \label{eig:W}
+V' &= A(q^+(0, \beta^+)(x); \lambda) V \label{eig:V} \\
+W' &= -A(q^+(0, \beta^+)(x); \lambda)^* W \label{eig:W}
 \end{align}
 
-Let $\Phi(y, x; \lambda)$ be the evolution operator for \eqref{eig:V}.\\
+Note that $V$ and $W$ will depend on $\beta^+$, but (for convenience) we suppress that notation for now and will bring it back when needed. Let $\Phi(y, x; \beta^+, \lambda)$ be the evolution operator for \eqref{eig:V}.\\
 
 We summarize some useful facts about this problem in the following lemma. Note that since we are in the space $\C^n$, we have defined the inner product on $\C^n$ by $\langle x, y \rangle = \sum x_i \bar{y_i}$, i.e. the complex conjugation is on the second component.
 
@@ -445,138 +507,154 @@ Given Hypothesis \ref{simplesmalleig} (or the argument above), $\nu(\lambda)$ is
 \[
 \langle v_0(\lambda), w_0(\lambda) \rangle = 1
 \]
+
+Note that $v_0(\lambda), w_0(\lambda)$ depend on $\lambda$ but not on $\beta^+$.\\
  
-Now we have all the pieces in place to derive a formula for the projection and evolution on the center space for $x \geq 0$. Using Lemma \ref{veigproblem}, let $\tilde{v}_+(x; \lambda)$ and $\tilde{w}_+(x; \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V} and its adjoint problem \eqref{eig:W} such that
+Now we have all the pieces in place to derive a formula for the projection and evolution on the center space for $x \geq 0$. Using Lemma \ref{veigproblem}, let $\tilde{v}_+(x; \beta^+, \lambda)$ and $\tilde{w}_+(x; \beta^+, \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V} and its adjoint problem \eqref{eig:W} such that
 
 \begin{align*}
-\lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \tilde{v}_+(x; \lambda) = v_0(\lambda) \\
-\lim_{x \rightarrow \infty} e^{\overline{\nu(\lambda)} x} \tilde{w}_+(x; \lambda) = w_0(\lambda) \\
+\lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \tilde{v}_+(x; \beta^+, \lambda) = v_0(\lambda) \\
+\lim_{x \rightarrow \infty} e^{\overline{\nu(\lambda)} x} \tilde{w}_+(x; \beta^+, \lambda) = w_0(\lambda) \\
 \end{align*}
 
 We would like to scale out the exponential term, so let
 
 \begin{align*}
-\tilde{v}_+(x; \lambda) &= e^{\nu(\lambda) x } v_+(x; \lambda) \\
-\tilde{w}_+(x; \lambda) &= e^{-\overline{\nu(\lambda)} x } w_+(x; \lambda) \\
+\tilde{v}_+(x; \beta^+, \lambda) &= e^{\nu(\lambda) x } v_+(x; \beta^+, \lambda) \\
+\tilde{w}_+(x; \beta^+, \lambda) &= e^{-\overline{\nu(\lambda)} x } w_+(x; \beta^+, \lambda) \\
 \end{align*}
 
 Then we have
 
 \begin{align*}
-\lim_{x \rightarrow \infty} v_+(x; \lambda) = v_0(\lambda) \\
-\lim_{x \rightarrow \infty} w_+(x; \lambda) = w_0(\lambda) \\
+\lim_{x \rightarrow \infty} v_+(x; \beta^+, \lambda) = v_0(\lambda) \\
+\lim_{x \rightarrow \infty} w_+(x; \beta^+, \lambda) = w_0(\lambda) \\
 \end{align*}
 
-Note that since we scaled out any exponential term, we know that this limit exists, although we do not have a decay rate for $|v_+(x; \lambda) - v_0(\lambda)|$.\\
+Note that since we scaled out any exponential term, we know that this limit exists, although we do not have a decay rate for $|v_+(x; \beta^+, \lambda) - v_0(\lambda)|$.\\
 
-By Lemma \ref{eigadjoint}, $\langle \tilde{v}_+(x; \lambda), \tilde{w}_+(x; \lambda) \rangle$ is constant for all $x \geq 0$. Thus, taking $x \rightarrow \infty$ and using the continuity of the inner product, we conclude that for all $x \geq 0$,
+By Lemma \ref{eigadjoint}, $\langle \tilde{v}_+(x; \beta^+, \lambda), \tilde{w}_+(x; \beta^+, \lambda) \rangle$ is constant for all $x \geq 0$. Thus, taking $x \rightarrow \infty$ and using the continuity of the inner product, we conclude that for all $x \geq 0$,
 
 \[
-\langle \tilde{v}_+(x; \lambda), \tilde{w}_+(x; \lambda) \rangle = \langle v_0(\lambda), w_0(\lambda) \rangle = 1
+\langle \tilde{v}_+(x; \beta^+, \lambda), \tilde{w}_+(x; \beta^+, \lambda) \rangle = \langle v_0(\lambda), w_0(\lambda) \rangle = 1
 \]
 
-Looking at the inner product $\langle \tilde{v}_+(x; \lambda), \tilde{w}_+(x; \lambda) \rangle$, we have for all $x \geq 0$,
+Looking at the inner product $\langle \tilde{v}_+(x; \beta^+, \lambda), \tilde{w}_+(x; \beta^+, \lambda) \rangle$, we have for all $x \geq 0$,
 
 \begin{align*}
-\langle \tilde{v}_+(x; \lambda), \tilde{w}_+(x; \lambda) \rangle
-&= \langle e^{\nu(\lambda) x } v_+(x; \lambda), e^{-\overline{\nu(\lambda)} x} \tilde{w}_+(x; \lambda) \rangle \\
-&= e^{\nu(\lambda) x } e^{-\nu(\lambda) x } \langle v_+(x; \lambda), w_+(x; \lambda) \rangle \\
-&= \langle v_+(x; \lambda), w_+(x; \lambda) \rangle
+\langle \tilde{v}_+(x; \beta^+, \lambda), \tilde{w}_+(x; \beta^+, \lambda) \rangle
+&= \langle e^{\nu(\lambda) x } v_+(x; \beta^+, \lambda), e^{-\overline{\nu(\lambda)} x} \tilde{w}_+(x; \beta^+, \lambda) \rangle \\
+&= e^{\nu(\lambda) x } e^{-\nu(\lambda) x } \langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle \\
+&= \langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle
 \end{align*}
 
-Combining these two results, it follows that $\langle v_+(x; \lambda), w_+(x; \lambda) \rangle = 1$ for all $x \geq 0$.\\
+Combining these two results, it follows that $\langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle = 1$ for all $x \geq 0$.\\
 
-We will now write the projection $P^c_+(x)$ for $x \geq 0$ in terms of the adjoint solution $\tilde{w}_+(x; \lambda)$. To do this, let $R^s_+(x; \lambda)$, $R^u_+(x; \lambda)$, and $R^c(x; \lambda)$ be the ranges of the corresponding projections (stable, unstable, and center). The dimensions of these ranges are 2, 2, and 1 (respectively). Note that since $\tilde{v}_+(x; \lambda)$ is in the center range $R^c(x; \lambda)$ and that space is one-dimensional, $\tilde{v}_+(x; \lambda)$ is a basis vector for that space. Since we can scale the basis vector by any constant we want, we can divide by $e^{\nu(\lambda) x}$, so that $v_+(x; \lambda)$ is a basis vector for $R^c(x; \lambda)$. Since this space is one-dimensional, every element in $R^c(x; \lambda)$ is a scalar multiple of $\tilde{v}_+(x; \lambda)$. \\
+We will now write the projection $P^c_+(x; \beta^+, \lambda)$ for $x \geq 0$ in terms of the adjoint solution $\tilde{w}_+(x; \beta^+, \lambda)$. To do this, let $R^s_+(x; \beta^+, \lambda)$, $R^u_+(x; \beta^+, \lambda)$, and $R^c(x; \beta^+, \lambda)$ be the ranges of the corresponding projections (stable, unstable, and center). The dimensions of these ranges are 2, 2, and 1 (respectively). Note that since $\tilde{v}_+(x; \beta^+, \lambda)$ is in the center range $R^c(x; \beta^+, \lambda)$ and that space is one-dimensional, $\tilde{v}_+(x; \beta^+, \lambda)$ is a basis vector for that space. Since we can scale the basis vector by any constant we want, we can divide by $e^{\nu(\lambda) x}$, so that $v_+(x; \beta^+, \lambda)$ is a basis vector for $R^c(x; \beta^+, \lambda)$. Since this space is one-dimensional, every element in $R^c(x; \lambda)$ is a scalar multiple of $\tilde{v}_+(x; \beta^+, \lambda)$. \\
 
-Next we show that the projection $P^c_+(x)$ is a projection on the adjoint solution $w_+(x; \lambda)$. To do this, we first show that $\tilde{w}(0)$ is perpendicular to $R^s_+(0; \lambda)$. Let $u(0) \in R^s_+(0; \lambda)$. Then $u(x) = \Phi(x, 0; \lambda)u(0) \in R^s_+(x; \lambda)$ for all $x \geq 0$. Since the inner product $\langle u(x), \tilde{w}_+(x; \lambda) \rangle$ is constant in $x$, we let $x \rightarrow \infty$ and use the continuity of the inner product to get
+Next we show that the projection $P^c_+(x; \beta^+, \lambda)$ is a projection on the adjoint solution $w_+(x; \beta^+, \lambda)$. To do this, we first show that $\tilde{w}(0; \beta^+, \lambda)$ is perpendicular to $R^s_+(0; \beta^+, \lambda)$. Let $u(0) \in R^s_+(0; \beta^+, \lambda)$. Then $u(x) = \Phi(x, 0; \beta^+, \lambda)u(0) \in R^s_+(x; \beta^+, \lambda)$ for all $x \geq 0$. Since the inner product $\langle u(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle$ is constant in $x$, we let $x \rightarrow \infty$ and use the continuity of the inner product to get
 
 \begin{align*}
-\lim_{x \rightarrow \infty} \langle u(x), \tilde{w}_+(x; \lambda) \rangle &= \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \langle u(x), w_+(x; \lambda) \rangle \\
+\lim_{x \rightarrow \infty} \langle u(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle &= \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \langle u(x), w_+(x; \beta^+, \lambda) \rangle \\
 &= \langle \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} u(x), w_0(\lambda) \rangle \\
 &= 0
 \end{align*}
 
-since $u(x)$ decays exponentially at a faster rate than $|\nu(\lambda)|$. Thus we have $\tilde{w}(0) \perp R^s(0; \lambda)$. By Lemma \ref{perpeigs}, $\tilde{w}_+(x; \lambda) \perp R^s_+(x; \lambda)$ for all $ \geq 0$.\\
+since $u(x)$ decays exponentially at a faster rate than $|\nu(\lambda)|$. Thus we have $\tilde{w}(0; \beta^+, \lambda) \perp R^s(0; \beta^+, \lambda)$. By Lemma \ref{perpeigs}, $\tilde{w}_+(x; \beta^+, \lambda) \perp R^s_+(x; \beta^+, \lambda)$ for all $ \geq 0$.\\
 
-Note that we cannot play the same game with $R^u_+(x; \lambda)$, since to get decay to 0 we would have to take $x \rightarrow -\infty$. Since everything we have done so far pertains to the dichotomy/trichotomy on $\R^+$, the results above are only valid for $x \geq 0$, so we cannot take $x \rightarrow -\infty$.\\
+Note that we cannot play the same game with $R^u_+(x; \beta^+, \lambda)$, since to get decay to 0 we would have to take $x \rightarrow -\infty$. Since everything we have done so far pertains to the dichotomy/trichotomy on $\R^+$, the results above are only valid for $x \geq 0$, so we cannot take $x \rightarrow -\infty$.\\
 
-However, we really want to have $\tilde{w}_+(x; \lambda) \perp R^u_+(x; \lambda)$ for all $x \geq 0$. Since $\tilde{w}_+(x; \lambda)$ is a nonzero scalar multiple of $w_+(x; \lambda)$, this is equivalent to having $w_+(x; \lambda) \perp R^u_+(x; \lambda)$ for $x \geq 0$ (they are the same at $x = 0$). To attain this, we will change coordinates.The idea is that if we do this at $x = 0$ to get $w(0) \perp R^u_+(0; \lambda)$, the invariance of the inner product in $x$ should take care of the rest.\\
+However, we really want to have $\tilde{w}_+(x; \beta^+, \lambda) \perp R^u_+(x; \beta^+, \lambda)$ for all $x \geq 0$. Since $\tilde{w}_+(x; \beta^+, \lambda)$ is a nonzero scalar multiple of $w_+(x; \beta^+, \lambda)$, this is equivalent to having $w_+(x; \beta^+, \lambda) \perp R^u_+(x; \beta^+, \lambda)$ for $x \geq 0$ (they are the same at $x = 0$). To attain this, we will change coordinates. The idea is that if we do this at $x = 0$ to get $w_+(0; \beta^+, \lambda) \perp R^u_+(0; \beta^+, \lambda)$, the invariance of the inner product in $x$ should take care of the rest.\\
 
-Let $\{ a^s_1(0), a^s_2(0)\}$ be a basis for $R^s_+(0; \lambda)$ and let $\{a^u_1(0), a^u_2(0)\}$ be a basis for $R^u_+(0; \lambda)$. By the discussion above, $w_+(0)$ is already perpendicular to $\{ a^s_1(0), a^s_2(0)\}$. All we need to do is change coordinates so that $w_+(0)$ is perpendicular to $\{ a^u_1(0), a^u_2(0)\}$. This is easy to accomplish by Gram-Schmidt since the set $\{ w_+(0), a^u_1(0), a^u_2(0) \}$ is linearly independent. Note that by this process, $w_+(0)$ remains unchanged, while $\{ a^u_1(0), a^u_2(0) \}$ may be modified. For convenience, we will use the same notation $\{ a^u_1(0), a^u_2(0) \}$ for the basis vectors of $R^u_+(0; \lambda)$ after the coordinate change.\\
+Let $\{ a^s_1(0), a^s_2(0)\}$ be a basis for $R^s_+(0; \beta^+, \lambda)$ and let $\{a^u_1(0), a^u_2(0)\}$ be a basis for $R^u_+(0; \beta^+, \lambda)$. By the discussion above, $w_+(0)$ is already perpendicular to $\{ a^s_1(0), a^s_2(0)\}$. All we need to do is change coordinates so that $w_+(0)$ is perpendicular to $\{ a^u_1(0), a^u_2(0)\}$. This is easy to accomplish by Gram-Schmidt since the set $\{ w_+(0), a^u_1(0), a^u_2(0) \}$ is linearly independent. Note that by this process, $w_+(0)$ remains unchanged, while $\{ a^u_1(0), a^u_2(0) \}$ may be modified. For convenience, we will use the same notation $\{ a^u_1(0), a^u_2(0) \}$ for the basis vectors of $R^u_+(0; \beta^+, \lambda)$ after the coordinate change.\\
 
-Let $a^u_i(x) = \Phi(x,0; \lambda)a^u_i(0)$, i.e. evolve the new basis vectors forward. These, together with $w_+(0)$, will remain linearly independent after evolution. For simplicity, consider one of these, say $a^u_1(x)$. Since $\Phi(x,0; \lambda) a^u_1(0)$ solves the eigenvalue problem with initial condition $a^u_1(0)$, by Lemma \ref{perpeigs} we have
+Let $a^u_i(x) = \Phi(x,0; \beta^+, \lambda)a^u_i(0)$, i.e. evolve the new basis vectors forward. These, together with $w_+(0)$, will remain linearly independent after evolution. For simplicity, consider one of these, say $a^u_1(x)$. Since $\Phi(x,0; \lambda) a^u_1(0)$ solves the eigenvalue problem with initial condition $a^u_1(0)$, by Lemma \ref{perpeigs} we have
 
 \begin{align*}
-\langle a^u_1(x), \tilde{w}_+(x; \lambda) \rangle &= \langle \Phi(x,0; \lambda) a^u_1(0), \tilde{w}_+(x; \lambda) \rangle \\
-&= \langle a^u_1(0), \tilde{w}(0) \rangle \\
-&= \langle a^u_1(0), w(0) \rangle \\
+\langle a^u_1(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle &= \langle \Phi(x,0; \lambda) a^u_1(0), \tilde{w}_+(x; \beta^+, \lambda) \rangle \\
+&= \langle a^u_1(0), \tilde{w}(0; \beta^+, \lambda) \rangle \\
+&= \langle a^u_1(0), w(0; \beta^+, \lambda) \rangle \\
 &= 0
 \end{align*}
 
-Since $\tilde{w}_+(x; \lambda)$ is a scalar multiple of $w_+(x; \lambda)$, we also have for $x \geq 0$
+Since $\tilde{w}_+(x; \beta^+, \lambda)$ is a scalar multiple of $w_+(x; \beta^+, \lambda)$, we also have for $x \geq 0$
 
 \[
-\langle a^u_1(x), w_+(x; \lambda) \rangle = 0
+\langle a^u_1(x), w_+(x; \beta^+, \lambda) \rangle = 0
 \]
 
-Thus a single change of variables at $x = 0$ accomplishes what we want. Since $\tilde{w}_+(x; \lambda) \in R^c_+(x; \lambda)$ and is perpendicular to the other two spaces, to get the center range projection $P^c_+(x; \lambda)$, all we have to do is project onto $\tilde{w}_+(x; \lambda)$. To do this, we take the inner product with $\tilde{w}_+(x; \lambda)$ to get the component in the direction of the basis vector $\tilde{v}_+(x; \lambda)$. Thus for $x \geq 0$ and arbitrary $u$ we claim
+Thus a single change of variables at $x = 0$ accomplishes what we want. Since $\tilde{w}_+(x; \beta^+, \lambda) \in R^c_+(x; \beta^+, \lambda)$ and is perpendicular to the other two spaces, to get the center range projection $P^c_+(x; \beta^+, \lambda)$, all we have to do is project onto $\tilde{w}_+(x; \beta^+, \lambda)$. To do this, we take the inner product with $\tilde{w}_+(x; \beta^+, \lambda)$ to get the component in the direction of the basis vector $\tilde{v}_+(x; \beta^+, \lambda)$. Thus for $x \geq 0$ and arbitrary $u$ we claim
 
 \begin{align*}
-P^c_+(x; \lambda)u &= \langle u, \tilde{w}_+(x; \lambda) \rangle \tilde{v}_+(x; \lambda) \\
-&= e^{-\nu(\lambda)x} e^{\nu(\lambda) x }\langle u, w_+(x; \lambda) \rangle v_+(x; \lambda) \\
-&= \langle u, w_+(x; \lambda) \rangle v_+(x; \lambda)
+P^c_+(x; \beta^+, \lambda)u &= \langle u, \tilde{w}_+(x; \beta^+, \lambda) \rangle \tilde{v}_+(x; \beta^+, \lambda) \\
+&= e^{-\nu(\lambda)x} e^{\nu(\lambda) x }\langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
+&= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda)
 \end{align*}
 
-The range of this is the span of $v_+(x; \lambda)$, which is what we want. To show that this is the projection onto the center range, all we need to do is verify that it is in fact a projection. To do this, we will show that $P^c_+(x; \lambda)P^c_+(x; \lambda) = P^c_+(x; \lambda)$.
+The range of this is the span of $v_+(x; \beta^+, \lambda)$, which is what we want. To show that this is the projection onto the center range, all we need to do is verify that it is in fact a projection. To do this, we will show that $P^c_+(x; \beta^+, \lambda)P^c_+(x; \beta^+, \lambda) = P^c_+(x; \beta^+, \lambda)$.
 
 \begin{align*}
-P^c_+(x; \lambda)( P^c_+(x; \lambda) u ) &= \langle \langle u, w_+(x; \lambda) \rangle v_+(x; \lambda), w_+(x; \lambda) \rangle v_+(x; \lambda) \\
-&= \langle u, w_+(x; \lambda) \rangle \langle v_+(x; \lambda), w_+(x; \lambda) \rangle v_+(x; \lambda) \\
-&= \langle u, w_+(x; \lambda) \rangle v_+(x; \lambda) \\
-&= P^c_+(x; \lambda) u 
+P^c_+(x; \beta^+, \lambda)( P^c_+(x; \beta^+, \lambda) u ) &= \langle \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
+&= \langle u, w_+(x; \beta^+, \lambda) \rangle \langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
+&= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
+&= P^c_+(x; \beta^+, \lambda) u 
 \end{align*}
 
-where $\langle v_+(x; \lambda), w_+(x; \lambda) \rangle = 1$ for all $x \geq 0$ by Lemma \ref{perpeigs}. Thus this is indeed a projection, and is in fact the projection we are looking for. From our definition of $P^c_+(x; \lambda)$ and the coordinate change we performed above, we have
+where $\langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle = 1$ for all $x \geq 0$ by Lemma \ref{perpeigs}. Thus this is indeed a projection, and is in fact the projection we are looking for. From our definition of $P^c_+(x; \lambda)$ and the coordinate change we performed above, we have
 
 \begin{align*}
-\ker P^c_+(x; \lambda) &= \text{span }\{ w_+(x; \lambda) \}^\perp\\
-\text{ran } P^c_+(x; \lambda) &= \text{span }\{ v_+(x; \lambda) \}
+\ker P^c_+(x; \beta^+, \lambda) &= \text{span }\{ w_+(x; \beta^+, \lambda) \}^\perp\\
+\text{ran } P^c_+(x; \beta^+, \lambda) &= \text{span }\{ v_+(x; \beta^+, \lambda) \}
 \end{align*}
 
-If this were an orthogonal projection, that would mean that $(\ker P^c_+(x; \lambda))^\perp = \text{ran } P^c_+(x; \lambda)$, i.e. $\text{span }\{ w_+(x; \lambda) \}) = \text{span }\{ v_+(x; \lambda) \})$. This would mean that $v_+(x; \lambda)$ and $w_+(x; \lambda)$ are scalar multiples of each other. Since $\langle v_+(x; \lambda), w_+(x; \lambda) \rangle = 1$ for all $x \geq 0$, this implies $v_+(x; \lambda) = w_+(x; \lambda)$, which is likely not true. \\
+If this were an orthogonal projection, that would mean that $(\ker P^c_+(x; \beta^+, \lambda))^\perp = \text{ran } P^c_+(x; \beta^+, \lambda)$, i.e. $\text{span }\{ w_+(x; \beta^+, \lambda) \}) = \text{span }\{ v_+(x; \beta^+, \lambda) \})$. This would mean that $v_+(x; \beta^+, \lambda)$ and $w_+(x; \beta^+, \lambda)$ are scalar multiples of each other. Since $\langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle = 1$ for all $x \geq 0$, this implies $v_+(x; \beta^+, \lambda) = w_+(x; \beta^+, \lambda)$, which is likely not true. \\
 
-We will also derive an expression for the center evolution $\Phi^c_+(x,y; \lambda)$ for $x \geq 0$. For arbirary $u$ and $x, y \geq 0$
+We will also derive an expression for the center evolution $\Phi^c_+(x,y; \beta^+, \lambda)$ for $x \geq 0$. For arbirary $u$ and $x, y \geq 0$
 
 \begin{align*}
-\Phi^c_+(x,y; \lambda)u &= \Phi(x,y; \lambda) P^c_+(y; \lambda) u \\
-&= \Phi(x,y) \langle u, w_+(y; \lambda) \rangle v_+(y) \\
-&= \Phi(x,y) \langle u, w_+(y; \lambda) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(y) \\
-&= \langle u, w_+(y; \lambda) \rangle e^{-\nu(\lambda)y} \Phi(x,y) \tilde{v}_+(y) \\
-&= \langle u, w_+(y; \lambda) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(x; \lambda) \\
-&= \langle u, w_+(y; \lambda) \rangle e^{-\nu(\lambda)y} e^{\nu(\lambda)x} v_+(x; \lambda) \\
-&= e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle u, w_+(y; \lambda) \rangle 
+\Phi^c_+(x,y; \beta^+, \lambda)u &= \Phi(x,y; \beta^+, \lambda) P^c_+(y; \beta^+, \lambda) u \\
+&= \Phi(x,y; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle v_+(y; \beta^+, \lambda) \\
+&= \Phi(x,y; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(y; \beta^+, \lambda) \\
+&= \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} \Phi(x,y; \beta^+, \lambda) \tilde{v}_+(y; \beta^+, \lambda) \\
+&= \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(x; \beta^+, \lambda) \\
+&= \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} e^{\nu(\lambda)x} v_+(x; \beta^+, \lambda) \\
+&= e^{\nu(\lambda)(x-y)} v_+(x; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle 
 \end{align*}
 
-where we used the fact that $\tilde{v}$ is a solution to the eigenvalue problem, thus under the evolution $\Phi(y, x; \lambda)$ we have $\Phi(y, x; \lambda)\tilde{v}_+(x; \lambda) = \tilde{v}_+(y)$.\\
+where we used the fact that $\tilde{v}$ is a solution to the eigenvalue problem, thus under the evolution $\Phi(y, x; \beta^+, \lambda)$ we have $\Phi(y, x; \beta^+, \lambda)\tilde{v}_+(x; \beta^+, \lambda) = \tilde{v}_+(y; \beta^+, \lambda)$.\\
 
-We can repeat we just did for the trichotomy on $\R^-$, which will give us analogous funcions $\tilde{v}_-(x; \lambda)$, $v_-(x; \lambda)$, $\tilde{w}_-(x; \lambda)$, and $w_-(x; \lambda)$. We can do a similar change of variables to make $w_-(0)$ perpendicular to $R^s_-(0; \lambda)$. Since we have two more dimensions to work with, this is always possible. The equations for the projection $P^c_-(x)$ and the evolution $\Phi^c_-(x,y)$ will be the same except for the subscripts.\\
+We can repeat we just did for the trichotomy on $\R^-$, which will give us analogous funcions $\tilde{v}_-(x; \beta^-, \lambda)$, $v_-(x; \beta^-, \lambda)$, $\tilde{w}_-(x; \beta^-, \lambda)$, and $w_-(x; \beta^-, \lambda)$. We can do a similar change of variables to make $w_-(0; \beta^-, \lambda)$ perpendicular to $R^s_-(0; \beta^-, \lambda)$. Since we have two more dimensions to work with, this is always possible. The equations for the projection $P^c_-(x; \beta^-, \lambda)$ and the evolution $\Phi^c_-(x,y; \beta^-, \lambda)$ will be the same except for the subscripts. Note that these are all dependent on the IC $\beta^-$.
+\\
+
+For the stable and unstable parts of the trichotomy, we have the following bounds. (WE MIGHT HAVE TO SHOW THIS, BUT THESE SHOULD BE OBVIOUS. ALSO WE SHOULD CHECK THE SIGNS.)
+
+\begin{align*}
+\Phi^s_-(x, y; \beta^-, \lambda) &\leq C e^{-\alpha(y - x)} && y \geq x \geq 0\\
+\Phi^u_-(x, y; \beta^-, \lambda) &\leq C e^{\alpha(y - x)} && x \geq y \geq 0\\
+\Phi^s_+(x, y; \beta^-, \lambda) &\leq C e^{-\alpha(y - x)} && 0 \geq x \geq y\\
+\Phi^u_+(x, y; \beta^-, \lambda) &\leq C e^{\alpha(y - x)} && 0 \geq y \geq x \\\\
+\end{align*}
+
 
 \subsection{The Inversion}
 
-At this point, we write down the fixed point equations for the problem. To do that, we take a look at where the equations came from in the hyperbolic case. These are very similar to the variation of constants formula, except that we split the solution up into stable, unstable, and center parts, evolve them separately (each with its own initial condition), and recombine them. Thus the fixed point equations will look like those in San98 and the exponentially weighted space with the addition of a center evolution term together with an initial condition in the center subspace.\\ 
+At this point, we write down the fixed point equations for the problem. To do that, we take a look at where the equations came from in the hyperbolic case. These are very similar to the variation of constants formula, except that we split the solution up into stable, unstable, and center parts, evolve them separately (each with its own initial condition), and recombine them. Thus the fixed point equations will look like those in San98 and the exponentially weighted space with the addition of a center evolution term together with an initial condition in the center subspace. The other difference will be the dependence on the ICs $\beta_i^\pm$. Note that these are fixed as they come from the construction of the periodic double pulse.
+\\ 
 
-Thus the fixed point equations for our problem are
+The fixed point equations for our problem are thus
 
 \begin{align*}
-W_i^-(x) = \Phi^s_-(&x, -X_{i-1}; \lambda)a_{i-1}^- + \Phi^u_-(x, 0; \lambda)b_i^- + e^{\nu(\lambda)(x+X_{i-1})} v_-(x; \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \lambda) \rangle c_{i-1}^- \\
-&+ \int_0^x \Phi^u_-(x, y; \lambda)[ G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
-&+ \int_{-X_{i-1}}^x \Phi^s_-(x, y; \lambda) [ G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+W_i^-(x) = \Phi^s_-(&x, -X_{i-1}; \beta_i^-, \lambda) a_{i-1}^- + \Phi^u_-(x, 0; \beta_i^-, \lambda) b_i^- \\
+&+ e^{\nu(\lambda)(x+X_{i-1})} v_-(x; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) \rangle c_{i-1}^- \\
+&+ \int_0^x \Phi^u_-(x, y; \beta_i^-, \lambda)[ G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{-X_{i-1}}^x \Phi^s_-(x, y; \beta_i^-, \lambda) [ G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
 &+ \int_{-X_{i-1}}^x 
-e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \\
-W_i^+(x) = \Phi^u_+(&x, X_i; \lambda)a_i^+ + \Phi^s_+(x, 0; \lambda)b_i^+ + e^{\nu(\lambda)(x - X_i)} v_+(x; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle c_i^+ \\
-&+ \int_0^x \Phi^s_+(x, y; \lambda) [ G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
-&+ \int_{X_i}^x \Phi^u_+(x, y; \lambda) [ G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
-&+ \int_{X_i}^x e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \lambda) \rangle dy
+e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}(y), w_-(y; \beta_i^-, \lambda) \rangle dy \\
+W_i^+(x) = \Phi^u_+(&x, X_i; \beta_i^+, \lambda)a_i^+ + \Phi^s_+(x, 0; \beta_i^+, \lambda)b_i^+ \\
+&+ e^{\nu(\lambda)(x - X_i)} v_+(x; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ \\
+&+ \int_0^x \Phi^s_+(x, y; \beta_i^+, \lambda) [ G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{X_i}^x \Phi^u_+(x, y; \beta_i^+, \lambda) [ G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y) ] dy \\
+&+ \int_{X_i}^x e^{\nu(\lambda)(x-y)} v_+(x; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \beta_i^+, \lambda) \rangle dy
 \end{align*}
 
 where
@@ -640,14 +718,14 @@ First, we obtain a bound on the terms from the fixed point equations which invol
 Let $L_1(\lambda): V_w \rightarrow V_w$ be the linear operator defined piecewise by
 
 \begin{align*}
-(L_1(\lambda)W)_i^-(x) &= \int_0^x \Phi^u_-(x, y; \lambda) G_i^-(y)W_i^-(y) dy + \int_{-X_{i-1}}^x \Phi^s_-(x, y; \lambda) G_i^-(y)W_i^-(y) dy \\
+(L_1(\lambda)W)_i^-(x) &= \int_0^x \Phi^u_-(x, y; \beta_i^-, \lambda) G_i^-(y)W_i^-(y) dy + \int_{-X_{i-1}}^x \Phi^s_-(x, y; \beta_i^-, \lambda) G_i^-(y)W_i^-(y) dy \\
 &+ \int_{-X_{i-1}}^x 
-e^{\nu(\lambda)(x-y)} v_-(x; \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \lambda) \rangle dy \\
-(L_1(\lambda)W)_i^+(x) &= \int_0^x \Phi^s_+(x, y; \lambda) G_i^+(y) W_i^+(y) dy + \int_{X_i}^x \Phi^u_+(x, y; \lambda) G_i^+(y) W_i^+(y) dy \\
-&+ \int_{X_i}^x e^{\nu(\lambda)(x-y)} v_+(x; \lambda) \langle G_i^+(y)W_i^+(y), w_+(y; \lambda) \rangle dy
+e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \\
+(L_1(\lambda)W)_i^+(x) &= \int_0^x \Phi^s_+(x, y; \beta_i^+, \lambda) G_i^+(y) W_i^+(y) dy + \int_{X_i}^x \Phi^u_+(x, y; \beta_i^+, \lambda) G_i^+(y) W_i^+(y) dy \\
+&+ \int_{X_i}^x e^{\nu(\lambda)(x-y)} v_+(x; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy
 \end{align*}
 
-where $G_i^\pm$ is uniformly bounded with norm $||G||$. Then $L_1(\lambda): V_w \rightarrow V_w$ is a bounded linear operator with bound
+Then $L_1(\lambda): V_w \rightarrow V_w$ is a bounded linear operator with bound
 
 \begin{equation}\label{L1bound}
 ||L_1(\lambda)W|| \leq C e^{\nu(\lambda)X_2} ||G|| ||W||
