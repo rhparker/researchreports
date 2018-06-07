@@ -2137,9 +2137,9 @@ Finally, we look at the ``center'' integral term not involving $W$.
 
 \begin{align*}
 \left| \int_{-X_{i-1}}^0
-e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \beta_i^-, \lambda) \rangle \langle \lambda^2 d_i \tilde{H}(y), w_-(y; \beta_i^-, \lambda) \rangle dy \right| &\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} )| |\lambda|^2 |d|\\
+e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \beta_i^-, \lambda) \rangle \langle \lambda^2 d_i \tilde{H}(y), w_-(y; \beta_i^-, \lambda) \rangle dy \right| &\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} ) |\lambda|^2 |d|\\
 \left| \int_{X_i}^0
-e^{\nu(\lambda)y} \langle \Psi(0), v_+(0; \beta_i^+, \lambda) \rangle \langle \lambda^2 d_i \tilde{H}(y), w_+(y; \beta_i^+,\lambda) \rangle dy \right| &\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} )| |\lambda|^2  |d| \\
+e^{\nu(\lambda)y} \langle \Psi(0), v_+(0; \beta_i^+, \lambda) \rangle \langle \lambda^2 d_i \tilde{H}(y), w_+(y; \beta_i^+,\lambda) \rangle dy \right| &\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} ) |\lambda|^2  |d| \\
 \end{align*}
 
 \begin{proof}
@@ -2158,7 +2158,7 @@ From Lemma \ref{jumpc}, $\Psi(0), v_-(0; \lambda) \rangle| = \mathcal{O}(|\lambd
 \begin{align*}
 &\left| \int_{-X_{i-1}}^0
 e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \lambda) \rangle \langle \lambda^2 d_i \tilde{H}(y), w_-(y; \lambda) \rangle dy \right| \\
-&\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} )| |\lambda|^2 |d| 
+&\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} ) |\lambda|^2 |d| 
 \int_{-X_{i-1}}^0 e^{\nu(\lambda)y} |\tilde{H}(y) dy|
 \end{align*}
 
@@ -2167,9 +2167,9 @@ Since we know that $\tilde{H}(y)$ decays exponentially with rate $\alpha$, this 
 \begin{align*}
 &\left| \int_{-X_{i-1}}^0
 e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \beta_i^-, \lambda) \rangle \langle \lambda^2 d_i \tilde{H}(y), w_-(y; \beta_i^-, \lambda) \rangle dy \right| \\
-&\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} )| |\lambda|^2  |d| 
+&\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} ) |\lambda|^2  |d| 
 \int_{-X_{i-1}}^0 e^{(\alpha - |\nu(\lambda)|)y} dy \\
-&\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} )| |\lambda|^2  |d|
+&\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} ) |\lambda|^2  |d|
 \end{align*}
 
 The ``plus'' integral is similar.
@@ -2186,41 +2186,38 @@ We are now ready to put all of this together.
 We have the following expression for the jumps 
 
 \[
-\xi = \langle \Psi(0), W_i^+(0) - W_i^-(0) \rangle
+\xi_i = \langle \Psi(0), W_i^+(0) - W_i^-(0) \rangle
 \]
 at $x = 0$.
 
 \begin{equation}\label{jumpexp}
-\xi = \langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^u_0 D_{i-1} d \rangle - d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + R(\lambda)_i(d)
+\xi_i = \langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^u_0 D_{i-1} d \rangle - d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + R(\lambda)_i(d)
 \end{equation}
 
 where the remainder term $R(\lambda)_i(d)$ has bound
 
 \begin{align*}
-|R(\lambda)(d)_i| &\leq C \Big( e^{-\tilde{\alpha}X_1}( e^{-\alpha X_1} + p_5(\lambda) 
-+ p_1(X_1; \lambda) + ||G|| + |\lambda|  ) |D| 
-+ (e^{-\alpha X_1} + p_5(\lambda) + |\lambda| ) |\lambda|^2 \Big) |d|
+R(\lambda)(d)_i &\leq C \Big( ( e^{-\alpha X_1} + e^{-\alpha X_2} + p_5(\lambda) + |\lambda| )(|\lambda|^2 + (e^{-\tilde{\alpha}X_1} + e^{-\tilde{\alpha}X_2}) |D|\Big) |d|
 \end{align*}
 
 \begin{proof}
-Using the fixed point equations at $x = 0$, we evaluate $\langle \Psi(0), W_i^+(0) - W_i^-(0) \rangle$. The first two terms on the RHS of \eqref{jumpexp} come from Lemma \ref{jumpa}. The higher order Melnikov integral term comes from Lemma \ref{noncenterH}. For the remainder term, we use all the jump estimation lemmas to get the estimate
+Using the fixed point equations at $x = 0$, we evaluate $\langle \Psi(0), W_i^+(0) - W_i^-(0) \rangle$. The first two terms on the RHS of \eqref{jumpexp} come from Lemma \ref{jumpa}. The higher order Melnikov integral term comes from Lemma \ref{noncenterH}. For the remainder term, we use all the jump estimation lemmas above to get the estimate
 
 \begin{align*}
-|R&(\lambda)(d)_i| \leq C ( (e^{-\alpha X_1} \Big( |\lambda|^2  + (p_1(X_1; \lambda) + e^{-(\alpha - |\nu(\lambda)|) X_1} + ||G|| + |\lambda|)|D| ) |d| ) \\
-&+ p_5(\lambda) ( e^{-\tilde{\alpha} X_1} |D| + |\lambda|^2 )|d| \\
-&+ |\lambda| ( e^{-\tilde{\alpha} X_1} |D| + |\lambda|^2 )|d| \\
-&+ ( e^{-\alpha X_1} |\lambda|^2 + e^{-(\alpha + \tilde{\alpha}) X_1} |D|) |d| \\
-&+ ( |\lambda| + e^{-\alpha X_1} ) |\lambda|^2 |d| \\
-&+ ( e^{-\tilde{\alpha} X_1} |\lambda|^3 + e^{-\tilde{\alpha} X_1} |\lambda| |D|) |d| \\
-&+ |\lambda|^3 |d|
+|R&(\lambda)(d)_i| \leq C \Big( (e^{-\alpha X_1} + e^{-\alpha X_2})
+( |\lambda| + e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| ) |d| \\
+&+ p_5(\lambda) ( (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| + |\lambda|^2 )|d| \\
+&+ (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2})( (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| + |\lambda|^2 )|d| \\
+&+ ( (e^{-\alpha X_1} + e^{-\alpha X_2}) |\lambda|^2 + (e^{-(\alpha + \tilde{\alpha}) X_1} + e^{-(\alpha + \tilde{\alpha}) X_2}) |D|) |d| \\
+&+ ( |\lambda| + e^{-\alpha X_1} + e^{-\alpha X_2}) |\lambda|^2 |d| \\
+&+ |\lambda| ( e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2})(|\lambda|^2 + |D|) |d| \\
+&+ (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} ) |\lambda|^2  |d|
 \end{align*}
 
 Simplifying and dropping higher order terms, this becomes
 
 \begin{align*}
-R(\lambda)(d)_i &\leq C \Big( e^{-\tilde{\alpha}X_1}( e^{-\alpha X_1} + p_5(\lambda)
-+ p_1(X_1; \lambda) + ||G|| + |\lambda|  ) |D| 
-+ (e^{-\alpha X_1} + p_5(\lambda) + |\lambda| ) |\lambda|^2 \Big) |d|
+R(\lambda)(d)_i &\leq C \Big( ( e^{-\alpha X_1} + e^{-\alpha X_2} + p_5(\lambda) + |\lambda|  )(|\lambda|^2 + (e^{-\tilde{\alpha}X_1} + e^{-\tilde{\alpha}X_2}) |D|\Big) |d|
 \end{align*}
 
 \end{proof}
@@ -2283,7 +2280,7 @@ Now we assume what was done in (3.36) in San98 applies here, i.e. that the ``mat
 Similarly, we have
 
 \begin{align*}
-\langle \Psi(-X_{i-1}), P^u_0 D_{i-1} d \rangle &= \langle \Psi(-X_{i-1}), Q'(X_{i-1}) \rangle (d_i - d_{i-1} ) + \mathcal{O} \left( e^{-2 \alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
+\langle \Psi(-X_{i-1}), P^u_0 D_{i-1} d \rangle &= \langle \Psi(-X_{i-1}), Q'(X_{i-1}) \rangle (d_i - d_{i-1} ) + \mathcal{O} \left( e^{-2 \alpha X_{i-1}} \left( |\lambda| +  e^{-\alpha X_{i-1}}  \right) |d| \right)
 \end{align*}
 
 Thus the jumps at $x = 0$ are given by
@@ -2302,37 +2299,34 @@ M = \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy
 The bound for the remainder term $R(\lambda)(d)_i$ in this expression is given by the bound for the remainder term from Lemma \ref{jump} together with the additional remainder terms from the substitution of $D_i$.
 
 \begin{align*}
-|R(\lambda)(d)_i| &\leq C \Big( e^{-\tilde{\alpha}X_1}( e^{-\alpha X_1} + p_5(\lambda) 
-+ p_1(X_1; \lambda) + ||G|| + |\lambda|  ) |D| 
-+ (e^{-\alpha X_1} + p_5(\lambda) + |\lambda| ) |\lambda|^2 \\
-&+ e^{-2 \alpha X_1} (|\lambda| +  e^{-\alpha X_1} ) \Big) |d|
+R(\lambda)(d)_i &\leq C \Big( ( e^{-\alpha X_1} + e^{-\alpha X_2} + p_5(\lambda) + |\lambda|  )(|\lambda|^2 + (e^{-\tilde{\alpha}X_1} + e^{-\tilde{\alpha}X_2}) |D|) \\
+&+ e^{-2 \alpha X_1}(|\lambda| + e^{-\alpha X_1}) 
++ e^{-2 \alpha X_2}(|\lambda| + e^{-\alpha X_2}) \Big) |d|
 \end{align*}
 
 For the the final remainder bound, we substitute the following estimates from prior lemmas and hypothesis.
 
 \begin{align*}
-||G|| &\leq C e^{-\alpha X_1} \\
-|D| &\leq C e^{-\alpha X_1} |d| \\
-|p_1(X_i; \lambda)| &\leq C (e^{-\alpha X_1} + |\lambda|) \\
-|p_5(\lambda)| &\leq C|\lambda|
+|D| &\leq C (e^{-\alpha X_1} + e^{-\alpha X_2}) |d| \\
+|p_5(\lambda)| &\leq C( e^{-2 \alpha X_1} + e^{-2 \alpha X_2} + |\lambda|)
 \end{align*}
 
 Thus we have
 
 \begin{align*}
-|R(\lambda)(d)_i| &\leq C \Big( e^{-\tilde{\alpha}X_1}( e^{-\alpha X_1} + |\lambda|  ) e^{-\alpha X_1}
-+ (e^{-\alpha X_1} + |\lambda| ) |\lambda|^2 
-+ e^{-2 \alpha X_1} (|\lambda| +  e^{-\alpha X_1} ) \Big) |d|
+R(\lambda)(d)_i &\leq C \Big( ( e^{-\alpha X_1} + e^{-\alpha X_2} + |\lambda|  )(|\lambda|^2 + (e^{-\tilde{\alpha}X_1} + e^{-\tilde{\alpha}X_2}) (e^{-\alpha X_1} + e^{-\alpha X_2})) \\
+&+ e^{-2 \alpha X_1}(|\lambda| + e^{-\alpha X_1}) 
++ e^{-2 \alpha X_2}(|\lambda| + e^{-\alpha X_2}) \Big) |d|
 \end{align*}
 
 Simplifying this and dropping higher order terms, the bound becomes
 
 \begin{align*}
-|R(\lambda)(d)_i| &\leq C \Big( e^{-(\alpha + \tilde{\alpha})X_1}( e^{-\alpha X_1} + |\lambda|  )  
-+ (e^{-\alpha X_1} + |\lambda| ) |\lambda|^2 \Big) |d|
+|R(\lambda)(d)_i| &\leq C \Big( (e^{-\alpha X_1} + e^{-\alpha X_2} + |\lambda| )(e^{-(\alpha + \tilde{\alpha})X_1} + e^{-(\alpha + \tilde{\alpha})X_2} 
++ |\lambda|^2 \Big) |d|
 \end{align*}
 
-Since we are taking $\lambda = \mathcal{O}(e^{-\alpha X_1})$, this remainder bound is sufficient!\\
+Since we are taking $\lambda = \mathcal{O}(e^{-\alpha X_1} + e^{-\alpha X_2})$, this remainder bound is sufficient!\\
 
 Taking $i = 1, 2$, the jump expressions become
 
