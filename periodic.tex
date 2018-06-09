@@ -51,7 +51,7 @@
 
 \subsection{Background}
 
-In this section we will look at multipulse solutions to KdV5 in the case where we have periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. For now, we will hypothesize that such solutions exist.
+In this section we will look at multipulse solutions to KdV5 in the case where we have periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. For now, we will hypothesize that such solutions exist. There should be restrictions on $X_1$ and $X_2$ like in the multipulse case, and almost certainly we need to have $c > 1/4$.
 
 \begin{hypothesis}\label{q2pexists}
 Let $q(x; c)$ be a single pulse solution to KdV5 with wave speed $c$. Then for $c > 1/4$, there exists a double pulse, periodic wavetrain solution $q_{2p}(x; c)$ to KdV5. The centers of the two pulses are separated by a distance $2 X_1$, and the centers of the two pulse are each a distance $X_2$ from the periodic boundary.
@@ -69,7 +69,396 @@ We would like to write the periodic double pulse as a small (piecewise) perturba
 
 \subsection{Construction of Periodic Double Pulse}
 
-For now the details will be omitted, since what really matters here is if we can use this result to get what we want. If this works, the details will be added in here.
+What we will do here is construct the periodic double pulse based on San97. For now, we are assuming it exists. This will give us a useful expression for the periodic double pulse, which will then give us useful bounds for the stability problem. Since this method will not give us any restrictions on the $X_i$ (and we know there are some), we are assuming existence for now.\\
+
+Since we are only intererested in the existence problem here, we can use the 4th order (integrated) equation
+
+\begin{equation}\label{4thorder}
+f(u) = u_{xxxx} - u_{xx} + c u - u^2 = 0
+\end{equation}
+
+which we can write as a 4th order system.\\
+
+We look at the general equation
+
+\begin{equation}
+U'(x) = F(U)
+\end{equation}
+
+Suppose $U = 0$ is an equilibrium for this equation (i.e. $F(0) = 0$), and suppose $Q(x)$ is a homoclinic orbit connecting this equilibrium to itself. In addition, we assume the following
+
+\begin{hypothesis}
+\begin{enumerate}
+	\item $U = 0$ is a hyperbolic equilibrium, i.e. we can find $\alpha > 0$ such that the real part of the spectrum of $D_U F(0)$ lies outside of $(-\alpha, \alpha)$.
+	\item $D_U F(0)$ has two stable and two unstable directions.
+	\item We have a nondegeneracy condition
+	\[
+	T_{Q(0)} W^u(0) \cap T_{Q(0)} W_s(0) = \R Q'(0)
+	\]
+\end{enumerate}
+\end{hypothesis}
+
+By the nondegeneracy hypothesis, there exists a unique, bounded solution $\Psi(x)$ to the adjoint variational equation
+
+\begin{equation}
+W' = -D_U F(Q(x))^* W
+\end{equation}
+
+Next, we paramaterize the stable and unstable manifolds near $Q(0)$. To do that we first write
+
+\begin{align*}
+T_{q(0)}W^u(0) &= \R Q'(0) \oplus Y^- \\
+T_{q(0)}W^s(0) &= \R Q'(0) \oplus Y^+ \\
+Z &= \R \Psi(0)
+\end{align*}
+
+Since we are assuming $D_U F(0)$ has two stable and two unstable directions, we have 
+
+\[
+\R^4 = \R Q'(0) \oplus Y^+ \oplus Y^- \oplus Z
+\]
+ 
+We have also shown before that $Z$ is perpendicular to the other three. \\
+
+We now write $W^u(0)$ and $W^s(0)$ as graphs over their own tangent spaces near $Q(0)$. Following San97, we can paramaterize the unstable and stable manifolds near $Q(0)$ by the smooth functions
+
+\begin{align*}
+Q^-(\alpha, \beta^-) \\
+Q^+(\alpha, \beta^+)
+\end{align*}
+
+where $\alpha \in \R$, $\beta^\pm \in Y^\pm$ and we have set things up so that $Q^+(\alpha, 0) - Q^-(\alpha, 0) \in Z$. Note that $Q^+(0, 0) = Q^-(0, 0) = Q(0)$. The parameter $\alpha$ is a phase parameter (which we will always take to be 0); although we could ignore it in our paramaterization, we include it here to indicate that both manifolds are two-dimensional. \\
+
+Next, we define the trajectories
+
+\begin{align*}
+Q^-(\alpha, \beta^-)(x) && x \leq 0 \\
+Q^+(\alpha, \beta^-)(x) && x \geq 0
+\end{align*}
+
+which are the unique solutions to $U' = F(U)$ with ICs $Q^\pm(\alpha, \beta^\pm)$ for appropriate $x$. Note that since the ICs are on the stable/unstable manifolds, these decay exponentially in the appropriate direction with rate $\alpha$.\\
+
+Using the paramaterizations of the stable and unstable manifolds, we write $U$ piecewise (in four pieces, $i = 1, 2$) as
+
+\begin{align*}
+U_i^-(x) &= Q^-(0, \beta_i^-)(x) + V_i^-(x) && x \leq 0 \\
+U_i^+(x) &= Q^+(0, \beta_i^+)(x) + V_i^+(x) && x \geq 0
+\end{align*}
+
+In essence, we are writing $U$ in terms of four parameters ($\beta_i^\pm$, representing ICs on the stable/unstable manifolds) and four ``remainder'' functions $V_i^\pm(x)$.\\
+
+We will choose $V_i^\pm(x)$ so that
+
+\begin{align*}
+V_i^-(0) &\in Z \oplus Y^- \\
+V_i^+(0) &\in Z \oplus Y^+
+\end{align*}
+
+since the other directions are covered by $\beta^\pm$ (and $\alpha$, but we set that equal to 0).\\
+
+Thus the problem we need to solve to construct the periodic double pulse is
+
+\begin{align*}
+(U_i^\pm)' - F(U_i^\pm) &= 0 \\
+U_i^+(X_i) - U_{i-1}^-(-X_i) &= 0 \\
+U_i^+(0) - U_i^-(0) &= 0;
+\end{align*}
+
+Let $\Phi_\pm(x, y; \beta^\pm)$ be the family of evolution operators for the variational equations
+
+\begin{equation}
+V' = D_U F(Q^\pm(0, \beta^\pm)(x)) V
+\end{equation}
+
+We can decompose these evolution operators via an exponential dichotomy.
+
+\begin{lemma}\label{dichotomy1}
+There exist projections
+
+\begin{align*}
+&P_+^s(y; \beta^+) && y \geq 0 \\
+&P_+^u(y; \beta^+) = I - P_+^s(y; \beta^+) && y \geq 0 \\
+&P_-^u(y; \beta^-) && y \leq 0 \\
+&P_-^s(y; \beta^-) = I - P_-^u(y; \beta^-) && y \leq 0 \\
+\end{align*}
+
+such that the evolution operators $\Phi_\pm(x, y; \beta^\pm)$ can be decomposed as
+
+\begin{align*}
+\Phi^s_\pm(x, y; \beta^\pm) &= \Phi_\pm(x, y; \beta^\pm) P^s_\pm(y; \beta^\pm) \\
+\Phi^u_\pm(x, y; \beta^\pm) &= \Phi_\pm(x, y; \beta^\pm) P^u_\pm(y; \beta^\pm) 
+\end{align*}
+
+where we have the estimates
+
+\begin{align*}
+|\Phi^s_+(x, y, \beta^+) &\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
+|\Phi^u_+(x, y, \beta^+) &\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y \\
+|\Phi^u_-(x, y, \beta^+) &\leq C e^{-\alpha(y - x)} && 0 \geq y \geq x \\
+|\Phi^s_-(x, y, \beta^+) &\leq C e^{-\alpha(x - y)} && 0 \geq x \geq y \\
+\end{align*}
+
+which also hold for derivatives with respect to the ICs $\beta^\pm$. In addition, the projections satisfy 
+
+\begin{align*}
+\Phi_\pm(x, y; \beta^\pm) P^{s/u}_\pm(y; \beta^\pm) 
+= P^{s/u}_\pm(x; \beta^\pm) \Phi_\pm(x, y; \beta^\pm)
+\end{align*}
+
+i.e. it does not matter if we project or evolve first. Finally, the projections can be chosen such that at $y = 0$ we have, independent of $\beta^+$ and $\beta^-$
+
+\begin{align*}
+\ker P^s_+(0; \beta^+) &= Z \oplus Y^- \\
+\ker P^u_-(0; \beta^-) &= Z \oplus Y^+ \\
+\text{ran } P^u_+(0; \beta^+) &= Z \oplus Y^- \\
+\text{ran } P^s_-(0; \beta^-) &= Z \oplus Y^+
+\end{align*}
+
+\begin{proof}
+Since $D_U F(0)$ is hyperbolic by assumption, this follows from Lemma 5.1 in San97, which follows from Lemma 1.1 in San93.
+\end{proof}
+
+\end{lemma}
+
+Now, we rewrite our problem $U'(x) = F(U)$ in piecewise fashion in such a way as to exploit what we did above. We want to solve piecewise
+
+\begin{align*}
+(U_i^\pm(x))' &= (Q^\pm(0, \beta_i^\pm)(x))' + (V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) ) \\
+\end{align*}
+
+Using the fact that (by construction) $Q^\pm(0, \beta_i^\pm)(x)$ solves $U'(x) = F(U)$ on the appropriate interval, this becomes
+
+\begin{align*}
+F(Q^\pm(0, \beta_i^\pm)(x)) + (V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) ) \\
+\end{align*}
+
+Solving for $(V_i^\pm(x))'$, we have
+
+\begin{align*}
+(V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) ) - F(Q^\pm(0, \beta_i^\pm)(x) ) \\
+\end{align*}
+
+Now we Taylor about $F(Q^\pm(0, \beta_i^\pm)(x)$ to get the equivalent formulation
+
+\begin{equation}\label{Vpiecewise}
+(V_i^\pm(x))' = D_U F(Q^\pm(0, \beta_i^\pm)(x)) V_i^\pm(x)  + G_i^\pm(\beta_i^\pm, V_i^\pm)(x)
+\end{equation}
+
+where $G_i^\pm(\beta_i^\pm, V_i^\pm)(x) = \mathcal{O}(|V_i^\pm|^2)$, independent of the parameters $\beta_i^\pm$. Derivatives of $G_i^\pm$ with respect to the parameters $\beta_i^\pm$ are the same order in $V_i^\pm$.\\
+
+At this point, we rewrite the (piecewise) differential equations \eqref{Vpiecewise} in integrated form as the fixed point equations
+
+\begin{align*}
+V_i^+(x) &= \Phi^u_+(x, X_i; \beta_i^+) a_i^+  \\
+&+ \int_{X_i}^x \Phi_+^u(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\
+&+ \int_0^x \Phi_+^s(x, y, \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
+V_i^-(x) &= \Phi^s_-(x, -X_{i-1}, \beta_i^-) a_{i-1}^-  \\
+&+ \int_{-X_{i-1}}^x \Phi_-^s(x, y, \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy \\
+&+ \int_0^x \Phi_-^u(x, y, \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy \\
+\end{align*}
+
+where for the initial conditions $a_i^\pm$ we have
+
+\begin{align*}
+a_i^+ &\in E_0^u \\
+a_i^- &\in E_0^s \\
+\end{align*}
+
+Note that we do not have initial conditions $b_i^\pm$ for the other side of the dichotomy. Since these ICs would live in $Y^\pm$, we have incorporated them into the $\beta_i^\pm$.\\
+
+Next, we define the exponentially weighted norms
+
+\begin{align*}
+||V||_{X, +} = sup_{x \in [0, X]} e^{\alpha(X - x)}|V(x)| \\
+||V||_{X, -} = sup_{x \in [-X, 0]} e^{\alpha(X + x)}|V(x)| \\
+\end{align*}
+
+Let $K_{X, +}$ be the spaces on continuous functions on the appropriate intervals equipped with these norms. These are known to be Banach spaces. Let $B_{X, \pm}(\rho)$ be the ball of radius $\rho$ in these spaces.\\
+
+At this point, we will solve for the $V_i^\pm$ and the $\beta_i^\pm$ in a series of lemmas.\\
+
+\begin{lemma}
+There exist $\delta, \rho > 0$ such that for $|X_i| > 1/\delta$ and $|\beta_i^\pm| < \delta$, there exist unique solutions
+
+\begin{align*}
+V_i^- &\in B_{X_{i-1}, -}(\rho) \\
+V_i^+ &\in B_{X_i, +}(\rho) \\
+\end{align*}
+
+These depend smoothly on the $\beta_i^\pm$, and we have the estimates
+
+\begin{align*}
+||V_i^-||_{X_{i-1}, -} &\leq C |a_{i-1}^-| \\
+||V_i^+||_{X_i, +} &\leq C |a_i^+|
+\end{align*}
+
+The estimates hold as well for derivatives of $V_i^\pm$ with respect to $\beta_i^\pm$.
+
+\begin{proof}
+This should just be Lemma 5.2 in San97. The following is a mostly filled-in version of that proof.\\
+
+
+We can deal with the four pieces separately, so let's do the ``positive'' pieces. The RHS of the fixed point equations defines a smooth mapping on $K_{X_i, +}$ (basically obvious since everything involved is smooth, although we could check this). We need to verify that the RHS maps to $K_{X_i, +}$, so we check the three terms individually. Using our estimates on $\Phi^{s/u}_\pm$ and $G$ and the fact that $V_i^+ \in K_{X_i, +}$, we have
+
+\begin{align*}
+e^{\alpha(X_i - x)} | \Phi^u_+(x, X_i; \beta_i^+) a_i^+ | 
+&\leq C e^{\alpha(X_i - x} e^{-\alpha(X_i - x)} |a_i^+| \\
+&\leq C |a_i^+|
+\end{align*}
+
+\begin{align*}
+e^{\alpha(X_i - x)} &\left| \int_{X_i}^x \Phi_+^u(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy  \right| \\
+&\leq C e^{\alpha(X_i - x)} \int_x^{X_i} e^{-\alpha(y - x)}|V_i^+(y)|^2 dy \\
+&\leq C e^{\alpha(X_i - x)} \int_x^{X_i} 
+e^{-\alpha(y - x)}(e^{-\alpha(X_i - y)})^2|e^{\alpha(X_i - y)} V_i^+(y)|^2 dy \\
+&\leq C e^{\alpha(X_i - x)} \int_x^{X_i} 
+e^{-\alpha(y - x)}(e^{-\alpha(X_i - y)})^2 dy \\
+&\leq C \int_0^{X_i} e^{-\alpha (X_i - y)} dy \\
+&\leq C
+\end{align*}
+
+The third term is similar. Thus the RHS of the fixed point equations does indeed map $K_{X_i, +}$ to itself.\\
+
+Now that we know what spaces things live in, define 
+$H: K_{X_i, +} \times E_0^s \rightarrow K_{X_i, +}$ by
+
+\begin{align*}
+H(V_i^+(x), a_i^+, \beta_i^+) &= V_i^+(x) - \Phi^u_+(x, X_i; \beta_i^+) a_i^+  \\
+&- \int_{X_i}^x \Phi_+^u(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\
+&- \int_0^x \Phi_+^s(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy 
+\end{align*}
+
+Since $Q(x)$ satisfies the original ODE, we know that $H(0, 0, 0) = 0$. We can check that the Frechet derivative of $H$ with respect to $V_i^+$ at $(V_i^+(x), a_i^+, \beta_i^+) = (0, 0, 0)$ is a Banach space isomorphism on $K_{X_i, +}$. Then using the implicit function theorem, we can solve for $V_i^+(x)$ in terms of $(a_i^+, \beta_i^+)$. This dependence is smooth, since the map $H$ is smooth. \\
+
+The estimate on $V_i^\pm$ comes from the estimate of the first term on the RHS of the fixed point equations, since the other terms (those involving the integrals) are quadratic in $V_i^\pm$. 
+
+\end{proof}
+\end{lemma}
+
+Next, we look at the conditions $U_i^+(X_i) - U_{i-1}^-(-X_i) = 0$.
+
+\begin{lemma}
+For any $X_i$ and $\beta_i^\pm$ chosen as in the previous lemma, there is a unique pair of initial conditions $(a_i^+, a_i^-) \in E_0^s \times E_0^u$ such that $U_i^+(X_i) - U_{i-1}^-(-X_i) = 0$. $(a_i^+, a_i^-)$ depends smoothly on $(\beta_i^+, \beta_i^-)$, and we have the following estimate which is independent of the $\beta_i^\pm$
+
+\begin{equation}
+|a_i^\pm| \leq C |Q^\pm(0, \beta_i^\pm)(\pm X_i)| \leq C e^{-\alpha X_i}
+\end{equation}
+
+which hold for $a_i^\pm$ as well as derivatives with respect to $\beta_i^\pm$.
+
+\begin{proof}
+
+First, plug in the fixed point equations and evaluate them at $\pm X_i$ to get
+\begin{align*}
+U_i^+(X_i) &= Q^+(0, \beta_i^+)(X_i) + P^u_+(X_i; \beta_i^+) a_i^+ + \int_0^{X_i} \Phi_+^s(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
+U_{i-1}^-(-X_i) &= Q^-(0, \beta_i^-)(-X_i) + P^s_-(-X_i; \beta_i^-) a_i^- + \int_0^{-X_i} \Phi_-^u(x, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy \\
+\end{align*}
+
+Adding and subtracting $P_0^{s/u}$ and recalling where the $a_i^\pm$ live, this becomes
+
+\begin{align*}
+U_i^+(X_i) &= Q^+(0, \beta_i^+)(X_i) + a_i^+ + (P^u_+(X_i; \beta_i^+) -  P^s_0)a_i^+ + \int_0^{X_i} \Phi_+^s(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
+U_{i-1}^-(-X_i) &= Q^-(0, \beta_i^-)(-X_i) + a_i^- + (P^s_-(-X_i; \beta_i^-) - P^u_0) a_i^- + \int_0^{-X_i} \Phi_-^u(x, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy \\
+\end{align*}
+
+Subtracting these, we obtain the equation we need to solve
+
+\begin{align*}
+0 &= H(a_i^+, a_i^-, \beta_i^+, \beta_i^-) \\
+&= a_i^+ - a_i^- + (P^u_+(X_i; \beta_i^+) -  P^s_0)a_i^+ - (P^s_-(-X_i; \beta_i^-) - P^u_0) a_i^-  \\
+&+ Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i)\\
+&+ \int_0^{X_i} \Phi_+^s(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy
+- \int_0^{-X_i} \Phi_-^u(x, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy 
+\end{align*}
+
+where $H: E_0^s \times E_0^u \times \R \times \R \rightarrow \R^4$. In the previous lemma, we solved for $V_i^\pm$ in terms of the $a_i^\pm$ and $\beta_i^\pm$, so we rewrite the above to indicate that dependence so that $H$ is only a function of its four arguments.
+
+\begin{align*}
+H(a_i^+, &a_i^-, \beta_i^+, \beta_i^-) \\
+&= a_i^+ - a_i^- + (P^u_+(X_i; \beta_i^+) -  P^s_0)a_i^+ - (P^s_-(-X_i; \beta_i^-) - P^u_0) a_i^-  \\
+&+ Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i)\\
+&+ \int_0^{X_i} \Phi_+^s(x, y; \beta_i^+) G_i^+(y, V_i^+(a_i^+, \beta_i^+)(y),\beta_i^+)dy \\
+&- \int_0^{-X_i} \Phi_-^u(x, y; \beta_i^-) G_i^-(y, V_i^-(a_i^-, \beta_i^-)(y),\beta_i^-)dy 
+\end{align*}
+
+Again, note that $H(0, 0, 0, 0) = 0$. We want to solve for $a_i^\pm$ using the implicit function theorem, so we need to look at $D_{a_i^\pm} H(0, 0, 0, 0)$. First, define
+
+\begin{equation}
+p_1(X; \beta^+, \beta^-) = \sup_{x \geq X} (|P^u_+(x; \beta^+) - P_0^u| + |P^s_-(-x; \beta^-) - P_0^s|)
+\end{equation}
+
+Based on Lemma \ref{dichotomy1}, we hypothesize the following bound for $p_1$.
+
+\begin{hypothesis}
+\begin{equation}
+p_1(X; \beta^+, \beta^-) = \mathcal{O}(e^{-\alpha X})
+\end{equation} 
+\end{hypothesis}
+
+When we differentiate with respect to $a_i^\pm$ at $a_i^\pm = 0$, we note that the the derivatives of the integral terms in $H$ will be 0 since $G_i^\pm$ is quadratic order in $V_i^\pm$, thus quadratic order in $a_i^\pm$ by the previous lemma. The $Q^\pm$ terms do not involve $a_i^\pm$.\\
+
+Thus, taking the partial derivative with respect to $a_i^\pm = 0$, we get
+
+\[
+\frac{\partial}{\partial a_i^\pm} H(0, 0, 0, 0) = \pm 1 + \mathcal{O} (e^{-\alpha X_i})
+\]
+
+Thus, for sufficiently large $X_i$, $D_{a_i^\pm} H(0, 0, 0, 0)$ is invertible in a neighborhood of $(0, 0, 0, 0)$, so we can use the IFT to solve for $a_i\pm$ in terms of $\beta_i^\pm$. \\
+
+SOMEHOW WE SHOULD GET THE FOLLOWING ESTIMATE.
+
+\begin{align*}
+|a_i^\pm| \leq C |Q^\pm(0, \beta_i^\pm)(\pm X_i)| \leq C e^{-\alpha X_i}
+\end{align*}
+
+\end{proof}
+\end{lemma}
+
+Finally, we need the pieces to match at $x = 0$. In other words, we need to find $\beta_i^\pm$ such that $U_i^+(0) = U_i^-(0)$, i.e. 
+
+\begin{align*}
+Q^+(0, \beta^+) + V_i^+(0) = Q^-(0, \beta^-) + V_i^-(0)
+\end{align*}
+
+Before we do that, we will need to make a smooth change of coordinates near $Q(0)$. We will do that using the ``flow-box'' method. The idea is that we will straighten out the stable and unstable manifolds locally so that they lie along $Y^+$ and $Y^-$, and that all trajectories are parallel and have constant velocity.
+
+\begin{lemma}
+
+\begin{proof}
+We know that $F(Q(0)) \neq 0$, i.e. the center of the pulse is not an equilibrium of the vector field $F$. We want to construct a three-dimensional section which is perpendicular to $F(Q(0))$ at $Q(0)$. First, recall that
+
+\[
+\R^4 = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^-
+\]
+
+First, we make a linear change of coordinates so that $Y^+$ and $Y^-$ are perpendicular to $Q'(0)$. Since $Z = \Psi(0)$ is already perpendicular to $Q'(0)$, we have $Y = Y^- \oplus Y^+ \oplus Z \perp Q'(0)$. Paramaterize $Y$ by the coordinates $(\beta^-, \beta^+, \gamma)$.\\
+
+Since $F(Q(0)) \neq 0$, by continuity of $F$ we can find a ball $B_0$ around $Q(0)$ such that $F(x) \neq 0$ in $B_0 \cap Y$. Note that all trajectories $B_0$ cross $B_0 \cap Y$ in the same direction.\\
+
+Next we construct a ``flow box'' near $Q(0)$. Let $S_y(P)$ be the solution operator for the original (nonlinear) ODE $U' = F(U)$, i.e. the operator which takes the initial condition $p$ and maps it to the point $H(y)$, where $H$ is the unique solution to $U' = F(U)$ such that $H(0) = P$.\\
+
+Let $B \subset B
+Define the map $\Psi$ from a neighborhood $N$ of the origin in $\R \times \R^3$ to a neighborhood of $Q(0)$ by
+
+\begin{equation}
+\Psi(y; \beta^-, \beta^-, \gamma) = S_y(Q(0) + Q^-(\beta^-, 0) + Q^-(\beta^-, 0) + \gamma \Psi(0))
+\end{equation}
+
+If we fix $(\beta^-, \beta^+, \gamma)$, then $\Psi(y; \beta^-, \beta^+, \gamma)$ maps to a trajectory of our system with IC $Q(0) + Q^-(\beta^-,0) + Q^-(\beta^+,0) + \gamma \Psi(0)$.\\ 
+
+Near $Q(0)$, we have for small $x, \beta^\pm$ the stable and unstable manifolds are paramaterized by
+
+\begin{align*}
+W^u &= \Psi(x; \beta^-, 0, 0) \\
+W^s &= \Psi(x; 0, \beta^+, 0) 
+\end{align*}
+
+and their intersection is $Q'(x) = \Psi(x; 0, 0, 0)$.\\
+
+For a sufficiently small neighborhood $N$ about the origin in $\R \times \R^3$, this map will invertible (not hard to show, just take Jacobian, show nonsingular, and use inverse function theorem). Since everything we are dealing with is smooth, this map is smooth as well, thus, in a hand-wavey fashion, it suffices to look at the jump distance $U^+(0) - U^-(0)$ after we change coordinates by applying the inverse of this map near $Q(0)$.
+\\
+\end{proof}
+\end{lemma}
 
 \begin{proposition}\label{2pconstruction}
 Let $Q_{2p}(x)$ be a periodic double pulse solution with lengths $X_1$, $X_2$ as described above. Then $Q_{2p}(x)$ can be written piecewise as
