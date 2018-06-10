@@ -298,13 +298,15 @@ The estimates hold as well for derivatives of $V_i^\pm$ with respect to $\beta_i
 This should just be Lemma 5.2 in San97. The following is a mostly filled-in version of that proof.\\
 
 
-We can deal with the four pieces separately, so let's do the ``positive'' pieces. The RHS of the fixed point equations defines a smooth mapping on $K_{X_i, +}$ (basically obvious since everything involved is smooth, although we could check this). We need to verify that the RHS maps to $K_{X_i, +}$, so we check the three terms individually. Using our estimates on $\Phi^{s/u}_\pm$ and $G$ and the fact that $V_i^+ \in K_{X_i, +}$, we have
+We can deal with the four pieces separately, so let's do the ``positive'' pieces. The RHS of the fixed point equations defines a smooth mapping on $K_{X_i, +}$ (basically obvious since everything involved is smooth, although we could check this). We need to verify that the RHS maps to $K_{X_i, +}$, so we check the three terms individually. Using our estimates on $\Phi^{s/u}_\pm$ and $G$ and the fact that $V_i^+ \in K_{X_i, +}$, we have for the first term
 
 \begin{align*}
 e^{\alpha(X_i - x)} | \Phi^u_+(x, X_i; \beta_i^+) a_i^+ | 
 &\leq C e^{\alpha(X_i - x} e^{-\alpha(X_i - x)} |a_i^+| \\
 &\leq C |a_i^+|
 \end{align*}
+
+For the second term,
 
 \begin{align*}
 e^{\alpha(X_i - x)} &\left| \int_{X_i}^x \Phi_+^u(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy  \right| \\
@@ -420,43 +422,69 @@ Finally, we need the pieces to match at $x = 0$. In other words, we need to find
 Q^+(0, \beta^+) + V_i^+(0) = Q^-(0, \beta^-) + V_i^-(0)
 \end{align*}
 
-Before we do that, we will need to make a smooth change of coordinates near $Q(0)$. We will do that using the ``flow-box'' method. The idea is that we will straighten out the stable and unstable manifolds locally so that they lie along $Y^+$ and $Y^-$, and that all trajectories are parallel and have constant velocity.
+Before we do that, we will need to make a smooth change of coordinates near $Q(0)$. We will do that using a variation of the ``flow-box'' method. What we want to do is straighten out the stable and unstable manifolds near $Q(0)$ so that their nonintersecting directions lie along $Y^+$ and $Y^-$.
 
 \begin{lemma}
 
+There exists a differentiable map 
+
+\[
+H: \R \times Y^- \times Y^+ \times Z \rightarrow \R^4$
+\]
+
+such that $H(0, 0, 0, 0) = Q(0)$, $H$ is invertible in a neighborhood of $Q(0)$, and
+
+\begin{align*}
+H^{-1}(Q^-(0, \beta^-) &= \beta^- \in Y^- \\
+H^{-1}(Q^+(0, \beta^+) &= \beta^+ \in Y^+ \\
+\end{align*}
+
+for sufficiently small $\beta^\pm$.
+
 \begin{proof}
-We know that $F(Q(0)) \neq 0$, i.e. the center of the pulse is not an equilibrium of the vector field $F$. We want to construct a three-dimensional section which is perpendicular to $F(Q(0))$ at $Q(0)$. First, recall that
+We know that $Q'(0) = F(Q(0)) \neq 0$, i.e. the center of the pulse is not an equilibrium of the vector field $F$. Recall that 
 
 \[
 \R^4 = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^-
 \]
 
-First, we make a linear change of coordinates so that $Y^+$ and $Y^-$ are perpendicular to $Q'(0)$. Since $Z = \Psi(0)$ is already perpendicular to $Q'(0)$, we have $Y = Y^- \oplus Y^+ \oplus Z \perp Q'(0)$. Paramaterize $Y$ by the coordinates $(\beta^-, \beta^+, \gamma)$.\\
+Let $S_y(P)$ be the solution operator for the ODE $U' = F(U)$, i.e. the operator which takes an initial condition $P$ and maps it to the point $H(y)$, where $H$ is the unique solution to $U' = F(U)$ such that $H(0) = P$.\\
 
-Since $F(Q(0)) \neq 0$, by continuity of $F$ we can find a ball $B_0$ around $Q(0)$ such that $F(x) \neq 0$ in $B_0 \cap Y$. Note that all trajectories $B_0$ cross $B_0 \cap Y$ in the same direction.\\
-
-Next we construct a ``flow box'' near $Q(0)$. Let $S_y(P)$ be the solution operator for the original (nonlinear) ODE $U' = F(U)$, i.e. the operator which takes the initial condition $p$ and maps it to the point $H(y)$, where $H$ is the unique solution to $U' = F(U)$ such that $H(0) = P$.\\
-
-Let $B \subset B
-Define the map $\Psi$ from a neighborhood $N$ of the origin in $\R \times \R^3$ to a neighborhood of $Q(0)$ by
+Define the map $H: \R \times Y^- \times Y^+ \times Z \rightarrow \R^4$ by 
 
 \begin{equation}
-\Psi(y; \beta^-, \beta^-, \gamma) = S_y(Q(0) + Q^-(\beta^-, 0) + Q^-(\beta^-, 0) + \gamma \Psi(0))
+H(y; \beta^-, \beta^+, \gamma) = S_y(Q(0) + Q^-(0, \beta^-) + Q^-(0, \beta^+) + \gamma \Psi(0))
 \end{equation}
 
-If we fix $(\beta^-, \beta^+, \gamma)$, then $\Psi(y; \beta^-, \beta^+, \gamma)$ maps to a trajectory of our system with IC $Q(0) + Q^-(\beta^-,0) + Q^-(\beta^+,0) + \gamma \Psi(0)$.\\ 
+In other words, $H(y; \beta^-, \beta^+, \gamma)$ is a tracjectory of $U' = F(U)$ with initial condition $Q(0) + Q^-(\beta^-,0) + Q^-(\beta^+,0) + \gamma \Psi(0)$.\\ 
 
-Near $Q(0)$, we have for small $x, \beta^\pm$ the stable and unstable manifolds are paramaterized by
+Near $Q(0)$, i.e. for small $x, \beta^\pm$ the stable and unstable manifolds are given by the curves
 
 \begin{align*}
 W^u &= \Psi(x; \beta^-, 0, 0) \\
 W^s &= \Psi(x; 0, \beta^+, 0) 
 \end{align*}
 
-and their intersection is $Q'(x) = \Psi(x; 0, 0, 0)$.\\
+Their one-dimensional intersection is the homoclinic orbit $Q(x) = \Psi(x; 0, 0, 0)$, whose tangent space is $Q'(x)$.\\
 
-For a sufficiently small neighborhood $N$ about the origin in $\R \times \R^3$, this map will invertible (not hard to show, just take Jacobian, show nonsingular, and use inverse function theorem). Since everything we are dealing with is smooth, this map is smooth as well, thus, in a hand-wavey fashion, it suffices to look at the jump distance $U^+(0) - U^-(0)$ after we change coordinates by applying the inverse of this map near $Q(0)$.
-\\
+To complete the proof, we need to show that $H$ is invertible in a neighborhood of the origin. To compute the Jacobian of $H$ at the origin, we note the following.
+
+\begin{align*}
+H_y(0, 0, 0, 0) &= F(Q(0)) = Q'(0) \\
+H_{\beta^-}(0, 0, 0, 0) &= (Q^-)_{\beta^-}(0,0) &= Y^- \\
+H_{\beta^+}(0, 0, 0, 0) &= (Q^+)_{\beta^+}(0,0) &= Y^+ \\
+H_{\gamma}(0, 0, 0, 0) &= Z
+\end{align*}
+
+Since $\R^4 = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^-$, the four partial derivatives of $H$ at the origin are linearly independent, thus the Jacobian of $H$ at the origin is invertible. Note that $H_y(0, 0, 0, 0) = Q(0)$. By the inverse function theorem, there exists open neighboorhoods $N_1$ of 0 and $N_2$ of $Q(0)$ such that $H(N_1) = N_2$ and $H$ is invertible on $N_2$. \\
+
+In particular, we have for sufficiently small $\beta^\pm$
+
+\begin{align*}
+H^{-1}(Q^-(0, \beta^-) &= \beta^- \in Y^- \\
+H^{-1}(Q^+(0, \beta^+) &= \beta^+ \in Y^+ \\
+\end{align*}
+
 \end{proof}
 \end{lemma}
 
