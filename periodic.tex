@@ -37,7 +37,6 @@
 
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem}{Theorem}
-\newtheorem{proposition}{Theorem}
 \newtheorem{corollary}{Corollary}
 \newtheorem{definition}{Definition}
 \newtheorem{assumption}{Assumption}
@@ -51,25 +50,15 @@
 
 \subsection{Background}
 
-In this section we will look at multipulse solutions to KdV5 in the case where we have periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. For now, we will hypothesize that such solutions exist. There should be restrictions on $X_1$ and $X_2$ like in the multipulse case, and almost certainly we need to have $c > 1/4$.
-
-\begin{hypothesis}\label{q2pexists}
-Let $q(x; c)$ be a single pulse solution to KdV5 with wave speed $c$. Then for $c > 1/4$, there exists a double pulse, periodic wavetrain solution $q_{2p}(x; c)$ to KdV5. The centers of the two pulses are separated by a distance $2 X_1$, and the centers of the two pulse are each a distance $X_2$ from the periodic boundary.
-\end{hypothesis}
-
-Here is a diagram of the situation we have described.
+In this section we will look at multipulse solutions to KdV5 in the case where we have periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. A double periodic pulse is paramaterized by lengths $X_1$ and $X_2$, which is shown in the diagram below
 
 \begin{figure}[H]
 \includegraphics[width=8.5cm]{dpimage}
 \end{figure}
 
-Without loss of generality, we will take $X_2 \geq X_1$, since we are on the periodic domain, thus it does not matter what we choose to be the ``middle''.\\
+We would like to write the periodic double pulse as a small (piecewise) perturbation of the single pulse as was done in San98 (and San93). The method in those papers, however, does not give us the estimates we need. Instead, we will give another construction based on San97. This boils down to proving existence of the periodic double pulse, which is what we shall do. We assume that $c > 1/4$, since that is necessary for the existence of multipulses to KdV5. Thus the eigenvalues of the linearization about $0$ are complex and given by $\pm \alpha \pm \beta i$.
 
-We would like to write the periodic double pulse as a small (piecewise) perturbation of the single pulse as was done in San98 (and San93). The method in those papers, however, does not give us the estimates we need. Instead, we will give another construction based on San97.
-
-\subsection{Construction of Periodic Double Pulse}
-
-What we will do here is construct the periodic double pulse based on San97. For now, we are assuming it exists. This will give us a useful expression for the periodic double pulse, which will then give us useful bounds for the stability problem. Since this method will not give us any restrictions on the $X_i$ (and we know there are some), we are assuming existence for now.\\
+\subsection{Existence and Construction of Periodic Double Pulse}
 
 Since we are only intererested in the existence problem here, we can use the 4th order (integrated) equation
 
@@ -192,10 +181,10 @@ such that the evolution operators $\Phi_\pm(x, y; \beta^\pm)$ can be decomposed 
 where we have the estimates
 
 \begin{align*}
-|\Phi^s_+(x, y, \beta^+) &\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
-|\Phi^u_+(x, y, \beta^+) &\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y \\
-|\Phi^u_-(x, y, \beta^+) &\leq C e^{-\alpha(y - x)} && 0 \geq y \geq x \\
-|\Phi^s_-(x, y, \beta^+) &\leq C e^{-\alpha(x - y)} && 0 \geq x \geq y \\
+|\Phi^s_+(x, y, \beta^+)| &\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
+|\Phi^u_+(x, y, \beta^+)| &\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y \\
+|\Phi^u_-(x, y, \beta^+)| &\leq C e^{-\alpha(y - x)} && 0 \geq y \geq x \\
+|\Phi^s_-(x, y, \beta^+)| &\leq C e^{-\alpha(x - y)} && 0 \geq x \geq y \\
 \end{align*}
 
 which also hold for derivatives with respect to the ICs $\beta^\pm$. In addition, the projections satisfy 
@@ -338,48 +327,59 @@ The estimate on $V_i^\pm$ comes from the estimate of the first term on the RHS o
 
 Next, we look at the conditions $U_i^+(X_i) - U_{i-1}^-(-X_i) = 0$.
 
-\begin{lemma}
+% Lemma : solve for a_i^\pm
+
+\begin{lemma}\label{solvefora}
 For any $X_i$ and $\beta_i^\pm$ chosen as in the previous lemma, there is a unique pair of initial conditions $(a_i^+, a_i^-) \in E_0^s \times E_0^u$ such that $U_i^+(X_i) - U_{i-1}^-(-X_i) = 0$. $(a_i^+, a_i^-)$ depends smoothly on $(\beta_i^+, \beta_i^-)$, and we have the following estimate which is independent of the $\beta_i^\pm$
 
 \begin{equation}
-|a_i^\pm| \leq C |Q^\pm(0, \beta_i^\pm)(\pm X_i)| \leq C e^{-\alpha X_i}
+|a_i^\pm| \leq C e^{-\alpha X_i}
 \end{equation}
 
-which hold for $a_i^\pm$ as well as derivatives with respect to $\beta_i^\pm$.
+which holds for $a_i^\pm$ as well as derivatives with respect to $\beta_i^\pm$.
+
+We also have the following expressions for the $a_i^\pm$
+
+\begin{align*}
+a_i^+ &= P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right) 
++ \mathcal{O}( e^{-2 \alpha X_i} )\\
+a_i^- &= P^u_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right) 
++ \mathcal{O}( e^{-2 \alpha X_i} )
+\end{align*}
 
 \begin{proof}
 
 First, plug in the fixed point equations and evaluate them at $\pm X_i$ to get
 \begin{align*}
-U_i^+(X_i) &= Q^+(0, \beta_i^+)(X_i) + P^u_+(X_i; \beta_i^+) a_i^+ + \int_0^{X_i} \Phi_+^s(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
-U_{i-1}^-(-X_i) &= Q^-(0, \beta_i^-)(-X_i) + P^s_-(-X_i; \beta_i^-) a_i^- + \int_0^{-X_i} \Phi_-^u(x, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy \\
+U_i^+(X_i) &= Q^+(0, \beta_i^+)(X_i) + P^u_+(X_i; \beta_i^+) a_i^+ + \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
+U_{i-1}^-(-X_i) &= Q^-(0, \beta_i^-)(-X_i) + P^s_-(-X_i; \beta_i^-) a_i^- + \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy \\
 \end{align*}
 
 Adding and subtracting $P_0^{s/u}$ and recalling where the $a_i^\pm$ live, this becomes
 
 \begin{align*}
-U_i^+(X_i) &= Q^+(0, \beta_i^+)(X_i) + a_i^+ + (P^u_+(X_i; \beta_i^+) -  P^s_0)a_i^+ + \int_0^{X_i} \Phi_+^s(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
-U_{i-1}^-(-X_i) &= Q^-(0, \beta_i^-)(-X_i) + a_i^- + (P^s_-(-X_i; \beta_i^-) - P^u_0) a_i^- + \int_0^{-X_i} \Phi_-^u(x, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy \\
+U_i^+(X_i) &= Q^+(0, \beta_i^+)(X_i) + a_i^+ + (P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ + \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
+U_{i-1}^-(-X_i) &= Q^-(0, \beta_i^-)(-X_i) + a_i^- + (P^s_-(-X_i; \beta_i^-) - P^s_0) a_i^- + \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy \\
 \end{align*}
 
 Subtracting these, we obtain the equation we need to solve
 
 \begin{align*}
 0 &= H(a_i^+, a_i^-, \beta_i^+, \beta_i^-) \\
-&= a_i^+ - a_i^- + (P^u_+(X_i; \beta_i^+) -  P^s_0)a_i^+ - (P^s_-(-X_i; \beta_i^-) - P^u_0) a_i^-  \\
+&= a_i^+ - a_i^- + (P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ - (P^s_-(-X_i; \beta_i^-) - P^s_0) a_i^-  \\
 &+ Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i)\\
-&+ \int_0^{X_i} \Phi_+^s(x, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy
-- \int_0^{-X_i} \Phi_-^u(x, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy 
+&+ \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy
+- \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy 
 \end{align*}
 
 where $H: E_0^s \times E_0^u \times \R \times \R \rightarrow \R^4$. In the previous lemma, we solved for $V_i^\pm$ in terms of the $a_i^\pm$ and $\beta_i^\pm$, so we rewrite the above to indicate that dependence so that $H$ is only a function of its four arguments.
 
 \begin{align*}
 H(a_i^+, &a_i^-, \beta_i^+, \beta_i^-) \\
-&= a_i^+ - a_i^- + (P^u_+(X_i; \beta_i^+) -  P^s_0)a_i^+ - (P^s_-(-X_i; \beta_i^-) - P^u_0) a_i^-  \\
+&= a_i^+ - a_i^- + (P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ - (P^s_-(-X_i; \beta_i^-) - P^s_0) a_i^-  \\
 &+ Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i)\\
-&+ \int_0^{X_i} \Phi_+^s(x, y; \beta_i^+) G_i^+(y, V_i^+(a_i^+, \beta_i^+)(y),\beta_i^+)dy \\
-&- \int_0^{-X_i} \Phi_-^u(x, y; \beta_i^-) G_i^-(y, V_i^-(a_i^-, \beta_i^-)(y),\beta_i^-)dy 
+&+ \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(a_i^+, \beta_i^+)(y),\beta_i^+)dy \\
+&- \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_i^-) G_i^-(y, V_i^-(a_i^-, \beta_i^-)(y),\beta_i^-)dy 
 \end{align*}
 
 Again, note that $H(0, 0, 0, 0) = 0$. We want to solve for $a_i^\pm$ using the implicit function theorem, so we need to look at $D_{a_i^\pm} H(0, 0, 0, 0)$. First, define
@@ -390,7 +390,7 @@ p_1(X; \beta^+, \beta^-) = \sup_{x \geq X} (|P^u_+(x; \beta^+) - P_0^u| + |P^s_-
 
 Based on Lemma \ref{dichotomy1}, we hypothesize the following bound for $p_1$.
 
-\begin{hypothesis}
+\begin{hypothesis}\label{p1existence}
 \begin{equation}
 p_1(X; \beta^+, \beta^-) = \mathcal{O}(e^{-\alpha X})
 \end{equation} 
@@ -406,10 +406,56 @@ Thus, taking the partial derivative with respect to $a_i^\pm = 0$, we get
 
 Thus, for sufficiently large $X_i$, $D_{a_i^\pm} H(0, 0, 0, 0)$ is invertible in a neighborhood of $(0, 0, 0, 0)$, so we can use the IFT to solve for $a_i\pm$ in terms of $\beta_i^\pm$. \\
 
-SOMEHOW WE SHOULD GET THE FOLLOWING ESTIMATE.
+Now that we have found $a_i^\pm$ which satisfies the $H(a_i^+, a_i^-, \beta_i^+, \beta_i^-) = 0$, we can get an expression and estimates for the $a_i^\pm$. Recalling the spaces $a_i^\pm$ live in, we apply the projection $P^s_0$ to get
 
 \begin{align*}
-|a_i^\pm| \leq C |Q^\pm(0, \beta_i^\pm)(\pm X_i)| \leq C e^{-\alpha X_i}
+0 &= a_i^+ + P^s_0(P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ 
++ P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right)\\
+&+ P^s_0 \left( \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(a_i^+, \beta_i^+)(y),\beta_i^+)dy \right) \\
+&- P^s_0 \left( \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_i^-) G_i^-(y, V_i^-(a_i^-, \beta_i^-)(y),\beta_i^-) dy \right)
+\end{align*}
+
+We have estimates for all of these terms. For the first two terms, we have
+
+\begin{align*}
+|P^s_0(P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ | &\leq C e^{-\alpha X_i} |a_i^+| \\
+|P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right)| &\leq C e^{-\alpha X_i}.
+\end{align*}
+
+using our hypothesis above. For the integral terms, we have
+
+\begin{align*}
+\left| \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(a_i^+, \beta_i^+)(y),\beta_i^+)dy \right| &\leq C \int_0^{X_i}e^{-\alpha(X_i - y)} |V_i^+(y)|^2 dy \\
+&\leq C \int_0^{X_i}e^{-3 \alpha (X_i - y)} |e^{\alpha(X_i - y)} V_i^+(y)|^2 dy \\
+&\leq C \int_0^{X_i}e^{-3 \alpha (X_i - y)} (||V_i^+||_{X_i, +})^2 dy \\
+&\leq C |a_i^+|^2
+\end{align*}
+
+The other integral term is similar. In a hand-wavey fashion, we have something which looks like
+
+\[
+|a_i^+|(1 + \mathcal{O}(e^{-\alpha X_i}) + \mathcal{O}(|a_i^+|)) = 
+\mathcal{O}( e^{-\alpha X_i} )
+\]
+
+which should give us the estimate we want
+
+\begin{align*}
+|a_i^\pm| \leq C e^{-\alpha X_i}
+\end{align*}
+
+To get an actual expression for $a_i^\pm$, we plug in all our estimates to get
+
+\begin{align*}
+a_i^+ = P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right) 
++ \mathcal{O}( e^{-2 \alpha X_i} )
+\end{align*}
+
+Similarly, we have
+
+\begin{align*}
+a_i^- = P^u_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right) 
++ \mathcal{O}( e^{-2 \alpha X_i} )
 \end{align*}
 
 \end{proof}
@@ -466,8 +512,8 @@ To complete the proof, we need to show that $H$ is invertible in a neighborhood 
 
 \begin{align*}
 H_y(0, 0, 0, 0) &= F(Q(0)) = Q'(0) \\
-H_{\beta^-}(0, 0, 0, 0) &= (Q^-)_{\beta^-}(0,0) &= Y^- \\
-H_{\beta^+}(0, 0, 0, 0) &= (Q^+)_{\beta^+}(0,0) &= Y^+ \\
+H_{\beta^-}(0, 0, 0, 0) &= (Q^-)_{\beta^-}(0,0) = Y^- \\
+H_{\beta^+}(0, 0, 0, 0) &= (Q^+)_{\beta^+}(0,0) = Y^+ \\
 H_{\gamma}(0, 0, 0, 0) &= Z
 \end{align*}
 
@@ -483,7 +529,7 @@ H^{-1}(Q^+(0, \beta^+) &= \beta^+ \in Y^+ \\
 \end{proof}
 \end{lemma}
 
-In the final lemmas, we perform the match at $x = 0$ to solve for $\beta_i^\pm$. Before we do that, we change coordinates according to the prior lemma. In the new coordinates, near $Q(0)$ our ODE becomes
+Now we are ready to perform the match at $x = 0$ to solve for $\beta_i^\pm$. Before we do that, we change coordinates according to the prior lemma. In the new coordinates, near $Q(0)$ our ODE becomes
 
 \begin{equation}
 \tilde{U}' = DH(H^{-1}(\tilde{U})) F( H^{-1}(\tilde{U}) )
@@ -604,9 +650,167 @@ Since $H(0, 0) \leq C (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})$, this becomes
 \end{proof}
 \end{lemma}
 
+Finally, we need to look at the projection on the adjoint solution $\Psi(0)$. To do this, we will show that this condition is satisfied for certain values of the lengths $X_i$. This makes sense since we only have existence of (nonperiodic) multipulses for certain $X_i$.\\
+
+Recall that from our change of coordinates we have
+\begin{align*}
+P_{Z}(Q^+(0, \beta_i^+) - Q^-(0, \beta_i^-)) &= 0
+\end{align*}
+
+Thus the equation we want to solve is
+
+\begin{equation}
+P_{Z^\pm}(V_i^+(0) - V_i^-(0)) = 0
+\end{equation}
+
+which we can write as
+
+\begin{equation}
+\langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 0
+\end{equation}
+
+First, we come up with a nice expression for $\langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle$
+
+% first lemma for jump
+
+\begin{lemma}
+
+\begin{align*}
+\langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 
+\langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i
+\end{align*}
+
+where 
+
+\begin{align*}
+|R_i| \leq C ( e^{-3 \alpha X_1} +  e^{-3 \alpha X_2} )
+\end{align*}
+\begin{proof}
+
+Substituting the fixed point equations evaluated at $x = 0$, we have
+
+\begin{align*}
+\langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle &= \langle \Psi(0), \Phi^u_+(0, X_i; \beta_i^+) a_i^+ \rangle
+- \langle \Psi(0), \Phi^s_-(0, -X_{i-1}, \beta_i^-) a_{i-1}^- \rangle \\
+&+ \int_{X_i}^0 \langle \Psi(0), \Phi_+^u(0, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+) \rangle dy \\
+&- \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi_-^s(0, y, \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-) \rangle dy
+\end{align*}
+
+Before we continue, we make the following hypothesis (which we should be able to show)
+
+\begin{hypothesis}
+\[
+|(\Phi_\pm(0, X; \beta^\pm) - \Phi(0, X))|
+\leq C |\beta^\pm| e^{-\alpha X}
+\]
+\end{hypothesis}
+
+Together with the previous lemma, this gives us
+
+\[
+|(\Phi_\pm(0, X_i; \beta_i^\pm) - \Phi(0, X_i))|
+\leq C e^{-\alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})
+\]
+
+This also implies
+
+\begin{align*}
+|Q^+(0, \beta_i^+)(X_i) - Q(X_i)| \leq C e^{-\alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2}) \\
+|Q^-(0, \beta_i^-)(-X_i) - Q(-X_i)| \leq C e^{-\alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2}) \\
+\end{align*}
+
+We also have the following estimate from Hypothesis \label{p1existence}
+
+\begin{align*}
+|P^u_+(X; \beta^+) - P_0^u| &\leq C e^{-\alpha X} \\
+|P^s_-(-X; \beta^-) - P_0^s| &\leq C e^{-\alpha X}
+\end{align*}
+
+For the first term on the RHS, we have upon substituting for $a_i^+$ from Lemma \ref{solvefora}
+
+\begin{align*}
+\langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+) a_i^+ \rangle \\
+&= \langle \Psi(0), \Phi_+(0, X_i; \beta_i^+) P^u_+(X_i; \beta_i^+) P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right) 
++ \mathcal{O}( e^{-2 \alpha X_i} ) \rangle \\
+&= \langle \Psi(0), \Phi_+(0, X_i; \beta_i^+) P^u_+(X_i; \beta_i^+) P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right) \rangle  
++ \mathcal{O}( e^{-3 \alpha X_i} ) \\
+&= \langle \Psi(0), \Phi_+(0, X_i; \beta_i^+) P^u_+(X_i; \beta_i^+) P^s_0 Q^+(0, \beta_i^+)(X_i) \rangle \\
+&- \langle \Psi(0), \Phi_+(0, X_i; \beta_i^+) P^u_+(X_i; \beta_i^+) P^s_0 Q^-(0, \beta_i^-)(-X_i) \rangle
++ \mathcal{O}( e^{-3 \alpha X_i} ) \\
+\end{align*}
+
+For the first term on the RHS, we have
+
+\begin{align*}
+\langle \Psi(0), &\Phi_+(0, X_i; \beta_i^+) P^u_+(X_i; \beta_i^+) P^s_0 Q^+(0, \beta_i^+)(X_i) \rangle \\
+&= \langle \Psi(0), \Phi_+(0, X_i; \beta_i^+) P^u_0 P^s_0 Q^+(0, \beta_i^+)(X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i}) \\
+&= \langle \Psi(0), \Phi_+(0, X_i; \beta_i^+) P^s_0 P^u_0 Q^+(0, \beta_i^+)(X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i}) \\
+&= \langle \Psi(0), \Phi_+(0, X_i; \beta_i^+) P^u_0 P^u_+(X_i; \beta_i^+) Q^+(0, \beta_i^+)(X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i}) \\
+&= \langle \Psi(0), \Phi_+(0, X_i; \beta_i^+) P^u_0 P^u_+(X_i; \beta_i^+) \Phi_+(X_i, 0) Q^+(0, \beta_i^+)\rangle + \mathcal{O}(e^{-3 \alpha X_i}) \\
+&= \langle \Psi(0), \Phi_+(0, X_i; \beta_i^+) P^u_0 \Phi_+(X_i, 0) P^u_+(0; \beta_i^+) Q^+(0, \beta_i^+)\rangle + \mathcal{O}(e^{-3 \alpha X_i}) \\
+&= \mathcal{O}(e^{-3 \alpha X_i})
+\end{align*}
+
+Since from our change of coordinates, $Q^+(0, \beta_i^+) \in Y^+$, and this is wiped out by $P^u_+(0; \beta_i^+)$, which projects onto the unstable part of the exponential dichotomy on $\R^+$ at $x = 0$. We also used the fact that the spectral projections $P^u_0$ and $P^s_0$ commute. \\
+
+For the other term, we have
+
+\begin{align*}
+\langle \Psi(0), &\Phi_+(0, X_i; \beta_i^+) P^u_+(X_i; \beta_i^+) P^s_0 Q^-(0, \beta_i^-)(-X_i) \rangle \\
+&= \langle \Psi(0), \Phi_+^u(0, X_i; \beta_i^+) P^s_-(-X_i; \beta^-) Q^-(0, \beta_i^-)(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i}) \\
+&= \langle \Psi(0), \Phi_+^u(0, X_i; \beta_i^+) Q^-(0, \beta_i^-)(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i}) \\
+&= \langle \Psi(0), \Phi(0, X_i) Q^-(0, \beta_i^-)(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})) \\
+&= \langle \Psi(X_i), Q^-(0, \beta_i^-)(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})) \\
+&= \langle \Psi(X_i), Q(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})) \\
+\end{align*}
+
+Thus we have
+
+\begin{align*}
+\langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+) a_i^+ \rangle
+&= \langle \Psi(X_i), Q(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})) 
+\end{align*}
+
+Similarly, we have
+
+\begin{align*}
+ \langle \Psi(0), \Phi^s_-(0, -X_{i-1}, \beta_i^-) a_{i-1}^- \rangle 
+&= \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + \mathcal{O}(e^{-3 \alpha X_{i-1}} + e^{-2 \alpha X_{i-1}} (e^{-\alpha X_1} + e^{-\alpha X_2})) 
+\end{align*}
+
+For the integral terms, we have
+
+\begin{align*}
+\left| \int_{X_i}^0 \langle \Psi(0), \Phi_+^u(0, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+) \rangle \right| dy &\leq C \int_0^{X_i} e^{-\alpha y} |V_i^+(y)|^2 dy \\
+&\leq C \int_0^{X_i} e^{-\alpha y} e^{-2 \alpha(X_i - y)}|e^{-\alpha (X_i - y)} V_i^+(y)|^2 dy \\
+&\leq C \int_0^{X_i} e^{-\alpha y} e^{-2 \alpha(X_i - y)}(||V_i^+||_{X_i, +})^2 dy \\
+&\leq C e^{-\alpha X_i} \int_0^{X_i} e^{-\alpha (X_i - y)} |a_i^+|^2 dy \\
+&\leq C e^{-3 \alpha X_i}
+\end{align*}
+
+The other integral term is similar, and is order $e^{-3 \alpha X_{i-1}}$\\
+
+Combining these, we have
+
+\begin{align*}
+\langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 
+\langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i
+\end{align*}
+
+where 
+
+\begin{align*}
+|R_i| \leq C ( e^{-3 \alpha X_1} +  e^{-3 \alpha X_2} )
+\end{align*}
+
+\end{proof}
+\end{lemma}
+
+
+
 We combine these results in the following theorem
 
-\begin{proposition}\label{2pconstruction}
+\begin{theorem}\label{2pconstruction}
 Let $Q_{2p}(x)$ be a periodic double pulse solution with lengths $X_1$, $X_2$ as described above. Then $Q_{2p}(x)$ can be written piecewise as
 
 \begin{align*}
@@ -637,7 +841,7 @@ We also have bounds
 C \left( e^{-\alpha X_1} + e^{-\alpha X_2} \right)
 \end{align*}
 
-\end{proposition}
+\end{theorem}
 
 \subsection{Setup of Eigenvalue Problem}
 
