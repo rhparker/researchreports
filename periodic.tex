@@ -60,13 +60,23 @@ We would like to write the periodic double pulse as a small (piecewise) perturba
 
 \subsection{Existence and Construction of Periodic Double Pulse}
 
-Since we are only intererested in the existence problem here, we can use the 4th order (integrated) equation
+Since we are only intererested in the existence problem here, we can use the 4th order (integrated) equation in the traveling frame
 
 \begin{equation}\label{4thorder}
 f(u) = u_{xxxx} - u_{xx} + c u - u^2 = 0
 \end{equation}
 
-which we can write as a 4th order system.\\
+This equation is Hamiltonian, with energy 
+
+\begin{equation}\label{4thorderE}
+H(u) = u_x u_{xxx} - \frac{1}{2}u_{xx}^2 + \frac{1}{2}u_x^2 + \frac{c}{2}u^2 - \frac{1}{3}u^3
+\end{equation}
+
+The Hamiltonian is conserved for any solution $u$ to \eqref{4thorder} since
+
+\begin{align*}
+\frac{d}{dx}H(u) = u_x(u_{xxxx} - u_{xx} + c u - u^2) = 0
+\end{align*}
 
 We look at the general equation
 
@@ -669,7 +679,7 @@ which we can write as
 \langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 0
 \end{equation}
 
-First, we come up with a nice expression for $\langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle$
+First, we come up with a nice expression for $\langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle$. This agrees with (3.9) on p.2093 of SanStrut, which is good.
 
 % first lemma for jump
 
@@ -802,6 +812,99 @@ where
 \begin{align*}
 |R_i| \leq C ( e^{-3 \alpha X_1} +  e^{-3 \alpha X_2} )
 \end{align*}
+
+\end{proof}
+\end{lemma}
+
+The next lemma is an expression for $\langle \Psi(-x), Q(x) \rangle$
+
+% lemma : expression for inner product
+
+\begin{lemma}\label{existenceIP}
+For $x > 0$ sufficiently large,
+\begin{equation}
+\langle \Psi(-x), Q(x) \rangle
+= s_0 e^{-2 \alpha x} \sin(2 \beta x + \phi) + \mathcal{O}(e^{-2(\alpha + \gamma) x})
+\end{equation}
+where $\gamma > 0$, $s_0 > 0$, and $\phi$ are constants.
+\begin{proof}
+BASED ON ASSUMPTIONS, this follows from Lemma 6.1 in San98. In our case, we do not have a parameter $\mu$, so the $\mu$-dependent terms are constant. 
+\end{proof}
+\end{lemma}
+
+We can then exploit symmetry properties to get an expression for $\langle \Psi(x), Q(-x) \rangle$.
+
+% lemma : symmetry of IP
+
+\begin{lemma}
+For a reversible system, we have
+
+\begin{equation}
+\langle \Psi(x), Q(-x) \rangle = \langle \Psi(-x), Q(x) \rangle
+\end{equation}
+
+For a Hamiltonian system, we have
+
+\begin{equation}
+\langle \Psi(x), Q(-x) \rangle = \langle \Psi(-x), Q(x) \rangle
++ \mathcal{O}(e^{-3 \alpha x})
+\end{equation}
+
+\begin{proof}
+The Hamiltonian case follows from proof of Lemma 3.8 in SanStrut. Reversibility follows from Lemma 5.3 in San98.
+\end{proof}
+
+\end{lemma}
+
+In the next lemma, we rewrite the system of equations we are looking to solve using the above expressions for the appropriate inner products.
+
+% Lemma : rewrite of system
+
+\begin{lemma}
+
+\begin{align*}
+\langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 
+\langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i
+\end{align*}
+
+where 
+
+\begin{align*}
+a_i &= s_0 e^{-2 \alpha X_i} \\
+r &= \frac{1}{s_0} e^{-\phi \alpha / \beta}
+\end{align*}
+\begin{proof}
+
+Taking the log of $a_i$, we have
+
+\[
+\log a_i = \log s_0 - 2 \alpha X_i
+\]
+
+which we can solve for $2 X_i$ to get
+
+\[
+2 X_i = \frac{1}{\alpha}(\log s_0 - \log a_i)
+\]
+
+substituting this into our expression for $\langle \Psi(X), Q(-X) \rangle$ and using the symmetry lemma, we have
+
+\begin{align*}
+\langle \Psi(X_i), Q(-X_i) \rangle 
+&= a_i \sin \left( \frac{\beta}{\alpha}(\log s_0 - \log a_i) + \phi \right) + \mathcal{O}(e^{-2(\alpha + \gamma) X_i}) \\
+&= a_i \sin \left( -\frac{\beta}{\alpha}(\log a_i - \log s_0 - \log e^{\phi \alpha / \beta} ) \right) + \mathcal{O}(e^{-2(\alpha + \gamma) X_i}) \\
+&= a_i \sin \left( -\frac{\beta}{\alpha} \left(\log a_i + \log \left(\frac{1}{s_0} e^{-\phi \alpha / \beta} \right) \right) \right) + \mathcal{O}(e^{-2(\alpha + \gamma) X_i}) \\
+&= a_i \sin \left( -\frac{\beta}{\alpha} \log a_i r \right) + \mathcal{O}(e^{-2(\alpha + \gamma) X_i}) \\
+\end{align*}
+
+Similarly, we have
+
+\begin{align*}
+\langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle 
+&= a_{i-1} \sin \left( -\frac{\beta}{\alpha} \log a_{i-1} r \right) + \mathcal{O}(e^{-2(\alpha + \gamma) X_{i-1}}) \\
+\end{align*}
+
+Finally, we compute the order of the remainder in terms of the $a_i$ and the $r$.
 
 \end{proof}
 \end{lemma}
