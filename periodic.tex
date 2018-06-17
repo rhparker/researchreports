@@ -69,7 +69,7 @@ f(u) = u_{xxxx} - u_{xx} + c u - u^2 = 0
 This equation is Hamiltonian, with energy 
 
 \begin{equation}\label{4thorderE}
-H(u) = u_x u_{xxx} - \frac{1}{2}u_{xx}^2 + \frac{1}{2}u_x^2 + \frac{c}{2}u^2 - \frac{1}{3}u^3
+H(u) = u_x u_{xxx} - \frac{1}{2}u_{xx}^2 - \frac{1}{2}u_x^2 + \frac{c}{2}u^2 - \frac{1}{3}u^3
 \end{equation}
 
 The Hamiltonian is conserved for any solution $u$ to \eqref{4thorder} since
@@ -77,6 +77,30 @@ The Hamiltonian is conserved for any solution $u$ to \eqref{4thorder} since
 \begin{align*}
 \frac{d}{dx}H(u) = u_x(u_{xxxx} - u_{xx} + c u - u^2) = 0
 \end{align*}
+
+In what follows, we will write the problem as a first order system, i.e. we will take $U = (u_1, u_2, u_3, u_4) = (u, u_x, u_{xx}, u_{xxx})$. Then the problem becomes
+
+\begin{equation}
+U' = F(U) = \begin{pmatrix} 
+u_2 \\ u_3 \\ u_4 \\ u_3 - c u_1 + u_1^2
+\end{pmatrix}
+\end{equation}
+
+The Hamiltonian then takes the form
+
+\begin{equation}
+H(u_1, u_2, u_3, u_4) = u_2 u_4 - \frac{1}{2}u_3^2 - \frac{1}{2}u_2^2 + \frac{c}{2}u_1^2 - \frac{1}{3}u_1^3
+\end{equation}
+
+The gradient of this is
+
+\begin{equation}
+\nabla H = (cu_1 - u_1^2, -u_2 + u_4, -u_3, u_2)
+\end{equation}
+
+It is straightforward to verify that $\langle F(U), \nabla H(U) \rangle = 0$for all $U$.
+
+\subsection{General Form}
 
 We look at the general equation
 
@@ -102,6 +126,14 @@ By the nondegeneracy hypothesis, there exists a unique, bounded solution $\Psi(x
 \begin{equation}
 W' = -D_U F(Q(x))^* W
 \end{equation}
+
+In the case where the system is Hamiltonian (like we have here), we actually know the specific form of $\Psi(x)$.
+
+% Lemma : Hamiltonian case
+
+\begin{lemma}
+
+\end{lemma}
 
 Next, we paramaterize the stable and unstable manifolds near $Q(0)$. To do that we first write
 
@@ -824,11 +856,11 @@ The next lemma is an expression for $\langle \Psi(-x), Q(x) \rangle$
 For $x > 0$ sufficiently large,
 \begin{equation}
 \langle \Psi(-x), Q(x) \rangle
-= s_0 e^{-2 \alpha x} \sin(2 \beta x + \phi) + \mathcal{O}(e^{-2(\alpha + \gamma) x})
+= s_0 e^{-2 \alpha x} \sin(2 \beta x + \phi) + \mathcal{O}(e^{-(2 \alpha + \gamma) x})
 \end{equation}
-where $\gamma > 0$, $s_0 > 0$, and $\phi$ are constants.
+where $0 < \gamma \leq 1$, $s_0 > 0$, and $\phi$ are constants.
 \begin{proof}
-BASED ON ASSUMPTIONS, this follows from Lemma 6.1 in San98. In our case, we do not have a parameter $\mu$, so the $\mu$-dependent terms are constant. 
+BASED ON ASSUMPTIONS, this follows from Lemma 6.1 in San98. In our case, we do not have a parameter $\mu$, so the $\mu$-dependent terms are constant. If it turns out that $\gamma > 1$, we just take $\gamma = 1$.
 \end{proof}
 \end{lemma}
 
@@ -864,50 +896,183 @@ In the next lemma, we rewrite the system of equations we are looking to solve us
 
 \begin{align*}
 \langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 
-\langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i
+s_0 e^{\alpha \phi / \beta } r \left( a_i \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) - a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r \right) \right) + R_i(a, r)
 \end{align*}
+
+with 
+
+\[
+R_i(a, r) = \mathcal{O}(r^{1 + \tilde{\gamma}})
+\]
 
 where 
 
 \begin{align*}
-a_i &= s_0 e^{-2 \alpha X_i} \\
-r &= \frac{1}{s_0} e^{-\phi \alpha / \beta}
+a_i &= e^{-2 \alpha (X_i - X)} \\
+r &= e^{-\alpha( 2X + \phi / \beta ) }
 \end{align*}
+
+and $X = \min_i\{X_i\}$
 \begin{proof}
 
 Taking the log of $a_i$, we have
 
 \[
-\log a_i = \log s_0 - 2 \alpha X_i
+\log a_i = -2 \alpha (X_i - X)
 \]
 
-which we can solve for $2 X_i$ to get
+which we can solve for $2 \alpha X_i$ to get
 
 \[
-2 X_i = \frac{1}{\alpha}(\log s_0 - \log a_i)
+2 \alpha X_i = -\log a_i + 2 \alpha X
 \]
+
+Taking the log of $r$ gives us
+
+\[
+\log r = -2 \alpha X - \alpha \phi / \beta
+\]
+
+which we substitute above to get
+
+\begin{align*}
+2 \alpha X_i &= -\log a_i - \log r - \alpha \phi / \beta \\
+&= -\log a_i r - \alpha \phi / \beta \\
+\end{align*}
+
+Finally, we have
+
+\begin{align*}
+e^{-2 \alpha X_i} &= a_i e^{-2 \alpha X} \\
+&= e^{\alpha \phi / \beta } a_i r
+\end{align*}
 
 substituting this into our expression for $\langle \Psi(X), Q(-X) \rangle$ and using the symmetry lemma, we have
 
 \begin{align*}
 \langle \Psi(X_i), Q(-X_i) \rangle 
-&= a_i \sin \left( \frac{\beta}{\alpha}(\log s_0 - \log a_i) + \phi \right) + \mathcal{O}(e^{-2(\alpha + \gamma) X_i}) \\
-&= a_i \sin \left( -\frac{\beta}{\alpha}(\log a_i - \log s_0 - \log e^{\phi \alpha / \beta} ) \right) + \mathcal{O}(e^{-2(\alpha + \gamma) X_i}) \\
-&= a_i \sin \left( -\frac{\beta}{\alpha} \left(\log a_i + \log \left(\frac{1}{s_0} e^{-\phi \alpha / \beta} \right) \right) \right) + \mathcal{O}(e^{-2(\alpha + \gamma) X_i}) \\
-&= a_i \sin \left( -\frac{\beta}{\alpha} \log a_i r \right) + \mathcal{O}(e^{-2(\alpha + \gamma) X_i}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( 2 \beta X_i  + \phi \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( \frac{\beta}{\alpha} ( -\log a_i r - \alpha \phi / \beta ) + \phi \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) + \mathcal{O}(e^{-2 \alpha X (1 + \gamma / 2 \alpha)}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) + \mathcal{O}(r^{1 + \gamma / 2 \alpha})
 \end{align*}
 
 Similarly, we have
 
 \begin{align*}
 \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle 
-&= a_{i-1} \sin \left( -\frac{\beta}{\alpha} \log a_{i-1} r \right) + \mathcal{O}(e^{-2(\alpha + \gamma) X_{i-1}}) \\
+&= s_0 e^{\alpha \phi / \beta } a_{i-1} r \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r \right) + \mathcal{O}(r^{1 + \tilde{\gamma}}) \\
 \end{align*}
 
-Finally, we compute the order of the remainder in terms of the $a_i$ and the $r$.
+where $\tilde{\gamma} = \min\{ 1, \gamma / 2 \alpha \}$
+
+For the remainder term $R_i$ from the above lemma, we have
+
+\begin{align*}
+R_i(a, r) &= \mathcal{O}( e^{-3 \alpha X_1} +  e^{-3 \alpha X_2} ) \\
+&= \mathcal{O}( e^{-2 \alpha X} e^{-\alpha X} ) \\
+&= \mathcal{O}(r^{1 + \tilde{\gamma}}) 
+\end{align*}
+
+Since all remainder terms are of order $r^{1 + \tilde{\gamma}}$, the result follows. 
 
 \end{proof}
 \end{lemma}
+
+In the next lemma, we write down the equations we need to solve for a periodic double pulse solution to exist. This is analogous to Proposition 3.8 in SanStrut.
+
+\begin{lemma}
+A periodic double pulse solution exists if and only if for $i = 1, 2$
+
+\begin{align*}
+a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) = \tilde{R}_i(a, r)
+\end{align*}
+
+where 
+
+\begin{align*}
+R_i(a, r) &= \mathcal{O}(r^{\tilde{\gamma}}) \\
+\frac{d}{d a_i} R_i(a, r) &= \mathcal{O}(r^{\tilde{\gamma}}) \\
+\end{align*}
+
+for some $\tilde{\gamma} > 0$
+
+\begin{proof}
+In the previous lemma, set $\langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 0$ and rearrange. Then divide by $r$ and the constants out front, so that
+
+\[
+\tilde{R}_i(a, r) = \frac{1}{s_0 r} e^{-\alpha \phi / \beta } R_i(a, r)
+\]
+
+where $r > 0$. The bound on $\tilde{R}_i(a, r)$ comes from the bound on $R(a, r)$ from the previous lemma. By smoothness or somesuch, we get the bound on the derivative with respect to $a_i$.
+\end{proof}
+\end{lemma}
+
+In the next lemma, we solve for the $a_i$.
+
+% lemma
+
+\begin{lemma}
+
+\begin{proof}
+In the above lemma, take $r = r_n$, where
+\[
+r_n =  e^{-(2 \pi \alpha / \beta) n}
+\]
+and $n \in \N$. Noting that $(\beta / \alpha) \log r_n = 0$, the equations to solve become
+
+\begin{align*}
+a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) = \tilde{R}_i(a, r_n)
+\end{align*}
+
+Since the only dependence on $r_n$ is on the RHS, and we know that $\tilde{R}_i(a, r_n) = \mathcal{O}(r^{\tilde{\gamma}})$ from the prior lemma, we can send $r \rightarrow 0$ to get the system of equations
+
+\begin{align*}
+a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) = 0
+\end{align*}
+
+Define the function $G: R^3 \rightarrow R^2$ by
+
+\begin{equation}
+G_i(a_1, a_2, r) = a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) - \tilde{R}_i(a, r)
+\end{equation}
+
+If we take
+
+\begin{equation}
+a_i^0 = e^{-\frac{\alpha}{\beta} k_i^0 }
+\end{equation}
+
+for $k_i^0 \in \N_0$, from the above limit and from continuity, we have $G(a_1^0, a_2^0, 0) = 0$. Next, we take the Jacobian of $G$ with respect to the $a_i$ at $(a_1^0, a_2^0, 0)$. Note that when we do this, the remainder term $\tilde{R}_i(a, r)$ does not contribute since its derivative with respect to $a_i$ is order $r^{\tilde{\gamma}}$, which is 0 at $r = 0$.\\
+
+Since
+
+\begin{align*}
+\frac{\partial}{\partial a_i} a_i \sin \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0}
+&= \sin \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0} - \frac{\beta}{\alpha}\cos \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0}\\
+&=(-1)^{k_i^0 + 1}\frac{\beta}{\alpha}
+\end{align*}
+
+where we took the limit as $r \rightarrow 0$ as we did above, the Jacobian of $G$ with respect to $(a_1, a_2)$ at $(a_1^0, a_2^0, 0)$ is
+
+\begin{equation}
+DG_{(a_1, a_2)}G(a_1^0, a_2^0, 0) =
+\begin{pmatrix}
+
+\end{pmatrix}
+\end{equation}
+
+
+
+
+
+
+
+\end{proof}
+
+\end{lemma}
+
 
 
 
