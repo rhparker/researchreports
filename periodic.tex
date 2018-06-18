@@ -1058,7 +1058,7 @@ In the next lemma, we show we actually only need to solve one of these equations
 If the system is Hamiltonian or reversible, a periodic double pulse solution exists if and only if
 
 \begin{align*}
-a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) = \tilde{R}_1(a, r)
+a_2 \sin \left(-\frac{\beta}{\alpha} \log a_2 r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) = \tilde{R}_1(a, r)
 \end{align*}
 
 where $a_i$, $r$, and $R$ are as in the previous lemma.
@@ -1074,11 +1074,23 @@ In either case, since this is a double pulse, we are down to a single equation.
 
 In the next lemma, we (finally!) solve for the $a_i$. Since lots of periodic double pulses should be possible, there will not be a unique solution, but this will let us know which solutions are possible.
 
-% lemma
+% lemma : possible solutions
 
 \begin{lemma}
 
+For sufficiently small $r > 0$, there is a countable family of solutions $(a_1(k_1^0, r), a_2(k_2^0, r)$ to 
 
+\begin{align*}
+a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) = \tilde{R}_1(a, r)
+\end{align*}
+
+where $k_i^0 \in \N_0$ and 
+
+\begin{align*}
+a_i(k_i^0, r) \approx e^{-\frac{\pi \alpha}{\beta} k_i^0 }
+\end{align*}
+
+We should be able to get a bound on how close this is; it does not matter for now, but it might be nice to have.
 
 \begin{proof}
 
@@ -1159,9 +1171,22 @@ Now we use the implicit function theorem again to solve for $a_2$ in terms of $r
 Since this is nonzero, we can use the implicit function theorem a second time to solve for $a_2$ in terms of $r$ near $r = 0$. Thus near $r = 0$ we have $G(a_1(a_2(r), r), a_2(r), r) = 0$, where $a_2(0) = a_2^0$ and $a_1(a_2(0), 0) = a_1^0$. Since the join occurs when $G(a_1(a_2(r), r), a_2(r), r) = 0$, the proof is complete.
 
 \end{proof}
-
 \end{lemma}
 
+% lemma : write back in terms of the X_i
+
+\begin{lemma}
+For sufficiently large $X > 0$, there exist a countable family of lengths $(X_1(k_1, X), X_2(k_2, X))$ such that
+
+\[
+\langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i = 0
+\]
+
+\begin{proof}
+Let $r > 0$ be such that the previous lemma applies. 
+
+\end{proof}
+\end{lemma}
 
 
 
