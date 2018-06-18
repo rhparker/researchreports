@@ -1176,24 +1176,61 @@ Since this is nonzero, we can use the implicit function theorem a second time to
 % lemma : write back in terms of the X_i
 
 \begin{lemma}
-For sufficiently large $X > 0$, there exist a countable family of lengths $(X_1(k_1, X), X_2(k_2, X))$ such that
+For sufficiently large $X > 0$, there exist a countable family of lengths $(X_1(k_1^0, X), X_2(k_2^0, X))$ with $k_i^0 \in N_0$ such that
 
 \[
 \langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i = 0
 \]
 
+The lengths are approximately given by
+
+\[
+X_i(k_1^0, X) \approx \frac{1}{4} \left( \frac{2 \pi}{\beta} \right) k_i^0 + X
+\]
+
 \begin{proof}
-Let $r > 0$ be such that the previous lemma applies. 
+Let $r > 0$ be such that the previous lemma applies, and let $a_i(k_i^0, r)$
+be as in that lemma. Then solve for $X$ in terms of $r$ to get
+
+\[
+X(r) = \frac{1}{2 \alpha}\log\left(\frac{1}{r}\right) - \frac{\phi}{2 \beta}
+\]
+
+Solving the expression for $a_i$ for $X_i$ yields
+
+\[
+X_i(k_1^0, X) = -\frac{1}{2 \alpha}\log(a_i(k_i^0, r)) + X(r)
+\]
+
+By the previous lemma, 
+
+\begin{align*}
+\log( a_i(k_i^0, r)) \approx -\frac{\pi \alpha}{\beta} k_i^0
+\end{align*}
+
+Thus we have
+
+\[
+X_i(k_1^0, X) \approx \frac{\pi}{2 \beta} k_i^0 + X(r)
+\]
+
+We can rewrite this as
+
+\[
+X_i(k_1^0, X) \approx \frac{1}{4} \left( \frac{2 \pi}{\beta} \right) k_i^0 + X(r)
+\]
+
+Since $\frac{2 \pi}{\beta}$ is the period of ``twisting'' of the stable and unstable manifolds near the equilibrium point, this agrees with our intuition of a join being possible every ``quarter-twist'' of the stable and unstable manifolds near the equilibrium point.
 
 \end{proof}
 \end{lemma}
 
+We have successfully constructed a periodic double pulse. We now combine these results in the following theorem
 
-
-We combine these results in the following theorem
+% put it all together
 
 \begin{theorem}\label{2pconstruction}
-Let $Q_{2p}(x)$ be a periodic double pulse solution with lengths $X_1$, $X_2$ as described above. Then $Q_{2p}(x)$ can be written piecewise as
+Given the assumptions in Hypothesis \ref{assumptions}, a periodic double pulse solution $Q_{2p}(x)$ of $U' = F(U)$ exists. $Q_{2p}(x)$ can be written piecewise as
 
 \begin{align*}
 \begin{cases}
@@ -1202,28 +1239,42 @@ Q^+(0, \beta_i^+)(x) + U_i^+(x)
 \end{cases}
 \end{align*}
 
-where $Q^-(\alpha, \beta^-)(0)$ parameterizes the unstable manifold near $Q(0)$ and $Q^+(\alpha, \beta^+)(0)$ parameterizes the stable manifold near $Q(0)$. We have changed coordinates using the flow-box method so that
+where $Q^-(\alpha, \beta^-)(0)$ parameterizes the unstable manifold near $Q(0)$ and $Q^+(\alpha, \beta^+)(0)$ parameterizes the stable manifold near $Q(0)$. $Q^\pm(0, \beta_i^\pm)(x)$ lies along the stable (unstable) manifold, and $U_i^\pm(x)$ is a remainder term.\\
 
-\begin{align*}
-Q^-(\alpha, \beta_-)(0) - Q(0) \in Y^- \oplus \R Q'(0) \\
-Q^+(\alpha, \beta_+)(0) - Q(0) \in Y^+ \oplus \R Q'(0) \\
-\end{align*}
-
-(we will always take $\alpha = 0$, but it is part of the parameterization.) The $x$ dependence of $Q^\pm(x)$ is the evolution along the appropriate manifold in the appropriate direction. For $U_i^\pm(x)$ we have bounds
+For the remainder term $U_i^\pm(x)$, we have bounds
 
 \begin{align*}
 |U_i^-(x)| &\leq C e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + x)} \\
 |U_i^+(x)| &\leq C e^{-\alpha X_i} e^{-\alpha(X_i - x)} \\
 \end{align*}
 
-We also have bounds
+For the initial conditions $\beta_i^\pm$, we have bounds
+
+\begin{equation}
+| \beta_i^\pm | \leq C (e^{-2 \alpha X_1} + e^{-2 \alpha X_2})
+\end{equation}
+
+This gives us bounds
 
 \begin{align*}
-|Q^\pm(0, \beta_i^\pm)(0) - Q(0)| = |\beta^\pm| \leq 
+|Q^\pm(0, \beta_i^\pm)(0) - Q(0)| = |\beta_i^\pm| \leq 
 C \left( e^{-\alpha X_1} + e^{-\alpha X_2} \right)
 \end{align*}
 
 \end{theorem}
+
+% corollary : our problem
+
+\begin{corollary}
+For KdV5, if $c > 0$ there exists a double pulse solution $Q_{2p}(x)$. This solution can be written piecewise as in Theorem \ref{2pconstruction}, and bounds on the pieces are given in that theorem.
+
+\begin{proof}
+All we need to do is verify the assumptions in Hypothesis \ref{assumptions} for KdV5. If $c > 0$, the eigenvalues of $DF(0)$ are the complex quartet $\pm \alpha \pm \beta$. The remaining assumptions are discussed in the opening section, except for the transversality condition, which is a standard assumption in the literature.
+\end{proof}
+
+\end{corollary}
+
+
 
 \subsection{Setup of Eigenvalue Problem}
 
