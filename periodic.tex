@@ -78,7 +78,7 @@ The Hamiltonian is conserved for any solution $u$ to \eqref{4thorder} since
 
 In what follows, we will write the problem as a first order system, i.e. we will take $U = (u_1, u_2, u_3, u_4) = (u, u_x, u_{xx}, u_{xxx})$. Then the problem becomes
 
-\begin{equation}
+\begin{equation}\label{4thordersystem}
 U' = F(U) = \begin{pmatrix} 
 u_2 \\ u_3 \\ u_4 \\ u_3 - c u_1 + u_1^2
 \end{pmatrix}
@@ -90,13 +90,28 @@ The Hamiltonian then takes the form
 H(u_1, u_2, u_3, u_4) = u_2 u_4 - \frac{1}{2}u_3^2 - \frac{1}{2}u_2^2 + \frac{c}{2}u_1^2 - \frac{1}{3}u_1^3
 \end{equation}
 
-The gradient of this is
+The gradient of the Hamiltonian is
 
 \begin{equation}
 \nabla H = (cu_1 - u_1^2, -u_2 + u_4, -u_3, u_2)
 \end{equation}
 
-It is straightforward to verify that $\langle F(U), \nabla H(U) \rangle = 0$for all $U$.
+It is straightforward to verify that $\langle F(U), \nabla H(U) \rangle = 0$ for all $U$.\\
+
+The way we have written this, we can write our equation as $U' = \tilde{J} \nabla H$, where
+
+\[
+\tilde{J} = \begin{pmatrix}
+0 & 0 & 0 & 1 \\
+0 & 0 & -1 & 0 \\
+0 & 1 & 0 & 1 \\
+-1 & 0 & -1 & 0 \\
+\end{pmatrix}
+\]
+
+This is not the standard symplectic matrix $J$, but $\tilde{J}$ is invertible and skew symmetric. \\
+
+We note that 0 is an equilibrium of the system. Let $Q(x)$ be a homoclinic orbit connecting the equilibrium at 0 to itself. Such a homoclinic orbit is known to exist. Then since $Q(0)$ is not an equilibrium point of the system, we also know that $\nabla H(Q(0)) \neq 0$ since $\tilde{J}$ is invertible.
 
 \subsection{Existence and Construction of Periodic Double Pulse}
 
@@ -106,12 +121,14 @@ We look at the general equation
 U'(x) = F(U)
 \end{equation}
 
+where $U \in \R^4$ and $F$ is real-valued. (This should work for $\R^{2m}$ with $m \geq 2$, but it is easier to consider this case. This should also extend to the complex-valued case.)\\
+
 Suppose $U = 0$ is an equilibrium for this equation (i.e. $F(0) = 0$), and suppose $Q(x)$ is a homoclinic orbit connecting this equilibrium to itself. In addition, we assume the following
 
-\begin{hypothesis}
+\begin{hypothesis}\label{assumptions}
 \begin{enumerate}
-	\item $U = 0$ is a hyperbolic equilibrium
-	\item The spectrum of $D_U F(0)$ contains simple eigehvalues $\pm \alpha \pm i \beta$, $\alpha, \beta > 0$. For any other eigenvalue $\nu$ of $D_U F(0)$ we have $|\text{Re }\nu| > \alpha$. Thus the real part of the spectrum of $D_U F(0)$ lies outside of $(-\alpha, \alpha)$.
+	\item $U = 0$ is a hyperbolic equilibrium.
+	\item The spectrum of $D_U F(0)$ is $\pm \alpha \pm i \beta$, $\alpha, \beta > 0$.
 	\item We have a nondegeneracy condition
 	\[
 	T_{Q(0)} W^u(0) \cap T_{Q(0)} W_s(0) = \R Q'(0)
@@ -126,12 +143,38 @@ By the nondegeneracy hypothesis, there exists a unique, bounded solution $\Psi(x
 W' = -D_U F(Q(x))^* W
 \end{equation}
 
-In the case where the system is Hamiltonian (like we have here), we actually know the specific form of $\Psi(x)$.
+In the case where the system is Hamiltonian, we actually know the specific form of $\Psi(x)$.
 
 % Lemma : Hamiltonian case
 
 \begin{lemma}
 
+If \eqref{4thordersystem} is Hamiltonian, then
+
+\begin{equation}
+\Psi(x) = \nabla H(Q(x))
+\end{equation}
+
+\begin{proof}
+
+If the system is Hamiltonian, then $\langle F(Q(x)), \nabla H(Q(x)) \rangle = 0$ for all $x$. Taking the gradient of this and using known vector calculus identities, we have
+
+\begin{align*}
+0 &= \nabla \langle F(Q(x)), \nabla H(Q(x)) \rangle \\
+&= D F(Q(x))^* \nabla H(Q(x)) + D^2 H(Q(x))^* F(Q(x)) \\
+&= D F(Q(x))^* \nabla H(Q(x)) + D^2 H(Q(x)) Q'(x) \\
+&= D F(Q(x))^* \nabla H(Q(x)) + \frac{d}{dx} \nabla H(Q(x))
+\end{align*}
+
+since the Hessian matrix is self-adjoint. Rearranging this, we have
+
+\begin{equation}
+\frac{d}{dx} \nabla H(Q(x)) = -D F(Q(x))^* \nabla H(Q(x)) 
+\end{equation}
+
+thus $\nabla H(Q(x))$ is a solution to the adjoint variational equation. Since $\nabla H$ is continuous and $Q(x)$ is bounded (even better, it decays exponentially to 0), $\nabla H(Q(x))$. By the nongeneracy condition, there is a unique such solution, so we conclude that $\Psi(x) = \nabla H(Q(x))$.
+
+\end{proof}
 \end{lemma}
 
 Next, we paramaterize the stable and unstable manifolds near $Q(0)$. To do that we first write
@@ -194,7 +237,7 @@ U_i^+(X_i) - U_{i-1}^-(-X_i) &= 0 \\
 U_i^+(0) - U_i^-(0) &= 0;
 \end{align*}
 
-Let $\Phi_\pm(x, y; \beta^\pm)$ be the family of evolution operators for the variational equations
+for $i = 1, 2$. Let $\Phi_\pm(x, y; \beta^\pm)$ be the family of evolution operators for the variational equations
 
 \begin{equation}
 V' = D_U F(Q^\pm(0, \beta^\pm)(x)) V
@@ -510,7 +553,9 @@ Q^+(0, \beta^+) + V_i^+(0) = Q^-(0, \beta^-) + V_i^-(0)
 
 Before we do that, we will need to make a smooth change of coordinates near $Q(0)$. We will do that using a variation of the ``flow-box'' method. What we want to do is straighten out the stable and unstable manifolds near $Q(0)$ so that their nonintersecting directions lie along $Y^+$ and $Y^-$.
 
-\begin{lemma}
+% lemma : straighten out manifolds
+
+\begin{lemma}\label{straightenW}
 
 There exists a differentiable map 
 
@@ -595,7 +640,7 @@ P_Z(U_i^+(0) - U_i^-(0)) &= 0 \\
 
 We will do each of these in turn.
 
-\begin{lemma}
+\begin{lemma}\label{solveforbeta}
 There exist $\beta_i^\pm$ such that $P_{Y^\pm}(U_i^+(0) - U_i^-(0)) = 0$. We have the estimate
 
 \begin{equation}
@@ -714,7 +759,7 @@ First, we come up with a nice expression for $\langle \Psi(0), V_i^+(0) - V_i^-(
 
 % first lemma for jump
 
-\begin{lemma}
+\begin{lemma}\label{jumplemma1}
 
 \begin{align*}
 \langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 
@@ -851,7 +896,7 @@ The next lemma is an expression for $\langle \Psi(-x), Q(x) \rangle$
 
 % lemma : expression for inner product
 
-\begin{lemma}\label{existenceIP}
+\begin{lemma}\label{IPform}
 For $x > 0$ sufficiently large,
 \begin{equation}
 \langle \Psi(-x), Q(x) \rangle
@@ -859,7 +904,7 @@ For $x > 0$ sufficiently large,
 \end{equation}
 where $0 < \gamma \leq 1$, $s_0 > 0$, and $\phi$ are constants.
 \begin{proof}
-BASED ON ASSUMPTIONS, this follows from Lemma 6.1 in San98. In our case, we do not have a parameter $\mu$, so the $\mu$-dependent terms are constant. If it turns out that $\gamma > 1$, we just take $\gamma = 1$.
+Based on our assumptions in Hypothesis \ref{assumptions}, this follows from Lemma 6.1 in San98. In our case, we do not have a parameter $\mu$, so the $\mu$-dependent terms are constant. If it turns out that $\gamma > 1$, we take $\gamma = 1$.
 \end{proof}
 \end{lemma}
 
@@ -867,7 +912,7 @@ We can then exploit symmetry properties to get an expression for $\langle \Psi(x
 
 % lemma : symmetry of IP
 
-\begin{lemma}
+\begin{lemma}\label{otherIP}
 For a reversible system, we have
 
 \begin{equation}
@@ -882,7 +927,7 @@ For a Hamiltonian system, we have
 \end{equation}
 
 \begin{proof}
-The Hamiltonian case follows from proof of Lemma 3.8 in SanStrut. Reversibility follows from Lemma 5.3 in San98.
+The Hamiltonian case follows from proof of Lemma 3.8 in SanStrut, where we flip the inner product since we are in a real vector space. The reversibility follows from Lemma 5.3 in San98.
 \end{proof}
 
 \end{lemma}
@@ -911,16 +956,11 @@ a_i &= e^{-2 \alpha (X_i - X)} \\
 r &= e^{-\alpha( 2X + \phi / \beta ) }
 \end{align*}
 
-and $X = \min_i\{X_i\}$
+and $X$ is chosen so that $X_i > X$ for all $i$.
+
 \begin{proof}
 
-Taking the log of $a_i$, we have
-
-\[
-\log a_i = -2 \alpha (X_i - X)
-\]
-
-which we can solve for $2 \alpha X_i$ to get
+Taking the log of $a_i$ and solving for $2 \alpha X_i$, we get
 
 \[
 2 \alpha X_i = -\log a_i + 2 \alpha X
@@ -946,7 +986,7 @@ e^{-2 \alpha X_i} &= a_i e^{-2 \alpha X} \\
 &= e^{\alpha \phi / \beta } a_i r
 \end{align*}
 
-substituting this into our expression for $\langle \Psi(X), Q(-X) \rangle$ and using the symmetry lemma, we have
+Substituting this into our expression for $\langle \Psi(X), Q(-X) \rangle$ and using Lemmas \ref{IPform} and \ref{otherIP}, we have
 
 \begin{align*}
 \langle \Psi(X_i), Q(-X_i) \rangle 
@@ -964,9 +1004,9 @@ Similarly, we have
 &= s_0 e^{\alpha \phi / \beta } a_{i-1} r \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r \right) + \mathcal{O}(r^{1 + \tilde{\gamma}}) \\
 \end{align*}
 
-where $\tilde{\gamma} = \min\{ 1, \gamma / 2 \alpha \}$
+where $\tilde{\gamma} = \min\{ 1, \gamma / 2 \alpha \}$. \\
 
-For the remainder term $R_i$ from the above lemma, we have
+For the remainder term $R_i$ from Lemma \ref{IPform}, we have
 
 \begin{align*}
 R_i(a, r) &= \mathcal{O}( e^{-3 \alpha X_1} +  e^{-3 \alpha X_2} ) \\
@@ -981,7 +1021,9 @@ Since all remainder terms are of order $r^{1 + \tilde{\gamma}}$, the result foll
 
 In the next lemma, we write down the equations we need to solve for a periodic double pulse solution to exist. This is analogous to Proposition 3.8 in SanStrut.
 
-\begin{lemma}
+% lemma : equations to solve
+
+\begin{lemma}\label{systemtosolve}
 A periodic double pulse solution exists if and only if for $i = 1, 2$
 
 \begin{align*}
@@ -1008,65 +1050,113 @@ where $r > 0$. The bound on $\tilde{R}_i(a, r)$ comes from the bound on $R(a, r)
 \end{proof}
 \end{lemma}
 
-In the next lemma, we solve for the $a_i$.
+In the next lemma, we show we actually only need to solve one of these equations.
+
+% lemma : get rid of equations
+
+\begin{lemma}\label{reducedsystemtosolve}
+If the system is Hamiltonian or reversible, a periodic double pulse solution exists if and only if
+
+\begin{align*}
+a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) = \tilde{R}_1(a, r)
+\end{align*}
+
+where $a_i$, $r$, and $R$ are as in the previous lemma.
+
+\begin{proof} 
+If the system is reversible, then by symmetry we only have to consider the equations for the left half of the double pulse. Thus we can discard half of the equations in the previous lemma, which leaves us with only one equation. To attain the desired solution, we use even symmetry to construct the right half of the double pulse.\\
+
+If the system is Hamiltonian, the energy $H$ is conserved, thus all solutions must exist within level sets of $H$. Recall that $\Psi(0) = \nabla H(Q(0)) \neq 0$. Thus the energy $H$ must change along any jump in the direction of $\Psi(0)$. In Lemma \ref{solvefora}, we matched the tails of the pieces. Assume we have already matched $U_1^-(0) = U_1^+(0)$. In Lemma \ref{solveforbeta}, we matched the $Y^\pm$ components of $U_2^-(0) = U_2^+(0)$. All that remains is to match the $\R \Psi(0)$ component of $U_2^-(0) = U_2^+(0)$. But this is automatically 0 since the two pieces involved must have the same energy, and if this were nonzero there would be a change of energy at this point. Thus we can eliminate the final equation from the previous lemma.\\
+
+In either case, since this is a double pulse, we are down to a single equation.
+\end{proof}
+\end{lemma}
+
+In the next lemma, we (finally!) solve for the $a_i$. Since lots of periodic double pulses should be possible, there will not be a unique solution, but this will let us know which solutions are possible.
 
 % lemma
 
 \begin{lemma}
 
+
+
 \begin{proof}
-In the above lemma, take $r = r_n$, where
+
+From Lemma \ref{reducedsystemtosolve}, there is only one equation to solve.
+Define the function $G: \R^3 \rightarrow \R$ by
+
+\begin{equation}
+G(a_1, a_2, r) = a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) - \tilde{R}_1(a, r)
+\end{equation}
+
+Take $r = r_n$, where
 \[
 r_n =  e^{-(2 \pi \alpha / \beta) n}
 \]
-and $n \in \N$. Noting that $(\beta / \alpha) \log r_n = 0$, the equations to solve become
 
-\begin{align*}
-a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) = \tilde{R}_i(a, r_n)
-\end{align*}
-
-Since the only dependence on $r_n$ is on the RHS, and we know that $\tilde{R}_i(a, r_n) = \mathcal{O}(r^{\tilde{\gamma}})$ from the prior lemma, we can send $r \rightarrow 0$ to get the system of equations
-
-\begin{align*}
-a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) = 0
-\end{align*}
-
-Define the function $G: R^3 \rightarrow R^2$ by
+and $n \in \N$. Noting that $(\beta / \alpha) \log r_n = 0$, the equation for $G$ becomes
 
 \begin{equation}
-G_i(a_1, a_2, r) = a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) - \tilde{R}_i(a, r)
+G(a_1, a_2, r_n) = a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 \right) - \tilde{R}_1(a, r_n)
 \end{equation}
 
-If we take
+The only dependence on $r_n$ is via the last term on the RHS, and we know that $\tilde{R}_i(a, r_n) = \mathcal{O}(r^{\tilde{\gamma}})$ from Lemma \ref{systemtosolve}. By continuity of $G$, we can send $n \rightarrow \infty$ (thus $r_n \rightarrow 0$) to get
 
 \begin{equation}
-a_i^0 = e^{-\frac{\alpha}{\beta} k_i^0 }
+G(a_1, a_2, 0) = a_2 \sin \left(-\frac{\beta}{\alpha} \log a_2 \right) - a_1 \sin \left(-\frac{\beta}{\alpha} \log a_1 \right)
 \end{equation}
 
-for $k_i^0 \in \N_0$, from the above limit and from continuity, we have $G(a_1^0, a_2^0, 0) = 0$. Next, we take the Jacobian of $G$ with respect to the $a_i$ at $(a_1^0, a_2^0, 0)$. Note that when we do this, the remainder term $\tilde{R}_i(a, r)$ does not contribute since its derivative with respect to $a_i$ is order $r^{\tilde{\gamma}}$, which is 0 at $r = 0$.\\
+Now let
 
-Since
+\begin{equation}
+a_i^0 = e^{-\frac{\pi \alpha}{\beta} k_i^0 }
+\end{equation}
+
+for $k_i^0 \in \N_0$. Then we have $G(a_1^0, a_2^0, 0) = 0$. We are now in position to use the implicit function theorem (twice!). It is worth noting the difference between this and the nonperiodic case considered on p.2094 of SanStrut. In that case, the the Jacobian of the reduced system $G:\R^{n-1} \times \R \rightarrow \R$ is lower triangular, so a single application of the implicit function theorem is sufficient. Since our case is periodic, every equation in Lemma \ref{systemtosolve} involves two of the $a_i$, so we can never get this lower triangular structure. If we take the nonreduced system, the Jacobian is singular at $(a_1^0, a_2^0, 0)$, so that will not work. Of course, we suspected as much since the second equation is superfluous, hence the reduction. So let us continue.\\
+
+First, we note that using the bound on the derivative of $\tilde{R}_i(a, r)$ from Lemma \ref{systemtosolve}, the derivative of $\tilde{R}_i(a, r)$ with respect to $a_i$ at $r = 0$ is always 0, thus this term will not contribute. We also note that
 
 \begin{align*}
 \frac{\partial}{\partial a_i} a_i \sin \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0}
-&= \sin \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0} - \frac{\beta}{\alpha}\cos \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0}\\
+&= \sin \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0} - a_i \cos \left( - \frac{\beta}{\alpha} \log a_i r \right)a_i \frac{\beta}{\alpha} \Big|_{a_i = a_i^0, r = 0}\\
 &=(-1)^{k_i^0 + 1}\frac{\beta}{\alpha}
 \end{align*}
 
-where we took the limit as $r \rightarrow 0$ as we did above, the Jacobian of $G$ with respect to $(a_1, a_2)$ at $(a_1^0, a_2^0, 0)$ is
+where we took the limit as $r \rightarrow 0$ as we did above. First we solve for $a_1$. Since 
+
+\[
+\frac{\partial}{\partial a_i} G(a_1^0, a_2^0, 0) = -(-1)^{k_i^0 + 1}\frac{\beta}{\alpha} \neq 0
+\]
+
+we can use the implicit function theorem to solve for $a_1$ in terms of $(a_2, r)$ near $(a_2^0, 0)$. Thus we have near $(a_2, r) = (a_2^0, 0)$
 
 \begin{equation}
-DG_{(a_1, a_2)}G(a_1^0, a_2^0, 0) =
-\begin{pmatrix}
-
-\end{pmatrix}
+G(a_2, r) = a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 r \right) - a_1(a_2, r) \sin \left( - \frac{\beta}{\alpha} \log a_1(a_2, r) r \right) - \tilde{R}_1(a, r)
 \end{equation}
 
+where $a_1(a_2^0, 0) = a_1^0$. From the implicit function theorem, we also have an expression for the partial derivative of $a_1$ with respect to $a_2$ at $(a_2^0, 0)$.
 
+\begin{align*}
+\frac{\partial}{\partial a_2} a_1(a_2^0, 0) 
+&= -\left(\frac{\partial G}{\partial a_1}\Big|_{(a_1(a_2^0, 0), a_2^0, 0)}\right)^{-1}
+\frac{\partial G}{\partial a_2}\Big|_{(a_1(a_2^0, 0), a_2^0, 0)} \\
+&= -\left(-\frac{\beta}{\alpha} (-1)^{k_1^0 + 1} \right)^{-1} \frac{\beta}{\alpha} (-1)^{k_2^0 + 1} \\
+&= (-1)^{k_1^0 + k_2^0}
+\end{align*}
 
+Now we use the implicit function theorem again to solve for $a_2$ in terms of $r$ near $r = 0$. First we compute the partial derivative with respect to $a_2$.
 
+\begin{align*}
+\frac{\partial}{\partial a_2} G(a_2^0, 0) &= 
+\frac{\beta}{\alpha} (-1)^{k_2^0 + 1} - \frac{\partial}{\partial a_2}\left( a_1(a_2, r) \sin \left( - \frac{\beta}{\alpha} \log a_1(a_2, r) r \right)\right) \Big|_{(a_2^0, 0)} \\
+&= \frac{\beta}{\alpha} (-1)^{k_2^0 + 1} - (-1)^{k_1^0 + k_2^0} \sin (\pi k_1^0) - a_1(a_2^0, 0) \frac{\partial}{\partial a_2} \sin \left( - \frac{\beta}{\alpha} \log a_1(a_2, r) r \right)\Big|_{(a_2^0, 0)} \\
+&= \frac{\beta}{\alpha} (-1)^{k_2^0 + 1} - a_1^0  \cos \left(-\frac{\beta}{\alpha} a_1^0 \right) \left(-\frac{\beta}{\alpha}\right) \frac{1}{a_1^0} \frac{\partial}{\partial a_2} a_1(a_2, r) \Big|_{(a_2^0, 0)}\\
+&= \frac{\beta}{\alpha} (-1)^{k_2^0 + 1} + \left(\frac{\beta}{\alpha}\right) (-1)^{k_1^0 + 1} (-1)^{k_1^0 + k_2^0} \\
+&= -\frac{\beta}{\alpha} \left( (-1)^{k_2^0} +  (-1)^{k_1^0} (-1)^{k_1^0} (-1)^{k_2^0} \right) \\
+&= -2 \frac{\beta}{\alpha} (-1)^{k_2^0} \neq 0
+\end{align*}
 
-
+Since this is nonzero, we can use the implicit function theorem a second time to solve for $a_2$ in terms of $r$ near $r = 0$. Thus near $r = 0$ we have $G(a_1(a_2(r), r), a_2(r), r) = 0$, where $a_2(0) = a_2^0$ and $a_1(a_2(0), 0) = a_1^0$. Since the join occurs when $G(a_1(a_2(r), r), a_2(r), r) = 0$, the proof is complete.
 
 \end{proof}
 
