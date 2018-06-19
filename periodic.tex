@@ -117,18 +117,20 @@ We note that 0 is an equilibrium of the system. Let $Q(x)$ be a homoclinic orbit
 
 We look at the general equation
 
-\begin{equation}
+\begin{equation}\label{generaleq}
 U'(x) = F(U)
 \end{equation}
 
 where $U \in \R^4$ and $F$ is real-valued. (This should work for $\R^{2m}$ with $m \geq 2$, but it is easier to consider this case. This should also extend to the complex-valued case.)\\
 
-Suppose $U = 0$ is an equilibrium for this equation (i.e. $F(0) = 0$), and suppose $Q(x)$ is a homoclinic orbit connecting this equilibrium to itself. In addition, we assume the following
+We take the following assumptions.
 
 \begin{hypothesis}\label{assumptions}
+\[\]
 \begin{enumerate}
-	\item $U = 0$ is a hyperbolic equilibrium.
-	\item The spectrum of $D_U F(0)$ is $\pm \alpha \pm i \beta$, $\alpha, \beta > 0$.
+	\item $U = 0$ is a hyperbolic equilibrium of \eqref{generaleq}.
+	\item The spectrum of $D_U F(0)$ is $\pm \alpha \pm i \beta$, $\alpha, \beta > 0$, thus $D_U F(0)$ has two stable and two unstable directions.
+	\item There exists a homoclinic orbit $Q(x)$ connecting the equilibrium at 0 to itself.
 	\item We have a nondegeneracy condition
 	\[
 	T_{Q(0)} W^u(0) \cap T_{Q(0)} W_s(0) = \R Q'(0)
@@ -149,11 +151,13 @@ In the case where the system is Hamiltonian, we actually know the specific form 
 
 \begin{lemma}
 
-If \eqref{4thordersystem} is Hamiltonian, then
+If $U'(x) = F(U)$ is Hamiltonian, then
 
 \begin{equation}
 \Psi(x) = \nabla H(Q(x))
 \end{equation}
+
+where $H$ is the Hamiltonian energy associated with the system.
 
 \begin{proof}
 
@@ -172,7 +176,7 @@ since the Hessian matrix is self-adjoint. Rearranging this, we have
 \frac{d}{dx} \nabla H(Q(x)) = -D F(Q(x))^* \nabla H(Q(x)) 
 \end{equation}
 
-thus $\nabla H(Q(x))$ is a solution to the adjoint variational equation. Since $\nabla H$ is continuous and $Q(x)$ is bounded (even better, it decays exponentially to 0), $\nabla H(Q(x))$. By the nondegeneracy condition, there is a unique such solution, so we conclude that $\Psi(x) = \nabla H(Q(x))$.
+thus $\nabla H(Q(x))$ is a solution to the adjoint variational equation. Since $\nabla H$ is continuous and $Q(x)$ is bounded (even better, it decays exponentially to 0), so is $\nabla H(Q(x))$. By the nondegeneracy condition, there is a unique such solution, so we must have $\Psi(x) = \nabla H(Q(x))$.
 
 \end{proof}
 \end{lemma}
@@ -185,13 +189,13 @@ T_{q(0)}W^s(0) &= \R Q'(0) \oplus Y^+ \\
 Z &= \R \Psi(0)
 \end{align*}
 
-Since we are assuming $D_U F(0)$ has two stable and two unstable directions, we have 
+By Hypothesis \ref{assumptions},
 
 \[
 \R^4 = \R Q'(0) \oplus Y^+ \oplus Y^- \oplus Z
 \]
  
-We have also shown before that $Z$ is perpendicular to the other three. \\
+We have shown before that $Z$ is perpendicular to the other three. \\
 
 We now write $W^u(0)$ and $W^s(0)$ as graphs over their own tangent spaces near $Q(0)$. Following San97, we can parameterize the unstable and stable manifolds near $Q(0)$ by the smooth functions
 
@@ -218,7 +222,7 @@ U_i^-(x) &= Q^-(0, \beta_i^-)(x) + V_i^-(x) && x \leq 0 \\
 U_i^+(x) &= Q^+(0, \beta_i^+)(x) + V_i^+(x) && x \geq 0
 \end{align*}
 
-In essence, we are writing $U$ in terms of four parameters ($\beta_i^\pm$, representing ICs on the stable/unstable manifolds) and four ``remainder'' functions $V_i^\pm(x)$.\\
+In essence, we are writing $U$ in terms of four parameters $\beta_i^\pm$ (representing ICs on the stable/unstable manifolds) and four ``remainder'' functions $V_i^\pm(x)$.\\
 
 We will choose $V_i^\pm(x)$ so that
 
@@ -240,10 +244,10 @@ U_i^+(0) - U_i^-(0) &= 0;
 for $i = 1, 2$. Let $\Phi_\pm(x, y; \beta^\pm)$ be the family of evolution operators for the variational equations
 
 \begin{equation}
-V' = D_U F(Q^\pm(0, \beta^\pm)(x)) V
+(V^\pm)' = D_U F(Q^\pm(0, \beta^\pm)(x)) V^\pm
 \end{equation}
 
-We can decompose these evolution operators via an exponential dichotomy.
+where these are defined on the appropriate interval. We can decompose these evolution operators via an exponential dichotomy.
 
 \begin{lemma}\label{dichotomy1}
 There exist projections
@@ -283,8 +287,8 @@ i.e. it does not matter if we project or evolve first. Finally, the projections 
 \begin{align*}
 \ker P^s_+(0; \beta^+) &= Z \oplus Y^- \\
 \ker P^u_-(0; \beta^-) &= Z \oplus Y^+ \\
-\text{ran } P^u_+(0; \beta^+) &= Z \oplus Y^- \\
-\text{ran } P^s_-(0; \beta^-) &= Z \oplus Y^+
+\textrm{ran } P^u_+(0; \beta^+) &= Z \oplus Y^- \\
+\textrm{ran } P^s_-(0; \beta^-) &= Z \oplus Y^+
 \end{align*}
 
 \begin{proof}
@@ -293,22 +297,22 @@ Since $D_U F(0)$ is hyperbolic by assumption, this follows from Lemma 5.1 in San
 
 \end{lemma}
 
-Now, we rewrite our problem $U'(x) = F(U)$ in piecewise fashion in such a way as to exploit what we did above. We want to solve piecewise
+Next, we rewrite the problem $U'(x) = F(U)$ in piecewise fashion in such a way as to exploit what we did above. We want to solve piecewise
 
 \begin{align*}
-(U_i^\pm(x))' &= (Q^\pm(0, \beta_i^\pm)(x))' + (V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) ) \\
+(U_i^\pm(x))' &= (Q^\pm(0, \beta_i^\pm)(x))' + (V_i^\pm(x))' = F\left(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) \right) \\
 \end{align*}
 
 Using the fact that (by construction) $Q^\pm(0, \beta_i^\pm)(x)$ solves $U'(x) = F(U)$ on the appropriate interval, this becomes
 
 \begin{align*}
-F(Q^\pm(0, \beta_i^\pm)(x)) + (V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) ) \\
+F(Q^\pm(0, \beta_i^\pm)(x)) + (V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) )
 \end{align*}
 
 Solving for $(V_i^\pm(x))'$, we have
 
 \begin{align*}
-(V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) ) - F(Q^\pm(0, \beta_i^\pm)(x) ) \\
+(V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) ) - F(Q^\pm(0, \beta_i^\pm)(x) )
 \end{align*}
 
 Now we Taylor about $F(Q^\pm(0, \beta_i^\pm)(x)$ to get the equivalent formulation
@@ -317,7 +321,7 @@ Now we Taylor about $F(Q^\pm(0, \beta_i^\pm)(x)$ to get the equivalent formulati
 (V_i^\pm(x))' = D_U F(Q^\pm(0, \beta_i^\pm)(x)) V_i^\pm(x)  + G_i^\pm(\beta_i^\pm, V_i^\pm)(x)
 \end{equation}
 
-where $G_i^\pm(\beta_i^\pm, V_i^\pm)(x) = \mathcal{O}(|V_i^\pm|^2)$, independent of the parameters $\beta_i^\pm$. Derivatives of $G_i^\pm$ with respect to the parameters $\beta_i^\pm$ are the same order in $V_i^\pm$.\\
+where $G_i^\pm(\beta_i^\pm, V_i^\pm)(x) = \mathcal{O}(|V_i^\pm|^2)$, independent of the parameters $\beta_i^\pm$. The fact that this is bound is independent of the $\beta_i^\pm$ follows from the fact that we have bounds on $Q^\pm(0, \beta_i^\pm)$ which are independent of $\beta_i^\pm$. Derivatives of $G_i^\pm$ with respect to the parameters $\beta_i^\pm$ are the same order in $V_i^\pm$.\\
 
 At this point, we rewrite the (piecewise) differential equations \eqref{Vpiecewise} in integrated form as the fixed point equations
 
@@ -337,7 +341,7 @@ a_i^+ &\in E_0^u \\
 a_i^- &\in E_0^s \\
 \end{align*}
 
-Note that we do not have initial conditions $b_i^\pm$ for the other side of the dichotomy. Since these ICs would live in $Y^\pm$, we have incorporated them into the $\beta_i^\pm$.\\
+Note that we do not have initial conditions $b_i^\pm$ at $x = 0$ for the other side of the dichotomy. Since these ICs would live in $Y^\pm$, we have incorporated them into the $\beta_i^\pm$.\\
 
 Next, we define the exponentially weighted norms
 
@@ -736,7 +740,7 @@ Since $H(0, 0) \leq C (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})$, this becomes
 \end{proof}
 \end{lemma}
 
-Finally, we need to look at the projection on the adjoint solution $\Psi(0)$. To do this, we will show that this condition is satisfied for certain values of the lengths $X_i$. This makes sense since we only have existence of (nonperiodic) multipulses for certain $X_i$.\\
+Finally, we need to look at the projection on the adjoint solution $\Psi(0)$. To do this, we will show that this condition is satisfied for certain values of the lengths $X_i$. This makes sense based on what we know about the nonperiodic case.\\
 
 Recall that from our change of coordinates we have
 \begin{align*}
@@ -791,7 +795,7 @@ Before we continue, we make the following hypothesis (which we should be able to
 \]
 \end{hypothesis}
 
-Together with the previous lemma, this gives us
+Using this estimate on $\beta_i^\pm$ from Lemma \ref{solveforbeta}, this gives us
 
 \[
 |(\Phi_\pm(0, X_i; \beta_i^\pm) - \Phi(0, X_i))|
@@ -805,7 +809,7 @@ This also implies
 |Q^-(0, \beta_i^-)(-X_i) - Q(-X_i)| \leq C e^{-\alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2}) \\
 \end{align*}
 
-We also have the following estimate from Hypothesis \label{p1existence}
+We also have the following estimate from Hypothesis \ref{p1existence}
 
 \begin{align*}
 |P^u_+(X; \beta^+) - P_0^u| &\leq C e^{-\alpha X} \\
@@ -837,7 +841,7 @@ For the first term on the RHS, we have
 &= \mathcal{O}(e^{-3 \alpha X_i})
 \end{align*}
 
-Since from our change of coordinates, $Q^+(0, \beta_i^+) \in Y^+$, and this is wiped out by $P^u_+(0; \beta_i^+)$, which projects onto the unstable part of the exponential dichotomy on $\R^+$ at $x = 0$. We also used the fact that the spectral projections $P^u_0$ and $P^s_0$ commute. \\
+From our change of coordinates, $Q^+(0, \beta_i^+) \in Y^+$, and this is wiped out by $P^u_+(0; \beta_i^+)$, which projects onto the unstable part of the exponential dichotomy on $\R^+$ at $x = 0$. We also used the fact that the spectral projections $P^u_0$ and $P^s_0$ commute. \\
 
 For the other term, we have
 
@@ -853,7 +857,7 @@ For the other term, we have
 Thus we have
 
 \begin{align*}
-\langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+) a_i^+ \rangle
+\langle \Psi(0), \Phi^u_+(0, X_i; \beta_i^+) a_i^+ \rangle
 &= \langle \Psi(X_i), Q(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})) 
 \end{align*}
 
@@ -874,7 +878,7 @@ For the integral terms, we have
 &\leq C e^{-3 \alpha X_i}
 \end{align*}
 
-The other integral term is similar, and is order $e^{-3 \alpha X_{i-1}}$\\
+The other integral term is similar, and is of order $e^{-3 \alpha X_{i-1}}$\\
 
 Combining these, we have
 
@@ -945,9 +949,9 @@ s_0 e^{\alpha \phi / \beta } r \left( a_i \sin \left( - \frac{\beta}{\alpha} \lo
 
 with 
 
-\[
-R_i(a, r) = \mathcal{O}(r^{1 + \tilde{\gamma}})
-\]
+\begin{align*}
+R_i(a, r) &= \mathcal{O}(r^{1 + \tilde{\gamma}}) && 0 < \tilde{\gamma} < 1
+\end{align*}
 
 where 
 
@@ -1130,7 +1134,7 @@ First, we note that using the bound on the derivative of $\tilde{R}_i(a, r)$ fro
 
 \begin{align*}
 \frac{\partial}{\partial a_i} a_i \sin \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0}
-&= \sin \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0} - a_i \cos \left( - \frac{\beta}{\alpha} \log a_i r \right)a_i \frac{\beta}{\alpha} \Big|_{a_i = a_i^0, r = 0}\\
+&= \sin \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0} + a_i \cos \left( - \frac{\beta}{\alpha} \log a_i r \right)\left( -\frac{\beta}{\alpha} \frac{1}{a_i} \right) \Big|_{a_i = a_i^0, r = 0}\\
 &=(-1)^{k_i^0 + 1}\frac{\beta}{\alpha}
 \end{align*}
 
@@ -1172,6 +1176,8 @@ Since this is nonzero, we can use the implicit function theorem a second time to
 
 \end{proof}
 \end{lemma}
+
+What we really would like is to have all of this in terms of the lengths $X_i$, since those are the physically meaningful parameters. We accomplish this in the next lemma.
 
 % lemma : write back in terms of the X_i
 
