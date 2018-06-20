@@ -786,23 +786,23 @@ Substituting the fixed point equations evaluated at $x = 0$, we have
 &- \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi_-^s(0, y, \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-) \rangle dy
 \end{align*}
 
-Before we continue, we make the following hypothesis (which we should be able to show)
+Before we continue, we make the following hypothesis (which we should be able to show). This combines the exponential dichotomy estimates with those for the parameters $\beta_i^\pm$.
 
-\begin{hypothesis}
-\[
-|(\Phi_\pm(0, X; \beta^\pm) - \Phi(0, X))|
-\leq C |\beta^\pm| e^{-\alpha X}
-\]
+\begin{hypothesis}\label{betaevolution}
+\begin{align*}
+|(\Phi_+^u(0, X; \beta^+) - \Phi_+^u(0, X; 0)| &\leq C |\beta^+| e^{-\alpha X} \\
+|(\Phi_-^s(0, -X; \beta^+) - \Phi_-^s(0, -X; 0)| &\leq C |\beta^-| e^{-\alpha X} \\
+\end{align*}
 \end{hypothesis}
 
-Using this estimate on $\beta_i^\pm$ from Lemma \ref{solveforbeta}, this gives us
+Using this together with the estimate on $\beta_i^\pm$ from Lemma \ref{solveforbeta}, this gives us
 
-\[
-|(\Phi_\pm(0, X_i; \beta_i^\pm) - \Phi(0, X_i))|
-\leq C e^{-\alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})
-\]
+\begin{align*}
+|(\Phi_+^u(0, X; \beta^+) - \Phi_+^u(0, X; 0)| &\leq C e^{-\alpha X} (e^{-\alpha X_1} + e^{-\alpha X_2})\\
+|(\Phi_-^s(0, -X; \beta^+) - \Phi_-^s(0, -X; 0)| &\leq C e^{-\alpha X} (e^{-\alpha X_1} + e^{-\alpha X_2}) \\
+\end{align*}
 
-This also implies
+This implies
 
 \begin{align*}
 |Q^+(0, \beta_i^+)(X_i) - Q(X_i)| \leq C e^{-\alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2}) \\
@@ -1082,16 +1082,28 @@ In the next lemma, we (finally!) solve for the $a_i$. Since lots of periodic dou
 
 \begin{lemma}
 
-For sufficiently small $r > 0$, there is a countable family of solutions $(a_1(k_1^0, r), a_2(k_2^0, r)$ to 
+Let $r_n$ be defined by
+
+\begin{equation}
+r_n =  e^{-(2 \pi \alpha / \beta) n}
+\end{equation}
+
+Then for sufficiently large $n$, there exists a countable family of solutions $(a_1(k_1^0), a_2^0)$ to 
 
 \begin{align*}
-a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) = \tilde{R}_1(a, r)
+a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 r_n \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r_n \right) = \tilde{R}_1(a, r_n)
 \end{align*}
 
-where $k_i^0 \in \N_0$ and 
+where
+
+\begin{equation}
+a_i^0 = e^{-\frac{\pi \alpha}{\beta} k_i^0 }
+\end{equation}
+
+for $k_i^0 \in \N_0$ and 
 
 \begin{align*}
-a_i(k_i^0, r) \approx e^{-\frac{\pi \alpha}{\beta} k_i^0 }
+a_1(k_1^0, r_n) \approx a_1^0
 \end{align*}
 
 We should be able to get a bound on how close this is; it does not matter for now, but it might be nice to have.
@@ -1101,18 +1113,18 @@ We should be able to get a bound on how close this is; it does not matter for no
 From Lemma \ref{reducedsystemtosolve}, there is only one equation to solve.
 Define the function $G: \R^3 \rightarrow \R$ by
 
-\begin{equation}
-G(a_1, a_2, r) = a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) - \tilde{R}_1(a, r)
+\begin{equation}\label{arequation}
+G(a_1, a_2, r) = a_2 \sin \left(-\frac{\beta}{\alpha} \log a_2 r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) - \tilde{R}_1(a, r)
 \end{equation}
 
-Take $r = r_n$, where
+We will take $r = r_n$, where
 \[
 r_n =  e^{-(2 \pi \alpha / \beta) n}
 \]
 
 and $n \in \N$. Noting that $(\beta / \alpha) \log r_n = 0$, the equation for $G$ becomes
 
-\begin{equation}
+\begin{equation}\label{rinremainder}
 G(a_1, a_2, r_n) = a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 \right) - \tilde{R}_1(a, r_n)
 \end{equation}
 
@@ -1128,7 +1140,31 @@ Now let
 a_i^0 = e^{-\frac{\pi \alpha}{\beta} k_i^0 }
 \end{equation}
 
-for $k_i^0 \in \N_0$. Then we have $G(a_1^0, a_2^0, 0) = 0$. We are now in position to use the implicit function theorem (twice!). It is worth noting the difference between this and the nonperiodic case considered on p.2094 of SanStrut. In that case, the the Jacobian of the reduced system $G:\R^{n-1} \times \R \rightarrow \R$ is lower triangular, so a single application of the implicit function theorem is sufficient. Since our case is periodic, every equation in Lemma \ref{systemtosolve} involves two of the $a_i$, so we can never get this lower triangular structure. If we take the nonreduced system, the Jacobian is singular at $(a_1^0, a_2^0, 0)$, so that will not work. Of course, we suspected as much since the second equation is superfluous, hence the reduction. So let us continue.\\
+for $k_i^0 \in \N_0$. Then we have $G(a_1^0, a_2^0, 0) = 0$. What we would like to do now is to use the implicit function theorem to solve for both $a_i$ in terms of $r$ near $(a_1^0, a_2^0, 0)$. But we only have one equation, and there are three unknowns!\\
+
+Fortunately there is a way around this. First, note that for $a_i = a_i^0$,
+
+\begin{align*}
+\sin\left( -\frac{\beta}{\alpha} \log a_i^0 r \right)
+&= \sin \left( -\frac{\beta}{\alpha} \log a_i^0 - \frac{\beta}{\alpha} \log r \right) \\
+&= \sin \left( \pi k_i^0 - \frac{\beta}{\alpha} \log r \right) \\
+&= (-1)^{k_i^0 + 1} \sin \left(- \frac{\beta}{\alpha} \log r \right)
+\end{align*} 
+
+Take $a_2 = a_2^0$ in \eqref{arequation}.
+Then let $\tilde{G}(a_1, r) = G(a_1, a_2^0, r)$, i.e.  
+
+\begin{equation}\label{arequation}
+\tilde{G}(a_1, r) = a_2^0 (-1)^{k_2^0 + 1} \sin \left(- \frac{\beta}{\alpha} \log r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) - \tilde{R}_1(a, r)
+\end{equation}
+
+Taking $r = r_n$ and sending $n \rightarrow \infty$ gives us
+
+\begin{equation}\label{arequation}
+\tilde{G}(a_1, 0) = - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right)
+\end{equation}
+
+In particular, we have $\tilde{G}(a_1^0, 0) = 0$. We are now in position to use the implicit function theorem.\\
 
 First, we note that using the bound on the derivative of $\tilde{R}_i(a, r)$ from Lemma \ref{systemtosolve}, the derivative of $\tilde{R}_i(a, r)$ with respect to $a_i$ at $r = 0$ is always 0, thus this term will not contribute. We also note that
 
@@ -1138,41 +1174,21 @@ First, we note that using the bound on the derivative of $\tilde{R}_i(a, r)$ fro
 &=(-1)^{k_i^0 + 1}\frac{\beta}{\alpha}
 \end{align*}
 
-where we took the limit as $r \rightarrow 0$ as we did above. First we solve for $a_1$. Since 
+where we took the limit as $r \rightarrow 0$ as we did above. Since
 
 \[
-\frac{\partial}{\partial a_i} G(a_1^0, a_2^0, 0) = -(-1)^{k_i^0 + 1}\frac{\beta}{\alpha} \neq 0
+\frac{\partial}{\partial a_1} \tilde{G}(a_1^0, 0) = -(-1)^{k_1^0 + 1}\frac{\beta}{\alpha} \neq 0
 \]
 
-we can use the implicit function theorem to solve for $a_1$ in terms of $(a_2, r)$ near $(a_2^0, 0)$. Thus we have near $(a_2, r) = (a_2^0, 0)$
+we can use the implicit function theorem to solve for $a_1$ in terms of $r$ near $(a_1^0, 0)$, i.e. there exists $r_0 > 0$ so that for $0 < r < r_0$ and $a_1$ close to $a_1^0$ we have a function $a_1(r)$ such that $a_1(0) = a_1^0$ and $\tilde{G}(a_1(r),r) = 0$.\\
 
-\begin{equation}
-G(a_2, r) = a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 r \right) - a_1(a_2, r) \sin \left( - \frac{\beta}{\alpha} \log a_1(a_2, r) r \right) - \tilde{R}_1(a, r)
-\end{equation}
+Now take $n \in \N$ so that $r_n < r_0$. Then
 
-where $a_1(a_2^0, 0) = a_1^0$. From the implicit function theorem, we also have an expression for the partial derivative of $a_1$ with respect to $a_2$ at $(a_2^0, 0)$.
+\[
+G(a_1(r_n), a_2^0, r_n) = \tilde{G}(a_1(r_n),r_n) = 0
+\] 
 
-\begin{align*}
-\frac{\partial}{\partial a_2} a_1(a_2^0, 0) 
-&= -\left(\frac{\partial G}{\partial a_1}\Big|_{(a_1(a_2^0, 0), a_2^0, 0)}\right)^{-1}
-\frac{\partial G}{\partial a_2}\Big|_{(a_1(a_2^0, 0), a_2^0, 0)} \\
-&= -\left(-\frac{\beta}{\alpha} (-1)^{k_1^0 + 1} \right)^{-1} \frac{\beta}{\alpha} (-1)^{k_2^0 + 1} \\
-&= (-1)^{k_1^0 + k_2^0}
-\end{align*}
-
-Now we use the implicit function theorem again to solve for $a_2$ in terms of $r$ near $r = 0$. First we compute the partial derivative with respect to $a_2$.
-
-\begin{align*}
-\frac{\partial}{\partial a_2} G(a_2^0, 0) &= 
-\frac{\beta}{\alpha} (-1)^{k_2^0 + 1} - \frac{\partial}{\partial a_2}\left( a_1(a_2, r) \sin \left( - \frac{\beta}{\alpha} \log a_1(a_2, r) r \right)\right) \Big|_{(a_2^0, 0)} \\
-&= \frac{\beta}{\alpha} (-1)^{k_2^0 + 1} - (-1)^{k_1^0 + k_2^0} \sin (\pi k_1^0) - a_1(a_2^0, 0) \frac{\partial}{\partial a_2} \sin \left( - \frac{\beta}{\alpha} \log a_1(a_2, r) r \right)\Big|_{(a_2^0, 0)} \\
-&= \frac{\beta}{\alpha} (-1)^{k_2^0 + 1} - a_1^0  \cos \left(-\frac{\beta}{\alpha} a_1^0 \right) \left(-\frac{\beta}{\alpha}\right) \frac{1}{a_1^0} \frac{\partial}{\partial a_2} a_1(a_2, r) \Big|_{(a_2^0, 0)}\\
-&= \frac{\beta}{\alpha} (-1)^{k_2^0 + 1} + \left(\frac{\beta}{\alpha}\right) (-1)^{k_1^0 + 1} (-1)^{k_1^0 + k_2^0} \\
-&= -\frac{\beta}{\alpha} \left( (-1)^{k_2^0} +  (-1)^{k_1^0} (-1)^{k_1^0} (-1)^{k_2^0} \right) \\
-&= -2 \frac{\beta}{\alpha} (-1)^{k_2^0} \neq 0
-\end{align*}
-
-Since this is nonzero, we can use the implicit function theorem a second time to solve for $a_2$ in terms of $r$ near $r = 0$. Thus near $r = 0$ we have $G(a_1(a_2(r), r), a_2(r), r) = 0$, where $a_2(0) = a_2^0$ and $a_1(a_2(0), 0) = a_1^0$. Since the join occurs when $G(a_1(a_2(r), r), a_2(r), r) = 0$, the proof is complete.
+which proves the lemma.
 
 \end{proof}
 \end{lemma}
@@ -1182,51 +1198,55 @@ What we really would like is to have all of this in terms of the lengths $X_i$, 
 % lemma : write back in terms of the X_i
 
 \begin{lemma}
-For sufficiently large $X > 0$, there exist a countable family of lengths $(X_1(k_1^0, X), X_2(k_2^0, X))$ with $k_i^0 \in N_0$ such that
+For sufficiently large $n \in \N$, there exists a countable family of lengths $(X_1(k_1^0; n), X_2(k_1^0; n))$ with $k_i^0 \in \N_0$ such that
 
 \[
 \langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i = 0
 \]
 
-The lengths are approximately given by
+The lengths $(X_i(k_i^0; n)$ are given by
 
-\[
-X_i(k_1^0, X) \approx \frac{1}{4} \left( \frac{2 \pi}{\beta} \right) k_i^0 + X
-\]
+\begin{equation}
+X_i(k_i^0; n) \approx \frac{1}{4} \left( \frac{2 \pi}{\beta} \right) k_i^0 + \frac{2 n \pi - \phi}{2 \beta}
+\end{equation}
+
+where the formula is exact for $X_2$.
 
 \begin{proof}
-Let $r > 0$ be such that the previous lemma applies, and let $a_i(k_i^0, r)$
-be as in that lemma. Then solve for $X$ in terms of $r$ to get
+Let $n \in \N$ be sufficiently large so that the previous lemma applies, and let $a_i^0$ be as in that lemma. Solving the expression for $a_i$ for $X_i$ yields
 
 \[
-X(r) = \frac{1}{2 \alpha}\log\left(\frac{1}{r}\right) - \frac{\phi}{2 \beta}
+X_i = -\frac{1}{2 \alpha}\log(a_i) + X(r_n)
 \]
 
-Solving the expression for $a_i$ for $X_i$ yields
-
-\[
-X_i(k_1^0, X) = -\frac{1}{2 \alpha}\log(a_i(k_i^0, r)) + X(r)
-\]
-
-By the previous lemma, 
+Solving for $X$ in terms of $r_n$ and substituting the expression for $r_n$, we get
 
 \begin{align*}
-\log( a_i(k_i^0, r)) \approx -\frac{\pi \alpha}{\beta} k_i^0
+X(r_n) &= -\frac{1}{2 \alpha}\log\left( r_n \right) - \frac{\phi}{2 \beta} \\
+&= -\frac{1}{2 \alpha}\log\left( e^{-(2 \pi \alpha / \beta) n} \right) - \frac{\phi}{2 \beta} \\
+&= \frac{n \pi}{\beta} - \frac{\phi}{2 \beta} \\
+&= \frac{2 n \pi - \phi}{2 \beta} 
 \end{align*}
 
-Thus we have
+By the previous lemma, $a_2$ is exactly $a_2^0$ and $a_1 \approx a_1^0$. Thus we have 
+
+\begin{align*}
+\log( a_i ) \approx -\frac{\pi \alpha}{\beta} k_i^0
+\end{align*}
 
 \[
-X_i(k_1^0, X) \approx \frac{\pi}{2 \beta} k_i^0 + X(r)
+X_i(k_i^0; n) \approx \frac{\pi}{2 \beta} k_i^0 + \frac{2 n \pi - \phi}{2 \beta} 
 \]
 
 We can rewrite this as
 
 \[
-X_i(k_1^0, X) \approx \frac{1}{4} \left( \frac{2 \pi}{\beta} \right) k_i^0 + X(r)
+X_i(k_i^0; n) \approx \frac{1}{4} \left( \frac{2 \pi}{\beta} \right) k_i^0 + \frac{2 n \pi - \phi}{2 \beta}
 \]
 
-Since $\frac{2 \pi}{\beta}$ is the period of ``twisting'' of the stable and unstable manifolds near the equilibrium point, this agrees with our intuition of a join being possible every ``quarter-twist'' of the stable and unstable manifolds near the equilibrium point.
+where the expression for $X_2$ is exact.\\
+
+Since $\frac{2 \pi}{\beta}$ is the period of ``twisting'' of the stable and unstable manifolds about each other near the equilibrium point, this agrees with our intuition of a join being possible every ``quarter-twist''.
 
 \end{proof}
 \end{lemma}
