@@ -50,11 +50,13 @@
 
 \subsection{Background}
 
-In this section we will look at multipulse solutions to KdV5 in the case where we have periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. A double periodic pulse is parameterized by lengths $X_1$ and $X_2$, which is shown in the diagram below 
+In this section we will look at multipulse solutions to KdV5 in the case where we have periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. A periodic $n$-pulse is parameterized by the $n$ lengths $X_0, \dots, X_{n-1}$, where in general we will want $X_{n-1}$ to be larger than the other $X_i$. (Since we have a periodic domain, we start with $X_0$ for convenience so that all the subscripts will be $\mod n$.) A diagram of a 2-pulse is shown below.
 
 \begin{figure}[H]
 \includegraphics[width=8.5cm]{dpimage}
 \end{figure}
+
+Let $X_m = \min \{ X_0, \dots, X_{n-1} \}$ and $X_M = \max \{ X_0, \dots, X_{n-1} \}$. The way we have set this up, we have $X_M = X_{n-1}$, but it does not actually matter since the domain is periodic.\\
 
 We would like to write the periodic double pulse as a small (piecewise) perturbation of the single pulse as was done in San98 (and San93). The method in those papers, however, does not give us the estimates we need. Instead, we will give another construction based on San97. This boils down to proving existence of the periodic double pulse, which is what we shall do. We assume that $c > 1/4$, since that is necessary for the existence of multipulses to KdV5. Thus the eigenvalues of the linearization about $0$ are complex and given by $\pm \alpha \pm \beta i$.\\
 
@@ -215,14 +217,14 @@ Q^+(\alpha, \beta^-)(x) && x \geq 0
 
 which are the unique solutions to $U' = F(U)$ with ICs $Q^\pm(\alpha, \beta^\pm)$ for appropriate $x$. Note that since the ICs are on the stable/unstable manifolds, these decay exponentially in the appropriate direction with rate $\alpha$.\\
 
-Using the parameterizations of the stable and unstable manifolds, we write $U$ piecewise (in four pieces, $i = 1, 2$) as
+Using the parameterizations of the stable and unstable manifolds, we write the solution $U$ piecewise (in $2n$ pieces, $i = 0, \dots, n-1$) as
 
 \begin{align*}
 U_i^-(x) &= Q^-(0, \beta_i^-)(x) + V_i^-(x) && x \leq 0 \\
 U_i^+(x) &= Q^+(0, \beta_i^+)(x) + V_i^+(x) && x \geq 0
 \end{align*}
 
-In essence, we are writing $U$ in terms of four parameters $\beta_i^\pm$ (representing ICs on the stable/unstable manifolds) and four ``remainder'' functions $V_i^\pm(x)$.\\
+In essence, we are writing $U$ in terms of $2n$ parameters $\beta_i^\pm$ (representing ICs on the stable/unstable manifolds) and $n$ ``remainder'' functions $V_i^\pm(x)$.\\
 
 We will choose $V_i^\pm(x)$ so that
 
@@ -231,17 +233,19 @@ V_i^-(0) &\in Z \oplus Y^- \\
 V_i^+(0) &\in Z \oplus Y^+
 \end{align*}
 
-since the other directions are covered by $\beta^\pm$ (and $\alpha$, but we set that equal to 0).\\
+since the other directions are covered by $\beta_i^\pm$ (and $\alpha$, but we set that equal to 0).\\
 
-Thus the problem we need to solve to construct the periodic double pulse is
+Thus the problem we need to solve to construct the periodic multipulse is
 
 \begin{align*}
 (U_i^\pm)' - F(U_i^\pm) &= 0 \\
-U_i^+(X_i) - U_{i-1}^-(-X_i) &= 0 \\
+U_i^+(X_i) - U_{i+1}^-(-X_i) &= 0 \\
 U_i^+(0) - U_i^-(0) &= 0;
 \end{align*}
 
-for $i = 1, 2$. Let $\Phi_\pm(x, y; \beta^\pm)$ be the family of evolution operators for the variational equations
+for $i = 0, \dots, {n-1}$. The subscripts are $\mod n$, so that, in particular, $U_n^- = U_0^-$.\\
+
+Let $\Phi_\pm(x, y; \beta^\pm)$ be the family of evolution operators for the variational equations
 
 \begin{equation}
 (V^\pm)' = D_U F(Q^\pm(0, \beta^\pm)(x)) V^\pm
@@ -303,7 +307,7 @@ Next, we rewrite the problem $U'(x) = F(U)$ in piecewise fashion in such a way a
 (U_i^\pm(x))' &= (Q^\pm(0, \beta_i^\pm)(x))' + (V_i^\pm(x))' = F\left(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) \right) \\
 \end{align*}
 
-Using the fact that (by construction) $Q^\pm(0, \beta_i^\pm)(x)$ solves $U'(x) = F(U)$ on the appropriate interval, this becomes
+for $i = 0, \dots, n-1$. Using the fact that (by construction) $Q^\pm(0, \beta_i^\pm)(x)$ solves $U'(x) = F(U)$ on the appropriate interval, this becomes
 
 \begin{align*}
 F(Q^\pm(0, \beta_i^\pm)(x)) + (V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) )
@@ -323,7 +327,7 @@ Now we Taylor about $F(Q^\pm(0, \beta_i^\pm)(x)$ to get the equivalent formulati
 
 where $G_i^\pm(\beta_i^\pm, V_i^\pm)(x) = \mathcal{O}(|V_i^\pm|^2)$, independent of the parameters $\beta_i^\pm$. The fact that this is bound is independent of the $\beta_i^\pm$ follows from the fact that we have bounds on $Q^\pm(0, \beta_i^\pm)$ which are independent of $\beta_i^\pm$. Derivatives of $G_i^\pm$ with respect to the parameters $\beta_i^\pm$ are the same order in $V_i^\pm$.\\
 
-At this point, we rewrite the (piecewise) differential equations \eqref{Vpiecewise} in integrated form as the fixed point equations
+At this point, we rewrite the (piecewise) differential equations \eqref{Vpiecewise} in integrated form as fixed point equations. Recall again that the subscripts are $\mod n$, so that, for example, $X_0 = X_n$. Thus we have
 
 \begin{align*}
 V_i^+(x) &= \Phi^u_+(x, X_i; \beta_i^+) a_i^+  \\
@@ -374,7 +378,7 @@ The estimates hold as well for derivatives of $V_i^\pm$ with respect to $\beta_i
 \begin{proof}
 This should just be Lemma 5.2 in San97. The following is a mostly filled-in version of that proof.\\
 
-We can deal with the four pieces separately, so let's do the ``positive'' pieces. The RHS of the fixed point equations defines a smooth mapping on $K_{X_i, +}$ (basically obvious since everything involved is smooth, although we could check this). We need to verify that the RHS maps to $K_{X_i, +}$, so we check the three terms individually. Using our estimates on $\Phi^{s/u}_\pm$ and $G$ and the fact that $V_i^+ \in K_{X_i, +}$, we have for the first term
+We can deal with the $2n$ pieces separately, so let's do the ``positive'' pieces here. The RHS of the fixed point equations defines a smooth mapping on $K_{X_i, +}$ (basically obvious since everything involved is smooth, although we could check this). We need to verify that the RHS maps to $K_{X_i, +}$, so we check the three terms individually. Using our estimates on $\Phi^{s/u}_\pm$ and $G$ and the fact that $V_i^+ \in K_{X_i, +}$, we have for the first term
 
 \begin{align*}
 e^{\alpha(X_i - x)} | \Phi^u_+(x, X_i; \beta_i^+) a_i^+ | 
@@ -413,12 +417,12 @@ The estimate on $V_i^\pm$ comes from the estimate of the first term on the RHS o
 \end{proof}
 \end{lemma}
 
-Next, we look at the conditions $U_i^+(X_i) - U_{i-1}^-(-X_i) = 0$.
+Next, we look at the conditions $U_i^+(X_i) - U_{i+1}^-(-X_i) = 0$.
 
 % Lemma : solve for a_i^\pm
 
 \begin{lemma}\label{solvefora}
-For any $X_i$ and $\beta_i^\pm$ chosen as in the previous lemma, there is a unique pair of initial conditions $(a_i^+, a_i^-) \in E_0^s \times E_0^u$ such that $U_i^+(X_i) - U_{i-1}^-(-X_i) = 0$. $(a_i^+, a_i^-)$ depends smoothly on $(\beta_i^+, \beta_i^-)$, and we have the following estimate which is independent of the $\beta_i^\pm$
+For any $X_i$ and $\beta_i^\pm$ chosen as in the previous lemma, there is a unique pair of initial conditions $(a_i^+, a_i^-) \in E_0^s \times E_0^u$ such that $U_i^+(X_i) - U_{i+1}^-(-X_i) = 0$. $(a_i^+, a_i^-)$ depends smoothly on $(\beta_i^+, \beta_{i+1}^-)$, and we have the following estimate, which is independent of the $\beta_i^\pm$
 
 \begin{equation}
 |a_i^\pm| \leq C e^{-\alpha X_i}
@@ -429,9 +433,9 @@ which holds for $a_i^\pm$ as well as derivatives with respect to $\beta_i^\pm$.
 We also have the following expressions for the $a_i^\pm$
 
 \begin{align*}
-a_i^+ &= P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right) 
+a_i^+ &= P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_{i+1}^-)(-X_i) \right) 
 + \mathcal{O}( e^{-2 \alpha X_i} )\\
-a_i^- &= P^u_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right) 
+a_i^- &= P^u_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_{i+1}^-)(-X_i) \right) 
 + \mathcal{O}( e^{-2 \alpha X_i} )
 \end{align*}
 
@@ -439,35 +443,39 @@ a_i^- &= P^u_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right)
 
 First, plug in the fixed point equations and evaluate them at $\pm X_i$ to get
 \begin{align*}
-U_i^+(X_i) &= Q^+(0, \beta_i^+)(X_i) + P^u_+(X_i; \beta_i^+) a_i^+ + \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
-U_{i-1}^-(-X_i) &= Q^-(0, \beta_i^-)(-X_i) + P^s_-(-X_i; \beta_i^-) a_i^- + \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy \\
+U_i^+(X_i) &= Q^+(0, \beta_i^+)(X_i) + P^u_+(X_i; \beta_i^+) a_i^+ \\
+&+ \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
+U_{i+1}^-(-X_i) &= Q^-(0, \beta_{i_1}^-)(-X_i) + P^s_-(-X_i; \beta_{i+1}^-) a_i^- \\
+&+ \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_{i+1}^-) G_{i+1}^-(y, V_{i+1}^-(y),\beta_{i+1}^-)dy \\
 \end{align*}
 
 Adding and subtracting $P_0^{s/u}$ and recalling where the $a_i^\pm$ live, this becomes
 
 \begin{align*}
-U_i^+(X_i) &= Q^+(0, \beta_i^+)(X_i) + a_i^+ + (P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ + \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
-U_{i-1}^-(-X_i) &= Q^-(0, \beta_i^-)(-X_i) + a_i^- + (P^s_-(-X_i; \beta_i^-) - P^s_0) a_i^- + \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy \\
+U_i^+(X_i) &= Q^+(0, \beta_i^+)(X_i) + a_i^+ + (P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ \\
+&+ \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy \\ 
+U_{i+1}^-(-X_i) &= Q^-(0, \beta_{i+1}^-)(-X_i) + a_i^- + (P^s_-(-X_i; \beta_{i+1}^-) - P^s_0) a_i^- \\ 
+&+ \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_{i+1}^-) G_{i+1}^-(y, V_{i+1}^-(y),\beta_{i+1}^-)dy \\
 \end{align*}
 
 Subtracting these, we obtain the equation we need to solve
 
 \begin{align*}
-0 &= H(a_i^+, a_i^-, \beta_i^+, \beta_i^-) \\
-&= a_i^+ - a_i^- + (P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ - (P^s_-(-X_i; \beta_i^-) - P^s_0) a_i^-  \\
-&+ Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i)\\
+0 &= H(a_i^+, a_i^-, \beta_i^+, \beta_{i+1}^-) \\
+&= a_i^+ - a_i^- + (P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-) - P^s_0) a_i^-  \\
+&+ Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_{i+1}^-)(-X_i)\\
 &+ \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+)dy
-- \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-)dy 
+- \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_{i+1}^-) G_{i+1}^-(y, V_{i+1}^-(y),\beta_{i+1}^-)dy 
 \end{align*}
 
 where $H: E_0^s \times E_0^u \times \R \times \R \rightarrow \R^4$. In the previous lemma, we solved for $V_i^\pm$ in terms of the $a_i^\pm$ and $\beta_i^\pm$, so we rewrite the above to indicate that dependence so that $H$ is only a function of its four arguments.
 
 \begin{align*}
-H(a_i^+, &a_i^-, \beta_i^+, \beta_i^-) \\
-&= a_i^+ - a_i^- + (P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ - (P^s_-(-X_i; \beta_i^-) - P^s_0) a_i^-  \\
-&+ Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i)\\
+H(a_i^+, &a_i^-, \beta_i^+, \beta_{i+1}^-) \\
+&= a_i^+ - a_i^- + (P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-) - P^s_0) a_i^-  \\
+&+ Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_{i+1}^-)(-X_i)\\
 &+ \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(a_i^+, \beta_i^+)(y),\beta_i^+)dy \\
-&- \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_i^-) G_i^-(y, V_i^-(a_i^-, \beta_i^-)(y),\beta_i^-)dy 
+&- \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_{i+1}^-) G_{i+1}^-(y, V_{i+1}^-(a_i^-, \beta_i^-)(y),\beta_{i+1}^-)dy 
 \end{align*}
 
 Again, note that $H(0, 0, 0, 0) = 0$. We want to solve for $a_i^\pm$ using the implicit function theorem, so we need to look at $D_{a_i^\pm} H(0, 0, 0, 0)$. First, define
@@ -492,22 +500,22 @@ Thus, taking the partial derivative with respect to $a_i^\pm = 0$, we get
 \frac{\partial}{\partial a_i^\pm} H(0, 0, 0, 0) = \pm 1 + \mathcal{O} (e^{-\alpha X_i})
 \]
 
-Thus, for sufficiently large $X_i$, $D_{a_i^\pm} H(0, 0, 0, 0)$ is invertible in a neighborhood of $(0, 0, 0, 0)$, so we can use the IFT to solve for $a_i\pm$ in terms of $\beta_i^\pm$. \\
+Thus, for sufficiently large $X_i$, $D_{a_i^\pm} H(0, 0, 0, 0)$ is invertible in a neighborhood of $(0, 0, 0, 0)$, so we can use the IFT to solve for $a_i^\pm$ in terms of $\beta_i^\pm$. \\
 
-Now that we have found $a_i^\pm$ which satisfies the $H(a_i^+, a_i^-, \beta_i^+, \beta_i^-) = 0$, we can get an expression and estimates for the $a_i^\pm$. Recalling the spaces $a_i^\pm$ live in, we apply the projection $P^s_0$ to get
+Now that we have found $a_i^\pm$ which satisfies the $H(a_i^+, a_i^-, \beta_i^+, \beta_{i+1}^-) = 0$, we can get an expression and estimates for the $a_i^\pm$. Recalling the spaces $a_i^\pm$ live in, we apply the projection $P^s_0$ to get
 
 \begin{align*}
 0 &= a_i^+ + P^s_0(P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ 
-+ P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right)\\
++ P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_{i+1}^-)(-X_i) \right)\\
 &+ P^s_0 \left( \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(a_i^+, \beta_i^+)(y),\beta_i^+)dy \right) \\
-&- P^s_0 \left( \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_i^-) G_i^-(y, V_i^-(a_i^-, \beta_i^-)(y),\beta_i^-) dy \right)
+&- P^s_0 \left( \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_{i+1}^-) G_{i+1}^-(y, V_{i+1}^-(a_i^-, \beta_{i+1}^-)(y),\beta_{i+1}^-) dy \right)
 \end{align*}
 
 We have estimates for all of these terms. For the first two terms, we have
 
 \begin{align*}
 |P^s_0(P^u_+(X_i; \beta_i^+) -  P^u_0)a_i^+ | &\leq C e^{-\alpha X_i} |a_i^+| \\
-|P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right)| &\leq C e^{-\alpha X_i}.
+|P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_{i+1}^-)(-X_i) \right)| &\leq C e^{-\alpha X_i}.
 \end{align*}
 
 using our hypothesis above. For the integral terms, we have
@@ -542,7 +550,7 @@ a_i^+ = P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right)
 Similarly, we have
 
 \begin{align*}
-a_i^- = P^u_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right) 
+a_i^- = P^u_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_{i+1}^-)(-X_i) \right) 
 + \mathcal{O}( e^{-2 \alpha X_i} )
 \end{align*}
 
@@ -552,7 +560,7 @@ a_i^- = P^u_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_i^-)(-X_i) \right)
 Finally, we need the pieces to match at $x = 0$. In other words, we need to find $\beta_i^\pm$ such that $U_i^+(0) = U_i^-(0)$, i.e. 
 
 \begin{align*}
-Q^+(0, \beta^+) + V_i^+(0) = Q^-(0, \beta^-) + V_i^-(0)
+Q^+(0, \beta_i^+) + V_i^+(0) &= Q^-(0, \beta_i^-) + V_i^-(0) && i = 0, \dots, n-1
 \end{align*}
 
 Before we do that, we will need to make a smooth change of coordinates near $Q(0)$. We will do that using a variation of the ``flow-box'' method. What we want to do is straighten out the stable and unstable manifolds near $Q(0)$ so that their non-intersecting directions lie along $Y^+$ and $Y^-$.
@@ -642,10 +650,12 @@ P_{Y^\pm}(U_i^+(0) - U_i^-(0)) &= 0 \\
 P_Z(U_i^+(0) - U_i^-(0)) &= 0 \\
 \end{align*}
 
-We will do each of these in turn.
+We will do each of these in turn. In the next lemma, we solve for $(\beta_i^+, \beta_i^i)$ for $i = 0, \dots, n-1$. We do this for each pair separately.
+
+% lemma : solve for the \beta_i^\pm
 
 \begin{lemma}\label{solveforbeta}
-There exist $\beta_i^\pm$ such that $P_{Y^\pm}(U_i^+(0) - U_i^-(0)) = 0$. We have the estimate
+There exist $\beta_i^\pm$ such that $P_{Y^\pm}(U_i^+(0) - U_i^-(0)) = 0$ for $i = 0, \dots, n-1$. We have the estimate
 
 \begin{equation}
 | (\beta_i^+, \beta_i^-) | \leq C (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})
@@ -773,7 +783,7 @@ First, we come up with a nice expression for $\langle \Psi(0), V_i^+(0) - V_i^-(
 where 
 
 \begin{align*}
-|R_i| \leq C ( e^{-3 \alpha X_1} +  e^{-3 \alpha X_2} )
+|R_i| \leq C ( e^{-3 \alpha X_i} +  e^{-3 \alpha X_{i-1}} )
 \end{align*}
 \begin{proof}
 
@@ -789,24 +799,25 @@ Substituting the fixed point equations evaluated at $x = 0$, we have
 Before we continue, we make the following hypothesis (which we should be able to show). This combines the exponential dichotomy estimates with those for the parameters $\beta_i^\pm$.
 
 \begin{hypothesis}\label{betaevolution}
+For $x \geq 0$ we have
 \begin{align*}
-|(\Phi_+^u(0, X; \beta^+) - \Phi_+^u(0, X; 0)| &\leq C |\beta^+| e^{-\alpha X} \\
-|(\Phi_-^s(0, -X; \beta^+) - \Phi_-^s(0, -X; 0)| &\leq C |\beta^-| e^{-\alpha X} \\
+|(\Phi_+^u(0, x; \beta^+) - \Phi_+^u(0, x; 0)| &\leq C |\beta^+| e^{-\alpha x} \\
+|(\Phi_-^s(0, -x; \beta^+) - \Phi_-^s(0, -x; 0)| &\leq C |\beta^-| e^{-\alpha x} \\
 \end{align*}
 \end{hypothesis}
 
-Using this together with the estimate on $\beta_i^\pm$ from Lemma \ref{solveforbeta}, this gives us
+Using this together with the estimate on $\beta_i^\pm$ from Lemma \ref{solveforbeta} gives us for $x \geq 0$
 
 \begin{align*}
-|(\Phi_+^u(0, X; \beta^+) - \Phi_+^u(0, X; 0)| &\leq C e^{-\alpha X} (e^{-\alpha X_1} + e^{-\alpha X_2})\\
-|(\Phi_-^s(0, -X; \beta^+) - \Phi_-^s(0, -X; 0)| &\leq C e^{-\alpha X} (e^{-\alpha X_1} + e^{-\alpha X_2}) \\
+|(\Phi_+^u(0, x; \beta_i^+) - \Phi_+^u(0, x; 0)| &\leq C e^{-\alpha x} (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})\\
+|(\Phi_-^s(0, -x; \beta_i^-) - \Phi_-^s(0, -x; 0)| &\leq C e^{-\alpha x} (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}}) \\
 \end{align*}
 
-This implies
+This implies for $x > 0$
 
 \begin{align*}
-|Q^+(0, \beta_i^+)(X_i) - Q(X_i)| \leq C e^{-\alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2}) \\
-|Q^-(0, \beta_i^-)(-X_i) - Q(-X_i)| \leq C e^{-\alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2}) \\
+|Q^+(0, \beta_i^+)(x) - Q(x)| \leq C e^{-\alpha x} (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}}) \\
+|Q^-(0, \beta_i^-)(-x) - Q(-x)| \leq C e^{-\alpha x} (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}}) \\
 \end{align*}
 
 We also have the following estimate from Hypothesis \ref{p1existence}
@@ -849,23 +860,23 @@ For the other term, we have
 \langle \Psi(0), &\Phi_+(0, X_i; \beta_i^+) P^u_+(X_i; \beta_i^+) P^s_0 Q^-(0, \beta_i^-)(-X_i) \rangle \\
 &= \langle \Psi(0), \Phi_+^u(0, X_i; \beta_i^+) P^s_-(-X_i; \beta^-) Q^-(0, \beta_i^-)(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i}) \\
 &= \langle \Psi(0), \Phi_+^u(0, X_i; \beta_i^+) Q^-(0, \beta_i^-)(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i}) \\
-&= \langle \Psi(0), \Phi(0, X_i) Q^-(0, \beta_i^-)(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})) \\
-&= \langle \Psi(X_i), Q^-(0, \beta_i^-)(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})) \\
-&= \langle \Psi(X_i), Q(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})) \\
+&= \langle \Psi(0), \Phi(0, X_i) Q^-(0, \beta_i^-)(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha X_i} (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})) \\
+&= \langle \Psi(X_i), Q^-(0, \beta_i^-)(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha (X_i + X_{i-1})}) \\
+&= \langle \Psi(X_i), Q(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha (X_i + X_{i-1})}) \\
 \end{align*}
 
 Thus we have
 
 \begin{align*}
 \langle \Psi(0), \Phi^u_+(0, X_i; \beta_i^+) a_i^+ \rangle
-&= \langle \Psi(X_i), Q(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha X_i} (e^{-\alpha X_1} + e^{-\alpha X_2})) 
+&= \langle \Psi(X_i), Q(-X_i) \rangle + \mathcal{O}(e^{-3 \alpha X_i} + e^{-2 \alpha (X_i + X_{i-1})})
 \end{align*}
 
 Similarly, we have
 
 \begin{align*}
  \langle \Psi(0), \Phi^s_-(0, -X_{i-1}, \beta_i^-) a_{i-1}^- \rangle 
-&= \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + \mathcal{O}(e^{-3 \alpha X_{i-1}} + e^{-2 \alpha X_{i-1}} (e^{-\alpha X_1} + e^{-\alpha X_2})) 
+&= \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + \mathcal{O}(e^{-3 \alpha X_{i-1}} + e^{-2 \alpha (X_i + X_{i-1})}) 
 \end{align*}
 
 For the integral terms, we have
@@ -880,7 +891,7 @@ For the integral terms, we have
 
 The other integral term is similar, and is of order $e^{-3 \alpha X_{i-1}}$\\
 
-Combining these, we have
+Combining these, and noting the order $e^{-2 \alpha (X_i + X_{i-1})}$ term is subsumed into the order $e^{-3 \alpha X_i}$ and order $e^{-3 \alpha X_{i-1}}$ terms, we have
 
 \begin{align*}
 \langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 
@@ -890,7 +901,7 @@ Combining these, we have
 where 
 
 \begin{align*}
-|R_i| \leq C ( e^{-3 \alpha X_1} +  e^{-3 \alpha X_2} )
+|R_i| \leq C ( e^{-3 \alpha X_i} +  e^{-3 \alpha X_{i-1}} )
 \end{align*}
 
 \end{proof}
@@ -936,7 +947,7 @@ The Hamiltonian case follows from proof of Lemma 3.8 in SanStrut, where we flip 
 
 \end{lemma}
 
-In the next lemma, we rewrite the system of equations we are looking to solve using the above expressions for the appropriate inner products.
+In the next lemma, we rewrite the system of equations we are looking to solve using the above expressions for the appropriate inner products. The idea is that we want to get a decay rate for the remainder terms $R_i$ which does not depend on the individual $X_i$. The way we will accomplish this is have it depend on the smallest of the $X_i$.
 
 % Lemma : rewrite of system
 
@@ -944,7 +955,7 @@ In the next lemma, we rewrite the system of equations we are looking to solve us
 
 \begin{align*}
 \langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 
-s_0 e^{\alpha \phi / \beta } r \left( a_i \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) - a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r \right) \right) + R_i(a, r)
+s_0 e^{\alpha \phi / \beta } r \left[ a_i \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) - a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log (a_{i-1} r) \right) \right] + R_i(a, r)
 \end{align*}
 
 with 
@@ -956,56 +967,56 @@ R_i(a, r) &= \mathcal{O}(r^{1 + \tilde{\gamma}}) && 0 < \tilde{\gamma} < 1
 where 
 
 \begin{align*}
-a_i &= e^{-2 \alpha (X_i - X)} \\
-r &= e^{-\alpha( 2X + \phi / \beta ) }
+a_i &= e^{-2 \alpha (X_i - X_m)} \\
+r &= e^{-\alpha( 2 X_m + \phi / \beta ) }
 \end{align*}
 
-and $X$ is chosen so that $X_i > X$ for all $i$.
+and we recall that $X_m = \min \{ X_0, \dots, X_{n-1} \}$. Thus we will always have $a_i = 1$ for some $i$.
 
 \begin{proof}
 
 Taking the log of $a_i$ and solving for $2 \alpha X_i$, we get
 
 \[
-2 \alpha X_i = -\log a_i + 2 \alpha X
+2 \alpha X_i = -\log a_i + 2 \alpha X_m
 \]
 
 Taking the log of $r$ gives us
 
 \[
-\log r = -2 \alpha X - \alpha \phi / \beta
+\log r = -2 \alpha X_m - \alpha \phi / \beta
 \]
 
 which we substitute above to get
 
 \begin{align*}
 2 \alpha X_i &= -\log a_i - \log r - \alpha \phi / \beta \\
-&= -\log a_i r - \alpha \phi / \beta \\
+&= -\log (a_i r) - \alpha \phi / \beta \\
 \end{align*}
 
 Finally, we have
 
 \begin{align*}
-e^{-2 \alpha X_i} &= a_i e^{-2 \alpha X} \\
+e^{-2 \alpha X_i} &= a_i e^{-2 \alpha X_m} \\
 &= e^{\alpha \phi / \beta } a_i r
 \end{align*}
 
-Substituting this into our expression for $\langle \Psi(X), Q(-X) \rangle$ and using Lemmas \ref{IPform} and \ref{otherIP}, we have
+Substituting this into our expression for $\langle \Psi(X_i), Q(-X_i) \rangle$ and using Lemmas \ref{IPform} and \ref{otherIP}, we have
 
 \begin{align*}
 \langle \Psi(X_i), Q(-X_i) \rangle 
 &= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( 2 \beta X_i  + \phi \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
-&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( \frac{\beta}{\alpha} ( -\log a_i r - \alpha \phi / \beta ) + \phi \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
-&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
-&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) + \mathcal{O}(e^{-2 \alpha X (1 + \gamma / 2 \alpha)}) \\
-&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) + \mathcal{O}(r^{1 + \gamma / 2 \alpha})
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( \frac{\beta}{\alpha} ( -\log (a_i r) - \alpha \phi / \beta ) + \phi \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) + \mathcal{O}(e^{-2 \alpha X_m (1 + \gamma / 2 \alpha)}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) + \mathcal{O}(r^{1 + \gamma / 2 \alpha})
 \end{align*}
 
 Similarly, we have
 
 \begin{align*}
 \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle 
-&= s_0 e^{\alpha \phi / \beta } a_{i-1} r \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r \right) + \mathcal{O}(r^{1 + \tilde{\gamma}}) \\
+&= s_0 e^{\alpha \phi / \beta } a_{i-1} r \sin \left( - \frac{\beta}{\alpha} \log (a_{i-1} r) \right) + \mathcal{O}(r^{1 + \tilde{\gamma}}) \\
 \end{align*}
 
 where $\tilde{\gamma} = \min\{ 1, \gamma / 2 \alpha \}$. \\
@@ -1013,12 +1024,12 @@ where $\tilde{\gamma} = \min\{ 1, \gamma / 2 \alpha \}$. \\
 For the remainder term $R_i$ from Lemma \ref{IPform}, we have
 
 \begin{align*}
-R_i(a, r) &= \mathcal{O}( e^{-3 \alpha X_1} +  e^{-3 \alpha X_2} ) \\
-&= \mathcal{O}( e^{-2 \alpha X} e^{-\alpha X} ) \\
+R_i(a, r) &= \mathcal{O}( e^{-3 \alpha X_i} +  e^{-3 \alpha X_{i-1}} ) \\
+&= \mathcal{O}( e^{-3 \alpha X_m} ) \\
 &= \mathcal{O}(r^{1 + \tilde{\gamma}}) 
 \end{align*}
 
-Since all remainder terms are of order $r^{1 + \tilde{\gamma}}$, the result follows. 
+since $0 < \tilde{\gamma} \leq 1$. Thus since all remainder terms are of order $r^{1 + \tilde{\gamma}}$, the result follows. 
 
 \end{proof}
 \end{lemma}
@@ -1028,17 +1039,17 @@ In the next lemma, we write down the equations we need to solve for a periodic d
 % lemma : equations to solve
 
 \begin{lemma}\label{systemtosolve}
-A periodic double pulse solution exists if and only if for $i = 1, 2$
+A periodic multipulse solution exists if and only if for $i = 0, \dots, n-1$
 
 \begin{align*}
-a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log a_i r \right) = \tilde{R}_i(a, r)
+a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log (a_{i-1} r) \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) = \tilde{R}_i(a, r)
 \end{align*}
 
 where 
 
 \begin{align*}
-R_i(a, r) &= \mathcal{O}(r^{\tilde{\gamma}}) \\
-\frac{d}{d a_i} R_i(a, r) &= \mathcal{O}(r^{\tilde{\gamma}}) \\
+\tilde{R}_i(a, r) &= \mathcal{O}(r^{\tilde{\gamma}}) \\
+\frac{d}{d a_i} \tilde{R}_i(a, r) &= \mathcal{O}(r^{\tilde{\gamma}}) \\
 \end{align*}
 
 for some $\tilde{\gamma} > 0$
@@ -1054,141 +1065,138 @@ where $r > 0$. The bound on $\tilde{R}_i(a, r)$ comes from the bound on $R(a, r)
 \end{proof}
 \end{lemma}
 
-In the next lemma, we show we actually only need to solve one of these equations.
+In the next lemma, we show we don't need to solve the last one of these equations in the Hamiltonian case.
 
 % lemma : get rid of equations
 
 \begin{lemma}\label{reducedsystemtosolve}
-If the system is Hamiltonian or reversible, a periodic double pulse solution exists if and only if
+If the system is Hamiltonian, a periodic double pulse solution exists if and only if for $i = 1, \dots, n-1$
 
 \begin{align*}
-a_2 \sin \left(-\frac{\beta}{\alpha} \log a_2 r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) = \tilde{R}_1(a, r)
+a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log (a_{i-1} r) \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) = \tilde{R}_i(a, r)
 \end{align*}
 
 where $a_i$, $r$, and $R$ are as in the previous lemma.
 
 \begin{proof} 
-If the system is reversible, then by symmetry we only have to consider the equations for the left half of the double pulse. Thus we can discard half of the equations in the previous lemma, which leaves us with only one equation. To attain the desired solution, we use even symmetry to construct the right half of the double pulse.\\
-
-If the system is Hamiltonian, the energy $H$ is conserved, thus all solutions must exist within level sets of $H$. Recall that $\Psi(0) = \nabla H(Q(0)) \neq 0$. Thus the energy $H$ must change along any jump in the direction of $\Psi(0)$. In Lemma \ref{solvefora}, we matched the tails of the pieces. Assume we have already matched $U_1^-(0) = U_1^+(0)$. In Lemma \ref{solveforbeta}, we matched the $Y^\pm$ components of $U_2^-(0) = U_2^+(0)$. All that remains is to match the $\R \Psi(0)$ component of $U_2^-(0) = U_2^+(0)$. But this is automatically 0 since the two pieces involved must have the same energy, and if this were nonzero there would be a change of energy at this point. Thus we can eliminate the final equation from the previous lemma.\\
-
-In either case, since this is a double pulse, we are down to a single equation.
+If the system is Hamiltonian, the energy $H$ is conserved, thus all solutions must exist within level sets of $H$. Recall that $\Psi(0) = \nabla H(Q(0)) \neq 0$. Thus the energy $H$ must change along any jump in the direction of $\Psi(0)$. In Lemma \ref{solvefora}, we matched the tails of the pieces. Assume we have matched $U_i^-(0) = U_i^+(0)$ for all $i$ except $i = i_0$. In Lemma \ref{solveforbeta}, we matched the $Y^\pm$ components of $U_{i_0}^-(0) = U_{i_0}^+(0)$. All that remains is to match the $\R \Psi(0)$ component of $U_{i_0}^-(0) = U_{i_0}^+(0)$. But this is automatically 0 since the two pieces involved must have the same energy, and if this were nonzero there would be a change of energy at this point. Thus we can eliminate one of the equations from the previous lemma. Since it does not matter which we eliminate, we might as well eliminate the first one.\\
 \end{proof}
 \end{lemma}
 
-In the next lemma, we (finally!) solve for the $a_i$. Since lots of periodic double pulses should be possible, there will not be a unique solution, but this will let us know which solutions are possible.
+In the next lemma, we (finally!) solve for the $a_i$. Since lots of periodic multipulses should be possible, there will not be a unique solution, but this will let us know which solutions are possible.
 
 % lemma : possible solutions
 
 \begin{lemma}
 
-Let $r_n$ be defined by
+For $m \in \N$, define $r_m$ by
 
 \begin{equation}
-r_n =  e^{-(2 \pi \alpha / \beta) n}
+r_m =  e^{-(\pi \alpha / \beta) m}
 \end{equation}
 
-Then for sufficiently large $n$, there exists a countable family of solutions $(a_1(k_1^0), a_2^0)$ to 
+Then for sufficiently large $m$ there exists a solution $(a_0, a_1(r_m), \dots, a_{n-1}(r_m))$ to
 
 \begin{align*}
-a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 r_n \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r_n \right) = \tilde{R}_1(a, r_n)
+a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log (a_{i-1} r_m) \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log (a_i r_m) \right) &= \tilde{R}_i(a, r_m)
+&& i = 1, \dots, n-1
+\end{align*}
+
+where $a_0 = 1$, and for $i = 1, \dots, n-1$ we have
+
+\begin{align*}
+a_i(r_n) \approx a_i^0
 \end{align*}
 
 where
 
-\begin{equation}
-a_i^0 = e^{-\frac{\pi \alpha}{\beta} k_i^0 }
-\end{equation}
-
-for $k_i^0 \in \N_0$ and 
-
 \begin{align*}
-a_1(k_1^0, r_n) \approx a_1^0
+a_i^0 = e^{-\frac{\pi \alpha}{\beta} k_i^0 }
 \end{align*}
 
-We should be able to get a bound on how close this is; it does not matter for now, but it might be nice to have.
+for some $k_i^0 \in \N_0$. We should be able to get a nice bound on this estimate, but it does not matter for now.\\
+
+This is a countable family of solutions indexed by the $n$ natural numbers
+$(m, k_1^0, \dots, k_{n-1}^0)$.
 
 \begin{proof}
 
-From Lemma \ref{reducedsystemtosolve}, there is only one equation to solve.
-Define the function $G: \R^3 \rightarrow \R$ by
+From Lemma \ref{reducedsystemtosolve}, there are only $n-2$ equations to solve. Define the function $G: \R^n \rightarrow \R^{n-2}$ componentwise for $i = 1, \dots, n-1$ by
 
-\begin{equation}\label{arequation}
-G(a_1, a_2, r) = a_2 \sin \left(-\frac{\beta}{\alpha} \log a_2 r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) - \tilde{R}_1(a, r)
-\end{equation}
+\begin{equation*}
+G_i(a_0, \dots, a_{n-1}, r) = a_{i-1} \sin \left(-\frac{\beta}{\alpha} \log (a_{i-1} r) \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) - \tilde{R}_i(a, r)
+\end{equation*}
 
-We will take $r = r_n$, where
+However, we have two more unknowns than equations, which is not good. Luckily there is a way out. Recall that by the way we set things up, $a_i = 1$ for some $i$. Since we are on a periodic domain, we can WLOG ``rotate'' things so that $a_0 = 1$. We now have a system of equations $G: \R^{n-1} \rightarrow \R^{n-2}$ defined by 
+
+\begin{align*}
+G_1(a_1, \dots, a_{n-1}, r) &= \sin \left(-\frac{\beta}{\alpha} \log r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log (a_1 r) \right) - \tilde{R}_1(a, r) \\
+G_i(a_1, \dots, a_{n-1}, r) &= a_{i-1} \sin \left(-\frac{\beta}{\alpha} \log (a_{i-1} r) \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) - \tilde{R}_i(a, r) && i = 2, \dots, n-1 \\
+\end{align*}
+
+Next, we take $r = r_m$, where
 \[
-r_n =  e^{-(2 \pi \alpha / \beta) n}
+r_m =  e^{-(\pi \alpha / \beta) m}
 \]
 
-and $n \in \N$. Noting that $(\beta / \alpha) \log r_n = 0$, the equation for $G$ becomes
+and $m \in \N$. Noting that $(\beta / \alpha) \log r_m = -m \pi$, so that $\sin \left(-\frac{\beta}{\alpha} \log r_m \right) = \sin(m \pi) = 0$, the equations for $G$ become
 
-\begin{equation}\label{rinremainder}
-G(a_1, a_2, r_n) = a_2 \sin \left( - \frac{\beta}{\alpha} \log a_2 \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 \right) - \tilde{R}_1(a, r_n)
-\end{equation}
+\begin{align}\label{arequation}
+G_1(a_1, \dots, a_{n-1}, r_m) &= -a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 \right) - \tilde{R}_1(a, r_m ) \\
+G_i(a_1, \dots, a_{n-1}, r_m) &= a_{i-1} \sin \left(-\frac{\beta}{\alpha} \log a_{i-1} \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) - \tilde{R}_i(a, r_m) && i = 2, \dots, n-1 \\
+\end{align}
 
-The only dependence on $r_n$ is via the last term on the RHS, and we know that $\tilde{R}_i(a, r_n) = \mathcal{O}(r^{\tilde{\gamma}})$ from Lemma \ref{systemtosolve}. By continuity of $G$, we can send $n \rightarrow \infty$ (thus $r_n \rightarrow 0$) to get
+This is the system we are looking to solve. The only dependence on $r_m$ is via the remainder term on the RHS, and we know that $\tilde{R}_i(a, r_m) = \mathcal{O}(r_m^{\tilde{\gamma}})$ from Lemma \ref{systemtosolve}. By continuity of the remainder term in $r$, we can send $m \rightarrow \infty$ (thus $r_m \rightarrow 0$) to get
 
-\begin{equation}
-G(a_1, a_2, 0) = a_2 \sin \left(-\frac{\beta}{\alpha} \log a_2 \right) - a_1 \sin \left(-\frac{\beta}{\alpha} \log a_1 \right)
-\end{equation}
+\begin{align}
+G_1(a_1, \dots, a_{n-1}, 0) &= -a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 \right) \\
+G_i(a_1, \dots, a_{n-1}, 0) &= a_{i-1} \sin \left(-\frac{\beta}{\alpha} \log a_{i-1} \right) - a_i \sin \left(-\frac{\beta}{\alpha} \log a_i \right) && i = 2, \dots, n-1 \\
+\end{align}
 
-Now let
+Now, for $i = 1, \dots, n-1$, let
 
 \begin{equation}
 a_i^0 = e^{-\frac{\pi \alpha}{\beta} k_i^0 }
 \end{equation}
 
-for $k_i^0 \in \N_0$. Then we have $G(a_1^0, a_2^0, 0) = 0$. What we would like to do now is to use the implicit function theorem to solve for both $a_i$ in terms of $r$ near $(a_1^0, a_2^0, 0)$. But we only have one equation, and there are three unknowns!\\
-
-Fortunately there is a way around this. First, note that for $a_i = a_i^0$,
-
-\begin{align*}
-\sin\left( -\frac{\beta}{\alpha} \log a_i^0 r \right)
-&= \sin \left( -\frac{\beta}{\alpha} \log a_i^0 - \frac{\beta}{\alpha} \log r \right) \\
-&= \sin \left( \pi k_i^0 - \frac{\beta}{\alpha} \log r \right) \\
-&= (-1)^{k_i^0 + 1} \sin \left(- \frac{\beta}{\alpha} \log r \right)
-\end{align*} 
-
-Take $a_2 = a_2^0$ in \eqref{arequation}.
-Then let $\tilde{G}(a_1, r) = G(a_1, a_2^0, r)$, i.e.  
-
-\begin{equation}\label{arequation}
-\tilde{G}(a_1, r) = a_2^0 (-1)^{k_2^0 + 1} \sin \left(- \frac{\beta}{\alpha} \log r \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right) - \tilde{R}_1(a, r)
-\end{equation}
-
-Taking $r = r_n$ and sending $n \rightarrow \infty$ gives us
-
-\begin{equation}\label{arequation}
-\tilde{G}(a_1, 0) = - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 r \right)
-\end{equation}
-
-In particular, we have $\tilde{G}(a_1^0, 0) = 0$. We are now in position to use the implicit function theorem.\\
+for $k_i^0 \in \N_0$. Then we have $G(a_1^0, \dots, a_{n-1}^0, 0) = 0$. We are now in place to use the implicit function theorem to solve for $a_1, \dots, a_{n-1}$ in terms of $r$ near $(a_1^0, \dots, a_{n-1}^0, 0)$. To verify that we can do this, we need to take the partial derivatives of the component functions $G_i$ with respect to $a_i$.\\ 
 
 First, we note that using the bound on the derivative of $\tilde{R}_i(a, r)$ from Lemma \ref{systemtosolve}, the derivative of $\tilde{R}_i(a, r)$ with respect to $a_i$ at $r = 0$ is always 0, thus this term will not contribute. We also note that
 
 \begin{align*}
 \frac{\partial}{\partial a_i} a_i \sin \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0}
 &= \sin \left( - \frac{\beta}{\alpha} \log a_i r \right)\Big|_{a_i = a_i^0, r = 0} + a_i \cos \left( - \frac{\beta}{\alpha} \log a_i r \right)\left( -\frac{\beta}{\alpha} \frac{1}{a_i} \right) \Big|_{a_i = a_i^0, r = 0}\\
-&=(-1)^{k_i^0 + 1}\frac{\beta}{\alpha}
+&= -\frac{\beta}{\alpha}(-1)^{k_i^0} \\
+&= (-1)^{k_i^0 + 1}\frac{\beta}{\alpha}
 \end{align*}
 
-where we took the limit as $r \rightarrow 0$ as we did above. Since
+where we took the limit as $r \rightarrow 0$ as we did above. The Jacobian matrix of $G$ with respect to $(a_1, \dots, a_{n-1})$ at $(a_1^0, \dots, a_{n-1}^0, 0)$ is 
+
+\begin{equation}
+DG_{(a_1, \dots, a_{n-1})}(a_1^0, \dots, a_{n-1}^0, 0) 
+= \dfrac{\beta}{\alpha}
+\begin{pmatrix}
+(-1)^{k_1^0} & & & \\
+(-1)^{k_1^0 + 1} & (-1)^{k_2^0} \\
+0 & (-1)^{k_2^0 + 1} & (-1)^{k_3^0} \\
+\vdots & \vdots & \vdots \\
+0 & 0 & 0 & \dots & (-1)^{k_{n-2}^0 + 1} & (-1)^{k_{n-1}^0} 
+\end{pmatrix}
+\end{equation}
+
+Since this is lower triangular with all nonzero entries on the diagonal, it is invertible. Thus we can use the implicit function theorem to solve for $a_1, \dots, a_{n-1}$ in terms of $r$ near $(a_1^0, \dots, a_{n-1}^0, 0)$. In other words, there exists $r_0 > 0$ so that for $0 < r < r_0$ and $a_i$ close to $a_i^0$ we have functions $a_i(r)$ such that $a_i(0) = a_i^0$ and 
 
 \[
-\frac{\partial}{\partial a_1} \tilde{G}(a_1^0, 0) = -(-1)^{k_1^0 + 1}\frac{\beta}{\alpha} \neq 0
+G(a_1(r), \dots, a_{n-1}(r), r) = 0
 \]
 
-we can use the implicit function theorem to solve for $a_1$ in terms of $r$ near $(a_1^0, 0)$, i.e. there exists $r_0 > 0$ so that for $0 < r < r_0$ and $a_1$ close to $a_1^0$ we have a function $a_1(r)$ such that $a_1(0) = a_1^0$ and $\tilde{G}(a_1(r),r) = 0$.\\
-
-Now take $n \in \N$ so that $r_n < r_0$. Then
+Now take $m \in \N$ so that $r_m < r_0$. Then
 
 \[
-G(a_1(r_n), a_2^0, r_n) = \tilde{G}(a_1(r_n),r_n) = 0
-\] 
+G(a_1(r_m), \dots, a_{n-1}(r_m), r_m) = 0
+\]
 
-which proves the lemma.
+which proves the lemma. For small $r_m$, $a_i(r_m) \approx a_i^0$. We can get a bound on this if we like, but it is not needed.
 
 \end{proof}
 \end{lemma}
@@ -1198,65 +1206,46 @@ What we really would like is to have all of this in terms of the lengths $X_i$, 
 % lemma : write back in terms of the X_i
 
 \begin{lemma}
-For sufficiently large $n \in \N$, there exists a countable family of lengths $(X_1(k_1^0; n), X_2(k_1^0; n))$ with $k_i^0 \in \N_0$ such that
+For sufficiently large $m \in \N$, there exists a countable family of lengths $(X_0(m), X_1(k_1^0; m), \dots, X_{n-1}(k_{n-1}^0; m))$ with $k_i^0 \in \N_0$ such that
 
-\[
-\langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i = 0
-\]
+\begin{align*}
+\langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i &= 0 && i = 0, \dots, n-1
+\end{align*}
 
-The lengths $(X_i(k_i^0; n)$ are given by
+The lengths are given by
 
-\begin{equation}
-X_i(k_i^0; n) \approx \frac{1}{4} \left( \frac{2 \pi}{\beta} \right) k_i^0 + \frac{2 n \pi - \phi}{2 \beta}
-\end{equation}
-
-where the formula is exact for $X_2$.
+\begin{align*}
+X_0(m) &= \frac{\phi}{2 \beta} + m \left( \frac{1}{4} \frac{2 \pi}{\beta} \right) \\
+X_i(k_i^0; m) &\approx \frac{\phi}{2 \beta} + (k_i^0 + m) \left( \frac{1}{4} \frac{2 \pi}{\beta}\right)
+\end{align*}
 
 \begin{proof}
-Let $n \in \N$ be sufficiently large so that the previous lemma applies, and let $a_i^0$ be as in that lemma. Solving the expression for $a_i$ for $X_i$ yields
 
-\[
-X_i = -\frac{1}{2 \alpha}\log(a_i) + X(r_n)
-\]
-
-Solving for $X$ in terms of $r_n$ and substituting the expression for $r_n$, we get
+Recall that we have ``rotated'' the system so that $X_m = X_0$. Taking $r = r_m$ and solving for $X_0 = X_m$, we have 
 
 \begin{align*}
-X(r_n) &= -\frac{1}{2 \alpha}\log\left( r_n \right) - \frac{\phi}{2 \beta} \\
-&= -\frac{1}{2 \alpha}\log\left( e^{-(2 \pi \alpha / \beta) n} \right) - \frac{\phi}{2 \beta} \\
-&= \frac{n \pi}{\beta} - \frac{\phi}{2 \beta} \\
-&= \frac{2 n \pi - \phi}{2 \beta} 
+X_0 &= \frac{\phi}{2 \beta} + m \frac{\pi}{2 \beta} \\
+&= \frac{\phi}{2 \beta} + m \frac{1}{4} \frac{2 \pi}{\beta} \\
 \end{align*}
 
-By the previous lemma, $a_2$ is exactly $a_2^0$ and $a_1 \approx a_1^0$. Thus we have 
+Note that $\frac{2 \pi}{\beta}$ is the period of ``twisting'' of the stable and unstable manifolds about each other near the equilibrium point, so this agrees with our intuition of joins being possible approximately every ``quarter-twist''.\\
+
+For the remaining $X_i$, we have $a_i(r_m) \approx e^{-\frac{\pi \alpha}{\beta} k_i^0 }$. Solving the expression for $a_i$ in terms of $X_i$ and using this approximation, we have for $i = 1, \dots, n-1$
 
 \begin{align*}
-\log( a_i ) \approx -\frac{\pi \alpha}{\beta} k_i^0
+X_i &\approx X_0 + \frac{\pi}{2 \beta}k_i^0 \\
+&\approx \frac{\phi}{2 \beta} + (k_i^0 + m) \frac{1}{4} \frac{2 \pi}{\beta} 
 \end{align*}
-
-\[
-X_i(k_i^0; n) \approx \frac{\pi}{2 \beta} k_i^0 + \frac{2 n \pi - \phi}{2 \beta} 
-\]
-
-We can rewrite this as
-
-\[
-X_i(k_i^0; n) \approx \frac{1}{4} \left( \frac{2 \pi}{\beta} \right) k_i^0 + \frac{2 n \pi - \phi}{2 \beta}
-\]
-
-where the expression for $X_2$ is exact.\\
-
-Since $\frac{2 \pi}{\beta}$ is the period of ``twisting'' of the stable and unstable manifolds about each other near the equilibrium point, this agrees with our intuition of a join being possible every ``quarter-twist''.
 
 \end{proof}
 \end{lemma}
 
-We have successfully constructed a periodic double pulse. We now combine these results in the following theorem
+We have successfully constructed a periodic multipulse. We now combine these results in the following theorem
 
 % put it all together
 
 \begin{theorem}\label{2pconstruction}
-Given the assumptions in Hypothesis \ref{assumptions}, a periodic double pulse solution $Q_{2p}(x)$ of $U' = F(U)$ exists. $Q_{2p}(x)$ can be written piecewise as
+Given the assumptions in Hypothesis \ref{assumptions}, a periodic $n$-pulse solution $Q_{n,p}(x)$ of $U' = F(U)$ exists. $Q_{n, p}(x)$ can be written piecewise as
 
 \begin{align*}
 \begin{cases}
@@ -1265,7 +1254,7 @@ Q^+(0, \beta_i^+)(x) + U_i^+(x)
 \end{cases}
 \end{align*}
 
-where $Q^-(\alpha, \beta^-)(0)$ parameterizes the unstable manifold near $Q(0)$ and $Q^+(\alpha, \beta^+)(0)$ parameterizes the stable manifold near $Q(0)$. $Q^\pm(0, \beta_i^\pm)(x)$ lies along the stable (unstable) manifold, and $U_i^\pm(x)$ is a remainder term.\\
+for $i = 0, \dots, n-1$. $Q^-(\alpha, \beta_i^-)(0)$ parameterizes the unstable manifold near $Q(0)$ and $Q^+(\alpha, \beta_i^+)(0)$ parameterizes the stable manifold near $Q(0)$. $Q^\pm(0, \beta_i^\pm)(x)$ lies along the stable (unstable) manifold, and $U_i^\pm(x)$ is a remainder term.\\
 
 For the remainder term $U_i^\pm(x)$, we have bounds
 
@@ -1277,14 +1266,14 @@ For the remainder term $U_i^\pm(x)$, we have bounds
 For the initial conditions $\beta_i^\pm$, we have bounds
 
 \begin{equation}
-| \beta_i^\pm | \leq C (e^{-2 \alpha X_1} + e^{-2 \alpha X_2})
+| \beta_i^\pm | \leq C (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})
 \end{equation}
 
 This gives us bounds
 
 \begin{align*}
 |Q^\pm(0, \beta_i^\pm)(0) - Q(0)| = |\beta_i^\pm| \leq 
-C \left( e^{-\alpha X_1} + e^{-\alpha X_2} \right)
+C \left( e^{-\alpha X_i} + e^{-\alpha X_{i-1}} \right)
 \end{align*}
 
 \end{theorem}
@@ -1292,7 +1281,7 @@ C \left( e^{-\alpha X_1} + e^{-\alpha X_2} \right)
 % corollary : our problem
 
 \begin{corollary}
-For KdV5, if $c > 0$ there exists a double pulse solution $Q_{2p}(x)$. This solution can be written piecewise as in Theorem \ref{2pconstruction}, and bounds on the pieces are given in that theorem.
+For KdV5, if $c > 0$ there exists an $n$-pulse solution $Q_{n, p}(x)$. This solution can be written piecewise as in Theorem \ref{2pconstruction}, and bounds on the pieces are given in that theorem.
 
 \begin{proof}
 All we need to do is verify the assumptions in Hypothesis \ref{assumptions} for KdV5. If $c > 0$, the eigenvalues of $DF(0)$ are the complex quartet $\pm \alpha \pm \beta$. The remaining assumptions are discussed in the opening section, except for the transversality condition, which is a standard assumption in the literature.
