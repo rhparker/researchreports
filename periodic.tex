@@ -118,7 +118,7 @@ This is not the standard symplectic matrix $J$, but $\tilde{J}$ is invertible an
 
 We note that 0 is an equilibrium of the system. Let $Q(x)$ be a homoclinic orbit connecting the equilibrium at 0 to itself. Such a homoclinic orbit is known to exist. Then since $Q(0)$ is not an equilibrium point of the system, we also know that $\nabla H(Q(0)) \neq 0$ since $\tilde{J}$ is invertible.
 
-\subsection{Existence and Construction of Periodic Double Pulse}
+\subsection{Existence and Construction of Periodic Multipulses}
 
 We look at the general equation
 
@@ -126,7 +126,7 @@ We look at the general equation
 U'(x) = F(U)
 \end{equation}
 
-where $U \in \R^4$ and $F$ is real-valued. (This should work for $\R^{2m}$ with $m \geq 2$, but it is easier to consider this case. This should also extend to the complex-valued case.)\\
+where $U \in \R^{2m}$ and $F$ is real-valued. (This should also extend to the complex-valued case.)\\
 
 We take the following assumptions.
 
@@ -134,13 +134,16 @@ We take the following assumptions.
 \[\]
 \begin{enumerate}
 	\item $U = 0$ is a hyperbolic equilibrium of \eqref{generaleq}.
-	\item The spectrum of $D_U F(0)$ is $\pm \alpha \pm i \beta$, $\alpha, \beta > 0$, thus $D_U F(0)$ has two stable and two unstable directions.
 	\item There exists a homoclinic orbit $Q(x)$ connecting the equilibrium at 0 to itself.
 	\item We have a nondegeneracy condition
 	\[
 	T_{Q(0)} W^u(0) \cap T_{Q(0)} W_s(0) = \R Q'(0)
 	\]
-	\item The system is Hamiltonian, and $\nabla H(Q(0)) \neq 0$, where $H$ is the Hamiltonian energy
+	\item At least one of the following is true:
+	\begin{enumerate}
+		\item The system is reversible, and the homoclinic orbit $Q(x)$ is symmetric.
+		\item The system is Hamiltonian, and $\nabla H(Q(0)) \neq 0$, where $H$ is the Hamiltonian energy
+	\end{enumerate}
 \end{enumerate}
 \end{hypothesis}
 
@@ -150,7 +153,7 @@ By the nondegeneracy hypothesis, there exists a unique, bounded solution $\Psi(x
 W' = -D_U F(Q(x))^* W
 \end{equation}
 
-Since we are assuming the system is Hamiltonian, we actually know the specific form of $\Psi(x)$.
+If we assume the system is Hamiltonian, we actually know the specific form of $\Psi(x)$.
 
 % Lemma : Hamiltonian case
 
@@ -924,6 +927,66 @@ We could probably simplify this, but it does not end up mattering.
 \end{proof}
 \end{lemma}
 
+In the next lemma, we exploit symmetry properties to get an expression for $\langle \Psi(x), Q(-x) \rangle$.
+
+% lemma : symmetry of IP
+
+\begin{lemma}\label{otherIP}
+
+For a reversible system, we have
+
+\begin{equation}
+\langle \Psi(x), Q(-x) \rangle = \langle \Psi(-x), Q(x) \rangle
+\end{equation}
+
+For a Hamiltonian system, for sufficiently large $|x|$ we have
+
+\begin{equation}
+\langle \Psi(x), Q(-x) \rangle = \langle \Psi(-x), Q(x) \rangle
++ \mathcal{O}(e^{-3 \alpha x})
+\end{equation}
+
+\begin{proof}
+The reversibile case follows from Lemma 5.3 in San98. The Hamiltonian case follows from proof of Lemma 3.8 in SanStrut, where we flip the inner product since we are in a real vector space. 
+\end{proof}
+\end{lemma}
+
+In order to have a multipulse solution, all that remains is to satisfy $V_i^+(0) - V_i^-(0) = 0$ along $\Psi(0)$ for all $i$. In the next lemma, we write down the set of equations we need to satisfy for this to be the case.
+
+\begin{lemma}\label{IPsystem}
+A periodic multipulse solution exists if and only if 
+
+\begin{align}\label{jumpIPdiff}
+\langle \Psi(-X_i), Q(X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i &= 0 && i = 0, \dots, n-1
+\end{align}
+
+where 
+
+\begin{align*}
+|R_i| = \mathcal{O} ( e^{-3 \alpha X_i} +  e^{-3 \alpha X_{i-1}}
++ e^{-2 \alpha (X_i + X_{i+1})} + e^{-2 \alpha (X_{i-1} + X_i)})
+\end{align*}
+
+\begin{proof}
+We derived the equations we need to solve in Lemma \ref{jumplemma1}. Since we are assuming either a Hamiltonian system or reversibility, we use Lemma \ref{otherIP} to swap the signs on the first inner product in Lemma \ref{jumplemma1}. In the case of a Hamiltonian system, the $\mathcal{O}(e^{-3 \alpha X_i})$ term introduced when we change signs is incorporated into the remainder term $R_i$.
+\end{proof}
+\end{lemma}
+
+In the next lemma, we exploit either reversibility or the Hamiltonian structure to simplify the set of equations we need to solve.
+
+\begin{lemma}\label{IPsystemreduced}
+If the system is reversible and we seek symmetric solutions, we only have to solve \eqref{jumpIPdiff} for $i = 0, \dots, \lceil \frac{n}{2} \rceil - 1$. If the system is Hamiltonian, we only have to solve the first $n-1$ equations in \eqref{jumpIPdiff}, i.e. for $i = 0, \dots, n-2$. The final equation is then automatically satisfied.
+
+\begin{proof}
+For a reversible system, if we seek symmetric solutions, we only have to solve for the left half, i.e. for the half-line $(-\infty, 0]$. We can then extend to $[0, \infty)$ by symmetry.\\
+
+If the system is Hamiltonian, a heuristic argument is as follows. The energy $H$ is conserved, thus all solutions must exist within level sets of $H$. Recall that $\Psi(0) = \nabla H(Q(0)) \neq 0$. Thus the energy $H$ must change along any jump in the direction of $\Psi(0)$. In Lemma \ref{solvefora}, we matched the tails of the pieces. Assume we have matched $U_i^-(0) = U_i^+(0)$ for $i = 0, \dots, n-2$. In Lemma \ref{solveforbeta}, we matched the $Y^\pm$ components of $U_{n-1}^-(0) = U_{n-1}^+(0)$. All that remains is to match the $\R \Psi(0)$ component of $U_{n-1}^-(0) = U_{n-1}^+(0)$. But this is automatically 0 since the two pieces involved must have the same energy, and if this were nonzero there would be a jump in the energy at this point.\\
+
+We will fill in a detailed argument later, or we will cite an appropriate reference.
+\end{proof}
+\end{lemma}
+
+
 The next lemma is an expression for $\langle \Psi(-x), Q(x) \rangle$
 
 % lemma : expression for inner product
@@ -938,25 +1001,6 @@ where $0 < \gamma \leq 1$, $s_0 > 0$, and $\phi$ are constants.
 \begin{proof}
 Based on our assumptions in Hypothesis \ref{assumptions}, this follows from Lemma 6.1 in San98. In our case, we do not have a parameter $\mu$, so the $\mu$-dependent terms are constant. If it turns out that $\gamma > 1$, we take $\gamma = 1$.
 \end{proof}
-\end{lemma}
-
-We can then exploit symmetry properties to get an expression for $\langle \Psi(x), Q(-x) \rangle$.
-
-% lemma : symmetry of IP
-
-\begin{lemma}\label{otherIP}
-
-For a Hamiltonian system, we have
-
-\begin{equation}
-\langle \Psi(x), Q(-x) \rangle = \langle \Psi(-x), Q(x) \rangle
-+ \mathcal{O}(e^{-3 \alpha x})
-\end{equation}
-
-\begin{proof}
-This follows from proof of Lemma 3.8 in SanStrut, where we flip the inner product since we are in a real vector space. 
-\end{proof}
-
 \end{lemma}
 
 In the next lemma, we rewrite the system of equations we are looking to solve using the above expressions for the appropriate inner products. The idea is that we want to get a decay rate for the remainder terms $R_i$ which does not depend on the individual $X_i$. The way we will accomplish this is have them depend on $X_m$, the smallest of the $X_i$.
@@ -1080,21 +1124,6 @@ where $r > 0$. The bound on $\tilde{R}_i(a, r)$ comes from the bound on $R(a, r)
 
 In the next lemma, we show since our system is Hamiltonian, we don't need to solve one of these equations.
 
-% lemma : get rid of equations
-
-\begin{lemma}\label{reducedsystemtosolve}
-If the system is Hamiltonian, a periodic double pulse solution exists if and only if for $i = 1, \dots, n-1$
-
-\begin{align*}
-a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log (a_{i-1} r) \right) - a_i \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) = \tilde{R}_i(a, r)
-\end{align*}
-
-where $a_i$, $r$, and $R$ are as in the previous lemma.
-
-\begin{proof} 
-If the system is Hamiltonian, the energy $H$ is conserved, thus all solutions must exist within level sets of $H$. Recall that $\Psi(0) = \nabla H(Q(0)) \neq 0$. Thus the energy $H$ must change along any jump in the direction of $\Psi(0)$. In Lemma \ref{solvefora}, we matched the tails of the pieces. Assume we have matched $U_i^-(0) = U_i^+(0)$ for all $i$ except $i = i_0$. In Lemma \ref{solveforbeta}, we matched the $Y^\pm$ components of $U_{i_0}^-(0) = U_{i_0}^+(0)$. All that remains is to match the $\R \Psi(0)$ component of $U_{i_0}^-(0) = U_{i_0}^+(0)$. But this is automatically 0 since the two pieces involved must have the same energy, and if this were nonzero there would be a change of energy at this point. Thus we can eliminate one of the equations from the previous lemma. Since it does not matter which we eliminate, we eliminate the first one.\\
-\end{proof}
-\end{lemma}
 
 In the next lemma, we (finally!) solve for the $a_i$. Since lots of periodic multipulses should be possible, there will not be a unique solution, but this will let us know which solutions are possible.
 
