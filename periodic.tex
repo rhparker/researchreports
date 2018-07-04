@@ -304,8 +304,32 @@ i.e. it does not matter if we project or evolve first. Finally, the projections 
 \begin{proof}
 Since $D_U F(0)$ is hyperbolic by assumption, this follows from Lemma 5.1 in San97, which follows from Lemma 1.1 in San93.
 \end{proof}
-
 \end{lemma}
+
+The next lemma is a bound on the difference between the exponential dichotomy projections and the projections onto the stable and unstable eigenspaces.
+
+% lemma : bound on projection difference
+
+\begin{lemma}\label{p1}
+
+Let 
+
+\begin{equation}
+p_1(X; \beta^+, \beta^-) = \sup_{x \geq X} (|P^u_+(x; \beta^+) - P_0^u| + |P^s_-(-x; \beta^-) - P_0^s|)
+\end{equation}
+
+Then we have the $X$-dependent bound
+
+\begin{equation}
+p_1(X; \beta^+, \beta^-) = \mathcal{O}(e^{-\alpha X})
+\end{equation} 
+
+\begin{proof}
+This should follow from Lemma 1.1 in San93 (doesn't everything?) and is used in San98. Unfortunately, I don't really understand that lemma, so I will look for a reference I actually understand.
+\end{proof}
+\end{lemma}
+
+% rewrite as 1st order system
 
 Next, we rewrite the problem $U'(x) = F(U)$ in piecewise fashion in such a way as to exploit what we did above. We want to solve piecewise
 
@@ -496,19 +520,7 @@ H(a_i^+, &a_i^-, \beta_i^+, \beta_{i+1}^-) \\
 &- \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_{i+1}^-) G_{i+1}^-(y, V_{i+1}^-(a_i^-, \beta_{i+1}^-)(y),\beta_{i+1}^-)dy 
 \end{align*}
 
-Again, note that $H(0, 0, 0, 0) = 0$. We want to solve for $a_i^\pm$ using the implicit function theorem, so we need to look at $D_{a_i^\pm} H(0, 0, 0, 0)$. First, define
-
-\begin{equation}
-p_1(X; \beta^+, \beta^-) = \sup_{x \geq X} (|P^u_+(x; \beta^+) - P_0^u| + |P^s_-(-x; \beta^-) - P_0^s|)
-\end{equation}
-
-Based on Lemma \ref{dichotomy1}, we hypothesize the following bound for $p_1$.
-
-\begin{hypothesis}\label{p1existence}
-\begin{equation}
-p_1(X; \beta^+, \beta^-) = \mathcal{O}(e^{-\alpha X})
-\end{equation} 
-\end{hypothesis}
+Again, note that $H(0, 0, 0, 0) = 0$. We want to solve for $a_i^\pm$ using the implicit function theorem, so we need to look at $D_{a_i^\pm} H(0, 0, 0, 0)$.\\
 
 When we differentiate with respect to $a_i^\pm$ at $a_i^\pm = 0$, we note that the the derivatives of the integral terms in $H$ will be 0 since $G_i^\pm$ is quadratic order in $V_i^\pm$, thus quadratic order in $a_i^\pm$ by the previous lemma. The $Q^\pm$ terms do not involve $a_i^\pm$.\\
 
@@ -536,7 +548,7 @@ We have estimates for all of these terms. For the first two terms, we have
 |P^s_0 \left( Q^+(0, \beta_i^+)(X_i) - Q^-(0, \beta_{i+1}^-)(-X_i) \right)| &\leq C e^{-\alpha X_i}.
 \end{align*}
 
-using our hypothesis above. For the integral terms, we have
+using Lemma \ref{p1}. For the integral terms, we have
 
 \begin{align*}
 \left| \int_0^{X_i} \Phi_+^s(X_i, y; \beta_i^+) G_i^+(y, V_i^+(a_i^+, \beta_i^+)(y),\beta_i^+)dy \right| &\leq C \int_0^{X_i}e^{-\alpha(X_i - y)} |V_i^+(y)|^2 dy \\
@@ -839,7 +851,7 @@ This implies for $x \geq 0$
 |Q^-(0, \beta_i^-)(-x) - Q(-x)| \leq C e^{-\alpha x} (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}}) \\
 \end{align*}
 
-We also have the following estimate from Hypothesis \ref{p1existence}
+We also have the following estimate from Lemma \ref{p1}.
 
 \begin{align*}
 |P^u_+(X; \beta^+) - P_0^u| &\leq C e^{-\alpha X} \\
@@ -986,26 +998,56 @@ We will fill in a detailed argument later, or we will cite an appropriate refere
 \end{proof}
 \end{lemma}
 
+Up to this point, we have made no additional assumptions on our system. In order to satisfy the equations in Lemma \ref{IPsystem}, we will need to make some assumptions about the eigenvalues of $DF(0)$. This makes sense, since we know we need to have ``twisting manifolds'' to construct a nonperiodic multipulse. Thus we make the following additional hypothesis.
 
-The next lemma is an expression for $\langle \Psi(-x), Q(x) \rangle$
+\begin{hypothesis}The spectrum of $DF(0)$ contain simple eigenvalues $\pm \alpha \pm i \beta$, for $\alpha, \beta > 0$. The real part of any other eigenvalue of $DF(0)$ lies outside $(-\alpha, \alpha)$. Thus the equilibrium at 0 is a hyperbolic equilibrium, with both stable and unstable manifolds having dimension at least 2.
+\end{hypothesis}
+
+With this additional hypothesis, we have an expression for $\langle \Psi(-x), Q(x) \rangle$
 
 % lemma : expression for inner product
 
 \begin{lemma}\label{IPform}
 For $x > 0$ sufficiently large,
-\begin{equation}
+
+\begin{equation}\label{IPalphabeta}
 \langle \Psi(-x), Q(x) \rangle
 = s_0 e^{-2 \alpha x} \sin(2 \beta x + \phi) + \mathcal{O}(e^{-(2 \alpha + \gamma) x})
 \end{equation}
+
 where $0 < \gamma \leq 1$, $s_0 > 0$, and $\phi$ are constants.
 \begin{proof}
 Based on our assumptions in Hypothesis \ref{assumptions}, this follows from Lemma 6.1 in San98. In our case, we do not have a parameter $\mu$, so the $\mu$-dependent terms are constant. If it turns out that $\gamma > 1$, we take $\gamma = 1$.
 \end{proof}
 \end{lemma}
 
-In the next lemma, we rewrite the system of equations we are looking to solve using the above expressions for the appropriate inner products. The idea is that we want to get a decay rate for the remainder terms $R_i$ which does not depend on the individual $X_i$. The way we will accomplish this is have them depend on $X_m$, the smallest of the $X_i$.
+At this point, we will assume that we have a Hamiltonian system. Since we want to capture asymmetric solutions, we will not consider the reversibility case here.\\
 
-% Lemma : rewrite of system
+% Lemma : 
+
+\begin{lemma}
+
+\begin{proof}
+Substituting \eqref{IPalphabeta} into the system of equations \eqref{jumpIPdiff}, and recalling from Lemma \ref{IPsystemreduced} that since we have a Hamiltonian system we can drop the last one, we have the following system to solve
+
+\begin{align}\label{systemalphabeta}
+s_0 e^{-2 \alpha X_i} \sin(2 \beta X_i + \phi) - s_0 e^{-2 \alpha X_{i-1}} \sin(2 \beta X_{i-1} + \phi) + R_i &= 0 && i = 0, \dots, n-2
+\end{align}
+
+where, after incorporating the remainder terms from Lemmas \ref{jumplemma1} and \ref{IPalphabeta} into $R_i$, we have
+
+\begin{equation}
+R_i = \mathcal{O}(e^{-(2 \alpha + \gamma) X_i} + e^{-(2 \alpha + \gamma) X_{i-1}})
+\end{equation}
+
+with $0 < \gamma \leq 1$. Note that \eqref{systemalphabeta} has $n$ unknowns $X_0, \dots, X_{n-1}$ but only $n-1$ equations. Thus we can take one of the $X_i$ as a free paramater. Since we want the ``periodic distance'' $X_{n-1}$ to be able to take any value (as long as it is sufficiently large), we will let $X_{n-1}$ be a free paramater and will solve for the other $X_i$ in terms of that.\\
+
+
+
+\end{proof} 
+\end{lemma}
+
+% garbage
 
 \begin{lemma}\label{rewritewithr}
 
