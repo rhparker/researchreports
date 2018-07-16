@@ -1,0 +1,132 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\ran}{range}
+
+\graphicspath{ {periodic/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\newtheorem{notation}{Notation}
+
+\begin{document}
+
+\section{Rough idea for 2-pulse}
+
+Standard periodic 2-pulse, $2X_0$ is ``pulse distance'', $2X_1$ is ``period distance''.
+
+\begin{enumerate}
+
+\item Since Hamiltonian, we only have one equation we need to solve (SanStrut (3.9)).
+
+\begin{align}\label{jumpeq}
+\langle \Psi(-X_0), Q(X_0) \rangle - \langle \Psi(-X_1), Q(X_1) \rangle + R_0 &= 0
+\end{align}
+
+where $R_0 = \mathcal{O}(e^{-\alpha X_m})$, $X_m = \min\{X_i\}$.
+
+\item This is a single equation with two unknowns, so we expect to have a family of solutions paramaterized by one of the unknowns. We will let $X_1$ be the parameter, i.e. we get to choose $X_1$ (possibly with some restrictions that it be sufficiently large or somesuch). Having done that, the term $\langle \Psi(-X_1), Q(X_1) \rangle$ will be constant.
+
+\item From Lemma 6.1 in San98, we have an expression for $\langle \Psi(-x), Q(x) \rangle$ for sufficiently large $x$.
+
+\begin{equation}\label{alphabeta}
+\langle \Psi(-x), Q(x) \rangle
+= s_0 e^{-2 \alpha x} \sin(2 \beta x + \phi) + \mathcal{O}(e^{-(2 \alpha + \gamma) x})
+\end{equation}
+
+where $0 < \gamma \leq 1$.
+
+\item Plug \eqref{alphabeta} into \eqref{jumpeq} to get
+
+\begin{align}\label{jumpeqnew}
+s_0 e^{-2 \alpha X_0} \sin(2 \beta X_0 + \phi) - s_0 e^{-2 \alpha X_1} \sin(2 \beta X_1 + \phi) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_m}) &= 0
+\end{align}
+
+Remainder term $R_0$ is incorporated into $\mathcal{O}(e^{-(2 \alpha + \gamma) X_m})$ term, since $R_0$ is equal or higher order.
+
+\item For $X \leq \min\{ X_i \}$ let
+
+\begin{align}
+a_i &= e^{-2 \alpha (X_i - X)} \\
+r &= e^{-\alpha( 2 X + \phi / \beta ) }
+\end{align}
+
+Then rewrite only the first term on the LHS of \eqref{jumpeqnew} using this to get
+
+\begin{align}\label{jumpeqnew}
+s_0 e^{\alpha \phi / \beta } a_0 r \sin \left( - \frac{\beta}{\alpha} \log (a_0 r) \right) - s_0 e^{-2 \alpha X_1} \sin(2 \beta X_1 + \phi) + \mathcal{O}(r^{1 + \gamma / 2 \alpha}) &= 0
+\end{align}
+
+We don't do this for the second term on the LHS since we want it to have nothing to do with $r$. For the same reason, we do not divide this whole thing by $r$. We can make things easier by dividing by all the constants to get
+
+\begin{align}\label{jumpeqnew}
+a_0 r \sin \left( - \frac{\beta}{\alpha} \log (a_0 r) \right) - C e^{-2 \alpha X_1} \sin(2 \beta X_1 + \phi) + \mathcal{O}(r^{1 + \gamma / 2 \alpha}) &= 0
+\end{align}
+
+\item We want to use the IFT to solve for $a_0$ in terms of $r$, with $X_1$ as a parameter. Thus we want to solve
+
+\begin{align*}
+G(a_0, r; X_1) = 
+a_0 r \sin \left( - \frac{\beta}{\alpha} \log (a_0 r) \right) - C e^{-2 \alpha X_1} \sin(2 \beta X_1 + \phi) + \mathcal{O}(r^{1 + \gamma / 2 \alpha}) &= 0
+\end{align*}
+
+\item If we take $r = r_m$, where $r_m =  e^{-(\pi \alpha / \beta) m}$ for some natural number $m$, then this equation becomes
+
+\begin{align*}
+G(a_0, r; X_1) = 
+a_0 r_m \sin \left( - \frac{\beta}{\alpha} \log a_0 \right) - C e^{-2 \alpha X_1} \sin(2 \beta X_1 + \phi) + \mathcal{O}(r_m^{1 + \gamma / 2 \alpha}) &= 0
+\end{align*}
+
+all we have done in remove the $r$ from the $\log$ term.
+
+\item Let 
+
+\begin{align*}
+\tilde{G}(a_0, r; X_1) = 
+a_0 r \sin \left( - \frac{\beta}{\alpha} \log a_0 \right) - C e^{-2 \alpha X_1} \sin(2 \beta X_1 + \phi) + \mathcal{O}(r^{1 + \gamma / 2 \alpha}) &= 0
+\end{align*}
+
+The idea here should be that we can use the IFT to solve this for $a_0$ near $r = 0$. Then, as long as we take $m$ sufficiently large, 
+
+
+\end{enumerate}
+
+\end{document}

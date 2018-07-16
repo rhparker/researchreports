@@ -1042,6 +1042,68 @@ R_i = \mathcal{O}(e^{-(2 \alpha + \gamma) X_i} + e^{-(2 \alpha + \gamma) X_{i-1}
 
 with $0 < \gamma \leq 1$. Note that \eqref{systemalphabeta} has $n$ unknowns $X_0, \dots, X_{n-1}$ but only $n-1$ equations. Thus we can take one of the $X_i$ as a free paramater. Since we want the ``periodic distance'' $X_{n-1}$ to be able to take any value (as long as it is sufficiently large), we will let $X_{n-1}$ be a free paramater and will solve for the other $X_i$ in terms of that.\\
 
+We wish to solve for $X_0, \dots, X_{n-2}$ using the implicit function theorem. In order to do that, we make the following substitution. Recalling that $X_m = \min \{X_0, \dots X_{n-1} \}$, for $i = 0, \dots, n-2$ let
+
+\begin{align}
+a_i &= e^{-2 \alpha (X_i - X_m)} \\
+r &= e^{-\alpha( 2 X_m + \phi / \beta ) }
+\end{align}
+
+Manipulating these two and solving for $2 \alpha X_i$ gives us
+
+\begin{align*}
+2 \alpha X_i &= -\log (a_i r) - \alpha \phi / \beta \\
+\end{align*}
+
+Taking the exponential and simplifying gives us
+
+\begin{align*}
+e^{-2 \alpha X_i} &= e^{\alpha \phi / \beta } a_i r
+\end{align*}
+
+\[
+2 \alpha X_i = -\log a_i + 2 \alpha X_m
+\]
+
+Taking the log of $r$ gives us
+
+\[
+\log r = -2 \alpha X_m - \alpha \phi / \beta
+\]
+
+which we substitute above to get
+
+\begin{align*}
+2 \alpha X_i &= -\log a_i - \log r - \alpha \phi / \beta \\
+&= -\log (a_i r) - \alpha \phi / \beta \\
+\end{align*}
+
+Finally, we have
+
+\begin{align*}
+e^{-2 \alpha X_i} &= a_i e^{-2 \alpha X_m} \\
+&= e^{\alpha \phi / \beta } a_i r
+\end{align*}
+
+Substituting this into our expression for $\langle \Psi(X_i), Q(-X_i) \rangle$ and using Lemmas \ref{IPform} and \ref{otherIP}, we have
+
+\begin{align*}
+\langle \Psi(X_i), Q(-X_i) \rangle 
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( 2 \beta X_i  + \phi \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( \frac{\beta}{\alpha} ( -\log (a_i r) - \alpha \phi / \beta ) + \phi \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_i}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) + \mathcal{O}(e^{-2 \alpha X_m (1 + \gamma / 2 \alpha)}) \\
+&= s_0 e^{\alpha \phi / \beta } a_i r \sin \left( - \frac{\beta}{\alpha} \log (a_i r) \right) + \mathcal{O}(r^{1 + \gamma / 2 \alpha})
+\end{align*}
+
+Similarly, we have
+
+\begin{align*}
+\langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle 
+&= s_0 e^{\alpha \phi / \beta } a_{i-1} r \sin \left( - \frac{\beta}{\alpha} \log (a_{i-1} r) \right) + \mathcal{O}(r^{1 + \tilde{\gamma}}) \\
+\end{align*}
+
+where $\tilde{\gamma} = \min\{ 1, \gamma / 2 \alpha \}$. \\
 
 
 \end{proof} 
