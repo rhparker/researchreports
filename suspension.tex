@@ -81,19 +81,81 @@ Substituting this into \eqref{susp} gives us
 z_{tt} - c z_{\xi t} + c^2 z_{\xi \xi} + z_{\xi \xi \xi \xi} + e^{z} - 1 = 0
 \end{equation*}
 
-Since it's annoying to use $z$ and $\xi$, we rewrite this using $u$ and $x$ to get our traveling frame suspended beam equation
+The advantage of adding 1 in our ansatz is that the background for $z$ is at $z = 0$, whereas for $u$ it is at $u = 1$. Since it's annoying to use $z$ and $\xi$, we rewrite this using $u$ and $x$ to get our traveling frame suspended beam equation
 
-\begin{equation}
-u_{tt} - c u_{x t} +  + c^2 u_{xx} + e^{u} - 1 = 0
+\begin{equation}\label{susp3}
+u_{tt} - c u_{x t} + u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
 \end{equation}
 
 For an equilibrium solution (such as a homoclinic orbit), all time derivatives are zero, so any equilibrium solution must satisfy the ODE
 
-\begin{equation}
+\begin{equation}\label{eqODE}
 u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
 \end{equation}
 
-which is (46) on p. 342 of Chen97, with $\tilde{f}(u) = e^u - 1$.
+which is (46) on p. 342 of Chen97, with $\tilde{f}(u) = e^u - 1$.\\
+
+\subsection{Eigenvalue Problem}
+
+For linear stability analysis, we look at the PDE eigenvalue problem. To do this, assume we have found an equilibrium solution $u^*(x)$ of \eqref{eqODE}. Then we linearize around this by taking the standard linearization ansatz
+
+\begin{equation}
+u(x,t) = u_*(x) + \epsilon e^{\lambda t} v(x)
+\end{equation}
+
+Plugging this into \eqref{susp3} and keeping only terms up to order $\epsilon$, we obtain the quadratic eigenvalue problem
+
+\begin{equation}\label{evp}
+[\lambda^2 - c \partial_x \lambda + (\partial_x^4 + c^2 \partial_x^2 + e^{u_*})]v = 0
+\end{equation}
+
+As far as I know, there is nothing out there on how to deal with this. So we have to figure that out.\\
+
+First, let's write the eigenvalue problem as a first order system. Letting $V = (v_1, v_2, v_3, v_4) = (v, v_x, v_{xx}, v_{xxx})$, we have $V' = A(\lambda; u^*)V$, where
+
+\begin{equation}
+A(\lambda; u^*) = \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+-(\lambda^2 + e^{u_*}) & c \lambda & -c^2 & 0 
+\end{pmatrix}
+\end{equation}
+
+Assume we there exists an exponentially localized single pulse solution $u_0(x)$. Then, we can find the essential spectrum by looking at the asymptotic matrix
+
+\begin{equation*}
+A_\infty(\lambda) = \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+-(\lambda^2 + 1) & c \lambda & -c^2 & 0 
+\end{pmatrix}
+\end{equation*}
+
+The characteristic polynomial of this is 
+
+\begin{equation}\label{charpoly}
+p(\nu) = \nu^4 + c^2 \nu^2 - c \lambda \nu + (\lambda^2 + 1) 
+\end{equation} 
+
+For the essential spectrum, we want the values of $\lambda$ for which we have a purely imaginary eigenvalue, i.e. $\nu = i r$ for $r \in \R$. Plugging this in and collecting terms in $\lambda$, we get the equation
+
+\begin{equation}\label{fredholmborder}
+\lambda^2 - i c r \lambda - c^2 r^2  + r^4 + 1 = 0 
+\end{equation} 
+
+Solving for $\lambda$, we have
+
+\begin{equation}
+\lambda = \frac{1}{2} \left(i c r \pm 
+\sqrt{3 c^2 r^2-4 r^4-4}\right)
+\end{equation}
+
+The term under the radical sign is a quadratic in $r^2$. Thus since $r^2 \geq 0$, the term under the radical sign has a maximum of $-4$ at $r = 0$ and decreases smoothly to $-\infty$ as $r^2 \rightarrow \infty$. From this we see that $\lambda$ is always pure imaginary. The next question is whether the essential spectrum is the entire imaginary axis. Mathematica suggests there is a gap in the essential spectrum around the origin, so let's try to find that.\\
+
+
+
 
 
 
