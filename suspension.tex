@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[pdfborder={0 0 0.5 [3 2]}, plainpages=false]{hyperref}%
 \usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
 \usepackage[shortalphabetic]{amsrefs}%
 \usepackage{amsmath}
@@ -125,10 +125,12 @@ Plugging this into \eqref{susp3} and keeping only terms up to order $\epsilon$, 
 
 As far as I know, there is nothing out there on how to deal with this. So we have to figure that out.\\
 
+Before we do that, we should look at symmetry. For a given equilibrium solution $u^*$, suppose we have a solution $v(x)$ to \eqref{evp} with corresponding eigenvalue $\lambda$. By taking complex conjugates, it follows that $\overline{v}(x)$ is a solution with corresponding eigenvalue $\overline{\lambda}$. As long as $u^*(x)$ is an even function (which it typically is), if we replace $v(x)$ by $v(-x)$ and $\lambda$ by $-\lambda$, we also have a solution (this follows from the odd/even properties of the various operators involved). Thus we have the typical 4-fold symmetry of eigenvalues.\\ 
+
 First, let's write the eigenvalue problem as a first order system. Letting $V = (v_1, v_2, v_3, v_4) = (v, v_x, v_{xx}, v_{xxx})$, we have $V' = A(\lambda; u^*)V$, where
 
 \begin{equation}
-A(\lambda; u^*) = \begin{pmatrix}
+A(\lambda; u_*) = \begin{pmatrix}
 0 & 1 & 0 & 0 \\
 0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 1 \\
@@ -189,7 +191,44 @@ it suffices to look at $\lambda_+(r)$. Using Mathematica, we find
 \lambda_+'(r) = \frac{1}{2} \left(\frac{16 r^3-6 c^2 r}{2 \sqrt{4 r^4+4-3 c^2 r^2}}+c\right)
 \end{align*}
 
-Solving $\lambda_+'(r) = 0$ involves solving a 6th order polynomial, which Mathematica can do, but it is annoying so we won't deal with it for now. It appears that for $c > 0$, $\lambda_+'(r)$ has a minimum at some value $r_0$, and that $\lambda_+(r_0) > 0$. Thus numerical evidence suggests that essential spectrum has a gap around the origin. We will deal with this when we look at the numerics.
+Solving $\lambda_+'(r) = 0$ involves solving a 6th order polynomial, which Mathematica can do, but it is annoying so we won't deal with it for now. It appears that for $c > 0$, $\lambda_+'(r)$ has a minimum at some value $r_0$, and that $\lambda_+(r_0) > 0$. Thus numerical evidence suggests that essential spectrum has a gap around the origin. We will deal with this when we look at the numerics.\\
+
+Now that have looked at the essential spectrum, we can move on the point spectrum. There are only a few things we can say at this point.\\
+
+If $\lambda = 0$, the eigenvalue problem reduces to
+
+\begin{equation*}
+(\partial_x^4 + c^2 \partial_x^2 + e^{u_*})v = 0
+\end{equation*}
+
+If we take $v = \partial_x u_*$, then 
+\begin{align*}
+(\partial_x^4 + c^2 \partial_x^2 + e^{u_*})\partial_x u_* 
+&= \partial_x[(u_*)_{xxxx} + c^2 (u_*)_{xx} + e^{u_*}] \\
+&= \partial_x(1) \\
+&= 0
+\end{align*}
+
+where we use the fact that $u_*$ is an equilibrium solution, thus must satisfy \eqref{eqODE}. Thus 0 is an eigenvalue of \eqref{evp} with corresponding eigenfunction $\partial_x u_*$.\\
+
+Numerics suggests there is another (generalized) eigenvalue at 0, so let's try some stuff.\\
+
+Differentiate the equilibrium ODE \eqref{eqODE} with respect to $c$ to get
+
+\begin{align*}
+0 &= \frac{\partial}{\partial c}( u_{xxxx} + c^2 u_{xx} + e^{u} - 1 )\\
+&= (u_c)_{xxxx} + c^2 (u_c)_{xx} + e^u u_c + 2 c u_{xx}
+\end{align*}
+
+Taking $u = u_*$, we have
+
+\begin{align*}
+(\partial_c u_*)_{xxxx} + c^2 (\partial_c u_*)_{xx} 
++ e^{u_*} (\partial_c u_*) = -2 c (u_*)_{xx}
+\end{align*}
+
+So this is not it.
+
 
 \subsection{Numerics}
 
@@ -228,6 +267,7 @@ Here are plots of the stationary solution $u(x)$ found using this method for $c 
 \centering
 \includegraphics[width=8cm]{single1354.eps}
 \includegraphics[width=8cm]{single14.eps}
+\label{fig:single1}
 \caption{Stationary traveling wave solutions to \eqref{eqODE}. $c = 1.354$ (left) and $c = 1.40$ (right).}
 \end{figure}
 
@@ -237,6 +277,7 @@ We also compute solutions for other values of $c$.
 \centering
 \includegraphics[width=8cm]{single11.eps}
 \includegraphics[width=8cm]{single12.eps}
+\label{fig:single2}
 \caption{Stationary traveling wave solutions to \eqref{eqODE}. $c = 1.1$ (left) and $c = 1.2$ (right).}
 \end{figure}
 
@@ -248,13 +289,96 @@ As in the other cases, we expect that we can join the tails to form double pulse
 \centering
 \includegraphics[width=8cm]{double12_12.eps}
 \includegraphics[width=8cm]{double12_34.eps}
-\caption{Stationary double pulse traveling wave solutions to \eqref{eqODE} for $c = 1.2$. Double pulses 1 and 2 (left). Double pulses 3 and 4 (right).
+% \caption{Double pulse traveling wave solutions to \eqref{eqODE} for $c = 1.2$. Double pulses 1 and 2 (left). Double pulses 3 and 4 (right).
 \end{figure}
 
 We can obtain periodic versions of all of these by interpolating the finite difference solutions onto the appropriate periodic grid, writing the operators using Fourier spectral matrices, and using \texttt{fsolve}.
 
 
+\subsection{Lin's Method (attempt)}
+
+We will try the same thing as was done in San98. The main difference here is that we have a quadratic eigenvalue problem. The linearization about the rest state is hyperbolic, so that should present no problem. And we know that we have an eigenvalue at 0, so we should be able to perturb that eigenfunction to construct the interaction eigenfunctions. Numerical plots of the interaction eigenfunctions suggest that is possible. This is a sketch of what we need to do; if it looks promising, details can be filled it.
+
+\begin{enumerate}
+
+\item Let $q(x)$ be a single pulse equilibrium solution to \eqref{eqODE}. Suppose for now that it exists and decays exponentilly with rate $\alpha$. Suppose we have also constructed a double pulse $q_2(x)$, and it has the same decay properties. The double pulse is a perturbation of the single pulse, and can be written piecewise on the appropriate intervals as
+
+\[
+q_2(x) = q(x) + r_i^\pm(x)
+\]
+
+where the remainder term $r_i^\pm$ is small and hopefully we can get estimates on it.
+
+\item Write the EVP as 1st order system following San98. In other words, split off the $\lambda$ terms. Let $V = (v_1, v_2, v_3, v_4) = (v, v_x, v_{xx}, v_{xxx})$. Then we have
+
+\begin{equation}\label{splitevp}
+V' = A(q_2)V + \lambda B_1 V + \lambda^2 B_2 V
+\end{equation}
+
+where
+
+\begin{equation}
+A(q_2) = \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+-e^{q_2} & 0 & -c^2 & 0 
+\end{pmatrix}
+\end{equation}
+
+\begin{align*}
+B_1 = \begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & c & 0 & 0 
+\end{pmatrix} &&
+B_2 = \begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+-1 & 0 & 0 & 0 
+\end{pmatrix}
+\end{align*}
+
+\item The variational and adjoint variational equations we will use are
+
+\begin{align}
+V' &= A(q)V \\
+W' &= -A(q)^* W
+\end{align}
+
+For now, we assume that $Q'$ is the unique bounded solution to the variational equation, and that therefore the adjoint variational equation has a unique bounded solution $\Psi$.
+
+\item To exploit all of this, we will write our eigenfunction piecewise as
+
+\[
+V_i^\pm = d_i Q' + W_i^\pm = d_i(Q' + (R_i^\pm)') + W_i^\pm
+\]
+
+
+Now we substitute this into \eqref{splitevp}. Before we do this, we rewrite \eqref{splitevp} as 
+
+\begin{align*}
+V' &= A(q)V + (A(q_2) - A(q))V + \lambda B_1 V + \lambda^2 B_2 \\
+&= A(q)V + G_i^\pm V + \lambda B_1 V + \lambda^2 B_2
+\end{align*}
+
+where $G_i^\pm = A(q_2) - A(q) = A(q + r_i^\pm) - A(q)$. We don't have any bounds yet, but we can show easily that
+
+\begin{align*}
+G_i^\pm(x) &= \mathcal{O}(e^{q(x) + r_i^\pm(x)} - e^{q(x)} )\\
+&= \mathcal{O}(e^{q(x)}(e^{r_i^\pm(x)} - 1)) \\
+&= \mathcal{O}(e^{r_i^\pm(x)} - 1)
+\end{align*}
+
+since $q(x)$ is bounded and is given. The idea is that $r_i^\pm$ is small, thus $G_i^\pm$ is small as well.
+
+ 
 
 
 
+
+
+\end{enumerate}
 \end{document}
