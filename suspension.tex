@@ -67,7 +67,7 @@ Note that the equation used for most of the analysis in Chen97 is
 u_{tt} + u_{xxxx} + u^+ - 1 = 0
 \end{equation}
 
-which has a cusp at $u = 0$. On p. 351 of Chen97, Chen and McKenna note that they have proved existence of solutions only to \eqref{susp2}, not to \eqref{susp}, but there is strong numerical evidence that similar solutions exist for \eqref{susp}. At some point, we will look and see if this has been addressed. For now, we will say that the numerical evidence is ``good enough''.\\
+which has a cusp at $u = 0$. On p. 351 of Chen97, Chen and McKenna note that they have proved existence of solutions only to \eqref{susp2}, not to \eqref{susp}, but there is strong numerical evidence that similar solutions exist for \eqref{susp}. Fortunately, this has been addressed in the intervening years. \\
 
 We are interested in traveling wave solutions, so we take a modified form of the usual traveling wave ansatz. Letting $\xi = x - ct$, we take
 
@@ -84,7 +84,7 @@ z_{tt} - c z_{\xi t} + c^2 z_{\xi \xi} + z_{\xi \xi \xi \xi} + e^{z} - 1 = 0
 The advantage of adding 1 in our ansatz is that the background for $z$ is at $z = 0$, whereas for $u$ it is at $u = 1$. Since it's annoying to use $z$ and $\xi$, we rewrite this using $u$ and $x$ to get our traveling frame suspended beam equation
 
 \begin{equation}\label{susp3}
-u_{tt} - c u_{x t} + u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
+u_{tt} - 2 c u_{x t} + u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
 \end{equation}
 
 For an equilibrium solution (such as a homoclinic orbit), all time derivatives are zero, so any equilibrium solution must satisfy the ODE
@@ -95,7 +95,7 @@ u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
 
 which is (46) on p. 342 of Chen97, with $\tilde{f}(u) = e^u - 1$.\\
 
-Note that $u = 0$ is a solution to this. A homoclinic orbit, if it exists, connects this trivial solution to itself. If we linearize about this trivial solution, we get the ODE
+Note that $u = 0$ is a solution to this. A homoclinic orbit, if it exists, connects this constant equilibrium state to itself. If we linearize about this trivial solution, we get the ODE
 
 \begin{equation}
 v_{xxxx} + c^2 v_{xx} + 1 = 0
@@ -107,7 +107,9 @@ which has eigenvalues
 \nu = \pm \sqrt{\frac{-c^2 \pm \sqrt{c^4 - 4}}{2} }
 \end{equation}
 
-Note that $\sqrt{c^4 - 4}$ is always less that $c^2$ is magnitude. If $|c| < \sqrt{2}$, we have a nice complex conjugate quartet $\nu = \pm \alpha \pm \beta i$. When $c = \sqrt{2}$, these eigenvalues collide on the imaginary axis at $\pm i$, then for $|c| > \sqrt{2}$ we have a quartet of purely imaginary eigenvalues. 
+Note that $\sqrt{c^4 - 4}$ is always less that $c^2$ is magnitude. If $|c| < \sqrt{2}$, we have a complex conjugate quartet $\nu = \pm \alpha \pm \beta i$. When $c^2 = \sqrt{2}$, these eigenvalues collide on the imaginary axis at $\pm i$, then for $c^2 > 2$ we have a quartet of purely imaginary eigenvalues. Thus a bifurcation occurs at $c^2 = 2$.\\
+
+The existence of a homoclinic orbit equilibrum solution was shown by van den Berg et al (2018) using a computer-assisted proof method. They proved (Theorem 1) that a symmetric homoclinic orbit exists for \eqref{eqODE} for all paramater values $c^2 \in [0.5, 1.9]$.
 
 \subsection{Eigenvalue Problem}
 
@@ -120,90 +122,119 @@ u(x,t) = u_*(x) + \epsilon e^{\lambda t} v(x)
 Plugging this into \eqref{susp3} and keeping only terms up to order $\epsilon$, we obtain the quadratic eigenvalue problem
 
 \begin{equation}\label{evp}
-[\lambda^2 - c \partial_x \lambda + (\partial_x^4 + c^2 \partial_x^2 + e^{u_*})]v = 0
+[\lambda^2 - 2 c \partial_x \lambda + (\partial_x^4 + c^2 \partial_x^2 + e^{u_*})]v = 0
 \end{equation}
 
-As far as I know, there is nothing out there on how to deal with this. So we have to figure that out.\\
+which is in the general form of a quadratic eigenvalue problem $(A_2 \lambda^2 + A_1 \lambda + A_0)v = 0$, where in this case $A_2 = I$. We can also write this as
 
-Before we do that, we should look at symmetry. For a given equilibrium solution $u^*$, suppose we have a solution $v(x)$ to \eqref{evp} with corresponding eigenvalue $\lambda$. By taking complex conjugates, it follows that $\overline{v}(x)$ is a solution with corresponding eigenvalue $\overline{\lambda}$. As long as $u^*(x)$ is an even function (which it typically is), if we replace $v(x)$ by $v(-x)$ and $\lambda$ by $-\lambda$, we also have a solution (this follows from the odd/even properties of the various operators involved). Thus we have the typical 4-fold symmetry of eigenvalues.\\ 
+\begin{equation}\label{evp2}
+[(\lambda - c \partial_x)^2 + \partial_x^4 + e^{u_*}]v = 0
+\end{equation}
 
-First, let's write the eigenvalue problem as a first order system. Letting $V = (v_1, v_2, v_3, v_4) = (v, v_x, v_{xx}, v_{xxx})$, we have $V' = A(\lambda; u^*)V$, where
+Before we do that, we look at symmetry. For a given equilibrium solution $u^*$, suppose we have a solution $v(x)$ to \eqref{evp} with corresponding eigenvalue $\lambda$. By taking complex conjugates, it follows that $\overline{v}(x)$ is a solution with corresponding eigenvalue $\overline{\lambda}$. As long as $u^*(x)$ is an even function (which it typically is), if we replace $v(x)$ by $v(-x)$ and $\lambda$ by $-\lambda$, we also have a solution (this follows from the odd/even properties of the various operators involved). Thus we have the typical 4-fold symmetry of eigenvalues.\\ 
+
+To continue, let's write the eigenvalue problem as a first order system. Letting $V = (v_1, v_2, v_3, v_4) = (v, v_x, v_{xx}, v_{xxx})$, we have $V' = A(\lambda; u^*)V$, where
 
 \begin{equation}
 A(\lambda; u_*) = \begin{pmatrix}
 0 & 1 & 0 & 0 \\
 0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 1 \\
--(\lambda^2 + e^{u_*}) & c \lambda & -c^2 & 0 
+-(\lambda^2 + e^{u_*}) & 2 c \lambda & -c^2 & 0 
 \end{pmatrix}
 \end{equation}
 
-Assume we there exists an exponentially localized single pulse solution $u_0(x)$. Then, we can find the essential spectrum by looking at the asymptotic matrix
+Assume we there exists an exponentially localized solution $u_0(x)$. Then, we can find the essential spectrum by looking at the asymptotic matrix
 
 \begin{equation*}
 A_\infty(\lambda) = \begin{pmatrix}
 0 & 1 & 0 & 0 \\
 0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 1 \\
--(\lambda^2 + 1) & c \lambda & -c^2 & 0 
+-(\lambda^2 + 1) & 2 c \lambda & -c^2 & 0 
 \end{pmatrix}
 \end{equation*}
 
 The characteristic polynomial of this is 
 
 \begin{equation}\label{charpoly}
-p(\nu) = \nu^4 + c^2 \nu^2 - c \lambda \nu + (\lambda^2 + 1) 
+p(\nu) = \nu^4 + c^2 \nu^2 - 2 c \lambda \nu + (\lambda^2 + 1) 
 \end{equation} 
 
 For the essential spectrum, we want the values of $\lambda$ for which we have a purely imaginary eigenvalue, i.e. $\nu = i r$ for $r \in \R$. Plugging this in and collecting terms in $\lambda$, we get the equation
 
 \begin{equation}\label{fredholmborder}
-\lambda^2 - i c r \lambda - c^2 r^2  + r^4 + 1 = 0 
+\lambda^2 - 2 i c r \lambda - c^2 r^2  + r^4 + 1 = 0 
 \end{equation} 
 
 Solving for $\lambda$, we have
 
-\begin{equation}
-\lambda = \frac{1}{2} \left(i c r \pm 
-\sqrt{3 c^2 r^2-4 r^4-4}\right)
-\end{equation}
+\begin{align*}
+\lambda_\pm(r) &= i c r \pm \sqrt{-1 - r^4} \\
+&= \left( c r \pm \sqrt{1 + r^4} \right) i
+\end{align*}
 
-The term under the radical sign is a quadratic in $r^2$. Thus since $r^2 \geq 0$, the term under the radical sign has a maximum of $-4$ at $r = 0$ and decreases smoothly to $-\infty$ as $r^2 \rightarrow \infty$. From this we see that $\lambda$ is always pure imaginary. We can therefore write this as
+since $-1 - r^4 \leq -1 < 0$. Thus the essential specrum is purely imaginary. Since $\lambda(r) \rightarrow \pm \infty$ as $r \rightarrow \pm \infty$, the essential spectrum extends out to infinity along the imaginary axis. The question is whether the essential spectrum is the entire imaginary axis or whether there is a gap around the origin. Matlab suggests a gap at the origin, so let's look at that. Here is a plot of $\lambda_\pm(r)$ for $c = 1$ which shows that gap.
 
-\begin{equation}\label{lambdaimag}
-\lambda(r) = \frac{1}{2} \left(c r \pm 
-\sqrt{4 + 4 r^2 -3 c^2 r^2 }\right) i
-\end{equation}
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{essspec1.eps}
+\label{fig:essspec1}
+\caption{Imaginary part of the purely imaginary essential spectrum for $c = 1$.}
+\end{figure}
 
-where all the stuff in front of the $i$ is real.\\
-
-The next question is whether the essential spectrum is the entire imaginary axis. Mathematica suggests there is a gap in the essential spectrum around the origin, so let's try to find that.\\
-
-The equation \eqref{lambdaimag} is of the form $\lambda_\pm(r) = k r \pm f(r^2)$. Since
+The equation for $\lambda(r)$ is of the form $\lambda_\pm(r) = k r \pm f(r^2)$. Since
 
 \begin{align*}
 \lambda_-(-r) = -kr - f((-r)^2) = -(kr + f(r^2)) = -\lambda_+(r)
 \end{align*} 
 
-it suffices to look at $\lambda_+(r)$. Using Mathematica, we find
+and we take $r \in \R$, it suffices to look at $\lambda_+(r)$. Using Mathematica, we find
 
 \begin{align*}
-\lambda_+'(r) = \frac{1}{2} \left(\frac{16 r^3-6 c^2 r}{2 \sqrt{4 r^4+4-3 c^2 r^2}}+c\right)
+\lambda_+'(r) = c+\frac{2 r^3}{\sqrt{r^4+1}}
 \end{align*}
 
-Solving $\lambda_+'(r) = 0$ involves solving a 6th order polynomial, which Mathematica can do, but it is annoying so we won't deal with it for now. It appears that for $c > 0$, $\lambda_+'(r)$ has a minimum at some value $r_0$, and that $\lambda_+(r_0) > 0$. Thus numerical evidence suggests that essential spectrum has a gap around the origin. We will deal with this when we look at the numerics.\\
+Solving $\lambda_+'(r) = 0$ involves solving the 6th order polynomial
+
+\[
+4 r^6 - c^2 r^4 + c^2 = 0
+\]
+
+Mathematica will acutally do it (!), but it is an epic mess. So we will look at it numerically using Matlab. The next plot shows the minimum value of $\lambda_+(r)$ as a function of $c$. Note that for $c = 0$ this minimm is clearly $0$, and for $c = \sqrt{2}$ it is not hard to show that this minimum is actually 0 (hence no essential spectrum gap.) $c = \sqrt{2}$ is the bifurcation point mentioned above, so this is consistent.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{minlambdaplus.eps}
+\label{fig:essspec1}
+\caption{Imaginary part of the purely imaginary essential spectrum for $c = 1$.}
+\end{figure}
+
+Note that this minimum decreases strictly as $c$ increases, so the essential spectrum gap narrows (to 0) as $c$ increases from 0 to $\sqrt{2}$.\\
+
+We could probably do better, i.e. approximate or get an exact formula (likely a nasty one) for this curve, but this is good enough for now.\\
+
+When we compute the spectrum numerically with Matlab (details on how we do this are below), we see this essential spectrum gap around the origin. For $c = 1.2$, Matlab predicts that the essential spectrum gap is $[-0.2061, 0.2061]$. Here are plots of the computed spectrum from Matlab of the linearization about the single pulse solution. These show this essential spectrum gap. The eigenvalues at 0 are from translation invariance, which are discussed below.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{essspecboundsF256.eps}
+\includegraphics[width=8cm]{essspecboundsFD256.eps}
+\caption{Essential spectrum gap for $c = 1.2$. Fourier spectral methods, $N = 256$ (left), finite difference methods, $N = 256$ (right)}
+\end{figure}
 
 Now that have looked at the essential spectrum, we can move on the point spectrum. There are only a few things we can say at this point.\\
 
 If $\lambda = 0$, the eigenvalue problem reduces to
 
 \begin{equation*}
-(\partial_x^4 + c^2 \partial_x^2 + e^{u_*})v = 0
+A_0 v = (\partial_x^4 + c^2 \partial_x^2 + e^{u_*})v = 0
 \end{equation*}
 
 If we take $v = \partial_x u_*$, then 
 \begin{align*}
-(\partial_x^4 + c^2 \partial_x^2 + e^{u_*})\partial_x u_* 
+A_0 \partial_x u_* &= 
+(\partial_x^4 + c^2 \partial_x^2 + e^{u_*})\partial_x u_* \\
 &= \partial_x[(u_*)_{xxxx} + c^2 (u_*)_{xx} + e^{u_*}] \\
 &= \partial_x(1) \\
 &= 0
@@ -211,26 +242,11 @@ If we take $v = \partial_x u_*$, then
 
 where we use the fact that $u_*$ is an equilibrium solution, thus must satisfy \eqref{eqODE}. Thus 0 is an eigenvalue of \eqref{evp} with corresponding eigenfunction $\partial_x u_*$.\\
 
-Numerics suggests there is another (generalized) eigenvalue at 0, so let's try some stuff.\\
+When we solve for the eigenvalues numerically (again, details below), we get eigenvalues (close to) 0, but both eigenfunctions look like the derivative of $u_*$. In this case, I don't think we can have a generalized kernel function since the operator $A_0$ is self-adjoint, so by the Fredholm alternative we cannot have a function $v$ such that $A_0 v = \partial_x u_*$. (Otherwise $\partial_x u_*$ would be perpendicular to the kernel of $A_0^* = A_0$, which is impossible.)\\
 
-Differentiate the equilibrium ODE \eqref{eqODE} with respect to $c$ to get
+Best guess is that we get two eigenvalues at 0 from the quadratic solver because of how it works.
 
-\begin{align*}
-0 &= \frac{\partial}{\partial c}( u_{xxxx} + c^2 u_{xx} + e^{u} - 1 )\\
-&= (u_c)_{xxxx} + c^2 (u_c)_{xx} + e^u u_c + 2 c u_{xx}
-\end{align*}
-
-Taking $u = u_*$, we have
-
-\begin{align*}
-(\partial_c u_*)_{xxxx} + c^2 (\partial_c u_*)_{xx} 
-+ e^{u_*} (\partial_c u_*) = -2 c (u_*)_{xx}
-\end{align*}
-
-So this is not it.
-
-
-\subsection{Numerics}
+\subsection{Numerics, Construction of Solutions}
 
 The big issue here is that stationary solutions to \eqref{eqODE} are hard to come by. Nonetheless, we have figured out a way to compute these numerically, although it is a bit dicey. Our method is a variant of the mountain pass and string methods, and essentially combines Chen97 and Chamard10.
 
@@ -292,8 +308,51 @@ As in the other cases, we expect that we can join the tails to form double pulse
 % \caption{Double pulse traveling wave solutions to \eqref{eqODE} for $c = 1.2$. Double pulses 1 and 2 (left). Double pulses 3 and 4 (right).
 \end{figure}
 
-We can obtain periodic versions of all of these by interpolating the finite difference solutions onto the appropriate periodic grid, writing the operators using Fourier spectral matrices, and using \texttt{fsolve}.
+We can obtain periodic versions of all of these by interpolating the finite difference solutions onto the appropriate periodic grid, writing the operators using Fourier spectral matrices, and using \texttt{fsolve}. This is not shown.\\
 
+\subsection{Numerics, Eigenvalue Computation}
+
+It turns out that Matlab has a built-in polynomial eigenvalue solver, \texttt{polyeig}. However, I decided to use the quadratic eigenvalue solver \texttt{quadeig} by Chris Munro, Sven Hammarling and Francoise Tisseu (2013) because they say it's better.\\
+
+Since this is going to look a lot like things I have already done, I will not show all the plots. First, we look at $c = 1.2$.\\
+
+For the first double pulse, here is the specrum (zoomed near the origin) and a plot of the eigenfunctions corresponding to the small interaction eigenvalues. Note there is a pair of real interaction eigenvalues.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{spec12_double1.eps}
+\includegraphics[width=8cm]{evecs12_double1.eps}
+\caption{Linearization about Double Pulse 1. Spectrum (left) and interaction eigenfunctions (right). Finite difference methods, $N = 512$, $c = 1.2$.}
+\end{figure}
+
+Next we look at the second double pulse. Note that this time we have a pair of purely imaginary (to leading order, there is a small real part of order like 1e-10 just as with KdV5) eigenvalues. The plot below is only the real part of the eigenfunctions. It is easy to locate the interaction eigenvalues in this case, since we have bounds on the essential spectrum. The interaction eigenvalues lie inside the essential spectrum gap.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{spec12_double2.eps}
+\includegraphics[width=8cm]{evecs12_double2real.eps}
+\caption{Linearization about Double Pulse 2. Spectrum (left) and real part of interaction eigenfunctions (right). Finite difference methods, $N = 512$, $c = 1.2$.}
+\end{figure}
+
+The same pattern repeats (alternating real and purely imaginary interaction eigenvalues) as we go to higher double pulses.\\
+
+For other values of $c$, the odd-numbered double pulses have the same eigenvalue pattern, so we will focus on the even-numbered double pulses. Let's look at $c = 1.354$ (this value was used in Chen97). For Double Pulse 2, we now have a quartet of interaction eigenvalues. Their imaginary part now lies \emph{outside} the essential spectrum gap. This suggests that a Krein collision has occurred, where the interaction eigenvalues collide with the smallest essential spectrum eigenvalue and then form a quartet.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{spec1354_double2.eps}
+\caption{Linearization about Double Pulse 2. Spectrum showing Krein quartet. Finite difference methods, $N = 512$, $c = 1.354$.}
+\end{figure}
+
+
+The next two plots show that the Krein collision occurs between $c = 1.322$ (before collision) and $c = 1.323$ (after collision).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{spec1322_double2.eps}
+\includegraphics[width=8cm]{spec1323_double2.eps}
+\caption{Linearization about Double Pulse 2. Spectrum before Krein collsion ($c = 1.322$, left) and after Krein collision ($c = 1.323$, right). Finite difference methods, $N = 512$}
+\end{figure}
 
 \subsection{Lin's Method (attempt)}
 
@@ -331,7 +390,7 @@ B_1 = \begin{pmatrix}
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
-0 & c & 0 & 0 
+0 & 2 c & 0 & 0 
 \end{pmatrix} &&
 B_2 = \begin{pmatrix}
 0 & 0 & 0 & 0 \\
@@ -348,23 +407,44 @@ V' &= A(q)V \\
 W' &= -A(q)^* W
 \end{align}
 
-For now, we assume that $Q'$ is the unique bounded solution to the variational equation, and that therefore the adjoint variational equation has a unique bounded solution $\Psi$.
+For now, we assume that $Q'$ is the unique bounded solution to the variational equation, and that therefore the adjoint variational equation has a unique bounded solution $\Psi$. Let $Z = \C \Psi(0)$.
 
 \item To exploit all of this, we will write our eigenfunction piecewise as
 
 \[
-V_i^\pm = d_i Q' + W_i^\pm = d_i(Q' + (R_i^\pm)') + W_i^\pm
+V_i^\pm = d_i Q_2' + W_i^\pm = d_i(Q' + (R_i^\pm)') + W_i^\pm
 \]
 
 
-Now we substitute this into \eqref{splitevp}. Before we do this, we rewrite \eqref{splitevp} as 
+Now we substitute this into \eqref{splitevp}. Using the fact that $(Q_2')' = A(q_2)Q_2'$, this becomes
+
+\[
+(W_i^\pm)' =A(q_2)W_i^\pm + \lambda B_1 W_i^\pm + \lambda^2 B_2 W_i^\pm 
++ \lambda B_1 d_i Q_2' + \lambda^2 B_2 d_i Q_2' 
+\]
+
+Let 
 
 \begin{align*}
-V' &= A(q)V + (A(q_2) - A(q))V + \lambda B_1 V + \lambda^2 B_2 \\
-&= A(q)V + G_i^\pm V + \lambda B_1 V + \lambda^2 B_2
+\tilde{H}_i^\pm &= Q_2' = Q' + (R_i^\pm)' \\
+H &= Q'
 \end{align*}
 
-where $G_i^\pm = A(q_2) - A(q) = A(q + r_i^\pm) - A(q)$. We don't have any bounds yet, but we can show easily that
+Then this becomes
+
+\[
+(W_i^\pm)' =A(q_2)W_i^\pm + \lambda B_1 W_i^\pm + \lambda^2 B_2 W_i^\pm 
++ \lambda B_1 d_i \tilde{H}_i^\pm + \lambda^2 B_2 d_i \tilde{H}_i^\pm 
+\]
+
+Finally, let $G_i^\pm = A(q_2) - A(q) = A(q + r_i^\pm) - A(q)$. Then this becomes
+
+\[
+(W_i^\pm)' =A(q)W_i^\pm + (G_i^\pm + \lambda B_1 + \lambda^2 B_2) W_i^\pm 
++ d_i( \lambda B_1 + \lambda^2 B_2 ) \tilde{H}_i^\pm 
+\]
+
+We don't have any bounds on anything yet, but we can show easily that
 
 \begin{align*}
 G_i^\pm(x) &= \mathcal{O}(e^{q(x) + r_i^\pm(x)} - e^{q(x)} )\\
@@ -372,12 +452,107 @@ G_i^\pm(x) &= \mathcal{O}(e^{q(x) + r_i^\pm(x)} - e^{q(x)} )\\
 &= \mathcal{O}(e^{r_i^\pm(x)} - 1)
 \end{align*}
 
-since $q(x)$ is bounded and is given. The idea is that $r_i^\pm$ is small, thus $G_i^\pm$ is small as well.
+since $q(x)$ is bounded and is given. The idea is that $r_i^\pm$ is small, thus $G_i^\pm$ is small as well.\\
 
- 
+Thus we have the following system we need to solve.
 
+\begin{enumerate}[(i)]
+\item $(W_i^\pm)' A(q)W_i^\pm + (G_i^\pm + \lambda B_1 + \lambda^2 B_2) W_i^\pm + d_i( \lambda B_1 + \lambda^2 B_2 ) \tilde{H}_i^\pm$
+\item $W_i^\pm(0) \in Z \oplus Y^+ \oplus Y^-$
+\item $W_i^+(0) - W_i^-(0) \in Z$
+\item $W_i^+(X_i) - W_{i+1}^-(-X_i) = D_i d$
+\end{enumerate}
 
+where
 
+\begin{equation}
+D_i d = (Q'(-X_i) + (R_{i+1}^-)(-X_i))d_{i+1}
+- (Q'(X_i) + (R_i^+(X_i))d_i
+\end{equation}
+
+Compare this to (3.7) and (3.8) in San98. This is essentially the same except for the quadratic terms in $\lambda$.\\
+
+Let $\Phi(y, x)$ be the evolution operator of the variational equation. Since the linearization about the zero solution is hyperbolic, the adjoint variational equation has an exponential dichotomy on $\R^\pm$, and we split the evolution operator up into pieces $\Phi_\pm^{s/u}$ on the approprate pieces of the dichotomy. We have the usual estimates for these.\\
+
+Next, we write this in integrated form. This will be the same as in San98, except we have the presence of the $\lambda^2$ terms.
+
+\begin{align*}
+W_i^-(x) = \Phi_-^s(&x, -X_{i-1})a_{i-1}^- + \Phi_-^u(x, 0)b_i^- \\
+&+ \int_0^x \Phi_-^u(x, y)[(G_i^-(y) + \lambda B_1 + \lambda^2 B_2) W_i^-(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^-(y) ] dy \\
+&+ \int_{-X_{i-1}}^x \Phi_-^s(x, y)[(G_i^-(y) + \lambda B_1 + \lambda^2 B_2) W_i^-(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^-(y) ] dy \\
+W_i^+(x) = \Phi_+^u(&x, X_i)a_i^+ + \Phi_+^s(x, 0)b_i^+ \\
+&+ \int_0^x \Phi_+^s(x, y)[(G_i^+(y) + \lambda B_1 + \lambda^2 B_2) W_i^+(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^+(y) ] dy \\
+&+ \int_{X_i}^x \Phi_+^u(x, y)[(G_i^+(y) + \lambda B_1 + \lambda^2 B_2) W_i^+(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^+(y) ] dy
+\end{align*}
+
+Again, these are similar to (3.14) in San98, except for the presence of the $\lambda^2$ terms.\\
+
+Before we keep going, by what we have learned so far, we know this will produce two Melkinov integrals, one for each of the $B_i$. These should be, based on what we have from before
+
+\begin{align*}
+M_1 &= \int_{-\infty}^\infty \langle \Psi(x), B_1 H(x) \rangle dx \\
+M_2 &= \int_{-\infty}^\infty \langle \Psi(x), B_2 H(x) \rangle dx
+\end{align*}
+
+Since $H(x) = Q'(x)$, we know what that is. We need to figure out what $\Psi$ is. The variational problem, if we write it as a 4th order ODE, is
+
+\[
+(\partial_x^4 + c^2 \partial_x^2 + e^{q})]v = 0
+\]
+
+This has unique bounded solution $q'(x)$. Since only even derivatives are involved, this is self-adjoint, thus the adjoint variational problem, when written in this form, also has a unique solution $q'(x)$. We know from before that this implies that for the system-version $\Psi' = -A(q)^* \Psi$, the fourth component of $\Psi$ is $q'(x)$. From this we can determine the rest. Written out, the matrix equation $W' = -A(q)^* W$ is
+
+\begin{equation}
+\begin{pmatrix}w_1 \\ w_2 \\ w_3 \\ w_4 \end{pmatrix}' =
+\begin{pmatrix}
+0 & 0 & 0 & e^q \\
+-1 & 0 & 0 & 0 \\
+0 & -1 & 0 & c^2 \\
+0 & 0 & -1 & 0 
+\end{pmatrix}
+\begin{pmatrix}w_1 \\ w_2 \\ w_3 \\ w_4 \end{pmatrix}
+\end{equation}
+
+This is equivalent to the system of four equations
+
+\begin{align*}
+w_1' &= e^q w_4 \\
+w_2' &= -w_1 \\
+w_3' &= -w_2 + c^2 w_4 \\
+w_4' &= -w_3
+\end{align*}
+
+Rearranging to solve for $(w_1, w_2, w_3)$ in terms of $w_4$, we have
+
+\begin{align*}
+w_3 &= -w_4' \\
+w_2 &= w_4'' + c^2 w_4 \\
+w_1 &= -w_4''' - c^2 w_4'
+\end{align*}
+
+The final equation becomes $-w_4'''' - c^2 w_4' = e^q w^4$, which is satisfied, as expected, by $w_4 = q'$. Thus we have
+
+\begin{align*}
+\Psi = \begin{pmatrix}
+-q'''' - c^2 q''\\
+q''' + c^2 q'\\
+-q''\\
+q'
+\end{pmatrix}
+\end{align*}
+
+Using this, we can compute the Melnikov integrals.
+
+\begin{align*}
+M_1 &= \int_{-\infty}^\infty \langle \Psi(x), B_1 \tilde{H}(x) \rangle dx \\
+&= \int_{-\infty}^\infty c q'(x) q''(x) dx \\
+&= 0 \\
+M_2 &= \int_{-\infty}^\infty \langle \Psi(x), B_2 \tilde{H}(x) \rangle dx \\
+&= \int_{-\infty}^\infty  (q'(x))^2 dx \\
+&\neq 0
+\end{align*}
+
+Since one of these is nonzero, we should be good.
 
 
 \end{enumerate}
