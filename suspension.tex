@@ -67,7 +67,7 @@ Note that the equation used for most of the analysis in Chen97 is
 u_{tt} + u_{xxxx} + u^+ - 1 = 0
 \end{equation}
 
-which has a cusp at $u = 0$. On p. 351 of Chen97, Chen and McKenna note that they have proved existence of solutions only to \eqref{susp2}, not to \eqref{susp}, but there is strong numerical evidence that similar solutions exist for \eqref{susp}. Fortunately, this has been addressed in the intervening years. \\
+which has a cusp at $u = 0$. On p. 351 of Chen97, Chen and McKenna note that they have proved existence of solutions only to \eqref{susp2}, not to \eqref{susp}, but there is strong numerical evidence that similar solutions exist for \eqref{susp}. Fortunately, this has been addressed in the intervening years (and we will get to it in a bit). \\
 
 We are interested in traveling wave solutions, so we take a modified form of the usual traveling wave ansatz. Letting $\xi = x - ct$, we take
 
@@ -312,9 +312,9 @@ We can obtain periodic versions of all of these by interpolating the finite diff
 
 \subsection{Numerics, Eigenvalue Computation}
 
-It turns out that Matlab has a built-in polynomial eigenvalue solver, \texttt{polyeig}. However, I decided to use the quadratic eigenvalue solver \texttt{quadeig} by Chris Munro, Sven Hammarling and Francoise Tisseu (2013) because they say it's better.\\
+It turns out that Matlab has a built-in polynomial eigenvalue solver, \texttt{polyeig}. However, I decided to use the quadratic eigenvalue solver \texttt{quadeig} by Chris Munro, Sven Hammarling and Francoise Tisseu (2013) because they say it's better. It probably makes very little difference.\\
 
-Since this is going to look a lot like things I have already done, I will not show all the plots. First, we look at $c = 1.2$.\\
+Since this is going to look a lot like things I have already done (i.e. KdV5), I will not show all the plots. First, we look at $c = 1.2$.\\
 
 For the first double pulse, here is the specrum (zoomed near the origin) and a plot of the eigenfunctions corresponding to the small interaction eigenvalues. Note there is a pair of real interaction eigenvalues.
 
@@ -336,6 +336,15 @@ Next we look at the second double pulse. Note that this time we have a pair of p
 
 The same pattern repeats (alternating real and purely imaginary interaction eigenvalues) as we go to higher double pulses.\\
 
+We can also construct multipulses. For example, here is a triple pulse for $c = 1.2$ using the same pulse distance as double pulse 2. We get the expected two pairs of purely imaginary eigenvalues.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{triple12_2.eps}
+\includegraphics[width=8cm]{spec12_triple2.eps}
+\caption{Triple pulse 2,2 (left). Spectrum of linearization about triple pulse 2,2 (right). Finite difference methods, $N = 512$, $c = 1.2$.}
+\end{figure}
+
 For other values of $c$, the odd-numbered double pulses have the same eigenvalue pattern, so we will focus on the even-numbered double pulses. Let's look at $c = 1.354$ (this value was used in Chen97). For Double Pulse 2, we now have a quartet of interaction eigenvalues. Their imaginary part now lies \emph{outside} the essential spectrum gap. This suggests that a Krein collision has occurred, where the interaction eigenvalues collide with the smallest essential spectrum eigenvalue and then form a quartet.
 
 \begin{figure}[H]
@@ -354,9 +363,198 @@ The next two plots show that the Krein collision occurs between $c = 1.322$ (bef
 \caption{Linearization about Double Pulse 2. Spectrum before Krein collsion ($c = 1.322$, left) and after Krein collision ($c = 1.323$, right). Finite difference methods, $N = 512$}
 \end{figure}
 
-\subsection{Lin's Method (attempt)}
+\subsection{Lin's Method (part 1)}
 
-We will try the same thing as was done in San98. The main difference here is that we have a quadratic eigenvalue problem. The linearization about the rest state is hyperbolic, so that should present no problem. And we know that we have an eigenvalue at 0, so we should be able to perturb that eigenfunction to construct the interaction eigenfunctions. Numerical plots of the interaction eigenfunctions suggest that is possible. This is a sketch of what we need to do; if it looks promising, details can be filled it.
+In this section, we look at the eigenvalues of $A_0$. We expect this to be similar to KdV5, since it's more-or-less the same thing but with a different nonlinearity. Using Matlab's \texttt{eig}, we can show that for the operator $A_0$ linearized about an $n-pulse$
+
+\begin{enumerate}
+	\item The essential spectrum is $[a, \infty)$ for a > 0
+	\item There are $n$ negative eigenvalues clustered near the negative eigenvalue of $A_0$ for the single pulse.
+	\item $n$ small eigenvalues near 0, one of which is actually at 0 (1D kernel)
+\end{enumerate}
+
+Using Lin's method (from San98) we can compute the small eigenvalues to leading order. For convenience, assume we a have an $n$-pulse, but assume that all the pulse distances are the same, say $2L$. (Of course, mixed-distance multipulses exist, but we will ignore that for now.) The, by Theorem 2 in San98, there are $n$ small eigenvalues which are given (to leading order) by solving $\det(aA - M \lambda I) = 0$. $M$ is the Melnikov integral, which in this case is
+
+\begin{equation}
+M = \int_{-\infty}^\infty (q'(x))^2 dx
+\end{equation}
+
+$A$ is the matrix
+
+\begin{equation}
+A = \begin{pmatrix}
+-1 & 1 \\
+1  & -2 & 1 \\
+   & 1  & -2 & 1 \\
+   & & \vdots & \vdots \\
+   & & & & & 1 & -1
+\end{pmatrix}
+\end{equation}
+
+and $a = \langle \Psi(L), Q'(-L) \rangle$, as in San98. For a 2-pulse, this becomes
+
+\begin{align*}
+\det \begin{pmatrix}
+-a - M \lambda & a \\
+a & -a - M \lambda
+\end{pmatrix} = 0
+\end{align*}
+
+which has solutions $\lambda = \{ 0, -2a/M \}$. This is easy to compute numerically, so let's see if this agrees with what we get if we use \texttt{eig} on $A_0$.
+
+\begin{table}[H]
+\begin{tabular}{llll}
+Double Pulse & Eigenvalue from eig(A0) & Predicted eigenvalue (-2a/M) & Error  \\
+1            & 0.1278                  & 0.1915                       & .5     \\
+2            & -0.0278                 & -0.0254                      & 0.08   \\
+3            & 0.0090                  & 0.0072                       & .20    \\
+4            & -0.0024                 & -0.0025                      & 0.0417 \\
+5            & 6.8497e-04              & 7.2475e-04                   & 0.0581
+\end{tabular}
+\caption{Calculated and predicted small eigenvalue of $A_0$ about Double Pulse 2. $c = 1.2$. Finite difference methods, $N = 1500$}.
+\end{table}
+
+Well, it's not great, but the error does decrease as $L$ increases, so it should be ok. For the triple pulse we have to solve
+
+\begin{align*}
+\det \begin{pmatrix}
+-a - M \lambda & a & 0\\
+a & -2a - M \lambda & a \\
+0 & a & -a - M \lambda
+\end{pmatrix} = 0
+\end{align*}
+
+which has solutions $\lambda = \{ 0, -a/M -3a/M \}$.\\
+
+For $c = 1.2$ and triple pulse 2,2, we have small eigenvalues from \texttt{eig} of $\{ -0.0145, -0.0401 \}$. The formula above predicts eigenvalues of $( -0.0127, -0.0381 \}$. The errors here are $0.049$ and $0.124$, which are not terrible.\\
+
+We don't really care about this, except to contrast to the quadratic eigenvalue problem.
+
+\subsection{Krein Matrix}
+
+Before we do that, we can look at the Krein matrix as means of computing eigenvalues in the case where they are (predicted to be) purely imaginary.\\
+
+This is an application Todd Kapitula's unpublished paper Krein matrix for star-even operator polynomials (2016). Here we look at the polynomial eigenvalue problem for the suspension bridge problem linearized about stationary solution $q$. This second degree eigenvalue problem is given by
+
+\begin{equation}
+p(\lambda)v = (A_0 + A_1 \lambda + A_2 \lambda^2 )v = 0
+\end{equation}
+
+where
+
+\begin{align*}
+A_0 &= \partial_x^4 + c^2 \partial_x^2 + e^{q} \\
+A_1 &= - 2 c \partial_x \\
+A_2 &= I 
+\end{align*}
+
+Note that $A_0$ and $A_2$ are Hermitian, and $A_1$ is skew-Hermitian.\\
+
+The Krein matrix should work perfectly in this case, since we don't have to deal with invertibility of operators and since the essential spectrum is purely imaginary and bounded away from the origin.\\
+
+We know from the discussion in the previous section what the spectrum/eigenvalues of $A_0$ looks like. Since $A_0$ is Hermitian, the spectrum is real. \\
+
+Let $S = \spn\{s_1, \dots, s_n \}$, where $s_i$ are the eigenfunctions of $A_0$ corresponding to the small eigenvalues $\{\nu_1, \dots, \nu_n$. WLOG, we take $\nu_1 = 0$ and $s_1 = q'$, since we know what the kernel is. When then use $S$ as the projection space in the Krein matrix.\\
+
+We can easily compute the Krein matrix using the top of p.4 in Kap2018. As long as as choose $c$ such that the Krein collision has not yet occurred, we get very accurate numerical results from this method, or at least they compare well to the quadratic eigenvalue solver we are using. 
+
+\begin{table}[H]
+\begin{tabular}{lll}
+Pulse & From \texttt{quadeig}& imag part (from Krein Matrix) \\
+Double Pulse 2    & \pm 0.0622i & 0.0622 \\
+Double Pulse 4    & \pm 0.0446i, \pm 0.0764i & 0.0446, 0.0764 \\
+Triple Pulse 2,2  & \pm 0.0176i \\ 0.0176
+\end{tabular}
+\caption{Eigenvalues from quadratic eigenvalue problem, computed with \texttt{quadeig} and from the Krein matrix. $c = 1.2$, finite difference method, $N =512$. }
+\end{table}
+
+So, basically, the Krein matrix nails it every time.\\
+
+Since we are looking for purely imaginary eigenvalues, we take $\lambda = i z$, $z \in \R$. Then the operator $p(iz)$ is Hermitian. By Lemma 5.6 in Kap2018, for small $|z|$ the Krein matrix is approximately
+
+\begin{equation}
+\tilde{K}_S(z) = \text{diag}(\nu_1, \dots, \nu_n) + z(i A_1|_S) - z^2\left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S + \mathcal{O}(|z|^3)
+\end{equation}
+
+The key part of this approximation is that $z$ only appears here as a coefficient.\\
+
+From our specific problem, we know the following.
+
+\begin{align*}
+\langle s_i, A_1 s_j \rangle &= -\langle A_1 s_i, s_j \rangle \\
+&= -\langle s_j, A_1 \rangle
+\end{align*}
+
+where the inner product is symmetric since everything involved is real. Thus the matrix $A_1|_S$ is skew-Hermitian. In particular, this implies that its diagonal terms are 0.\\
+
+For the other term, we have
+
+\begin{align*}
+\langle s_i, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1, s_j \rangle &= -\langle A_1 s_i, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_j \rangle \\
+&= -\langle P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i, A_1 s_j \rangle \\
+&= -\langle A_1 s_j, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i \rangle \\
+&= \langle s_j, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i \rangle
+\end{align*}
+
+where, again, the inner product is symmetric since everything involved is real. This should be legit since $A_0$ is self-adjoint and orthogonal projections are as well. From this, we see that the matrix $\left( A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S$ is Hermitian.\\
+
+The matrix $A_2|_S = I|_S = I$. Thus the Krein matrix is the sum of a diagonal matrix, a skew-Hermitian matrix, and a Hermitian matrix.\\
+
+Let's make this really easy for ourselves and only look at the 2-pulse. \\
+
+Let 
+
+\[
+A_1|_S = \begin{pmatrix} 0 & a \\ -a & 0 \end{pmatrix}
+\]
+
+and let
+
+\[
+\left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S = \begin{pmatrix} b_{11} & b_{12} \\ b_{12} & b_{22} \end{pmatrix}
+\]
+
+Then the Krein matrix $K(z)$ is approximately equal to 
+
+\[
+\tilde{K}(z) = \begin{pmatrix}
+-b_{11} z^2 & -b_{12} z^2 - i a z \\
+-b_{12} z^2 + i a z & -b_{22} z^2 + \nu
+\end{pmatrix}
+\]
+
+where $\nu$ is the small, nonzero eigenvalue of $A_0$. Taking the determinant, setting it equal to 0, and solving for $z$, we get a double root at $z = 0$, as well as
+
+\begin{align*}
+z = \pm \frac{\sqrt{b_{11} \nu + a^2}}{\sqrt{b_{11} b_{22} - b_{12}^2}}
+\end{align*} 
+
+Numerics suggests that $b_{12}$ is very small. For the double pulse, it may in fact be 0. Neglecting $b_{12}$, we have our first approximation
+
+\begin{align*}
+\tilde{z}_1 = \pm \sqrt{\nu /b_{22} + a^2/(b_{11} b_{22})}
+\end{align*}
+
+The second term here should be small as well, so we have our second approximation
+
+\begin{align*}
+\tilde{z}_2 = \pm \sqrt{\nu / b_{22}}
+\end{align*}
+
+Let's make a table of how good these approximations are.
+
+\begin{table}[H]
+\begin{tabular}{llll}
+Pulse & z & \tilde{z}_1 & \tilde{z}_2 \\
+Double Pulse 2  & 0.0625 & 0.0625 & 0.0614 \\
+Double Pulse 4  & 0.0176 & 0.0176 & 0.0175 \\
+\end{tabular}
+\caption{Eigenvalues and approximate eigenvalues from Krein matrix. $c = 1.2$, finite difference method, $N = 512$. }
+\end{table}
+
+\subsection{Lin's Method (part 2)}
+
+We will try the same thing as was done in San98. The main difference here is that we have a quadratic eigenvalue problem. The linearization about the rest state is hyperbolic, so that should present no problem. And we know that we have an eigenvalue at 0, so we should be able to perturb that eigenfunction to construct the interaction eigenfunctions. Numerical plots of the interaction eigenfunctions suggest that should be possible, and there is no reason to suspect this won't work. This is a sketch of what we need to do; if it looks promising, details can be filled it.
 
 \begin{enumerate}
 
@@ -530,7 +728,7 @@ w_2 &= w_4'' + c^2 w_4 \\
 w_1 &= -w_4''' - c^2 w_4'
 \end{align*}
 
-The final equation becomes $-w_4'''' - c^2 w_4' = e^q w^4$, which is satisfied, as expected, by $w_4 = q'$. Thus we have
+The final equation becomes $-w_4'''' - c^2 w_4'' = e^q w^4$, which is satisfied, as expected, by $w_4 = q'$. Thus we have
 
 \begin{align*}
 \Psi = \begin{pmatrix}
@@ -553,7 +751,7 @@ M_2 &= \int_{-\infty}^\infty \langle \Psi(x), B_2 \tilde{H}(x) \rangle dx \\
 \end{align*}
 
 Since one of these is nonzero, we should be good.
-
-
 \end{enumerate}
+
+
 \end{document}
