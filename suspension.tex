@@ -109,7 +109,7 @@ which has eigenvalues
 
 Note that $\sqrt{c^4 - 4}$ is always less that $c^2$ is magnitude. If $|c| < \sqrt{2}$, we have a complex conjugate quartet $\nu = \pm \alpha \pm \beta i$. When $c^2 = \sqrt{2}$, these eigenvalues collide on the imaginary axis at $\pm i$, then for $c^2 > 2$ we have a quartet of purely imaginary eigenvalues. Thus a bifurcation occurs at $c^2 = 2$.\\
 
-The existence of a homoclinic orbit equilibrum solution was shown by van den Berg et al (2018) using a computer-assisted proof method. They proved (Theorem 1) that a symmetric homoclinic orbit exists for \eqref{eqODE} for all paramater values $c^2 \in [0.5, 1.9]$.
+The existence of a homoclinic orbit equilibrium solution was shown by van den Berg et al (2018) using a computer-assisted proof method. They proved (Theorem 1) that a symmetric homoclinic orbit exists for \eqref{eqODE} for all parameter values $c^2 \in [0.5, 1.9]$.
 
 \subsection{Eigenvalue Problem}
 
@@ -174,7 +174,7 @@ Solving for $\lambda$, we have
 &= \left( c r \pm \sqrt{1 + r^4} \right) i
 \end{align*}
 
-since $-1 - r^4 \leq -1 < 0$. Thus the essential specrum is purely imaginary. Since $\lambda(r) \rightarrow \pm \infty$ as $r \rightarrow \pm \infty$, the essential spectrum extends out to infinity along the imaginary axis. The question is whether the essential spectrum is the entire imaginary axis or whether there is a gap around the origin. Matlab suggests a gap at the origin, so let's look at that. Here is a plot of $\lambda_\pm(r)$ for $c = 1$ which shows that gap.
+since $-1 - r^4 \leq -1 < 0$. Thus the essential spectrum is purely imaginary. Since $\lambda(r) \rightarrow \pm \infty$ as $r \rightarrow \pm \infty$, the essential spectrum extends out to infinity along the imaginary axis. The question is whether the essential spectrum is the entire imaginary axis or whether there is a gap around the origin. Matlab suggests a gap at the origin, so let's look at that. Here is a plot of $\lambda_\pm(r)$ for $c = 1$ which shows that gap.
 
 \begin{figure}[H]
 \centering
@@ -201,7 +201,7 @@ Solving $\lambda_+'(r) = 0$ involves solving the 6th order polynomial
 4 r^6 - c^2 r^4 + c^2 = 0
 \]
 
-Mathematica will acutally do it (!), but it is an epic mess. So we will look at it numerically using Matlab. The next plot shows the minimum value of $\lambda_+(r)$ as a function of $c$. Note that for $c = 0$ this minimm is clearly $0$, and for $c = \sqrt{2}$ it is not hard to show that this minimum is actually 0 (hence no essential spectrum gap.) $c = \sqrt{2}$ is the bifurcation point mentioned above, so this is consistent.
+Mathematica will actually do it (!), but it is an epic mess. So we will look at it numerically using Matlab. The next plot shows the minimum value of $\lambda_+(r)$ as a function of $c$. Note that for $c = 0$ this minimum is clearly $0$, and for $c = \sqrt{2}$ it is not hard to show that this minimum is actually 0 (hence no essential spectrum gap.) $c = \sqrt{2}$ is the bifurcation point mentioned above, so this is consistent.
 
 \begin{figure}[H]
 \centering
@@ -267,10 +267,10 @@ The big issue here is that stationary solutions to \eqref{eqODE} are hard to com
 	\item We then use the String Method from Chamard10.
 	\begin{enumerate}
 		\item Join $e_1$ and $e_2$ by a piecewise linear path $U(t) = t e_1 + (1-t) e_2 = (1-t)e_2$. Choose a discrete set of values for $t$ which are evenly spaced, i.e. the $N+1$ values $t = [0, 1/N, 2/N, ..., 1]$ for some reasonably sized $N$. We ended up using $N = 10$, which worked fine.
-		\item Reparamaterize the path to get points more-or-less equidistantly distributed in the $H^1$ norm.
+		\item Reparameterize the path to get points more-or-less equidistantly distributed in the $H^1$ norm.
 		\item Evaluate the steepest decent direction $v(t_i)$ for all points $U(t_i)$ along the path. The steepest descent direction is computed as in section 3 of Chen97.
 		\item For constrained maximal step size $h_M$, perform gradient descent on all points on the path $U(t_i)$ in the direction of $v(t_i)$.
-		\item Go back to the reparamaterization step, and repeat all this a bunch of times. Theoretically there is a termination condition, but we don't acutally need to worry about that since we will be using Matlab's \texttt{fsolve}.
+		\item Go back to the reparameterization step, and repeat all this a bunch of times. Theoretically there is a termination condition, but we don't actually need to worry about that since we will be using Matlab's \texttt{fsolve}.
 	\end{enumerate}
 	\item After doing this a bunch of times, take the element of the path for which $I(U(t_i))$ is maximum. Or take one close to the maximum. Use this as an initial guess for Matlab's \texttt{fsolve}. This should converge to the solution we are looking for.
 	\item ????
@@ -316,7 +316,7 @@ It turns out that Matlab has a built-in polynomial eigenvalue solver, \texttt{po
 
 Since this is going to look a lot like things I have already done (i.e. KdV5), I will not show all the plots. First, we look at $c = 1.2$.\\
 
-For the first double pulse, here is the specrum (zoomed near the origin) and a plot of the eigenfunctions corresponding to the small interaction eigenvalues. Note there is a pair of real interaction eigenvalues.
+For the first double pulse, here is the spectrum (zoomed near the origin) and a plot of the eigenfunctions corresponding to the small interaction eigenvalues. Note there is a pair of real interaction eigenvalues.
 
 \begin{figure}[H]
 \centering
@@ -360,12 +360,12 @@ The next two plots show that the Krein collision occurs between $c = 1.322$ (bef
 \centering
 \includegraphics[width=8cm]{spec1322_double2.eps}
 \includegraphics[width=8cm]{spec1323_double2.eps}
-\caption{Linearization about Double Pulse 2. Spectrum before Krein collsion ($c = 1.322$, left) and after Krein collision ($c = 1.323$, right). Finite difference methods, $N = 512$}
+\caption{Linearization about Double Pulse 2. Spectrum before Krein collision ($c = 1.322$, left) and after Krein collision ($c = 1.323$, right). Finite difference methods, $N = 512$}
 \end{figure}
 
 \subsection{Lin's Method (part 1)}
 
-In this section, we look at the eigenvalues of $A_0$. We expect this to be similar to KdV5, since it's more-or-less the same thing but with a different nonlinearity. Using Matlab's \texttt{eig}, we can show that for the operator $A_0$ linearized about an $n-pulse$
+In this section, we look at the eigenvalues of $A_0$. We expect this to be similar to SanStrut, since it's more-or-less the same thing but with a different nonlinearity. Using Matlab's \texttt{eig}, we can show that for the operator $A_0$ linearized about an $n-pulse$
 
 \begin{enumerate}
 	\item The essential spectrum is $[a, \infty)$ for a > 0
