@@ -178,7 +178,7 @@ since $-1 - r^4 \leq -1 < 0$. Thus the essential spectrum is purely imaginary. S
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=8cm]{essspec1.eps}
+\includegraphics[width=10cm]{essspec1.eps}
 \label{fig:essspec1}
 \caption{Imaginary part of the purely imaginary essential spectrum for $c = 1$.}
 \end{figure}
@@ -205,7 +205,7 @@ Mathematica will actually do it (!), but it is an epic mess. So we will look at 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=8cm]{minlambdaplus.eps}
+\includegraphics[width=10cm]{minlambdaplus.eps}
 \label{fig:essspec1}
 \caption{Imaginary part of the purely imaginary essential spectrum for $c = 1$.}
 \end{figure}
@@ -460,12 +460,12 @@ We can easily compute the Krein matrix using the top of p.4 in Kap2018. As long 
 
 \begin{table}[H]
 \begin{tabular}{lll}
-Pulse & From \texttt{quadeig}& imag part (from Krein Matrix) \\
-Double Pulse 2    & \pm 0.0622i & 0.0622 \\
-Double Pulse 4    & \pm 0.0446i, \pm 0.0764i & 0.0446, 0.0764 \\
-Triple Pulse 2,2  & \pm 0.0176i \\ 0.0176
+Pulse & From \texttt{quadeig} & imag part (from Krein Matrix) \\
+Double Pulse 2    & $\pm 0.0622i$ & 0.0622 \\
+Triple Pulse 2,2  & $\pm 0.0446i, \pm 0.0764i$ & 0.0446, 0.0764 \\
+Double Pulse 2    & $\pm 0.0176i$ & 0.0176 \\
 \end{tabular}
-\caption{Eigenvalues from quadratic eigenvalue problem, computed with \texttt{quadeig} and from the Krein matrix. $c = 1.2$, finite difference method, $N =512$. }
+\caption{Eigenvalues from quadratic eigenvalue problem, computed with \texttt{quadeig} and from the Krein matrix. $c = 1.2$, finite difference method, $N = 512$. }
 \end{table}
 
 So, basically, the Krein matrix nails it every time.\\
@@ -476,7 +476,7 @@ Since we are looking for purely imaginary eigenvalues, we take $\lambda = i z$, 
 \tilde{K}_S(z) = \text{diag}(\nu_1, \dots, \nu_n) + z(i A_1|_S) - z^2\left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S + \mathcal{O}(|z|^3)
 \end{equation}
 
-The key part of this approximation is that $z$ only appears here as a coefficient.\\
+The key part of this approximation is that this is a polynomial in $z$, i.e. $z$ does not appear in any of the coefficients.\\
 
 From our specific problem, we know the following.
 
@@ -545,7 +545,7 @@ Let's make a table of how good these approximations are.
 
 \begin{table}[H]
 \begin{tabular}{llll}
-Pulse & z & \tilde{z}_1 & \tilde{z}_2 \\
+Pulse & $z$ & $\tilde{z}_1$ & $\tilde{z}_2$ \\
 Double Pulse 2  & 0.0625 & 0.0625 & 0.0614 \\
 Double Pulse 4  & 0.0176 & 0.0176 & 0.0175 \\
 \end{tabular}
@@ -558,7 +558,7 @@ We will try the same thing as was done in San98. The main difference here is tha
 
 \begin{enumerate}
 
-\item Let $q(x)$ be a single pulse equilibrium solution to \eqref{eqODE}. Suppose for now that it exists and decays exponentilly with rate $\alpha$. Suppose we have also constructed a double pulse $q_2(x)$, and it has the same decay properties. The double pulse is a perturbation of the single pulse, and can be written piecewise on the appropriate intervals as
+\item Let $q(x)$ be a single pulse equilibrium solution to \eqref{eqODE}. Suppose for now that it exists and decays exponentilly with rate $\alpha$. Suppose we have also constructed a double pulse $q_2(x)$, and it has the same decay properties. We have not proven we can do this, but we can likely follow SanStrut. The double pulse is a perturbation of the single pulse, and can be written piecewise on the appropriate intervals as
 
 \[
 q_2(x) = q(x) + r_i^\pm(x)
@@ -670,7 +670,7 @@ D_i d = (Q'(-X_i) + (R_{i+1}^-)(-X_i))d_{i+1}
 
 Compare this to (3.7) and (3.8) in San98. This is essentially the same except for the quadratic terms in $\lambda$.\\
 
-Let $\Phi(y, x)$ be the evolution operator of the variational equation. Since the linearization about the zero solution is hyperbolic, the adjoint variational equation has an exponential dichotomy on $\R^\pm$, and we split the evolution operator up into pieces $\Phi_\pm^{s/u}$ on the approprate pieces of the dichotomy. We have the usual estimates for these.\\
+\item Let $\Phi(y, x)$ be the evolution operator of the variational equation. Since the linearization about the zero solution is hyperbolic, the adjoint variational equation has an exponential dichotomy on $\R^\pm$, and we split the evolution operator up into pieces $\Phi_\pm^{s/u}$ on the appropriate pieces of the dichotomy. We have the usual estimates for these.\\
 
 Next, we write this in integrated form. This will be the same as in San98, except we have the presence of the $\lambda^2$ terms.
 
@@ -680,12 +680,12 @@ W_i^-(x) = \Phi_-^s(&x, -X_{i-1})a_{i-1}^- + \Phi_-^u(x, 0)b_i^- \\
 &+ \int_{-X_{i-1}}^x \Phi_-^s(x, y)[(G_i^-(y) + \lambda B_1 + \lambda^2 B_2) W_i^-(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^-(y) ] dy \\
 W_i^+(x) = \Phi_+^u(&x, X_i)a_i^+ + \Phi_+^s(x, 0)b_i^+ \\
 &+ \int_0^x \Phi_+^s(x, y)[(G_i^+(y) + \lambda B_1 + \lambda^2 B_2) W_i^+(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^+(y) ] dy \\
-&+ \int_{X_i}^x \Phi_+^u(x, y)[(G_i^+(y) + \lambda B_1 + \lambda^2 B_2) W_i^+(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^+(y) ] dy
+&+ \int_{X_i}^x \Phi_+^u(x, y) [(G_i^+(y) + \lambda B_1 + \lambda^2 B_2) W_i^+(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^+(y) ] dy
 \end{align*}
 
 Again, these are similar to (3.14) in San98, except for the presence of the $\lambda^2$ terms.\\
 
-Before we keep going, by what we have learned so far, we know this will produce two Melkinov integrals, one for each of the $B_i$. These should be, based on what we have from before
+\item Before we keep going, by what we have learned so far, this will produce two Melkinov integrals, one for each of the $B_i$. These should be, based on what we have from before
 
 \begin{align*}
 M_1 &= \int_{-\infty}^\infty \langle \Psi(x), B_1 H(x) \rangle dx \\
@@ -750,7 +750,11 @@ M_2 &= \int_{-\infty}^\infty \langle \Psi(x), B_2 \tilde{H}(x) \rangle dx \\
 &\neq 0
 \end{align*}
 
-Since one of these is nonzero, we should be good.
+Since one of these is nonzero, we should be good. In fact, we need $M_1$ to be 0 to get the eigenvalues we expect.
+
+\item If we work through all of this naively and try to guess what the result is, we do not get the right result. The naive guess for the double pulse is that, after all is said and done, we get $\lambda^2 = \sqrt{-2a / M}$, i.e. these eigenvalues are the square roots of the eigenvalues of $A_0$. From our numerics and Krein matrix calculations, we have shown this is not the case. Thus either we set the problem up incorrectly, or there are other terms contributing to the leading order estimate which we have not accounted for in the naive guess.
+
+
 \end{enumerate}
 
 
