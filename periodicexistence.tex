@@ -1023,11 +1023,91 @@ Based on our assumptions in Hypothesis \ref{assumptions}, this follows from Lemm
 
 At this point, we will assume that we have a Hamiltonian system. Since we want to capture asymmetric solutions, we will not consider the reversibility case here, since applying the reversibility hypothesis always gives us symmetric solutions.\\
 
-In the next lemma, we use Lemmas \ref{IPform} and \ref{IPsystemreduced} together with a change of variables to 
+In the next lemma, we use Lemmas \ref{IPform} and \ref{IPsystemreduced} together with a change of variables to write down a more useful version of the system we need to solve. Before we do that, we define the following space.
 
-% Lemma : 
+\begin{equation}\label{setR}
+\mathcal{R} = \left\{ \exp\left(-\frac{2 \pi \alpha}{\beta}m\right) : m \in \N_0 \right\} \cup \{ 0 \}
+\end{equation}
+
+Since $\mathcal{R}$ is closed and bounded, is is compact, thus complete.
+
+% Lemma : system to solve, new version
 
 \begin{lemma}
+Under the above assumptions, a periodic multipulse solution exists if and only if for $i = 0, \dots, n-2$
+
+\begin{equation}
+G_i(a_1, \dots, a_{n-1}, r_m) = a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) - a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0 \\
+\end{equation}
+
+where $a_i > 0$ and $r_m \in \mathcal{R}$.
+
+\begin{proof}
+From \eqref{jumpIPdiff}, \eqref{IPalphabeta}, and Lemma \ref{IPsystemreduced}, a solution exists if and only if
+
+\begin{align}\label{diff1}
+s_0 e^{-2 \alpha X_i} \sin(2 \beta X_i + \phi) - s_0 e^{-2 \alpha X_{i-1}} \sin(2 \beta X_{i-1} + \phi) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_m}) &= 0 && i = 0, \dots, n-2
+\end{align}
+
+where $X_m = \min\{X_i\}$. Choose any $m \in \N_0$, and define
+
+\begin{align}
+r_m = e^{-(2 \pi \alpha /\beta) m} \in \mathcal{R} && m \in \N
+\end{align}
+
+Next, define
+
+\begin{equation}
+a_i = e^{-2\alpha X_i}e^{-\alpha \phi / \beta}\frac{1}{r_m}
+\end{equation}
+
+where we have the additional restriction that the $X_i$ are sufficiently large so that $e^{-2 \alpha X_i} < r_m$ for all $i$. This is fine, since we know that our result will only hold for sufficiently large $X_i$. Rearranging these two expressions, we note that
+
+\begin{align*}
+e^{-2 \alpha X_i} &= a_i r_m e^{\alpha \phi / \beta} \\
+2 \beta X_i &= -(\beta / \alpha)\log a_i r_m - \phi 
+\end{align*}
+
+Substituting these into \eqref{diff1}, we get for $i = 0, \dots, n-1$
+
+\begin{align}\label{diff2}
+s_0 e^{\alpha \phi / \beta } a_i r_m \sin \left( - \frac{\beta}{\alpha} \log (a_i r_m) \right) - s_0 e^{\alpha \phi / \beta } a_{i-1} r_m \sin \left( - \frac{\beta}{\alpha} \log (a_{i-1} r_m) \right) + \mathcal{O}(r_m^{1 + \gamma / 2 \alpha}) &= 0 \\
+\end{align}
+
+Now, divide both sides by $r_m > 0$ and the constant $s_0 e^{\alpha \phi / \beta }$ to get
+
+\begin{align}\label{diff2}
+a_i \sin \left( - \frac{\beta}{\alpha} \log (a_i r_m) \right) -  a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log (a_{i-1} r_m) \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) &= 0 \\
+\end{align}
+
+Finally, we note that
+
+\begin{align*}
+\sin \left( - \frac{\beta}{\alpha} \log (a_i r_m) \right)&=
+\sin \left( - \frac{\beta}{\alpha} \log a_i - \frac{\beta}{\alpha} \log r_m  \right) \\
+&= \sin \left( - \frac{\beta}{\alpha} \log a_i -\frac{\beta}{\alpha}\left( -\frac{\alpha}{\beta}2\pi m \right) \right) \\
+&= \sin \left( - \frac{\beta}{\alpha} \log a_i + 2 m \pi \right) \\
+&= \sin \left( - \frac{\beta}{\alpha} \log a_i \right) 
+\end{align*}
+
+Making this substitution, we have for $i = 0, \dots, n-2$
+
+\begin{align}\label{diff3}
+a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) - a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) &= 0 \\
+\end{align}
+
+which are the equations we want. Note that $r_m$ only occurs in the remainder term.
+
+\end{proof}
+\end{lemma}
+
+At this point, we would like to use the IFT to solve for the $a_i$ in terms of $r_m$. Before we can do that, we note that from the previous lemma we have $n-1$ equations but $n+1$ unknowns. Thus we expect to have a 1-parameter family of solutions, paramaterized by one of the unknowns. We can pick any of the $a_i$ to be the parameter. Since we are trying to construct a periodic solution and would like to be able to show that such a solution exists for any sufficiently large period, we will let $a_{n-1}$ be the parameter. Since this term only occurs in the $G_0$ equation, it should not be too hard to deal with.
+
+
+% lemma
+
+\begin{lemma}
+
 
 \begin{proof}
 Substituting \eqref{IPalphabeta} into the system of equations \eqref{jumpIPdiff}, and recalling from Lemma \ref{IPsystemreduced} that since we have a Hamiltonian system we can drop the last one, we have the following system to solve
@@ -1447,5 +1527,7 @@ For KdV5, if $c > 0$ there exists an $n$-pulse solution $Q_{n, p}(x)$. This solu
 \begin{proof}
 All we need to do is verify the assumptions in Hypothesis \ref{assumptions} for KdV5. If $c > 0$, the eigenvalues of $DF(0)$ are the complex quartet $\pm \alpha \pm \beta$. The remaining assumptions are discussed in the opening section, except for the transversality condition, which is a standard assumption in the literature.
 \end{proof}
+
+\end{corollary}
 
 \end{document}

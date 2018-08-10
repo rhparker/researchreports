@@ -273,8 +273,6 @@ The big issue here is that stationary solutions to \eqref{eqODE} are hard to com
 		\item Go back to the reparameterization step, and repeat all this a bunch of times. Theoretically there is a termination condition, but we don't actually need to worry about that since we will be using Matlab's \texttt{fsolve}.
 	\end{enumerate}
 	\item After doing this a bunch of times, take the element of the path for which $I(U(t_i))$ is maximum. Or take one close to the maximum. Use this as an initial guess for Matlab's \texttt{fsolve}. This should converge to the solution we are looking for.
-	\item ????
-	\item Profit
 \end{enumerate}
 
 Here are plots of the stationary solution $u(x)$ found using this method for $c = 1.354$ and $c = 1.40$. Compare these to figure 3 on p. 347 of Chen97. Note that by the substitution we performed, the baseline in our plots is at 0 as opposed to 1 in Chen97.
@@ -432,9 +430,11 @@ We don't really care about this, except to contrast to the quadratic eigenvalue 
 
 \subsection{Krein Matrix}
 
+\subsubsection{Background and Numerics}
+
 Before we do that, we can look at the Krein matrix as means of computing eigenvalues in the case where they are (predicted to be) purely imaginary.\\
 
-This is an application Todd Kapitula's unpublished paper Krein matrix for star-even operator polynomials (2016). Here we look at the polynomial eigenvalue problem for the suspension bridge problem linearized about stationary solution $q$. This second degree eigenvalue problem is given by
+This is an application Todd Kapitula's unpublished paper Krein Matrix for Star-Even Operator Polynomials (2018). Here we look at the polynomial eigenvalue problem for the suspension bridge problem linearized about stationary solution $q$. This second degree eigenvalue problem is given by
 
 \begin{equation}
 p(\lambda)v = (A_0 + A_1 \lambda + A_2 \lambda^2 )v = 0
@@ -452,11 +452,12 @@ Note that $A_0$ and $A_2$ are Hermitian, and $A_1$ is skew-Hermitian.\\
 
 The Krein matrix should work perfectly in this case, since we don't have to deal with invertibility of operators and since the essential spectrum is purely imaginary and bounded away from the origin.\\
 
-We know from the discussion in the previous section what the spectrum/eigenvalues of $A_0$ looks like. Since $A_0$ is Hermitian, the spectrum is real. \\
+We know from the discussion in the previous section what the spectrum/eigenvalues of $A_0$ looks like. Since $A_0$ is Hermitian, the spectrum of $A_0$ is real. We also note that if we take $\lambda = i z$, the quadratic operator $p(iz)$ is Hermitian.
+\\
 
-Let $S = \spn\{s_1, \dots, s_n \}$, where $s_i$ are the eigenfunctions of $A_0$ corresponding to the small eigenvalues $\{\nu_1, \dots, \nu_n$. WLOG, we take $\nu_1 = 0$ and $s_1 = q'$, since we know what the kernel is. When then use $S$ as the projection space in the Krein matrix.\\
+Let $S = \spn\{s_1, \dots, s_n \}$, where $s_i$ are the eigenfunctions of $A_0$ corresponding to the small eigenvalues $\{\nu_1, \dots, \nu_n$. (We found these in the previous section using Lin's method). WLOG, we take $\nu_1 = 0$ and $s_1 = q'$, since we know the kernel of $A_0$ is 1-dimensional, and we know what the kernel eigenfunction is.\\
 
-We can easily compute the Krein matrix using the top of p.4 in Kap2018. As long as as choose $c$ such that the Krein collision has not yet occurred, we get very accurate numerical results from this method, or at least they compare well to the quadratic eigenvalue solver we are using. 
+With this setup, we can easily compute the Krein matrix using the top of p.4 in Kap2018. As long as as choose $c$ such that the Krein collision has not yet occurred, we get very accurate numerical results from this method, or at least they compare extremely well to the quadratic eigenvalue solver we are using. 
 
 \begin{table}[H]
 \begin{tabular}{lll}
@@ -470,13 +471,17 @@ Double Pulse 2    & $\pm 0.0176i$ & 0.0176 \\
 
 So, basically, the Krein matrix nails it every time.\\
 
-Since we are looking for purely imaginary eigenvalues, we take $\lambda = i z$, $z \in \R$. Then the operator $p(iz)$ is Hermitian. By Lemma 5.6 in Kap2018, for small $|z|$ the Krein matrix is approximately
+\subsubsection{Approxmation for Small Eigenvalues}
+
+Now that we know we can use the Krein matrix, we should be able to use the same approximation as in Section 5 of Kap2018 since these eigenvalues are small.
+
+Recall that we  are looking for purely imaginary eigenvalues, thus we take $\lambda = i z$, $z \in \R$. Then the operator $p(iz)$ is Hermitian. By Lemma 5.6 in Kap2018, for small $|z|$ the Krein matrix is approximately
 
 \begin{equation}
 \tilde{K}_S(z) = \text{diag}(\nu_1, \dots, \nu_n) + z(i A_1|_S) - z^2\left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S + \mathcal{O}(|z|^3)
 \end{equation}
 
-The key part of this approximation is that this is a polynomial in $z$, i.e. $z$ does not appear in any of the coefficients.\\
+This form is slightly different from that in Lemma 5.6. Since $z$ is real, we don't have to write $\overline{z}$. We also omit the $z$ out front, i.e. we use the form of the Krein matrix from p.4 rather than the form in Theorem 3.1. The key part of this approximation is that this is a polynomial in $z$, i.e. $z$ does not appear in any of the coefficients. To leading order, this is quadratic in $z$.\\
 
 From our specific problem, we know the following.
 
@@ -498,9 +503,11 @@ For the other term, we have
 
 where, again, the inner product is symmetric since everything involved is real. This should be legit since $A_0$ is self-adjoint and orthogonal projections are as well. From this, we see that the matrix $\left( A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S$ is Hermitian.\\
 
-The matrix $A_2|_S = I|_S = I$. Thus the Krein matrix is the sum of a diagonal matrix, a skew-Hermitian matrix, and a Hermitian matrix.\\
+The matrix $A_2|_S = I|_S = I$. Thus the Krein matrix is the sum of a diagonal matrix, a skew-Hermitian matrix, and a Hermitian matrix.
 
-Let's make this really easy for ourselves and only look at the 2-pulse. \\
+\subsubsection{2-pulse}
+
+The easiest case is the 2-pulse, since the Krein matrix will be 2x2. Let's look at that first. \\
 
 Let 
 
@@ -516,12 +523,12 @@ and let
 
 Then the Krein matrix $K(z)$ is approximately equal to 
 
-\[
+\begin{equation}
 \tilde{K}(z) = \begin{pmatrix}
 -b_{11} z^2 & -b_{12} z^2 - i a z \\
 -b_{12} z^2 + i a z & -b_{22} z^2 + \nu
 \end{pmatrix}
-\]
+\end{equation}
 
 where $\nu$ is the small, nonzero eigenvalue of $A_0$. Taking the determinant, setting it equal to 0, and solving for $z$, we get a double root at $z = 0$, as well as
 
@@ -529,19 +536,29 @@ where $\nu$ is the small, nonzero eigenvalue of $A_0$. Taking the determinant, s
 z = \pm \frac{\sqrt{b_{11} \nu + a^2}}{\sqrt{b_{11} b_{22} - b_{12}^2}}
 \end{align*} 
 
-Numerics suggests that $b_{12}$ is very small. For the double pulse, it may in fact be 0. Neglecting $b_{12}$, we have our first approximation
+Numerics suggests that $b_{12}$ is very small. For the double pulse, I think it is actually 0, although I would have to show that. Neglecting $b_{12}$, we have our first approximation
 
 \begin{align*}
-\tilde{z}_1 = \pm \sqrt{\nu /b_{22} + a^2/(b_{11} b_{22})}
+\tilde{K}_1(z) &= \begin{pmatrix}
+-b_{11} z^2 & - i a z \\
+i a z & -b_{22} z^2 + \nu
+\end{pmatrix} \\
+\tilde{z}_1 &= \pm \sqrt{\nu /b_{22} + a^2/(b_{11} b_{22})}
 \end{align*}
 
-The second term here should be small as well, so we have our second approximation
+The second term here should be small as well. Numerics suggests that $a$ is small compared to $b_ii$. Thus we have our second approximation
 
 \begin{align*}
-\tilde{z}_2 = \pm \sqrt{\nu / b_{22}}
+\tilde{K}_2(z) &= \begin{pmatrix}
+-b_{11} z^2 & 0 \\
+0 & -b_{22} z^2 + \nu
+\end{pmatrix} \\
+\tilde{z}_2 &= \pm \sqrt{\nu / b_{22}}
 \end{align*}
 
-Let's make a table of how good these approximations are.
+This suggests that if $\nu$ and $b_22$ have the same sign, we have a pair of purely imaginary eigenvalues. The idea is that $\tilde{K}_2$ is a small perturbation of the approximate Krein matrix $\tilde{K}$, which is again a small perturbation of the Krein matrix $K$. All of these are Hermitian, thus they all have real eigenvalues. If we plot the eigenvalues of $\tilde{K}_2$, the curves are parabolas which cross 0 at $\pm \sqrt{\nu / b_{22}}$. Since everything perturbs analytically, the eigenvalue curves of $\tilde{K}$ and $K$ should cross 0 near that point. Thus we have shown that the small eigenvalues of the linearization about the 2-pulse are purely imaginary. \\
+
+Here is table showing how good these approximations are.
 
 \begin{table}[H]
 \begin{tabular}{llll}
@@ -550,6 +567,51 @@ Double Pulse 2  & 0.0625 & 0.0625 & 0.0614 \\
 Double Pulse 4  & 0.0176 & 0.0176 & 0.0175 \\
 \end{tabular}
 \caption{Eigenvalues and approximate eigenvalues from Krein matrix. $c = 1.2$, finite difference method, $N = 512$. }
+\end{table}
+
+\subsubsection{Multi-pulse}
+
+We can extend this to the multipulse. Let
+
+\[
+A_1|_S = \begin{pmatrix} 0 & a_{12} & a_{13} & \dots & a_{1n} \\ 
+-a_{12} & 0 & a_{23} & \dots & a_{2n} \\
+-a_{13} & -a_{23} & 0 & \dots & a_{3n} \\
+\vdots & \vdots & & \vdots \\
+-a_{1n} & -a_{2n} & -a_{3n} & \dots & 0
+\end{pmatrix} 
+\]
+
+and let
+
+\[
+\left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S = 
+\begin{pmatrix} b_{11} & b_{12} & \dots & b_{1n} \\ 
+b_{12} & b_{22}  & \dots & b_{2n} \\
+\vdots & \vdots & & \vdots \\
+b_{1n} & b_{2n}  & \dots & b_{nn}
+\end{pmatrix}
+\]
+
+Numerics suggests that the $a_{ij}$ are small compared to the diagonal entries $b_{ii}$ (some appear to be 0, but not all of them). Numerics also suggests that the off-diagonal entires $b_{ij}, i \neq j$ are small compared to the $b_{ii}$ (again, some appear to be 0, but not all of them, as in the 2-pulse case). Given these observations it seems reasonable to hypothesize that the approximate Krein matrix is diagonally dominant, and can thus be approximated with the diagonal matrix
+
+\begin{align*}
+\tilde{K}_2(z) &= \begin{pmatrix}
+-b_{11} z^2 & 0 & \dots & 0\\
+0 & -b_{22} z^2 + \nu_2 & \dots & 0 \\
+\vdots & \vdots & & \vdots \\
+0 & 0 & \dots & -b_{nn} z^2 + \nu_n
+\end{pmatrix}
+\end{align*}
+
+Thus the small eigenvalues are approximately given by $\tilde{z}_i = \pm \sqrt{\nu_i / b_{ii}}$. We can check how close this is for the triple pulse 2,2.
+
+\begin{table}[H]
+\begin{tabular}{lll}
+Pulse & Eigenvalue from \texttt{quadeig} & Approximate eigenvalue $\tilde{z}$ \\
+Triple Pulse 2,2  & $\pm 0.0446i, \pm 0.0764i$ & 0.0440, 0.0724 \\
+\end{tabular}
+\caption{Eigenvalues from quadratic eigenvalue problem, computed with \texttt{quadeig} and from the approximate Krein matrix $\tilde{K}_2$. $c = 1.2$, finite difference method, $N = 512$. }
 \end{table}
 
 \subsection{Lin's Method (part 2)}
@@ -756,6 +818,12 @@ Since one of these is nonzero, we should be good. In fact, we need $M_1$ to be 0
 
 
 \end{enumerate}
+
+\subsection{References}
+
+Y.Chen and P.J.McKenna. Traveling Waves in a Nonlinearly Suspended Beam: Theoretical Results and Numerical Observations. Journal of Differential Equations Volume 136, Issue 2, 20 May 1997, Pages 325-355.\\
+
+Will add other references when I do the actual writeup.
 
 
 \end{document}

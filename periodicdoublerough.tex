@@ -214,7 +214,7 @@ To verify this, we need to check a bunch of derivatives. This is annoying, but n
 \begin{align*}
 f_x(x, y) &= -\sin \left( - \frac{\beta}{\alpha} \log(y - x) \right) - 
 \sin \left( - \frac{\beta}{\alpha} \log(y + x) \right) \\
-&+\frac{\beta}{\alpha} \cos \left( - \frac{\beta}z{\alpha} \log(y - x) \right) + \frac{\beta}{\alpha} \cos \left( - \frac{\beta}{\alpha} \log(y + x) \right) \\
+&+\frac{\beta}{\alpha} \cos \left( - \frac{\beta}{\alpha} \log(y - x) \right) + \frac{\beta}{\alpha} \cos \left( - \frac{\beta}{\alpha} \log(y + x) \right) \\
 f_y(x, y) &= \sin \left( - \frac{\beta}{\alpha} \log(y - x) \right) - 
 \sin \left( - \frac{\beta}{\alpha} \log(y + x) \right) \\
 &-\frac{\beta}{\alpha} \cos \left( - \frac{\beta}{\alpha} \log(y - x) \right) + \frac{\beta}{\alpha} \cos \left( - \frac{\beta}{\alpha} \log(y + x) \right)
@@ -259,17 +259,21 @@ Evaluating this at $(x_0, y_0)$ gives us
 f_{xy}(x_0, y_0) &= \frac{2\beta}{\alpha\sqrt{\alpha^2 + \beta^2}} \left( \alpha + \frac{\beta^2}{\alpha} \right)\exp\left( \frac{\alpha}{\beta} \arctan \left( \frac{\beta}{\alpha}\right) \right) \\
 &= \frac{2 \beta}{\alpha^2}\sqrt{ \alpha^2 + \beta^2 }
 \exp\left( \frac{\alpha}{\beta} \arctan \left( \frac{\beta}{\alpha}\right) \right) \\
+&= 2 \frac{\beta}{\alpha}\sqrt{ 1 + \left(\frac{\beta}{\alpha}\right)^2 }
+\exp\left( \frac{\alpha}{\beta} \arctan \left( \frac{\beta}{\alpha}\right) \right) \\
 \end{align*}
 
-Since $\alpha, \beta > 0$, $f_{xy}(x_0, y_0) > 0$. Let $k_1 = f_{xy}(x_0, y_0)$. Finally, we check the third derivative with respect to $x$. This is a mess, but from Mathematica we have
+Note that this only depends on the ratio $\beta / \alpha$. Since $\alpha, \beta > 0$, $f_{xy}(x_0, y_0) > 0$. Let $k_1 = f_{xy}(x_0, y_0)$. Finally, we check the third derivative with respect to $x$. This is a mess, but from Mathematica we have
 
 \begin{align*}
 f_{xxx}(x_0, y_0)
 &= -\frac{2 \beta}{\alpha^2}\sqrt{ \alpha^2 + \beta^2 }
-\exp\left( \frac{2\alpha}{\beta} \arctan \left( \frac{\beta}{\alpha}\right) \right) < 0\\
+\exp\left( \frac{2\alpha}{\beta} \arctan \left( \frac{\beta}{\alpha}\right) \right) \\
+&= -2 \frac{\beta}{\alpha}\sqrt{ 1 + \left(\frac{\beta}{\alpha}\right)^2 }
+\exp\left( 2 \frac{\alpha}{\beta} \arctan \left( \frac{\beta}{\alpha}\right) \right) < 0\\
 \end{align*}
 
-Let $k_2 = -f_{xxx}(x_0, y_0) > 0$. \\
+This also only depends on the ratio $\beta / \alpha$. Let $k_2 = -f_{xxx}(x_0, y_0) > 0$. \\
 
 We have verified that a pitchfork bifurcation occurs at $(0, y_0)$. In fact, near the bifurcation point $(0, y_0)$, we have the following Taylor expansion
 
@@ -283,7 +287,99 @@ Matlab plot suggests that the two arms of the pitchfork connect to the points $(
 \includegraphics[width=10cm]{pitchfork.eps}
 \end{figure}
 
-Of course, I have no idea how to show this is actually true.
+The pitchfork bifurcation gives us the picture locally near the bifurcation point. We can also look at the ends of the arms at $(x,y) = (\pm 1/2, 1/2)$. Let's look at $(1/2, 1/2)$. Evaluating $f_x(1/2, 1/2)$, we have
+
+\begin{align*}
+f_x(1/2, 1/2) &= -\sin \left( - \frac{\beta}{\alpha} \log 1 \right) + \frac{\beta}{\alpha} \cos \left( - \frac{\beta}{\alpha} \log 1 \right)= \frac{\beta}{\alpha} \neq 0
+\end{align*}
+
+Since this derivative is not 0, we can use the IFT solve locally for $y$ in terms of $x$ near $(1/2, 1/2)$. By symmetry, this works near $(-1/2, 1/2)$ as well. \\
+
+Thus we have local information in three places. Let's see if we can put them together.\\
+
+Consider the following 2-dimensional, first order ODE
+
+\begin{align*}
+\dot x &= f_y(x,y)\\
+\dot y &= -f_x(x,y)
+\end{align*}
+
+where the dot represents differentiation with respect to $t$ (which is just a parameter in this case and has nothing do with with time). By construction, $f(x,y)$ is constant on solutions of this, so we should be able to use it to trace out the curves $f(x,y) = 0$, provided we use the right IC. It is easy to implement this numerically and show that it does what we want. \\
+
+However, this is annoying to deal with in the $(x,y)$ coordinate system. Thus we will switch back to the $(a_0, a_1)$ coordinate system. We also let $r = \beta/ \alpha$ for convenience, since everything only depends on this ratio.
+
+\begin{align}
+\dot a_0 &= -f_{a_1}(a_0, a_1) = -[ -\sin(-r \log a_1) 
++ r \cos( -r \log a_1 ) ] \\
+\dot a_1 &= f_{a_0}(a_0, a_1) = \sin(-r \log a_0) 
+- r \cos( -r \log a_0 )
+\end{align}
+
+The advantage here is that each equation only depends on the other variable. Let $a^* = \exp \left( -(1/r) \arctan r \right)$. Then we know that $(a^*, a^*)$ is a fixed point of this system (it is the pitchfork bifurcation point).\\
+
+Note that 
+
+\begin{align*}
+f_{a_0}(a_0, a_1) &= 0 \iff a_0 = e^{n \pi / r} a^*, n \in \Z \\
+f_{a_1}(a_0, a_1) &= 0 \iff a_1 = e^{n \pi / r} a^*, n \in \Z
+\end{align*}
+
+It will also be useful to have bounds on these things so we do that now.
+
+\begin{align*}
+\frac{d}{d a_0}f_{a_0}(a_0, a_1) &= \frac{1}{a_0} \left(-r \cos(-r \log a_0) - r^2 \sin( -r \log a_0 ) \right) \\
+&= -\frac{r}{a_0} \left(\cos(-r \log a_0) + r \sin( -r \log a_0 ) \right)
+\end{align*}
+
+Setting this equal to 0, as long as $a_0 \neq 0$, we have
+
+\begin{align*}
+\tan(-r \log a_0) &= -1/r \\
+-r \log a_0 &= \arctan(-1/r) + n \pi && n \in Z \\
+a_0 &= \exp\left( -(1/r) \arctan(-1/r) - n \pi/r \right) && n \in Z \\
+\end{align*}
+
+Plugging this into the expression for $f_{a_0}(a_0, a_1)$, we get
+
+\begin{align*}
+f_{a_0}(\exp(-(1/r) \arctan(-1/r) - n \pi/r), a_1) &=
+\sin(\arctan(-1/r) + n \pi) - r \cos(\arctan(-1/r) + n \pi) \\
+&= \pm \left( -\frac{1}{\sqrt{1 + r^2}} - r \frac{r}{\sqrt{1 + r^2}} \right) \\
+&= \mp \sqrt{1 + r^2}
+\end{align*}
+
+Thus for $a_0 > 0$ and any $a_1$ we have $|f_{a_0}(a_0, a_1)| \leq \sqrt{1 + r^2}$. Similarly, for $a_1 > 0$ and any $a_0$ we have $|f_{a_1}(a_0, a_1)| \leq \sqrt{1 + r^2}$. 
+
+
+
+
+Now we note the following.
+
+\begin{enumerate}
+   \item Consider the interval $a_0 \in [a^*, e^{\pi / r}a^*]$. At the endpoints, $\dot a_1 = f_{a_0}(a_0, a_1) = 0$. There are no other zeros of $f_{a_0}(a_0, a_1)$ between these. At the midpoint, we have
+   \begin{align*}
+   a_1 &= f_{a_0}(e^{\pi / (2r)}a^*, a_1) \\
+   &= \sin(-r \log e^{\pi / (2r)} a^* ) - r \cos( -r \log e^{\pi / (2r)} a^* ) \\
+   &= \sin\left(-r \left( \frac{\pi}{2r} - \frac{1}{r} \arctan r \right) \right) - r \cos\left(-r \left( \frac{\pi}{2r} - \frac{1}{r} \arctan r \right) \right) \\
+   &= \sin\left(\arctan r - \frac{\pi}{2} \right) - r \cos\left(\arctan r - \frac{\pi}{2} \right) \\
+   &= -\cos\left(\arctan r \right) - r \sin\left(\arctan r\right) \\
+   &= - \left( \frac{1}{\sqrt{1+r^2}} + r \frac{r}{\sqrt{1+r^2}}  \right) \\
+   &= -\sqrt{1 + r^2} < 0
+   \end{align*}
+   Since $\dot a_1 = f_{a_0}(a_0, a_1)$ is continuous on $[a^*, e^{\pi / r}a^*]$, is zero only at the endpoints, and is negative at the midpoint, we conclude that $\dot a_1 < 0$ on the open interval $(a^*, e^{\pi / r}a^*)$.
+
+   \item 
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
 
 \item IGNORE THE REST OF THIS FOR NOW. THE IDEA IS RIGHT, BUT WE ARE TRYING TO GET THE REST OF THE BIFURCATION PICTURE.
 
