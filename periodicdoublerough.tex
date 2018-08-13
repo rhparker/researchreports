@@ -370,6 +370,7 @@ f_{a_0}(\exp(-(1/r) \arctan(-1/r) - n \pi/r), a_1) &=
 Thus for $a_0 > 0$ and any $a_1$ we have $|f_{a_0}(a_0, a_1)| \leq \sqrt{1 + r^2}$. Similarly, for $a_1 > 0$ and any $a_0$ we have $|f_{a_1}(a_0, a_1)| \leq \sqrt{1 + r^2}$. 
 
 \item Consider the interval $a_0 \in [b^*_n, b^*_{n+1}]$. At the endpoints, $\dot a_1 = f_{a_0}(a_0, a_1) = 0$. There are no other zeros of $f_{a_0}(a_0, a_1)$ between these two points. Consider the point $\exp{(2n+1)\pi/(2r) }b^*$ which is between these. Then we have
+
 \begin{align*}
 a_1 &= f_{a_0}(e^{(2n+1) \pi / (2r)}b^*, a_1) \\
 &= \sin(-r \log e^{(2n+1) \pi / (2r)} b^* ) - r \cos( -r \log e^{(2n+1) \pi / (2r)} b^* ) \\
@@ -384,7 +385,7 @@ Since $\dot a_1 = f_{a_0}(a_0, a_1)$ is continuous on $[b^*_n, b^*_{n+1}]$, is z
 
 \item What we would like is a trapping region for solutions which start near the pitchfork bifurcation point. It turns out we can do this, but not in the usual way of showing derivatives point into the region.\\
 
-Consider the bifurcation point $(a_0,a_1) = (b^*, b^*_1)$. Consider the box with corners $(b^*, b^*)$, $(b^*, b^*_1)$, $(b^*, 0)$, and $(b^*_1, 0)$. The upper left corner is the pitchfork bifurcation point, and from the normal form we know that the lower branch of the pitchfork goes down and right, so the lower branch enters the box. Within the box, all solutions move down, as we showed above. If a solution hits the bottom edge of the box, it will stop since the RHS of the ODE is singular there. We need to show that the solution cannot exit the sides.\\
+Consider the bifurcation point $(a_0,a_1) = (b^*,_n b^*_n)$ for any $n \in \Z$. Consider the box with corners $(b^*_n, b^*_n)$, $(b^*_{n+1}, b^*_n)$, $(b^*_n, 0)$, and $(b^*_{n+1}, 0)$. The upper left corner is the pitchfork bifurcation point, and from the normal form we know that the lower branch of the pitchfork goes down and right, so the lower branch enters the box. Within the box, all solutions move down (for $n$ even) or up (for $n$ odd), as we showed above. If a solution hits the bottom edge of the box, it will stop since the RHS of the ODE is singular there. We need to show that the solution cannot exit the sides.\\
 
 We use an energy argument to do this. Take an initial condition $(a_0^*, a_1^*)$ which is on the lower branch of the pitchfork (and thus inside the box). We can do this since we know what happens locally near the pitchfork point. Since the entire pitchfork is contained in the level set $f(a_0, a_1) = 0$, $f(a_0^*, a_1^*) = 0$. Since $f(a_0, a_1)$ is constant along solutions of our ODE and since trajectories cannot cross, it suffices to show that the energy $f(a_0, a_1)$ is nonzero along the sides of the box (except at the corners).\\
 
@@ -422,6 +423,12 @@ g''(y) &= (-1)^n e^{-n \pi /r} \frac{e^{-(1/r)\arctan r}}{r^2 \sqrt{1+r^2}} \lef
 \end{align*}
 
 where $p(r) > 0$. Thus $\arctan r + n \pi$ is a local max for $n$ even and a local min for $n$ odd. For $n$ even, since $\arctan r + n \pi$ is a local max of $g(y) = e^{-y/r} \sin y$, and we know what that function looks like, $g(y) < g(\arctan r + n \pi)$ whenever $y > \arctan r + n \pi$, thus $g(\arctan r + n \pi) - g(y) > 0$ for $y \in (\arctan r + n \pi, \infty)$. Similarly, if $n$ is odd, $g(y) > g(\arctan r + n \pi)$ whenever $y > \arctan r + n \pi$, thus $g(\arctan r + n \pi) - g(y) < 0$ for $y \in (\arctan r + n \pi, \infty)$. In either case, $g(\arctan r + n \pi) - g(y) \neq 0$ for all $ y \in (\arctan r + n \pi, \infty)$.
+
+\item The solution starting at $(a_0^*, a_1^*)$ evolves along the zero level set of the energy $F$. For $n$ even, we will evolve in forward time, and for $n$ odd, we will evolve in backward time (alternatively, we can replace $F$ with $-F$ for $n$ odd). Solutions will then start in the box, always move down, and are trapped by the sides of the box, since the sides of the box have nonzero energy and trajectories cannot cross. Solutions must terminate at $(e^{n \pi/r}, 0)$. Thus the picture looks (qualitatively) like the Matlab plot.
+
+\item We have fully characterized the level sets $F(a_0, a_1) = 0$. Now we need to show that this bifurcation picture persists for small $r_m$, i.e. the level sets of $G(a_0, r_m; a_1)$ look (qualitatively) like this.\\
+
+
 
 
 
