@@ -1145,7 +1145,7 @@ Consider the situation of the 2-pulse. In this case, we only have a single equat
 
 In order to use the IFT, we need to find values of $a_0, a_1, r_m$ so that $\tilde{G}(a_0, a_1, r_m) = 0$. First, we take $r_m = 0$, which we can do since the limit point $0 \in \mathcal{R}$. For convenience, define
 
-\begin{equation}
+\begin{equation}\label{defF}
 F(a_0, a_1) = \tilde{G}(a_0, a_1, 0) = 
 a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 \right)
 \end{equation}
@@ -1181,7 +1181,22 @@ A Matlab plot of the zero set of $F(a_0, a_1)$ suggests that a series of pitchfo
 
 We will now prove that such pitchfork bifurcations actually take place.
 
+% Lemma : pitchfork bifurcation
+
 \begin{lemma}
+A countable family of pitchfork bifurcations in the zero set of \eqref{defF} occurs along the diagonal at 
+
+\begin{align*}
+(a_0, a_1) &= (b_n^*, b_n^*) && n \in \Z
+\end{align*}
+
+where 
+
+\begin{equation}
+b^*_n = \exp\left(\frac{n \pi}{\rho} \right) \exp \left( -\frac{1}{\rho} \arctan \rho \right)
+\end{equation}
+
+Locally, the arms of the pitchfork bifurcations open upwards along the diagonal.
 
 \begin{proof}
 First, we need to determine the locations of the hypothesized pitchfork bifurcations along the diagonal. A necessary condition for these to occur is that the first derivative vanishes. Taking the derivative of $F$ with respect to $a_0$ and evaluating it on the diagonal, we have
@@ -1198,7 +1213,7 @@ This derivative is 0 if and only if
 \begin{align*}
 \tan \left( -\rho \log a_0 \right) &=  \rho \\
 -\rho \log a_0 &= \arctan \left( \rho\right) - n \pi && n \in \Z \\ 
-a_0 &= \exp \left( -\frac{1}{\rho} \arctan \rho - n \pi \right) && n \in \Z
+a_0 &= \exp \left( -\frac{1}{\rho} \arctan \rho + \frac{n \pi}{\rho} \right) && n \in \Z
 \end{align*}
 
 Let 
@@ -1210,7 +1225,7 @@ b^* = \exp \left( -\frac{1}{\rho} \arctan \rho \right)
 and for $n \in \Z$ let 
 
 \begin{equation}
-b^*_n = \exp \left( -\frac{1}{\rho} \arctan \rho - n \pi \right) 
+b^*_n = \exp \left( -\frac{1}{\rho} \arctan \rho + \frac{n \pi}{\rho} \right) 
 = \exp\left(\frac{n \pi}{\rho} \right) b^*
 \end{equation}
 
@@ -1242,20 +1257,20 @@ It is easy to see from \eqref{Fxy} that $F(-x, y) = -F(x, y)$, thus $y$ will be 
 At this point, we need to evaluate a bunch of derivatives at $(x_0, y_0)$. For the first derivatives, we have
 
 \begin{align*}
-f_x(x, y) &= -\sin \left( - \rho \log(y - x) \right) - 
+F_x(x, y) &= -\sin \left( - \rho \log(y - x) \right) - 
 \sin \left( - \rho \log(y + x) \right)
 +\rho \cos \left( - \rho \log(y - x) \right) + \rho \cos \left( - \rho \log(y + x) \right) \\
-f_y(x, y) &= \sin \left( - \rho \log(y - x) \right) - 
+F_y(x, y) &= \sin \left( - \rho \log(y - x) \right) - 
 \sin \left( - \rho \log(y + x) \right)
 -\rho \cos \left( - \rho \log(y - x) \right) + \rho \cos \left( - \rho \log(y + x) \right)
 \end{align*}
 
-Plugging in $(x_0, y_0) = \left(0, b^*_n \right)$ and noting that $\sin(\arctan \rho) = \rho / \sqrt{1 + \rho^2}$ and $\cos(\arctan \rho) = 1 / \sqrt{1 + \rho^2}$, it is easy to see that both $f_x(x_0, y_0) = 0$ and $f_y(x_0, y_0) = 0$. \\
+Plugging in $(x_0, y_0) = \left(0, b^*_n \right)$ and noting that $\sin(\arctan \rho) = \rho / \sqrt{1 + \rho^2}$ and $\cos(\arctan \rho) = 1 / \sqrt{1 + \rho^2}$, it is easy to see that both $F_x(x_0, y_0) = 0$ and $F_y(x_0, y_0) = 0$. \\
 
-For $f_{xx}$, we have
+For $F_{xx}$, we have
 
 \begin{align*}
-f_{xx}(x, y) &= 
+F_{xx}(x, y) &= 
 -(y-x) \left(-\frac{\rho^2 \sin \left(\rho \log (y-x)\right)}{(y-x)^2}-\frac{\rho
    \cos \left(\rho \log (y-x) \right)}{(y-x)^2}\right)\\
    &+(x+y) \left(-\frac{\rho^2
@@ -1266,43 +1281,55 @@ f_{xx}(x, y) &=
    (x+y)}
 \end{align*}
 
-A tedious calculation, which can be verified by Mathematica,  tells us that $f_{xx}(x_0, y_0) = 0$. By symmetry, we also have $f_{yy}(x_0, y_0) = 0$, although that it not strictly necessary for the pitchfork. The mixed derivative $f_{xy}$ is
+A tedious calculation, which can be verified by Mathematica,  tells us that $F_{xx}(x_0, y_0) = 0$. By symmetry, we also have $F_{yy}(x_0, y_0) = 0$, although that it not strictly necessary for the pitchfork. The mixed derivative $f_{xy}$ is
 
 \begin{align*}
-f_{xy}(x, y) &= -\frac{\rho^2 \sin \left(\rho \log (y-x)\right)}{(y-x)}-\frac{\rho^2 \sin
+F_{xy}(x, y) &= -\frac{\rho^2 \sin \left(\rho \log (y-x)\right)}{(y-x)}-\frac{\rho^2 \sin
    \left(\rho \log (x+y)\right)}{(x+y)}+\frac{\rho \cos \left(\rho \log (y-x)\right)}{(y-x)}+\frac{\rho \cos \left( \rho \log (x+y) \right)}{(x+y)}
 \end{align*}
 
 Evaluating this at $(x_0, y_0) = \left(0, b^*_n \right)$ gives us
 
 \begin{align*}
-f_{xy}(0, b^*_n) &= \frac{2 \rho}{b_n^*}\left( -\rho \sin \left(\rho \log b_n^*\right) + \cos \left(\rho \log b_n^*\right) \right)\\
+F_{xy}(0, b^*_n) &= \frac{2 \rho}{b_n^*}\left( -\rho \sin \left(\rho \log b_n^*\right) + \cos \left(\rho \log b_n^*\right) \right)\\
 &= \frac{2 \rho}{b_n^*}\left( -\rho \sin \left(\rho \log b^* + n \pi \right) + \cos \left(\rho \log b^* + n \pi \right) \right) \\
 &= \frac{2 \rho}{b_n^*} (-1)^n \left( \rho \sin \left(\arctan \rho \right) + \cos \left(\arctan \rho \right) \right)\\ 
 &= \frac{2 \rho}{b_n^*} (-1)^n \frac{\rho^2 + 1}{\sqrt{1 + \rho^2}} \\
-&= \frac{2 \rho}{b_n^*} (-1)^n \sqrt{1 + \rho^2}
+&= (-1)^n 2 \rho \sqrt{1 + \rho^2} \: \exp{\left(\frac{1}{\rho} (\arctan \rho - n \pi) \right)}
 \end{align*}
 
-Since $\rho > 0$, this is nonzero. Let $k_1 = f_{xy}(0, b^*_n)$. \\
+Since $\rho > 0$, this is nonzero. Let $k_1^n = F_{xy}(0, b^*_n)$. \\
 
-Finally, we check the third derivative with respect to $x$. This is a mess, but from Mathematica we have
+Finally, we check the third derivative with respect to $x$. This is another tedious calculation, but after substituting $(x_0, y_0) = \left(0, b^*_n \right)$ we obtain
 
 \begin{align*}
-f_{xxx}(x_0, y_0)
-&= -\frac{2 \beta}{\alpha^2}\sqrt{ \alpha^2 + \beta^2 }
-\exp\left( \frac{2\alpha}{\beta} \arctan \left( \frac{\beta}{\alpha}\right) \right) \\
-&= -2 \frac{\beta}{\alpha}\sqrt{ 1 + \left(\frac{\beta}{\alpha}\right)^2 }
-\exp\left( 2 \frac{\alpha}{\beta} \arctan \left( \frac{\beta}{\alpha}\right) \right) < 0\\
+F_{xxx}(0, b_n^*)
+&= -(-1)^n 2 \rho \sqrt{1 + \rho^2} \: \exp{\left(\frac{2}{\rho} (\arctan \rho - n \pi) \right)}
 \end{align*}
 
-This also only depends on the ratio $\beta / \alpha$. Let $k_2 = -f_{xxx}(x_0, y_0) > 0$. \\
+Since $\rho > 0$, this is also nonzero. Let $k_2^n = -F_{xxx}(0, b^*_n)$. \\
 
-We have verified that a pitchfork bifurcation occurs at $(0, y_0)$. In fact, near the bifurcation point $(0, y_0)$, we have the following Taylor expansion
+We have verified that a pitchfork bifurcation occurs at $(0, b^*_n)$ for $n \in \Z$. Near the bifurcation points $(0, b_n^*)$, we have the following Taylor expansions
 
 \begin{align*}
-f(x, y) = k_1 x (y - y_0) - \frac{k_2}{6} x^3 + \text{h.o.t.}
+F(x, y) &= k_1^n x (y - b_n^*) - \frac{k_2^n}{6} x^3 + \text{h.o.t.} \\
+&= k_1^n x \left( (y - b_n^*) - \frac{k_2^n}{6 k_1^n } x^2 \right) + \text{h.o.t.} \\
+&= k_1^n x \left( (y - b_n^*) - \frac{k_3^n}{6} x^2 \right) + \text{h.o.t.} \\
 \end{align*}
 
+where
+
+\begin{equation*}
+k_3^n = \exp{\left(\frac{1}{\rho} (\arctan \rho - n \pi) \right)} > 0
+\end{equation*}
+
+To leading order, the arms of the pitchforks are upwards-opening parabolas of the form 
+
+\begin{align*}
+y &= b_n^* + \frac{k_3^n}{6} x^2
+\end{align*}
+
+Since the above change of coordinates is linear, we have shown that pitchfork bifurcations occur in the original coordinate system at $(a_0, a_1) = (b_n^*, b_n^*)$. Since the change of coordinates is a rotation by $\pi/4$, in the original coordinate system, the arms of the pitchforks are, to leading order, parabolas which open upwards along the diagonal.
 
 \end{proof}
 \end{lemma}
