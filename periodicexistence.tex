@@ -61,7 +61,7 @@ In this section we will look at multipulse solutions to KdV5 in the case where w
 
 Let $X_m = \min \{ X_0, \dots, X_{n-1} \}$ and $X_M = \max \{ X_0, \dots, X_{n-1} \}$. Since we are on a periodic domain, we will always WLOG take $X_m = X_0$.\\
 
-We would like to write the periodic double pulse as a small (piecewise) perturbation of the single pulse as was done in San98 (and San93). The method in those papers, however, does not give us the estimates we need. Instead, we will give another construction based on San97. This boils down to proving existence of the periodic double pulse, which is what we shall do. We assume that $c > 1/4$, since that is necessary for the existence of multipulses to KdV5. Thus the eigenvalues of the linearization about $0$ are complex and given by $\pm \alpha \pm \beta i$.\\
+We would like to write the periodic multipulse as a small (piecewise) perturbation of the single pulse as was done in San98 (and San93). The method in those papers, however, does not give us the estimates we need for the stability problem. Instead, we will give another construction based on San97. This boils down to proving existence of the periodic multipulse, which is what we shall do. We assume that $c > 1/4$, since that is necessary for the existence of multipulses to KdV5. Thus the eigenvalues of the linearization about $0$ are complex and given by $\pm \alpha \pm \beta i$.\\
 
 Since we are only interested in the existence problem here, we can use the 4th order (integrated) equation in the traveling frame
 
@@ -118,7 +118,9 @@ This is not the standard symplectic matrix $J$, but $\tilde{J}$ is invertible an
 
 We note that 0 is an equilibrium of the system. Let $Q(x)$ be a homoclinic orbit connecting the equilibrium at 0 to itself. Such a homoclinic orbit is known to exist. Then since $Q(0)$ is not an equilibrium point of the system, we also know that $\nabla H(Q(0)) \neq 0$ since $\tilde{J}$ is invertible.
 
-\subsection{Existence and Construction of Periodic Multipulses}
+\subsection{Construction of Periodic Multipulses}
+
+\subsubsection{Setup}
 
 We look at the general equation
 
@@ -391,6 +393,8 @@ Next, we define the exponentially weighted norms
 \end{align*}
 
 Let $K_{X, +}$ be the spaces on continuous functions on the appropriate intervals equipped with these norms. These are known to be Banach spaces. Let $B_{X, \pm}(\rho)$ be the ball of radius $\rho$ in these spaces.\\
+
+\subsubsection{Inversion}
 
 We will solve for the $V_i^\pm$ and the $\beta_i^\pm$ in a series of lemmas.\\
 
@@ -782,6 +786,8 @@ Since $H(0, 0) \leq C (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})$, this becomes
 \end{proof}
 \end{lemma}
 
+\subsubsection{Jump in Direction of Adjoint}
+
 Finally, we need to look at the projection on the adjoint solution $\Psi(0)$. To do this, we will show that this condition is satisfied for certain values of the lengths $X_i$. This makes sense based on what we know about the nonperiodic case.\\
 
 Recall that from our change of coordinates we have
@@ -998,6 +1004,8 @@ We will fill in a detailed argument later, or we will cite an appropriate refere
 \end{proof}
 \end{lemma}
 
+\subsubsection{Additional Assumptions}
+
 Up to this point, we have made no additional assumptions on our system. In order to satisfy the equations in Lemma \ref{IPsystem}, we will need to make some assumptions about the eigenvalues of $DF(0)$. This makes sense, since we know we need to have ``twisting manifolds'' to construct a nonperiodic multipulse. Thus we make the following additional hypothesis.
 
 \begin{hypothesis}The spectrum of $DF(0)$ contain simple eigenvalues $\pm \alpha \pm i \beta$, for $\alpha, \beta > 0$. The real part of any other eigenvalue of $DF(0)$ lies outside $(-\alpha, \alpha)$. Thus the equilibrium at 0 is a hyperbolic equilibrium, with both stable and unstable manifolds having dimension at least 2.
@@ -1036,7 +1044,7 @@ Since $\mathcal{R}$ is closed and bounded, is is compact, thus complete.
 \begin{lemma}
 Under the above assumptions, a periodic multipulse solution exists if and only if for $i = 0, \dots, n-2$
 
-\begin{equation}
+\begin{equation}\label{Gdef}
 G_i(a_1, \dots, a_{n-1}, r_m) = a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) - a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0 \\
 \end{equation}
 
@@ -1101,10 +1109,205 @@ which are the equations we want. Note that $r_m$ only occurs in the remainder te
 \end{proof}
 \end{lemma}
 
-At this point, we would like to use the IFT to solve for the $a_i$ in terms of $r_m$. Before we can do that, we note that from the previous lemma we have $n-1$ equations but $n+1$ unknowns. Thus we expect to have a 1-parameter family of solutions, paramaterized by one of the unknowns. We can pick any of the $a_i$ to be the parameter. Since we are trying to construct a periodic solution and would like to be able to show that such a solution exists for any sufficiently large period, we will let $a_{n-1}$ be the parameter. Since this term only occurs in the $G_0$ equation, it should not be too hard to deal with.
+At this point, we would like to use the IFT to solve for the $a_i$ in terms of $r_m$. Before we can do that, we note that from the previous lemma we have $n-1$ equations but $n+1$ unknowns. Thus we expect to have a 1-parameter family of solutions, paramaterized by one of the unknowns. We can pick any of the $a_i$ to be the parameter. Since we are trying to construct a periodic solution and would like to be able to show that such a solution exists for any sufficiently large period, we will let $a_{n-1}$ be the parameter. Ideally, we would like each of the $n-1$ equations in the previous lemma to involve one of the $a_i$ and the parameter $a_{n-1}$. This is easy to accomplish.
+
+% Lemma : get this into diagonal system with parameter
+
+\begin{lemma}
+Under the above assumptions, a periodic multipulse solution exists if and only if for $i = 0, \dots, n-2$
+
+\begin{equation}\label{tildeGeq}
+\tilde{G}_i(a_1, \dots, a_{n-1}, r_m) = a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) - a_{n-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0
+\end{equation}
+
+\begin{proof}
+
+Let 
+
+\begin{equation}\label{tildeGdef}
+\tilde{G}_i = \sum_{j = 0}^i G_i
+\end{equation}
+
+Then, after canceling terms, we have the system \eqref{tildeGeq}. Since \eqref{tildeGeq} is a linear combination of \eqref{Gdef}, the two systems are equivalent. Note that the system \eqref{tildeGeq} consists of $n-1$ equations of the same form.
+
+\end{proof}
+\end{lemma}
+
+Since the equations \eqref{tildeGeq} are of the same form, we only need to look at one of them. What we will do now is look at the 2-pulse case, which only involves one equation, and then generalize to the $n-$pulse.
+
+\subsubsection{Bifurcation Structure}
+
+Consider the situation of the 2-pulse. In this case, we only have a single equation to solve. For convenience, let $\rho = \beta / \alpha$. Then the equation we need to solve is
+
+\begin{equation}\label{tildeGeq}
+\tilde{G}_i(a_0, a_1, r_m) = a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0
+\end{equation}
+
+In order to use the IFT, we need to find values of $a_0, a_1, r_m$ so that $\tilde{G}(a_0, a_1, r_m) = 0$. First, we take $r_m = 0$, which we can do since the limit point $0 \in \mathcal{R}$. For convenience, define
+
+\begin{equation}
+F(a_0, a_1) = \tilde{G}(a_0, a_1, 0) = 
+a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 \right)
+\end{equation}
+
+Since we will be applying the IFT, we are interested in the zero set of $F(a_0, a_1)$. We note the following.
+
+\begin{enumerate}
+	\item $F(a_1, a_0) = -F(a_0, a_1)$, i.e. $F$ is antisymmetric with respect to its two arguments. Thus the zero set of $F(a_0, a_1)$ is symmetric with respect to the diagonal, and so we only need to consider the case $a_1 \leq a_0$.
+
+	\item $F(a_0, a_0) = 0$. This corresponds to a periodic wavetrain, which either is known to exist or can easily be shown to exist.
+
+	\item For $a > 0$, note that $a \sin \left( -\rho \log a \right) = 0$ if and only if $a = e^{-n \pi / \rho}$ for $n \in \Z$. Thus we have
+
+	\begin{align*}
+	F(e^{-n \pi / \rho}, e^{-m \pi / \rho}) &= 0 && n, m \in \Z
+	\end{align*}
+
+    \item Since $\lim_{a \rightarrow 0^+} a \sin \left( -\rho \log a \right) = 0$, we can define $F$ on the axes using this limit. Thus we have
+
+    \begin{align*}
+	F(0, e^{-n \pi / \rho}) &= F(e^{-n \pi / \rho}, 0) = 0 && n \in \Z
+	\end{align*}
+
+	By the above, these are the only zeros of $F$ on the axes (other than the origin).
+\end{enumerate}
+
+A Matlab plot of the zero set of $F(a_0, a_1)$ suggests that a series of pitchfork bifurcations occurs along the diagonal.
+
+\begin{figure}[H]
+\includegraphics[width=10cm]{zeroset5.eps}
+\caption{Zero set of $F(a_0, a_1)$ for $\rho = 5$.}
+\end{figure}
+
+We will now prove that such pitchfork bifurcations actually take place.
+
+\begin{lemma}
+
+\begin{proof}
+First, we need to determine the locations of the hypothesized pitchfork bifurcations along the diagonal. A necessary condition for these to occur is that the first derivative vanishes. Taking the derivative of $F$ with respect to $a_0$ and evaluating it on the diagonal, we have
+
+\begin{align*}
+F_{a_0}(a_0, a_0) &= 
+\sin \left( - \rho \log a_0 \right)
++ a_0 \cos \left( - \rho \log a_0 \right)- \rho \frac{1}{a_0} \\
+&= \sin \left( - \rho \log a_0 \right) - \rho \cos \left( - \rho \log a_0 \right)
+\end{align*}
+
+This derivative is 0 if and only if
+
+\begin{align*}
+\tan \left( -\rho \log a_0 \right) &=  \rho \\
+-\rho \log a_0 &= \arctan \left( \rho\right) - n \pi && n \in \Z \\ 
+a_0 &= \exp \left( -\frac{1}{\rho} \arctan \rho - n \pi \right) && n \in \Z
+\end{align*}
+
+Let 
+
+\begin{equation}
+b^* = \exp \left( -\frac{1}{\rho} \arctan \rho \right)
+\end{equation}
+
+and for $n \in \Z$ let 
+
+\begin{equation}
+b^*_n = \exp \left( -\frac{1}{\rho} \arctan \rho - n \pi \right) 
+= \exp\left(\frac{n \pi}{\rho} \right) b^*
+\end{equation}
+
+By symmetry, we also have $F_{a_1}(b^*_n, b^*_n) = 0$. Thus the only possible pitchfork bifurcation points are $(a_0, a_1) = (b^*_n, b^*_n)$.\\
+
+At this point, we will verify the rest of the criteria for the pitchfork bifurcation and obtain a leading order approximation for the bifurcation curve. To do this, we will change coordinates so that we can put the equation for $F$ into the normal form of a pitchfork bifurcation. Let 
+
+\begin{align*}
+x &= \frac{1}{2}(a_1 - a_0) \\
+y &= \frac{1}{2}(a_1 + a_0)
+\end{align*}
+
+Inverting this, we have
+
+\begin{align*}
+a_0 &= y - x \\
+a_1 &= y + x
+\end{align*}
+
+Substituting this into the equation for $F(a_0, a_1)$ yields
+
+\begin{equation}\label{Fxy}
+F(x, y) = 
+(y - x) \sin \left( -\rho \log(y - x) \right) - (y + x) \sin \left( - \rho \log (y + x) \right)
+\end{equation}
+
+It is easy to see from \eqref{Fxy} that $F(-x, y) = -F(x, y)$, thus $y$ will be the bifurcation parameter. From the above anod our change of variables, we expect the bifurcations to occur at $(x_0, y_0) = \left(0, b^*_n \right)$.\\
+
+At this point, we need to evaluate a bunch of derivatives at $(x_0, y_0)$. For the first derivatives, we have
+
+\begin{align*}
+f_x(x, y) &= -\sin \left( - \rho \log(y - x) \right) - 
+\sin \left( - \rho \log(y + x) \right)
++\rho \cos \left( - \rho \log(y - x) \right) + \rho \cos \left( - \rho \log(y + x) \right) \\
+f_y(x, y) &= \sin \left( - \rho \log(y - x) \right) - 
+\sin \left( - \rho \log(y + x) \right)
+-\rho \cos \left( - \rho \log(y - x) \right) + \rho \cos \left( - \rho \log(y + x) \right)
+\end{align*}
+
+Plugging in $(x_0, y_0) = \left(0, b^*_n \right)$ and noting that $\sin(\arctan \rho) = \rho / \sqrt{1 + \rho^2}$ and $\cos(\arctan \rho) = 1 / \sqrt{1 + \rho^2}$, it is easy to see that both $f_x(x_0, y_0) = 0$ and $f_y(x_0, y_0) = 0$. \\
+
+For $f_{xx}$, we have
+
+\begin{align*}
+f_{xx}(x, y) &= 
+-(y-x) \left(-\frac{\rho^2 \sin \left(\rho \log (y-x)\right)}{(y-x)^2}-\frac{\rho
+   \cos \left(\rho \log (y-x) \right)}{(y-x)^2}\right)\\
+   &+(x+y) \left(-\frac{\rho^2
+   \sin \left(\rho \log (x+y)\right)}{(x+y)^2}-\frac{\rho \cos \left( \rho
+   \log (x+y)\right)}{(x+y)^2}\right)\\
+   &-\frac{2 \rho \cos \left(\rho \log
+   (y-x) \right)}{(y-x)}+\frac{2 \rho \cos \left( \rho \log (x+y) \right)}{
+   (x+y)}
+\end{align*}
+
+A tedious calculation, which can be verified by Mathematica,  tells us that $f_{xx}(x_0, y_0) = 0$. By symmetry, we also have $f_{yy}(x_0, y_0) = 0$, although that it not strictly necessary for the pitchfork. The mixed derivative $f_{xy}$ is
+
+\begin{align*}
+f_{xy}(x, y) &= -\frac{\rho^2 \sin \left(\rho \log (y-x)\right)}{(y-x)}-\frac{\rho^2 \sin
+   \left(\rho \log (x+y)\right)}{(x+y)}+\frac{\rho \cos \left(\rho \log (y-x)\right)}{(y-x)}+\frac{\rho \cos \left( \rho \log (x+y) \right)}{(x+y)}
+\end{align*}
+
+Evaluating this at $(x_0, y_0) = \left(0, b^*_n \right)$ gives us
+
+\begin{align*}
+f_{xy}(0, b^*_n) &= \frac{2 \rho}{b_n^*}\left( -\rho \sin \left(\rho \log b_n^*\right) + \cos \left(\rho \log b_n^*\right) \right)\\
+&= \frac{2 \rho}{b_n^*}\left( -\rho \sin \left(\rho \log b^* + n \pi \right) + \cos \left(\rho \log b^* + n \pi \right) \right) \\
+&= \frac{2 \rho}{b_n^*} (-1)^n \left( \rho \sin \left(\arctan \rho \right) + \cos \left(\arctan \rho \right) \right)\\ 
+&= \frac{2 \rho}{b_n^*} (-1)^n \frac{\rho^2 + 1}{\sqrt{1 + \rho^2}} \\
+&= \frac{2 \rho}{b_n^*} (-1)^n \sqrt{1 + \rho^2}
+\end{align*}
+
+Since $\rho > 0$, this is nonzero. Let $k_1 = f_{xy}(0, b^*_n)$. \\
+
+Finally, we check the third derivative with respect to $x$. This is a mess, but from Mathematica we have
+
+\begin{align*}
+f_{xxx}(x_0, y_0)
+&= -\frac{2 \beta}{\alpha^2}\sqrt{ \alpha^2 + \beta^2 }
+\exp\left( \frac{2\alpha}{\beta} \arctan \left( \frac{\beta}{\alpha}\right) \right) \\
+&= -2 \frac{\beta}{\alpha}\sqrt{ 1 + \left(\frac{\beta}{\alpha}\right)^2 }
+\exp\left( 2 \frac{\alpha}{\beta} \arctan \left( \frac{\beta}{\alpha}\right) \right) < 0\\
+\end{align*}
+
+This also only depends on the ratio $\beta / \alpha$. Let $k_2 = -f_{xxx}(x_0, y_0) > 0$. \\
+
+We have verified that a pitchfork bifurcation occurs at $(0, y_0)$. In fact, near the bifurcation point $(0, y_0)$, we have the following Taylor expansion
+
+\begin{align*}
+f(x, y) = k_1 x (y - y_0) - \frac{k_2}{6} x^3 + \text{h.o.t.}
+\end{align*}
 
 
-% lemma
+\end{proof}
+\end{lemma}
+
+%% Garbage
 
 \begin{lemma}
 

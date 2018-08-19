@@ -58,7 +58,7 @@ This is a rough sketch only, to see if this will work. Take a standard periodic 
 \item Since system is Hamiltonian, we only have one equation we need to solve (SanStrut (3.9) and discussion on p. 2093).
 
 \begin{align}\label{jumpeq}
-\langle \Psi(-X_0), Q(X_0) \rangle - \langle \Psi(-X_1), Q(X_1) \rangle + R_0 &= 0
+\langle \Psi(-X_0), Q(X_0) \rangle - \langle \Psi(-X_1), Q(X_1) \rangle + R_0(X_i) &= 0
 \end{align}
 
 where $R_0 = \mathcal{O}(e^{-3 \alpha X_m})$, $X_m = \min\{X_i\}$.
@@ -128,7 +128,7 @@ Note that $r_m$ now only occurs in the remainder term, which is what we wanted.
 
 \begin{align*}
 G(a_0, r_m; a_1) = 
-a_0 \sin \left( - \frac{\beta}{\alpha} \log a_0 \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) &= 0
+a_0 \sin \left( -\frac{\beta}{\alpha} \log a_0 \right) - a_1 \sin \left( - \frac{\beta}{\alpha} \log a_1 \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) &= 0
 \end{align*}
 
 \item To use the IFT, we need to find values of $a_0$ and $r_m$ so that $G(a_0, r_m; a_1) = 0$. To make things easier, we first take $r = 0$ (which we can do by how we defined $\mathcal{R}$ to get rid of the remainder term, leaving us with
@@ -323,7 +323,7 @@ Thus we have local information in three places. Let's see if we can put them tog
 \dot y &= f_x(x,y)
 \end{align*}
 
-where the dot represents differentiation with respect to $t$ (which is just a parameter in this case and has nothing do with with time). By construction, $f(x,y)$ is constant on solutions of this, so we should be able to use it to trace out the curves $f(x,y) = 0$, provided we use the right IC. It is easy to implement this numerically and show that it does what we want. \\
+where the dot represents differentiation with respect to $t$ (which is just a parameter in this case and has nothing do with with time). By construction, $f(x,y)$ is constant on solutions of this, so we should be able to use it to trace out the curves $f(x,y) = 0$, provided we use the right IC. It is easy to implement this numerically and show that it does what we want.\\
 
 However, this is annoying to deal with in the $(x,y)$ coordinate system. Thus we will switch back to the $(a_0, a_1)$ coordinate system. We also let $r = \beta/ \alpha$ for convenience, since everything only depends on this ratio.
 
@@ -333,6 +333,13 @@ However, this is annoying to deal with in the $(x,y)$ coordinate system. Thus we
 \dot a_1 &= f_{a_0}(a_0, a_1) = \sin(-r \log a_0) 
 - r \cos( -r \log a_0 )
 \end{align}
+
+Here is Matlab output showing this for $r = 5$.
+
+\begin{figure}[H]
+\includegraphics[width=10cm]{zeroset5.eps}
+\end{figure}
+
 
 The advantage here is that each equation only depends on the other variable. Note that $(b^*_n, b^*_n)$ are fixed points of this system (the pitchfork bifurcation points).\\
 
@@ -369,7 +376,7 @@ f_{a_0}(\exp(-(1/r) \arctan(-1/r) - n \pi/r), a_1) &=
 
 Thus for $a_0 > 0$ and any $a_1$ we have $|f_{a_0}(a_0, a_1)| \leq \sqrt{1 + r^2}$. Similarly, for $a_1 > 0$ and any $a_0$ we have $|f_{a_1}(a_0, a_1)| \leq \sqrt{1 + r^2}$. 
 
-\item Consider the interval $a_0 \in [b^*_n, b^*_{n+1}]$. At the endpoints, $\dot a_1 = f_{a_0}(a_0, a_1) = 0$. There are no other zeros of $f_{a_0}(a_0, a_1)$ between these two points. Consider the point $\exp{(2n+1)\pi/(2r) }b^*$ which is between these. Then we have
+\item Consider the interval $a_0 \in [b^*_n, b^*_{n+1}]$. At the endpoints, $\dot a_1 = f_{a_0}(a_0, a_1) = 0$. There are no other zeros of $f_{a_0}(a_0, a_1)$ between these two points. Consider the point $e^{(2n+1)\pi/(2r) }b^*$ which is between these. Then we have
 
 \begin{align*}
 a_1 &= f_{a_0}(e^{(2n+1) \pi / (2r)}b^*, a_1) \\
@@ -385,7 +392,7 @@ Since $\dot a_1 = f_{a_0}(a_0, a_1)$ is continuous on $[b^*_n, b^*_{n+1}]$, is z
 
 \item What we would like is a trapping region for solutions which start near the pitchfork bifurcation point. It turns out we can do this, but not in the usual way of showing derivatives point into the region.\\
 
-Consider the bifurcation point $(a_0,a_1) = (b^*,_n b^*_n)$ for any $n \in \Z$. Consider the box with corners $(b^*_n, b^*_n)$, $(b^*_{n+1}, b^*_n)$, $(b^*_n, 0)$, and $(b^*_{n+1}, 0)$. The upper left corner is the pitchfork bifurcation point, and from the normal form we know that the lower branch of the pitchfork goes down and right, so the lower branch enters the box. Within the box, all solutions move down (for $n$ even) or up (for $n$ odd), as we showed above. If a solution hits the bottom edge of the box, it will stop since the RHS of the ODE is singular there. We need to show that the solution cannot exit the sides.\\
+Consider the bifurcation point $(a_0,a_1) = (b^*_n, b^*_n)$ for any $n \in \Z$. Consider the box with corners $(b^*_n, b^*_n)$, $(b^*_{n+1}, b^*_n)$, $(b^*_n, 0)$, and $(b^*_{n+1}, 0)$. The upper left corner is the pitchfork bifurcation point, and from the normal form we know that the lower branch of the pitchfork goes down and right, so the lower branch enters the box. Within the box, all solutions move down (for $n$ even) or up (for $n$ odd), as we showed above. If a solution hits the bottom edge of the box, it will stop since the RHS of the ODE is singular there. We need to show that the solution cannot exit the sides.\\
 
 We use an energy argument to do this. Take an initial condition $(a_0^*, a_1^*)$ which is on the lower branch of the pitchfork (and thus inside the box). We can do this since we know what happens locally near the pitchfork point. Since the entire pitchfork is contained in the level set $f(a_0, a_1) = 0$, $f(a_0^*, a_1^*) = 0$. Since $f(a_0, a_1)$ is constant along solutions of our ODE and since trajectories cannot cross, it suffices to show that the energy $f(a_0, a_1)$ is nonzero along the sides of the box (except at the corners).\\
 
@@ -426,29 +433,30 @@ where $p(r) > 0$. Thus $\arctan r + n \pi$ is a local max for $n$ even and a loc
 
 \item The solution starting at $(a_0^*, a_1^*)$ evolves along the zero level set of the energy $F$. For $n$ even, we will evolve in forward time, and for $n$ odd, we will evolve in backward time (alternatively, we can replace $F$ with $-F$ for $n$ odd). Solutions will then start in the box, always move down, and are trapped by the sides of the box, since the sides of the box have nonzero energy and trajectories cannot cross. Solutions must terminate at $(e^{n \pi/r}, 0)$. Thus the picture looks (qualitatively) like the Matlab plot.
 
-\item We have fully characterized the level sets $F(a_0, a_1) = 0$. Now we need to show that this bifurcation picture persists for small $r_m$, i.e. the level sets of $G(a_0, r_m; a_1)$ look (qualitatively) like this.\\
+\item We have fully characterized the level sets $F(a_0, a_1) = 0$. Now we need to show that this bifurcation picture persists for small $r_m$, i.e. the level sets of $G(a_0, r_m; a_1)$ look (qualitatively) like this. Basically we have to show that with a small $r_m$ we still meet the criteria for a pitchfork bifurcation.\\
 
+The first thing we need to show is that we have the same symmetries if the remainder is small and nonzero. We know that $F(a_0, a_1) = -F(a_1, a_0)$. We need to show that $F(a_0, r_m; a_1) = -G(a_1, r_m, a_1)$, at least for sufficiently small $r_m$. Recall that $a_0$ and $a_1$ are functions of the lengths $X_0$ and $X_1$ which we obtain from Lin's method. Suppose we have constructed a solution using Lin's method for lengths $X_0$ and $X_1$. Thus, we have found lengths $X_0, X_1$ which solve
 
+\begin{align}
+(U_i^\pm)' - F(U_i^\pm) &= 0 \\
+U_0^+(X_0) - U_{1}^-(-X_1) &= 0 \\
+U_1^+(X_1) - U_{0}^-(-X_0) &= 0 \\
+U_i^+(0) - U_i^-(0) &= 0
+\end{align}
 
+\item Eventually, deal with ``duplicate'' solutions, i.e. some combinations of $(a_0, r_m; a_1)$ should give the same solution, as in SanStrut. This will restrict our choice of $a_0$, i.e. tell us which branch of the bifurcation diagram we can use (similar to the restriction in SanStrut that one of the $a_i = 1$.)
 
+\item We now want to use the IFT. So from our bifurcation diagram, we have found a pair $(a_0, a_1)$ such that $F(a_0, a_1) = G(a_0, 0; a_1)= 0$. We want to use the IFT to solve for $a_0$ in terms of $r_m$. The ``periodic parameter'' $a_1$ will remain unchanged.\\
 
-\item IGNORE THE REST OF THIS FOR NOW. THE IDEA IS RIGHT, BUT WE ARE TRYING TO GET THE REST OF THE BIFURCATION PICTURE.
-
-\item To use the IFT, we need to check the derivative of $G$ with respect to $a_0$ at $(a_0, r) = (a_0^0(\delta(a_1)), 0)$. From SanStrut (3.13) and the longer writeup, this is 
-
-\begin{align*}
-\frac{\partial}{\partial a_0} &a_0 \sin \left( -\frac{\beta}{\alpha} \log a_0 \right)\Big|_{a_0 = a_0^0(\delta(a_1))} \\
-&= \sin \left( - \frac{\beta}{\alpha} \log a_0 \right)\Big|_{a_0 = a_0^0(\delta(a_1))}  + a_0 \cos \left( - \frac{\beta}{\alpha} \log a_0 \right)\left( -\frac{\beta}{\alpha} \frac{1}{a_0} \right) \Big|_{a_0 = a_0^0(\delta(a_1))} \\
-&= \sin \left( - \frac{\beta}{\alpha} \log a_0 \right) \Big|_{a_0 = a_0^0(\delta(a_1))}  -\frac{\beta}{\alpha} \cos \left( - \frac{\beta}{\alpha} \log a_0 \right) \Big|_{a_0 = a_0^0(\delta(a_1))} \\
-&= \sin \left( \delta(a_1) \right) -\frac{\beta}{\alpha} \cos \left( \delta(a_1) \right) \\
-&\approx -\frac{\beta}{\alpha}
-\end{align*}
-
-since for sufficiently small $a_1$, $\delta(a_1)$ is close to 0. Obviously, we will make this more precise. The whole point is that this is nonzero. Thus we can use the IFT to solve for $a_0$ in terms of $r$, i.e. we can find a smooth function $a_0(r)$ such that $a_0(0) = a_0^0(\delta(a_1)$ and near $(a_0, r) = (a_0^0(\delta(a_1)), 0)$ we have
+To use the IFT, we need to check the derivative of $G$ with respect to $a_0$ at $(a_0, 0; a_1)$. From above, SanStrut, and the longer writeup, this is
 
 \begin{align*}
-\tilde{G}(a_0(r; a_1), r; a_1) = 0
+\frac{\partial}{\partial a_0} G(a_0, 0; a_1) &=
+\frac{\partial}{\partial a_0} a_0 \sin \left( -r \log a_0 \right) \\
+&= \sin \left( -r \log a_0 \right) + a_0 \cos \left( -r \log a_0 \right)
 \end{align*}
+
+since the derivative of the remainder term with respect to any of the $a_i$ is 0 at $r_m = 0$. Unlike in SanStrut, we cannot compute this exactly. But we showed it is nonzero as long as $a_0 \neq b^*_n$ for any $n$, i.e. as long as we are not at a pitchfork bifurcation point. And if we are at a pitchfork bifurcation point, we don't even need to do this since we have a periodic wavetrain in that case. Thus we can use the IFT. In other words, for sufficiently small $r_m$, there is a function $a_0(r_m)$ with $a_0(0) = a_0$ such that $G(a_0(r_m), r_m; a_1) = 0$.
 
 \item Let $r_0 > 0$ be sufficiently small so that the previous part works. Then chose any $m$ such that $r_m < r_0$. Then we have
 
@@ -456,21 +464,25 @@ since for sufficiently small $a_1$, $\delta(a_1)$ is close to 0. Obviously, we w
 G(a_0(r_m; a_1), r_m; a_1) = \tilde{G}(a_0(r_m; a_1), r_m; a_1) = 0
 \end{align*}
 
-\item Now we put things back in terms of the $X_i$, which is what we are about. Taking $r = r_m$, we can show that
+\item What about multipulses. Suppose we are trying to construct an $n$-pulse. In the Hamiltonian case, we need to solve a system of $n - 1$ equations. For $i = 0, \dots, n-2$ we have
 
-\[
-a_i = e^{(\pi \alpha / \beta) m} e^{-\alpha \phi / \beta}e^{-2 \alpha X_i}
-\]
+\begin{align*}
+G_i(a_i, a_{i-1}, r_m) = 
+a_i \sin \left( -r \log a_i \right) - a_{i-1} \sin \left( -r \log a_{i-1} \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) &= 0 \\
+\end{align*}
 
-From what we did above and with much handwaving,\begin{align*}
-\tilde{G}(a_0(r; a_1), r; a_1) = 0
-\end{align*} we have $a_0 \approx 1$, in which case we have
+where as in the double pulse, $a_{n-1}$ will be the periodic parameter. Right now, it only appears in the first equation. Ideally, since $a_{n-1}$ is our parameter, we would each of our equations to involve the parameter as well as one of the other $a_i$. Luckily, that is easy to accomplish using easy linear combinations of the $G_i$. For $i = 0, \dots, n-2$, let
 
-\[
-X_0 \approx \frac{\pi}{2 \beta} m + \frac{\phi}{2 \beta}
-\]
+\begin{equation}
+\tilde{G}_i = \sum_{j = 0}^i G_i
+\end{equation}
 
-What we did above works for any $a_1$ as long as it is sufficiently small, thus we can take any $X_1$ we want, as long as it is sufficiently large.
+Then after canceling terms, we have the equivalent system
+
+\begin{align}
+\tilde{G}_i(a_i, r_m; a_{n-1}) = 
+a_i \sin \left( -r \log a_i \right) - a_{n-1} \sin \left( -r \log a_{n-1} \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) &= 0 \\
+\end{align}
 
 \end{enumerate}
 
