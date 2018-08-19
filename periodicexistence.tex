@@ -1157,16 +1157,16 @@ Since we will be applying the IFT, we are interested in the zero set of $F(a_0, 
 
 	\item $F(a_0, a_0) = 0$. This corresponds to a periodic wavetrain, which either is known to exist or can easily be shown to exist.
 
-	\item For $a > 0$, note that $a \sin \left( -\rho \log a \right) = 0$ if and only if $a = e^{-n \pi / \rho}$ for $n \in \Z$. Thus we have
+	\item For $a > 0$, note that $a \sin \left( -\rho \log a \right) = 0$ if and only if $a = e^{n \pi / \rho}$ for $n \in \Z$. Thus we have
 
 	\begin{align*}
-	F(e^{-n \pi / \rho}, e^{-m \pi / \rho}) &= 0 && n, m \in \Z
+	F(e^{n \pi / \rho}, e^{m \pi / \rho}) &= 0 && n, m \in \Z
 	\end{align*}
 
     \item Since $\lim_{a \rightarrow 0^+} a \sin \left( -\rho \log a \right) = 0$, we can define $F$ on the axes using this limit. Thus we have
 
     \begin{align*}
-	F(0, e^{-n \pi / \rho}) &= F(e^{-n \pi / \rho}, 0) = 0 && n \in \Z
+	F(0, e^{n \pi / \rho}) &= F(e^{n \pi / \rho}, 0) = 0 && n \in \Z
 	\end{align*}
 
 	By the above, these are the only zeros of $F$ on the axes (other than the origin).
@@ -1175,6 +1175,7 @@ Since we will be applying the IFT, we are interested in the zero set of $F(a_0, 
 A Matlab plot of the zero set of $F(a_0, a_1)$ suggests that a series of pitchfork bifurcations occurs along the diagonal.
 
 \begin{figure}[H]
+\label{fig:Fzeronumeric}
 \includegraphics[width=10cm]{zeroset5.eps}
 \caption{Zero set of $F(a_0, a_1)$ for $\rho = 5$.}
 \end{figure}
@@ -1183,7 +1184,7 @@ We will now prove that such pitchfork bifurcations actually take place.
 
 % Lemma : pitchfork bifurcation
 
-\begin{lemma}
+\begin{lemma}\label{pitchfork}
 A countable family of pitchfork bifurcations in the zero set of \eqref{defF} occurs along the diagonal at 
 
 \begin{align*}
@@ -1333,6 +1334,143 @@ Since the above change of coordinates is linear, we have shown that pitchfork bi
 
 \end{proof}
 \end{lemma}
+
+A plot of the pitchfork parabola in the $(x,y)$ coordinate system is shown below.
+
+\begin{figure}[H]
+\includegraphics[width=10cm]{pitchfork.eps}
+\caption{Pitchfork bifurcation at $(x_0, y_0) = (0, b^*)$ for $\rho = 1$. In this plot, the paramater $y$ is on the horizontal axis.}
+\end{figure}
+
+At this point, we only have local information about the zero set of $F(a_0, a_1)$ near the pitchfork bifurcation points. Next, we show that the arms of the pitchfork connect to points on the axes, i.e. that the zero set resembles Figure \ref{fig:Fzeronumeric}. To do this, we construct the following Hamiltonian system
+
+\begin{align}
+\dot a_0 &= -F_{a_1}(a_0, a_1) = \sin(-\rho \log a_1) 
+- \rho \cos( -\rho \log a_1 )) \\
+\dot a_1 &= F_{a_0}(a_0, a_1) = \sin(-\rho \log a_0) 
+-\rho \cos( -\rho \log a_0 )
+\end{align}
+
+By construction, $F(a_0, a_1)$ is constant along trajectories of this system, and so we can consider $F$ to be an energy function. From Lemma \ref{pitchfork}, we have
+
+\begin{align*}
+F_{a_0}(a_0, a_1) &= 0 \iff a_0 = b^*_n, n \in \Z \\
+F_{a_1}(a_0, a_1) &= 0 \iff a_1 = b^*_n, n \in \Z
+\end{align*}
+
+Thus we have families of nullclines
+
+\begin{align*}
+\dot a_0 = 0 &\text{ on } (a_0, b^*_n), n \in \Z \\
+\dot a_1 = 0 &\text{ on } (b^*_n, a_1), n \in \Z
+\end{align*}
+
+We can now prove the following lemma. Recall that by symmetry we only need to consider the case $a_1 \leq a_0$, i.e. we only need to look at the lower arm of the pitchfork.
+
+% lemma : continuation of pitchfork arms
+
+\begin{lemma}
+For the zero set $F(a_0, a_1)$ = 0, the lower arm of the pitchfork at $(b_n^*, b_n^*)$ is a smooth curve with the following properties:
+
+\begin{enumerate}
+\item $a_1$ is strictly decreasing along the curve.
+\item $a_0 \in (b_n^*, b_{n+1}^*)$ along the curve.
+\item The curve terminates at the point $(e^{n \pi/\rho}, 0)$.
+\end{enumerate}
+
+\begin{proof}
+
+\begin{enumerate}
+
+We will look at the lower arm of the pitchfork bifurcation at $(a_0, a_1) = (b_n^*, b_n^*)$. From Lemma \ref{pitchfork}, we know what this looks like locally. To be precise, we can find a point $(a_0^*, a_1^*)$ near $(b_n^*, b_n^*)$ with $b_n^* < a_0^* < b_{n-1}^* $ and $0 < a_1^* < b_n^*$ and a smooth curve connecting them so that $F(a_0, a_1) = 0$ along this cure. From the normal form in Lemma \ref{pitchfork}, this curve must lie below and to the right of the bifurcation point $(b_n^*, b_n^*)$. We note in particular that $F(a_0^*, a_1^*) = 0$. We will show in a series of steps that we can continue this curve uniquely until it meets the $a_0$ axis at $(e^{n \pi/\rho}, 0)$.
+
+\item First, we show that $e^{n \pi/\rho} \in (b^*_n, b^*_{n+1})$.\\
+
+Recall that
+
+\begin{equation*}
+b^*_n = \exp\left(\frac{n \pi}{\rho} \right) \exp \left( -\frac{1}{\rho} \arctan \rho \right)
+\end{equation*}
+
+Since $\rho > 0$, $b^*_n < e^{n \pi/\rho}$. We also have 
+
+\begin{equation*}
+b^*_{n+1} = \exp\left(\frac{\pi}{\rho} \right) b^*_n = \exp\left(\frac{n \pi}{\rho} \right) \exp \left( \frac{1}{\rho}(\pi - \arctan \rho)\right)
+\end{equation*}
+
+Since $\arctan \rho \in (-\pi/2, \pi/2)$, $e^{n \pi/\rho} < b^*_{n+1}$.
+
+\item Next, we show that $\dot a_1 \neq 0$ on the open interval 
+$a_0 \in (b^*_n, b^*_{n+1})$.\\
+
+The endpoints the interval lie along the nullclines for $\dot a_1$, thus $\dot a_1 = 0$ at the two endpoints of the interval. There are no other zeros of $\dot a_1 = 0$ between the two endpoints. Consider the point $e^{(2n+1)\pi/(2\rho) }b^*$ which lies inside $(b^*_n, b^*_{n+1})$. At this point,
+
+\begin{align*}
+\dot a_1 &= f_{a_0}(e^{(2n+1) \pi / (2\rho)}b^*, a_1) \\
+&= \sin(-\rho \log e^{(2n+1) \pi / (2\rho)} b^* ) - \rho \cos( -\rho \log e^{(2n+1) \pi / (2\rho)} b^* ) \\
+&= \sin\left(-\rho \left( \frac{(2n + 1)\pi}{2\rho} - \frac{1}{\rho} \arctan \rho \right) \right) - \rho \cos\left(-\rho \left( \frac{(2n + 1)\pi}{2\rho} - \frac{1}{\rho} \arctan \rho \right) \right) \\
+&= \sin\left(\arctan \rho - \frac{\pi}{2} - n \pi \right) - \rho \cos\left(\arctan \rho - \frac{\pi}{2} - n \pi \right) \\
+&= -\cos\left(\arctan \rho \right) - \rho \sin\left(\arctan \rho\right) \\
+&= -(-1)^n \left( \frac{1}{\sqrt{1+\rho^2}} + \rho \frac{\rho}{\sqrt{1+\rho^2}}  \right) \\
+&= (-1)^{n+1}\sqrt{1 + \rho^2} \neq 0
+\end{align*}
+
+Since $\dot a_1 = f_{a_0}(a_0, a_1)$ is continuous on $[b^*_n, b^*_{n+1}]$, is zero only at the endpoints, and is either negative ($n$ even) or positive ($n$ odd) at a point in between, we conclude that on the open interval $(b^*_n, b^*_{n+1})$, $\dot a_1 < 0$ for $n$ even and $\dot a_1 > 0$ for $n$ odd.
+
+\item Next, we show that the energy $F(a_0, a_1)$ is nonzero on the interior of the line segment joining $(b^*_n, 0)$ to $(b^*_n, b^*_n)$. (The energy is 0 at the endpoints).\\
+
+In the interior of the line segment, the energy is given by
+
+\begin{align*}
+F(b^*_n, a_1) &= b^*_n \sin(-\rho \log b^*_n) - a_1 \sin(-\rho \log a_1) && a_1 \in (0, b^*_n)\\
+\end{align*}
+
+Let $g(x) = x \sin(-\rho \log x)$, so that $F(b^*_n, a_1) = g(b^*_n) - g(a_1)$. Let $y = -\rho \log x$, so that $x = e^{-y/\rho}$. Then for $x = b^*_n$, $y = -\rho \log b^*_n = \arctan \rho - n \pi$. Making this change of variables, we have $g(y) = e^{-y/\rho} \sin y$. Thus it suffices to show for all $n \in \Z$ that
+
+\begin{align*}
+g(\arctan \rho - n \pi) - g(y) &\neq 0 && y \in (\arctan \rho - n \pi, \infty) 
+\end{align*}
+
+Taking the derivative of $g$ with respect to $y$, we have
+
+\begin{align*}
+g'(y) &= e^{-y/\rho}\left( \cos y - \frac{1}{\rho} \sin y \right)
+\end{align*}
+
+In particular, $g'(\arctan \rho - n \pi) = 0$, so $\arctan \rho + n \pi$ is a critical point of $g$. To show it is a local extremum, we evaluate the second derivative.
+
+\begin{align*}
+g''(y) &= \frac{e^{-y/\rho}}{\rho^2} \left( \sin y - 2 \rho \cos y - \rho^2 \sin y \right)
+\end{align*}
+
+At $y = \arctan \rho - n \pi$, this is
+
+\begin{align*}
+g''(y) &= (-1)^n e^{-n \pi /\rho} \frac{e^{-(1/\rho)\arctan \rho}}{\rho^2 \sqrt{1+\rho^2}} \left( \rho - 2\rho - \rho^3 \right) \\
+&= (-1)^{n+1} e^{-n \pi /\rho} \frac{e^{-(1/\rho)\arctan \rho}}{\rho^2 \sqrt{1+\rho^2}} \rho \left( 1 + \rho^2 \right) \\
+&= (-1)^{n+1} \frac{ \sqrt{1 + \rho^2}}{\rho} e^{-n \pi /\rho} e^{-(1/\rho)\arctan \rho}
+\end{align*}
+
+Since $\rho > 0$, $\arctan \rho - n \pi$ is a local maximum for $n$ even and a local minimum for $n$ odd. For $n$ even, since $\arctan \rho - n \pi$ is a local maximum of $g(y) = e^{-y/\rho} \sin y$, and we know exactly how that function behaves, $g(y) < g(\arctan \rho - n \pi)$ whenever $y > \arctan \rho - n \pi$, thus $g(\arctan \rho - n \pi) - g(y) > 0$ for $y \in (\arctan \rho - n \pi, \infty)$. Similarly, if $n$ is odd, $g(\arctan \rho - n \pi) - g(y) < 0$ for $y \in (\arctan \rho - n \pi, \infty)$. In either case, $g(\arctan \rho - n \pi) - g(y) \neq 0$ for all $y \in (\arctan \rho - n \pi, \infty)$.
+
+\item Next, we show that trajectories starting on the lower branch of the pitchfork are confined to a box.\\ 
+
+Consider the box $B$ with corners $(b^*_n, b^*_n)$, $(b^*_{n+1}, b^*_n)$, $(b^*_n, 0)$, and $(b^*_{n+1}, 0)$. The upper left corner is the pitchfork bifurcation point. The initial condition $(a_0^*, a_1^*)$ from which we will continue our solution lies within this box.\\
+
+Within the box, we showed in part 2 that all solutions either move down (for $n$ even) or up (for $n$ odd). If a solution hits the bottom edge of the box, it will stop since the RHS of the ODE is singular there. (Alternatively, the solution will become complex at that point, in which case we are no longer interested in it.)\\
+
+All that remains is to show that the solution starting at $(a_0^*, a_1^*)$ cannot exit the sides. Recall that $F(a_0^*, a_1^*) = 0$ and that solutions are level sets of the energy. Thus $F$ must be 0 along the solution. We showed in part 3 that the sides of the box have nonzero energy. Thus the solution cannot cross the sides of the box.
+
+\item Combining the results above, for $n$ even, a solution starting at $(a_0^*, a_1^*)$ is confined to the box $B$ for $t > 0$. Within the box, we always have $\dot a_1 < 0$. Thus the solution starting at $(a_0^*, a_1^*)$ is strictly decreasing (as $t$ increases) until it hits the $a_0$ axis. The only point on the lower edge of the box which has zero energy is $(e^{n \pi/\rho}, 0)$, and by part 1, this point lies in the interior of the lower edge. Thus the trajectory must terminate at this point. The same result holds for $n$ odd if we take $t < 0$ and consider decreasing $t$.
+
+\end{enumerate}
+
+\end{proof}
+\end{lemma}
+
+
+
+
 
 %% Garbage
 
