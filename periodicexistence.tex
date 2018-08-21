@@ -59,7 +59,7 @@ In this section we will look at multipulse solutions to KdV5 in the case where w
 \includegraphics[width=8.5cm]{dpimage}
 \end{figure}
 
-Let $X_m = \min \{ X_0, \dots, X_{n-1} \}$ and $X_M = \max \{ X_0, \dots, X_{n-1} \}$. Since we are on a periodic domain, we will always WLOG take $X_m = X_0$.\\
+Let $X_m = \min \{ X_0, \dots, X_{n-1} \}$ and $X_M = \max \{ X_0, \dots, X_{n-1} \}$.\\
 
 We would like to write the periodic multipulse as a small (piecewise) perturbation of the single pulse as was done in San98 (and San93). The method in those papers, however, does not give us the estimates we need for the stability problem. Instead, we will give another construction based on San97. This boils down to proving existence of the periodic multipulse, which is what we shall do. We assume that $c > 1/4$, since that is necessary for the existence of multipulses to KdV5. Thus the eigenvalues of the linearization about $0$ are complex and given by $\pm \alpha \pm \beta i$.\\
 
@@ -327,11 +327,67 @@ p_1(X; \beta^+, \beta^-) = \mathcal{O}(e^{-\alpha X})
 \end{equation} 
 
 \begin{proof}
-This should follow from Lemma 1.1 in San93 (doesn't everything?) and is used in San98. Unfortunately, I don't really understand that lemma, so I will look for a reference I actually understand.
+
+We follow the proof of Lemma 3.4 in Palmer84. We consider the ``positive'' piece, i.e. the part of the exponential dichotomy on $\R^+$. On $\R^+$, the variational equation is
+
+\begin{equation}
+V' = D_U F(Q^+(0, \beta^+)(x)) V
+\end{equation}
+
+where we have left the superscript $+$ off of $V$ for ease of notation. Write this equation as $V' = AV + B(x)V$, where
+
+\begin{align*}
+A &= \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+-c & 0 & 1 & 0
+\end{pmatrix} &&
+B(x) = 
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+2 q^+(0, \beta^+)(x) & 0 & 0 & 0
+\end{pmatrix}
+\end{align*}
+
+Since the matrix $A$ is constant and hyperbolic, the equation $V' = AV$ has an exponential dichotomy on $\R^+$, and the stable projection for the dichotomy is the spectral projection $P^s_0$. Thus we have a constant $K > 0$ such that
+
+\begin{equation}
+|e^{A(y-x)}P^s_0| \leq K e^{-\alpha(y-x)} && 0 \leq x \leq y
+\end{equation}
+
+Since $q^+(0, \beta^+)(x)$ lies in the stable manifold, we have for $x \geq 0$
+
+\begin{equation}
+|B(x)| = |q^+(0, \beta^+)(x)| \leq K_1 e^{-\alpha x}
+\end{equation}
+
+for some constant $K_1 > 0$. 
+
+thus $|B(x)| \rightarrow 0 as x \rightarrow \infty$. It follows from Lemma 3.4 in Palmer84 that 
+
+\begin{align*}
+|P^s_+(x; \beta^+) - P^s_0| &\rightarrow 0 \text{ as }
+x \rightarrow \infty
+\end{align*}
+
+Since $P^u_+(x; \beta^+) = I - P^s_+(x; \beta^+)$ and $P^u_0 = I - P^s_0$, it follows that 
+
+\begin{align*}
+|P^u_+(x; \beta^+) - P^u_0| &\rightarrow 0 \text{ as }
+x \rightarrow \infty
+\end{align*}
+
+The ``negative'' piece of the exponential dichotomy is similar.\\
+
+This is great and all, but does not give us the estimate we want. Maybe we could redo the proof in Palmer84 using the fact that we have an exponential bound on $B(x)$? Or maybe someone else has done this?
+
 \end{proof}
 \end{lemma}
 
-% rewrite as 1st order system
+% rewrite piecewise
 
 Next, we rewrite the problem $U'(x) = F(U)$ in piecewise fashion in such a way as to exploit what we did above. We want to solve piecewise
 
@@ -1041,7 +1097,7 @@ Since $\mathcal{R}$ is closed and bounded, is is compact, thus complete.
 
 % Lemma : system to solve, new version
 
-\begin{lemma}
+\begin{lemma}\label{Gchangevar}
 Under the above assumptions, a periodic multipulse solution exists if and only if for $i = 0, \dots, n-2$
 
 \begin{equation}\label{Gdef}
@@ -1369,7 +1425,7 @@ We can now prove the following lemma. Recall that by symmetry we only need to co
 
 % lemma : continuation of pitchfork arms
 
-\begin{lemma}
+\begin{lemma}\label{pitchcont}
 For the zero set $F(a_0, a_1)$ = 0, the lower arm of the pitchfork at $(b_n^*, b_n^*)$ is a smooth curve with the following properties:
 
 \begin{enumerate}
@@ -1380,9 +1436,9 @@ For the zero set $F(a_0, a_1)$ = 0, the lower arm of the pitchfork at $(b_n^*, b
 
 \begin{proof}
 
-\begin{enumerate}
-
 We will look at the lower arm of the pitchfork bifurcation at $(a_0, a_1) = (b_n^*, b_n^*)$. From Lemma \ref{pitchfork}, we know what this looks like locally. To be precise, we can find a point $(a_0^*, a_1^*)$ near $(b_n^*, b_n^*)$ with $b_n^* < a_0^* < b_{n-1}^* $ and $0 < a_1^* < b_n^*$ and a smooth curve connecting them so that $F(a_0, a_1) = 0$ along this cure. From the normal form in Lemma \ref{pitchfork}, this curve must lie below and to the right of the bifurcation point $(b_n^*, b_n^*)$. We note in particular that $F(a_0^*, a_1^*) = 0$. We will show in a series of steps that we can continue this curve uniquely until it meets the $a_0$ axis at $(e^{n \pi/\rho}, 0)$.
+
+\begin{enumerate}
 
 \item First, we show that $e^{n \pi/\rho} \in (b^*_n, b^*_{n+1})$.\\
 
@@ -1480,16 +1536,70 @@ X_i &= -(1/ 2 \alpha)\log a_i r_m - \frac{\phi}{2 \beta}
 
 If we have constructed a solution using $(a_0, a_1, r_m)$, then must also be able to construct the same solution using $(e^{n/\rho} a_0, e^{n/\rho} a_1, r_{m+n}$ for any $n \in \N$, since those parameters give us the same lengths $(X_1, X_2)$. One way to get uniqueness is to impose an additional condition on which $a_i$ are allowable, as is done in SanStrut. For the 2-pulse, we will impose the following initial condition: $a_0$ must live on the branch of the bifurcation diagram corresponding to the pitchfork bifurcation point $b^*$. \\
 
-Since we have completely characterized the zero set of $F(a_0, a_1)$, we can actually use what we have right now, together with the IFT, to complete the construction of the 2-pulse. If we did that, however, we would lose any information about the bifurcation structure, which will not generically persist once $r_m > 0$. We need to show that for small $r_m$, the bifurcation structure of $\tilde{G}(a_0, a_1, r_m)$ is the same as for $F(a_0, a_1)$.
+Since we have completely characterized the zero set of $F(a_0, a_1)$, we can actually use what we have right now, together with the IFT, to complete the construction of the 2-pulse. If we did that, however, we would lose any information about the bifurcation structure, which will not generically persist once $r_m > 0$. We need to show that for small $r_m$, the bifurcation structure of $G(a_0, a_1, r_m)$ is the same as for $F(a_0, a_1)$. The first thing we will show is that $\tilde{G}$ has the same symmetries as $F$.
+
+% lemma : symmetries of G
 
 \begin{lemma}
+
+As in Lemma \ref{Gchangevar}, for $i = 0, 1$ define
+
+\begin{equation}\label{Gdef}
+G_i(a_0, a_1, r_m) = a_i \sin \left( -\rho \log a_i \right) - a_{i-1} \sin \left( -\rho \log a_{i-1} r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0 \\
+\end{equation}
+
+Then $G_i(a_0, a_1) = -G_i(a_1, a_0)$.
+
 \begin{proof}
+
+First, we note that the expression for $G_i$ was obtained by a change of varibles from the equation
+
+\begin{align}
+\langle \Psi(0), V_i^+(0) - V_i^-(0) \rangle = 
+\langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i
+\end{align}
+
+for $i = 0, 1$, which was obtained via Lin's method and is the jump between the $i^\pm$ pieces in the direction of $\Psi(0)$. In other words,
+
+\[
+G_i(a_0, a_1, r_m) = \langle \Psi(0), V_0^+(0) - V_0^-(0) \rangle = \langle \Psi(0), U_0^+(0) - U_0^-(0) \rangle = \xi_i 
+\]
+
+since $U_i^\pm(x) = Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x)$, and, by construction, $Q^\pm(0, \beta_i^\pm)$ has no component in $\Psi(0)$.\\
+
+Suppose we have completed all but the last step of Lin's method, i.e. we have four pieces $U_i^\pm$ such that for $i = 0, 1$,
+
+\begin{align*}
+(U_i^\pm)' - F(U_i^\pm) &= 0 \\
+U_i^+(X_i) - U_{i+1}^-(-X_i) &= 0 \\
+P_{Y^\pm} ( U_i^+(0) - U_i^-(0) ) &= 0
+\end{align*}
+
+Note that, according to our picture, the four pieces, arranged from L to R, are $U_0^-, U_0^+, U_1^-, U_1^+$.\\
+
+Now we look at symmetries. The most obvious symmetry come from the fact that since we are on a periodic domain, the choice of ``starting point'' is arbitrary. If we start with $U_1^-$ and order the pieces $U_1^-, U_1^+, U_0^-, U_0^+$, everything is the same, except we have swapped the two jump equations for $\xi_0$ and $\xi_1$.\\
+
+There is a second symmetry, in which we take $x \rightarrow -x$ and then put the pieces in reverse order, i.e. $U_0^+, U_0^-, U_1^+, U_1^-$. In this case, everything is the same, except the two jumps have opposite signs. 
+
+\end{proof}
+\end{lemma}
+
+% 
+
+\begin{lemma}
+For $r_m$ sufficiently small, the bifurcation structure of $\tilde{G}(a_0, a_1, r_m)$ is the same as for $F(a_0, a_1)$.
+
+\begin{proof}
+
+
 \end{proof}
 \end{lemma}
 
 
 
 % put it all together
+
+GARBAGE AFTER HERE \\
 
 \begin{theorem}\label{2pconstruction}
 Given the assumptions in Hypothesis \ref{assumptions}, a periodic $n$-pulse solution $Q_{n,p}(x)$ of $U' = F(U)$ exists. $Q_{n, p}(x)$ can be written piecewise as
