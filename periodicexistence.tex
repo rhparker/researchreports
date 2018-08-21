@@ -334,7 +334,11 @@ We follow the proof of Lemma 3.4 in Palmer84. We consider the ``positive'' piece
 V' = D_U F(Q^+(0, \beta^+)(x)) V
 \end{equation}
 
-where we have left the superscript $+$ off of $V$ for ease of notation. Write this equation as $V' = AV + B(x)V$, where
+where we have left the superscript $+$ off of $V$ for ease of notation. Write this equation as 
+
+\begin{equation}\label{VsplitAB}
+V' = AV + B(x)V
+\end{equation}
 
 \begin{align*}
 A &= \begin{pmatrix}
@@ -355,34 +359,49 @@ B(x) =
 Since the matrix $A$ is constant and hyperbolic, the equation $V' = AV$ has an exponential dichotomy on $\R^+$, and the stable projection for the dichotomy is the spectral projection $P^s_0$. Thus we have a constant $K > 0$ such that
 
 \begin{equation}
-|e^{A(y-x)}P^s_0| \leq K e^{-\alpha(y-x)} && 0 \leq x \leq y
+|e^{A(y-x)}P^s_0| \leq K e^{-\alpha(y-x)} \text{ for } 0 \leq x \leq y
 \end{equation}
 
 Since $q^+(0, \beta^+)(x)$ lies in the stable manifold, we have for $x \geq 0$
 
-\begin{equation}
-|B(x)| = |q^+(0, \beta^+)(x)| \leq K_1 e^{-\alpha x}
+\begin{equation}\label{Bdecay}
+|B(x)| = |q^+(0, \beta^+)(x)| \leq K_2 e^{-\alpha x}
 \end{equation}
 
-for some constant $K_1 > 0$. 
+for some constant $K_1 > 0$. Thus we can find $x_0 \geq 0$ such that $|B(x)| < \alpha / 4K^2$ for all $x \geq x_0$. By the roughness theorem (proposition 1 of Coppel78), for every $x_1 \geq x_0$, the equation \eqref{VsplitAB} has an exponential dichotomy on $[x_0, \infty)$ with constants $K_1$ and $\alpha_1$ depending only on $K$ and $\alpha$ (and not on $x_1$). For the corresponding projection $P_{x_0}$ such that for $x \geq x_0$ we have the bound
 
-thus $|B(x)| \rightarrow 0 as x \rightarrow \infty$. It follows from Lemma 3.4 in Palmer84 that 
+\begin{equation}
+|P_{x_0}(x) - P^s_0| \leq 4 \alpha^{-1} K^3
+\sup_{x \geq x_0} |B(x)|
+\end{equation}
+
+Using the estimate from \eqref{Bdecay}, this becomes
+
+\begin{equation}
+|P_{x_0}(x) - P^s_0| \leq 4 \alpha^{-1} K_2 K^3 e^{-\alpha x_0}
+\end{equation}
+
+By p.10 of Coppel78, since $\eqref{VsplitAB}$ has an exponential dichotomy on $[x_0, \infty)$, it also has on on $\R^+$ with the same projection and estimates. From Lemma \ref{dichotomy1}, this exponential dichotomy has projection $P^s_+(x, \beta^+)$, with estimate
+
+\[
+|P^s_+(x, \beta^+)| \leq C e^{-\alpha x} 
+\]
+
+Thus, from the last line of the proof of Lemma 3.4 in Palmer84, we have for $x_1 \geq x_0$ and $x \geq 2 x_1$
 
 \begin{align*}
-|P^s_+(x; \beta^+) - P^s_0| &\rightarrow 0 \text{ as }
-x \rightarrow \infty
+|P^s_+(x, \beta^+) - P^s_0| 
+&\leq K_1 C e^{-(\alpha_1 + \alpha) x_1} + 4 \alpha^{-1} K_2 K^3 e^{-2\alpha x_1}
 \end{align*}
 
-Since $P^u_+(x; \beta^+) = I - P^s_+(x; \beta^+)$ and $P^u_0 = I - P^s_0$, it follows that 
+I think $\alpha_1$ should be close to $\alpha$. Perhaps we can get it arbitrarily close. Then, taking $X \geq 2 x_1$, we should have (something like)
 
 \begin{align*}
-|P^u_+(x; \beta^+) - P^u_0| &\rightarrow 0 \text{ as }
-x \rightarrow \infty
+|P^s_+(x, \beta^+) - P^s_0| 
+&\leq C e^{-(\alpha - \epsilon)X}
 \end{align*}
 
-The ``negative'' piece of the exponential dichotomy is similar.\\
-
-This is great and all, but does not give us the estimate we want. Maybe we could redo the proof in Palmer84 using the fact that we have an exponential bound on $B(x)$? Or maybe someone else has done this?
+for all $x \geq X$ and for some small $\epsilon$.
 
 \end{proof}
 \end{lemma}
