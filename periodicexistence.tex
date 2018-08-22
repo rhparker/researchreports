@@ -327,83 +327,9 @@ p_1(X; \beta^+, \beta^-) = \mathcal{O}(e^{-\alpha X})
 \end{equation} 
 
 \begin{proof}
-
-We follow the proof of Lemma 3.4 in Palmer84. We consider the ``positive'' piece, i.e. the part of the exponential dichotomy on $\R^+$. On $\R^+$, the variational equation is
-
-\begin{equation}
-V' = D_U F(Q^+(0, \beta^+)(x)) V
-\end{equation}
-
-where we have left the superscript $+$ off of $V$ for ease of notation. Write this equation as 
-
-\begin{equation}\label{VsplitAB}
-V' = AV + B(x)V
-\end{equation}
-
-\begin{align*}
-A &= \begin{pmatrix}
-0 & 1 & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1 \\
--c & 0 & 1 & 0
-\end{pmatrix} &&
-B(x) = 
-\begin{pmatrix}
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-2 q^+(0, \beta^+)(x) & 0 & 0 & 0
-\end{pmatrix}
-\end{align*}
-
-Since the matrix $A$ is constant and hyperbolic, the equation $V' = AV$ has an exponential dichotomy on $\R^+$, and the stable projection for the dichotomy is the spectral projection $P^s_0$. Thus we have a constant $K > 0$ such that
-
-\begin{equation}
-|e^{A(y-x)}P^s_0| \leq K e^{-\alpha(y-x)} \text{ for } 0 \leq x \leq y
-\end{equation}
-
-Since $q^+(0, \beta^+)(x)$ lies in the stable manifold, we have for $x \geq 0$
-
-\begin{equation}\label{Bdecay}
-|B(x)| = |q^+(0, \beta^+)(x)| \leq K_2 e^{-\alpha x}
-\end{equation}
-
-for some constant $K_1 > 0$. Thus we can find $x_0 \geq 0$ such that $|B(x)| < \alpha / 4K^2$ for all $x \geq x_0$. By the roughness theorem (proposition 1 of Coppel78), for every $x_1 \geq x_0$, the equation \eqref{VsplitAB} has an exponential dichotomy on $[x_0, \infty)$ with constants $K_1$ and $\alpha_1$ depending only on $K$ and $\alpha$ (and not on $x_1$). For the corresponding projection $P_{x_0}$ such that for $x \geq x_0$ we have the bound
-
-\begin{equation}
-|P_{x_0}(x) - P^s_0| \leq 4 \alpha^{-1} K^3
-\sup_{x \geq x_0} |B(x)|
-\end{equation}
-
-Using the estimate from \eqref{Bdecay}, this becomes
-
-\begin{equation}
-|P_{x_0}(x) - P^s_0| \leq 4 \alpha^{-1} K_2 K^3 e^{-\alpha x_0}
-\end{equation}
-
-By p.10 of Coppel78, since $\eqref{VsplitAB}$ has an exponential dichotomy on $[x_0, \infty)$, it also has on on $\R^+$ with the same projection and estimates. From Lemma \ref{dichotomy1}, this exponential dichotomy has projection $P^s_+(x, \beta^+)$, with estimate
-
-\[
-|P^s_+(x, \beta^+)| \leq C e^{-\alpha x} 
-\]
-
-Thus, from the last line of the proof of Lemma 3.4 in Palmer84, we have for $x_1 \geq x_0$ and $x \geq 2 x_1$
-
-\begin{align*}
-|P^s_+(x, \beta^+) - P^s_0| 
-&\leq K_1 C e^{-(\alpha_1 + \alpha) x_1} + 4 \alpha^{-1} K_2 K^3 e^{-2\alpha x_1}
-\end{align*}
-
-I think $\alpha_1$ should be close to $\alpha$. Perhaps we can get it arbitrarily close. Then, taking $X \geq 2 x_1$, we should have (something like)
-
-\begin{align*}
-|P^s_+(x, \beta^+) - P^s_0| 
-&\leq C e^{-(\alpha - \epsilon)X}
-\end{align*}
-
-for all $x \geq X$ and for some small $\epsilon$.
-
+This follows from Lemma 1.1 in San93.
 \end{proof}
+
 \end{lemma}
 
 % rewrite piecewise
@@ -1578,27 +1504,34 @@ First, we note that the expression for $G_i$ was obtained by a change of varible
 \langle \Psi(X_i), Q(-X_i) \rangle - \langle \Psi(-X_{i-1}), Q(X_{i-1}) \rangle + R_i
 \end{align}
 
-for $i = 0, 1$, which was obtained via Lin's method and is the jump between the $i^\pm$ pieces in the direction of $\Psi(0)$. In other words,
+for $i = 0, 1$. This was obtained via Lin's method and is the jump $\xi_i$ between the $i^\pm$ pieces in the direction of $\Psi(0)$. In other words,
 
-\[
+\begin{align*}
 G_i(a_0, a_1, r_m) = \langle \Psi(0), V_0^+(0) - V_0^-(0) \rangle = \langle \Psi(0), U_0^+(0) - U_0^-(0) \rangle = \xi_i 
-\]
+\end{align*}
 
 since $U_i^\pm(x) = Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x)$, and, by construction, $Q^\pm(0, \beta_i^\pm)$ has no component in $\Psi(0)$.\\
 
-Suppose we have completed all but the last step of Lin's method, i.e. we have four pieces $U_i^\pm$ such that for $i = 0, 1$,
+In terms of the $X_i$, by Lemma \eqref{jumplemma1},
 
 \begin{align*}
-(U_i^\pm)' - F(U_i^\pm) &= 0 \\
-U_i^+(X_i) - U_{i+1}^-(-X_i) &= 0 \\
-P_{Y^\pm} ( U_i^+(0) - U_i^-(0) ) &= 0
+G_i(X_i, X_{i-1}) &= \langle \Psi(0), \Phi^u_+(0, X_i; \beta_i^+) a_i^+ \rangle
+- \langle \Psi(0), \Phi^s_-(0, -X_{i-1}, \beta_i^-) a_{i-1}^- \rangle \\
+&+ \int_{X_i}^0 \langle \Psi(0), \Phi_+^u(0, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+) \rangle dy \\
+&- \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi_-^s(0, y, \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-) \rangle dy
 \end{align*}
 
-Note that, according to our picture, the four pieces, arranged from L to R, are $U_0^-, U_0^+, U_1^-, U_1^+$.\\
+Suppose we have completed all but the final step of Lin's method, so have obtained everything we need to evaluate the above expression. Note that each inversion step in Lin's method gives a unique solution for the relevant variable.\\
 
-Now we look at symmetries. The most obvious symmetry come from the fact that since we are on a periodic domain, the choice of ``starting point'' is arbitrary. If we start with $U_1^-$ and order the pieces $U_1^-, U_1^+, U_0^-, U_0^+$, everything is the same, except we have swapped the two jump equations for $\xi_0$ and $\xi_1$.\\
+In our setup, the four pieces are arranged $U_0^-, U_0^+, U_1^-, U_1^$, from L to R. By symmetry, if we replace $x$ by $-x$ and place the pieces in order $U_0^+, U_0^-, U_1^+, U_1^-$, we will have the exact same jumps. In precise terms, the jumps $\xi_i$ are also given by 
 
-There is a second symmetry, in which we take $x \rightarrow -x$ and then put the pieces in reverse order, i.e. $U_0^+, U_0^-, U_1^+, U_1^-$. In this case, everything is the same, except the two jumps have opposite signs. 
+\begin{align*}
+\xi_i &= \langle \Psi(0), \Phi^u_+(0, X_{i-1}; \beta_i^-) a_i^- \rangle
+- \langle \Psi(0), \Phi^s_-(0, -X_{i-1}, \beta_i^-) a_{i-1}^- \rangle \\
+&+ \int_{X_i}^0 \langle \Psi(0), \Phi_+^u(0, y; \beta_i^+) G_i^+(y, V_i^+(y),\beta_i^+) \rangle dy \\
+&- \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi_-^s(0, y, \beta_i^-) G_i^-(y, V_i^-(y),\beta_i^-) \rangle dy
+\end{align*}
+
 
 \end{proof}
 \end{lemma}
