@@ -1564,8 +1564,7 @@ Similarly, $G_1(X_0, X_1) = -G_1(X_1, X_0)$. Changing variables back to $(a_0, a
 
 \begin{lemma}\label{pitchpersist}
 
-For $r_m$ sufficiently small, there exists a function
-$c^*: \Z \times \mathcal{R} \rightarrow \R^+$ such that for all $n \in \Z$
+For $r_m$ sufficiently small, there is a smooth function $c^*: \Z \times \mathcal{R} \rightarrow \R^+$ such that for all $n \in \Z$
 
 \begin{equation}
 c^*(n, r_m) \rightarrow b^*_n \text{ as } r_m \rightarrow 0
@@ -1584,7 +1583,7 @@ We make the following assumption: for all derivatives of $G_0$ with respect to t
 
 For simplicity, take $n = 0$, so that we are looking for the persistence of the pitchfork bifurcation at $(b^*, b^*)$ in the case where $r_m = 0$. Recall that in Lemma \ref{pitchfork}, we showed that a pitchfork bifurcation occurs at $(b^*, b^*)$ for the equation
 
-\begin{equation}\label{Gdef}
+\begin{equation}
 F(a_0, a_1) = G_0(a_0, a_1, 0) = a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 r_m \right)\\
 \end{equation} 
 
@@ -1608,14 +1607,44 @@ G(x, y^*(x, r_m), r_m) = 0
 
 Which, as noted above, has a solution for $x = 0$. It remains to check that a pitchfork bifuration occurs at $(0, y^*(0, r_m), r_m)$. First, since $G(x, y, r_m)$ is an odd function in $x$, $G_y(0, y, r_m) = 0$ and $G({xx}(0, y, r_m) = 0$ for all $x, r_m$. So we get $G_y(0, y^*(0, r_m), r_m) = 0$ and $G_{xx}(0, y^*(0, r_m), r_m) = 0$ for free.\\
 
-All that remains is to show that $G_{xy}$ and $G_{xxx}$ are nonzero at $(0, y^*(0, r_m), r_m)$. Recall that $F_{xy}(0, b^*) \neq 0$. Then since $G_{xy}$ and $y^*$ are smooth, and $G_{xy}(0, y^*(0, r_m), r_m) \rightarrw 0 as r_m \rightarrow 0$. Thus, for sufficiently small $r_m$, $G_{xy}(0, y^*(0, r_m), r_m) \neq 0$. Similarly, from Lemma \ref{pitchfork}, we know that $F_{xxx}(0, b^*) \neq 0$. By the same argument, we conclude that $G_{xxx}(0, y^*(0, r_m), r_m) \neq 0$ for sufficiently small $r_m$.\\
+All that remains is to show that $G_{xy}$ and $G_{xxx}$ are nonzero at $(0, y^*(0, r_m), r_m)$. Recall that $F_{xy}(0, b^*) \neq 0$. Then since $G_{xy}$ and $y^*$ are smooth, and $G_{xy}(0, y^*(0, r_m), r_m) \rightarrow 0 as r_m \rightarrow 0$. Thus, for sufficiently small $r_m$, $G_{xy}(0, y^*(0, r_m), r_m) \neq 0$. Similarly, from Lemma \ref{pitchfork}, we know that $F_{xxx}(0, b^*) \neq 0$. By the same argument, we conclude that $G_{xxx}(0, y^*(0, r_m), r_m) \neq 0$ for sufficiently small $r_m$.\\
 
-Thus we have shown the pitchfork bifurcation persists for sufficienty small $r_m$. The same argument holds for $b^*_n$ for all $n \in Z$.
+Thus, upon changing variables back to $(a_0, a_1)$ and letting $c^* = y^*$, we have shown the pitchfork bifurcation persists for sufficienty small $r_m$. The same argument holds for $b^*_n$ for all $n \in Z$. 
 
 \end{proof}
 \end{lemma}
 
+% lemma : persistence of zero on axis
 
+\begin{lemma}
+
+For $r_m$ sufficiently small, there exists a smooth function $p^*: \Z \times \mathcal{R} \rightarrow \R^+$ such that for all $n \in \Z$
+
+\begin{equation}
+p^*(n, r_m) \rightarrow e^{n \pi/\rho} \text{ as } r_m \rightarrow 0
+\end{equation}
+
+and 
+
+\begin{equation}
+G_0(p^*(n, r_m), 0, r_m) = 0
+\end{equation}
+
+\begin{proof}
+Let $H(a_0, r_m) = G_0(a_0, 0, r_m)$. Since the remainder term in the first derivative vanishes when we take $r_m \rightarrow 0$, we have
+
+\begin{align*}
+H_{a_0}(e^{n \pi / \rho}, 0) &=
+\sin \left( - \rho \log a_0 \right) - \rho \cos \left( - \rho \log a_0 \right) \Big|_{a_0 = e^{n \pi / \rho}} \\
+&= (-1)^{n+1} \rho \neq 0
+\end{align*}
+
+Thus, by the IFT, we can solve for $a_0$ in terms of $r_m$. In other words, we can find a unique family of functions (indexed by $n$) $a_0 = p^*(n, r_m)$ with the same smoothness as $G$ such that $p^*(n, 0) = e^{n \pi/\rho}$ and $G(p^*(n, r_m),0, r_m) = H(p^*(n, r_m), r_m) = 0$ for $r_m$ sufficiently small.
+
+\end{proof}
+\end{lemma}
+
+We have shown the persistence of the pitchfork and of the zero on the $a_0$ axis for small $r_m$. The final thing we need to show is that the path connecting the two also persists for small $r_m$.
 
 % put it all together
 
