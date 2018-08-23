@@ -1035,7 +1035,7 @@ At this point, we will assume that we have a Hamiltonian system. Since we want t
 In the next lemma, we use Lemmas \ref{IPform} and \ref{IPsystemreduced} together with a change of variables to write down a more useful version of the system we need to solve. Before we do that, we define the following space.
 
 \begin{equation}\label{setR}
-\mathcal{R} = \left\{ \exp\left(-\frac{2 \pi \alpha}{\beta}m\right) : m \in \N_0 \right\} \cup \{ 0 \}
+\mathcal{R} = \left\{ \exp\left(-\frac{\pi \alpha}{\beta}m\right) : m \in \N_0 \right\} \cup \{ 0 \}
 \end{equation}
 
 Since $\mathcal{R}$ is closed and bounded, is is compact, thus complete.
@@ -1049,7 +1049,7 @@ Under the above assumptions, a periodic multipulse solution exists if and only i
 G_i(a_1, \dots, a_{n-1}, r_m) = a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) - a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0 \\
 \end{equation}
 
-where $a_i > 0$ and $r_m \in \mathcal{R}$.
+where $a_i > 0$ and $r_m \in \mathcal{R}$. The derivative of the remainder term with respect to any $a_i$ is also $\mathcal{O}(r_m^{\gamma / 2 \alpha})$. 
 
 \begin{proof}
 From \eqref{jumpIPdiff}, \eqref{IPalphabeta}, and Lemma \ref{IPsystemreduced}, a solution exists if and only if
@@ -1105,7 +1105,7 @@ Making this substitution, we have for $i = 0, \dots, n-2$
 a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) - a_{i-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) &= 0 \\
 \end{align}
 
-which are the equations we want. Note that $r_m$ only occurs in the remainder term.
+which are the equations we want. Note that $r_m$ only occurs in the remainder term. The order of the remainder term is from Lemma 6.2 in San98 and Proposition 3.8 in SanStrut.
 
 \end{proof}
 \end{lemma}
@@ -1485,7 +1485,7 @@ Since we have completely characterized the zero set of $F(a_0, a_1)$, we can act
 
 % lemma : symmetries of G
 
-\begin{lemma}
+\begin{lemma}\label{Gsymm}
 
 As in Lemma \ref{Gchangevar}, for $i = 0, 1$ define
 
@@ -1493,7 +1493,11 @@ As in Lemma \ref{Gchangevar}, for $i = 0, 1$ define
 G_i(a_0, a_1, r_m) = a_i \sin \left( -\rho \log a_i \right) - a_{i-1} \sin \left( -\rho \log a_{i-1} r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0 \\
 \end{equation}
 
-Then $G_i(a_0, a_1, r_m) = -G_i(a_1, a_0, r_m)$.
+Then for sufficiently small $r_m$, 
+
+\begin{equation}
+G_i(a_0, a_1, r_m) = -G_i(a_1, a_0, r_m)
+\end{equation}
 
 \begin{proof}
 
@@ -1531,7 +1535,7 @@ U_i^+(X_i) - U_{i+1}^-(-X_i) &= 0 \\
 P_{Y^\pm}(U_i^+(0) - U_i^-(0)) &= 0
 \end{align*}
 
-where $U_i^\pm(x)$ are functions defined piecewise on a series of intervals determined by the ordered pair $(X_0, X_1)$ and arranged in the standard order, as described above. Since each of the three steps yields a unique solution, for a given pair of lengths $(X_0, X_1)$, there is a unique set of functions $U_i^\pm$ in the appropriate function space which satisfies the three equations. Thus \eqref{GXi} is well-defined.
+where $U_i^\pm(x)$ are functions defined piecewise on a series of intervals determined by the ordered pair $(X_0, X_1)$ and arranged in the standard order, as described above. For sufficiently large $X_i$, each of the three steps yields a unique solution. Thus for a given pair of lengths $(X_0, X_1)$ which are sufficiently large, there is a unique set of functions $U_i^\pm$ in the appropriate function space which satisfies the three equations. Thus \eqref{GXi} is well-defined.
 \\
 
 Suppose for an ordered pair of lengths $(X_0, X_1)$ we have a solution $\{ U_0^-(x), U_0^(x), U_1^-(x), U_1^+(x) \}$, pieced together from L to R. Then if swap the $X_0$ and $X_1$ to get the ordered pair $(X_1, X_0)$, the three equations are satisfied by the set of functions $\{ U_1^-(x), U_1^+(x), U_0^-(x), U_0^+(x)\}$, pieced together from L to R. From this, we see that
@@ -1551,18 +1555,62 @@ G_0(X_0, X_1) &= \langle \Psi(0), U_0^+(0) - U_0^-(0) \rangle \\
 &= -G_0(X_1, X_0)
 \end{align*}
 
-Similarly, $G_1(X_0, X_1) = -G_1(X_1, X_0)$. Changing variables back to $(a_0, a_1, r_m)$ yields the result.
+Similarly, $G_1(X_0, X_1) = -G_1(X_1, X_0)$. Changing variables back to $(a_0, a_1, r_m)$ yields the result. The condition that the $X_i$ are sufficiently large is equivalent to $r_m$ being sufficiently small.
 
 \end{proof}
 \end{lemma}
 
-% 
+% Persistence of pitchfork
 
-\begin{lemma}
-For $r_m$ sufficiently small, the bifurcation structure of $\tilde{G}(a_0, a_1, r_m)$ is the same as for $F(a_0, a_1)$.
+\begin{lemma}\label{pitchpersist}
+
+For $r_m$ sufficiently small, there exists a function
+$c^*: \Z \times \mathcal{R} \rightarrow \R^+$ such that for all $n \in \Z$
+
+\begin{equation}
+c^*(n, r_m) \rightarrow b^*_n \text{ as } r_m \rightarrow 0
+\end{equation}
+
+and equation
+
+\begin{equation}
+G_0(a_0, a_1, r_m) = a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0 \\
+\end{equation}
+
+has a pitchfork bifurcation at $(c^*(n,r_m),c^*_(n,r_m)$.
 
 \begin{proof}
+We make the following assumption: for all derivatives of $G_0$ with respect to the $a_i$, the remainder term is $\mathcal{O}(r_m^{\gamma / 2 \alpha})$ (or similar). Lemma 6.2 in San98 and Proposition 3.8 in SanStrut have this result up to first derivatives with respect to the $a_i$. I imagine this follows from something in San93.\\
 
+For simplicity, take $n = 0$, so that we are looking for the persistence of the pitchfork bifurcation at $(b^*, b^*)$ in the case where $r_m = 0$. Recall that in Lemma \ref{pitchfork}, we showed that a pitchfork bifurcation occurs at $(b^*, b^*)$ for the equation
+
+\begin{equation}\label{Gdef}
+F(a_0, a_1) = G_0(a_0, a_1, 0) = a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 r_m \right)\\
+\end{equation} 
+
+First, as in Lemma \ref{pitchfork}, we change coordinates $(a_0, a_1) \mapsto (x, y)$, so that $(0, b^*)$ is a pitchfork bifurcation point of $G(x, y, 0)$. By Lemma \ref{Gsymm}, in this cooordinate system we have the symmetry $G(-x, y, r_m) = -G(x, y, r_m)$. This implies that $G(0, y, r_m) = 0$ for all $y, r_m$. In other words, the line $x = 0$ consists entirely of equilibria, corresponding to the periodic wavetrain.\\
+
+We now prove the existence of pitchfork bifurcations along this line. Since a necessary condition for a pitchfork to occur is $G_x(x, y, r_m) = 0$, we will look at the system
+
+\begin{equation}
+H(x,y,r_m) = (G(x,y,r_m), G_x(x,y,r_m)) = 0
+\end{equation}
+
+From Lemma \ref{Gchangevar}, the remainder term of $G_x$ and $G_y$ is order $r_m^{\gamma/2 \alpha}$, so it goes to 0 as $r_m \rightarrow 0$. Thus $G_x(x,y,0) = F_x(x,y)$ and $G_y(x,y,0) = F_y(x,y)$. In particular, $G_x(0,b^*,0) = G_y(0, b^*, 0) = 0$, so $D_{x,y}G(0,b^*,0)$ is singular. Thus, as expected, we cannot use the IFT.\\
+
+We will instead do a Liapunov-Schmidt reduction. In Lemma \ref{pitchfork}, we computed that $F_{xy}(0, b^*) = 2 \rho/b^* \sqrt{1+ \rho^2} \neq 0$. Since the remainder term in $G_{xy}$ decays to 0 as $r_m \rightarrow 0$, we have $G_{xy}(0, b^*, 0) = F_{xy}(0, b^*) \neq 0$. Thus we can use the IFT to solve $H_2 = G_x$ for $y$ in terms of $x$ and $r_m$. By the IFT, we can find a unique function $y = y^*(x, r_m)$ with the same smoothness as $G_x$ such that $y^*(0, 0) = b^*$ and $G_x(x, y^*(x, r_m), r_m) = 0$ for $(x, r_m)$ close to $(0, 0)$.\\
+
+Next, we plug this into the equation for $G$.
+
+\begin{equation}
+G(x, y^*(x, r_m), r_m) = 0
+\end{equation}
+
+Which, as noted above, has a solution for $x = 0$. It remains to check that a pitchfork bifuration occurs at $(0, y^*(0, r_m), r_m)$. First, since $G(x, y, r_m)$ is an odd function in $x$, $G_y(0, y, r_m) = 0$ and $G({xx}(0, y, r_m) = 0$ for all $x, r_m$. So we get $G_y(0, y^*(0, r_m), r_m) = 0$ and $G_{xx}(0, y^*(0, r_m), r_m) = 0$ for free.\\
+
+All that remains is to show that $G_{xy}$ and $G_{xxx}$ are nonzero at $(0, y^*(0, r_m), r_m)$. Recall that $F_{xy}(0, b^*) \neq 0$. Then since $G_{xy}$ and $y^*$ are smooth, and $G_{xy}(0, y^*(0, r_m), r_m) \rightarrw 0 as r_m \rightarrow 0$. Thus, for sufficiently small $r_m$, $G_{xy}(0, y^*(0, r_m), r_m) \neq 0$. Similarly, from Lemma \ref{pitchfork}, we know that $F_{xxx}(0, b^*) \neq 0$. By the same argument, we conclude that $G_{xxx}(0, y^*(0, r_m), r_m) \neq 0$ for sufficiently small $r_m$.\\
+
+Thus we have shown the pitchfork bifurcation persists for sufficienty small $r_m$. The same argument holds for $b^*_n$ for all $n \in Z$.
 
 \end{proof}
 \end{lemma}
