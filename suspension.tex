@@ -432,7 +432,8 @@ We don't really care about this, except to contrast to the quadratic eigenvalue 
 
 \subsubsection{Background and Numerics}
 
-Before we do that, we can look at the Krein matrix as means of computing eigenvalues in the case where they are (predicted to be) purely imaginary.\\
+Before we do that, we can look at the Krein matrix as means of computing eigenvalues in the case where they are (predicted to be) purely imaginary. The hope is that we can get theoretical results for the 2-pulse and nice numerics for the n-pulse.
+\\
 
 This is an application Todd Kapitula's unpublished paper Krein Matrix for Star-Even Operator Polynomials (2018). Here we look at the polynomial eigenvalue problem for the suspension bridge problem linearized about stationary solution $q$. This second degree eigenvalue problem is given by
 
@@ -475,13 +476,13 @@ So, basically, the Krein matrix nails it every time.\\
 
 Now that we know we can use the Krein matrix, we should be able to use the same approximation as in Section 5 of Kap2018 since these eigenvalues are small.
 
-Recall that we  are looking for purely imaginary eigenvalues, thus we take $\lambda = i z$, $z \in \R$. Then the operator $p(iz)$ is Hermitian. By Lemma 5.6 in Kap2018, for small $|z|$ the Krein matrix is approximately
+Recall that we  are looking for purely imaginary eigenvalues, thus we take $\lambda = i z$, $z \in \R$. Then the operator $p(iz)$ is Hermitian. By Lemma 5.6 in Kap2018, for small $|z|$ the Krein matrix is given by
 
 \begin{equation}
 \tilde{K}_S(z) = \text{diag}(\nu_1, \dots, \nu_n) + z(i A_1|_S) - z^2\left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S + \mathcal{O}(|z|^3)
 \end{equation}
 
-This form is slightly different from that in Lemma 5.6. Since $z$ is real, we don't have to write $\overline{z}$. We also omit the $z$ out front, i.e. we use the form of the Krein matrix from p.4 rather than the form in Theorem 3.1. The key part of this approximation is that this is a polynomial in $z$, i.e. $z$ does not appear in any of the coefficients. To leading order, this is quadratic in $z$.\\
+This form is slightly different from that in Lemma 5.6. Since $z$ is real, we don't have to write $\overline{z}$. We also omit the $z$ out front, i.e. we use the form of the Krein matrix from p.4 rather than the form in Theorem 3.1. The key part is that this is a polynomial in $z$, i.e. $z$ does not appear in any of the coefficients. To leading order, this is quadratic in $z$.\\
 
 From our specific problem, we know the following.
 
@@ -495,7 +496,7 @@ where the inner product is symmetric since everything involved is real. Thus the
 For the other term, we have
 
 \begin{align*}
-\langle s_i, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1, s_j \rangle &= -\langle A_1 s_i, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_j \rangle \\
+\langle s_i, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_j \rangle &= -\langle A_1 s_i, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_j \rangle \\
 &= -\langle P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i, A_1 s_j \rangle \\
 &= -\langle A_1 s_j, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i \rangle \\
 &= \langle s_j, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i \rangle
@@ -521,32 +522,37 @@ and let
 \left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S = \begin{pmatrix} b_{11} & b_{12} \\ b_{12} & b_{22} \end{pmatrix}
 \]
 
-Then the Krein matrix $K(z)$ is approximately equal to 
+Since the 2-pulse is an even function, it is not hard to show that the eigenfunction $s_2$ corresponding to the small nonzero eigenvalue $\nu_2$ is an even function as well. The kernel eigenfunction $s_1$ is an odd function since it is the derivative of an even function. Thus $\langle s_1, A_2 s_2 \rangle = \langle s_1, s_2 \rangle = 0$. Furthermore, we have
+
+\begin{align*}
+\langle s_1, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_2 \rangle 
+&= -\langle A_1 s_1, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_2 \rangle 
+\end{align*}
+
+The operator $A_0$ is even, i.e. it preserved the even/odd property of functions. The projection $P_{S^\perp}$ wipes out the components in $S$, which consists of one even function and one odd function. Thus $P_{S^\perp}$ is also an even operator. The differential operator $A_1$ is an odd operator. The inner product above is the inner product of an even function and an odd function, and thus must be 0, so we have $b_12 = 0$. Thus we have
+
+\[
+\left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S = \begin{pmatrix} b_{11} & 0 \\ 0 & b_{22} \end{pmatrix}
+\]
+
+The Krein matrix $K(z)$ is then, to leading order,
 
 \begin{equation}
 \tilde{K}(z) = \begin{pmatrix}
--b_{11} z^2 & -b_{12} z^2 - i a z \\
--b_{12} z^2 + i a z & -b_{22} z^2 + \nu
+-b_{11} z^2 & i a z \\
+i a z & -b_{22} z^2 + \nu
 \end{pmatrix}
 \end{equation}
 
 where $\nu$ is the small, nonzero eigenvalue of $A_0$. Taking the determinant, setting it equal to 0, and solving for $z$, we get a double root at $z = 0$, as well as
 
 \begin{align*}
-z = \pm \frac{\sqrt{b_{11} \nu + a^2}}{\sqrt{b_{11} b_{22} - b_{12}^2}}
+z = \pm \sqrt{\nu /b_{22} + a^2/(b_{11} b_{22})}
 \end{align*} 
 
-Numerics suggests that $b_{12}$ is very small. For the double pulse, I think it is actually 0, although I would have to show that. Neglecting $b_{12}$, we have our first approximation
+The idea is that if $\nu$ is negative, we expect (from numerics) for this to be real. If both $b_{ii}$ are negative, which numerics suggests, this will be the case, so all we have to do is show that.\\
 
-\begin{align*}
-\tilde{K}_1(z) &= \begin{pmatrix}
--b_{11} z^2 & - i a z \\
-i a z & -b_{22} z^2 + \nu
-\end{pmatrix} \\
-\tilde{z}_1 &= \pm \sqrt{\nu /b_{22} + a^2/(b_{11} b_{22})}
-\end{align*}
-
-The second term here should be small as well. Numerics suggests that $a$ is small compared to $b_ii$. Thus we have our second approximation
+The second term here should be small as well. Numerics suggests that $a$ is small compared to $b_{ii}$. Thus we have our second approximation
 
 \begin{align*}
 \tilde{K}_2(z) &= \begin{pmatrix}

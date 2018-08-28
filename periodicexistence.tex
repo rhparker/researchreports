@@ -1173,6 +1173,55 @@ Since we will be applying the IFT, we are interested in the zero set of $F(a_0, 
 	By the above, these are the only zeros of $F$ on the axes (other than the origin).
 \end{enumerate}
 
+Since it will be useful to have bounds on the derivatives of $F$, we will show that here.
+
+% lemma : bounds on derivatives of F
+
+\begin{lemma}\label{Fderivbounds}
+
+For $a_i > 0$ we have
+
+\begin{equation}
+|F_{a_i}(a_0, a_1)| \leq \sqrt{1 + \rho^2}
+\end{equation}
+
+\begin{proof}
+
+Taking the derivative of $F_{a_0}$ respect to $a_0$, we have
+
+\begin{align*}
+\frac{d}{d a_0}F_{a_0}(a_0, a_1) &= \frac{1}{a_0} \left(-\rho \cos(-\rho \log a_0) - \rho^2 \sin( -\rho \log a_0 ) \right) \\
+&= -\frac{\rho}{a_0} \left(\cos(-\rho \log a_0) + \rho \sin( -\rho \log a_0 ) \right)
+\end{align*}
+
+Setting this equal to 0, as long as $a_0 \neq 0$, we have
+
+\begin{align*}
+\tan(-\rho \log a_0) &= -1/\rho \\
+-\rho \log a_0 &= \arctan(-1/\rho) + n \pi && n \in Z \\
+a_0 &= \exp\left( -(1/\rho) \arctan(-1/\rho) - n \pi/\rho \right) && n \in Z \\
+\end{align*}
+
+This gives us the locations of the maximia and minima of $F_{a_0}$, for $a_0 > 0$. Plugging these into the expression for $F_{a_0}(a_0, a_1)$, we get
+
+\begin{align*}
+F_{a_0}(\exp(-(1/\rho) \arctan(-1/\rho) - n \pi/\rho), a_1) &=
+\sin(\arctan(-1/\rho) + n \pi) - \rho \cos(\arctan(-1/\rho) + n \pi) \\
+&= \pm \left( -\frac{1}{\sqrt{1 + \rho^2}} - \rho \frac{\rho}{\sqrt{1 + \rho^2}} \right) \\
+&= \mp \sqrt{1 + \rho^2}
+\end{align*}
+
+Thus since we know the maximum and minimum values of $F_{a_0}$, we conclude
+
+\[
+|F_{a_0}(a_0, a_1)| \leq \sqrt{1 + \rho^2} \text{ for }a_0 > 0
+\]
+
+The same result holds for $F_{a_1}$.
+
+\end{proof}
+\end{lemma}
+
 A Matlab plot of the zero set of $F(a_0, a_1)$ suggests that a series of pitchfork bifurcations occurs along the diagonal.
 
 \begin{figure}[H]
@@ -1616,18 +1665,18 @@ Thus, upon changing variables back to $(a_0, a_1)$ and letting $c^* = y^*$, we h
 
 % lemma : persistence of zero on axis
 
-\begin{lemma}
+\begin{lemma}\label{axiszero}
 
-For $r_m$ sufficiently small, there exists a smooth function $p^*: \Z \times \mathcal{R} \rightarrow \R^+$ such that for all $n \in \Z$
+For $r_m$ sufficiently small, there exists a smooth function $z^*: \Z \times \mathcal{R} \rightarrow \R^+$ such that for all $n \in \Z$
 
 \begin{equation}
-p^*(n, r_m) \rightarrow e^{n \pi/\rho} \text{ as } r_m \rightarrow 0
+z^*(n, r_m) \rightarrow e^{n \pi/\rho} \text{ as } r_m \rightarrow 0
 \end{equation}
 
 and 
 
 \begin{equation}
-G_0(p^*(n, r_m), 0, r_m) = 0
+G_0(z^*(n, r_m), 0, r_m) = 0
 \end{equation}
 
 \begin{proof}
@@ -1639,12 +1688,99 @@ H_{a_0}(e^{n \pi / \rho}, 0) &=
 &= (-1)^{n+1} \rho \neq 0
 \end{align*}
 
-Thus, by the IFT, we can solve for $a_0$ in terms of $r_m$. In other words, we can find a unique family of functions (indexed by $n$) $a_0 = p^*(n, r_m)$ with the same smoothness as $G$ such that $p^*(n, 0) = e^{n \pi/\rho}$ and $G(p^*(n, r_m),0, r_m) = H(p^*(n, r_m), r_m) = 0$ for $r_m$ sufficiently small.
+Thus, by the IFT, we can solve for $a_0$ in terms of $r_m$. In other words, we can find a unique family of functions (indexed by $n$) $a_0 = z^*(n, r_m)$ with the same smoothness as $G$ such that $z^*(n, 0) = e^{n \pi/\rho}$ and $G(z^*(n, r_m),0, r_m) = H(z^*(n, r_m), r_m) = 0$ for $r_m$ sufficiently small.
 
 \end{proof}
 \end{lemma}
 
+The above lemma guarantees that we have a zero of $F$ on the $a_0$ axis near $e^{n \pi/\rho}$. However, it does not follow that there is a level set of $G_0$ which terminates there. To see this, note that while the previous lemma tells us that $G_{a_0}(e^{n \pi/\rho}, 0, 0) \neq 0$, $G_{a_1}(e^{n \pi/\rho}, 0, 0)$ does not exist at $a_1 = 0$ since the terms $\sin(-\rho \log a_1)$ and $\rho \cos(-\rho \log a_1)$ are both rapidly oscillatory as $a_1 \rightarrow 0$. Thus we cannot us the IFT at this point. Instead, we employ an energy argument like we did in Lemma \ref{pitchcont}.
+
+% Lemma : zero set of G leading into z^* 
+
+\begin{lemma}
+For succif
+\begin{proof}
+
+For simplicity, we do this for $z^*(0, r_m)$. The exact same argument works for $z^*(n, r_m)$ for all $n \in \Z$. Recall that 
+
+\[
+G(a_0, a_1, r_m) = F(a_0, a_1) + \mathcal{O}(r_m^{\gamma / 2 \alpha})
+\]
+
+\begin{enumerate}
+
+\item At $(a_0, a_1) = (1, 0)$, we showed in Lemma \ref{axiszero} that $G_{a_0}(1, 0, 0) = F_{a_0}(1, 0) = \rho$. Since $G_{a_0}$ is smooth and the remainder term is $\mathcal{O}(r^m)$, we can find $\delta > 0$ and $r_0 > 0$ so that for $r_m \leq r_0$, $G_{a_0}(x,y,r_m) > \rho/2$ for all $(x,y) \in U_\delta$, where $U_\delta = B_\delta(0, 1) \cap \{ a_1 \geq 0\}$.  Note that since the sign of $G_{a_0}$ changes at the points $b_n^*$, $U_\delta$ lies between the vertical lines $a_0 = b^*$ and $a_0 = b_1^*$, thus it is a half-ball.
+
+\item Since $z^*(0, r_m) \rightarrow 1$ as $r_m \rightarrow 0$, we can find $r_1 \leq r_0$ such that the point $(z^*(r_m), 0) \in U_\delta$ for all $r_m \leq r_1$ and there are no other zeros of $G$ along the $a_0$ axis inside $U_\delta$.
+
+\item Consider the Hamiltonian system paramaterized by $r_m$
+
+\begin{align}
+\dot a_0 &= G_{a_1}(a_0, a_1, r_m)\\
+\dot a_1 &= -G_{a_0}(a_0, a_1, r_m)
+\end{align}
+
+\item Inside $U_\delta$, we have $|\dot a_1| = |G_{a_0}| > \rho/2$. Since $G_{a_1}$ is smooth and the remainder term is $\mathcal{O}(r^m)$, using the bound in Lemma \ref{Fderivbounds} we can find $r_2 \leq r_1$ such that $|\dot a_0| = |G_{a_1}| \leq 2 \sqrt{1 + \rho^2}$ for all points in $\bar{U_\delta}$. Thus, inside $U_\delta$, we have
+
+\begin{align*}
+\left| \frac{\dot a_0}{\dot a_1} \right|
+&\leq \frac{ |G_{a_1}| }{ |G_{a_0}| } \\
+&\leq \frac{2\sqrt{1 + \rho^2}}{\rho/2} \\
+&= 4 \sqrt{1 + 1/\rho^2}
+\end{align*}
+
+Let $M = 4 \sqrt{1 + 1/\rho^2}$. Then $M$ gives us a bound on the (reciprocal of the) slope of the vector field inside $U_\delta$.
+
+\item Recall that the zero level set $F(a_0, a_1) = 0$ near $(a_0, a_1) = (1, 0)$ is a smooth curve which approaches the limit point $(1, 0)$ as $a_1 \rightarrow 0$. Thus we can find $\epsilon > 0$ sufficiently small so that
+	\begin{enumerate}
+	\item For some $x > 0$, $F(x, \epsilon) = 0$, i.e. $(x, \epsilon)$ is on the portion of the zero level set of $F$ which approaches $(1, 0)$.
+	\item $|x - 1| < \delta / 4$
+	\item $M \epsilon < \delta / 2$ 
+	\end{enumerate}
+
+\item Consider the point $(a_0, a_1,r_m) = (x, \epsilon, 0)$. Then since this point is on the zero level set of $F$, we know $G_{a_0}(x, \epsilon, 0) = F_{a_0}(x, \epsilon) \neq 0$. Thus we can use the IFT to solve for $a_0$ in terms of $a_1$ and $r_m$. In particular, for sufficiently small $r_m$ and for $y$ close to $\epsilon$, we have a function $a_1 = x^*(y, r_m)$ with the same smoothness as $G$ such that $G(x^*(y, r_m), y, r_m) = 0$. Since $x^*$ has the ssame smoothness as $G$, this implies
+
+\[
+x^*(\epsilon, r_m) \rightarrow x \text{ as } r_m \rightarrow
+\]
+
+Thus we can find $r_3 \leq r_2$ such that for $r_m < r_3$, $|x^*(\epsilon, r_m - x| < \delta / 4$. By the triangle inequality, we have
+
+\[
+|x^*(\epsilon, r_m) - 1 | < \delta/2  \text{ for } r_m < r_3
+\]
+
+\item Choose any $r_m < r_3$, and choose $p_0 = (x^*(\epsilon, r_m), \epsilon)$ as our initial condition for the ODE in part 3 with parameter $r_m$. By part 1, the slope field inside $U_\delta$ is always pointing down. By part 4, we have a bound on the slope field inside $U_\delta$. Thus, as long as it does not leave $U_\delta$, the trajectory starting at $p_0$ must always move downwards. It also must be contained in the triangle with corners $p_0$, $(x^*(\epsilon, r_m) - M \epsilon, 0)$, and $(x^*(\epsilon, r_m) + M \epsilon, 0)$, as long as that triangle is inside $U_\delta$. By our choice of $\epsilon$, $M \epsilon < \delta / 2$, and by the previous part, $|x^*(\epsilon, r_m) - 1 | < \delta/2$. Thus the triangle is contained inside $U_\delta$. 
+
+\item We have shown that for suffiently small $r_m$, a trajectory starting at $(x^*(\epsilon, r_m), \epsilon)$ must always move down and must remain within the half-ball $U_\delta$. Therefore such a trajectory must hit the $a_0$ axis inside $U_\delta$ in finite time. Since the system is Hamiltonian, trajectories must follow level sets of $G$. Since $G(x^*(\epsilon, r_m), \epsilon, r_m) = 0$, this particular trajectory must follow the zero level set. By part 2, $(z^*(r_m), 0)$ is the only zero of $G$ inside $U_\delta$ on the $a_0$ axis. Thus the trajectory must hit the $a_0$ axis at this point.
+\end{enumerate}
+
+\end{proof}
+\end{lemma}
+
+
 We have shown the persistence of the pitchfork and of the zero on the $a_0$ axis for small $r_m$. The final thing we need to show is that the path connecting the two also persists for small $r_m$.
+
+\begin{lemma}
+For sufficiently small $r_m$, the zero level set of $G_1(a_0, a_1, r_m)$ contains a smooth curve joining $c^*(n, r_m)$ to $p^*(n, r_m)$ for each $n \in \Z$. On this curve, $a_1$ is strictly decreases from $c^*(n, r_m)$ to 0. Thus for each $n \in \Z$ there is a smooth function $a_0^*(n, a_1, r_m)$ defined for $a_1 \in (0, c^*(n, r_m)$ such that 
+
+\begin{equation}
+G(a_0^*(n, a_1, r_m), a_1, r_m) = 0 \text{ for }
+0 < a_1 < c^*(n, r_m)
+\end{equation}
+
+Furthermore, we have the limits
+
+\begin{align*}
+\lim_{a_1 \rightarrow 0} a_0^*(n, a_1, r_m) &= p^*(n, r_m) \\
+\lim_{a_1 \rightarrow c^*(n, r_m)} a_0^*(n, a_1, r_m) &= c^*(n, r_m)
+\end{align*}
+
+\begin{proof}
+This should just follow from the IFT. 
+
+\end{proof}
+\end{lemma}
 
 % put it all together
 
