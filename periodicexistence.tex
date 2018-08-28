@@ -1697,8 +1697,13 @@ The above lemma guarantees that we have a zero of $F$ on the $a_0$ axis near $e^
 
 % Lemma : zero set of G leading into z^* 
 
-\begin{lemma}
-For succif
+\begin{lemma}\label{nearzstar}
+For sufficiently small $r_m$, there exists $\epsilon > 0$ and a smooth curve $x^*(y, r_m)$ such that for $y \in [0, \epsilon]$, $G(x^*(y, r_m), y, r_m) = 0$, and
+
+\[
+x^*(y, r_m) \rightarrow z^*(r_m) \text{ as } y \rightarrow 0
+\]
+
 \begin{proof}
 
 For simplicity, we do this for $z^*(0, r_m)$. The exact same argument works for $z^*(n, r_m)$ for all $n \in \Z$. Recall that 
@@ -1758,14 +1763,15 @@ Thus we can find $r_3 \leq r_2$ such that for $r_m < r_3$, $|x^*(\epsilon, r_m -
 \end{proof}
 \end{lemma}
 
+For small $r_m$, we have local results showing the persistence of the pitchfork bifurcation and the zero on the $a_0$ axis. The final thing we need to show is that the path connecting the two also persists for small $r_m$.
 
-We have shown the persistence of the pitchfork and of the zero on the $a_0$ axis for small $r_m$. The final thing we need to show is that the path connecting the two also persists for small $r_m$.
+% lemma : persistence of lower arm of pitchfork
 
 \begin{lemma}
-For sufficiently small $r_m$, the zero level set of $G_1(a_0, a_1, r_m)$ contains a smooth curve joining $c^*(n, r_m)$ to $p^*(n, r_m)$ for each $n \in \Z$. On this curve, $a_1$ is strictly decreases from $c^*(n, r_m)$ to 0. Thus for each $n \in \Z$ there is a smooth function $a_0^*(n, a_1, r_m)$ defined for $a_1 \in (0, c^*(n, r_m)$ such that 
+For sufficiently small $r_m$, the zero level set of $G_1(a_0, a_1, r_m)$ contains a smooth curve joining $c^*(n, r_m)$ to $z^*(n, r_m)$ for each $n \in \Z$. On this curve, $a_1$ is strictly decreases from $c^*(n, r_m)$ to 0. Thus for each $n \in \Z$ there is a smooth function $a_0^*(n, a_1, r_m)$ defined for $a_1 \in (0, c^*(n, r_m)$ such that 
 
 \begin{equation}
-G(a_0^*(n, a_1, r_m), a_1, r_m) = 0 \text{ for }
+G(a_0^*(n, a_1, r_m), a_1, r_m) = 0 \text{  for  }
 0 < a_1 < c^*(n, r_m)
 \end{equation}
 
@@ -1777,7 +1783,30 @@ Furthermore, we have the limits
 \end{align*}
 
 \begin{proof}
-This should just follow from the IFT. 
+As in the previous lemma, we will do this for $n = 0$. The case for $n \in \Z$ is similar.
+
+\begin{enumerate}
+
+\item From Lemma \ref{nearzstar}, we can find $r_1 > 0$ and $\epsilon > 0$ such that for $r_m < r_1$, there exists a smooth curve $x^*(y, r_m)$ such that for $y \in [0, \epsilon]$, $G(x^*(y, r_m), y, r_m) = 0$, and
+
+\[
+x^*(y, r_m) \rightarrow z^*(r_m) \text{ as } y \rightarrow 0
+\]
+
+\item We would like a similar local result for the pitchfork. By Lemma \ref{pitchpersist}, we can find $r_2 \leq r_1$ such that the point $(c^*(0, r_m), c^*(0, r_m)$ is a pitchfork bifurcation point for $r_m < r_2$, and $(c^*(0, r_m) \rightarrow b^*$ as $r_m \rightarrow 0$. Since this is a local result, there exists $\eta > 0$ (depending on $r_m$) and a unique function $x = \tilde{x}(y, r_m)$ defined for $y \in (c^*(0, r_m) - \eta, c^*(0, r_m))$ such that $(\tilde{x}(y, r_m), y)$ is on the lower arm of the pitchfork and $G(\tilde{x}(y, r_m), y, r_m) = 0$.
+
+\item Next, we define the following closed curve $\Gamma$. Its definition depends on whether $(c^*(0, r_m)$ is to the left or to the right of $b^*$.
+
+\begin{enumerate}
+	\item If $(c^*(0, r_m)$ is on the left of $b^*$, then let $\Gamma$ be the closed curve in the zero set of $G(a_0, a_1, 0) = F(a_0, a_1)$ connecting $(1, 0)$ to $b^*$. In other words, $\Gamma$ is entire the lower arm of the pitchfork for $b^*$. $\Gamma$ can be written as a graph over $a_1$, i.e. we have $\Gamma = (\gamma(a_1), a_1)$ for $a_1 \in [0, b^*]$. We also have $G_{a_0}(\gamma(a_1), a_1, 0) = F_{a_0}(\gamma(a_1), a_1) \neq 0$ in the interior of $\Gamma$  
+
+	\item If $(c^*(0, r_m)$ is on the right of $b^*$, then let $\Gamma$ be the two-piece curve in the zero set of $G(a_0, a_1, 0) = F(a_0, a_1)$ connecting $(1, 0)$ to $b^*$ and then proceeding to $(c^*(0, r_m)$ along the diagonal. 
+
+\end{enumerate}
+
+\item 
+
+\end{enumerate}
 
 \end{proof}
 \end{lemma}
