@@ -1428,6 +1428,8 @@ For the zero set $F(a_0, a_1)$ = 0, the lower arm of the pitchfork at $(b_n^*, b
 \item The curve terminates at the point $(e^{n \pi/\rho}, 0)$.
 \end{enumerate}
 
+The lower arm of the pitchfork can be written as the graph $(x_n^*(a_1), a_1)$ for $a_1 \in [0, b_n^*]$, where $x_n(0) = e^{n \pi/\rho}$ and $x_n(b_n^*) = b_n^*$, and the function $x_n^*$ is smooth.
+
 \begin{proof}
 
 We will look at the lower arm of the pitchfork bifurcation at $(a_0, a_1) = (b_n^*, b_n^*)$. From Lemma \ref{pitchfork}, we know what this looks like locally. To be precise, we can find a point $(a_0^*, a_1^*)$ near $(b_n^*, b_n^*)$ with $b_n^* < a_0^* < b_{n-1}^* $ and $0 < a_1^* < b_n^*$ and a smooth curve connecting them so that $F(a_0, a_1) = 0$ along this cure. From the normal form in Lemma \ref{pitchfork}, this curve must lie below and to the right of the bifurcation point $(b_n^*, b_n^*)$. We note in particular that $F(a_0^*, a_1^*) = 0$. We will show in a series of steps that we can continue this curve uniquely until it meets the $a_0$ axis at $(e^{n \pi/\rho}, 0)$.
@@ -1512,6 +1514,8 @@ Within the box, we showed in part 2 that all solutions either move down (for $n$
 All that remains is to show that the solution starting at $(a_0^*, a_1^*)$ cannot exit the sides. Recall that $F(a_0^*, a_1^*) = 0$ and that solutions are level sets of the energy. Thus $F$ must be 0 along the solution. We showed in part 3 that the sides of the box have nonzero energy. Thus the solution cannot cross the sides of the box.
 
 \item Combining the results above, for $n$ even, a solution starting at $(a_0^*, a_1^*)$ is confined to the box $B$ for $t > 0$. Within the box, we always have $\dot a_1 < 0$. Thus the solution starting at $(a_0^*, a_1^*)$ is strictly decreasing (as $t$ increases) until it hits the $a_0$ axis. The only point on the lower edge of the box which has zero energy is $(e^{n \pi/\rho}, 0)$, and by part 1, this point lies in the interior of the lower edge. Thus the trajectory must terminate at this point. The same result holds for $n$ odd if we take $t < 0$ and consider decreasing $t$.
+
+\item Since $a_1$ is strictly decreasing along the lower arm of the pitchfork, it can be written as the graph $(x_n^*(a_1), a_1)$ for $a_1 \in [0, b_n^*]$, where $x_n(0) = e^{n \pi/\rho}$ and $x_n(b_n^*) = b_n^*$.
 
 \end{enumerate}
 
@@ -1609,31 +1613,25 @@ Similarly, $G_1(X_0, X_1) = -G_1(X_1, X_0)$. Changing variables back to $(a_0, a
 \end{proof}
 \end{lemma}
 
+Next, we show that the pitchfork bifurcation persists for sufficiently small $r_m$. Since we have a Hamiltonian system and thus only have to solve one of the two $G_i$ equations, for convenience we will take $G = G_0$.
+
 % Persistence of pitchfork
 
 \begin{lemma}\label{pitchpersist}
 
-For $r_m$ sufficiently small, there is a smooth function $c^*: \Z \times \mathcal{R} \rightarrow \R^+$ such that for all $n \in \Z$
+For all $n \in \Z$ there exists $r > 0$ and a unique smooth function $c_n^*: \mathcal{R} \cap [0, r] \rightarrow \R^+$ such that $G(a_0, a_1, r_m)$ has a nondegenerate pitchfork bifurcation at $(c_n^*(r_m),c_n^*(r_m)$. Furthermore, $c_n^*$ is smooth, and
 
-\begin{equation}
+\begin{equation*}
 c^*(n, r_m) \rightarrow b^*_n \text{ as } r_m \rightarrow 0
-\end{equation}
-
-and equation
-
-\begin{equation}
-G_0(a_0, a_1, r_m) = a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0 \\
-\end{equation}
-
-has a pitchfork bifurcation at $(c^*(n,r_m),c^*_(n,r_m)$.
+\end{equation*}
 
 \begin{proof}
-We make the following assumption: for all derivatives of $G_0$ with respect to the $a_i$, the remainder term is $\mathcal{O}(r_m^{\gamma / 2 \alpha})$ (or similar). Lemma 6.2 in San98 and Proposition 3.8 in SanStrut have this result up to first derivatives with respect to the $a_i$. I imagine this follows from something in San93.\\
+We make the following assumption: for all derivatives of $G$ with respect to the $a_i$, the remainder term is $\mathcal{O}(r_m^{\gamma / 2 \alpha})$ (or similar). Lemma 6.2 in San98 and Proposition 3.8 in SanStrut have this result up to first derivatives with respect to the $a_i$. I imagine this follows from San93.\\
 
-For simplicity, take $n = 0$, so that we are looking for the persistence of the pitchfork bifurcation at $(b^*, b^*)$ in the case where $r_m = 0$. Recall that in Lemma \ref{pitchfork}, we showed that a pitchfork bifurcation occurs at $(b^*, b^*)$ for the equation
+For simplicity, take $n = 0$, so that we are looking for the persistence of the pitchfork bifurcation at $(b^*, b^*)$. Recall that in Lemma \ref{pitchfork}, we showed that a pitchfork bifurcation occurs at $(b^*, b^*)$ for the equation
 
 \begin{equation}
-F(a_0, a_1) = G_0(a_0, a_1, 0) = a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 r_m \right)\\
+F(a_0, a_1) = G(a_0, a_1, 0) = a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 r_m \right)\\
 \end{equation} 
 
 First, as in Lemma \ref{pitchfork}, we change coordinates $(a_0, a_1) \mapsto (x, y)$, so that $(0, b^*)$ is a pitchfork bifurcation point of $G(x, y, 0)$. By Lemma \ref{Gsymm}, in this cooordinate system we have the symmetry $G(-x, y, r_m) = -G(x, y, r_m)$. This implies that $G(0, y, r_m) = 0$ for all $y, r_m$. In other words, the line $x = 0$ consists entirely of equilibria, corresponding to the periodic wavetrain.\\
@@ -1646,19 +1644,99 @@ H(x,y,r_m) = (G(x,y,r_m), G_x(x,y,r_m)) = 0
 
 From Lemma \ref{Gchangevar}, the remainder term of $G_x$ and $G_y$ is order $r_m^{\gamma/2 \alpha}$, so it goes to 0 as $r_m \rightarrow 0$. Thus $G_x(x,y,0) = F_x(x,y)$ and $G_y(x,y,0) = F_y(x,y)$. In particular, $G_x(0,b^*,0) = G_y(0, b^*, 0) = 0$, so $D_{x,y}G(0,b^*,0)$ is singular. Thus, as expected, we cannot use the IFT.\\
 
-We will instead do a Liapunov-Schmidt reduction. In Lemma \ref{pitchfork}, we computed that $F_{xy}(0, b^*) = 2 \rho/b^* \sqrt{1+ \rho^2} \neq 0$. Since the remainder term in $G_{xy}$ decays to 0 as $r_m \rightarrow 0$, we have $G_{xy}(0, b^*, 0) = F_{xy}(0, b^*) \neq 0$. Thus we can use the IFT to solve $H_2 = G_x$ for $y$ in terms of $x$ and $r_m$. By the IFT, we can find a unique function $y = y^*(x, r_m)$ with the same smoothness as $G_x$ such that $y^*(0, 0) = b^*$ and $G_x(x, y^*(x, r_m), r_m) = 0$ for $(x, r_m)$ close to $(0, 0)$.\\
+We will instead do a Liapunov-Schmidt reduction. In Lemma \ref{pitchfork}, we computed that $F_{xy}(0, b^*) = 2 \rho/b^* \sqrt{1+ \rho^2} \neq 0$. Since the remainder term in $G_{xy}$ decays to 0 as $r_m \rightarrow 0$, we have $G_{xy}(0, b^*, 0) = F_{xy}(0, b^*) \neq 0$. Thus we can use the IFT to solve $H_2 = G_x$ for $y$ in terms of $x$ and $r_m$. By the IFT, there exists $r > 0$, an open interval $(-a, a)$, and a unique function $y = y^*(x, r_m)$ with the same smoothness as $G_x$ such that $y^*(0, 0) = b^*$ and $G_x(x, y^*(x, r_m), r_m) = 0$ for $x \in (-a, a)$ and $r_m < r$.\\
 
-Next, we plug this into the equation for $G$.
+Next, we plug this into the equation for $G$ to get
 
 \begin{equation}
 G(x, y^*(x, r_m), r_m) = 0
 \end{equation}
 
-Which, as noted above, has a solution for $x = 0$. It remains to check that a pitchfork bifuration occurs at $(0, y^*(0, r_m), r_m)$. First, since $G(x, y, r_m)$ is an odd function in $x$, $G_y(0, y, r_m) = 0$ and $G({xx}(0, y, r_m) = 0$ for all $x, r_m$. So we get $G_y(0, y^*(0, r_m), r_m) = 0$ and $G_{xx}(0, y^*(0, r_m), r_m) = 0$ for free.\\
+As noted above, this has a solution for $x = 0$. It remains to check that a pitchfork bifuration occurs at $(0, y^*(0, r_m), r_m)$. First, since $G(x, y, r_m)$ is an odd function in $x$, $G_y(0, y, r_m) = 0$ and $G({xx}(0, y, r_m) = 0$ for all $x, r_m$. So we get $G_y(0, y^*(0, r_m), r_m) = 0$ and $G_{xx}(0, y^*(0, r_m), r_m) = 0$ for free.\\
 
 All that remains is to show that $G_{xy}$ and $G_{xxx}$ are nonzero at $(0, y^*(0, r_m), r_m)$. Recall that $F_{xy}(0, b^*) \neq 0$. Then since $G_{xy}$ and $y^*$ are smooth, and $G_{xy}(0, y^*(0, r_m), r_m) \rightarrow 0 as r_m \rightarrow 0$. Thus, for sufficiently small $r_m$, $G_{xy}(0, y^*(0, r_m), r_m) \neq 0$. Similarly, from Lemma \ref{pitchfork}, we know that $F_{xxx}(0, b^*) \neq 0$. By the same argument, we conclude that $G_{xxx}(0, y^*(0, r_m), r_m) \neq 0$ for sufficiently small $r_m$.\\
 
-Thus, upon changing variables back to $(a_0, a_1)$ and letting $c^* = y^*$, we have shown the pitchfork bifurcation persists for sufficienty small $r_m$. The same argument holds for $b^*_n$ for all $n \in Z$. 
+Thus, upon changing variables back to $(a_0, a_1)$ and letting $c^* = y^*$, we have shown the pitchfork bifurcation persists for $r_m < r$. The same argument holds for $b^*_n$ for all $n \in Z$. 
+
+\end{proof}
+\end{lemma}
+
+% lemma : peristence of trajectory leading to zero on axis
+
+Now we show that the lower arm of the pitchfork which terminates on the $a_0$ axis persists for sufficiently small $r_m$.\\
+
+We make the following definition.
+
+\begin{definition}
+For a function $f:\R \rightarrow \R$, and interval 
+$I \subset \R$, and $\epsilon > 0$, the $\epsilon$-\emph{tubular neighborhood of }$f$ is the set
+
+\[
+\{ (x, y) : y \in I \text{ and }
+x \in (f(y) - \epsilon, f(y) + \epsilon) \}
+\] 
+\end{definition}
+
+\begin{lemma}\label{zeropersists}
+
+For any $n \in \Z$ and for any interval $I = [0, T]$ with $0 < T < b_n^*$ there exists $r > 0$, $a > 0$ and a unique smooth function $h: I \times \mathcal{R} \cap [0, r] \rightarrow \R$ such that for $r_m < r$, $a_1 \in I$ and $(a_0, a_1)$ in an $a$-tubular neighborhood of $x_n^*$, $G(a_0, a_1, r_m) = 0$ if and only if $a_0 = x_n^*(a_1) + h(a_1, r_m)$.
+
+\begin{proof}
+
+For simplicity, we take $n = 0$, and for convenience we let $x^* = x_0^*$. The proof for general $n \in \Z$ is identical. \\
+
+Recall from Lemma \ref{pitchcont} that the lower arm of the pitchfork starting at $(b^*, b^*)$ is given by $(x^*(a_1), a_1)$, for $a_1 \in [0, b^*]$, where $x^*(0) = 1$ and $x^*(b^*) = b^*$. Recall as well that on this path, $G_{a_0}(x^*(a_1), a_1, 0) = F_{a_0}(x^*(a_1), a_1) \neq 0$ except at $a_1 = b^*$.\\
+
+Choose any interval $I = [0, T]$, where $0 < T < b^*$. Then $G_{a_1}(x^*(a_1), a_1, 0) \neq 0$ for $a_1 \in I$.\\
+
+Let 
+
+\begin{equation}
+\tilde{G}(a_0, a_1, r_m) = G(a_0 + x^*(a_1), a_1, r_m)
+\end{equation}
+
+Then $\tilde{G}(0, a_1, 0) = 0$ for all $a_1 \in I$, and $\tilde{G}_{a_0}(0, a_1, 0) = G_{a_0}(x^*(a_1), a_1, 0) \neq 0$ for $a_1 \in I$.\\
+
+Define $H: \R \times I \times \mathcal{R} \rightarrow \R$ by
+
+\begin{equation}
+H(a_0, a_1, r_m) = a_0 - \tilde{G}_{a_1}(0, a_1, 0)^{-1} \tilde{G}(a_0, a_1, r_m)
+\end{equation}
+
+We note that for $a_1 \in I$,
+
+\begin{align*}
+H(0, a_1, 0) &= 0 \\
+H_{a_0}(0, a_1, 0) &= 1 + \tilde{G}_{a_0}(0, a_1, 0)^{-1 }\tilde{G}_{a_0}(0, a_1, 0) = 0
+\end{align*}
+
+Choose any $\theta$ with $0 < \theta < 1$. Then since $\tilde{G}_{a_1}$ is continuous, for each $y \in I$ we can find
+
+\begin{enumerate}
+\item An open set $U(y) \subset I$ containing y. Note that this is an open set of $I$, not $\R$.
+\item An open interval $V(y) = (-a(y), a(y))$, $a(y) > 0$
+\item A real number $r(y) > 0$
+\end{enumerate} 
+
+such that $|H_{a_0}(a_0, a_1, r_m)| \leq \theta < 1$ for $a_0 \in U(y)$, $a_1 \in V(y)$, and $r_m < r(y)$.\\
+
+The open sets $\{U(y)\}_{y \in I}$ form an open cover of the compact interval $I$, thus we find a finite subcover, i.e. points $y_1, \dots, y_n \in I$ such that $U(y_1) \cup \dots \cup U(y_n)$ covers $I$. Let $r = \min\{ r(y_1), \dots, r(y_n) \}$. Let $a = \min\{ a(r_1, \dots, a(r_n) \}$ and let $V = (-a, a)$.\\
+
+By construction, $|H_{a_0}(a_0, a_1, r_m)| \leq \theta < 1$ for all $a_0 \in V$, $a_1 \in I$, and $r_m < r$. For $x_1, x_2 \in V$, $a_1 \in I$, and $r_m < r$ we have
+
+\begin{align*}
+|H(x_2, a_1, r_m) - H(x_1, a_1, r_m)| &\leq
+\sup_{x \in V} |H_{a_0}(x, a_1, r_m)||x_2 - x_1| \\
+&\leq \theta |x_2 - x_1|
+\end{align*}
+
+Thus $H$ is a uniform contraction with respect to $a_0$. Restrict the domain of $H$ to $V \times I \times \{ r_m < r \}$. If necessary, shrink $V$ (by decreasing $a$) so that we have $H: V \times I \times \{ r_m < r\} \rightarrow V$. Then by the uniform contraction mapping principle, for all $a_1 \in I$ and all $r_m < r$, the map $H(\cdot, a_1, r_m)$ has a unique fixed point $h(a_1, r_m)$. The function $h$ is smooth, since $H$ (and $G$) are smooth.\\
+
+From the definition of $H$ and the fact that $\tilde{G}_{a_1}(0, a_1, 0)^{-1} \neq 0$ for all $a_1 \in I$, we see that $a_0$ is a fixed point of $H$ with parameters $a_1$ and $r_m$ if and only if $\tilde{G}(a_0, a_1, r_m) = 0$. Thus, given $a_1 \in I$ and $r_m < r$, $h(a_1, r_m)$ is the unique value of $a_0$ such that $\tilde{G}(a_0, a_1, r_m) = 0$. Since $\tilde{G}(0, a_1, 0) = 0$, by uniqueness $h(a_1, 0) = 0$. For fixed $r_m < r$, the curve $h(a_1, r_m)$ is smooth, and $|h(a_1, r_m)| < a$.\\
+
+Thus there exists $r > 0$ and an open interval $(-a, a)$ such that for any $r_m < r$, $a_1 \in I$, and $|a_0| < a$, $\tilde{G}(a_0, a_1, r_m) = 0$ if and only if $a_0 = h(a_1, r_m)$.\\
+
+Since $\tilde{G}(a_0, a_1, r_m)$ if and only if $G(a_0 + x^*(a_1), a_1, r_m) = 0$, we conclude that for $r_m < r$, $a_1 \in I$ and $(a_0, a_1)$ in an $a$-tubular neighborhood of $x^*$, $G(a_0, a_1, r_m) = 0$ if and only if $a_0 = x^*(a_1) + h(a_1, r_m)$.
 
 \end{proof}
 \end{lemma}
@@ -1768,7 +1846,7 @@ For small $r_m$, we have local results showing the persistence of the pitchfork 
 % lemma : persistence of lower arm of pitchfork
 
 \begin{lemma}
-For sufficiently small $r_m$, the zero level set of $G_1(a_0, a_1, r_m)$ contains a smooth curve joining $c^*(n, r_m)$ to $z^*(n, r_m)$ for each $n \in \Z$. On this curve, $a_1$ is strictly decreases from $c^*(n, r_m)$ to 0. Thus for each $n \in \Z$ there is a smooth function $a_0^*(n, a_1, r_m)$ defined for $a_1 \in (0, c^*(n, r_m)$ such that 
+For sufficiently small $r_m$, the zero level set of $G_(a_0, a_1, r_m)$ contains a smooth curve joining $c^*(n, r_m)$ to $z^*(n, r_m)$ for each $n \in \Z$. On this curve, $a_1$ is strictly decreasing from $c^*(n, r_m)$ to 0. Thus for each $n \in \Z$ there is a smooth function $a_0^*(n, a_1, r_m)$ defined for $a_1 \in (0, c^*(n, r_m)$ such that 
 
 \begin{equation}
 G(a_0^*(n, a_1, r_m), a_1, r_m) = 0 \text{  for  }
@@ -1778,7 +1856,7 @@ G(a_0^*(n, a_1, r_m), a_1, r_m) = 0 \text{  for  }
 Furthermore, we have the limits
 
 \begin{align*}
-\lim_{a_1 \rightarrow 0} a_0^*(n, a_1, r_m) &= p^*(n, r_m) \\
+\lim_{a_1 \rightarrow 0} a_0^*(n, a_1, r_m) &= z^*(n, r_m) \\
 \lim_{a_1 \rightarrow c^*(n, r_m)} a_0^*(n, a_1, r_m) &= c^*(n, r_m)
 \end{align*}
 
@@ -1787,24 +1865,49 @@ As in the previous lemma, we will do this for $n = 0$. The case for $n \in \Z$ i
 
 \begin{enumerate}
 
-\item From Lemma \ref{nearzstar}, we can find $r_1 > 0$ and $\epsilon > 0$ such that for $r_m < r_1$, there exists a smooth curve $x^*(y, r_m)$ such that for $y \in [0, \epsilon]$, $G(x^*(y, r_m), y, r_m) = 0$, and
+\item Let $\Gamma$ be the closed curve in the zero set of $G(a_0, a_1, 0) = F(a_0, a_1)$ connecting $(1, 0)$ to $b^*$. In other words, $\Gamma$ is the entire lower arm of the pitchfork for bifurcation $b^*$, including the endpoints. By Lemma \ref{pitchcont}, since $a_1$ is strictly decreasing on $\Gamma$, $\Gamma$ can be written as a graph over $a_1$, i.e. we have $\Gamma = (\gamma(a_1), a_1)$ for $a_1 \in [0, b^*]$. We also note that $G_{a_0}(\gamma(a_1), a_1, 0) = F_{a_0}(\gamma(a_1), a_1) \neq 0$ in the interior of $\Gamma$  
+
+\item First, we have a local result near the point on the $a_0$ axis. From Lemma \ref{nearzstar}, we can find $r_1 > 0$ and $\epsilon_1 > 0$ such that for $r_m < r_1$, there exists a smooth curve $a_0 = x_1^*(y, r_m)$ such that for $a_1 \in [0, \epsilon_1]$, $G(x_1^*(a_1, r_m), a_1, r_m) = 0$ and
 
 \[
-x^*(y, r_m) \rightarrow z^*(r_m) \text{ as } y \rightarrow 0
+x_1^*(a_1, r_m) \rightarrow z^*(r_m) \text{ as } y \rightarrow 0
 \]
 
-\item We would like a similar local result for the pitchfork. By Lemma \ref{pitchpersist}, we can find $r_2 \leq r_1$ such that the point $(c^*(0, r_m), c^*(0, r_m)$ is a pitchfork bifurcation point for $r_m < r_2$, and $(c^*(0, r_m) \rightarrow b^*$ as $r_m \rightarrow 0$. Since this is a local result, there exists $\eta > 0$ (depending on $r_m$) and a unique function $x = \tilde{x}(y, r_m)$ defined for $y \in (c^*(0, r_m) - \eta, c^*(0, r_m))$ such that $(\tilde{x}(y, r_m), y)$ is on the lower arm of the pitchfork and $G(\tilde{x}(y, r_m), y, r_m) = 0$.
+For $a_1 \in [0, \epsilon_1]$, let $H_1$ be the mapping
 
-\item Next, we define the following closed curve $\Gamma$. Its definition depends on whether $(c^*(0, r_m)$ is to the left or to the right of $b^*$.
+\[
+H_1(a_1, r_m) = x_2^*(a_1, r_m), a_1)
+\]
+
+\item We have a similar local result for the pitchfork bifurcation. By Lemma \ref{pitchpersist}, we can find $r_2 \leq r_1$ such that the point $(c^*(0, r_m), c^*(0, r_m)$ is a pitchfork bifurcation point for $r_m < r_2$, and $(c^*(0, r_m) \rightarrow b^*$ as $r_m \rightarrow 0$.\\
+
+Furthermore, there exists $\eta > 0$ (depending on $r_m$) and a unique function $a_1 = x_2^*(a_1, r_m)$ defined for $a_1 \in I_1$ such that $(x_2^*(a_1, r_m), a_1)$ is (the start of) the lower arm of the pitchfork, where $I_1 = [c^*(0, r_m) - \eta, c^*(0, r_m)]$. Thus we have $G(x_2^*(a_1, r_m), a_1, r_m) = 0$ for such $a_1$.\\
+
+Finally, since the pitchfork persists for $r_m < r_2$, there exists $\epsilon_2 > 0$ and a function $H_2(a_1, r_m)$ defined for $a_1 \in I_2$ such that 
+
+\[
+H(I_2, r_m) = x_2^*(I_1, r_m), I_1)
+\]
+
+where $I_2 = [b^* - \epsilon_2, b^*]$.
+
+\item Let $I = [\epsilon_1/2, b^* - \epsilon_2/2]$. For each $y \in I$, $G_{a_0}(\gamma(y), y, 0) = F_{a_0}(a_1^*(y), y) \neq 0$, thus we can use the IFT at each point $y \in I$. In other words, for each $y \in I$ we have
 
 \begin{enumerate}
-	\item If $(c^*(0, r_m)$ is on the left of $b^*$, then let $\Gamma$ be the closed curve in the zero set of $G(a_0, a_1, 0) = F(a_0, a_1)$ connecting $(1, 0)$ to $b^*$. In other words, $\Gamma$ is entire the lower arm of the pitchfork for $b^*$. $\Gamma$ can be written as a graph over $a_1$, i.e. we have $\Gamma = (\gamma(a_1), a_1)$ for $a_1 \in [0, b^*]$. We also have $G_{a_0}(\gamma(a_1), a_1, 0) = F_{a_0}(\gamma(a_1), a_1) \neq 0$ in the interior of $\Gamma$  
-
-	\item If $(c^*(0, r_m)$ is on the right of $b^*$, then let $\Gamma$ be the two-piece curve in the zero set of $G(a_0, a_1, 0) = F(a_0, a_1)$ connecting $(1, 0)$ to $b^*$ and then proceeding to $(c^*(0, r_m)$ along the diagonal. 
-
+\item $r(y) > 0$
+\item An open interval $J(y)$ centered at $y$
+\item A unique function $x^*(a_1, r_m; y)$ such that $x^*(a_1, 0; y) = \gamma(a_1)$ and $G(x^*(a_1, r_m; y), a_1, r_m) = 0$ for all $r_m < r(y)$ and all $a_1 \in J(y)$.
 \end{enumerate}
 
-\item 
+\item The interval $I$ is closed and bounded, thus compact. The collection $\{J(y)\}_{y \in I}$ is an open cover for $I$. Thus we can find a finite subcover, i.e. we can find points $\{y_1, \dots, y_n \} \in I$ such that $J = J(y_1)\cup\dots\cup J(y_2)$ covers $I$. If necessary, add the two endpoints of $I$ to the $y_i$. Let $r = \min\{r_1, r_2, r(y_1),\dots, r(y_n)\}$, where $r_1$ and $r_2$ are defined in parts 2 and 3. Then since the intervals of $J$ overlap, by the uniqueness of the implicit solutions from the IFT, for $r_m < r$ there is a unique function $x^*(a_1, r_m)$ (no longer paramaterized by $y$) defined for $a_1 \in J$ (not just $I$!) 
+
+\[
+G(x^*(a_1, r_m), a_1, r_m) = 0
+\]
+
+for all $a_1 \in I$. In addition, we also have $x^*(a_1, 0) = \gamma(a_1)$ for $a_1 \in I$.\\
+
+\item By uniqueness from the IFT $x^*$ must agree with $H_1$ and $H_2$ at the two endpoints, thus must agree everywhere their respective domains overlap. If we define $a_1^*$ as the concatenation of $H_1$, $x^*$, and $H_2$, we have constructed the desired curve for $r_m$ sufficiently small.
 
 \end{enumerate}
 
@@ -1813,7 +1916,7 @@ x^*(y, r_m) \rightarrow z^*(r_m) \text{ as } y \rightarrow 0
 
 % put it all together
 
-GARBAGE AFTER HERE \\
+GARBAGE AFTER HERE. WE SHOULD BE ABLE TO STATE THE THEOREM FOR THE 2-PULSE NOW. AND PUT IT BACK IN TERMS OF THE LENGTHS $X_i$. \\
 
 \begin{theorem}\label{2pconstruction}
 Given the assumptions in Hypothesis \ref{assumptions}, a periodic $n$-pulse solution $Q_{n,p}(x)$ of $U' = F(U)$ exists. $Q_{n, p}(x)$ can be written piecewise as
