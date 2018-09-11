@@ -1749,21 +1749,14 @@ For small $r_m$, we shown persistence of the pitchfork bifurcation and the porti
 
 \begin{lemma}
 
-There exists $r > 0$ such that for $r_m < r$ and all $n \in \Z$, the zero level set of $G_(a_0, a_1, r_m)$ contains a smooth curve joining $c_n^*(n, r_m)$ to a point on the $a_0$ axis. \\
+For all $n \in \Z$, there exists $r > 0$ such that for $r_m < r$ the zero level set of $G_(a_0, a_1, r_m)$ contains a smooth curve joining $c_n^*(n, r_m)$ to a point on the $a_0$ axis. \\
 
 On this curve, $a_1$ is strictly decreasing from $c^*(n, r_m)$ to 0. Thus for each $n \in \Z$ there is a smooth function $a_0^*(n, a_1, r_m)$ defined for $a_1 \in (0, c^*(n, r_m)$ such that 
 
 \begin{equation}
 G(a_0^*(n, a_1, r_m), a_1, r_m) = 0 \text{  for  }
-0 < a_1 < c^*(n, r_m)
+a_1 \in [0, c^*(n, r_m)]
 \end{equation}
-
-Furthermore, we have the limits
-
-\begin{align*}
-\lim_{a_1 \rightarrow 0} a_0^*(n, a_1, r_m) &= z^*(n, r_m) \\
-\lim_{a_1 \rightarrow c^*(n, r_m)} a_0^*(n, a_1, r_m) &= c^*(n, r_m)
-\end{align*}
 
 \begin{proof}
 As in the previous lemma, we will do this for $n = 0$. The case for $n \in \Z$ is similar.\\
@@ -1775,86 +1768,78 @@ As in the previous lemma, we will do this for $n = 0$. The case for $n \in \Z$ i
 
 \item Let $c_0^*(r_m)$ be as defined in Lemma \ref{pitchpersist}, and for convenience let $c^* = c_0^*$.
 
-\item At this point, fix $r_m < r$. Then, since the pitchfork bifurcation is a local result, there exists $\epsilon_1 > 0$ (depending on $r_m$), an interval $I_1 = [c^*(r_m) - \epsilon_1, c^*(r_m)]$ and a unique function $x_1^*: I_1 \rightarrow \R^+$ (also depending on $r_m$) such that $x_1^*(c^*(r_m)) = c^*(r_m)$ and the graph $(x_1^*(a_1, r_m), a_1)$ is (the start of) the lower arm of the pitchfork.
-
-\item Since the pitchfork persists for our chosen $r_m$, there exists $\epsilon_2 > 0$, an interval $I_2 = [b^* - \epsilon_2, b^*]$, and a function $H = (h_0, h_1)$ (depending on $r_m$) such that
-
-\[
-H( \{ (a_0, a_1) : a_1 \in I_2 \text{ and } a_0 = x^*(a_1) \}) = \{ (a_0, a_1) : a_1 \in I_1 \text{ and } a_0 = x_1^*(a_1) \}
-\]
-
-In other words, $H$ maps the start of the lower pitchfork arm for $r_m = 0$ to the start of the perturbed lower pitchform arm for $r_m$. In particular, we have
-
-\begin{equation}\label{Hmaps}
-G(H(x^*(a_1), a_1), r_m) = 0 \text{ for } a_1 \in I_2
-\end{equation}
-
-\item Let $I_3 = [0, b^* - \epsilon_2/3]$. Then, by Lemma \ref{zeropersists}, there a unique smooth function $h: I_3 \times \mathcal{R} \cap [0, r] \rightarrow \R$ such that $G(x^*(a_1) + h(a_1, r_m), a_1, r_m) = 0$.
-
-\item Let $y^* = b^* - 2 \epsilon_2 / 3$ and use the IFT at $(x^*(y^*), y^*)$. Since $G_{a_0}(x^*(y^*), y^*, 0) = G_{a_0}(x^*(y^*), y^*) \neq 0$, there exist $r_1 > 0$, an interval $I_4 = (y^* - \delta_1, y^* + \delta_2)$, and a unique smooth function $g: I_4 \times \mathcal{R}\cap[0,r_1]$ such that $g(y^*, 0) = x^*(y^*)$ and $G(g(a_1, r_m), a_1, r_m) = 0$. \\
-
-We know from the previous part that for our choice of $r_m$, $G(x^*(a_1) + h(a_1, r_m), y, r_m) = 0$ for $a_1 \in I_3$. Thus we must have $a \geq \epsilon_2/3$, $r_m < r_1$, and by uniqueness we have $g(a_1, r_m) = x^*(a_1) + h(a_1, r_m)$ for $a_1 \in (y^* - \epsilon_2/3, y^* + \epsilon_2/3)$.\\
-
-From \eqref{Hmaps}, $G(H(x^*(a_1), a_1), r_m) = 0$ for $a_1 \in (y^* - \epsilon_2/3, y^* + \epsilon_2/3)$. Thus by uniqueness we have $g(a_1, r_m) = H(x^*(a_1), a_1)$ for $a_1 \in (y^* - \epsilon_2/3, y^* + \epsilon_2/3)$.\\
+\item At this point, fix $r_m < r$. Since all pitchfork bifurcations are topologically conjugate, there exists $\epsilon_0 > 0$, $\epsilon_1 > 0$, and a unique diffeomorphism $H_m: B(b^*, \epsilon_0) \rightarrow B(c^*, \epsilon_1)$, all of which depend on $r_m$, such that
 
 \begin{equation}
-G(H(x^*(a_1), a_1), r_m) = 0 \text{ for } a_1 \in I_2
+G(a_0, a_1, 0) = 0 \iff G(H_m(a_0, a_1), r_m) = 0
 \end{equation}
 
-GARBAGE FOLLOWS
+We can assume WLOG that the $\epsilon_0, \epsilon_1$ are the largest radii for which this result holds.
 
-\begin{enumerate}
+\item For this value of $r_m$, using Lemma \ref{zeropersists} with interval $I_0 = [0, b^* - \epsilon_0/2]$, there exists a unique function $h: I_0 \times \mathcal{R} \cap [0, r] \rightarrow \R$ such that
 
-\item Let $\Gamma$ be the closed curve in the zero set of $G(a_0, a_1, 0) = F(a_0, a_1)$ connecting $(1, 0)$ to $b^*$. In other words, $\Gamma$ is the entire lower arm of the pitchfork for bifurcation $b^*$, including the endpoints. By Lemma \ref{pitchcont}, since $a_1$ is strictly decreasing on $\Gamma$, $\Gamma$ can be written as a graph over $a_1$, i.e. we have $\Gamma = (\gamma(a_1), a_1)$ for $a_1 \in [0, b^*]$. We also note that $G_{a_0}(\gamma(a_1), a_1, 0) = F_{a_0}(\gamma(a_1), a_1) \neq 0$ in the interior of $\Gamma$  
+\begin{equation}
+G(a_0, a_1, r_m) = 0 \iff a_0 = x^*(a_1) + h(a_1, r_m)
+\end{equation}
 
-\item First, we have a local result near the point on the $a_0$ axis. From Lemma \ref{nearzstar}, we can find $r_1 > 0$ and $\epsilon_1 > 0$ such that for $r_m < r_1$, there exists a smooth curve $a_0 = x_1^*(y, r_m)$ such that for $a_1 \in [0, \epsilon_1]$, $G(x_1^*(a_1, r_m), a_1, r_m) = 0$ and
+where $x^* = x_0^*$ is defined in Lemma \ref{pitchcont}. 
 
-\[
-x_1^*(a_1, r_m) \rightarrow z^*(r_m) \text{ as } y \rightarrow 0
-\]
+\item Let $I_1 = (b^* - \epsilon_0, b^* - \epsilon_0/2)$. Consider the curve $\Gamma_1$ defined by
 
-For $a_1 \in [0, \epsilon_1]$, let $H_1$ be the mapping
+\begin{align*}
+\Gamma_1 = \left\{ (x^*(a_1), a_1) : a_1 \in I_1 \right\}
+\end{align*}
 
-\[
-H_1(a_1, r_m) = x_2^*(a_1, r_m), a_1)
-\]
+Since $\Gamma_1 \subset B(b^*, \epsilon_0)$ and $G(a_0, a_1, 0) = 0$ for $(a_0, a_1) \in \Gamma_1$, $G(H_m(a_0, a_1), r_m) = 0$ for $(a_0, a_1) \in \Gamma_1$. But we also have $G(x^*(a_1) + h(a_1, r_m), a_1, r_m) = 0$, i.e. $G(a_0 + h(a_1, r_m), a_1, r_m) = 0$ for $(a_0, a_1) \in \Gamma_1$. Since the diffeomorphism $G$ is unique, this implies 
 
-\item We have a similar local result for the pitchfork bifurcation. By Lemma \ref{pitchpersist}, we can find $r_2 \leq r_1$ such that the point $(c^*(0, r_m), c^*(0, r_m)$ is a pitchfork bifurcation point for $r_m < r_2$, and $(c^*(0, r_m) \rightarrow b^*$ as $r_m \rightarrow 0$.\\
+\begin{equation}\label{middlejoin}
+H_m(a_0, a_1) = (a_0 + h(a_1, r_m), a_1)
+\end{equation}
 
-Furthermore, there exists $\eta > 0$ (depending on $r_m$) and a unique function $a_1 = x_2^*(a_1, r_m)$ defined for $a_1 \in I_1$ such that $(x_2^*(a_1, r_m), a_1)$ is (the start of) the lower arm of the pitchfork, where $I_1 = [c^*(0, r_m) - \eta, c^*(0, r_m)]$. Thus we have $G(x_2^*(a_1, r_m), a_1, r_m) = 0$ for such $a_1$.\\
+for $(a_0, a_1) \in \Gamma_1$.
 
-Finally, since the pitchfork persists for $r_m < r_2$, there exists $\epsilon_2 > 0$ and a function $H_2(a_1, r_m)$ defined for $a_1 \in I_2$ such that 
+\item Let $\Gamma$ be the lower part of the pitchfork at $b^*$ for $r_m = 0$, i.e. 
 
-\[
-H(I_2, r_m) = x_2^*(I_1, r_m), I_1)
-\]
+\begin{equation}
+\Gamma = \left\{ (x^*(a_1), a_1) : a_1 \in [0, b^*] \right\}
+\end{equation}
 
-where $I_2 = [b^* - \epsilon_2, b^*]$.
+Thus we can define the piecewise function $H_1: \Gamma \rightarrow \R^+ \times R^+$ by
 
-\item Let $I = [\epsilon_1/2, b^* - \epsilon_2/2]$. For each $y \in I$, $G_{a_0}(\gamma(y), y, 0) = F_{a_0}(a_1^*(y), y) \neq 0$, thus we can use the IFT at each point $y \in I$. In other words, for each $y \in I$ we have
+\begin{equation}
+H_1(a_0, a_1) = \begin{cases}
+H(a_0, a_1) & a_1 \in (b^* - 3 \epsilon_0/4, b^*] \\
+(a_0 + h(a_1, r_m), a_1) & a_1 \in [0, b^* - 3 \epsilon_0/4]
+\end{cases}
+\end{equation}
 
-\begin{enumerate}
-\item $r(y) > 0$
-\item An open interval $J(y)$ centered at $y$
-\item A unique function $x^*(a_1, r_m; y)$ such that $x^*(a_1, 0; y) = \gamma(a_1)$ and $G(x^*(a_1, r_m; y), a_1, r_m) = 0$ for all $r_m < r(y)$ and all $a_1 \in J(y)$.
-\end{enumerate}
+By \eqref{middlejoin}, the two pieces of $H_1$ agree at the join point at $a_1 = b^* - 3 \epsilon_0/4$. Since both pieces are smooth and both pieces agree on the interval $a_1 \in (b^* - \epsilon_0, b^* - \epsilon_0/2)$, $H_1$ is smooth.\\
 
-\item The interval $I$ is closed and bounded, thus compact. The collection $\{J(y)\}_{y \in I}$ is an open cover for $I$. Thus we can find a finite subcover, i.e. we can find points $\{y_1, \dots, y_n \} \in I$ such that $J = J(y_1)\cup\dots\cup J(y_2)$ covers $I$. If necessary, add the two endpoints of $I$ to the $y_i$. Let $r = \min\{r_1, r_2, r(y_1),\dots, r(y_n)\}$, where $r_1$ and $r_2$ are defined in parts 2 and 3. Then since the intervals of $J$ overlap, by the uniqueness of the implicit solutions from the IFT, for $r_m < r$ there is a unique function $x^*(a_1, r_m)$ (no longer paramaterized by $y$) defined for $a_1 \in J$ (not just $I$!) 
-
-\[
-G(x^*(a_1, r_m), a_1, r_m) = 0
-\]
-
-for all $a_1 \in I$. In addition, we also have $x^*(a_1, 0) = \gamma(a_1)$ for $a_1 \in I$.\\
-
-\item By uniqueness from the IFT $x^*$ must agree with $H_1$ and $H_2$ at the two endpoints, thus must agree everywhere their respective domains overlap. If we define $a_1^*$ as the concatenation of $H_1$, $x^*$, and $H_2$, we have constructed the desired curve for $r_m$ sufficiently small.
+Let $\Gamma(r_m) = H_1(\Gamma)$. Then $\Gamma$ is a smooth curve connecting $c^*$ to a point on the $a_0$ axis. Since on the two pieces $a_1$ is strictly decreasing, we can write $\Gamma(r_m)$ as a graph over $a_0$.
 
 \end{enumerate}
-
 \end{proof}
 \end{lemma}
 
 % put it all together
+
+We collect the results so far in the following proposition.
+
+\begin{proposition}
+There exists $r > 0$ such that for $r_m < r$, there exists a 1-paramater family of 2-periodic solution, paramaterized by $a_1$. The ``length paramaters'' of the 2-periodic solution are given by
+
+\begin{align}
+(a_0, a_1) &= ( a_0^*(0, a_1, r_m), a_1 ) && a_1 \in (0, c_0^*(r_m))
+\end{align}
+
+\end{proposition}
+
+We now change variables back to the original lengths $X_i$ and state this result as the following theorem.
+
+\begin{theorem}
+
+\end{theorem}
+
 
 GARBAGE AFTER HERE. WE SHOULD BE ABLE TO STATE THE THEOREM FOR THE 2-PULSE NOW. AND PUT IT BACK IN TERMS OF THE LENGTHS $X_i$. \\
 
