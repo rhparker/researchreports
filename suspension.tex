@@ -244,7 +244,28 @@ where we use the fact that $u_*$ is an equilibrium solution, thus must satisfy \
 
 When we solve for the eigenvalues numerically (again, details below), we get eigenvalues (close to) 0, but both eigenfunctions look like the derivative of $u_*$. In this case, I don't think we can have a generalized kernel function since the operator $A_0$ is self-adjoint, so by the Fredholm alternative we cannot have a function $v$ such that $A_0 v = \partial_x u_*$. (Otherwise $\partial_x u_*$ would be perpendicular to the kernel of $A_0^* = A_0$, which is impossible.)\\
 
-Best guess is that we get two eigenvalues at 0 from the quadratic solver because of how it works.
+Best guess is that we get two eigenvalues at 0 from the quadratic solver because of how it works.\\
+
+We also want to look at the derivative with respect to the speed $c$, since it often shows up in these types of problems. Taking the derivative of \eqref{eqODE} with respect to $c$, we get
+
+\begin{align*}
+0 &= u_{xxxxc} + 2 c u_{xx} + c^2 u_{xxc} + e^{u} u_c \\
+&= 2 c u_{xx} + (\partial_x^4 + c^2 \partial_x^2 + e^{u})u_c
+\end{align*}
+
+At an equilibrium solution $u_*$, we rearrange this to get
+
+\begin{align*}
+(\partial_x^4 + c^2 \partial_x^2 + e^{u^*})u^*_c &= -2 c u^*_{xx}
+\end{align*}
+
+In other words, we have
+
+\begin{equation}\label{uc}
+A_0 \partial_c u^* = -2 c u^*_{xx}
+\end{equation}
+
+This will be useful later.
 
 \subsection{Numerics, Construction of Solutions}
 
@@ -366,7 +387,7 @@ The next two plots show that the Krein collision occurs between $c = 1.322$ (bef
 In this section, we look at the eigenvalues of $A_0$. We expect this to be similar to SanStrut, since it's more-or-less the same thing but with a different nonlinearity. Using Matlab's \texttt{eig}, we can show that for the operator $A_0$ linearized about an $n-pulse$
 
 \begin{enumerate}
-	\item The essential spectrum is $[a, \infty)$ for a > 0
+	\item The essential spectrum is $[a, \infty)$ for $a > 0$
 	\item There are $n$ negative eigenvalues clustered near the negative eigenvalue of $A_0$ for the single pulse.
 	\item $n$ small eigenvalues near 0, one of which is actually at 0 (1D kernel)
 \end{enumerate}
@@ -506,9 +527,46 @@ where, again, the inner product is symmetric since everything involved is real. 
 
 The matrix $A_2|_S = I|_S = I$. Thus the Krein matrix is the sum of a diagonal matrix, a skew-Hermitian matrix, and a Hermitian matrix.
 
+\subsubsection{1-pulse}
+
+The easiest case, which is almost trivial, is the single pulse, which we know has exactly one eigenvalue at the origin. For the Krein matrix, we take $S = \ker A_0$ = $\spn \{q_x\}$. Thus the Krein matrix will be 1x1, i.e. a scalar. In this case, $\nu_1 = 0$ and $A_1|_S = 0$, thus we have
+
+\begin{align*}
+K(z) &= -z^2\left( \langle q_x, q_x \rangle - \langle q_x, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
+&= -z^2\left( \langle q_x, q_x \rangle + \langle A_1 q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
+&= -4 c^2 z^2\left( \langle q_x, q_x \rangle + \langle \partial_x q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x q_x \rangle \right) + \mathcal{O}(z^3) \\
+&= -4 c^2 z^2\left( \langle q_x, q_x \rangle + \langle q_{xx}, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx} \rangle \right) + \mathcal{O}(z^3) \\
+\end{align*}
+
+All that is left is to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx}$. Since $S$ is the span of a single odd function, and $q_{xx}$ is an even function, $P_{S^\perp} q_{xx} = q_{xx}$. Thus we only need to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Let $s = (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Then $(P_{S^\perp} A_0 P_{S^\perp}) s = q_{xx}$. From \eqref{uc}, we have
+
+\begin{equation*}\label{uc}
+A_0 \left( -\frac{1}{2c} q_c \right) = q_{xx}
+\end{equation*}
+
+Thus we have
+
+\[
+s = -\frac{1}{2c} q_c + k q_x
+\]
+
+for some scalar $k$. Substituting this into the equation for $K(z)$, and noting that the $k q_x$ term is wiped out by the projection $P_{S^\perp}$, we have
+
+\[
+K(z) = -b z^2 + \mathcal{O}(z^3)
+\]
+
+where
+
+\begin{align*}
+b &= 4 c^2 \left( \langle q_x, q_x \rangle - \frac{1}{2c} \langle q_{xx}, q_c \rangle \right)  \\
+\end{align*}
+
+Numerics suggests this is negative, but hopefully we can find a way to show that.
+
 \subsubsection{2-pulse}
 
-The easiest case is the 2-pulse, since the Krein matrix will be 2x2. Let's look at that first. \\
+The next easiest case is the 2-pulse, since the Krein matrix will be 2x2. Let's look at that first. \\
 
 Let 
 
@@ -529,7 +587,7 @@ Since the 2-pulse is an even function, it is not hard to show that the eigenfunc
 &= -\langle A_1 s_1, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_2 \rangle 
 \end{align*}
 
-The operator $A_0$ is even, i.e. it preserved the even/odd property of functions. The projection $P_{S^\perp}$ wipes out the components in $S$, which consists of one even function and one odd function. Thus $P_{S^\perp}$ is also an even operator. The differential operator $A_1$ is an odd operator. The inner product above is the inner product of an even function and an odd function, and thus must be 0, so we have $b_12 = 0$. Thus we have
+The operator $A_0$ is even, i.e. it preserved the even/odd property of functions. The projection $P_{S^\perp}$ wipes out the components in $S$, which consists of one even function and one odd function. Thus $P_{S^\perp}$ is also an even operator. The differential operator $A_1$ is an odd operator. The inner product above is the inner product of an even function and an odd function, and thus must be 0, so we have $b_{12} = 0$. Thus we have
 
 \[
 \left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S = \begin{pmatrix} b_{11} & 0 \\ 0 & b_{22} \end{pmatrix}
@@ -555,32 +613,90 @@ The idea is that if $\nu$ is negative, we expect (from numerics) for this to be 
 \begin{align*}
 b_{ii} &= \langle(s_i, A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i \rangle \\
 &= \langle s_i, s_i \rangle - \langle s_i, c \partial_x P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} c \partial_x  s_i \rangle \\
-&= |s_i|^2 + c^2 \langle \partial_x s_i, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x s_i \rangle
+&= ||s_i||^2 + 4 c^2 \langle \partial_x s_i, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x s_i \rangle
 \end{align*}
 
-And somehow we should be able to show the second term on the RHS is negative and larger magnitude than the first term...?\\
+The idea here is that by Lin's method, we should be able to show that the $b_{ii}$ are, to leading order, equal to $b$ from the previous section. In that case, we are done, as long as we have showed that $b$ is negative. So let's show that.\\
 
-IGNORE THE REST OF THIS\\
+First, we look at $s_1 = q_2'$, where $q_2$ is the 2-pulse solution. Recall from the Lin's method constrction of the 2-pulse, that we can write the 2-pulse piecewise on the four intervals $(-\infty, 0], [0, X], [-X, 0], [0, \infty)$ as
 
-The second term here should be small as well. Numerics suggests that $a$ is small compared to $b_{ii}$. Thus we have our second approximation
+\[
+q_2 = q + u_i^\pm
+\]
+
+for $i = 1, 2$. Assume we have the bound
+
+\[
+|(u_i^\pm)^{(n)}(x)| \leq C e^{-\alpha X}
+\] 
+
+which is the same as Theorem 1 in San98 with $u_i^\pm$ replaced with its $n$th derivative (this should follow from San93). Then it is not hard to see that 
+
+\[
+||q_2||^2 = 2 ||q||^2 + \mathcal{O}(e^{-\alpha X})
+\]
+
+For the other term, since $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is bounded, we should have
 
 \begin{align*}
-\tilde{K}_2(z) &= \begin{pmatrix}
--b_{11} z^2 & 0 \\
-0 & -b_{22} z^2 + \nu
-\end{pmatrix} \\
-\tilde{z}_2 &= \pm \sqrt{\nu / b_{22}}
+\langle \partial_x q_2', P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x q_2 \rangle 
+= 2 \langle q'', P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q'' \rangle + \mathcal{O}(e^{-\alpha X})
 \end{align*}
 
-This suggests that if $\nu$ and $b_22$ have the same sign, we have a pair of purely imaginary eigenvalues. The idea is that $\tilde{K}_2$ is a small perturbation of the approximate Krein matrix $\tilde{K}$, which is again a small perturbation of the Krein matrix $K$. All of these are Hermitian, thus they all have real eigenvalues. If we plot the eigenvalues of $\tilde{K}_2$, the curves are parabolas which cross 0 at $\pm \sqrt{\nu / b_{22}}$. Since everything perturbs analytically, the eigenvalue curves of $\tilde{K}$ and $K$ should cross 0 near that point. Thus we have shown that the small eigenvalues of the linearization about the 2-pulse are purely imaginary. \\
+Putting this all together, we conclude that 
+
+\[
+b_{11} = 2b + \mathcal{O}(e^{-\alpha X})
+\]
+
+Now we look at $b_{22}$. In this case, recall from San98 that the eigenfunction $s_2$ is a piecewise perturbation of $q'$. Writing this eigenfunction as $s$, we have
+
+\[
+s_i^\pm = d_i q_2' + w_i^\pm
+\]
+
+for $i = 1, 2$, where the $d_i$ are constants and we have the bound $|w_i^\pm| \leq C e^{-2 \alpha X}|d|$. Since the eigenvalue associated with this eigenfunction is real, the $d_i$ are real. Furthermore, $s$ is even (as remarked above). Since $q_2'$ is odd, we must have $d_2 = -d_1$, and the $w_i^\pm$ have the appropriate symmetry to make $s$ even. Furthermore, since we can scale eigenfunctions by any constant, we can take $d_1 = 1$. Thus we only need to look at the left half of this. It is not hard to see in this case that we will have the same thing as above, i.e. 
+
+\[
+b_{22} = 2b + \mathcal{O}(e^{-\alpha X})
+\]
+
+Thus the Krein matrix should be
+
+\begin{equation}
+K(z) = \begin{pmatrix}
+-b z^2 & i a z \\
+i a z & -b z^2 + \nu
+\end{pmatrix} + \mathcal{O}(e^{-\alpha X} z^2 + z^3)
+\end{equation}
+
+Thus, we have, to leading order,
+
+\begin{align*}
+z = \pm \sqrt{\nu / b + a^2/ b^2 }
+\end{align*} 
+
+where 
+
+\[
+a = \langle 2c q_2'', s_2 \rangle
+\]
+
+\begin{align*}
+b &= 4 c^2 \left( \langle q_x, q_x \rangle - \frac{1}{2c} \langle q_{xx}, q_c \rangle \right)  \\
+\end{align*}
+
+As long as $\nu$ and $b$ have the same sign, $z$ is real, and thus we have two complex conjugate eigenvalues, to leading order. Since everything is analytic, we should be able to conclude we have two complex conjugate eigenvalues.\\
+
+Numerics suggests that $b < 0$, thus this should hold for $\nu < 0$.\\
 
 Here is table showing how good these approximations are.
 
 \begin{table}[H]
 \begin{tabular}{llll}
-Pulse & $z$ & $\tilde{z}_1$ & $\tilde{z}_2$ \\
-Double Pulse 2  & 0.0625 & 0.0625 & 0.0614 \\
-Double Pulse 4  & 0.0176 & 0.0176 & 0.0175 \\
+Pulse & $z$ (full Krein matrix) & $z$ (approx Krein matrix)\\
+Double Pulse 2  & 0.0625 & 0.0614 \\
+Double Pulse 4  & 0.0176 & 0.0175 \\
 \end{tabular}
 \caption{Eigenvalues and approximate eigenvalues from Krein matrix. $c = 1.2$, finite difference method, $N = 512$. }
 \end{table}
