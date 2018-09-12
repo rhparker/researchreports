@@ -1117,11 +1117,11 @@ At this point, we would like to use the IFT to solve for the $a_i$ in terms of $
 
 % Lemma : get this into diagonal system with parameter
 
-\begin{lemma}
+\begin{lemma}\label{diagonalG}
 Under the above assumptions, a periodic multipulse solution exists if and only if for $i = 0, \dots, n-2$
 
 \begin{equation}\label{tildeGeq}
-\tilde{G}_i(a_1, \dots, a_{n-1}, r_m) = a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) - a_{n-1} \sin \left( - \frac{\beta}{\alpha} \log a_{i-1} r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0
+\tilde{G}_i(a_1, \dots, a_{n-1}, r_m) = a_i \sin \left( - \frac{\beta}{\alpha} \log a_i \right) - a_{n-1} \sin \left( - \frac{\beta}{\alpha} \log a_{n-1} \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0
 \end{equation}
 
 \begin{proof}
@@ -1139,7 +1139,7 @@ Then, after canceling terms, we have the system \eqref{tildeGeq}. Since \eqref{t
 
 Since the equations \eqref{tildeGeq} are of the same form, we only need to look at one of them. What we will do now is look at the 2-pulse case, which only involves one equation, and then generalize to the $n-$pulse.
 
-\subsubsection{Bifurcation Structure}
+\subsubsection{Bifurcation structure for 2-pulse}
 
 Consider the situation of the 2-pulse. In this case, we only have a single equation to solve. For convenience, let $\rho = \beta / \alpha$. Then the equation we need to solve is
 
@@ -1895,9 +1895,42 @@ The limits on $\tilde{a}_0$ follow from Lemmas \ref{tubepersists} and \ref{lower
 For KdV5, if $c > 0$ there exists a $2$-pulse solution $q_2(x)$. This solution can be written piecewise as in [], and bounds on the pieces are given in that theorem.
 
 \begin{proof}
-All we need to do is verify the assumptions in Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp} for KdV5. The assumptions in Hypothesis \ref{assumptions} are discussed in the opening section, except for the transversality condition, which is a standard assumption in the literature. For Hypotehsis \ref{spechyp}, for $c > 0$, the spectrum of $DF(0)$ is given by $\nu = \pm \alpha \pm \beta i$, where $\alpha, \beta > 0$.
+All we need to do is verify the assumptions in Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp} for KdV5. The assumptions in Hypothesis \ref{assumptions} are discussed in the opening section, except for the transversality condition, which is a standard assumption in the literature. For Hypothesis \ref{spechyp}, for $c > 0$, the spectrum of $DF(0)$ is given by $\nu = \pm \alpha \pm \beta i$, where $\alpha, \beta > 0$.
 \end{proof}
 
 \end{corollary}
+
+Now we return to the case of the multipulse
+
+\subsubsection{Multipulses}
+
+In the previous section we showed how a 2-periodic solution bifurcates from a 1-periodic solution. For higher number of pulses, we expect that we could also come up with a bifurcation structure, but that it would be quite complicated. Rather than do that, which for now will be left as a subject for future research, we will show the existence of multipulses in the case where the period is large.\\
+
+Recall that for a multipulse, by Lemma \ref{diagonalG}, we have to satisfy the equations
+
+\begin{equation}
+\tilde{G}_i(a_1, \dots, a_{n-1}, r_m) = a_i \sin \left( - \rho \log a_i \right) - a_{n-1} \sin \left( -\rho \log a_{n-1} \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0
+\end{equation}
+
+If $r_m = 0$, the zero set of each of these will look exactly like the one for the 2-pulse. However, for $r_m > 0$, the symmetry argument we used above will not hold, so we do not expect the pitchfork to persist.\\
+
+First, we note that Lemma \ref{tubepersists} holds for each of the equations $\tilde{G}_i$, since that lemma depends only on the order of the remainder term, which is the same as in that lemma.\\
+
+The parameter $a_{n-1}$ will be our free parameter. For our length parameters, we choose a series of $n - 1$ nonnegative integers $m_0, \dots, m_{n-2}$ with the restriction that at least one of them must be 0.\\
+
+Let $b^* = \min\{b^*_{m_0}, \dots, b^*_{m_{n-2}}\}$ and choose any $\epsilon$ with $0 < \epsilon < b^*$. Let $I = 0, b^* - \epsilon$. Then applying Lemma \ref{tubepersists} $n-1$ times, for $i = 0, \dots, n-1$ there exist $r_i > 0$ and a unique smooth function $h_i: I \times \mathcal{R} \cap [0, r_i] \rightarrow \R$ such that for all $r_m < r_i$, 
+
+\begin{equation}
+\tilde{G}_i(a_i, a_{n-1}, r_m) = 0 \iff 
+a_i = a_i^*(a_{n-1}, r_m)
+\end{equation}
+
+where
+
+\begin{equation}
+a_i^*(a_{n-1}, r_m) = x_{m_i}^*(a_{n-1}) + h_i(a_{n-1}, r_m)
+\end{equation}
+
+Let $r = \min \{ r_0, \dots, r_{n-1} \}$. Then for any  $a_{n-1} \in I$ and any $r_m < r$, the $\tilde{G}$ are satisfied by the lengths $a_i = a_i^*(a_{n-1}, r_m)$.
 
 \end{document}

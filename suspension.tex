@@ -509,7 +509,7 @@ From our specific problem, we know the following.
 
 \begin{align*}
 \langle s_i, A_1 s_j \rangle &= -\langle A_1 s_i, s_j \rangle \\
-&= -\langle s_j, A_1 \rangle
+&= -\langle s_j, A_1 s_i \rangle
 \end{align*}
 
 where the inner product is symmetric since everything involved is real. Thus the matrix $A_1|_S$ is skew-Hermitian. In particular, this implies that its diagonal terms are 0.\\
@@ -618,11 +618,69 @@ b_{ii} &= \langle(s_i, A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} 
 
 The idea here is that by Lin's method, we should be able to show that the $b_{ii}$ are, to leading order, equal to $b$ from the previous section. In that case, we are done, as long as we have showed that $b$ is negative. So let's show that.\\
 
-First, we look at $s_1 = q_2'$, where $q_2$ is the 2-pulse solution. Recall from the Lin's method constrction of the 2-pulse, that we can write the 2-pulse piecewise on the four intervals $(-\infty, 0], [0, X], [-X, 0], [0, \infty)$ as
+First, we look at $s_1 = q_2'$, where $q_2$ is the 2-pulse solution. Rather than using the piecewise form of $q$, as we do in Lin's method, we write the 2-pulse as
 
 \[
-q_2 = q + u_i^\pm
+q_2 = q(\cdot + X) + q(\cdot - X) + \mathcal{O}(e^{-\alpha X})
 \]
+
+Since the operator $A_0$ depends on the equilibrium solution we are linearizing about, we make that dependency explicit.
+
+\begin{equation}
+A_0(u^*) = \partial_x^4 + c^2 \partial_x^2 + e^{u^*}
+\end{equation}
+
+Let $A_0^+ = A_0(q(\cdot + X))$ and $A_0^- = A_0(q(\cdot - X))$. First, we would like to write $A_0(q_2)$ in terms of $A_0^+$ and $A_0^-$. The only issue here is the $e^{q2}$ term, so that is what we will deal with now.\\
+
+\begin{align*}
+\exp(q_2(x)) &= \exp( q(x + X) + q(x - X) + \mathcal{O}(e^{-\alpha X}) ) \\
+&= \exp( q(x + X) + q(x - X)) \exp( \mathcal{O}(e^{-\alpha X}) )\\
+&= \exp( q(x + X) + q(x - X)) (1 + \mathcal{O}(e^{-\alpha X})) \\
+&= \exp( q(x + X) + q(x - X)) + \mathcal{O}(e^{-\alpha X}) \\
+&= \exp( q(x + X))\exp(q(x - X)) + \mathcal{O}(e^{-\alpha X})
+\end{align*}
+
+where the last line holds since $q$ is bounded. For convenience, let $q^+(x) = q(x + X)$ and $q^-(x) = q(x - X)$. Looking at the first term on the RHS, we have
+
+\begin{align*}
+\exp( q^+(x))\exp(q^-(x)) &=
+\sum_{m=0}^\infty \frac{q^+(x)^m}{m!}
+\sum_{n=0}^\infty \frac{q^-(x)^n}{n!}\\
+&= \sum_{m=0}^\infty \frac{q^-(x)^m}{m!} 
++ \sum_{n=0}^\infty\frac{q^-(x)^n}{n!} - 1 +
+\sum_{m=1}^\infty \frac{q^+(x)^m}{m!}
+\sum_{n=1}^\infty \frac{q^-(x)^n}{n!} \\
+&= \exp( q^+(x)) + \exp(q^-(x)) - 1 +
+q^+(x)q^-(x)\sum_{m=0}^\infty \frac{q^+(x)^m}{(m+1)!}
+\sum_{n=0}^\infty \frac{q^-(x)^n}{(n+1)!}
+\end{align*}
+
+For the final terms on the RHS, we have
+
+\begin{align*}
+\left| q^+(x)q^-(x)\sum_{m=0}^\infty \frac{q^+(x)^m}{(m+1)!} \sum_{n=0}^\infty \frac{q^-(x)^n}{(n+1)!} \right| 
+&\leq \left| q^+(x)q^-(x)\sum_{m=0}^\infty \frac{q^+(x)^m}{m!} \sum_{n=0}^\infty \frac{q^-(x)^n}{n!} \right| \\
+&\leq \left| q^+(x)q^-(x) \right| | e^{q^+(x)}e^{q^-(x)} |\\
+&\leq C \left| q^+(x)q^-(x) \right|
+\end{align*}
+
+since $q^\pm$ are bounded. Since the two peaks are well separated, $q^+(x)q^-(x) = \mathcal{O}(e^{-\alpha X)}$. Thus, putting this all together, we have
+
+\begin{equation}
+\exp(q_2(x)) = \exp( q^+(x)) + \exp(q^-(x)) - 1 + \mathcal{O}(e^{-\alpha X}) ) 
+\end{equation}
+
+Thus we have
+
+\begin{equation}
+A_0(q_2) = A_0^+ + A_0^- - 1
+\end{equation}
+
+Unfortunately, this is not what we have do deal with, since $A_0$ appears in the form $(P_{S^\perp}A_0 P_{S^\perp})^{-1}$.
+
+
+GARBAGE FOLLOWS
+
 
 for $i = 1, 2$. Assume we have the bound
 
