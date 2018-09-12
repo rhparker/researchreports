@@ -43,6 +43,7 @@
 \newtheorem{corollary}{Corollary}
 \newtheorem{definition}{Definition}
 \newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
 \newtheorem{hypothesis}{Hypothesis}
 
 \newtheorem{notation}{Notation}
@@ -1009,7 +1010,9 @@ We will fill in a detailed argument later, or we will cite an appropriate refere
 
 Up to this point, we have made no additional assumptions on our system. In order to satisfy the equations in Lemma \ref{IPsystem}, we will need to make some assumptions about the eigenvalues of $DF(0)$. This makes sense, since we know we need to have ``twisting manifolds'' to construct a nonperiodic multipulse. Thus we make the following additional hypothesis.
 
-\begin{hypothesis}The spectrum of $DF(0)$ contain simple eigenvalues $\pm \alpha \pm i \beta$, for $\alpha, \beta > 0$. The real part of any other eigenvalue of $DF(0)$ lies outside $(-\alpha, \alpha)$. Thus the equilibrium at 0 is a hyperbolic equilibrium, with both stable and unstable manifolds having dimension at least 2.
+\begin{hypothesis}\label{spechyp}
+\[\]
+The spectrum of $DF(0)$ contain simple eigenvalues $\pm \alpha \pm i \beta$, for $\alpha, \beta > 0$. The real part of any other eigenvalue of $DF(0)$ lies outside $(-\alpha, \alpha)$. Thus the equilibrium at 0 is a hyperbolic equilibrium, with both stable and unstable manifolds having dimension at least 2.
 \end{hypothesis}
 
 With this additional hypothesis, we have an expression for $\langle \Psi(-x), Q(x) \rangle$
@@ -1061,7 +1064,7 @@ s_0 e^{-2 \alpha X_i} \sin(2 \beta X_i + \phi) - s_0 e^{-2 \alpha X_{i-1}} \sin(
 where $X_m = \min\{X_i\}$. Choose any $m \in \N_0$, and define
 
 \begin{align}
-r_m = e^{-(2 \pi \alpha /\beta) m} \in \mathcal{R} && m \in \N
+r_m = e^{-(\pi \alpha /\beta) m} \in \mathcal{R} && m \in \N
 \end{align}
 
 Next, define
@@ -1679,7 +1682,7 @@ x \in (f(y) - \epsilon, f(y) + \epsilon) \}
 
 % lemma : lower arm of pitchfork persists
 
-\begin{lemma}\label{zeropersists}
+\begin{lemma}\label{tubepersists}
 
 For any $n \in \Z$ and for any interval $I = [0, T]$ with $0 < T < b_n^*$ there exists $r > 0$, $a > 0$ and a unique smooth function $h: I \times \mathcal{R} \cap [0, r] \rightarrow \R$ such that for $r_m < r$, $a_1 \in I$ and $(a_0, a_1)$ in an $a$-tubular neighborhood of $x_n^*$, $G(a_0, a_1, r_m) = 0$ if and only if $a_0 = x_n^*(a_1) + h(a_1, r_m)$.
 
@@ -1747,7 +1750,7 @@ For small $r_m$, we shown persistence of the pitchfork bifurcation and the porti
 
 % lemma : persistence of lower arm of pitchfork
 
-\begin{lemma}
+\begin{lemma}\label{lowerarmpersists}
 
 For all $n \in \Z$, there exists $r > 0$ such that for $r_m < r$ the zero level set of $G_(a_0, a_1, r_m)$ contains a smooth curve joining $c_n^*(n, r_m)$ to a point on the $a_0$ axis. \\
 
@@ -1758,13 +1761,20 @@ G(a_0^*(n, a_1, r_m), a_1, r_m) = 0 \text{  for  }
 a_1 \in [0, c^*(n, r_m)]
 \end{equation}
 
+Furthermore, we have the following limits
+
+\begin{align*}
+\lim_{a_1 \rightarrow c_n^*(r_m)} a_0^*(n, a_1, r_m) &= c_n^*(r_m) \\
+\lim_{a_1 \rightarrow 0} a_0^*(n, a_1, r_m) &= e^{n \pi / \rho} + h(0, r_m)
+\end{align*}
+
 \begin{proof}
 As in the previous lemma, we will do this for $n = 0$. The case for $n \in \Z$ is similar.\\
 
 \begin{enumerate}
 
 \item Choose $r > 0$ such that the results of Lemmas 
-\ref{pitchpersist} and \ref{zeropersists} apply. 
+\ref{pitchpersist} and \ref{tubepersists} apply. 
 
 \item Let $c_0^*(r_m)$ be as defined in Lemma \ref{pitchpersist}, and for convenience let $c^* = c_0^*$.
 
@@ -1776,7 +1786,7 @@ G(a_0, a_1, 0) = 0 \iff G(H_m(a_0, a_1), r_m) = 0
 
 We can assume WLOG that the $\epsilon_0, \epsilon_1$ are the largest radii for which this result holds.
 
-\item For this value of $r_m$, using Lemma \ref{zeropersists} with interval $I_0 = [0, b^* - \epsilon_0/2]$, there exists a unique function $h: I_0 \times \mathcal{R} \cap [0, r] \rightarrow \R$ such that
+\item For this value of $r_m$, using Lemma \ref{tubepersists} with interval $I_0 = [0, b^* - \epsilon_0/2]$, there exists a unique function $h: I_0 \times \mathcal{R} \cap [0, r] \rightarrow \R$ such that
 
 \begin{equation}
 G(a_0, a_1, r_m) = 0 \iff a_0 = x^*(a_1) + h(a_1, r_m)
@@ -1825,8 +1835,10 @@ Let $\Gamma(r_m) = H_1(\Gamma)$. Then $\Gamma$ is a smooth curve connecting $c^*
 
 We collect the results so far in the following proposition.
 
-\begin{proposition}
-There exists $r > 0$ such that for $r_m < r$, there exists a 1-paramater family of 2-periodic solution, paramaterized by $a_1$. The ``length paramaters'' of the 2-periodic solution are given by
+% proposition : existence in terms of a_i
+
+\begin{proposition}\label{2pera}
+Assume Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp}. Then there exists $r > 0$ such that for each $r_m < r$, there exists a 1-paramater family of 2-periodic solutions to \eqref{generaleq}, paramaterized by $a_1 < a_0$. The ``length paramaters'' of the 2-periodic solution are given by
 
 \begin{align}
 (a_0, a_1) &= ( a_0^*(0, a_1, r_m), a_1 ) && a_1 \in (0, c_0^*(r_m))
@@ -1836,54 +1848,54 @@ There exists $r > 0$ such that for $r_m < r$, there exists a 1-paramater family 
 
 We now change variables back to the original lengths $X_i$ and state this result as the following theorem.
 
+% Theorem : in terms of lengths X_i
+
 \begin{theorem}
+Assume Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp}. Then there exists $M \in \N_0$ such that for $m \in \N_0 \cap [M, \infty)$ there exists a 1-parameter family of 2-periodic solutions, paramaterized by $X_1 > X_0$. $X_0$ is given by
 
-\end{theorem}
-
-
-GARBAGE AFTER HERE. WE SHOULD BE ABLE TO STATE THE THEOREM FOR THE 2-PULSE NOW. AND PUT IT BACK IN TERMS OF THE LENGTHS $X_i$. \\
-
-\begin{theorem}\label{2pconstruction}
-Given the assumptions in Hypothesis \ref{assumptions}, a periodic $n$-pulse solution $Q_{n,p}(x)$ of $U' = F(U)$ exists. $Q_{n, p}(x)$ can be written piecewise as
-
-\begin{align*}
-\begin{cases}
-Q^-(0, \beta_i^-)(x) + U_i^-(x) \\
-Q^+(0, \beta_i^+)(x) + U_i^+(x)
-\end{cases}
-\end{align*}
-
-for $i = 0, \dots, n-1$. $Q^-(\alpha, \beta_i^-)(0)$ parameterizes the unstable manifold near $Q(0)$ and $Q^+(\alpha, \beta_i^+)(0)$ parameterizes the stable manifold near $Q(0)$. $Q^\pm(0, \beta_i^\pm)(x)$ lies along the stable (unstable) manifold, and $U_i^\pm(x)$ is a remainder term.\\
-
-For the remainder term $U_i^\pm(x)$, we have bounds
-
-\begin{align*}
-|U_i^-(x)| &\leq C e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + x)} \\
-|U_i^+(x)| &\leq C e^{-\alpha X_i} e^{-\alpha(X_i - x)} \\
-\end{align*}
-
-For the initial conditions $\beta_i^\pm$, we have bounds
-
-\begin{equation}
-| \beta_i^\pm | \leq C (e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})
+\begin{equation}\label{X0}
+X_0 = \frac{\pi}{2 \beta}m 
+- \frac{1}{2 \alpha} \log(\tilde{a}_0(X_1, r_m)) + C
 \end{equation}
 
-This gives us bounds
-
-\begin{align*}
-|Q^\pm(0, \beta_i^\pm)(0) - Q(0)| = |\beta_i^\pm| \leq 
-C \left( e^{-\alpha X_i} + e^{-\alpha X_{i-1}} \right)
-\end{align*}
-
-\end{theorem}
-
-% corollary : our problem
-
-\begin{corollary}
-For KdV5, if $c > 0$ there exists an $n$-pulse solution $Q_{n, p}(x)$. This solution can be written piecewise as in Theorem \ref{2pconstruction}, and bounds on the pieces are given in that theorem.
+where $C$ is a constant, and $\tilde{a}_0(X_1, r_m) \rightarrow 1$ as $(X_1, r_m) \rightarrow (\infty, 0)$.
 
 \begin{proof}
-All we need to do is verify the assumptions in Hypothesis \ref{assumptions} for KdV5. If $c > 0$, the eigenvalues of $DF(0)$ are the complex quartet $\pm \alpha \pm \beta$. The remaining assumptions are discussed in the opening section, except for the transversality condition, which is a standard assumption in the literature.
+This follows from Proposition \ref{2pera} by a change of variables. Using the definitions of $a_i$ and $r_m$from the proof of Lemma \ref{Gchangevar},
+
+\begin{align*}
+X_0 &= -\frac{1}{2 \alpha} \log ( a_0^*(0, a_1, r_m) r_m) - \frac{\phi}{2 \beta} \\
+&= -\frac{1}{2 \alpha} \log ( a_0^*(0, a_1, r_m))
+- \frac{1}{2 \alpha} \log(r_m) - \frac{\phi}{2 \beta} \\
+&= -\frac{1}{2 \alpha} \log ( a_0^*(0, a_1, r_m))
+- \frac{1}{2 \alpha} \log \left( e^{-(\pi \alpha/\beta)m}\right) - \frac{\phi}{2 \beta} \\
+&= \frac{\pi}{2 \beta} m - \frac{1}{2 \alpha} \log( a_0^*(0, a_1, r_m)) + C
+\end{align*}
+
+where $C = - \phi/2 \beta$. Since $a_1 = e^{-2\alpha X_1}e^{-\alpha \phi / \beta}\frac{1}{r_m}$, let
+
+\begin{align}
+\tilde{a}_0(X_1, r_m) = a_0^*\left(0, e^{-2\alpha X_1}e^{-\alpha \phi / \beta}\frac{1}{r_m}, r_m)\right)
+\end{align}
+
+Then 
+
+\begin{align*}
+X_0 &= \frac{\pi}{2 \beta} m - \frac{1}{2 \alpha} \log( \tilde{a}_0(X_1, r_m)) + C
+\end{align*}
+
+The limits on $\tilde{a}_0$ follow from Lemmas \ref{tubepersists} and \ref{lowerarmpersists}.
+
+\end{proof}
+\end{theorem}
+
+% corollary : apply to KdV5
+
+\begin{corollary}
+For KdV5, if $c > 0$ there exists a $2$-pulse solution $q_2(x)$. This solution can be written piecewise as in [], and bounds on the pieces are given in that theorem.
+
+\begin{proof}
+All we need to do is verify the assumptions in Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp} for KdV5. The assumptions in Hypothesis \ref{assumptions} are discussed in the opening section, except for the transversality condition, which is a standard assumption in the literature. For Hypotehsis \ref{spechyp}, for $c > 0$, the spectrum of $DF(0)$ is given by $\nu = \pm \alpha \pm \beta i$, where $\alpha, \beta > 0$.
 \end{proof}
 
 \end{corollary}
