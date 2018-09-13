@@ -54,7 +54,7 @@
 
 \subsection{Background}
 
-In this section we will look at multipulse solutions to KdV5 in the case where we have periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. A periodic $n$-pulse is parameterized by the $n$ lengths $X_0, \dots, X_{n-1}$, where in general we will want one of the $X_i$ (representing the ``periodic piece'') to be larger than the others. (Since we have a periodic domain, for convenience we index the lengths starting with $X_0$ so that all the subscripts will be $\mod n$.) A diagram of a 2-pulse is shown below.
+In this section we will look at multipulse solutions to KdV5 in the case where we have periodic boundary conditions. Note that we cannot use an exponential weight in this case since our domain is of finite length. A periodic $n$-pulse is parameterized by the $n$ lengths $X_0, \dots, X_{n-1}$, where in general we will want one of the $X_i$ (representing the ``periodic piece'') to be larger than the others. (Since we have a periodic domain, we index the lengths starting with $0$ so that all the subscripts will be $\mod n$.) A diagram of a 2-pulse is shown below.
 
 \begin{figure}[H]
 \includegraphics[width=8.5cm]{dpimage}
@@ -62,7 +62,7 @@ In this section we will look at multipulse solutions to KdV5 in the case where w
 
 Let $X_m = \min \{ X_0, \dots, X_{n-1} \}$ and $X_M = \max \{ X_0, \dots, X_{n-1} \}$.\\
 
-We would like to write the periodic multipulse as a small (piecewise) perturbation of the single pulse as was done in San98 (and San93). The method in those papers, however, does not give us the estimates we need for the stability problem. Instead, we will give another construction based on San97. This boils down to proving existence of the periodic multipulse, which is what we shall do. We assume that $c > 1/4$, since that is necessary for the existence of multipulses to KdV5. Thus the eigenvalues of the linearization about $0$ are complex and given by $\pm \alpha \pm \beta i$.\\
+We would like to write the periodic multipulse as a small (piecewise) perturbation of the single pulse as was done in San98 (and San93). The method in those papers, however, does not give us the estimates we need for the stability problem. Instead, we will redo the existence problem for the periodic multipulse, based on San97. We assume that $c > 1/4$, since that is necessary for the existence of multipulses to KdV5. Thus the eigenvalues of the linearization about $0$ are complex and given by $\pm \alpha \pm \beta i$.\\
 
 Since we are only interested in the existence problem here, we can use the 4th order (integrated) equation in the traveling frame
 
@@ -131,7 +131,7 @@ U'(x) = F(U)
 
 where $U \in \R^{2m}$ and $F$ is real-valued. (This should also extend to the complex-valued case.)\\
 
-We take the following assumptions.
+We make the following assumptions.
 
 \begin{hypothesis}\label{assumptions}
 \[\]
@@ -187,7 +187,7 @@ since the Hessian matrix is self-adjoint. Rearranging this, we have
 \frac{d}{dx} \nabla H(Q(x)) = -D F(Q(x))^* \nabla H(Q(x)) 
 \end{equation}
 
-thus $\nabla H(Q(x))$ is a solution to the adjoint variational equation. Since $\nabla H$ is continuous and $Q(x)$ is bounded (even better, it decays exponentially to 0), so is $\nabla H(Q(x))$. By the nondegeneracy condition, there is a unique such solution, so we must have $\Psi(x) = \nabla H(Q(x))$.
+thus $\nabla H(Q(x))$ is a solution to the adjoint variational equation. Since $\nabla H$ is continuous and $Q(x)$ is bounded (even better, it decays exponentially to 0), $\nabla H(Q(x))$ is bounded as well. By the nondegeneracy condition, there is a unique such solution, so we must have $\Psi(x) = \nabla H(Q(x))$.
 
 \end{proof}
 \end{lemma}
@@ -203,7 +203,7 @@ Z &= \R \Psi(0)
 By Hypothesis \ref{assumptions},
 
 \[
-\R^4 = \R Q'(0) \oplus Y^+ \oplus Y^- \oplus Z
+\R^{2m} = \R Q'(0) \oplus Y^+ \oplus Y^- \oplus Z
 \]
  
 We have shown before that $Z$ is perpendicular to the other three. \\
@@ -215,7 +215,7 @@ Q^-(\alpha, \beta^-) \\
 Q^+(\alpha, \beta^+)
 \end{align*}
 
-where $\alpha \in \R$, $\beta^\pm \in Y^\pm$ and we have set things up so that $Q^+(\alpha, 0) - Q^-(\alpha, 0) \in Z$. Note that $Q^+(0, 0) = Q^-(0, 0) = Q(0)$. The parameter $\alpha$ is a phase parameter (which we will always take to be 0); although we could ignore it in our parameterization, we include it here to indicate that both manifolds are two-dimensional. \\
+where $\alpha \in \R$, $\beta^\pm \in Y^\pm$ and we have set things up so that $Q^+(\alpha, 0) - Q^-(\alpha, 0) \in Z$. Note that $Q^+(0, 0) = Q^-(0, 0) = Q(0)$. The parameter $\alpha$ is a phase parameter (which we will always take to be 0); although we could ignore it in our parameterization, we include it here so that it is clear that the manifolds have the correct dimension. \\
 
 Next, we define the trajectories
 
@@ -224,7 +224,7 @@ Q^-(\alpha, \beta^-)(x) && x \leq 0 \\
 Q^+(\alpha, \beta^-)(x) && x \geq 0
 \end{align*}
 
-which are the unique solutions to $U' = F(U)$ with ICs $Q^\pm(\alpha, \beta^\pm)$ for appropriate $x$. Note that since the ICs are on the stable/unstable manifolds, these decay exponentially in the appropriate direction with rate $\alpha$.\\
+which are the unique solutions to $U' = F(U)$ with ICs $Q^\pm(\alpha, \beta^\pm)$ at $x = 0$. Note that since the ICs are on the stable/unstable manifolds, these decay exponentially in the appropriate direction with rate $\alpha$.\\
 
 Using the parameterizations of the stable and unstable manifolds, we write the solution $U$ piecewise for $i = 0, \dots, n-1$ as
 
@@ -244,7 +244,7 @@ V_i^+(0) &\in Z \oplus Y^+
 
 since the other directions are covered by $\beta_i^\pm$ (and $\alpha$, but we set that equal to 0).\\
 
-Thus the problem we need to solve to construct the periodic multipulse is
+The problem we need to solve to construct the periodic multipulse is
 
 \begin{align}
 (U_i^\pm)' - F(U_i^\pm) &= 0 \\
@@ -338,22 +338,22 @@ This follows from Lemma 1.1 in San93.
 Next, we rewrite the problem $U'(x) = F(U)$ in piecewise fashion in such a way as to exploit what we did above. We want to solve piecewise
 
 \begin{align*}
-(U_i^\pm(x))' &= (Q^\pm(0, \beta_i^\pm)(x))' + (V_i^\pm(x))' = F\left(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) \right) \\
+U_i^\pm(x)' &= (Q^\pm(0, \beta_i^\pm)(x)' + V_i^\pm(x)' = F\left(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) \right) \\
 \end{align*}
 
 for $i = 0, \dots, n-1$. Using the fact that (by construction) $Q^\pm(0, \beta_i^\pm)(x)$ solves $U'(x) = F(U)$ on the appropriate interval, this becomes
 
 \begin{align*}
-F(Q^\pm(0, \beta_i^\pm)(x)) + (V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) )
+F(Q^\pm(0, \beta_i^\pm)(x)) + V_i^\pm(x)' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) )
 \end{align*}
 
 Solving for $(V_i^\pm(x))'$, we have
 
 \begin{align*}
-(V_i^\pm(x))' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) ) - F(Q^\pm(0, \beta_i^\pm)(x) )
+V_i^\pm(x)' &= F(Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x) ) - F(Q^\pm(0, \beta_i^\pm)(x) )
 \end{align*}
 
-Now we Taylor about $F(Q^\pm(0, \beta_i^\pm)(x)$ to get the equivalent formulation
+We expand in a Taylor series about $F(Q^\pm(0, \beta_i^\pm)(x)$ to get the equivalent formulation
 
 \begin{equation}\label{Vpiecewise}
 (V_i^\pm(x))' = D_U F(Q^\pm(0, \beta_i^\pm)(x)) V_i^\pm(x)  + G_i^\pm(\beta_i^\pm, V_i^\pm)(x)
@@ -365,7 +365,7 @@ where
 G_i^\pm(\beta_i^\pm, V_i^\pm)(x) = \mathcal{O}(|V_i^\pm|^2)
 \end{equation}
 
-independent of the parameters $\beta_i^\pm$. The fact that this is bound is independent of the $\beta_i^\pm$ follows from the fact that we have bounds on $Q^\pm(0, \beta_i^\pm)$ which are independent of $\beta_i^\pm$. Derivatives of $G_i^\pm$ with respect to the parameters $\beta_i^\pm$ are the same order in $V_i^\pm$.\\
+independent of the parameters $\beta_i^\pm$. The fact that this is bound is independent of the $\beta_i^\pm$ follows from the fact that we have bounds on $Q^\pm(0, \beta_i^\pm)$ which are independent of $\beta_i^\pm$. Derivatives of $G_i^\pm$ with respect to the parameters $\beta_i^\pm$ are the same order in $V_i^\pm$ (CHECK THIS IN San97).\\
 
 At this point, we rewrite the (piecewise) differential equations \eqref{Vpiecewise} in integrated form as fixed point equations. Recall again that the subscripts are mod $n$, so that, for example, $X_0 = X_n$. Thus we have
 
@@ -394,7 +394,7 @@ Next, we define the exponentially weighted norms
 ||V||_{X, -} = \sup_{x \in [-X, 0]} e^{\alpha(X + x)}|V(x)| \\
 \end{align*}
 
-Let $K_{X, +}$ be the spaces on continuous functions on the appropriate intervals equipped with these norms. These are known to be Banach spaces. Let $B_{X, \pm}(\rho)$ be the ball of radius $\rho$ in these spaces.\\
+Let $K_{X, +}$ be the spaces of continuous functions on the appropriate intervals equipped with these norms. These are known to be Banach spaces. Let $B_{X, \pm}(\rho)$ be the ball of radius $\rho$ about $0$ in these spaces.\\
 
 \subsubsection{Inversion}
 
@@ -404,7 +404,7 @@ First, we solve for the functions $V_i^\pm(x)$ in terms of the initial condition
 
 % lemma : solve for V_i^\pm
 
-\begin{lemma}
+\begin{lemma}\label{solveforV}
 There exist $\delta, \rho > 0$ such that for $|X_i| > 1/\delta$ and $|\beta_i^\pm| < \delta$, there exist unique solutions
 
 \begin{align*}
@@ -424,7 +424,7 @@ The estimates hold as well for derivatives of $V_i^\pm$ with respect to $\beta_i
 \begin{proof}
 This should just be Lemma 5.2 in San97. The following is a mostly filled-in version of that proof.\\
 
-We can deal with the $2n$ pieces separately, so let's do the ``positive'' pieces here. The RHS of the fixed point equations defines a smooth mapping on $K_{X_i, +}$ (basically obvious since everything involved is smooth, although we could check this). We need to verify that the RHS maps to $K_{X_i, +}$, so we check the three terms individually. We use our estimates on $\Phi^{s/u}_\pm$ from Lemma \ref{dichotomy1} and $G$ from \ref{Gquadratic} and the fact that $V_i^+ \in K_{X_i, +}$.\\
+We can deal with the $2n$ pieces separately, so let's do the ``positive'' pieces here. The RHS of the fixed point equations defines a smooth mapping on $K_{X_i, +}$ (basically obvious since everything involved is smooth, although we could check this). We need to verify that the RHS maps to $K_{X_i, +}$, so we check the three terms individually. We use our estimates on $\Phi^{s/u}_\pm$ from Lemma \ref{dichotomy1} and $G$ from \eqref{Gquadratic} and the fact that $V_i^+ \in K_{X_i, +}$.\\
 
 For the first term, we have
 
@@ -516,7 +516,7 @@ Subtracting these, we obtain the equation we need to solve
 - \int_0^{-X_i} \Phi_-^u(-X_i, y; \beta_{i+1}^-) G_{i+1}^-(y, V_{i+1}^-(y),\beta_{i+1}^-)dy 
 \end{align*}
 
-where $H: E_0^s \times E_0^u \times \R \times \R \rightarrow \R^4$. In the previous lemma, we solved for $V_i^\pm$ in terms of the $a_i^\pm$ and $\beta_i^\pm$, so we plug that in to get
+where $H: E_0^s \times E_0^u \times \R \times \R \rightarrow \R^{2m}$. In the previous lemma, we solved for $V_i^\pm$ in terms of the $a_i^\pm$ and $\beta_i^\pm$, so we plug that in to get
 
 \begin{align*}
 H(a_i^+, &a_i^-, \beta_i^+, \beta_{i+1}^-) \\
@@ -608,7 +608,7 @@ Before we do that, we will need to make a smooth change of coordinates near $Q(0
 There exists a differentiable map 
 
 \[
-H: \R \times Y^- \times Y^+ \times Z \rightarrow \R^4
+H: \R \times Y^- \times Y^+ \times Z \rightarrow \R^{2m}
 \]
 
 such that $H(0, 0, 0, 0) = Q(0)$, $H$ is invertible in a neighborhood of $Q(0)$, and
@@ -679,7 +679,7 @@ P_{\R Q'(0)}(Q^\pm(0, \beta^\pm) &= 0 \\
 P_{Y^\pm}(Q^\pm(\beta^\pm, 0)) &= \beta^\pm
 \end{align*}
 
-We wish to solve $U_i^+(0) - U_i^-(0) = 0$. Since $\R^4 = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^-$, it suffices to project this onto these four subspaces and solve separately on each subspace. Since $V_i^\pm(0) \in Z \oplus Y^\pm$, the projection on $\R Q'(0)$ is automatically 0. Thus we only need to solve the equations
+We wish to solve $U_i^+(0) - U_i^-(0) = 0$. Since $\R^{2m} = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^-$, it suffices to project this onto these four subspaces and solve separately on each subspace. Since $V_i^\pm(0) \in Z \oplus Y^\pm$, the projection on $\R Q'(0)$ is automatically 0. Thus we only need to solve the equations
 
 \begin{align*}
 P_{Y^\pm}(U_i^+(0) - U_i^-(0)) &= 0 \\
@@ -742,7 +742,7 @@ For the $a_i^\pm$ terms we have
 & \leq C e^{-2 \alpha X_i}
 \end{align*}
 
-where we used our estimate for $a_i^\pm$ from above. The $\beta_i^-$ term is similar, except it involves $X_{i-1}$. For the integral terms, we have
+where we used our estimate for $a_i^\pm$ from above. The derivative with respect to $\beta_i^-$ is similar, except it involves $X_{i-1}$. For the integral terms, we have
 
 \begin{align*}
 \left| \frac{\partial}{\partial \beta_i^-} \int_{-X_{i-1}}^0 \Phi_-^s(\beta_i^-, 0, y) G^-(y, V^-(y),\beta^-)dy \right| 
@@ -983,7 +983,7 @@ A periodic multipulse solution exists if and only if
 where 
 
 \begin{align*}
-|R_i| = \mathcal{O} ( e^{-3 \alpha X_i} +  e^{-3 \alpha X_{i-1}}
+R_i = \mathcal{O} ( e^{-3 \alpha X_i} +  e^{-3 \alpha X_{i-1}}
 + e^{-2 \alpha (X_i + X_{i+1})} + e^{-2 \alpha (X_{i-1} + X_i)})
 \end{align*}
 
@@ -1001,8 +1001,6 @@ If the system is reversible and we seek symmetric solutions, we only have to sol
 For a reversible system, if we seek symmetric solutions, we only have to solve for the left half, i.e. for the half-line $(-\infty, 0]$. We can then extend to $[0, \infty)$ by symmetry.\\
 
 If the system is Hamiltonian, a heuristic argument is as follows. The energy $H$ is conserved, thus all solutions must exist within level sets of $H$. Recall that $\Psi(0) = \nabla H(Q(0)) \neq 0$. Thus the energy $H$ must change along any jump in the direction of $\Psi(0)$. In Lemma \ref{solvefora}, we matched the tails of the pieces. Assume we have matched $U_i^-(0) = U_i^+(0)$ for $i = 0, \dots, n-2$. In Lemma \ref{solveforbeta}, we matched the $Y^\pm$ components of $U_{n-1}^-(0) = U_{n-1}^+(0)$. All that remains is to match the $\R \Psi(0)$ component of $U_{n-1}^-(0) = U_{n-1}^+(0)$. But this is automatically 0 since the two pieces involved must have the same energy, and if this were nonzero there would be a jump in the energy at this point.\\
-
-We will fill in a detailed argument later, or we will cite an appropriate reference.
 \end{proof}
 \end{lemma}
 
@@ -1011,7 +1009,6 @@ We will fill in a detailed argument later, or we will cite an appropriate refere
 Up to this point, we have made no additional assumptions on our system. In order to satisfy the equations in Lemma \ref{IPsystem}, we will need to make some assumptions about the eigenvalues of $DF(0)$. This makes sense, since we know we need to have ``twisting manifolds'' to construct a nonperiodic multipulse. Thus we make the following additional hypothesis.
 
 \begin{hypothesis}\label{spechyp}
-\[\]
 The spectrum of $DF(0)$ contain simple eigenvalues $\pm \alpha \pm i \beta$, for $\alpha, \beta > 0$. The real part of any other eigenvalue of $DF(0)$ lies outside $(-\alpha, \alpha)$. Thus the equilibrium at 0 is a hyperbolic equilibrium, with both stable and unstable manifolds having dimension at least 2.
 \end{hypothesis}
 
@@ -1113,7 +1110,7 @@ which are the equations we want. Note that $r_m$ only occurs in the remainder te
 \end{proof}
 \end{lemma}
 
-At this point, we would like to use the IFT to solve for the $a_i$ in terms of $r_m$. Before we can do that, we note that from the previous lemma we have $n-1$ equations but $n+1$ unknowns. Thus we expect to have a 1-parameter family of solutions, paramaterized by one of the unknowns. We can pick any of the $a_i$ to be the parameter. Since we are trying to construct a periodic solution and would like to be able to show that such a solution exists for any sufficiently large period, we will let $a_{n-1}$ be the parameter. Ideally, we would like each of the $n-1$ equations in the previous lemma to involve one of the $a_i$ and the parameter $a_{n-1}$. This is easy to accomplish.
+At this point, we would like to use the IFT to solve for the $a_i$ in terms of $r_m$. Before we can do that, we note that from the previous lemma we have $n-1$ equations but $n+1$ unknowns. Thus we expect to have a 1-parameter family of solutions, paramaterized by one of the unknowns. We can pick any of the $a_i$ to be the parameter. Since we are trying to construct a periodic solution and would like to be able to show that such a solution exists for any sufficiently large period, we will let $a_{n-1}$ be the parameter. First, we would like each of the $n-1$ equations in the previous lemma to involve one of the $a_i$ and the parameter $a_{n-1}$. This is easy to accomplish.
 
 % Lemma : get this into diagonal system with parameter
 
@@ -1132,7 +1129,7 @@ Let
 \tilde{G}_i = \sum_{j = 0}^i G_i
 \end{equation}
 
-Then, after canceling terms, we have the system \eqref{tildeGeq}. Since \eqref{tildeGeq} is a linear combination of \eqref{Gdef}, the two systems are equivalent. Note that the system \eqref{tildeGeq} consists of $n-1$ equations of the same form.
+After canceling terms, we have the system \eqref{tildeGeq}. Since \eqref{tildeGeq} is a linear combination of \eqref{Gdef}, the two systems are equivalent. Note that the system \eqref{tildeGeq} consists of $n-1$ equations of the same form. Since the remainder terms of the $G_i$ are all the same order, the remainder terms of the $\tilde{G}_i$ are all of that order as well.
 
 \end{proof}
 \end{lemma}
@@ -1141,16 +1138,18 @@ Since the equations \eqref{tildeGeq} are of the same form, we only need to look 
 
 \subsubsection{Bifurcation structure for 2-pulse}
 
-Consider the situation of the 2-pulse. In this case, we only have a single equation to solve. For convenience, let $\rho = \beta / \alpha$. Then the equation we need to solve is
+In the case of the 2-periodic solution, we only have a single equation to solve, which we will write as
 
 \begin{equation}\label{tildeGeq}
-\tilde{G}_i(a_0, a_1, r_m) = a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0
+G_i(a_0, a_1, r_m) = a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 r_m \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0
 \end{equation}
 
-In order to use the IFT, we need to find values of $a_0, a_1, r_m$ so that $\tilde{G}(a_0, a_1, r_m) = 0$. First, we take $r_m = 0$, which we can do since the limit point $0 \in \mathcal{R}$. For convenience, define
+where  $\rho = \beta / \alpha$, for convenience.\\
+
+In order to use the IFT, we need to find values of $a_0, a_1, r_m$ so that $G(a_0, a_1, r_m) = 0$. First, we take $r_m = 0$, which we can do since the limit point $0 \in \mathcal{R}$. Define
 
 \begin{equation}\label{defF}
-F(a_0, a_1) = \tilde{G}(a_0, a_1, 0) = 
+F(a_0, a_1) = G(a_0, a_1, 0) = 
 a_0 \sin \left( -\rho \log a_0 \right) - a_1 \sin \left( -\rho \log a_1 \right)
 \end{equation}
 
@@ -1253,7 +1252,7 @@ b^*_n = \exp\left(\frac{n \pi}{\rho} \right) \exp \left( -\frac{1}{\rho} \arctan
 Locally, the arms of the pitchfork bifurcations open upwards along the diagonal.
 
 \begin{proof}
-First, we need to determine the locations of the hypothesized pitchfork bifurcations along the diagonal. A necessary condition for these to occur is that the first derivative vanishes. Taking the derivative of $F$ with respect to $a_0$ and evaluating it on the diagonal, we have
+First, we need to determine the locations of the (hypothesized) pitchfork bifurcations along the diagonal. A necessary condition for these to occur is that the first derivative vanishes. Taking the derivative of $F$ with respect to $a_0$ and evaluating it on the diagonal, we have
 
 \begin{align*}
 F_{a_0}(a_0, a_0) &= 
@@ -1537,7 +1536,7 @@ X_i &= -(1/ 2 \alpha)\log a_i r_m - \frac{\phi}{2 \beta}
 
 If we have constructed a solution using $(a_0, a_1, r_m)$, then must also be able to construct the same solution using $(e^{n/\rho} a_0, e^{n/\rho} a_1, r_{m+n}$ for any $n \in \N$, since those parameters give us the same lengths $(X_1, X_2)$. One way to get uniqueness is to impose an additional condition on which $a_i$ are allowable, as is done in SanStrut. For the 2-pulse, we will impose the following initial condition: $a_0$ must live on the branch of the bifurcation diagram corresponding to the pitchfork bifurcation point $b^*$. \\
 
-Since we have completely characterized the zero set of $F(a_0, a_1)$, we can actually use what we have right now, together with the IFT, to complete the construction of the 2-pulse. If we did that, however, we would lose any information about the bifurcation structure, which will not generically persist once $r_m > 0$. We need to show that for small $r_m$, the bifurcation structure of $G(a_0, a_1, r_m)$ is the same as for $F(a_0, a_1)$. The first thing we will show is that $\tilde{G}$ has the same symmetries as $F$.
+Since we have completely characterized the zero set of $F(a_0, a_1)$, we can actually use what we have right now, together with the IFT, to complete the construction of the 2-pulse. If we did that, however, we would lose any information about the bifurcation structure, which will not generically persist once $r_m > 0$. We need to show that for small $r_m$, the bifurcation structure of $G(a_0, a_1, r_m)$ is the same as for $F(a_0, a_1)$. The first thing we will show is that $G$ has the same symmetries as $F$.
 
 % lemma : symmetries of G
 
@@ -1594,7 +1593,7 @@ P_{Y^\pm}(U_i^+(0) - U_i^-(0)) &= 0
 where $U_i^\pm(x)$ are functions defined piecewise on a series of intervals determined by the ordered pair $(X_0, X_1)$ and arranged in the standard order, as described above. For sufficiently large $X_i$, each of the three steps yields a unique solution. Thus for a given pair of lengths $(X_0, X_1)$ which are sufficiently large, there is a unique set of functions $U_i^\pm$ in the appropriate function space which satisfies the three equations. Thus \eqref{GXi} is well-defined.
 \\
 
-Suppose for an ordered pair of lengths $(X_0, X_1)$ we have a solution $\{ U_0^-(x), U_0^(x), U_1^-(x), U_1^+(x) \}$, pieced together from L to R. Then if swap the $X_0$ and $X_1$ to get the ordered pair $(X_1, X_0)$, the three equations are satisfied by the set of functions $\{ U_1^-(x), U_1^+(x), U_0^-(x), U_0^+(x)\}$, pieced together from L to R. From this, we see that
+Suppose for an ordered pair of lengths $(X_0, X_1)$ we have a solution $\{ U_0^-(x), U_0^+(x), U_1^-(x), U_1^+(x) \}$, pieced together from L to R. Then if swap the $X_0$ and $X_1$ to get the ordered pair $(X_1, X_0)$, the three equations are satisfied by the set of functions $\{ U_1^-(x), U_1^+(x), U_0^-(x), U_0^+(x)\}$, pieced together from L to R. From this, we see that
 
 \begin{align*}
 G_0(X_1, X_0) &= \langle \Psi(0), U_1^+(0) - U_1^-(0) \rangle = G_1(X_0, X_1) \\
@@ -1655,9 +1654,9 @@ Next, we plug this into the equation for $G$ to get
 G(x, y^*(x, r_m), r_m) = 0
 \end{equation}
 
-As noted above, this has a solution for $x = 0$. It remains to check that a pitchfork bifuration occurs at $(0, y^*(0, r_m), r_m)$. First, since $G(x, y, r_m)$ is an odd function in $x$, $G_y(0, y, r_m) = 0$ and $G({xx}(0, y, r_m) = 0$ for all $x, r_m$. So we get $G_y(0, y^*(0, r_m), r_m) = 0$ and $G_{xx}(0, y^*(0, r_m), r_m) = 0$ for free.\\
+As noted above, this has a solution for $x = 0$. It remains to check that a pitchfork bifuration occurs at $(0, y^*(0, r_m), r_m)$. First, since $G(x, y, r_m)$ is an odd function in $x$, $G_y(0, y, r_m) = 0$ and $G_{xx}(0, y, r_m) = 0$ for all $x, r_m$. So we get $G_y(0, y^*(0, r_m), r_m) = 0$ and $G_{xx}(0, y^*(0, r_m), r_m) = 0$ for free.\\
 
-All that remains is to show that $G_{xy}$ and $G_{xxx}$ are nonzero at $(0, y^*(0, r_m), r_m)$. Recall that $F_{xy}(0, b^*) \neq 0$. Then since $G_{xy}$ and $y^*$ are smooth, and $G_{xy}(0, y^*(0, r_m), r_m) \rightarrow 0 as r_m \rightarrow 0$. Thus, for sufficiently small $r_m$, $G_{xy}(0, y^*(0, r_m), r_m) \neq 0$. Similarly, from Lemma \ref{pitchfork}, we know that $F_{xxx}(0, b^*) \neq 0$. By the same argument, we conclude that $G_{xxx}(0, y^*(0, r_m), r_m) \neq 0$ for sufficiently small $r_m$.\\
+All that remains is to show that $G_{xy}$ and $G_{xxx}$ are nonzero at $(0, y^*(0, r_m), r_m)$. Recall that $F_{xy}(0, b^*) \neq 0$. Then since $G_{xy}$ and $y^*$ are smooth, $G_{xy}(0, y^*(0, r_m), r_m) \rightarrow 0 \text{ as } r_m \rightarrow 0$. Thus, for sufficiently small $r_m$, $G_{xy}(0, y^*(0, r_m), r_m) \neq 0$. Similarly, from Lemma \ref{pitchfork}, we know that $F_{xxx}(0, b^*) \neq 0$. By the same argument, we conclude that $G_{xxx}(0, y^*(0, r_m), r_m) \neq 0$ for sufficiently small $r_m$.\\
 
 Thus, upon changing variables back to $(a_0, a_1)$ and letting $c^* = y^*$, we have shown the pitchfork bifurcation persists for $r_m < r$. The same argument holds for $b^*_n$ for all $n \in Z$. 
 
@@ -1684,7 +1683,7 @@ x \in (f(y) - \epsilon, f(y) + \epsilon) \}
 
 \begin{lemma}\label{tubepersists}
 
-For any $n \in \Z$ and for any interval $I = [0, T]$ with $0 < T < b_n^*$ there exists $r > 0$, $a > 0$ and a unique smooth function $h: I \times \mathcal{R} \cap [0, r] \rightarrow \R$ such that for $r_m < r$, $a_1 \in I$ and $(a_0, a_1)$ in an $a$-tubular neighborhood of $x_n^*$, $G(a_0, a_1, r_m) = 0$ if and only if $a_0 = x_n^*(a_1) + h(a_1, r_m)$.
+For any $n \in \Z$ and for any interval $I = [0, T]$ with $0 < T < b_n^*$ there exists $r > 0$, $\epsilon > 0$ and a unique smooth function $h: I \times \mathcal{R} \cap [0, r] \rightarrow \R$ such that for $r_m < r$, $a_1 \in I$ and $(a_0, a_1)$ in an $\epsilon$-tubular neighborhood of $x_n^*$, $G(a_0, a_1, r_m) = 0$ if and only if $a_0 = x_n^*(a_1) + h(a_1, r_m)$.
 
 \begin{proof}
 
@@ -1697,35 +1696,35 @@ Choose any interval $I = [0, T]$, where $0 < T < b^*$. Then $G_{a_1}(x^*(a_1), a
 Let 
 
 \begin{equation}
-\tilde{G}(a_0, a_1, r_m) = G(a_0 + x^*(a_1), a_1, r_m)
+G^*(a_0, a_1, r_m) = G(a_0 + x^*(a_1), a_1, r_m)
 \end{equation}
 
-Then $\tilde{G}(0, a_1, 0) = 0$ for all $a_1 \in I$, and $\tilde{G}_{a_0}(0, a_1, 0) = G_{a_0}(x^*(a_1), a_1, 0) \neq 0$ for $a_1 \in I$.\\
+Then $G^*(0, a_1, 0) = 0$ for all $a_1 \in I$, and $G^*_{a_0}(0, a_1, 0) = G_{a_0}(x^*(a_1), a_1, 0) \neq 0$ for $a_1 \in I$.\\
 
 Define $H: \R \times I \times \mathcal{R} \rightarrow \R$ by
 
 \begin{equation}
-H(a_0, a_1, r_m) = a_0 - \tilde{G}_{a_1}(0, a_1, 0)^{-1} \tilde{G}(a_0, a_1, r_m)
+H(a_0, a_1, r_m) = a_0 - G^*_{a_1}(0, a_1, 0)^{-1} G^*(a_0, a_1, r_m)
 \end{equation}
 
 We note that for $a_1 \in I$,
 
 \begin{align*}
 H(0, a_1, 0) &= 0 \\
-H_{a_0}(0, a_1, 0) &= 1 + \tilde{G}_{a_0}(0, a_1, 0)^{-1 }\tilde{G}_{a_0}(0, a_1, 0) = 0
+H_{a_0}(0, a_1, 0) &= 1 + G^*_{a_0}(0, a_1, 0)^{-1 }G^*_{a_0}(0, a_1, 0) = 0
 \end{align*}
 
-Choose any $\theta$ with $0 < \theta < 1$. Then since $\tilde{G}_{a_1}$ is continuous, for each $y \in I$ we can find
+Choose any $\theta$ with $0 < \theta < 1$. Then since $G^*_{a_1}$ is continuous, for each $y \in I$ we can find
 
 \begin{enumerate}
 \item An open set $U(y) \subset I$ containing y. Note that this is an open set of $I$, not $\R$.
-\item An open interval $V(y) = (-a(y), a(y))$, $a(y) > 0$
+\item An open interval $V(y) = (-\epsilon(y), \epsilon(y))$, $a(y) > 0$
 \item A real number $r(y) > 0$
 \end{enumerate} 
 
 such that $|H_{a_0}(a_0, a_1, r_m)| \leq \theta < 1$ for $a_0 \in U(y)$, $a_1 \in V(y)$, and $r_m < r(y)$.\\
 
-The open sets $\{U(y)\}_{y \in I}$ form an open cover of the compact interval $I$, thus we find a finite subcover, i.e. points $y_1, \dots, y_n \in I$ such that $U(y_1) \cup \dots \cup U(y_n)$ covers $I$. Let $r = \min\{ r(y_1), \dots, r(y_n) \}$. Let $a = \min\{ a(r_1, \dots, a(r_n) \}$ and let $V = (-a, a)$.\\
+The open sets $\{U(y)\}_{y \in I}$ form an open cover of the compact interval $I$, thus we find a finite subcover, i.e. points $y_1, \dots, y_n \in I$ such that $U(y_1) \cup \dots \cup U(y_n)$ covers $I$. Let $r = \min\{ r(y_1), \dots, r(y_n) \}$. Let $\epsilon = \min\{ \epsilon(r_1), \dots, \epsilon(r_n) \}$ and let $V = (-\epsilon, \epsilon)$.\\
 
 By construction, $|H_{a_0}(a_0, a_1, r_m)| \leq \theta < 1$ for all $a_0 \in V$, $a_1 \in I$, and $r_m < r$. For $x_1, x_2 \in V$, $a_1 \in I$, and $r_m < r$ we have
 
@@ -1735,13 +1734,13 @@ By construction, $|H_{a_0}(a_0, a_1, r_m)| \leq \theta < 1$ for all $a_0 \in V$,
 &\leq \theta |x_2 - x_1|
 \end{align*}
 
-Thus $H$ is a uniform contraction with respect to $a_0$. Restrict the domain of $H$ to $V \times I \times \{ r_m < r \}$. If necessary, shrink $V$ (by decreasing $a$) so that we have $H: V \times I \times \{ r_m < r\} \rightarrow V$. Then by the uniform contraction mapping principle, for all $a_1 \in I$ and all $r_m < r$, the map $H(\cdot, a_1, r_m)$ has a unique fixed point $h(a_1, r_m)$. The function $h$ is smooth, since $H$ (and $G$) are smooth.\\
+Thus $H$ is a uniform contraction with respect to $a_0$. Restrict the domain of $H$ to $V \times I \times \{ r_m < r \}$. If necessary, shrink $V$ (by decreasing $\epsilon$) so that we have $H: V \times I \times \{ r_m < r\} \rightarrow V$. Then by the uniform contraction mapping principle, for all $a_1 \in I$ and all $r_m < r$, the map $H(\cdot, a_1, r_m)$ has a unique fixed point $h(a_1, r_m)$. The function $h$ is smooth, since $H$ (and $G$) are smooth.\\
 
-From the definition of $H$ and the fact that $\tilde{G}_{a_1}(0, a_1, 0)^{-1} \neq 0$ for all $a_1 \in I$, we see that $a_0$ is a fixed point of $H$ with parameters $a_1$ and $r_m$ if and only if $\tilde{G}(a_0, a_1, r_m) = 0$. Thus, given $a_1 \in I$ and $r_m < r$, $h(a_1, r_m)$ is the unique value of $a_0$ such that $\tilde{G}(a_0, a_1, r_m) = 0$. Since $\tilde{G}(0, a_1, 0) = 0$, by uniqueness $h(a_1, 0) = 0$. For fixed $r_m < r$, the curve $h(a_1, r_m)$ is smooth, and $|h(a_1, r_m)| < a$.\\
+From the definition of $H$ and the fact that $G^*_{a_1}(0, a_1, 0)^{-1} \neq 0$ for all $a_1 \in I$, $a_0$ is a fixed point of $H$ with parameters $a_1$ and $r_m$ if and only if $G^*(a_0, a_1, r_m) = 0$. Thus, given $a_1 \in I$ and $r_m < r$, $h(a_1, r_m)$ is the unique value of $a_0$ such that $G^*(a_0, a_1, r_m) = 0$. Since $G^*(0, a_1, 0) = 0$, by uniqueness $h(a_1, 0) = 0$. For fixed $r_m < r$, the curve $h(a_1, r_m)$ is smooth, and $|h(a_1, r_m)| < a$.\\
 
-Thus there exists $r > 0$ and an open interval $(-a, a)$ such that for any $r_m < r$, $a_1 \in I$, and $|a_0| < a$, $\tilde{G}(a_0, a_1, r_m) = 0$ if and only if $a_0 = h(a_1, r_m)$.\\
+Thus there exists $r > 0$ and an open interval $(-a, a)$ such that for any $r_m < r$, $a_1 \in I$, and $|a_0| < a$, $G^*(a_0, a_1, r_m) = 0$ if and only if $a_0 = h(a_1, r_m)$.\\
 
-Since $\tilde{G}(a_0, a_1, r_m)$ if and only if $G(a_0 + x^*(a_1), a_1, r_m) = 0$, we conclude that for $r_m < r$, $a_1 \in I$ and $(a_0, a_1)$ in an $a$-tubular neighborhood of $x^*$, $G(a_0, a_1, r_m) = 0$ if and only if $a_0 = x^*(a_1) + h(a_1, r_m)$.
+Since $G^*(a_0, a_1, r_m)$ if and only if $G(a_0 + x^*(a_1), a_1, r_m) = 0$, we conclude that for $r_m < r$, $a_1 \in I$ and $(a_0, a_1)$ in an $\epsilon$-tubular neighborhood of $x^*$, $G(a_0, a_1, r_m) = 0$ if and only if $a_0 = x^*(a_1) + h(a_1, r_m)$.
 
 \end{proof}
 \end{lemma}
@@ -1838,7 +1837,7 @@ We collect the results so far in the following proposition.
 % proposition : existence in terms of a_i
 
 \begin{proposition}\label{2pera}
-Assume Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp}. Then there exists $r > 0$ such that for each $r_m < r$, there exists a 1-paramater family of 2-periodic solutions to \eqref{generaleq}, paramaterized by $a_1 < a_0$. The ``length paramaters'' of the 2-periodic solution are given by
+Assume Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp}. Then there exists $r > 0$ such that for each $r_m < r$, there exists a 1-paramater family of solutions to \eqref{Gdef}, paramaterized by $a_1 < a_0$. The ``length paramater'' $a_0$ is given by
 
 \begin{align}
 (a_0, a_1) &= ( a_0^*(0, a_1, r_m), a_1 ) && a_1 \in (0, c_0^*(r_m))
@@ -1850,15 +1849,26 @@ We now change variables back to the original lengths $X_i$ and state this result
 
 % Theorem : in terms of lengths X_i
 
-\begin{theorem}
-Assume Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp}. Then there exists $M \in \N_0$ such that for $m \in \N_0 \cap [M, \infty)$ there exists a 1-parameter family of 2-periodic solutions, paramaterized by $X_1 > X_0$. $X_0$ is given by
+\begin{theorem}\label{2pexistence}
+Assume Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp}. Then there exists $M \in \N_0$ such that for $m \in \N_0 \cap [M, \infty)$ there exists a 1-parameter family of smooth, 2-periodic solutions to \eqref{generaleq}, paramaterized by $X_1 > X_0$. $X_0$ is given by
 
 \begin{equation}\label{X0}
 X_0 = \frac{\pi}{2 \beta}m 
 - \frac{1}{2 \alpha} \log(\tilde{a}_0(X_1, r_m)) + C
 \end{equation}
 
-where $C$ is a constant, and $\tilde{a}_0(X_1, r_m) \rightarrow 1$ as $(X_1, r_m) \rightarrow (\infty, 0)$.
+where $C$ is a constant, $r_m = e^{-(\pi \alpha / \beta)m}$ and $\tilde{a}_0(X_1, r_m) \rightarrow 1$ as $(X_1, r_m) \rightarrow (\infty, 0)$. If $U(x)$ is such a solution, then $U(x)$ can be written piecewise on the intervals $[-X_1, 0], [0, X_0], [-X_0, 0], [0, X_1]$ as 
+
+\begin{equation}
+U^\pm(x) = Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x)
+\end{equation}
+
+where the functions $Q^\pm(x)$ evolve along the stable/unstable manifolds, and the remainder terms $V_i^\pm(x)$ have bounds
+
+\begin{align}
+|V_i^-(x)| &\leq C e^{-\alpha(X_{i-1} + x)}e^{-\alpha X_{i-1}} \\
+|V_i^+(x)| &\leq C e^{-\alpha(X_i - x)}e^{-\alpha X_i} 
+\end{align} 
 
 \begin{proof}
 This follows from Proposition \ref{2pera} by a change of variables. Using the definitions of $a_i$ and $r_m$from the proof of Lemma \ref{Gchangevar},
@@ -1874,9 +1884,9 @@ X_0 &= -\frac{1}{2 \alpha} \log ( a_0^*(0, a_1, r_m) r_m) - \frac{\phi}{2 \beta}
 
 where $C = - \phi/2 \beta$. Since $a_1 = e^{-2\alpha X_1}e^{-\alpha \phi / \beta}\frac{1}{r_m}$, let
 
-\begin{align}
+\begin{align*}
 \tilde{a}_0(X_1, r_m) = a_0^*\left(0, e^{-2\alpha X_1}e^{-\alpha \phi / \beta}\frac{1}{r_m}, r_m)\right)
-\end{align}
+\end{align*}
 
 Then 
 
@@ -1884,7 +1894,9 @@ Then
 X_0 &= \frac{\pi}{2 \beta} m - \frac{1}{2 \alpha} \log( \tilde{a}_0(X_1, r_m)) + C
 \end{align*}
 
-The limits on $\tilde{a}_0$ follow from Lemmas \ref{tubepersists} and \ref{lowerarmpersists}.
+The limits on $\tilde{a}_0$ follow from Lemmas \ref{tubepersists} and \ref{lowerarmpersists}. \\
+
+The piecewise form of the solution is the one we have been using the entire time. The bounds on the remainder term come from Lemmas \ref{solveforV} and \ref{solvefora}.
 
 \end{proof}
 \end{theorem}
@@ -1892,33 +1904,51 @@ The limits on $\tilde{a}_0$ follow from Lemmas \ref{tubepersists} and \ref{lower
 % corollary : apply to KdV5
 
 \begin{corollary}
-For KdV5, if $c > 0$ there exists a $2$-pulse solution $q_2(x)$. This solution can be written piecewise as in [], and bounds on the pieces are given in that theorem.
+For KdV5, if $c > 1/4$ there exists a $2$-periodic solution $q_2(x)$ with the properties in Theorem \ref{2pexistence}.
 
 \begin{proof}
-All we need to do is verify the assumptions in Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp} for KdV5. The assumptions in Hypothesis \ref{assumptions} are discussed in the opening section, except for the transversality condition, which is a standard assumption in the literature. For Hypothesis \ref{spechyp}, for $c > 0$, the spectrum of $DF(0)$ is given by $\nu = \pm \alpha \pm \beta i$, where $\alpha, \beta > 0$.
+All we need to do is verify the assumptions in Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp} for KdV5. The assumptions in Hypothesis \ref{assumptions} are discussed in the opening section, except for the transversality condition, which is a standard assumption in the literature. For Hypothesis \ref{spechyp}, for $c > 1/4$, the spectrum of $DF(0)$ is given by $\nu = \pm \alpha \pm \beta i$, where $\alpha, \beta > 0$.
 \end{proof}
-
 \end{corollary}
 
 Now we return to the case of the multipulse
 
 \subsubsection{Multipulses}
 
-In the previous section we showed how a 2-periodic solution bifurcates from a 1-periodic solution. For higher number of pulses, we expect that we could also come up with a bifurcation structure, but that it would be quite complicated. Rather than do that, which for now will be left as a subject for future research, we will show the existence of multipulses in the case where the period is large.\\
+In the previous section we showed how a 2-periodic solution bifurcates from a 1-periodic solution. For higher number of pulses, we should be able to fine a bifurcation structure, but we expect it will become increasingly difficult as the number of pulses is increased. We will leave that as a subject for future research. Even though we will not have a nice bifurcation structure, we will still be able to prove existence of a family of periodic multipulses. \\
 
-Recall that for a multipulse, by Lemma \ref{diagonalG}, we have to satisfy the equations
+Recall that for a multipulse, by Lemma \ref{diagonalG}, we have to satisfy the $n-1$ equations
 
 \begin{equation}
 \tilde{G}_i(a_1, \dots, a_{n-1}, r_m) = a_i \sin \left( - \rho \log a_i \right) - a_{n-1} \sin \left( -\rho \log a_{n-1} \right) + \mathcal{O}(r_m^{\gamma / 2 \alpha}) = 0
 \end{equation}
 
-If $r_m = 0$, the zero set of each of these will look exactly like the one for the 2-pulse. However, for $r_m > 0$, the symmetry argument we used above will not hold, so we do not expect the pitchfork to persist.\\
+for $i = 0, \dots, n-2$. If $r_m = 0$, the zero set of each of these will look exactly like the one for the 2-periodic solution from the previous section. However, for $r_m > 0$, the symmetry argument we used above will not hold, so we cannot say anything about bifurcation structure.\\
 
+We do, however, have the following existence result.
+
+\begin{proposition}
+Assume Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp}. Let $\{ m_0, \dots, m_{n-2} \}$ be a sequence of $n - 1$ nonnegative integers with the restriction that at least one of them must be 0. Let $b^* = \min\{b^*_{m_0}, \dots, b^*_{m_{n-2}}\}$, where $b^*_m$ is defined in Lemma \ref{pitchfork}.
+
+Then for any $\epsilon > 0$, there exists $r > 0$ such that for each $r_m < r$, there exists a 1-parameter family of solutions to \eqref{tildeGdef}, paramaterized by $a_{n-1} \in (0, b^* - \epsilon)$. The ``length parameters'' $a_0, \dots, a_{n-2}$ are given by $a_i = a_i^*(a_{n-1}, r_m)$, where
+
+\begin{equation}
+a_i^*(a_{n-1}, r_m) = x_{m_i}^*(a_{n-1}) + h_i(a_{n-1}, r_m)
+\end{equation}
+
+where $x_m^*$ is defined in Lemma \ref{pitchcont}, and 
+
+\[
+h_i(a_{n-1}, r_m) \rightarrow e^{m_i}  \text{ as }
+(a_{n-1}, r_m) \rightarrow (0, 0)
+\]
+
+Note that $a_{n-1} < a_i$ for $i = 0, \dots, n-2$.
+
+\begin{proof}
 First, we note that Lemma \ref{tubepersists} holds for each of the equations $\tilde{G}_i$, since that lemma depends only on the order of the remainder term, which is the same as in that lemma.\\
 
-The parameter $a_{n-1}$ will be our free parameter. For our length parameters, we choose a series of $n - 1$ nonnegative integers $m_0, \dots, m_{n-2}$ with the restriction that at least one of them must be 0.\\
-
-Let $b^* = \min\{b^*_{m_0}, \dots, b^*_{m_{n-2}}\}$ and choose any $\epsilon$ with $0 < \epsilon < b^*$. Let $I = 0, b^* - \epsilon$. Then applying Lemma \ref{tubepersists} $n-1$ times, for $i = 0, \dots, n-1$ there exist $r_i > 0$ and a unique smooth function $h_i: I \times \mathcal{R} \cap [0, r_i] \rightarrow \R$ such that for all $r_m < r_i$, 
+Let $I = [0, b^* - \epsilon]$. Apply Lemma \ref{tubepersists} for each $\tilde{G}_i$. For $i = 0, \dots, n-2$ there exist $r_i > 0$ and a unique smooth function $h_i: I \times \mathcal{R} \cap [0, r_i] \rightarrow \R$ such that for all $r_m < r_i$, 
 
 \begin{equation}
 \tilde{G}_i(a_i, a_{n-1}, r_m) = 0 \iff 
@@ -1932,5 +1962,44 @@ a_i^*(a_{n-1}, r_m) = x_{m_i}^*(a_{n-1}) + h_i(a_{n-1}, r_m)
 \end{equation}
 
 Let $r = \min \{ r_0, \dots, r_{n-1} \}$. Then for any  $a_{n-1} \in I$ and any $r_m < r$, the $\tilde{G}$ are satisfied by the lengths $a_i = a_i^*(a_{n-1}, r_m)$.
+
+\end{proof}
+\end{proposition}
+
+As with the 2-pulse, we can rewrite this using the actual lengths $X_i$ as the following theorem.
+
+% theorem : multipulses with lengths X_i
+
+\begin{theorem}\label{multiexistence}
+Assume Hypothesis \ref{assumptions} and Hypothesis \ref{spechyp}. Let $\{ m_0, \dots, m_{n-2} \}$ be a sequence of $n - 1$ nonnegative integers with the restriction that at least one of them must be 0. \\
+
+Then there exists $M \in \N_0$ such that for all $m \in N_0 \cap [M, \infty)$, there exists a 1-parameter family of $(n-1)$-periodic solutions to \eqref{generaleq} associated with the set of $m_i$. This 1-parameter family is paramaterized by $X_{n-1} \in (X_M, \infty)$, where $X_M = \max\{X_0, \dots, X_{n-2} \}$. The lengths $X_0, \dots, X_{n-2}$ are given by
+
+\begin{equation}\label{Xi}
+X_i = \frac{\pi}{2 \beta}m 
+- \frac{1}{2 \alpha} \log(\tilde{a}_i(X_{n-1}, r_m)) + C
+\end{equation}
+
+where $C$ is a constant, $r_m = e^{-(\pi \alpha/\beta)m}$, and $\tilde{a}_i(X_{n-1}, r_m) \rightarrow e^{m_i \pi / \rho}$ as $(X_{n-1}, r_m) \rightarrow (\infty, 0)$. \\
+
+If $U(x)$ is such a solution, then $U(x)$ can be written piecewise on the intervals specified above such that
+
+\begin{equation}
+U^\pm(x) = Q^\pm(0, \beta_i^\pm)(x) + V_i^\pm(x)
+\end{equation}
+
+where the functions $Q^\pm(x)$ evolve along the stable/unstable manifolds, and the remainder terms $V_i^\pm(x)$ have bounds
+
+\begin{align}
+|V_i^-(x)| &\leq C e^{-\alpha(X_{i-1} + x)}e^{-\alpha X_{i-1}} \\
+|V_i^+(x)| &\leq C e^{-\alpha(X_i - x)}e^{-\alpha X_i} 
+\end{align} 
+
+\begin{proof}
+The proof is almost identical to that of Theorem \ref{2pexistence}.
+\end{proof}
+
+\end{theorem}
+
 
 \end{document}
