@@ -47,6 +47,9 @@
 
 \newtheorem{notation}{Notation}
 
+\usepackage{xr}
+\externaldocument{periodicexistence}
+
 \begin{document}
 
 \section{KdV5 with Periodic Boundary Conditions, Stability}
@@ -55,55 +58,110 @@
 
 In the previous section, we proved the existence of periodic multipulse solutions to KdV5 using Lin's method. In this section, we will examine the specral stability of the linearization about such solutions.\\
 
-For $n \geq 2$, let $q_n(x)$ be an $n-$periodic solution to KdV5 associated with lengths $X_0, \dots, X_{n-1}$. Then by the construction via Lin's method, $q_n$ can be written piecewise, using the $2n$ pieces
+For $n \geq 2$, let $q_{np}(x)$ be an $n-$periodic solution to KdV5 associated with lengths $X_0, \dots, X_{n-1}$. Then by the construction via Lin's method, $q_{np}$ can be written piecewise, using the $2n$ pieces
 
 \begin{align*}
 q_i^-(x) &= q^-(0, \beta_i^-)(x) + u_i^-(x) && x \in [-X_{i-1}, 0]\\
 q_i^+(x) &= q^+(0, \beta_i^+)(x) + u_i^+(x) && x \in [0, X_i]
 \end{align*}
 
-where the subscripts are all $\mod n$, e.g. $X_0 = X_n$. The functions $q^\pm(0, \beta_i^\pm)(x)$ evolve along the stable/unstable manifolds of the linearization about 0, and we have bounds on the remainder terms $u_i^\pm$.\\
+where the subscripts are all $\mod n$, e.g. $X_0 = X_n$. The functions $q^\pm(0, \beta_i^\pm)(x)$ evolve along the stable/unstable manifolds of the linearization about 0, and we have bounds on the remainder terms $u_i^\pm$ from the existence problem.\\
 
-To assess the linear stability of such periodic multipulse solutions, we will look at the spectrum of the linearization of KdV5 about $q_n(x)$. For the linearization about an equilibrium solution $u^*(x)$, the eigenvalue problem is $L(u^*) v(x) = \lambda v(x)$, where
+To assess the linear stability of such periodic multipulse solutions, we will look at the spectrum of the linearization of KdV5 about $q_{np}(x)$. For the linearization about an arbitrary equilibrium solution $u^*(x)$, the eigenvalue problem is $L(u^*) v(x) = \lambda v(x)$, where
 
 \begin{equation}
 L(u^*) = \partial_x^5 - \partial_x^3 + c \partial_x
- - 2  = 0
+ - 2 u^* \partial x - 2 u^*_x = 0
 \end{equation}
 
-As in the case on the unbounded domain with an exponential weight, we first write the eigenvalue problem as a first order system. We know that there are two eigenvalues at 0. We also know there will be two or four small eigenvalues from the pulse interactions. To locate those eigenvalues, we will follow the same procedure as in the unbounded case and as in San98. Thus, we will write the eigenfunction $V$ piecewise as
-
-\[
-V_i^\pm(x) = d_i (Q_{2p}'(x) + \lambda (Q_{2p})_c(x)) + W_i^\pm 
-\]
-
-Plugging this into the eigenvalue problem, we want to a system of the following form
-
-\begin{enumerate}[(i)]
-\item $(W_i^\pm)' = A(q_{2p}(x)) W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
-\item $W_1^+(X_1) - W_2^-(-X_1) = D_1 d$
-\item $W_2^+(X_2) - W_1^-(-X_2) = D_2 d$
-\end{enumerate}
-
-where $A(q_{2p}(x))$ is the Jacobian of the linearization about the periodic double pulse, $B$ is the matrix defined previously, and 
-
-\begin{align*}
-D_1 d &= d_2(Q_{2p}'(-X_1) + \lambda (Q_{2p})_c(-X_1))
-- d_1 ( Q_{2p}'(X_1) + \lambda (Q_{2p})_c(X_1) ) \\
-D_2 d &= d_1(Q_{2p}'(-X_2) + \lambda (Q_{2p})_c(-X_2))
-- d_2 ( Q_{2p}'(X_2) + \lambda (Q_{2p})_c(X_2) ) \\
-\tilde{H} &= -B(Q_{2p})_c \\
-H &= -B Q_c \\
-\Delta H &= \tilde{H} - H
-\end{align*}
-
-We would like to exploit the construction of the periodic double pulse in Theorem \ref{2pconstruction}. To do this, we note that the Jacobian $A(q(x))$ depends linearly on $q(x)$ and its derivatives. Thus we have (piecewise)
+First, we write the eigenvalue problem as a first order system.
 
 \begin{equation}
-A(q_{2p}(x)) = A(q^\pm(0, \beta_i^\pm)(x)) + A(u^\pm(x)) 
+V' = A(u^*)V + \lambda B V
 \end{equation}
 
-For convenience, we let
+where
+
+\begin{align}
+A(u^*) = \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
+2u^*_x(x) & 2u^*(x) - c & 0 & 1 & 0 \end{pmatrix}, &&
+B = \begin{pmatrix}0 & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\0  & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\1 & 0 & 0 & 0 & 0 \end{pmatrix} && 
+\end{align}
+
+Next, we use the piecewise construction of the periodic $n-$pulse to write this in the equivalent piecewise form
+
+\begin{align*}
+(V_i^\pm) &= A( q^\pm(0, \beta_i^\pm) + u_i^\pm) V_i^\pm + \lambda B V_i^\pm \\
+V_i^-(0) &= V_i^+(0) \\
+V_i^+(X_i) &= V_{i+1}^-(-X_i) 
+\end{align*}
+
+for $i = 0, \dots, n-1$. \\
+
+As in the existence problem, we make the following nondegeneracy assumption.
+
+\begin{hypothesis}
+\[
+T_{Q(0)} W^u(0) \cap T_{Q(0)} W_s(0) = \R Q'(0)
+\]
+\end{hypothesis}
+
+where $Q(x)$ is the single pulse solution on $\R$. This is equilavent to the the fact that $Q'(x)$ is the unique bounded solution to the variational equation
+
+\begin{equation}
+V' = A(q)V
+\end{equation}
+
+It follows from San93 that the adjoint variational equation
+
+\begin{equation}
+W' = -A(q)^*W
+\end{equation}
+
+has a unique bounded solution $\Psi$. Next, as in San98, we decompose the tangent space at $Q(0)$ as
+
+\begin{equation}
+\R^5 = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^- \oplus Y^0
+\end{equation}
+
+where $Z = \R \Psi(0)$, and $Y^+$ and $Y^-$ are chosen so that
+
+\begin{align*}
+T_{Q(0)} W^s(0) &= \R Q'(0) \oplus Y^+ \\
+T_{Q(0)} W^u(0) &= \R Q'(0) \oplus Y^- \\
+\end{align*}
+
+Before we simplify this further, we note that if $u^*$ is an equilibrium solution, $A(u^*)$ has a 2-dimensional generalized kernel with the following generalized eigenvectors.
+
+\begin{align}\label{genkernel}
+A(u^*)u^*_x &= 0 \nonumber \\
+A(u^*)(-u^*_c) &= u^*_x
+\end{align}
+
+To exploit these, we write $V_i^\pm$ as 
+
+\begin{equation}
+V_i^\pm(x) = d_i (Q_{np}'(x) + \lambda (Q_{np})_c(x)) + W_i^\pm 
+\end{equation}
+
+where $d_i \in \C$ are arbitrary constants. Substituting this into the piecewise system, using \eqref{genkernel}, and simplifying, we get the system
+
+\begin{align*}
+(W_i^\pm)' &= A( q^\pm(0, \beta_i^\pm) + u_i^\pm) W_i^\pm + \lambda B W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm \\
+W_i^-(0) &= W_i^+(0) \\
+W_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^-$ \\
+W_i^+(X_i) - W_{i+1}^-(-X_i) &= D_i d
+\end{align*}
+
+where
+
+\begin{align*}
+D_i d &= d_{i+1}(Q_{np}'(-X_i) + \lambda (Q_{np})_c(-X_i))
+- d_i ( Q_{np}'(X_2) + \lambda (Q_{np})_c(X_2) ) \\
+\tilde{H}_i^\pm &= -B( Q^\pm(0, \beta_i^\pm)_c + (U_i^\pm)_c)  \\
+H &= -B Q_c \\
+\Delta H_i^\pm &= \tilde{H}_i^\pm - H
+\end{align*}
 
 \begin{align*}
 G_i^\pm &= A(u^\pm(x))
