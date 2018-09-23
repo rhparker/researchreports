@@ -202,6 +202,7 @@ We have the following estimates
 \begin{align*}
 |A(u_i^-(x); \lambda)| &\leq C e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + x) } \\
 |A(u_i^+(x); \lambda)| &\leq C e^{-\alpha X_i} e^{-\alpha(X_i - x) } \\
+|\tilde{H}_i^\pm(x)| &\leq C e^{-\alpha x} \\
 |\Delta H_i| &\leq C(e^{-\alpha X_i} + e^{-\alpha X_{i-1}} ) \\
 D_i d &= ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right) \\
 \end{align*}
@@ -209,14 +210,16 @@ D_i d &= ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X
 \begin{proof}
 The first two bounds come from the bounds on the remainder term existence problem (the notation $V$ is used for the remainder term there), together with the fact that the matrix $A$ is a bounded linear operator. Note that the bound is strongest at $x = 0$ and is weaker at $\pm X_i$. \\
 
-For the second, we look at
+For the second, since $\tilde{H} = Q_c$, it decays exponentially with rate $\alpha$, since that is true for $Q$ and all of its derivatives.\\
+
+For the third, we look at
 \[
 (Q^\pm(0, \beta_i^\pm)(x) - Q(x)) + U_i^\pm(x)
 \]
 From the existence proof, $|U_i^+| \leq C e^{-\alpha X_i}$, $|U_i^-| \leq C e^{-\alpha X_{i-1}}$, and $|(\beta_i^+, \beta_i^-)| \leq C( e^{-\alpha X_i} + e^{-\alpha X_{i-1}})$. Since the same bounds hold for derivatives with respect to $c$, combining all of these gives us the bound for $|\Delta H_i| = \max\{\Delta H_i^+, \Delta H_i^- \}$. 
 \\
 
-For the third, we have
+For the fourth, we have
 
 \begin{align*}
 D_i d &= d_{i+1}(Q_{np}'(-X_i) + \lambda (Q_{np})_c(-X_i)) - d_i ( Q_{np}'(X_i) + \lambda (Q_{np})_c(X_i) ) \\
@@ -242,7 +245,9 @@ Consider the general system
 for functions $G = (G_i^\pm)$, $\tilde{H} = (\tilde{H})_i^\pm$, matrices $D = (D_i)$, and $\lambda \in \C$ satisfying 
 
 \begin{align}
-|G_i^\pm(x)| &\leq \delta \\
+|G_i^-(x)| &\leq C e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + x) } \\
+|G_i^+(x)| &\leq C e^{-\alpha X_i} e^{-\alpha(X_i - x) } \\
+||G|| &\leq \delta \\
 |\Delta H_i^\pm(x)| &= |\tilde{H}_i^\pm)(x) - H(x)| \leq \delta \\
 |\lambda| &\leq \delta \\
 |D_j| &\leq \delta
@@ -310,6 +315,39 @@ The center projection and evolution will be considered in the next section.
 
 \begin{proof}
 This follows from Lemma 3.2 in San98, which follows from San93. Since the eigenvalues of $A(0; \lambda)$ depend continuously on $\lambda$, and the real part of all nonzero eigenvalues of $A(0; 0)$has magnitude greater than $\alpha$, for sufficiently small $\lambda$ we attain the $\lambda-$independent estimates above. 
+\end{proof}
+\end{lemma}
+
+In the work which follows, will need a few bounds involving the projections and evolutions on the stable and unstable subspaces. We will show these in the following lemma.
+
+% lemma : various projection bounds
+
+\begin{lemma}\label{projbounds}
+Let
+
+\begin{align}
+p_1(X; \beta^+, \beta^-, \lambda) = \sup_{x \geq X} (|P^u_+(x; \beta^+, \lambda) - P_0^u| + |P^s_-(-x; \beta^-, \lambda) - P_0^s|)
+\end{align}
+
+where $P_0^s$ and $P_0^u$ are the projections on the $E^s$ and $E^u$, the stable and unstable eigenspaces of the asymptotic matrix $A(0; 0)$.\\
+
+Then 
+
+\begin{align}
+p_1(X; \lambda) = \mathcal{O}( e^{-\alpha X } + |\lambda| )
+\end{align}
+
+\begin{proof}
+
+For $p_1$, using the triangle inequality we have
+
+\begin{align*}
+|P^u_+(x; \beta^+, \lambda) - P_0^u| 
+&\leq |P^u_+(x; \beta^+, \lambda) - P^u_+(x; \beta^+, 0)| + |P^u_+(x; \beta^+, 0) - P_0^u| 
+\end{align*}
+
+from Lemma 1.1 in San93, $|P^u_+(x; \beta^+, 0) - P_0^u| = \mathcal{O}(e^{-\alpha x})$. From the Taylor theorem (ASSUMING THIS IS LEGIT), we have $|P^u_+(x; \beta^+, \lambda) - P^u_+(x; \beta^+, 0)| = \mathcal{O}(|\lambda|)$. Combining these yields the desired bound.
+
 \end{proof}
 \end{lemma}
 
@@ -742,7 +780,7 @@ where $\langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle = 1$ f
 
 In the last lemma of this section, we derive an expression for the evolution on the center subspace.
 
-% lemma : evolution on center spacer
+% lemma : evolution on center space
 
 \begin{lemma}
 
@@ -771,13 +809,79 @@ where we used the fact that $\tilde{v}_+$ is a solution to the eigenvalue proble
 \end{proof}
 \end{lemma}
 
+Finally, we have some limits and estimates involving the items defined in this section, which we present in the following lemma.
+
+% lemma : bounds involving these
+
+\begin{lemma}\label{centerbounds}
+
+Let
+\begin{enumerate}[(i)]
+\item $p_2(X; \lambda) = |v_\pm(\pm X; \beta^\pm, \lambda) - v_0(\lambda)| + |w_\pm(\pm X; \beta^\pm, \lambda) - w_0(\lambda)|$
+\item $p_3(\lambda) = |v_0(\lambda) - v_0(0)|$
+\end{enumerate}
+
+Then 
+
+\begin{equation}\label{p2limit}
+p_2(X; \lambda) \rightarrow 0 \text{ as } |X| \rightarrow \infty
+\end{equation}
+
+and
+
+\begin{equation}\label{p3bound}
+p_3(X; \lambda) = \mathcal{O}(\lambda)  
+\end{equation}
+
+\begin{proof}
+
+For $p_2$, since $v_\pm(\pm x; \beta^\pm, \lambda) \rightarrow v_0(\lambda)$ and $w_\pm(\pm x; \beta^\pm, \lambda) \rightarrow w_0(\lambda)$ as $|x| \rightarrow \infty$, $p_2(X; \lambda) \rightarrow 0$ as $|X| \rightarrow \infty$. Since we scaled out the exponential factor, we do not have a rate of convergence for this, thus cannot get an actual estimate. Fortunately, this will not matter.\\
+
+For $p_3$, we can expand $v_0(\lambda)$ in a Taylor series in $\lambda$ to get
+
+\[
+v_0(\lambda) = v_0(0) + \lambda \frac{\partial}{\partial \lambda}v_0(\lambda)\Big|_{\lambda = 0} + \mathcal{O}(\lambda^2)
+\]
+
+Since $\frac{\partial}{\partial \lambda}v_0(\lambda)\Big|_{\lambda = 0}$ is a constant, we have the estimate
+
+\[
+p_3(X; \lambda) = \mathcal{O}(\lambda) 
+\]
+
+\end{proof}
+\end{lemma}
 
 \subsection{The Inversion}
 
-At this point, we write down the fixed point equations for the problem. To do that, we take a look at where the equations came from in the hyperbolic case. These are very similar to the variation of constants formula, except that we split the solution up into stable, unstable, and center parts, evolve them separately (each with its own initial condition), and recombine them. Thus the fixed point equations will look like those in San98 and the exponentially weighted space with the addition of a center evolution term together with an initial condition in the center subspace. The other difference will be the dependence on the ICs $\beta_i^\pm$. Note that these are fixed as they come from the construction of the periodic double pulse.
-\\ 
+Define the spaces
 
-The fixed point equations for our problem are thus
+\begin{align*}
+V_W &= \bigoplus_{i=0}^{n-1} C^0([-X_{i-1}, 0], \C^m) \oplus C^0([0, X_i], \C^m) \\
+V_a &= \bigoplus_{i=0}^{n-1} E^u \oplus E^s\\
+V_b &= \bigoplus_{i=0}^{n-1} \ran P^u_-(0; 0, 0) \oplus \ran P^s_+(0; 0, 0) \\
+V_c &= \bigoplus_{i=0}^{n-1} \spn \{v_0(\lambda)\} \oplus \spn \{v_0(\lambda)\} \\
+V_\lambda &= B_\delta(0) \subset \C
+\end{align*}
+
+where the subscripts are all $\mod n$, as in the existence problem. All the product spaces are endowed with the maximum norm, e.g. for $V_c$, $|c| = \max(|c_0^-|, \dots, |c_{n-1}^-|, |c_0^+|, \dots, |c_{n-1}^+|)$. In addition, we take the following convention: if we eliminate either a subscript or a superscript (or both) in the norm, we are taking the maximum over the eliminated thing. For example,
+\begin{enumerate}
+	\item $|c_i| = \max(|c_i^+|, |c_i^-|)$ 
+	\item $|c^+| = \max(|c_0^+|, \dots, |c_{n-1}^+|)$
+\end{enumerate} 
+
+Recall that the eigenspaces $E^s$, $E^u$, and $E^c$ refer to the constant, asymptotic matrix $A(0;, 0)$. The projections onto $E^s$, $E^u$, and $E^c$ are given by $P_0^s$, $P_0^u$, and $P_0^c$. The initial conditions on the stable and unstable subspaces lie in the corresponding spaces for the problem with $\lambda = 0$ and $\beta^\pm = 0$. By contrast, the initial conditions on the center subspace is in the eigenspace for the perturbed problem, which is useful to us since we have derived an equation for the evolution along the center subspace.\\
+
+Finally, for convenience, we define
+
+\begin{align*}
+\tilde{c}_i^- &= e^{\nu(\lambda)X_i} c_i^- \\
+\tilde{c}_i^+ &= e^{-\nu(\lambda)X_i} c_i^+
+\end{align*}
+
+At this point, we can write down the fixed point equations for the problem. The fixed point equations will look like those in San98 with two main differences. First, we have the addition of a center evolution term and an initial condition in the center subspace. Second, the evolution operators $\Phi^{s/u}_\pm$ depend on both $\beta_i^\pm$ and on $\lambda$.\\
+
+For $i = 0, \dots, n-1$, the fixed point equations are
 
 \begin{align*}
 W_i^-(x) = \Phi^s_-(&x, -X_{i-1}; \beta_i^-, \lambda) a_{i-1}^- + \Phi^u_-(x, 0; \beta_i^-, \lambda) b_i^- \\
@@ -793,42 +897,16 @@ W_i^+(x) = \Phi^u_+(&x, X_i; \beta_i^+, \lambda)a_i^+ + \Phi^s_+(x, 0; \beta_i^+
 &+ \int_{X_i}^x e^{\nu(\lambda)(x-y)} v_+(x; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}(y), w_+(y; \beta_i^+, \lambda) \rangle dy
 \end{align*}
 
-where
-
-\begin{align*}
-(a^-, a^+) &\in E^s \oplus E^u\\
-(b^-, b^+) &\in R^u_-(0; 0) \oplus R^s_+(0; 0)\\
-c^\pm &\in \text{span}\{v_0(\lambda)\}
-\end{align*}
-
-Recall that the eigenspaces $E^s$, $E^u$, and $E^c$ refer to the unperturbed problem, i.e. they are the eigenspaces of $A(0)$. The projections onto $E^s$, $E^u$, and $E^c$ are given by $P_0^s$, $P_0^u$, and $P_0^c$. The initial conditions on the stable and unstable subspaces lie in the corresponding spaces for the unperturbed problem. By contrast, the initial conditions on the center subspace is in the eigenspace for the perturbed problem. We can do this (and it will prove to be very useful!) since we have an equation for the evolution along this center subspace.\\
-
-We will take the following notational conventions, which we use for convenience. The first one makes sense since periodic boundary conditions means that things ``wrap around'', so can can consider the problem as posed on a ``loop''.
+Before performing the inversion, we will define the following useful constants.
 
 \begin{enumerate}
-\item $c_2^- = c_0^-$, $a_2^- = a_0^-$, $b_0^- = b_2^-$, $d_0 = d_2$, and $W_0 = W_2$
 
-\item If we eliminate either a subscript or a superscript (or both) in the norm, we are taking the maximum of the eliminated things. For example,
-	\begin{enumerate}
-		\item $|c_i| = \max(|c_i^+|, |c_i^-|)$ 
-		\item $|c^+| = \max(|c_1^+|, |c_2^+|)$
-		\item $|c| = \max(|c_1^-|, |c_1^+|, |c_2^-|, |c_2^+|)$
-	\end{enumerate}
-	This is always well defined, since the maximum is over a finite number of terms.
-\item Let
+	\item Let
 
-\begin{align*}
-\tilde{c}_i^- &= e^{\nu(\lambda)X_i} c_i^- \\
-\tilde{c}_i^+ &= e^{-\nu(\lambda)X_i} c_i^+
-\end{align*}
-
-These will come in handy, as the the coefficients $c$ are often multiplied by an exponential factor.\\
-
-\end{enumerate}
-
-Before performing the inversion, we will define the following three useful constants.
-
-\begin{enumerate}
+	\begin{align*}
+	X_m &= \min(X_0, \dots, X_{n-1}) \\
+	X_M &= \max(X_0, \dots, X_{n-1}) \\
+	\end{align*}
 
 	\item Let $\delta > 0$ be a small. How small will be determined later. Then choose $|\lambda|$ sufficiently small and $X_1$ sufficiently large such that
 
@@ -851,7 +929,7 @@ First, we obtain a bound on the terms from the fixed point equations which invol
 
 \begin{lemma}\label{L1}
 
-Let $L_1(\lambda): V_w \rightarrow V_w$ be the linear operator defined piecewise by
+Let $L_1(\lambda): V_W \rightarrow V_W$ be the linear operator defined piecewise by
 
 \begin{align*}
 (L_1(\lambda)W)_i^-(x) &= \int_0^x \Phi^u_-(x, y; \beta_i^-, \lambda) G_i^-(y)W_i^-(y) dy + \int_{-X_{i-1}}^x \Phi^s_-(x, y; \beta_i^-, \lambda) G_i^-(y)W_i^-(y) dy \\
@@ -861,14 +939,14 @@ e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y
 &+ \int_{X_i}^x e^{\nu(\lambda)(x-y)} v_+(x; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy
 \end{align*}
 
-Then $L_1(\lambda): V_w \rightarrow V_w$ is a bounded linear operator with bound
+Then $L_1(\lambda): V_W \rightarrow V_W$ is a bounded linear operator with uniform bound
 
 \begin{equation}\label{L1bound}
-||L_1(\lambda)W|| \leq C (e^{\nu(\lambda)X_1} + e^{\nu(\lambda)X_2}) ||G|| \: ||W||
+||L_1(\lambda)W|| \leq C e^{|\nu(\lambda)|X_M} ||G|| \: ||W||
 \end{equation}
 
 \begin{proof}
-The first two integrals on the RHS of $L_1$ have the same bound as in San98 and in the exponentially weighted case. For the third integral, the negative piece has bound
+The first two integrals on the RHS of $L_1$ have the same bound as in San98. For the third integral, the negative piece has bound
 
 \begin{align*}
 \Big| \int_{-X_{i-1}}^x &e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \Big| \\
@@ -878,64 +956,67 @@ The first two integrals on the RHS of $L_1$ have the same bound as in San98 and 
 &\leq C e^{\nu(\lambda)X_{i-1}} ||G|| \: ||W||
 \end{align*}
 
-where we used the fact that $x \leq 0$ on the negative piece. Since $v_-(x; 
-\beta_i^-, \lambda)$ and $w_-(x; \beta_i^-, \lambda)$ are bounded and only depend on $\lambda$ (recall that we pulled out any exponential growth/decay in our expressions for $\tilde{v}$ and $\tilde{w}$), we incorporate those bounds into the constant $C$. The constant $C$ will depend on $\lambda$, but we suppress this dependence in the notation for simplicity. The positive piece has a similar bound with $X_{i-1}$ replaced with $X_i$. Thus we have the bound
-
-\[
-||L_1(\lambda)W|| \leq C (e^{\nu(\lambda)X_1} + e^{\nu(\lambda)X_2}) ||G|| \: ||W||
-\]
+where we used the fact that $x \leq 0$ on the negative piece. Since $v_-(x; \beta_i^-, \lambda)$ and $w_-(x; \beta_i^-, \lambda)$ are bounded and only depend on $\lambda$ (recall that we pulled out any exponential growth/decay in our expressions for $\tilde{v}$ and $\tilde{w}$), we incorporate those bounds into the constant $C$. The constant $C$ will depend on $\lambda$, but we suppress this dependence in the notation for simplicity. The positive piece has a similar bound with $X_{i-1}$ replaced with $X_i$. Since all the $X_i$ will be used, the uniform bound depends on $X_M$, the largest of the $X_i$.
 
 \end{proof}
 \end{lemma}
 
-We would like a more useful bound than this for the following reason. Using the uniform bound $||G|$, the bound above will have a term of order $e^{\nu(\lambda)X_2} e^{-\alpha X_1}$. Suppose $\text{Re }\nu(\lambda) > 0$. If $X_2 > X_1$, $e^{\nu(\lambda)X_2}$ grows in $X_2$ and $e^{-\alpha X_1}$ decays in $X_1$. Thus, there is no telling what will happen as we vary $X_1$ and $X_2$ independently. One workaround is to make $X_1$ and $X_2$ depend on each other, e.g. $X_2 = k X_1$ for some $k \geq 0$. This does work (and we have shown it does!) but we do not want the two length parameters to be related, since we would like to send $X_2$ to $\infty$ without altering $X_1$.\\
-
-For another (hopefully better!) way around this problem, we will use the piecewise bound on $|G_i^\pm(x)|$ from Theorem \ref{2pconstruction}.
+This bound, however, involves a term which grows exponentially, thus we would like a better bound. Fortunately, the piecewise bound on $|G_i^\pm(x)|$ (which ultimately comes from the existence problem) is sufficient.
 
 % inversion lemma 1a - improved bound on L1
 
 \begin{lemma}\label{L1better}
 
-Let $L_1(\lambda): V_w \rightarrow V_w$ be the linear operator defined in the previous lemma. Then $L_1(\lambda): V_w \rightarrow V_w$ is a bounded linear operator with bound
+Let $L_1(\lambda): V_W \rightarrow V_W$ be the linear operator defined piecewise by
+
+\begin{align*}
+(L_1(\lambda)W)_i^-(x) &= \int_0^x \Phi^u_-(x, y; \beta_i^-, \lambda) G_i^-(y)W_i^-(y) dy + \int_{-X_{i-1}}^x \Phi^s_-(x, y; \beta_i^-, \lambda) G_i^-(y)W_i^-(y) dy \\
+&+ \int_{-X_{i-1}}^x 
+e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \\
+(L_1(\lambda)W)_i^+(x) &= \int_0^x \Phi^s_+(x, y; \beta_i^+, \lambda) G_i^+(y) W_i^+(y) dy + \int_{X_i}^x \Phi^u_+(x, y; \beta_i^+, \lambda) G_i^+(y) W_i^+(y) dy \\
+&+ \int_{X_i}^x e^{\nu(\lambda)(x-y)} v_+(x; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy
+\end{align*}
+
+Then $L_1(\lambda): V_W \rightarrow V_W$ is a bounded linear operator with uniform bound
 
 \begin{equation}\label{L1bound2}
-||L_1(\lambda)W|| \leq C ( e^{-(\alpha -|\nu(\lambda)|)X_1} + e^{-(\alpha -|\nu(\lambda)|)X_2})||W||
+||L_1(\lambda)W|| \leq C e^{-(\alpha -|\nu(\lambda)|)X_m} ||W||
 \end{equation}
 
 Piecewise bounds are
 
 \begin{align*}
-||L_1(\lambda)_i^- W|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_{i-1}} ||W|| \\
-||L_1(\lambda)_i^+ W|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_i} ||W||
+||L_1(\lambda)_i^- W_i^-|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_{i-1}} ||W_i^-|| \\
+||L_1(\lambda)_i^+ W_i^+|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_i} ||W_i^+||
 \end{align*}
 
 \begin{proof}
-The first two integrals on the RHS of $L_1$ have the same bound as in San98 and in the exponentially weighted case. For the third integral, we will use the piecewise bound for $G$. For the ``negative'' piece (where $x \leq 0$), we have
+The first two integrals on the RHS of $L_1$ have the same bound as in San98. For the third integral, we will use the piecewise bound for $G$. For $x \leq 0$, we have
 
 \begin{align*}
 \Big| \int_{-X_{i-1}}^x &e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \Big| \\
-&\leq C ||W|| \int_{-X_{i-1}}^x e^{\nu(\lambda)(x-y)} e^{-\alpha X_{i-1}}e^{-\alpha(X_{i-1} + y)}dy \\
-&\leq C ||W|| \int_{-X_{i-1}}^x e^{|\nu(\lambda)| (x-y)} e^{-\alpha X_{i-1}}e^{-\alpha(X_{i-1} + y)}dy \\
-&= C ||W|| e^{|\nu(\lambda)| x } e^{-2 \alpha X_{i-1}} \int_{-X_{i-1}}^x e^{-(\alpha + |\nu(\lambda)|) y} dy \\
-&= C ||W|| e^{|\nu(\lambda)| x } e^{-2 \alpha X_{i-1}} \frac{1}{\alpha + \nu(\lambda)} \left( e^{-(\alpha + |\nu(\lambda)|)(-X_{i-1})} - e^{-(\alpha + |\nu(\lambda)|)x} \right) \\
-&\leq C ||W|| e^{-2 \alpha X_{i-1}} \left( e^{(\alpha + |\nu(\lambda)|)X_{i-1}} + e^{-\alpha x}  \right) \\
-&\leq C ||W|| e^{-2 \alpha X_{i-1}} \left( e^{\alpha X_{i-1}} e^{|\nu(\lambda)|X_{i-1}} + e^{\alpha X_{i-1}}  \right) \\
-&\leq C ||W|| e^{-\alpha X_{i-1}} \left( e^{|\nu(\lambda)|X_{i-1}} + 1 \right) \\
-&\leq C ||W|| e^{-(\alpha -|\nu(\lambda)|)X_{i-1}} \\
+&\leq C ||W_i^-|| \int_{-X_{i-1}}^x e^{\nu(\lambda)(x-y)} e^{-\alpha X_{i-1}}e^{-\alpha(X_{i-1} + y)}dy \\
+&\leq C ||W_i^-|| \int_{-X_{i-1}}^x e^{|\nu(\lambda)| (x-y)} e^{-\alpha X_{i-1}}e^{-\alpha(X_{i-1} + y)}dy \\
+&= C ||W_i^-|| e^{|\nu(\lambda)| x } e^{-2 \alpha X_{i-1}} \int_{-X_{i-1}}^x e^{-(\alpha + |\nu(\lambda)|) y} dy \\
+&= C ||W_i^-|| e^{|\nu(\lambda)| x } e^{-2 \alpha X_{i-1}} \frac{1}{\alpha + \nu(\lambda)} \left( e^{-(\alpha + |\nu(\lambda)|)(-X_{i-1})} - e^{-(\alpha + |\nu(\lambda)|)x} \right) \\
+&\leq C ||W_i^-|| e^{-2 \alpha X_{i-1}} \left( e^{(\alpha + |\nu(\lambda)|)X_{i-1}} + e^{-\alpha x}  \right) \\
+&\leq C ||W_i^-|| e^{-2 \alpha X_{i-1}} \left( e^{\alpha X_{i-1}} e^{|\nu(\lambda)|X_{i-1}} + e^{\alpha X_{i-1}}  \right) \\
+&\leq C ||W_i^-|| e^{-\alpha X_{i-1}} \left( e^{|\nu(\lambda)|X_{i-1}} + 1 \right) \\
+&\leq C ||W_i^-|| e^{-(\alpha -|\nu(\lambda)|)X_{i-1}} \\
 \end{align*}
 
-This can be made arbitrarily small for sufficiently large $X_{i-1}$. Thus for this bound we have
+This can be made arbitrarily small for sufficiently large $X_{i-1}$. The $x \geq 0$ case is similar. Thus we have our piecewise bounds
 
 \begin{align*}
-||L_1(\lambda)_i^- W|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_{i-1}} ||W|| \\
-||L_1(\lambda)_i^+ W|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_i} ||W||
+||L_1(\lambda)_i^- W_i^-|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_{i-1}} ||W_i^-|| \\
+||L_1(\lambda)_i^+ W_i^+|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_i} ||W_i^+||
 \end{align*}
 
-For a uniform bound, we have
+For a uniform bound, since $\alpha -|\nu(\lambda)| > 0$, the bound depends on the smallest of the $X_i$, thus we have
 
 \[
 ||L_1(\lambda)W|| \leq 
-C (e^{-(\alpha -|\nu(\lambda)|)X_1} + e^{-(\alpha -|\nu(\lambda)|)X_2})||W||
+C e^{-(\alpha -|\nu(\lambda)|)X_m}||W||
 \]
 
 \end{proof}
@@ -947,7 +1028,7 @@ Next, we obtain a bound on the terms from the fixed point equations which do not
 
 \begin{lemma}\label{L2}
 
-Let $L_2(\lambda): V_a \times V_b \times V_c \times V_d \rightarrow V_w$ be the linear operator defined piecewise by
+Let $L_2(\lambda): V_a \times V_b \times V_c \times V_d \rightarrow V_W$ be the linear operator defined piecewise by
 
 \begin{align*}
 L_2(\lambda)&(a,b,c,d)_i^-(x) = \Phi^s_-(x, -X_{i-1}; \beta_i^-, \lambda)a_{i-1}^- + \Phi^u_-(x, 0; \beta_i^-, \lambda)b_i^- \\
@@ -964,20 +1045,18 @@ L_2(\lambda)&(a,b,c,d)_i^+(x) = \Phi^u_+(x, X_i; \beta_i^+, \lambda)a_i^+ + \Phi
 Then $L_2$ is a bounded linear operator with bound
 
 \begin{equation}\label{L2bound}
-|L_2(\lambda)(a,b,c,d)| \leq C (|a| + |b| + e^{|\nu(\lambda)|X_i}|c_i| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + |\lambda|^2 |d| )
+|L_2(\lambda)(a,b,c,d)| \leq C \left( |a| + |b| + \sum_i e^{|\nu(\lambda)|X_i}|c_i| + |\lambda|^2 |d| \right)
 \end{equation}
 
 We also have the following piecewise, $x$-dependent bounds on $L_2$.
 
 \begin{align*}
-|L_2(\lambda)(a,b,c,d)_i^-(x)| &\leq C (e^{-\alpha(x + X_{i-1})}|a_{i-1}^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| ) \\
-|L_2(\lambda)(a,b,c,d)_i^+(x)| &\leq C (e^{-\alpha(x - X_i)}|a_i^+| + |b| + e^{\nu(\lambda)x} |\tilde{c}_i^+| + |\lambda|^2 |d| ) 
+|L_2(\lambda)(a,b,c,d)_i^-(x)| &\leq C (e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b_i^-| + e^{|\nu(\lambda)|(X_{i-1} + x)} |c_{i-1}^-| + |\lambda|^2 |d| ) \\
+|L_2(\lambda)(a,b,c,d)_i^+(x)| &\leq C (e^{-\alpha(X_i - x)}|a_i^+| + |b_i^+| + e^{|\nu(\lambda)|(X_i - x)} |c_i^+| + |\lambda|^2 |d| ) 
 \end{align*}
 
-where the $\tilde{c}$ are defined above.
-
 \begin{proof}
-First, we note that $L_2$ comprises the terms from the fixed point equations which do not involve $W$. Most of the bounds on the individual terms are the same as in San98 and the exponentially weighted case. We will look at the ``minus'' piece. The ``plus'' piece will be similar. First, for the $c_{i-1}^-$ term we have
+First, we note that $L_2$ comprises the terms from the fixed point equations which do not involve $W$. Most of the bounds on the individual terms are the same as in San98. We will consider the case where $x \leq 0$. The case where $x \geq 0$ is similar. First, for the $c_{i-1}^-$ term we have
 
 \[
 e^{\nu(\lambda)(x+X_{i-1})} v_-(x; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) \rangle c_{i-1}^- \leq C e^{|\nu(\lambda)| X_{i-1} }|c_{i-1}^-|
@@ -987,42 +1066,40 @@ The first two integral terms are similar to San98. For the third (center) integr
 
 \begin{align*}
 &\left| \int_{-X_{i-1}}^x 
-e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, , \lambda) \langle \lambda^2 d_i \tilde{H}(y), w_-(y; \beta_i^-, \lambda) \rangle dy \right| \\
+e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-,t \lambda) \langle \lambda^2 d_i \tilde{H}(y), w_-(y; \beta_i^-, \lambda) \rangle dy \right| \\
 &\leq C |\lambda|^2 |d| e^{\tilde{\alpha}x} \int_{-X_{i-1}}^x e^{-\tilde{\alpha}x} e^{\tilde{\alpha}y} e^{\nu(\lambda)(x-y)} |e^{-\tilde{\alpha}y}\tilde{H}(y)|dy \\
 &\leq C |\lambda|^2 |d| e^{\tilde{\alpha}x} \int_{-X_{i-1}}^x e^{-\tilde{\alpha}(x-y)} e^{\nu(\lambda)(x-y)} |e^{-\tilde{\alpha}y}\tilde{H}(y)| dy \\
 &\leq C |\lambda|^2 |d| e^{\tilde{\alpha}x} \int_{-X_{i-1}}^x e^{-(\tilde{\alpha} - |\nu(\lambda)|)(x-y)} dy \\
 &\leq C |\lambda|^2 |d|
 \end{align*}
 
-where we use the facts that $|e^{-\tilde{\alpha}y}\tilde{H}(y)|$ is bounded (since the decay rate of $\tilde{H}$ is known) and that $|\nu(\lambda)| < \tilde{\alpha}$ by our choice of $\tilde{\alpha}$. The other center integral is similar. Thus, we attain the bound 
+where we use the facts that $|e^{-\tilde{\alpha}y}\tilde{H}(y)|$ is bounded (since $\tilde{H}$ decays exponentially with rate $\alpha$) and that $|\nu(\lambda)| < \tilde{\alpha}$ by our choice of $\tilde{\alpha}$. The other center integral is similar. Thus, we have the bound 
 
 \begin{align*}
-|L_2(\lambda)(a,b,c,d)_i^-(x)| &\leq C (e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b| + e^{\nu(\lambda)(X_{i-1} + x)} |c_{i-1}^-| + |\lambda|^2 |d| ) \\
-&= C (e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| ) 
+|L_2(\lambda)(a,b,c,d)_i^-(x)| &\leq C (e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b_i^-| + e^{|\nu(\lambda)|(X_{i-1} + x)} |c_{i-1}^-| + |\lambda|^2 |d| )
 \end{align*}
 
 For the ``positive'' piece,
 
 \begin{align*}
-|L_2(\lambda)(a,b,c,d)_i^+(x)| &\leq C (e^{-\alpha(X_i - x)}|a_i^+| + |b| + e^{\nu(\lambda)(X_i - x)} |c_i^+| + |\lambda|^2 |d| ) \\
-&\leq C (e^{-\alpha(X_i - x)}|a_i^+| + |b| + e^{\nu(\lambda)x} |\tilde{c}_i^+| + |\lambda|^2 |d| ) 
+|L_2(\lambda)(a,b,c,d)_i^+(x)| &\leq C (e^{-\alpha(X_i - x)}|a_i^+| + |b_i^+| + e^{|\nu(\lambda)|(X_i - x)} |c_i^+| + |\lambda|^2 |d| ) 
 \end{align*}
 
-The overall, uniform bound is
+The uniform bound is given by
 
 \[
-|L_2(\lambda)(a,b,c,d)| \leq C (|a| + |b| + e^{|\nu(\lambda)|X_i}|c_i| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + |\lambda|^2 |d| )
+|L_2(\lambda)(a,b,c,d)| \leq C \left(|a| + |b| + \sum_i e^{|\nu(\lambda)|X_i}|c_i| + |\lambda|^2 |d| \right)
 \]
 
 \end{proof}
 \end{lemma}
 
-Now we can perform the inversion
+Now that we have these bounds, we can perform the inversion
 
 % inversion lemma 3 - invert to solve for W
 
 \begin{lemma}\label{W1}
-There exists a bounded linear operator $W_1: V_\lambda \times V_a \times V_b \times V_c \times V_d \rightarrow V_w$ such that 
+There exists a bounded linear operator $W_1: V_\lambda \times V_a \times V_b \times V_c \times V_d \rightarrow V_W$ such that 
 
 \[
 W = W_1(\lambda)(a,b,c,d)
@@ -1031,14 +1108,14 @@ W = W_1(\lambda)(a,b,c,d)
 This operator is analytic in $\lambda$ and linear in $(a, b, c, d)$. The operator $W_1$ satisfies the bound
 
 \begin{equation}\label{W1bound}
-||W_1(\lambda)(a,b,c,d)|| \leq C ( |a| + |b| + e^{|\nu(\lambda)|X_i}|c_i| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + |\lambda|^2 |d| )
+||W_1(\lambda)(a,b,c,d)|| \leq C \left( |a| + |b| + \sum_i e^{|\nu(\lambda)|X_i}|c_i| + |\lambda|^2 |d| \right)
 \end{equation}
 
 We also have the piecewise bounds
 
 \begin{align*}
-||W_1(\lambda)(a,b,c,d)_i^-|| &\leq C ( |a_{i-1}^-| + |b| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}^-| + |\lambda|^2 |d| ) \\
-||W_1(\lambda)(a,b,c,d)_i^+|| &\leq C ( |a_i^+| + |b| + e^{|\nu(\lambda)|X_i}|c_i^+| + |\lambda|^2 |d| )
+||W_1(\lambda)(a,b,c,d)_i^-|| &\leq C ( |a_{i-1}^-| + |b_i^-| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}^-| + |\lambda|^2 |d| ) \\
+||W_1(\lambda)(a,b,c,d)_i^+|| &\leq C ( |a_i^+| + |b_i^+| + e^{|\nu(\lambda)|X_i}|c_i^+| + |\lambda|^2 |d| )
 \end{align*}
 
 \begin{proof}
@@ -1070,7 +1147,7 @@ W = W_1(\lambda)(a,b,c,d) = (I - L_1(\lambda))^{-1} L_2(\lambda)(a,b,c,d)
 which depends linearly on $(a,b,c,d)$ and analytically on $\lambda$. Since the operator norm of $L_1$ is bounded by a constant (independent of the $X_i$), we have the uniform bound
 
 \[
-||W_1(\lambda)(a,b,c,d)|| \leq C (|a| + |b| + e^{|\nu(\lambda)|X_i}|c_i| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + |\lambda|^2 |d| )
+||W_1(\lambda)(a,b,c,d)|| \leq C \left(|a| + |b| + \sum_i e^{|\nu(\lambda)|X_i}|c_i| + |\lambda|^2 |d| \right)
 \]
 
 The piecewise bounds are obtained by noting which piece of $L_2$ is involved with which piece of $W$.\\
@@ -1094,20 +1171,11 @@ Similarly,
 \end{proof}
 \end{lemma}
 
-The next inversion step solves for the joins at $\pm X_i$, i.e. solves the equations
+The next inversion step solves for the joins at $x = \pm X_i$, i.e. solves the equations
 
 \begin{align*}
-W_2^+(X_2) - W_1^-(-X_2) &= D_2 d \\
-W_1^+(X_1) - W_2^-(-X_1) &= D_1 d \\
+W_i^+(X_i) - W_{i+1}^-(-X_i) &= D_i d \\
 \end{align*}
-
-For $i = 1, 2$, recalling our ``wrap-around'' notation, we can write this as
-
-\begin{align*}
-W_i^+(X_i) - W_{i-1}^-(-X_i) &= D_i d \\
-\end{align*}
-
-The next lemma performs this inversion.
 
 % second inversion lemma
 
@@ -1116,13 +1184,13 @@ There exist operators
 
 \begin{align*}
 A_1: V_\lambda \times V_b \times V_c \times V_d \rightarrow V_a \\
-W_2: V_\lambda \times V_b \times V_c \times V_d \rightarrow V_w \\
+W_2: V_\lambda \times V_b \times V_c \times V_d \rightarrow V_W \\
 \end{align*}
 
 such that $(a,W) = ( A_1(\lambda)(b,c,d), W_2(\lambda)(b,c,d) )$ solves our system. These operators are analytic in $\lambda$, linear in $(b,c,d)$, and bounds for them are given by
 
 \begin{equation}
-|A_1(\lambda)_i(b, c, d)| \leq C \Big( (e^{-\alpha X_i} + ||G||) |b| + ( p_4(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i|
+|A_1(\lambda)_i(b, c, d)| \leq C \Big( (e^{-\alpha X_i} + ||G||) |b| + ( p_2(X_i; \lambda) + p_3(\lambda)  + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i|
 + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + |D_i||d| \Big)
 \end{equation} 
 
@@ -1130,10 +1198,10 @@ and
 
 \begin{equation}
 |W_2(\lambda)(b,c,d)|| 
-\leq C \Big( |b| + e^{|\nu(\lambda)|X_i}|c_i| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D|)|d| \Big)
+\leq C \Big( |b| + \sum_i e^{|\nu(\lambda)|X_i}|c_i| + (|\lambda|^2 + |D|)|d| \Big)
 \end{equation} 
 
-Furthermore, 
+Furthermore, we have
 
 \begin{align*}
 a_i^+ &= P^u_0 D_i d + A_2(\lambda)_i^+(b, c, d) \\
@@ -1144,110 +1212,56 @@ where $A_2$ is a bounded operator with estimate
 
 \begin{align*}
 |A_2&(\lambda)_i(b, c, d)| \\
-&\leq C \Big( (e^{-\alpha X_i} + ||G||)|b| + ( p_4(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i| + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + (p_1(X_i; \lambda) + ||G|| )|D_i||d|) \Big)
+&\leq C \Big( (e^{-\alpha X_i} + ||G||)|b| + ( p_2(X_i; \lambda) + p_3(\lambda)  + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i| + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + (p_1(X_i; \lambda) + ||G|| )|D_i||d|) \Big)
 \end{align*}
 
-$(p_1(X_i; \lambda)$ and $p_4(X_i; \lambda)$ are defined in the proof below. 
+$(p_1(X_i; \lambda)$ is defined in Lemma \ref{projbounds}, and $p_2(X_i; \lambda)$ and $p_3(\lambda)$ are defined in Lemma \ref{centerbounds}. 
 
 \begin{proof}
 
-Using the fixed point equations at $\pm X_i$, we have
+Evaluating the fixed point equations at $\pm X_i$, we have
 
 \begin{align*}
-W_i^+(X_i) &- W_{i-1}^-(-X_i) = P^u_+(X_i; \beta_i^+, \lambda) a_i^+ - P^s_-(-X_i; \beta_{i-1}^-, \lambda) a_i^- \\
-&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i-1}^-, \lambda)b_{i-1}^- \\
+W_i^+(X_i) &- W_{i+1}^-(-X_i) = P^u_+(X_i; \beta_i^+, \lambda) a_i^+ - P^s_-(-X_i; \beta_{i+1}^-, \lambda) a_i^- \\
+&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i-1}^-, \lambda)b_{i+1}^- \\
 &+ v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ - v_-(-X_i; \beta_{i-1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i-1}^-, \lambda) \rangle c_i^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i-1}^-, \lambda) [ G_{i-1}^-(y) W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
+&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
-We now manipulate this to get it into a form we can use. First, we get the coefficients $a_i^\pm$ by themselves by adding and subtracting $P_0^u a_i^+$ and $P_0^s a_i^-$. Recalling where the various $a_i^\pm$ live and what happens when we apply the projections on $E^u$ and $E^s$, this becomes
+We now manipulate this to get it into a form we can use. First, we get the coefficients $a_i^\pm$ by themselves by adding and subtracting $P_0^u a_i^+$ and $P_0^s a_i^-$. Since $a_i^- \in E^u$ and $a_i^+ \in E^s$, 
 
 \begin{align*}
 D_i d &= a_i^+ - a_i^- \\
-&+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i-1}^-, \lambda) - P_0^s)a_i^- \\
-&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i-1}^-, \lambda)b_{i-1}^- \\
-&+ v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ - v_-(-X_i; \beta_{i-1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i-1}^-, \lambda) \rangle c_i^- \\
+&+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-, \lambda) - P_0^s)a_i^- \\
+&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda)b_{i+1}^- \\
+&+ v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ - v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i-1}^-, \lambda) [ G_{i-1}^-(y) W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
+&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
-
-For a bound on the ``projection difference'', let
-
-\[
-p_1(X; \beta^+, \beta^-, \lambda) = \sup_{x \geq X} (|P^u_+(x; \beta^+, \lambda) - P_0^u| + |P^s_-(-x; \beta^-, \lambda) - P_0^s|)
-\]
-
-Note that this varies with $\beta^\pm$, $\lambda$ and with $X$. Based on San98, the bounds for $\beta_i^\pm$ from Theorem \ref{2pconstruction}, and intuition, we hypothesize the following bound. (WE SHOULD ACTUALLY SHOW THIS.)
-
-\begin{hypothesis}\label{p1bound}
-\begin{equation}
-p_1(X; \lambda) = \mathcal{O}( e^{-\alpha X} +  e^{-2 \alpha X_1} + e^{-2 \alpha X_2} + |\lambda| )
-\end{equation}
-\end{hypothesis}
-
-As long as $X$ is greater than the minimum of $X_1, X_2$, we have
-
-\begin{equation}
-p_1(X; \lambda) = \mathcal{O}( e^{-\alpha X_1} + e^{-\alpha X_2} + |\lambda| )
-\end{equation}
 
 Next we rearrange the above to get $a_i^- - a_i^+$ by itself on the LHS.
 
 \begin{align*}
 a_i^- - a_i^+ &= -D_i d  \\
-&+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i-1}^-,\lambda) - P_0^s)a_i^- \\
-&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i-1}^-, \lambda) b_{i-1}^- \\
-&+ v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ - v_-(-X_i; \beta_{i-1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i-1}^-, \lambda) \rangle c_i^- \\
+&+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-,\lambda) - P_0^s)a_i^- \\
+&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda) b_{i+1}^- \\
+&+ v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ - v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i-1}^-, \lambda) [ G_{i-1}^-(y) W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
+&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
-Since $a_i^- - a_i^+ \in E^+ \oplus E^-$, the RHS must lie in $E^+ \oplus E^-$ as well. Since $\C^5 = E^+ \oplus E^- \oplus E^0$, the RHS must have no component in the (unperturbed) center space. The vectors $v_\pm(\pm X_i; \beta_{i}^\pm,\lambda)$ are close to $v_0(\lambda)$, which is close to $v_0(0) \in E^0$. Define
+Since $a_i^- - a_i^+ \in E^+ \oplus E^-$, the RHS must lie in $E^+ \oplus E^-$ as well. Since $\C^m = E^+ \oplus E^- \oplus E^0$, the RHS must have no component in the (unperturbed) center space. The vectors $v_+(X_i; \beta_i^+, \lambda)$ and $v_-(-X_i; \beta_{i+1}^-, \lambda)$ are close to $v_0(\lambda)$, which is close to $v_0(0) \in E^0$. Adding and subtracting $v_0(0)$ in both of the $c_i$ terms, we rewrite $a_i^- - a_i^+$ as
 
 \begin{align*}
-\Delta v_\pm(X; \beta^\pm, \lambda) &= v_\pm(\pm X; \beta^\pm, \lambda) - v_0(\lambda) \\
-\Delta w_\pm(X; \beta^\pm, \lambda) &= w_\pm(\pm X; \beta^\pm, \lambda) - w_0(\lambda)
-\end{align*}
-
-Then let
-
-\begin{align*}
-p_2(X; \lambda) &= |\Delta v_\pm(X; \beta^\pm, \lambda)| + |\Delta w_\pm(X; \beta^\pm, \lambda)|\\
-&= |v_\pm(\pm X; \beta^\pm, \lambda) - v_0(\lambda)| + |w_\pm(\pm X; \beta^\pm, \lambda) - w_0(\lambda)|
-\end{align*}
-
-and
-
-\begin{equation}\label{p3}
-p_3(X; \lambda) = |v_0(\lambda) - v_0(0)| 
-\end{equation}
-
-Since $v_\pm(\pm x; \beta^\pm, \lambda) \rightarrow v_0(\lambda)$ and $w_\pm(\pm x; \beta^\pm, \lambda) \rightarrow w_0(\lambda)$ as $|x| \rightarrow \infty$, $p_2(X; \lambda) \rightarrow 0$ as $|x| \rightarrow \infty$, but we do not have a rate of convergence for it, thus we do not have a bound. Fortunately, this will not matter.\\
-
-For $p_3$, we can expand $v_0(\lambda)$ in a Taylor series in $\lambda$ to get
-
-\[
-v_0(\lambda) = v_0(0) + \lambda \frac{\partial}{\partial \lambda}v_0(\lambda)\Big|_{\lambda = 0} + \mathcal{O}(\lambda^2)
-\]
-
-Since $\frac{\partial}{\partial \lambda}v_0(\lambda)\Big|_{\lambda = 0}$ is a constant, we have
-
-\[
-p_3(X; \lambda) = \mathcal{O}(\lambda) 
-\]
-
-To eliminate most of the component of $v_\pm(\pm X_i; \beta^\pm, \lambda)$ and use these bounds, we write $a_i^- - a_i^+$ as
-
-\begin{align*}
-a_i^- &- a_i^+ = -D_i d + (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i-1}^-, \lambda) - P_0^s)a_i^- \\
+a_i^- &- a_i^+ = -D_i d + (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-, \lambda) - P_0^s)a_i^- \\
 &+ v_0(0) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ 
-- v_0(0) \langle v_0(\lambda), w_-(-X_i; \beta_{i-1}^-, \lambda) \rangle c_i^- \\
-&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i-1}^-, \lambda)b_{i-1}^- \\
+- v_0(0) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
+&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda)b_{i+1}^- \\
 &+ (v_0(0) - v_+(X_i; \beta_i^+, \lambda)) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ \\
-&- (v_0(0) - v_-(-X_i; \beta_{i-1}^-, \lambda)) \langle v_0(\lambda), w_-(-X_i; \beta_{i-1}^-, \lambda) \rangle c_i^- \\
+&- (v_0(0) - v_-(-X_i; \beta_{i+1}^-, \lambda)) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i-1}^-, \lambda) [ G_{i-1}^-(y) W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy
+&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}(y) ] dy
 \end{align*}
 
 Let $P_0^\pm$ be the projection on $E^s \oplus E^u$. When we apply the projection, the $v_0(0)$ terms disappear, which leaves us with
@@ -1255,14 +1269,14 @@ Let $P_0^\pm$ be the projection on $E^s \oplus E^u$. When we apply the projectio
 \begin{align*}
 a_i^- &- a_i^+ = P_0^\pm \Big(-D_i d \\
 &+(v_+(X_i; \beta_i^+, \lambda) - v_0(0)) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ \\
-&- (v_-(-X_i; \beta_{i-1}^-,\lambda) - v_0(0)) \langle v_0(\lambda), w_-(-X_i; \beta_{i-1}^-, \lambda) \rangle c_i^- \\
-&+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i-1}^-, \lambda) - P_0^s)a_i^- \\
-&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i-1}^-, \lambda)b_{i-1}^- \\
+&- (v_-(-X_i; \beta_{i+1}^-,\lambda) - v_0(0)) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
+&+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-, \lambda) - P_0^s)a_i^- \\
+&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda)b_{i+1}^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i-1}^-, \lambda) [ G_{i-1}^-(y) W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy \Big)
+&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}(y) ] dy \Big)
 \end{align*}
 
-Then we have
+Thus we have
 
 \begin{align*}
 a_i^- - a_i^+ = -P_0^\pm D_i d + L_3(\lambda)_i(a, b, c, d)
@@ -1273,14 +1287,14 @@ Where $L_3(\lambda)(a, b, c, d)_i$ is the rest of the terms on the RHS.
 \begin{align*}
 L_3(\lambda)&(a, b, c, d)_i = P_0^\pm \Big( \\
 &(v_+(X_i; \beta_i^+, \lambda) - v_0(0)) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ \\
-&- (v_-(-X_i; \beta_{i-1}^-, \lambda) - v_0(0)) \langle v_0(\lambda), w_-(-X_i; \beta_{i-1}^-, \lambda) \rangle c_i^- \\
-&+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i-1}^-, \lambda) - P_0^s)a_i^- \\
-&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i-1}^-, \lambda)b_{i-1}^- \\
+&- (v_-(-X_i; \beta_{i+1}^-, \lambda) - v_0(0)) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
+&+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-, \lambda) - P_0^s)a_i^- \\
+&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda)b_{i+1}^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i-1}^-, \lambda) [ G_{i-1}^-(y) W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy \Big)
+&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}(y) ] dy \Big)
 \end{align*}
 
-For the bound on $L_3$, we have seen most of the terms before. For the bound on the integral term involving $\tilde{H}$, we use the $\tilde{\alpha}$ trick to get a better bound. For the ``positive'' piece, this bound is
+For a bound on $L_3$, we have seen most of the terms before. For the bound on the integral term involving $\tilde{H}$, we use the $\tilde{\alpha}$ trick to get a better bound. For the ``positive'' piece, this bound is
 
 \begin{align*}
 \left| \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) \tilde{H}(y) dy \right| 
@@ -1292,50 +1306,46 @@ For the bound on $L_3$, we have seen most of the terms before. For the bound on 
 
 where we again used the fact that $|e^{\tilde{\alpha}y} \tilde{H}(y)|$ is bounded, since $\tilde{\alpha} < \alpha$ and $\tilde{H}(y)$ decays with rate $\alpha$. The ``negative'' piece is similar.\\
 
-For the integral term involving $W$, we use the piecewise bound on $W$ from Lemma \ref{W1bound}. For the ``positive'' piece, we have
+For the integral term involving $W$, we use the piecewise bound on $W_i^+$ from Lemma \ref{W1bound}. For the ``positive'' piece, we have
 
 \begin{align*}
 &\left| \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) G_i^+(y) W_i^+(y) \right| \\
-&\leq C \int_0^{X_i} e^{-\alpha(X_i - y)}|G_i^+(y)|(|a| + |b| + e^{\nu(\lambda)X_i}|c_i^+| + |\lambda|^2 |d| ) dy \\
-&\leq C \left( ||G||(|a| + |b| + |\lambda|^2 |d|) + \int_0^{X_i} e^{-\alpha(X_i - y)}|G_i^+(y)|e^{\nu(\lambda)X_i}|c_i^+| dy \right) \\
-&\leq C \left( ||G||(|a| + |b| + |\lambda|^2 |d|) + \int_0^{X_i} e^{-\alpha(X_i - y)}e^{-\alpha X_i} e^{-\alpha(X_i - y)} e^{\nu(\lambda)X_i}|c_i^+| dy \right)\\
+&\leq C \int_0^{X_i} e^{-\alpha(X_i - y)}|G_i^+(y)|(|a_i^+| + |b_i^+| + e^{|\nu(\lambda)|X_i}|c_i^+| + |\lambda|^2 |d| ) dy \\
+&\leq C \left( ||G||(|a| + |b| + |\lambda|^2 |d|) + \int_0^{X_i} e^{-\alpha(X_i - y)}|G_i^+(y)|e^{|\nu(\lambda)|X_i}|c_i^+| dy \right) \\
+&\leq C \left( ||G||(|a| + |b| + |\lambda|^2 |d|) + \int_0^{X_i} e^{-\alpha(X_i - y)}e^{-\alpha X_i} e^{-\alpha(X_i - y)} e^{|\nu(\lambda)|X_i}|c_i^+| dy \right)\\
 &\leq C \left( ||G||(|a| + |b| + |\lambda|^2 |d|) + e^{-(\alpha - |\nu(\lambda)|)X_i} |c_i^+| \int_0^{X_i} e^{-2\alpha(X_i - y)} dy \right) \\
 &\leq C \left( ||G||(|a| + |b| + |\lambda|^2 |d|) + e^{-(\alpha - |\nu(\lambda)|)X_i} |c_i^+| \right)
 \end{align*}
 
 where we used the fact that $|\nu(\lambda)| \leq \alpha$.  
 
-The ``negative'' piece is similar. This works out the way we want, since the ``negative'' piece involves $W_{i-1}$, but the bound for $W_{i-1}$ involves $c_i^-$.\\
+The ``negative'' piece is similar. This works out the way we want, since the ``negative'' piece involves $W_{i+1}$, but the piecewise bound for $W_{i+1}$ involves $c_i^-$.\\
 
 Thus we have the following bound for $L_3$.
 
 \begin{align*}
 L_3(\lambda)&(a, b, c, d)_i \leq C ( p_1(X_i; \lambda)|a_i|
-+ e^{-\alpha X_i}|b| + p_4(X_i; \lambda)|c_i| \\
-&+ ||G||(|a| + |b| + |\lambda|^2 |d|) + e^{-(\alpha - |\nu(\lambda)|)X_i} |c_i^+| + e^{-\tilde{\alpha} X_i} |\lambda^2| |d| )
++ e^{-\alpha X_i}|b| + (p_2(X_i; \lambda) + p_3(\lambda))|c_i| \\
+&+ ||G||(|a| + |b| + |\lambda|^2 |d|) + e^{-(\alpha - |\nu(\lambda)|)X_i} |c_i| + e^{-\tilde{\alpha} X_i} |\lambda^2| |d| )
 \end{align*}
 
-where
-
-\[
-p_4(X_i; \lambda) = p_2(X_i; \lambda) + p_3(X_i; \lambda)
-\]
+where $p_1(\lambda)$ is defined in Lemma \ref{projbounds}, and $p_2(X_i; \lambda)$ and $p_3(\lambda)$ are defined in Lemma \ref{centerbounds}.\\
 
 Combining terms and simplifying, the final bound for $L_3$ is
 
 \begin{align*}
 L_3(\lambda)&(a, b, c, d)_i \leq C \Big( (p_1(X_i; \lambda) + ||G|| )|a_i|
-+ (e^{-\alpha X_i} + ||G||)|b| + ( p_4(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i| \\
++ (e^{-\alpha X_i} + ||G||)|b| + ( p_2(X_i; \lambda) + p_3(\lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i| \\
 &+ (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| \Big)
 \end{align*}
 
-We use Hypothesis \ref{p1bound} for a bound on $p_1(X_i; \lambda)$. For $p_2(X_i; \lambda)$, we take $X_1$ sufficiently large so that $p_2(X_1; \lambda) < \delta$. $p_3(X_i; \lambda)$ is order $|\lambda|$. Thus we have
+We use Lemma \ref{p1bound} for a bound on $p_1(X_i; \lambda)$. Using Lemma \ref{centerbounds}, we take $X_m = \min_i X_i$ sufficiently large so that $p_2(X_i; \lambda) < \delta$ for all $i$. Using Lemma \ref{centerbounds} again, $p_3(\lambda)$ is order $|\lambda|$. Thus we have
 
 \begin{align*}
 L_3(\lambda)&(a, b, c, d)_i \leq C \delta (|a_i| + |b| + |c_i| + |d|)
 \end{align*}
 
-Let $J_1: V_a \rightarrow \C^4$ be defined by $J_i(a_i) = (a_i^+ - a_i^-)$. The map $J_i$ is a linear isomorphism since $E^s \oplus E^u = \C^4$. Now consider the map
+Let $J_1: V_a \rightarrow \C^{2n}$ be defined by $J_i(a_i) = (a_i^+ - a_i^-)$. The map $J_i$ is a linear isomorphism since $E^s \oplus E^u = \C^{m-1}$. Now consider the map
 
 \[
 S_i(a_i) = J_i (a_i) + L_3(\lambda)_i(a_i, 0, 0, 0) = J_i( I + J_i^{-1} L_3(\lambda)_i(a_i, 0, 0, 0))
@@ -1347,19 +1357,19 @@ For sufficiently small $\delta$ we can get the operator norm
 ||J_i^{-1} L_3(\lambda)_i(\cdot, 0, 0, 0)|| < 1
 \]
 
-thus the map $a_i \rightarrow I + J_1^{-1} L_3(\lambda)_i(a_i, 0, 0, 0)$ is invertible and so the operator $S_i$ is invertible.\\
+thus the map $a_i \rightarrow I + J_1^{-1} L_3(\lambda)_i(a_i, 0, 0, 0)$ is invertible, and so the operator $S_i$ is invertible.\\
 
-We can solve for $a$ to get
+We can thus solve for $a_i$ to get
 
 \[
 a_i = A_1(\lambda)_i(b, c, d) = S_i^{-1}(-D_i d - L_3(\lambda)_i(0, b, c, d))
 \]
 
-Using the bound on $L_3$ together with $|D_i|$, $A_1$ will have bound
+Using the bound on $L_3$, $A_1$ will have the bound
 
 \begin{align*}
 |A_1&(\lambda)_i(b, c, d)| \\
-&\leq C \Big( (e^{-\alpha X_i} + ||G||) |b| + ( p_4(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i|
+&\leq C \Big( (e^{-\alpha X_i} + ||G||) |b| + ( p_2(X_i; \lambda) + p_3(\lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i|
 + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + |D_i||d| \Big)
 \end{align*} 
 
@@ -1367,29 +1377,28 @@ We can plug this into our expression for $W_1$ to get $W_2(\lambda)$, which has 
 
 \begin{align*}
 |W_2&(\lambda)(b,c,d)|| 
-\leq C \Big( |b| + e^{|\nu(\lambda)|X_i}|c_i| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D|)|d| \Big)
+\leq C \Big( |b| + \sum_i e^{|\nu(\lambda)|X_i}|c_i| + (|\lambda|^2 + |D|)|d| \Big)
 \end{align*}
 
 The piecewise bounds are
 
 \begin{align*}
 |W_2(\lambda)(b,c,d)_i^-|| 
-&\leq C \Big( |b| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| \Big) \\
 |W_2(\lambda)(b,c,d)_i^+|| 
 &\leq C \Big( |b| + e^{|\nu(\lambda)|X_i}|c_i| + (|\lambda|^2 + |D_i|)|d| \Big)
 \end{align*}
 
-With a multipulse, we will need an analogue of (3.25) in San98. The idea here is that we hit our expression for $D_i d$ with projections to kill some of the terms. We start with
+With a multipulse, we will need an analogue of (3.25) in San98. The idea here is that we hit our expression for $D_i d$ with projections $P^s_0$ and $P^u_0$ to eliminate some of the terms. We start with
 
 \begin{align*}
-a_i^- &- a_i^+ = -D_i d + (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i-1}^-, \lambda) - P_0^s)a_i^- \\
+a_i^- &- a_i^+ = -D_i d + (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-, \lambda) - P_0^s)a_i^- \\
 &+ v_0(0) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ 
-- v_0(0) \langle v_0(\lambda), w_-(-X_i; \beta_{i-1}^-, \lambda) \rangle c_i^- \\
-&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i-1}^-, \lambda)b_{i-1}^- \\
+- v_0(0) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
+&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda)b_{i+1}^- \\
 &+ (v_0(0) - v_+(X_i; \beta_i^+, \lambda)) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ \\
-&- (v_0(0) - v_-(-X_i; \beta_{i-1}^-, \lambda)) \langle v_0(\lambda), w_-(-X_i; \beta_{i-1}^-, \lambda) \rangle c_i^- \\
+&- (v_0(0) - v_-(-X_i; \beta_{i+1}^-, \lambda)) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}(y) ] dy \\
-&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i-1}^-, \lambda) [ G_{i-1}^-(y) W_{i-1}^-(y) + d_{i-1} \lambda^2 \tilde{H}(y) ] dy 
+&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}(y) ] dy 
 \end{align*}
 
 This time, we take projections $P^s_0$ and $P^u_0$ individually. Recalling where the $a_i^\pm$ and $v_0(0)$ live and that $v_0(0)$ is wiped out by both projections, this becomes 
@@ -1412,7 +1421,7 @@ We then can come up with a bound for $A_2$ using the bound for $L_3$ and the bou
 |A_2&(\lambda)_i(b, c, d)| \\
 &\leq C |L_3(\lambda)_i(a, b, c, d)| \\
 &\leq C \Big( (p_1(X_i; \lambda) + ||G|| )|A_1(\lambda)_i(b, c, d)| \\
-&+ (e^{-\alpha X_i} + ||G||)|b| + ( p_4(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i| + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| \Big) \\
+&+ (e^{-\alpha X_i} + ||G||)|b| + ( p_2(X_i; \lambda) + p_3(\lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i| + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| \Big) \\
 &\leq C \Big( (p_1(X_i; \lambda) + ||G|| )( (e^{-\alpha X_i} + ||G||)|b| + ( p_4(X_i; \lambda) + ||G|| )|c_i| + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + |D_i||d|)  \\
 &+ (e^{-\alpha X_i} + ||G||)|b| + ( p_4(X_i; \lambda) + ||G|| )|c_i| + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| \Big) \\
 &\leq C \Big( (p_1(X_i; \lambda) + ||G|| + 1)((e^{-\alpha X_i} + ||G||)|b| 
@@ -1424,7 +1433,7 @@ Simplifying this expression and eliminating higher order terms, we attain our bo
 
 \begin{align*}
 |A_2&(\lambda)_i(b, c, d)| \\
-&\leq C \Big( (e^{-\alpha X_i} + ||G||)|b| + ( p_4(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i| + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| +(p_1(X_i; \lambda) + ||G|| )|D_i||d|) \Big)
+&\leq C \Big( (e^{-\alpha X_i} + ||G||)|b| + ( p_2(X_i; \lambda) + p_3(\lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i| + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| +(p_1(X_i; \lambda) + ||G|| )|D_i||d|) \Big)
 \end{align*}
 
 \end{proof}
