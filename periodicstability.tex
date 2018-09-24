@@ -974,44 +974,6 @@ e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y
 
 Then $L_1(\lambda): V_W \rightarrow V_W$ is a bounded linear operator with uniform bound
 
-\begin{equation}\label{L1bound}
-||L_1(\lambda)W|| \leq C e^{|\nu(\lambda)|X_M} ||G|| \: ||W||
-\end{equation}
-
-\begin{proof}
-The first two integrals on the RHS of $L_1$ have the same bound as in San98. For the third integral, the negative piece has bound
-
-\begin{align*}
-\Big| \int_{-X_{i-1}}^x &e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \Big| \\
-&\leq \int_{-X_{i-1}}^x e^{\nu(\lambda)(x-y)} |v_-(x; \beta_i^-, \lambda)| |G_i^-(y)|||W|||w_-(y; \beta_i^-, \lambda)|dy \\
-&\leq C ||G||||W|| \int_{-X_{i-1}}^x e^{\nu(\lambda)(x-y)} dy \\
-&= C ||G||||W|| \frac{e^{\nu(\lambda)x} - 1}{\nu(\lambda)} \\
-&\leq C e^{\nu(\lambda)X_{i-1}} ||G|| \: ||W||
-\end{align*}
-
-where we used the fact that $x \leq 0$ on the negative piece. Since $v_-(x; \beta_i^-, \lambda)$ and $w_-(x; \beta_i^-, \lambda)$ are bounded and only depend on $\lambda$ (recall that we pulled out any exponential growth/decay in our expressions for $\tilde{v}$ and $\tilde{w}$), we incorporate those bounds into the constant $C$. The constant $C$ will depend on $\lambda$, but we suppress this dependence in the notation for simplicity. The positive piece has a similar bound with $X_{i-1}$ replaced with $X_i$. Since all the $X_i$ will be used, the uniform bound depends on $X_M$, the largest of the $X_i$.
-
-\end{proof}
-\end{lemma}
-
-This bound, however, involves a term which grows exponentially, thus we would like a better bound. Fortunately, the piecewise bound on $|G_i^\pm(x)|$ (which ultimately comes from the existence problem) is sufficient.
-
-% inversion lemma 1a - improved bound on L1
-
-\begin{lemma}\label{L1better}
-
-Let $L_1(\lambda): V_W \rightarrow V_W$ be the linear operator defined piecewise by
-
-\begin{align*}
-(L_1(\lambda)W)_i^-(x) &= \int_0^x \Phi^u_-(x, y; \beta_i^-, \lambda) G_i^-(y)W_i^-(y) dy + \int_{-X_{i-1}}^x \Phi^s_-(x, y; \beta_i^-, \lambda) G_i^-(y)W_i^-(y) dy \\
-&+ \int_{-X_{i-1}}^x 
-e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \\
-(L_1(\lambda)W)_i^+(x) &= \int_0^x \Phi^s_+(x, y; \beta_i^+, \lambda) G_i^+(y) W_i^+(y) dy + \int_{X_i}^x \Phi^u_+(x, y; \beta_i^+, \lambda) G_i^+(y) W_i^+(y) dy \\
-&+ \int_{X_i}^x e^{\nu(\lambda)(x-y)} v_+(x; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy
-\end{align*}
-
-Then $L_1(\lambda): V_W \rightarrow V_W$ is a bounded linear operator with uniform bound
-
 \begin{equation}\label{L1bound2}
 ||L_1(\lambda)W|| \leq C e^{-(\alpha -|\nu(\lambda)|)X_m} ||W||
 \end{equation}
@@ -1024,7 +986,7 @@ Piecewise bounds are
 \end{align*}
 
 \begin{proof}
-The first two integrals on the RHS of $L_1$ have the same bound as in San98. For the third integral, we will use the piecewise bound for $G$. For $x \leq 0$, we have
+The first two integrals on the RHS of $L_1$ have the same bound as in San98. For the third integral, we will use the piecewise bound for $G_i^\pm(x)$. For $x \leq 0$, we have
 
 \begin{align*}
 \Big| \int_{-X_{i-1}}^x &e^{\nu(\lambda)(x-y)} v_-(x; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \Big| \\
@@ -1048,8 +1010,7 @@ This can be made arbitrarily small for sufficiently large $X_{i-1}$. The $x \geq
 For a uniform bound, since $\alpha -|\nu(\lambda)| > 0$, the bound depends on the smallest of the $X_i$, thus we have
 
 \[
-||L_1(\lambda)W|| \leq 
-C e^{-(\alpha -|\nu(\lambda)|)X_m}||W||
+||L_1(\lambda)W|| \leq C e^{-(\alpha -|\nu(\lambda)|)X_m}||W||
 \]
 
 \end{proof}
@@ -1158,7 +1119,7 @@ Let the linear operators $L_1$ and $L_2$ be defined as in the previous two lemma
 (I - L_1(\lambda))W = L_2(\lambda)(a,b,c,d)
 \]
 
-For $L_1$ we have the estimate from Lemma \ref{L1better}
+For $L_1$ we have the estimate from Lemma \ref{L1}
 
 \begin{align*}
 ||L_1(\lambda)W|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_1}||W|| \\
@@ -1220,7 +1181,7 @@ A_1: V_\lambda \times V_b \times V_c \times V_d \rightarrow V_a \\
 W_2: V_\lambda \times V_b \times V_c \times V_d \rightarrow V_W \\
 \end{align*}
 
-such that $(a,W) = ( A_1(\lambda)(b,c,d), W_2(\lambda)(b,c,d) )$ solves our system. These operators are analytic in $\lambda$, linear in $(b,c,d)$, and bounds for them are given by
+such that $(a,W) = ( A_1(\lambda)(b,c,d), W_2(\lambda)(b,c,d) )$ solves our system. These operators are analytic in $\lambda$ and linear in $(b,c,d)$. Piecewise bounds for them are given by
 
 \begin{equation}
 |A_1(\lambda)_i(b, c, d)| \leq C \Big( (e^{-\alpha X_i} + ||G||) |b| + ( p_2(X_i; \lambda) + p_3(\lambda)  + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i|
@@ -1229,10 +1190,11 @@ such that $(a,W) = ( A_1(\lambda)(b,c,d), W_2(\lambda)(b,c,d) )$ solves our syst
 
 and
 
-\begin{equation}
-|W_2(\lambda)(b,c,d)|| 
-\leq C \Big( |b| + \sum_i e^{|\nu(\lambda)|X_i}|c_i| + (|\lambda|^2 + |D|)|d| \Big)
-\end{equation} 
+\begin{align}
+|W_2(\lambda)(b,c,d)_i^-|| &\leq C \Big( |b| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| \Big) \\
+|W_2(\lambda)(b,c,d)_i^+|| 
+&\leq C \Big( |b| + e^{|\nu(\lambda)|X_i}|c_i| + (|\lambda|^2 + |D_i|)|d| \Big)
+\end{align} 
 
 Furthermore, we have
 
@@ -1372,7 +1334,7 @@ L_3(\lambda)&(a, b, c, d)_i \leq C \Big( (p_1(X_i; \lambda) + ||G|| )|a_i|
 &+ (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| \Big)
 \end{align*}
 
-We use Lemma \ref{p1bound} for a bound on $p_1(X_i; \lambda)$. Using Lemma \ref{centerbounds}, we take $X_m = \min_i X_i$ sufficiently large so that $p_2(X_i; \lambda) < \delta$ for all $i$. Using Lemma \ref{centerbounds} again, $p_3(\lambda)$ is order $|\lambda|$. Thus we have
+We use Lemma \ref{projbounds} for a bound on $p_1(X_i; \lambda)$. Using Lemma \ref{centerbounds}, we take $X_m = \min_i X_i$ sufficiently large so that $p_2(X_i; \lambda) < \delta$ for all $i$. Using Lemma \ref{centerbounds} again, $p_3(\lambda)$ is order $|\lambda|$. Thus we have
 
 \begin{align*}
 L_3(\lambda)&(a, b, c, d)_i \leq C \delta (|a_i| + |b| + |c_i| + |d|)
@@ -1406,17 +1368,10 @@ Using the bound on $L_3$, $A_1$ will have the bound
 + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + |D_i||d| \Big)
 \end{align*} 
 
-We can plug this into our expression for $W_1$ to get $W_2(\lambda)$, which has uniform bound
+We can plug this into our expression for $W_1$ to get $W_2(\lambda)$, which has piecewise bounds
 
 \begin{align*}
-|W_2&(\lambda)(b,c,d)|| 
-\leq C \Big( |b| + \sum_i e^{|\nu(\lambda)|X_i}|c_i| + (|\lambda|^2 + |D|)|d| \Big)
-\end{align*}
-
-The piecewise bounds are
-
-\begin{align*}
-|W_2(\lambda)(b,c,d)_i^-|| 
+|W_2(\lambda)(b,c,d)_i^-|| &\leq C \Big( |b| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| \Big) \\
 |W_2(\lambda)(b,c,d)_i^+|| 
 &\leq C \Big( |b| + e^{|\nu(\lambda)|X_i}|c_i| + (|\lambda|^2 + |D_i|)|d| \Big)
 \end{align*}
@@ -2081,88 +2036,98 @@ The ``minus'' piece similar.\\
 \end{proof} 
 \end{lemma}
 
-Next, we look at the integral terms in the jump $\xi_i$. First, we look at the ``noncenter'' integral terms. We split these into ones involving $W$ and ones not involving $W$. Before we can do that, we will need an improved estimate for $|W|$.
+Next, we look at the integral terms in the jump $\xi_i$. First, we look at the ``noncenter'' integral terms. We divide these into ones involving $W$ and ones not involving $W$. Before we can do that, we will need an improved estimate for $|W_i^\pm|$.
 
-\begin{lemma}
+\begin{lemma}\label{Wboundimproved}
 We have the following improved, piecewise, $x$-dependent estimate for $|W_i^\pm(x)$
 
 \begin{align*}
-| W_i^-(x)| &\leq C \Big(e^{-\alpha(X_{i-1} + x)}( e^{|\nu(\lambda)| X_{i-1}} |\lambda|^2 + |D|) + e^{\nu(\lambda)x} |\lambda|^2 
-+ |\lambda|^2 + (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| \Big) |d| \\
-| W_i^+(x)| &\leq C \Big(e^{-\alpha(X_i - x)}( e^{|\nu(\lambda)| X_i} |\lambda|^2 + |D|) + e^{\nu(\lambda)x} |\lambda|^2 
-+ |\lambda|^2 + (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| \Big) |d| \\
+| W_i^-(x)| &\leq C \Big(e^{-\alpha(X_{i-1} + x)}( |\lambda|^2 + |D|)
++ e^{-2|\nu(\lambda)|x}( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|) \Big)|d| && x \leq 0 \\
+| W_i^+(x)| &\leq C \Big(e^{-\alpha(X_{i-1} + x)}( |\lambda|^2 + |D|)
++ e^{2|\nu(\lambda)|x}( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|) \Big)|d| && x \geq 0
 \end{align*}
 
 \begin{proof}
 
-Since we have 
+From Lemma \ref{L1} and Lemma \ref{L2} we have
 \[
 W_i^\pm = L_1(\lambda)W_i^\pm + L_2(\lambda)W_i^\pm 
 \]
 
-we can use the estimate for $L_1(\lambda)$ together with an improved estimate for $L_2(\lambda)$. We use the same estimate for $L_1(\lambda)$ as we have above. We will do the negative piece here. The positive piece is similar.
+We will do the ''negative'' piece here. The ''positive'' piece is similar. From Lemma \ref{L1}, we have the piecewise bound
 
 \[
-||L_1(\lambda)_i^- W|| \leq C e^{-(\alpha -|\nu(\lambda)|)X_{i-1}} ||W||
+||L_1(\lambda)_i^- W|| \leq C e^{-(\alpha -|\nu(\lambda)|)X_{i-1}} ||W_i^-||
 \]
 
-Plugging in the piecewise bound for $W_2$ for $W$, we have
+Plugging in the piecewise bound for $W_2$ from Lemma \ref{inv2} for $W_i^-$, we have
 
 \begin{align*}
-||L_1(\lambda)_i^- W|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_{i-1}} ( |b| + e^{\nu(\lambda)X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) \\
+||L_1(\lambda)_i^- W|| &\leq C e^{-(\alpha -|\nu(\lambda)|)X_{i-1}} ( |b| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) \\
 &\leq C e^{-(\alpha - 3|\nu(\lambda)|)X_{i-1}} ( |b| + |\tilde{c}_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) 
 \end{align*}
 
-For $L_2(\lambda)$ we will use the estimate for the negative piece from Lemma \ref{L2}.
+We can get an improved bound for $L_2(\lambda)$ in the following way. For the $c_{i-1}^-$ term from $L_2(\lambda)$, we can get the $x-$dependent estimate
 
 \begin{align*}
-|L_2(\lambda)(a,b,c,d)_i^-(x)| &\leq C (e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| )
+|e^{\nu(\lambda)(x+X_{i-1})} v_-(x; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) \rangle c_{i-1}^-| &\leq C e^{-|\nu(\lambda)| x }| e^{\nu(\lambda)X_{i-1}} c_{i-1}^-| \\
+&= C e^{-|\nu(\lambda)| x }| \tilde{c}_{i-1}^-|
+\end{align*}
+
+where $x \leq 0$. Thus, using Lemma \ref{L2} for the remaining terms, we have the following estimate for $L_2(\lambda)_i^-$.
+
+\begin{align*}
+|L_2(\lambda)(a,b,c,d)_i^-(x)| &\leq C (e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b| + e^{-|\nu(\lambda)|x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| )
 \end{align*}
 
 Combining these, we have
 
 \begin{align*}
-| &W_i^-(x)| \leq C \Big(e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| \\
+| &W_i^-(x)| \leq C \Big(e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b| + e^{-|\nu(\lambda)|x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| \\
 &+ e^{-(\alpha - 3|\nu(\lambda)|)X_{i-1}} ( |b| + |\tilde{c}_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) \Big) \\
-&\leq C \Big(e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| \\
+&\leq C \Big(e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b| + e^{-|\nu(\lambda)|x} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| \\
 &+ e^{-\tilde{\alpha} X_{i-1}} ( |b| + |\tilde{c}_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| ) \Big) \\
-&\leq C \Big(e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
+&\leq C \Big(e^{-\alpha(X_{i-1} + x)}|a_{i-1}^-| + |b| + e^{-|\nu(\lambda)|x} |\tilde{c}_{i-1}^-| + e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
 \end{align*}
 
-where we have chosen stuff so that $3|\nu(\lambda)| \leq \alpha - \tilde{\alpha}$.\\
+where we recall that $3|\nu(\lambda)| \leq \alpha - \tilde{\alpha}$.\\
 
-At this point, we substitute in $A_3(\lambda)$ and $B_1(\lambda)$. First, we substitute $A_3(\lambda)$.
+At this point, we substitute in $A_1(\lambda)$ from Lemma \ref{inv2} and $B_1(\lambda)$ from Lemma \ref{inv3}. First, we substitute $A_1(\lambda)$.
 
 \begin{align*}
-| &W_i^-(x)| \leq C \Big(e^{-\alpha(X_{i-1} + x)}|A_1(\lambda)_{i-1}(b, c, d)|| \\
-&+ |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
-&\leq C \Big(e^{-\alpha(X_{i-1} + x)}( (e^{-\alpha X_{i-1}} + ||G||) |b| + ( p_4(X_{i-1}; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_{i-1}} )|c_{i-1}| \\
+| &W_i^-(x)| \leq C \Big(e^{-\alpha(X_{i-1} + x)}|A_1(\lambda)_{i-1}(b, c, d)| \\
+&+ |b| + e^{-|\nu(\lambda)|x} |\tilde{c}_{i-1}^-| + e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
+&\leq C \Big(e^{-\alpha(X_{i-1} + x)}( (e^{-\alpha X_{i-1}} + ||G||) |b| + ( p_2(X_{i-1}; \lambda) + p_3(\lambda) + e^{-(\alpha - |\nu(\lambda)|)X_{i-1}} )|c_{i-1}| \\
 &+ (e^{-\tilde{\alpha} X_{i-1}} + ||G||) |\lambda^2| |d| + |D_{i-1}||d| ) \\
-&+ |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
-&\leq C \Big(e^{-\alpha(X_{i-1} + x)}( e^{|\nu(\lambda)| X_{i-1}} |\tilde{c}_{i-1}| + |D_{i-1}||d| ) \\
-&+ |b| + e^{\nu(\lambda)x} |\tilde{c}_{i-1}^-| + e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
+&+ |b| + e^{-|\nu(\lambda)|x} |\tilde{c}_{i-1}^-| + e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
+&\leq C \Big(e^{-\alpha(X_{i-1} + x)}( e^{|\nu(\lambda)|X_{i-1}} |\tilde{c}_{i-1}| + |D_{i-1}||d| ) \\
+&+ |b| + e^{-|\nu(\lambda)|x} |\tilde{c}_{i-1}^-| + e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
+&\leq C \Big(e^{-(\alpha - |\nu(\lambda)|)(X_{i-1} + x)}( |\tilde{c}_{i-1}| + |D_{i-1}||d| ) \\
+&+ |b| + e^{-2 |\nu(\lambda)|x} |\tilde{c}_{i-1}^-| + e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
+&\leq C \Big(e^{-\tilde{\alpha}(X_{i-1} + x)}( |\tilde{c}_{i-1}| + |D_{i-1}||d| ) \\
+&+ |b| + e^{-2 |\nu(\lambda)|x} |\tilde{c}_{i-1}^-| + e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^-| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
 \end{align*}
 
 Finally, we substitute $|B_1(\lambda)(d)$ for $|b|$ and $\tilde{c}$.
 
 \begin{align*}
-| &W_i^-(x)| \leq C \Big(e^{-\alpha(X_{i-1} + x)}( e^{|\nu(\lambda)| X_{i-1}} ( e^{-(\alpha - |\nu(\lambda)|) X_1} |D| + |\lambda|^2 )|d| + |D_{i-1}||d| ) \\
-&+ e^{\nu(\lambda)x} ( (e^{-(\alpha - |\nu(\lambda)|) X_1} + e^{-(\alpha - |\nu(\lambda)|) X_2})|D| + |\lambda|^2 )|d| \\ &+ ( (e^{-(\alpha - |\nu(\lambda)|) X_1} + e^{-(\alpha - |\nu(\lambda)|) X_2}) |D| + |\lambda|^2 )|d| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
-&\leq C \Big(e^{-\alpha(X_{i-1} + x)}( e^{|\nu(\lambda)| X_{i-1}} |\lambda|^2 + |D|)
-+ (e^{-(\alpha - 2 |\nu(\lambda)|) X_1} +e^{-(\alpha - 2 |\nu(\lambda)|) X_2})|D| 
-+ e^{\nu(\lambda)x} |\lambda|^2 \\ 
-&+ (e^{-(\alpha - |\nu(\lambda)|) X_1} + e^{-(\alpha - |\nu(\lambda)|) X_2} )|D| 
-+ |\lambda|^2 + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}| \Big) |d| \\
-&\leq C \Big(e^{-\alpha(X_{i-1} + x)}( e^{|\nu(\lambda)| X_{i-1}} |\lambda|^2 + |D|) + e^{\nu(\lambda)x} |\lambda|^2 
-+ |\lambda|^2 + (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| \Big) |d| \\
+| &W_i^-(x)| \leq C \Big(e^{-\tilde{\alpha}(X_{i-1} + x)}(( e^{-(\alpha - |\nu(\lambda)|) X_m} |D| + |\lambda|^2 )|d| + |D_{i-1}||d| ) \\
+&+ e^{-2|\nu(\lambda)|x} ( e^{-(\alpha - |\nu(\lambda)|) X_m}|D| + |\lambda|^2 )|d| \\ 
+&+ ( e^{-(\alpha - |\nu(\lambda)|) X_m} |D| + |\lambda|^2 )|d| + |\lambda|^2 |d| + e^{-\tilde{\alpha} X_{i-1}} |D_{i-1}||d| \Big) \\
+&\leq C \Big(e^{-\alpha(X_{i-1} + x)}( |\lambda|^2 + |D|)
++ e^{-2|\nu(\lambda)|x} ( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|) + (|\lambda|^2 + e^{-\tilde{\alpha} X_m} |D| ) \Big)|d| \\
+&= C \Big(e^{-\alpha(X_{i-1} + x)}( |\lambda|^2 + |D|)
++ (1 + e^{-2|\nu(\lambda)|x} )( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|) \Big)|d| \\
+&\leq C \Big(e^{-\alpha(X_{i-1} + x)}( |\lambda|^2 + |D|)
++ e^{-2|\nu(\lambda)|x}( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|) \Big)|d| \\
 \end{align*}
 
-Similarly
+Similarly, for $x \geq 0$,
 
 \begin{align*}
-| &W_i^+(x)| \leq C \Big(e^{-\alpha(X_i - x)}( e^{|\nu(\lambda)| X_i} |\lambda|^2 + |D|) + e^{\nu(\lambda)x} |\lambda|^2 
-+ |\lambda|^2 + (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| \Big) |d| \\
-\end{align*}
+| &W_i^+(x)| \leq C \Big(e^{-\alpha(X_{i-1} + x)}( |\lambda|^2 + |D|)
++ e^{2|\nu(\lambda)|x}( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|) \Big)|d| 
 \end{proof}
 \end{lemma}
 
