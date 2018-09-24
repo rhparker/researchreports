@@ -1987,30 +1987,31 @@ For the terms involving $b$ in the jump $\xi_i$, we have
 
 \begin{align*}
 \langle \Psi(0), (P^s_+(0; \beta_i^+, \lambda) - P^s_-(0; 0, 0))b_i^+ \rangle
-&\leq C p_5(\beta_i^+, \beta_i^-, \lambda) \Big( (e^{-\tilde{\alpha} X_1}+e^{-\tilde{\alpha} X_2})|D| + |\lambda|^2 \Big)|d|\\
+&\leq C p_5(\beta_i^+, \beta_i^-, \lambda) \Big( e^{-\tilde{\alpha} X_m} |D| \\
 \langle \Psi(0), (P^u_-(0; \beta_i^-, \lambda) - P^u_-(0; 0, 0))b_i^- \rangle
-&\leq C p_5(\beta_i^+, \beta_i^-, \lambda)\Big( (e^{-\tilde{\alpha} X_1}+e^{-\tilde{\alpha} X_2})|D| + |\lambda|^2 \Big)|d|
+&\leq C p_5(\beta_i^+, \beta_i^-, \lambda) \Big( e^{-\tilde{\alpha} X_m} |D| 
 \end{align*}
 
-where $p_5(\beta_i^+, \beta_i^-, \lambda)$ is defined above.
+where $p_5(\beta_i^+, \beta_i^-, \lambda)$ is defined in Lemma \ref{projbounds}.
 
 \begin{proof}
 
-Using the bound for $B_1$, we have for the ``negative'' piece
+Using the bound for $B_1$ from Lemma \ref{inv3}, we have for the ``negative'' piece
 
 \begin{align*}
 |\langle \Psi(0), &(P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \rangle|
 \leq |\Psi(0)| p_5(\beta_i^+, \beta_i^-, \lambda)|b_i^-| \\
 &\leq |\Psi(0)| p_5(\beta_i^+, \beta_i^-, \lambda)|B_1(\lambda)(d)| \\
-&\leq C p_5(\beta_i^+, \beta_i^-, \lambda) \Big( (e^{-(\alpha - |\nu(\lambda)|) X_1} 
-+ e^{-(\alpha - |\nu(\lambda)|) X_2}) |D| + |\lambda|^2 \Big)|d|\\
+&\leq C p_5(\beta_i^+, \beta_i^-, \lambda) \Big( e^{-(\alpha - |\nu(\lambda)|) X_m} |D| 
++ |\lambda|^2 \Big)|d|\\
 \end{align*}
 
 Since $\alpha - |\nu(\lambda)| > \tilde{\alpha}$, this bound becomes
 
 \begin{align*}
 |\langle \Psi(0), &(P^u_-(0; \lambda) - P^u_-(0; 0))b_i^- \rangle|
-\leq C p_5(\beta_i^+, \beta_i^-, \lambda) \Big( (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| + |\lambda|^2 \Big)|d|\\
+\leq C p_5(\beta_i^+, \beta_i^-, \lambda) \Big( e^{-\tilde{\alpha} X_m} |D| 
++ |\lambda|^2 \Big)|d|\\
 \end{align*}
 
 The ``positive'' piece is similar.
@@ -2027,11 +2028,9 @@ For the terms involving $c$ in the jump $\xi_i$, we have bounds
 
 \begin{align*}
 |\langle \Psi(0), &v_+(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+,\lambda) \rangle e^{-\nu(\lambda)X_i} c_i^+ \rangle| \\
-&\leq C ( |\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} )
-( ( e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| + |\lambda|^2 )|d| \\
+&\leq C ( |\lambda| + e^{-2 \alpha X_m} )( e^{-\tilde{\alpha} X_m} |D| + |\lambda|^2 )|d|  \\
 |\langle \Psi(0), &v_-(0; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) \rangle e^{\nu(\lambda)X_{i-1}} c_{i-1}^- \rangle | \\
-&\leq C ( |\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} )
-( ( e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| + |\lambda|^2 )|d|  \\
+&\leq C ( |\lambda| + e^{-2 \alpha X_m} )( e^{-\tilde{\alpha} X_m} |D| + |\lambda|^2 )|d|  \\
 \end{align*}
 
 \begin{proof}
@@ -2041,7 +2040,7 @@ Looking at the ``plus'' term, we have
 \langle \Psi(0), v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle e^{-\nu(\lambda)X_i} c_i^+ \rangle &= \langle \Psi(0), v_+(0; \lambda) \rangle \langle v_0(\lambda), w_+(X_i; \lambda) \rangle \tilde{c}_i^+
 \end{align*}
 
-To get our bound, we will expand $v_+(0; \beta_i^+, \lambda)$ in a Taylor series about $(\beta_i^+, \lambda) = (0, 0)$. FOR NOW WE WILL ASSUME WE CAN ACTUALLY DO THIS.
+To get our bound, we will expand $v_+(0; \beta_i^+, \lambda)$ in a Taylor series about $(\beta_i^+, \lambda) = (0, 0)$.
 
 \begin{align*}
 v_+(0; &\beta_i^+, \lambda) = v_+(0; 0, 0) 
@@ -2051,31 +2050,33 @@ v_+(0; &\beta_i^+, \lambda) = v_+(0; 0, 0)
 \end{align*}
 
 When we take the inner product with $\Psi(0)$, the first term will vanish since 
-$\langle \Psi(0), v_+(0; 0, 0) \rangle = 0$. Since the two derivatives in the expression above are constants, we will have
+$\langle \Psi(0), v_+(0; 0, 0) \rangle = 0$. Since the two derivatives in the expression above are constants, we have
 
 \begin{align*}
-\langle \Psi(0), v_+(0; \lambda) \rangle &\leq C ( |\lambda| + |\beta_1^+| ) \\
-&\leq C ( |\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} )
+\langle \Psi(0), v_+(0; \lambda) \rangle &\leq C ( |\lambda| + |\beta_i^+| ) \\
+&\leq C ( |\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}} )
 \end{align*}
 
-Plugging this in, together with the bound for $B_1$ (which is a bound for $e^{-\nu(\lambda)X_i} c_i^+$), we have
+Plugging this in, together with the bound for $B_1$ (which is a bound for $\tilde{c}_i^+ = e^{-\nu(\lambda)X_i} c_i^+$), we have
 
 \begin{align*}
 |\langle \Psi(0), &v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle e^{-\nu(\lambda)X_i} c_i^+ \rangle| \\ 
-&\leq C ( |\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} ) |B_1(\lambda)(d)| \\
-&\leq C ( |\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} )
-( ( e^{-(\alpha - |\nu(\lambda)|) X_1} + e^{-(\alpha - |\nu(\lambda)|) X_2}) |D| + |\lambda|^2 )|d| \\
+&\leq C ( |\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}} ) |B_1(\lambda)(d)| \\
+&\leq C ( |\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}} )
+( e^{-(\alpha - |\nu(\lambda)|) X_m} |D| + |\lambda|^2 )|d| \\
+&\leq C ( |\lambda| + e^{-2 \alpha X_m} )
+( e^{-(\alpha - |\nu(\lambda)|) X_m} |D| + |\lambda|^2 )|d| \\
 \end{align*}
 
 Since $\alpha - |\nu(\lambda)| > \tilde{\alpha}$, this becomes 
 
 \begin{align*}
 |\langle \Psi(0), &v_+(0; \lambda) \langle v_0(\lambda), w_+(X_i; \lambda) \rangle e^{-\nu(\lambda)X_i} c_i^+ \rangle| \\
-&\leq C ( |\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2} )
-( ( e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| + |\lambda|^2 )|d| 
+&\leq C ( |\lambda| + e^{-2 \alpha X_m} )
+( e^{-\tilde{\alpha} X_m} |D| + |\lambda|^2 )|d| 
 \end{align*}
  
-The other one is similar.\\
+The ``minus'' piece similar.\\
 
 \end{proof} 
 \end{lemma}
