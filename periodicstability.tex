@@ -1822,7 +1822,7 @@ For our final step, we estimate the jumps
 \xi_i = \langle \Psi(0), W_i^+(0) - W_i^-(0) \rangle 
 \end{equation}
 
-for $i = 0, \dots, \n-1$. Recall that $\Psi(0)$ is the adjoint solution for the unperturbed problem linearized about the single pulse $q(x)$, i.e. with $\lambda = 0$ and $\beta_i^\pm = 0$. The equations for $W$ contain the evolution operator $\Phi^{(s/u)}_\pm(x, y; \beta_i^\pm, \lambda)$, for which we have $\lambda \neq 0$ and with ICs $\beta_i^\pm$.\\
+for $i = 0, \dots, n-1$. Recall that $\Psi(0)$ is the adjoint solution for the unperturbed problem linearized about the single pulse $q(x)$, i.e. with $\lambda = 0$ and $\beta_i^\pm = 0$. The equations for $W$ contain the evolution operator $\Phi^{(s/u)}_\pm(x, y; \beta_i^\pm, \lambda)$, for which we have $\lambda \neq 0$ and with ICs $\beta_i^\pm$.\\
 
 For the adjoint solution $\Psi(x)$, we have estimate 
 
@@ -1853,9 +1853,9 @@ We will evaluate (or estimate) each term in the jump equation in a series of lem
 For the terms involving $a$ in the jump $\xi_i$, we have
 
 \begin{align*}
-\langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+, \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \beta_i^-, \lambda)a_{i-1}^- \rangle \\
-&= \langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^s_0 D_{i-1} d \rangle 
-+ \mathcal{O}\Big( e^{-\alpha X_m} (|\lambda| + e^{-\tilde{\alpha} X_m} )|D| |d| \Big)
+\langle \Psi(0), &\Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \rangle \\
+&= \langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^s_0 D_{i-1} d \rangle
++ \mathcal{O}\Big(e^{-\alpha X_m} \Big( |\lambda|^2  + (e^{-\tilde{\alpha} X_m} + |\lambda|)|D| \Big)|d| \Big)
 \end{align*}
 
 \begin{proof}
@@ -1873,7 +1873,7 @@ For the ``positive'' piece $\langle \Psi(0), \Phi^u_+(0, X_i; \beta_i^+, \lambda
 \langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+, \lambda) a_i^+ \rangle = \langle \Psi(0), \Phi^u_+(0, X_i; \beta_i^+, \lambda) P^u_0 D_i d \rangle + \langle \Psi(0), \Phi^u_+(0, X_i; \beta_i^+, \lambda) A_2(\lambda)_i^+(b, c, d) \rangle \\
 \end{align*} 
 
-Note that $\Psi(0)$ is the adjoint solution unperturbed by $\lambda$ and with $\beta_i^\pm = 0$, whereas the evolution $\Phi^u_+(0, X_i; \lambda)$ is perturbed by $\lambda$ and has $\beta_i^\pm \neq 0$. To get around this, we adding and subtract $\Phi^u_+(0, X_i; 0, 0)$ to get
+Note that $\Psi(0)$ is the adjoint solution unperturbed by $\lambda$ and with $\beta_i^\pm = 0$, whereas the evolution $\Phi^u_+(0, X_i; \lambda)$ is perturbed by $\lambda$ and has $\beta_i^\pm \neq 0$. To get around this, we add and subtract $\Phi^u_+(0, X_i; 0, 0)$ to get
 
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+, \lambda) a_i^+ \rangle \\
@@ -1883,32 +1883,49 @@ Note that $\Psi(0)$ is the adjoint solution unperturbed by $\lambda$ and with $\
 + \mathcal{O}((|\lambda| + e^{-\alpha X_1} + e^{-\alpha X_2} ) e^{-\alpha X_i}|D_i||d|) + \langle \Psi(0), \Phi^u_+(0, X_i; \lambda) A_2(\lambda)_i^+(b,c,d) \rangle 
 \end{align*}
 
-Using the bound for $A_2$, the last term on the RHS has bound
+Using the bound for $p_5$ from Lemma \ref{projbounds}, we have
+
+\begin{align*}
+\langle \Psi(0), (\Phi^u_+(0, X_i; \beta_i^+, \lambda) &- \Phi^u_+(0, X_i; 0, 0)) P^u_0 D_i d \rangle = \mathcal{O}(p_5(X_i; \beta_i^+, \beta_i^-, \lambda)) \\
+&= \mathcal{O}((|\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}} ) e^{-\alpha X_i}) \\
+&= \mathcal{O}((|\lambda| + e^{-2 \alpha X_m}) e^{-\alpha X_m})
+\end{align*}
+
+Thus we have
+
+\begin{align*}
+\langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+, \lambda) a_i^+ \rangle \\
+&= \langle \Psi(X_i), P^u_0 D_i d \rangle 
++ \langle \Psi(0), \Phi^u_+(0, X_i; \lambda) A_2(\lambda)_i^+(b,c,d) \rangle 
++ \mathcal{O}((|\lambda| + e^{-2 \alpha X_m}) e^{-\alpha X_m}|D||d|)
+\end{align*}
+
+The first term on the RHS is what we want. Using the bound for $A_2$ from Lemma \ref{inv2}, the second term on the RHS has bound
 
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+, \lambda) A_2(\lambda)_i^+(b,c,d) \rangle \\
 &\leq C e^{-\alpha X_i} |A_2(\lambda)_i(b,c,d)| \\
-&\leq C e^{-\alpha X_i}  \Big( (e^{-\alpha X_i} + ||G||)|b| + ( p_4(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i| \\
+&\leq C e^{-\alpha X_i}  \Big( (e^{-\alpha X_i} + ||G||)|b| + ( p_2(X_i; \lambda) + p_3(\lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i| \\
 &+ (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| +(p_1(X_i; \lambda) + ||G|| )|D_i||d|) \Big)
 \end{align*}
 
-We want to plug in the $B_1$ bound here, but first we need to get this in terms of the $\tilde{c}$. This is not hard to do.
+We want to plug in the $B_1$ bound here, but first we need to get this in terms of the $\tilde{c}$. This is not hard to do, as we can easily absorb another $|\nu(\lambda)|$.
 
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \lambda) A_2(\lambda)_i^+(b,c,d) \rangle \\
-&\leq C e^{-\alpha X_i} ( (e^{-\alpha X_i} + ||G||)|b| + ( p_4(X_i; \lambda) + e^{-(\alpha - |2 \nu(\lambda)|)X_i} )|\tilde{c}_i| \\
+&\leq C e^{-\alpha X_i} ( (e^{-\alpha X_i} + ||G||)|b| + ( p_2(X_i; \lambda) + p_3(\lambda) + e^{-(\alpha - 2|\nu(\lambda)|)X_i} )|\tilde{c}_i| \\
 &+ (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| +(p_1(X_i; \lambda) + ||G|| )|D_i||d|))
 \end{align*}
 
-Substituting $B_1$ for $b$ and $\tilde{c}$ and using the $B_1$ bound, we have
+Substituting $B_1$ for $b$ and $\tilde{c}$ and using the uniform $B_1$ bound, we have
 
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+, \lambda) A_2(\lambda)_i^+(b,c,d) \rangle \\
 &\leq C e^{-\alpha X_i}  \Big( (e^{-\alpha X_i} + ||G||)|B_1(\lambda)(d)| \\
-&+ ( p_4(X_i; \lambda) + e^{-(\alpha - |2 \nu(\lambda)|)X_i} )|B_1(\lambda)(d)| \\
+&+ ( p_2(X_i; \lambda) + p_3(\lambda) + e^{-(\alpha - 2|\nu(\lambda)|)X_i} )|B_1(\lambda)(d)| \\
 &+ (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| +(p_1(X_i; \lambda) + ||G|| )|D_i||d|) \Big) \\
-&\leq C e^{-\alpha X_i}  \Big( (e^{-\alpha X_i} + ||G||)( e^{-(\alpha - |\nu(\lambda)|) X_1} |D| + |\lambda|^2 )|d| \\
-&+ ( p_4(X_i; \lambda) + e^{-(\alpha - |2 \nu(\lambda)|)X_i} )( e^{-(\alpha - |\nu(\lambda)|) X_1} |D| + |\lambda|^2 )|d| \\
+&\leq C e^{-\alpha X_i}  \Big( (e^{-\alpha X_i} + ||G||)( e^{-(\alpha - |\nu(\lambda)|) X_m} |D| + |\lambda|^2 )|d| \\
+&+ ( p_2(X_i; \lambda) + p_3(\lambda) + e^{-(\alpha - 2|\nu(\lambda)|)X_i} )( e^{-(\alpha - |\nu(\lambda)|) X_m} |D| + |\lambda|^2 )|d| \\
 &+ (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| +(p_1(X_i; \lambda) + ||G|| )|D_i||d|) \Big) 
 \end{align*}
 
@@ -1916,26 +1933,29 @@ Collecting like terms and dropping higher order terms, this becomes
 
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+, \lambda) A_2(\lambda)_i^+(b,c,d) \rangle \\
-&\leq C e^{-\alpha X_i} \Big( (e^{-\alpha X_i} + ||G|| + p_4(X_i; \lambda) + e^{-(\alpha - |2 \nu(\lambda)|)X_i} ) |\lambda|^2 ) \\
+&\leq C e^{-\alpha X_i} \Big( (e^{-\alpha X_i} + ||G|| + p_2(X_i; \lambda) + p_3(\lambda) + e^{-(\alpha - |2 \nu(\lambda)|)X_i} ) |\lambda|^2 ) \\
 &+ (p_1(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|) X_1} + |G|| )|D| \Big)|d| \\
 &\leq C \Big( e^{-(\alpha - \nu(\lambda)) X_i} |\lambda|^2 
 + e^{-(\alpha - \nu(\lambda)) X_i}( e^{-\alpha X_1} + ||G|| + p_1(X_i; \lambda))|D| )|d| \Big) \\
-&\leq e^{-\alpha X_i} \Big( |\lambda|^2  + (p_1(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|) X_1} + ||G|| )|D| \Big)|d| 
+&\leq e^{-\alpha X_i} \Big( |\lambda|^2  + (p_1(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|) X_m} + ||G|| )|D| \Big)|d| \\
+&\leq e^{-\alpha X_m} \Big( |\lambda|^2  + (p_1(X_m; \lambda) + e^{-(\alpha - |\nu(\lambda)|) X_m} + ||G|| )|D| \Big)|d| 
 \end{align*}
 
 Thus, we conclude
 
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+, \lambda) a_i^+ \rangle \\
-&= \langle \Psi(X_i), P^u_0 D_i d \rangle + \mathcal{O}\Big(e^{-\alpha X_i} \Big( |\lambda|^2  + p_1(X_i; \lambda) + e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}+ ||G|| + |\lambda|)|D| \Big)|d| \Big)
+&= \langle \Psi(X_i), P^u_0 D_i d \rangle + \mathcal{O}\Big(e^{-\alpha X_m} \Big( |\lambda|^2  + (p_1(X_m; \lambda) + e^{-(\alpha - |\nu(\lambda)|) X_m} + |\lambda| + e^{-2 \alpha X_m} + ||G|| )|D| \Big)|d|  \Big) \\
+&= \langle \Psi(X_i), P^u_0 D_i d \rangle + \mathcal{O}\Big(e^{-\alpha X_m} \Big( |\lambda|^2  + (p_1(X_m; \lambda) + e^{-(\alpha - |\nu(\lambda)|) X_m} + |\lambda| + ||G|| )|D| \Big)|d| \Big)
 \end{align*}
+
 
 Similarly we have
 
 \begin{align*}
 \langle \Psi(0), &\Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \rangle \\
 &= -\langle \Psi(-X_{i-1}), P^s_0 D_{i-1} d \rangle
-+ \mathcal{O}\Big(e^{-\alpha X_{i-1}} \Big( |\lambda|^2  + p_1(X_{i-1}; \lambda) + e^{-\tilde{\alpha} X_1} +e^{-\tilde{\alpha} X_2} + ||G|| + |\lambda|)|D| \Big)|d| \Big)
++ \mathcal{O}\Big(e^{-\alpha X_m} \Big( |\lambda|^2  + (p_1(X_m; \lambda) + e^{-(\alpha - |\nu(\lambda)|) X_m} + |\lambda| + ||G|| )|D| \Big)|d| \Big)
 \end{align*}
 
 Putting everything together, we have
@@ -1943,16 +1963,15 @@ Putting everything together, we have
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \rangle \\
 &= \langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^s_0 D_{i-1} d \rangle \\
-&+ \mathcal{O}\Big( (e^{-\alpha X_1} + e^{-\alpha X_2}) \Big( |\lambda|^2  + p_1(X_1; \lambda) + p_1(X_2; \lambda) \\
-&+ e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2} + ||G|| + |\lambda|)|D| \Big)|d| \Big)
+&+ \mathcal{O}\Big(e^{-\alpha X_m} \Big( |\lambda|^2  + (p_1(X_m; \lambda) + e^{-(\alpha - |\nu(\lambda)|) X_m} + |\lambda| + ||G|| )|D| \Big)|d| \Big)
 \end{align*}
 
-Recalling the bounds for $p_1$ and $||G||$, since $\tilde{\alpha} < \alpha$, this can be simplified to
+Using the estimate for $p_1$ from Lemma \ref{projbounds}, the bound for $||G||$, and the fact that $\tilde{\alpha} < \alpha - |\nu(\lambda)|$, this can be simplified to
 
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \rangle \\
 &= \langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^s_0 D_{i-1} d \rangle \\
-&+ \mathcal{O}\Big( (e^{-\alpha X_1} + e^{-\alpha X_2}) \Big( |\lambda| + e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2} )|D| \Big)|d| \Big)
+&+ \mathcal{O}\Big(e^{-\alpha X_m} \Big( |\lambda|^2  + (e^{-\tilde{\alpha} X_m} + |\lambda|)|D| \Big)|d| \Big)
 \end{align*}
 
 \end{proof}
