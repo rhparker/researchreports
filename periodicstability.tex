@@ -202,22 +202,23 @@ We have the following estimates
 \begin{align*}
 |A(u_i^-(x); \lambda)| &\leq C e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + x) } \\
 |A(u_i^+(x); \lambda)| &\leq C e^{-\alpha X_i} e^{-\alpha(X_i - x) } \\
-|\tilde{H}_i^\pm(x)| &\leq C e^{-\alpha x} \\
-|\Delta H_i| &\leq C(e^{-\alpha X_i} + e^{-\alpha X_{i-1}} ) \\
+|H(x)|, |\tilde{H}_i^\pm(x)| &\leq C e^{-\alpha |x|} \\
+|\Delta H_i^\pm| &\leq C(e^{-\alpha X_i} + e^{-\alpha X_{i-1}} ) \\
 D_i d &= ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right) \\
 \end{align*}
 
 \begin{proof}
 The first two bounds come from the bounds on the remainder term existence problem (the notation $V$ is used for the remainder term there), together with the fact that the matrix $A$ is a bounded linear operator. Note that the bound is strongest at $x = 0$ and is weaker at $\pm X_i$. \\
 
-For the second, since $\tilde{H} = Q_c$, it decays exponentially with rate $\alpha$, since that is true for $Q$ and all of its derivatives.\\
+For the third, we first note $H = -B Q_c$ and we have shown (somewhere else) that $Q_c$ exists, is exponentially localized, and decays exponentially with rate $\alpha$. The same should hold for $\tilde{H}$.\\
+ 
+Next, we look at we look at $\Delta H = \tilde{H}_i^\pm - H$. Noting the definition of $B$, we only have to look at 
 
-For the third, we look at
 \[
-(Q^\pm(0, \beta_i^\pm)(x) - Q(x)) + U_i^\pm(x)
+(q^\pm(0, \beta_i^\pm)(x) - q(x)) + u_i^\pm(x)
 \]
-From the existence proof, $|U_i^+| \leq C e^{-\alpha X_i}$, $|U_i^-| \leq C e^{-\alpha X_{i-1}}$, and $|(\beta_i^+, \beta_i^-)| \leq C( e^{-\alpha X_i} + e^{-\alpha X_{i-1}})$. Since the same bounds hold for derivatives with respect to $c$, combining all of these gives us the bound for $|\Delta H_i| = \max\{\Delta H_i^+, \Delta H_i^- \}$. 
-\\
+
+and its derivative with respect to $c$. From the existence proof, we recall that $|u_i^+| \leq C e^{-\alpha X_i}$, $|u_i^-| \leq C e^{-\alpha X_{i-1}}$, and $|(\beta_i^+, \beta_i^-)| \leq C( e^{-\alpha X_i} + e^{-\alpha X_{i-1}})$. Assuming the same bounds hold for derivatives with respect to $c$, we attain the bound given for $|\Delta H_i^\pm|$.\\
 
 For the fourth, we have
 
@@ -2008,9 +2009,15 @@ When we take the inner product with $\Psi(0)$, the first term will vanish since
 $\langle \Psi(0), v_+(0; 0, 0) \rangle = 0$. Since the two derivatives in the expression above are constants, we have
 
 \begin{align*}
-\langle \Psi(0), v_+(0; \lambda) \rangle &\leq C ( |\lambda| + |\beta_i^+| ) \\
+\langle \Psi(0), v_+(0; \beta_i^+, \lambda) \rangle &\leq C ( |\lambda| + |\beta_i^+| ) \\
 &\leq C ( |\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}} )
 \end{align*}
+
+The inner product $\langle \Psi(0), v_-(0; \beta_i^-, \lambda) \rangle$, i.e. we have
+
+\begin{equation}\label{vpsiIP}
+\langle \Psi(0), v_\pm(0; \beta_i^\pm, \lambda) \rangle \leq C ( |\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}} )
+\end{equation}
 
 Plugging this in, together with the bound for $B_1$ (which is a bound for $\tilde{c}_i^+ = e^{-\nu(\lambda)X_i} c_i^+$), we have
 
@@ -2164,7 +2171,6 @@ We have two integrals to evaluate. For the first integral, we have
 
 For the second integral, we have
 
-
 \begin{align*}
 \int_{-X_{i-1}}^0 &e^{\alpha y} e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + y)} e^{-2|\nu(\lambda)|y}( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|)|d| dy \\
 &= e^{-\alpha X_{i-1}} ( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|)|d| \int_{-X_{i-1}}^0 e^{(\alpha - 2 |\nu(\lambda)|) y}  e^{-\alpha(X_{i-1} + y)} dy \\
@@ -2195,7 +2201,7 @@ Next, we look at the ``noncenter'' integrals involving $H$. These will give us o
 
 \begin{align*}
 \langle \Psi(0), &\int_{X_i}^0 \Phi^u_+(0, y; \beta_i^+, \lambda) \lambda^2 d_i \tilde{H}(y) dy - \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \beta_i^-, \lambda) \lambda^2 d_i \tilde{H}(y) dy \rangle \\ 
-&= -d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}\left( (|\lambda| + e^{-\alpha X_1} + e^{-\alpha X_2} ) |\lambda|^2 |d| \right)
+&= -d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + \mathcal{O}\left( (|\lambda| + e^{-\alpha X_m} ) |\lambda|^2 |d| \right)
 \end{align*}
 
 \begin{proof}
@@ -2208,37 +2214,45 @@ Looking at the ``negative'' integral (which is multipled by $d_i \lambda^2$), we
 \int_{-X_{i-1}}^0 \langle \Psi(0), (\Phi^s_-(0, y; \beta_i^-, \lambda) - \Phi^s_-(0, y; 0, 0)) \tilde{H}(y) \rangle dy
 \end{align*}
 
-where we use this trick in order to get the Melnikov term we want. Again, we will assume the bound from Hypothesis \ref{p6}. Using this, the second integral above is order $|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2}$.\\
-
-For the first integral, we manipulate things to bring the limits out to $\pm \infty$ (to get the higher order Melnikov integral) and to replace $\tilde{H}$ by $H$ (so that the Melnikov integral only involves the single pulse). We also use what we know about the evolution of the adjoint solution from a previous lemma (CITE IT HERE).
+where we use this trick in order to get the Melnikov term we want. For the second integral, we have
 
 \begin{align*}
-\int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; 0, 0) \tilde{H}(y) \rangle dy &= 
-\int_{-X_{i-1}}^0 \langle \Psi(y), H(y) \rangle dy + \int_{-X_{i-1}}^0 \langle \Psi(y), \Delta H(y) \rangle dy \\
-&= \int_{-\infty}^0 \langle \Psi(y), H(y) \rangle dy - \int_{-\infty}^{-X_{i-1}} \langle \Psi(y), H(y) \rangle dy \\
-&+ \int_{-X_{i-1}}^0 \langle \Psi(y), \Delta H(y) \rangle dy 
+\left| \int_{-X_{i-1}}^0 \langle \Psi(0), (\Phi^s_-(0, y; \beta_i^-, \lambda) - \Phi^s_-(0, y; 0, 0)) \tilde{H}(y) \rangle dy \right| &\leq C \int_{-X_{i-1}}^0 |\Phi^s_-(0, y; \beta_i^-, \lambda) - \Phi^s_-(0, y; 0, 0)| |\tilde{H}(y)| dy \\
+&\leq C \int_{-X_{i-1}}^0 p_6(y; \beta_i^+, \beta_i^-, \lambda) dy \\
+&\leq C ( |\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})\int_{-X_{i-1}}^0 e^{\alpha y} dy \\
+&\leq C ( |\lambda| + e^{-2 \alpha X_m}) \\
 \end{align*}
 
-The first integral on the RHS is half of our Melnikov integral. The second is order $e^{-\alpha X_{i-1}}$, since we know the decay rate of $H$. The third is order $e^{-\alpha X_1} + e^{-\alpha X_2}$ (the order of $\Delta H$). When we do the ``plus'' piece, the first integral is the other half of the Melnikov integral; the second integral is order $e^{-\alpha X_i}$; and the third integral is the same order. Combining all of this gives us our desired result.
-\end{proof}
+where we used the estimate for $p_6$ from Lemma \ref{projbounds} and the fact that $\tilde{H}$ is bounded.\\
 
+For the first integral, we manipulate things to bring the limits out to $\pm \infty$ (to get the higher order Melnikov integral) and to replace $\tilde{H}$ by $H$ (so that the Melnikov integral only involves the single pulse).
+
+\begin{align*}
+\int_{-X_{i-1}}^0 &\langle \Psi(0), \Phi^s_-(0, y; 0, 0) \tilde{H}(y) \rangle dy = 
+\int_{-X_{i-1}}^0 \langle \Psi(y), H(y) \rangle dy + \int_{-X_{i-1}}^0 \langle \Psi(y), \Delta H(y) \rangle dy \\
+&= \int_{-\infty}^0 \langle \Psi(y), H(y) \rangle dy - \int_{-\infty}^{-X_{i-1}} \langle \Psi(y), H(y) \rangle dy + \int_{-X_{i-1}}^0 \langle \Psi(y), \Delta H(y) \rangle dy 
+\end{align*}
+
+The first integral on the RHS is the left half of our higher order Melnikov integral. The second integral is order $e^{-\alpha X_{i-1}}$, since $H$ decays exponentially with order $\alpha$ and $\Psi$ is bounded. The third integral is order $e^{-\alpha X_m}$, which is the order of $\Delta H$. When we do the ``plus'' piece, the first integral is the other half of the Melnikov integral; the second integral is order $e^{-\alpha X_i}$; and the third integral is the same order. Combining all of these gives us our  result.
+
+\end{proof}
 \end{lemma}
 
 Finally, we look at the ``center'' integral terms. As before, we can split this into integrals involving $W$ and integrals not involving $W$. First, we look at the integral involving $W$.
 
 % lemma : center integrals involving W
 
-\begin{lemma} 
+\begin{lemma}\label{centerW}
 
 \begin{align*}
 \left| \langle \Psi(0), \int_{-X_{i-1}}^0
-e^{\nu(\lambda)y} v_-(0; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \rangle \right| &\leq C |\lambda| (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) (|\lambda|^2 + |D| ) |d| \\
-\left| \Psi(0), \int_{X_i}^0 e^{-\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy  \right| &\leq C |\lambda| (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) (|\lambda|^2 + |D| ) |d|
+e^{\nu(\lambda)y} v_-(0; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \rangle \right| &\leq C e^{-\tilde{\alpha}X_m} ( |\lambda| + e^{-2\alpha X_m} )( |\lambda|^2 + |D|)|d| \\
+\left| \Psi(0), \int_{X_i}^0 e^{-\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy  \right| &\leq C e^{-\tilde{\alpha}X_m} ( |\lambda| + e^{-2\alpha X_m} )( |\lambda|^2 + |D|)|d|
 \end{align*}
 
 \begin{proof}
 
-We do the ``minus'' integral here. Substituting in our bound for $G_i^-(y)$ and the improved bound for $W_i^-(y)$, we have
+We do the ``minus'' integral here.
 
 \begin{align*}
 \langle \Psi(0) &, \int_{-X_{i-1}}^0
@@ -2249,44 +2263,36 @@ e^{\nu(\lambda)y} \langle \Psi(0), v_-(0; \beta_i^- ,\lambda) \rangle \langle G_
 \int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} |G_i^-(y)||W_i^-(y)| dy 
 \end{align*}
 
-From Lemma \ref{jumpc}, $|\langle \Psi(0), v_-(0; \lambda) \rangle| = \mathcal{O}(|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2})$. Thus we have
+From \eqref{vpsiIP} in Lemma \ref{jumpc}, $|\langle \Psi(0), v_-(0; \beta_i^-, \lambda) \rangle| = \mathcal{O}(|\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})$. Substituting in our bound for $G_i^-(y)$ and the improved bound for $W_i^-(y)$ from Lemma \ref{Wboundimproved}, we have
 
 \begin{align*}
 \langle \Psi(0) &, \int_{-X_{i-1}}^0
 e^{\nu(\lambda)y} v_-(0; \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \lambda) \rangle dy \rangle \\
-&\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2}) \int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} |G_i^-(y)||W_i^-(y)| dy \\
-&\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2}) \int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + y)} \Big(e^{-\alpha(X_{i-1} + y)}( e^{|\nu(\lambda)| X_{i-1}} |\lambda|^2 + |D|) \\
-&+ e^{\nu(\lambda)y} |\lambda|^2 
-+ |\lambda|^2 + (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| \Big) |d| dy \\
-&\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2}) e^{-\alpha X_{i-1}} (|\lambda|^2 + (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) |D| ) |d| \int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} dy \\
-&+ C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2}) ( e^{(\alpha - |\nu(\lambda)|) X_{i-1}} |\lambda|^2 + e^{-\alpha X_{i-1}} |D|)|d|\int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} e^{-\alpha(X_{i-1} + y)} e^{-\alpha(X_{i-1} + y)} dy \\
-&+ C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2}) e^{-\alpha X_{i-1}} |\lambda|^2 |d| \int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} e^{-\alpha(X_{i-1} + y)} e^{\nu(\lambda)y} dy
+&\leq C (|\lambda| + e^{-2 \alpha X_m}) \int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} |G_i^-(y)||W_i^-(y)| dy \\
+&\leq C (|\lambda| + e^{-2 \alpha X_m}) \int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + y)}\Big(e^{-\alpha(X_{i-1} + y)}( |\lambda|^2 + |D|)
+\\
+&+ e^{-2|\nu(\lambda)|y}( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|) \Big)|d| dy
 \end{align*}
 
-These three integral terms are almost identical to those in Lemma \ref{noncenterW}. The only differences are there is a factor of $|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2}$ out front, and the $e^{\alpha y}$ in the integrals is replaced with $e^{-|\nu(\lambda)|y}$. \\
+We have two integrals here, which are similar to those in Lemma \ref{noncenterW}.
 
 For the first integral, we have
 
 \begin{align*}
-\int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} dy &\leq C e^{-|\nu(\lambda)| X_{i-1}}
-\end{align*}
-
-For the third integral, we have
-
-\begin{align*}
-\int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} e^{-\alpha(X_{i-1} + y)} e^{\nu(\lambda)y} dy
-&\leq \int_{-X_{i-1}}^0 e^{-\alpha X_{i-1}} e^{-(\alpha + 2|\nu(\lambda)|) y} dy \\
-&\leq \int_{-X_{i-1}}^0 e^{-\alpha X_{i-1}} e^{-(\alpha + (\alpha - \tilde{\alpha})) y} dy \\
-&= e^{(\alpha - \tilde{\alpha}) X_{i-1}} \int_{-X_{i-1}}^0 e^{-(\alpha + (\alpha - \tilde{\alpha})) X_{i-1}} e^{-(\alpha + (\alpha - \tilde{\alpha})) y} dy \\
-&= e^{(\alpha - \tilde{\alpha}) X_{i-1}} \int_{-X_{i-1}}^0 e^{-(2 \alpha - \tilde{\alpha})( X_{i-1} + y)} dy \\
-&\leq C e^{(\alpha - \tilde{\alpha}) X_{i-1}}
+\int_{-X_{i-1}}^0 &e^{-|\nu(\lambda)|y} e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + y)} e^{-\alpha(X_{i-1} + y)}( |\lambda|^2 + |D|)|d| dy \\
+&= ( |\lambda|^2 + |D|)|d| \int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + y)} e^{-\alpha(X_{i-1} + y)} dy \\
+&\leq ( |\lambda|^2 + |D|)|d| \int_{-X_{i-1}}^0 e^{|\nu(\lambda)|X_{i-1}} e^{-\alpha X_{i-1}} e^{-2\alpha(X_{i-1} + y)} dy \\
+&= ( |\lambda|^2 + |D|) e^{-(\alpha - |\nu(\lambda)|)X_{i-1}} |d| \int_{-X_{i-1}}^0 e^{-2\alpha(X_{i-1} + y)} dy \\
+&\leq C ( |\lambda|^2 + |D|) e^{-\tilde{\alpha}X_m} |d|
 \end{align*}
 
 For the second integral, we have
 
 \begin{align*}
-\int_{-X_{i-1}}^0 e^{-|\nu(\lambda)|y} e^{-\alpha(X_{i-1} + y)} e^{-\alpha(X_{i-1} + y)} dy &\leq \int_{-X_{i-1}}^0 e^{|\nu(\lambda)|X_{i-1}} e^{-2\alpha(X_{i-1} + y)}  dy \\
-&\leq C e^{-|\nu(\lambda)|X_{i-1}}
+\int_{-X_{i-1}}^0 & e^{-|\nu(\lambda)|y} e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + y)} e^{-2|\nu(\lambda)|y}( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|) |d| dy \\
+&= ( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|)|d|\int_{-X_{i-1}}^0 e^{-3 |\nu(\lambda)|y} e^{-\alpha X_{i-1}} e^{-\alpha(X_{i-1} + y)} dy \\
+&\leq ( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|)|d|\int_{-X_{i-1}}^0 e^{-(\alpha - 3 |\nu(\lambda)|) X_{i-1}} e^{-\alpha(X_{i-1} + y)} dy \\
+&\leq C ( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|)e^{-\tilde{\alpha}X_m}|d|
 \end{align*}
 
 Putting this all together, we have
@@ -2294,11 +2300,8 @@ Putting this all together, we have
 \begin{align*}
 &\left| \langle \Psi(0), \int_{-X_{i-1}}^0
 e^{\nu(\lambda)y} v_-(0; \lambda) \langle G_i^-(y)W_i^-(y), w_-(y; \lambda) \rangle dy \rangle \right| \\
-&\leq C (|\lambda| + e^{-2 \alpha X_1} + e^{-2 \alpha X_2}) \Big( e^{-\alpha X_{i-1}} (|\lambda|^2 + (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2} ) |D|)e^{-|\nu(\lambda)|X_{i-1}} \\
-&+ (e^{(\alpha - |\nu(\lambda)|) X_{i-1}} |\lambda|^2 + e^{-\alpha X_{i-1}} |D|)e^{-|\nu(\lambda)|X_{i-1}} \\
-&+ e^{-\alpha X_{i-1}} e^{-|\nu(\lambda)|X_{i-1}} |\lambda|^2 \Big) |d| \\
-&\leq C \Big( e^{-\tilde{\alpha} X_{i-1}} |\lambda|^3 + (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2} )|\lambda| |D| \Big) |d| \\
-&\leq C |\lambda| (e^{-\tilde{\alpha} X_1} + e^{-\tilde{\alpha} X_2}) (|\lambda|^2 + |D| ) |d|
+&\leq C \Big( (|\lambda| + e^{-2 \alpha X_m}) (( |\lambda|^2 + |D|) e^{-\tilde{\alpha}X_m} + ( |\lambda|^2 + e^{-\tilde{\alpha} X_m}|D|)e^{-\tilde{\alpha}X_m}) \Big) |d| \\
+&\leq C e^{-\tilde{\alpha}X_m} ( |\lambda| + e^{-2\alpha X_m} )( |\lambda|^2 + |D|)|d|
 \end{align*}
 
 The other integral has the same bound.
