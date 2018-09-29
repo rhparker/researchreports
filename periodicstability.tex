@@ -236,7 +236,7 @@ The result follows from Lemma 2.6 in San98, which follows from San93.
 
 \subsection{General Form}
 
-Consider the general system
+Consider the general system on $\R^m$, where $m = 2k + 1, k \in \N$
 
 \begin{enumerate}
 \item $(W_i^\pm)' = A(q^\pm(0, \beta_i^\pm); \lambda) W_i^\pm + G_i^\pm W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm$
@@ -257,7 +257,54 @@ for functions $G = (G_i^\pm)$, $\tilde{H} = (\tilde{H})_i^\pm$, matrices $D = (D
 |D_j| &\leq \delta
 \end{align}
 
-where $\delta > 0$ is small and $H$ is a smooth, bounded function. Consider the family of equations
+where $\delta > 0$ is small and $H$ is a smooth, bounded function. We make the following assumptions about the operator $A$.
+
+\begin{hypothesis}\label{Aspectrumhyp}
+\begin{enumerate}
+	\item The spectrum of $A(0; 0)$ has isolated, simple eigenvalues at $\{ 0, \pm \alpha_0 \pm \beta_0 \}$, where $\alpha_0, \beta_0 > 0$. The real part of any other eigenvalue of $A(0; 0)$ lies outside the interval $[-\alpha_0, \alpha_0]$.
+	\item Let $\{\nu_i\}$ be the eigenvalues of $A(0; 0)$. Then the eigenvalues of $A(0; \lambda)$ are given by $\nu(\lambda)_i = \nu_i + \mathcal{O}(|\lambda|)$. In particular, $A(0; \lambda)$ has a simple eigenvalue $\nu(\lambda) = \mathcal{O}(|\lambda|)$.
+\end{enumerate}
+\end{hypothesis}
+
+Before we continue, we define the following constants
+
+\begin{enumerate}
+
+	\item Let
+
+	\begin{align*}
+	X_m &= \min(X_0, \dots, X_{n-1}) \\
+	X_M &= \max(X_0, \dots, X_{n-1}) \\
+	\end{align*}
+
+	\item Let $n_-$ be the number of eigenvalues of $A(0; 0)$ with negative real part, and $n_+$ be the number of eigenvalues of $A(0; 0)$ with positive real part. Then, by Hypothesis \ref{Aspectrumhyp}, $n_-, n_+ \geq 2$, and $n_- + n_+ + 1 = m$.
+
+	\item Let $\nu(\lambda)$ be the simple, small eigenvalue of $A(0; \lambda)$. By Hypothesis \ref{Aspectrumhyp}, $\nu(0) = 0$, and $\nu(\lambda) = \mathcal{O}(\lambda)$. 
+
+	\item Let $\delta > 0$ be a small. How small will be determined later. We will always take $|\lambda| < \delta$.
+
+	\item Let $\rho > 0$ so that $\rho$ is much smaller than $\alpha_0$. For our analysis, it suffices to ensure that $4 \rho < \alpha_0$. Then, using Hypothesis \ref{Aspectrumhyp}, we can choose $\delta$ sufficiently small so that 
+
+	\begin{enumerate}
+		\item $3 |\nu(\lambda)| < \rho$ for all $|\lambda| < \delta$ 
+		\item For all $|\lambda| < \delta$, the real part of all other eigenvalues of $A(0; \lambda)$ lies outside the interval $[-\alpha_0 + \rho, \alpha_0 - \rho]$ 
+	\end{enumerate}
+
+	\item Let $\alpha = \alpha_0 - 2 \rho$
+
+	\item Let $\tilde{\alpha} = \alpha - \rho > 0$. Note that this implies $3|\nu(\lambda)| < \alpha - \tilde{\alpha}$ for all $|\lambda| < \delta$.
+
+	\item By our choice of $\rho$, we have $|\nu(\lambda)| < \rho < \tilde{\alpha}$ for all $|\lambda| < \delta$
+
+	\item Choose $X_m$ sufficiently large such that
+
+	\begin{equation}
+	e^{-\alpha X_m}, ||G||, |\lambda|, ||\Delta H|| < \delta
+	\end{equation}
+
+\end{enumerate}
+
+Consider the family of equations
 
 \begin{equation}\label{varparam}
 (V^\pm)' = A(q^\pm(0, \beta^\pm); \lambda) V^\pm
@@ -300,13 +347,11 @@ For the stable and unstable parts of the trichotomy, the projections satisfy
 i.e. it does not matter if we project or evolve first. For any $\epsilon > 0$ we can find $\delta > 0$ such that if $|\lambda| < \delta$, we have the following estimates for the stable and unstable evolutions, independent of $\lambda$
 
 \begin{align*}
-|\Phi^s_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha_0(x - y)} && 0 \leq y \leq x \\
-|\Phi^u_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha_0(y - x)} && 0 \leq x \leq y \\
-|\Phi^u_-(x, y; \beta^-, \lambda)| &\leq C e^{-\alpha_0(y - x)} && 0 \geq y \geq x \\
-|\Phi^s_-(x, y; \beta^-, \lambda)| &\leq C e^{-\alpha_0(x - y)} && 0 \geq x \geq y \\
+|\Phi^s_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
+|\Phi^u_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y \\
 \end{align*}
 
-where $\alpha_0 = \alpha - \epsilon$. The same estimates hold for all derivatives with respect to $\beta^\pm$ and $\lambda$. Finally, the projections $P^s_\pm$ and $P^u_\pm$ can be chosen such that at $y = 0$ we have, independent of $\beta^+$, $\beta^-$, and $\lambda$ we have
+where $\alpha$ is defined above. The same estimates hold for all derivatives with respect to $\beta^\pm$ and $\lambda$. Finally, the projections $P^s_\pm$ and $P^u_\pm$ can be chosen such that at $y = 0$ we have, independent of $\beta^+$, $\beta^-$, and $\lambda$ we have
 
 \begin{align*}
 \ker P^s_+(0; \beta^+; \lambda) &= \R \Psi(0) \oplus Y^- \\
@@ -318,7 +363,113 @@ where $\alpha_0 = \alpha - \epsilon$. The same estimates hold for all derivative
 The center projection and evolution will be considered in the next section.
 
 \begin{proof}
-This follows from Lemma 3.2 in San98, which follows from San93. Since the eigenvalues of $A(0; \lambda)$ depend continuously on $\lambda$, and the real part of all nonzero eigenvalues of $A(0; 0)$has magnitude greater than $\alpha$, for sufficiently small $\lambda$ we attain the $\lambda-$independent estimates above. 
+\begin{enumerate}
+
+\item We will consider only $\R^+$ here. The proof for $\R^-$ is similar. For simplicity, we write the eigenvalue problem as 
+
+\begin{equation}\label{evpsimple}
+V' = A(q^+(0, \beta^+); \lambda) V
+\end{equation}
+
+where $\beta^+$ and $\lambda < \delta$ are fixed constants. Let $\Phi(y, x; \beta^+, \lambda)$ be the evolution operator for \eqref{evpsimple}. To prove our result, we need to use results from the exponential dichotomy literature, which is only possible if the asymptotic matrix is hyperbolic. To guarantee this is the case and to get uniform bounds, we will use an exponentially weighted space, with weights $\pm 2 \rho$, where $\rho$ is defined above.\\
+
+Let $U(x) = (U_1(x), \dots, U_m(x)): \R^+ \rightarrow \R^m$. For $\eta \in \R$, define the exponentially weighted $L^2$ norm on $R^+$ by
+
+\[
+||U||_\eta^+ = \max_{i = 1, \dots, m} ||e^{\eta x}U_i(x)||_{L_2(\R^+)}
+\]
+
+Let $X^+_\eta$ be the space equipped with this norm. This are known to be a Banach space. To recast the eigenvalue problem \eqref{evpsimple} in the exponentially weighted norm, we let $V = e^{-\eta x} V_\eta$. Substituting this into the eigenvalue problem, we obtain the eigenvalue problem
+
+\begin{equation}\label{weightedeq}
+V_\eta' = A(q^+(0, \beta^+); \lambda, \eta) V_\eta = (A(q^+(0, \beta^+); \lambda) + \eta I) V_\eta
+\end{equation}
+
+It is not hard to show that $V$ is a solution to \eqref{evpsimple} if and only if $V_\eta = e^{\eta x} V$ is a solution to \eqref{weightedeq}. From this, it follows that the evolution operator $\Phi(x, y; \beta^+, \lambda, \eta)$ of \eqref{weightedeq} is given by
+
+\begin{equation}\label{evolweight}
+\Phi(x, y; \beta^+, \lambda, \eta) = e^{\eta(x - y)} \Phi(x, y; \beta^+, \lambda)
+\end{equation}
+
+It is also not hard to show that $\nu$ is an eigenvalue of the asymptotic matrix $A(0; \lambda)$ if and only if $\nu + \eta$ is an eigenvalue of $A(0; \lambda, \eta)$. In other words, the exponential weight $\eta$ shifts all eigenvalues of the asymptotic matrix to the right by $\eta$. Since the exponential dichotomy is determined by the asymptotic matrix, this is all that matters.\\
+
+\item Use the exponential weight $2 \rho$. The operator $A(q^+(0, \beta^+); \lambda, 2 \rho)$ is exponentially asymptotic to $A(0; \lambda, 2 \rho)$, and the spectrum of $A(0; \lambda, 2 \rho)$ lies outside the interval $(-\alpha_0 + 3 \rho, \rho) \subset (-\alpha, \rho)$. $A(0; \lambda, 2 \rho)$ has $n_-$ eigenvalues with negative real part and $n_+ + 1$ eigenvalues with positive real part. Thus by standard exponential dichotomy theory (Coppel, etc), for any $0 < \epsilon < \rho$ there exists a family of projections $P_+(y; \beta^+, \lambda)$ with range $R_+(y; \beta^+, \lambda)$ for $y \in \R^+$ such that
+
+\begin{align*}
+|e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)P_+(y; \beta^+, \lambda)| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(x - y)} && 0 \leq y \leq x \\
+|e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)(I - P_+(y; \beta^+, \lambda))| &\leq C e^{-(\rho - \epsilon)(y - x)} && 0 \leq x \leq y \\
+\end{align*}
+
+and $\dim R_+(y; \beta^+, \lambda) = n_-$. The projections $P_+(y; \beta^+, \lambda)$ and $I - P_+(y; \beta^+, \lambda)$ also satisfy the ``commuting'' relations
+
+\begin{align*}
+e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)P_+(y; \beta^+, \lambda) 
+&= P_+(x; \beta^+, \lambda) e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda) \\
+e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)(I - P_+)(y; \beta^+, \lambda) 
+&= (I - P_+(x; \beta^+, \lambda))e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda) 
+\end{align*}
+
+We can cancel the $e^{2 \rho (x - y)}$ term to get 
+
+\begin{align*}
+\Phi(x, y; \beta^+, \lambda)P_+(y; \beta^+, \lambda) 
+&= P_+(x; \beta^+, \lambda) \Phi(x, y; \beta^+, \lambda) \\
+\Phi(x, y; \beta^+, \lambda)(I - P_+)(y; \beta^+, \lambda) 
+&= (I - P_+(x; \beta^+, \lambda)) \Phi(x, y; \beta^+, \lambda) 
+\end{align*}
+
+
+\item Similarly, using the exponential weight $-2 \rho$, the spectrum of $A(0; \lambda, -2 \rho)$ lies outside the interval $(-\rho, \alpha_0 - 3 \rho) \in (-\rho, \alpha)$. $A(0; \lambda, -2 \rho)$ has $n_- + 1$ eigenvalues with negative real part and $n_+$ eigenvalues with positive real part. Again, using standard exponential dichotomy theory, for the same $\epsilon$ as above there exists a family of projections $P_-(y; \beta^+, \lambda)$ with range $R_-(y; \beta^+, \lambda)$ for $y \in \R^+$ such that
+
+\begin{align*}
+|e^{-2 \rho (x - y)}\Phi(x, y; \beta^+, \lambda)P_-(y; \beta^+, \lambda)| &\leq C e^{-(\rho - \epsilon)(x - y)} && 0 \leq y \leq x \\
+|e^{-2 \rho (x - y)}\Phi(x, y; \beta^+, \lambda)(I - P_-(y; \beta^+, \lambda))| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(y - x)} && 0 \leq x \leq y \\
+\end{align*}
+
+and $\dim R_-(y; \beta^+, \lambda) = n_- + 1$. The projections $P_-(y; \beta^+, \lambda)$ and $I - P_-(y; \beta^+, \lambda)$ satisfy the same ``commuting'' relations as $P_+$ and $I - P^+$.
+
+\item Let $z \in R_+(y; \beta^+, \lambda)$. Then for all $x \geq y$
+
+\begin{align*}
+|e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)z| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(x - y)} \\
+|e^{-2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)z| &\leq C e^{-(\alpha_0 + \rho - \epsilon)(x - y)} \\
+&\leq C e^{-(\rho - \epsilon)(x - y)} \\
+\end{align*}
+
+Thus $z \in R_-(y; \beta^+, \lambda)$, so $R_+(y; \beta^+, \lambda) \subset R_-(y; \beta^+, \lambda)$ for all $y \in \R^+$. Multiplying the estimate above by $e^{-2 \rho(x-y)}$, we have
+
+\begin{align*}
+|\Phi(x, y; \beta^+, \lambda)P_+(y; \beta^+, \lambda)| &\leq C e^{-(\alpha_0 - \rho - \epsilon)(x - y)} && 0 \leq y \leq x \\
+&\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
+\end{align*}
+
+Similarly we can show $\ran (I - P_-(y; \beta^+, \lambda)) \subset \ran(I - P_+(y; \beta^+, \lambda))$. Multiplying the estimate above by $e^{-2 \rho(y-x)}$, we have
+
+\begin{align*}
+|\Phi(x, y; \beta^+, \lambda)(I - P_-(y; \beta^+, \lambda))| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(y - x)} && 0 \leq x \leq y \\ \
+&\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y 
+\end{align*}
+
+\item Let
+
+\begin{align*}
+P_+^s(x; \beta^+, \lambda) &= P_+(x; \beta^+, \lambda)\\
+P_+^u(x; \beta^+, \lambda) &= (I - P_-(x; \beta^+, \lambda)) \\
+P_+^c(x; \beta^+, \lambda) &= I - P_+^s(x; \beta^+, \lambda) - P_+^u(x; \beta^+, \lambda)
+\end{align*}
+
+From above we have for all $x \in \R^+$
+
+\[
+\R^m = \ran P_+^s(x; \beta^+, \lambda) \oplus \ran P_+^u(x; \beta^+, \lambda)
+\oplus \ran P_+^c(x; \beta^+, \lambda)
+\]
+
+ we also have $\dim \ran P_+^s(x; \beta^+, \lambda) = n_-$ and $\dim \ran P_+^u(x; \beta^+, \lambda) = n_+$ for all $x \in \R^+$. It follow that $\dim \ran P_+^s(x; \beta^+, \lambda) = 1$ for all $x \in \R^+$. The estimates and the ``commuting'' relations follow from what we have done above. In particular, the estimates are independent of $\beta^+$ and $\lambda$.
+
+\item The proof for $\R^_$ is essentially the same. The fact that we can use the same estimates for derivatives with respect to the parameters $\beta^\pm$ and $\lambda$ follows from Lemma 3.2 in San98, which follows from San93.  
+
+\end{enumerate}
 \end{proof}
 \end{lemma}
 
