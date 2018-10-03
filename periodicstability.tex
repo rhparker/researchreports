@@ -304,246 +304,17 @@ Before we continue, we define the following constants
 
 \end{enumerate}
 
+\subsection{Exponential Trichotomy}
+
 Consider the family of equations
 
 \begin{equation}\label{varparam}
 (V^\pm)' = A(q^\pm(0, \beta^\pm); \lambda) V^\pm
 \end{equation}
 
-parameterized by $\beta^\pm$ and $\lambda$, where $V^+$ is defined on $\R^+$ and $V^-$ is defined on $\R^-$, and the functions $q^\pm(0, \beta^\pm)(x)$ are defined in the existence problem. Let $\Phi_\pm(x, y; \beta^\pm, \lambda)$ be the family of evolution operators associated with \eqref{varparam}, where $\Phi_+$ is defined for $x, y \in \R^+$ and $\Phi_-$ is defined for $x, y \in \R^-$. Then these evolution operators can be decomposed in a trichotomy according to the following lemma.
+parameterized by $\beta^\pm$ and $\lambda$, where $V^+$ is defined on $\R^+$ and $V^-$ is defined on $\R^-$, and the functions $q^\pm(0, \beta^\pm)(x)$ are defined in the existence problem. Let $\Phi_\pm(x, y; \beta^\pm, \lambda)$ be the family of evolution operators associated with \eqref{varparam}, where $\Phi_+$ is defined for $x, y \in \R^+$ and $\Phi_-$ is defined for $x, y \in \R^-$. In this section, we will show that $\Phi_\pm$ can be decomposed in an exponential trichotomy with a one-dimensional ``center'' subspace corresponding to the small eigenvalue $\nu(\lambda)$ of the asymptotic matrix $A(0; \lambda)$.\\
 
-% lemma : trichotomy 
-
-\begin{lemma}\label{trichotomy}
-For $\lambda$ sufficiently small and any $\beta^+, \beta^-$, there exist projections
-
-\begin{align*}
-&P_+^s(x; \beta^+, \lambda), P_+^u(x; \beta^+, \lambda), P_+^c(x; \beta^+, \lambda) && x \geq 0 \\
-&P_-^s(x; \beta^-, \lambda), P_-^u(x; \beta^-, \lambda), P_-^c(x; \beta^-, \lambda) && x \leq 0 \\
-\end{align*}
-
-with
-
-\begin{align*}
-&P_+^s(x; \beta^+, \lambda) + P_+^u(x; \beta^+, \lambda) + P_+^c(x; \beta^+, \lambda) = I \\
-&P_-^s(x; \beta^-, \lambda) + P_-^u(x; \beta^-, \lambda) + P_-^c(x; \beta^-, \lambda) = I \\
-\end{align*}
-
-such that the evolution operators $\Phi_\pm(x, y; \beta^\pm, \lambda)$ can be decomposed as
-
-\begin{align*}
-\Phi^s_\pm(x, y; \beta^\pm, \lambda) &= \Phi_\pm(x, y; \beta^\pm, \lambda) P^s_\pm(y; \beta^\pm, \lambda) \\
-\Phi^u_\pm(x, y; \beta^\pm, \lambda) &= \Phi_\pm(x, y; \beta^\pm, \lambda) P^u_\pm(y; \beta^\pm, \lambda) \\
-\Phi^c_\pm(x, y; \beta^\pm, \lambda) &= \Phi_\pm(x, y; \beta^\pm, \lambda) P^c_\pm(y; \beta^\pm, \lambda) \\
-\end{align*}
-
-For the stable and unstable parts of the trichotomy, the projections satisfy 
-
-\begin{align*}
-\Phi_\pm(x, y; \beta^\pm, \lambda) P^{s/u}_\pm(y; \beta^\pm, \lambda) 
-= P^{s/u}_\pm(x; \beta^\pm, \lambda) \Phi_\pm(x, y; \beta^\pm, \lambda)
-\end{align*}
-
-i.e. it does not matter if we project or evolve first. For any $\epsilon > 0$ we can find $\delta > 0$ such that if $|\lambda| < \delta$, we have the following estimates for the stable and unstable evolutions, independent of $\lambda$
-
-\begin{align*}
-|\Phi^s_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
-|\Phi^u_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y \\
-\end{align*}
-
-where $\alpha$ is defined above. The same estimates hold for all derivatives with respect to $\beta^\pm$ and $\lambda$. 
-
-We will derive an expression for the center projection and the center evolution.
-
-\begin{proof}
-\begin{enumerate}
-
-\item We will consider only $\R^+$ here. The proof for $\R^-$ is similar. For simplicity, we write the eigenvalue problem as 
-
-\begin{equation}\label{evpsimple}
-V' = A(q^+(0, \beta^+); \lambda) V
-\end{equation}
-
-where $\beta^+$ and $\lambda < \delta$ are fixed constants. Let $\Phi(y, x; \beta^+, \lambda)$ be the evolution operator for \eqref{evpsimple}. To prove our result, we need to use results from the exponential dichotomy literature, which is only possible if the asymptotic matrix is hyperbolic. To guarantee this is the case and to get uniform bounds, we will use an exponentially weighted space, with weights $\pm 2 \rho$, where $\rho$ is defined above.\\
-
-Let $U(x) = (U_1(x), \dots, U_m(x)): \R^+ \rightarrow \R^m$. For $\eta \in \R$, define the exponentially weighted $L^2$ norm on $R^+$ by
-
-\[
-||U||_\eta^+ = \max_{i = 1, \dots, m} ||e^{\eta x}U_i(x)||_{L_2(\R^+)}
-\]
-
-Let $X^+_\eta$ be the space equipped with this norm. This are known to be a Banach space. To recast the eigenvalue problem \eqref{evpsimple} in the exponentially weighted norm, we let $V = e^{-\eta x} V_\eta$. Substituting this into the eigenvalue problem, we obtain the eigenvalue problem
-
-\begin{equation}\label{weightedeq}
-V_\eta' = A(q^+(0, \beta^+); \lambda, \eta) V_\eta = (A(q^+(0, \beta^+); \lambda) + \eta I) V_\eta
-\end{equation}
-
-It is not hard to show that $V$ is a solution to \eqref{evpsimple} if and only if $V_\eta = e^{\eta x} V$ is a solution to \eqref{weightedeq}. From this, it follows that the evolution operator $\Phi(x, y; \beta^+, \lambda, \eta)$ of \eqref{weightedeq} is given by
-
-\begin{equation}\label{evolweight}
-\Phi(x, y; \beta^+, \lambda, \eta) = e^{\eta(x - y)} \Phi(x, y; \beta^+, \lambda)
-\end{equation}
-
-It is also not hard to show that $\nu$ is an eigenvalue of the asymptotic matrix $A(0; \lambda)$ if and only if $\nu + \eta$ is an eigenvalue of $A(0; \lambda, \eta)$. In other words, the exponential weight $\eta$ shifts all eigenvalues of the asymptotic matrix to the right by $\eta$. Since the exponential dichotomy is determined by the asymptotic matrix, this is all that matters.\\
-
-\item Use the exponential weight $2 \rho$. The operator $A(q^+(0, \beta^+); \lambda, 2 \rho)$ is exponentially asymptotic to $A(0; \lambda, 2 \rho)$, and the spectrum of $A(0; \lambda, 2 \rho)$ lies outside the interval $(-\alpha_0 + 3 \rho, \rho) \subset (-\alpha, \rho)$. $A(0; \lambda, 2 \rho)$ has $n_-$ eigenvalues with negative real part and $n_+ + 1$ eigenvalues with positive real part. Thus by standard exponential dichotomy theory (Coppel, etc), for any $0 < \epsilon < \rho$ there exists a family of projections $P_+(y; \beta^+, \lambda)$ with range $R_+(y; \beta^+, \lambda)$ for $y \in \R^+$ such that
-
-\begin{align*}
-|e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)P_+(y; \beta^+, \lambda)| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(x - y)} && 0 \leq y \leq x \\
-|e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)(I - P_+(y; \beta^+, \lambda))| &\leq C e^{-(\rho - \epsilon)(y - x)} && 0 \leq x \leq y \\
-\end{align*}
-
-and $\dim R_+(y; \beta^+, \lambda) = n_-$. The projections $P_+(y; \beta^+, \lambda)$ and $I - P_+(y; \beta^+, \lambda)$ also satisfy the ``commuting'' relations
-
-\begin{align*}
-e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)P_+(y; \beta^+, \lambda) 
-&= P_+(x; \beta^+, \lambda) e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda) \\
-e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)(I - P_+)(y; \beta^+, \lambda) 
-&= (I - P_+(x; \beta^+, \lambda))e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda) 
-\end{align*}
-
-We can cancel the $e^{2 \rho (x - y)}$ term to get 
-
-\begin{align*}
-\Phi(x, y; \beta^+, \lambda)P_+(y; \beta^+, \lambda) 
-&= P_+(x; \beta^+, \lambda) \Phi(x, y; \beta^+, \lambda) \\
-\Phi(x, y; \beta^+, \lambda)(I - P_+)(y; \beta^+, \lambda) 
-&= (I - P_+(x; \beta^+, \lambda)) \Phi(x, y; \beta^+, \lambda) 
-\end{align*}
-
-
-\item Similarly, using the exponential weight $-2 \rho$, the spectrum of $A(0; \lambda, -2 \rho)$ lies outside the interval $(-\rho, \alpha_0 - 3 \rho) \in (-\rho, \alpha)$. $A(0; \lambda, -2 \rho)$ has $n_- + 1$ eigenvalues with negative real part and $n_+$ eigenvalues with positive real part. Again, using standard exponential dichotomy theory, for the same $\epsilon$ as above there exists a family of projections $P_-(y; \beta^+, \lambda)$ with range $R_-(y; \beta^+, \lambda)$ for $y \in \R^+$ such that
-
-\begin{align*}
-|e^{-2 \rho (x - y)}\Phi(x, y; \beta^+, \lambda)P_-(y; \beta^+, \lambda)| &\leq C e^{-(\rho - \epsilon)(x - y)} && 0 \leq y \leq x \\
-|e^{-2 \rho (x - y)}\Phi(x, y; \beta^+, \lambda)(I - P_-(y; \beta^+, \lambda))| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(y - x)} && 0 \leq x \leq y \\
-\end{align*}
-
-and $\dim R_-(y; \beta^+, \lambda) = n_- + 1$. The projections $P_-(y; \beta^+, \lambda)$ and $I - P_-(y; \beta^+, \lambda)$ satisfy the same ``commuting'' relations as $P_+$ and $I - P^+$.
-
-\item Let $z \in R_+(y; \beta^+, \lambda)$. Then for all $x \geq y$
-
-\begin{align*}
-|e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)z| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(x - y)} \\
-|e^{-2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)z| &\leq C e^{-(\alpha_0 + \rho - \epsilon)(x - y)} \\
-&\leq C e^{-(\rho - \epsilon)(x - y)} \\
-\end{align*}
-
-Thus $z \in R_-(y; \beta^+, \lambda)$, so $R_+(y; \beta^+, \lambda) \subset R_-(y; \beta^+, \lambda)$ for all $y \in \R^+$. Multiplying the estimate above by $e^{-2 \rho(x-y)}$, we have
-
-\begin{align*}
-|\Phi(x, y; \beta^+, \lambda)P_+(y; \beta^+, \lambda)| &\leq C e^{-(\alpha_0 - \rho - \epsilon)(x - y)} && 0 \leq y \leq x \\
-&\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
-\end{align*}
-
-Similarly we can show $\ran (I - P_-(y; \beta^+, \lambda)) \subset \ran(I - P_+(y; \beta^+, \lambda))$. Multiplying the estimate above by $e^{-2 \rho(y-x)}$, we have
-
-\begin{align*}
-|\Phi(x, y; \beta^+, \lambda)(I - P_-(y; \beta^+, \lambda))| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(y - x)} && 0 \leq x \leq y \\ \
-&\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y 
-\end{align*}
-
-\item Let
-
-\begin{align*}
-P_+^s(x; \beta^+, \lambda) &= P_+(x; \beta^+, \lambda)\\
-P_+^u(x; \beta^+, \lambda) &= (I - P_-(x; \beta^+, \lambda)) \\
-P_+^c(x; \beta^+, \lambda) &= I - P_+^s(x; \beta^+, \lambda) - P_+^u(x; \beta^+, \lambda)
-\end{align*}
-
-From above we have for all $x \in \R^+$
-
-\[
-\R^m = \ran P_+^s(x; \beta^+, \lambda) \oplus \ran P_+^u(x; \beta^+, \lambda)
-\oplus \ran P_+^c(x; \beta^+, \lambda)
-\]
-
- we also have $\dim \ran P_+^s(x; \beta^+, \lambda) = n_-$ and $\dim \ran P_+^u(x; \beta^+, \lambda) = n_+$ for all $x \in \R^+$. It follow that $\dim \ran P_+^s(x; \beta^+, \lambda) = 1$ for all $x \in \R^+$. The estimates and the ``commuting'' relations follow from what we have done above. In particular, the estimates are independent of $\beta^+$ and $\lambda$.
-
-\item The proof for $\R^-$ is essentially the same. The fact that we can use the same estimates for derivatives with respect to the parameters $\beta^\pm$ and $\lambda$ follows from Lemma 3.2 in San98, which follows from San93. In particular, we can Taylor expand in any of the parameters.
-
-\end{enumerate}
-\end{proof}
-\end{lemma}
-
-In the work which follows, will need a few bounds involving the projections and evolutions on the stable and unstable subspaces. We will show these in the following lemma.
-
-% lemma : various projection bounds
-
-\begin{lemma}\label{projbounds}
-Let
-
-\begin{enumerate}
-\item
-\begin{equation}\label{p1}
-p_1(X; \beta^+, \beta^-, \lambda) = \sup_{x \geq X} (|P^u_+(x; \beta^+, \lambda) - P_0^u| + |P^s_-(-x; \beta^-, \lambda) - P_0^s|)
-\end{equation}
-\item
-\begin{equation}\label{p5}
-p_5(\beta_i^+, \beta_i^-, \lambda) = |P^u_-(0; \beta_i^-, \lambda) - P^u_-(0; 0, 0)| + |P^s_+(0; \beta_i^+, \lambda) - P^s_+(0; 0, 0)|
-\end{equation}
-\item 
-\begin{equation}\label{p6}
-p_6(y; \beta_i^+, \beta_i^-, \lambda) = |\Phi^u_+(0, y; \beta_i^+, \lambda) - \Phi^u_+(0, y; 0, 0)| + |\Phi^s_-(0, -y; \lambda) - \Phi^s_-(0, -y; 0, 0)| 
-\end{equation}
-
-\end{enumerate}
-
-where $P_0^s$ and $P_0^u$ are the projections on the $E^s$ and $E^u$, the stable and unstable eigenspaces of the asymptotic matrix $A(0; 0)$. Then we have bounds
-
-\begin{align}
-p_1(X; \beta^+, \beta^-, \lambda) &= \mathcal{O}( e^{-\alpha X } + |\lambda| ) \\
-p_5(\beta_i^+, \beta_i^-, \lambda) &= \mathcal{O}(e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}} + |\lambda|) \\
-p_6(y; \beta_i^+, \beta_i^-, \lambda) &= \mathcal{O}(|\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}} ) e^{-\alpha |y|}
-\end{align}
-
-\begin{proof}
-All these bounds rely on the Taylor theorem. By the previous lemma, we can Taylor expand in $\beta^\pm$ and $\lambda$.\\
-
-For $p_1$, using the triangle inequality, we have
-
-\begin{align*}
-|P^u_+(x; \beta^+, \lambda) - P_0^u| 
-&\leq |P^u_+(x; \beta^+, \lambda) - P^u_+(x; \beta^+, 0)| + |P^u_+(x; \beta^+, 0) - P_0^u| 
-\end{align*}
-
-From Lemma 1.1 in San93, $|P^u_+(x; \beta^+, 0) - P_0^u| = \mathcal{O}(e^{-\alpha x})$. From the Taylor theorem about $\lambda = 0$, we have $|P^u_+(x; \beta^+, \lambda) - P^u_+(x; \beta^+, 0)| = \mathcal{O}(|\lambda|)$. Combining these yields the desired bound.\\
-
-For $p_5$, we use the Taylor theorem on $P^u_-(0; \beta_i^-, \lambda)$ about $(\beta_i^-, \lambda) = (0, 0)$ to get 
-
-\begin{align*}
-P^u_-(0; \beta_i^-, \lambda) - P^u_-(0; 0, 0) &= \mathcal{O}(|\lambda| + |\beta_i^-|) \\
-&= \mathcal{O}(|\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})
-\end{align*}
-
-where the estimate on $\beta_i^-$ comes from the existence problem. We get the same estimate from using the Taylor theorem on $P^s_+(0; \beta_i^+, \lambda)$.\\
-
-For $p_6$, we use the Taylor theorem on $\Phi^u_+(0, y; \beta_i^+, \lambda)$ at $(\beta_i^+, \lambda) = (0, 0)$ to get 
-
-\begin{align*}
-\Phi^u_+(&0, y; \beta_i^+, \lambda) - \Phi^u_+(0, y; 0, 0) \\
-&= \frac{\partial}{\partial \beta_i^+}\Phi^u_+(0, y; \beta_i^+, \lambda)\Big|_{(\beta_i^+, \lambda) = (0, 0)} \beta_i^+ + \frac{\partial}{\partial \lambda}\Phi^u_+(0, y; \beta_i^+, \lambda)\Big|_{(\beta_i^+, \lambda) = (0, 0)} \lambda + \mathcal{O}(|\beta_i^+|^2 + |\beta_i^+ \lambda| + |\lambda|^2) \\
-&= \mathcal{O}((|\lambda| + |\beta_i^+|)e^{-\alpha |y| }) \\
-&= \mathcal{O}((|\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})e^{-\alpha |y| }) \\
-\end{align*}
-
-where the derivatives of $\Phi^u_+(0, y; \beta_i^+, \lambda)$ with respect to $\beta_i^+$ and $\lambda$ are $\mathcal{O}(e^{-|\alpha|y}$ by Lemma \ref{trichotomy} and the estimate on $\beta_i^+$ comes from the existence problem. We get the same estimate for $\Phi^s_-(0, -y; \lambda)$.
-
-\end{proof}
-\end{lemma}
-
-
-\subsection{Characterization of Center Subspace}
-
-In this section, we will characterize the center evolution for \eqref{varparam}. For simplicity, we will only discuss in detail the equation on $\R^+$, but will consider the equation on $\R^-$ when relevant. Consider the first order linear ODE on $\R^+$
-
-\begin{equation}\label{justA}
-V' = A(q^+(0, \beta^+)(x); \lambda) V
-\end{equation}
-
-which is parameterized by both $\beta^+$, the IC on the stable manifold, and by $\lambda$. Let $\Phi(y, x; \beta^+, \lambda)$ be the evolution operator for \eqref{justA}. For $\lambda = 0$, as mentioned above, the matrix $A(0; 0)$ has a center subspace. As we perturb $\lambda$ slightly, the spatial eigenvalue responsible for this center subspace will perturb slightly, and may in fact result in a subspace on which solutions grows (or decay) exponentially, albeit at a much slower rate than the stable and unstable pieces of the trichotomy.\\
-
-To make all of this precise, we start by proving the following lemma, based on Exercise 29 on p. 104 of Coddington and Levinson (1955).
+We start by proving the following lemma, based on Exercise 29 on p. 104 of Coddington and Levinson (1955).
 
 % lemma : 1d evolution of EVP on R^+
 
@@ -727,7 +498,7 @@ Let $\tilde{\phi(x)} = \psi(-x)$. Then $\tilde{\phi(x)}$ solves the original pro
 \end{proof}
 \end{corollary}
 
-Using this lemma, we can derive an expression for the evolution on the center subspace for \eqref{justA}. Fix $\beta^+$, $\beta^-$, and $\lambda$. We are interested in the following pair of eigenvalue problems together with their adjoints.
+Using these lemmas, we will be able to characterize the ``center'' subspace. Fix $\beta^+$, $\beta^-$, and $\lambda < \delta$. We are interested in the following pair of eigenvalue problems together with their adjoints.
 
 \begin{align}
 V_+' &= A(q^+(0, \beta^+)(x); \lambda) V_+ && x \geq 0 \label{eig:V+} \\
@@ -753,9 +524,9 @@ For (i), take the derivative of the inner product and use the expressions for $V
 \end{proof}
 \end{lemma}
 
-Recall that the asymptotic matrix $A(0; 0)$ has a simple eigenvalue at 0. Then since the eigenvalues of $A(0; \lambda)$ depend continuously on $\lambda$, for $A(0; \lambda)$ has a simple eigenvalue near 0 for sufficiently small $\lambda$. Let $\nu(\lambda)$ be the small eigenvalue of $A(0; \lambda)$ with corresponding eigenvector $v_0(\lambda)$. Then since $\det(A - \nu I) = 0$ implies $\det(A^* - \overline{\nu}I) = 0$, $-\overline{\nu(\lambda)}$ is the small eigenvalue of $-A(0; \lambda)^*$; let $w_0(\lambda)$ be the corresponding eigenvector. Since these are eigenvalues and eigenvectors of the asymptotic matrix $A(0; \lambda)$, $\nu(\lambda)$, $v_0(\lambda)$, and $w_0(\lambda)$ depend on $\lambda$ but not on $\beta^+$.\\
+Recall that for $|\lambda| < \delta$, the asymptotic matrix $A(0; \lambda)$ has a simple eigenvalue $\nu(\lambda)$ near 0, and $\nu(0) = 0$. Let $v_0(\lambda)$ be the corresponding eigenvector. Then since $\det(A - \nu I) = 0$ implies $\det(A^* - \overline{\nu}I) = 0$, $-\overline{\nu(\lambda)}$ is the small eigenvalue of $-A(0; \lambda)^*$; let $w_0(\lambda)$ be the corresponding eigenvector. Since these are eigenvalues and eigenvectors of the asymptotic matrix $A(0; \lambda)$, $\nu(\lambda)$, $v_0(\lambda)$, and $w_0(\lambda)$ depend on $\lambda$ but not on $\beta^\pm$.\\
 
-It would be nice if there were a nice relationship between $v_0(\lambda)$ and $w_0(\lambda)$, but without additional assumptions on $A(0; \lambda)$, this is not the case. Failing that, we would settle for knowing $\langle v_0(\lambda), w_0(\lambda) \rangle \neq 0$. Even this is too much to ask in the general case. As an easy counterexample, if we take
+It would be nice if there were a nice relationship between $v_0(\lambda)$ and $w_0(\lambda)$, but without additional assumptions on $A(0; \lambda)$, this is not the case. Failing that, we would settle for knowing $\langle v_0(\lambda), w_0(\lambda) \rangle \neq 0$. Even this is too much to ask in general. As an easy counterexample, if we take
 
 \[
 M = \begin{pmatrix}1 & 1 \\ 0 & 1 \end{pmatrix}
@@ -772,13 +543,13 @@ Since $\lambda$ is simple, $\text{span} \{w\} = \ker(A^* - \overline{\lambda}I)$
 \end{proof}
 \end{lemma}
 
-Given this lemma, we conclude that for sufficiently small $\lambda$, $\langle v_0(\lambda), w_0(\lambda) \rangle \neq 0$. Since eigenvectors are defined up to scalar multiples, we scale $v_0(\lambda)$ and/or $w_0(\lambda)$ so that
+By this lemma, we conclude that for $|\lambda| < \delta$, $\langle v_0(\lambda), w_0(\lambda) \rangle \neq 0$. Since eigenvectors are defined up to scalar multiples, we scale $v_0(\lambda)$ and/or $w_0(\lambda)$ so that
 
 \[
 \langle v_0(\lambda), w_0(\lambda) \rangle = 1
 \]
  
-We have all the pieces in place to derive a formula for the projection and evolution of \eqref{eig:V+} and \eqref{eig:V-} on the center subspace. Using Lemma \ref{veigproblem}, let $\tilde{v}_+(x; \beta^+, \lambda)$ and $\tilde{w}_+(x; \beta^+, \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V+} and its adjoint problem \eqref{eig:W+} such that
+Using Lemma \ref{veigproblem}, let $\tilde{v}_+(x; \beta^+, \lambda)$ and $\tilde{w}_+(x; \beta^+, \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V+} and its adjoint problem \eqref{eig:W+} such that
 
 \begin{align*}
 \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \tilde{v}_+(x; \beta^+, \lambda) = v_0(\lambda) \\
@@ -803,7 +574,7 @@ We know that this limit exists, but since we scaled out the exponential term, we
 
 Similarly, we define $\tilde{v}_-(x; \beta^-, \lambda)$, $\tilde{w}_-(x; \beta^-, \lambda)$, $v_-(x; \beta^-, \lambda)$, and $w_-(x; \beta^-, \lambda)$ on $\R^-$. These have the same properties as above since the asymptotic matrix $A(0; 0)$ is the same as we take $x \rightarrow \pm \infty$.\\
 
-In the next lemma, we show that $\langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle = 1$ for all $x \geq 0$.
+In the next lemma, we show that $\langle v_\pm(x; \beta^\pm, \lambda), w_\pm(x; \beta^\pm, \lambda) \rangle = 1$ for all $x \geq 0$.
 
 % lemma : IP of v and w is 1
 
@@ -831,6 +602,262 @@ Next, for all $x \geq 0$ we have
 The result follows from combining these two results. The proof on $\R^-$ is identical.
 \end{proof}
 \end{lemma}
+
+With this setup, we can show the exponential trichotomy.
+
+% lemma : trichotomy 
+
+\begin{lemma}\label{trichotomy}
+For $\lambda$ sufficiently small and any $\beta^+, \beta^-$, there exist projections
+
+\begin{align*}
+&P_+^s(x; \beta^+, \lambda), P_+^u(x; \beta^+, \lambda), P_+^c(x; \beta^+, \lambda) && x \geq 0 \\
+&P_-^s(x; \beta^-, \lambda), P_-^u(x; \beta^-, \lambda), P_-^c(x; \beta^-, \lambda) && x \leq 0 \\
+\end{align*}
+
+with
+
+\begin{align*}
+&P_+^s(x; \beta^+, \lambda) + P_+^u(x; \beta^+, \lambda) + P_+^c(x; \beta^+, \lambda) = I \\
+&P_-^s(x; \beta^-, \lambda) + P_-^u(x; \beta^-, \lambda) + P_-^c(x; \beta^-, \lambda) = I \\
+\end{align*}
+
+such that the evolution operators $\Phi_\pm(x, y; \beta^\pm, \lambda)$ can be decomposed as
+
+\begin{align*}
+\Phi^s_\pm(x, y; \beta^\pm, \lambda) &= \Phi_\pm(x, y; \beta^\pm, \lambda) P^s_\pm(y; \beta^\pm, \lambda) \\
+\Phi^u_\pm(x, y; \beta^\pm, \lambda) &= \Phi_\pm(x, y; \beta^\pm, \lambda) P^u_\pm(y; \beta^\pm, \lambda) \\
+\Phi^c_\pm(x, y; \beta^\pm, \lambda) &= \Phi_\pm(x, y; \beta^\pm, \lambda) P^c_\pm(y; \beta^\pm, \lambda) \\
+\end{align*}
+
+For the stable and unstable parts of the trichotomy, the projections satisfy 
+
+\begin{align*}
+\Phi_\pm(x, y; \beta^\pm, \lambda) P^{s/u}_\pm(y; \beta^\pm, \lambda) 
+= P^{s/u}_\pm(x; \beta^\pm, \lambda) \Phi_\pm(x, y; \beta^\pm, \lambda)
+\end{align*}
+
+i.e. it does not matter if we project or evolve first. For any $\epsilon > 0$ we can find $\delta > 0$ such that if $|\lambda| < \delta$, we have the following estimates for the stable and unstable evolutions, independent of $\lambda$
+
+\begin{align*}
+|\Phi^s_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
+|\Phi^u_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y \\
+\end{align*}
+
+where $\alpha$ is defined above. The same estimates hold for all derivatives with respect to $\beta^\pm$ and $\lambda$. 
+
+We will derive an expression for the center projection and the center evolution.
+
+\begin{proof}
+
+\begin{enumerate}
+
+\item We will consider only $\R^+$ here. The proof for $\R^-$ is similar. For simplicity, we write the eigenvalue problem as 
+
+\begin{equation}\label{evpsimple}
+V' = A(q^+(0, \beta^+); \lambda) V
+\end{equation}
+
+where $\beta^+$ and $\lambda$ are fixed constants, with $|\lambda| < \delta$. Let $\Phi(y, x; \beta^+, \lambda)$ be the evolution operator for \eqref{evpsimple}. To prove our result, we will need to use results from the exponential dichotomy literature, which is only possible if the asymptotic matrix is hyperbolic. To guarantee this is the case and to get uniform bounds, we will use an exponentially weighted space, with weights $\pm 2 \rho$, where $\rho$ is defined above.\\
+
+Let $U(x) = (U_1(x), \dots, U_m(x)): \R^+ \rightarrow \R^m$. For $\eta \in \R$, define the exponentially weighted $L^2$ norm on $R^+$ by
+
+\[
+||U||_\eta^+ = \max_{i = 1, \dots, m} ||e^{\eta x}U_i(x)||_{L_2(\R^+)}
+\]
+
+Let $X^+_\eta$ be the space equipped with this norm. This are known to be a Banach space. To recast the eigenvalue problem \eqref{evpsimple} in the exponentially weighted norm, we let $V = e^{-\eta x} V_\eta$. Substituting this into the eigenvalue problem, we obtain the eigenvalue problem
+
+\begin{equation}\label{weightedeq}
+V_\eta' = A(q^+(0, \beta^+); \lambda, \eta) V_\eta = (A(q^+(0, \beta^+); \lambda) + \eta I) V_\eta
+\end{equation}
+
+It is not hard to show that $V$ is a solution to \eqref{evpsimple} if and only if $V_\eta = e^{\eta x} V$ is a solution to \eqref{weightedeq}. From this, it follows that the evolution operator $\Phi(x, y; \beta^+, \lambda, \eta)$ of \eqref{weightedeq} is given by
+
+\begin{equation}\label{evolweight}
+\Phi(x, y; \beta^+, \lambda, \eta) = e^{\eta(x - y)} \Phi(x, y; \beta^+, \lambda)
+\end{equation}
+
+It is also not hard to show that $\nu$ is an eigenvalue of the asymptotic matrix $A(0; \lambda)$ if and only if $\nu + \eta$ is an eigenvalue of $A(0; \lambda, \eta)$. In other words, the exponential weight $\eta$ shifts all eigenvalues of the asymptotic matrix to the right by $\eta$. Since the exponential dichotomy is determined by the asymptotic matrix, this is all that matters.\\
+
+\item Use the exponential weight $2 \rho$ with \eqref{evpsimple}. The operator $A(q^+(0, \beta^+); \lambda, 2 \rho)$ is exponentially asymptotic to $A(0; \lambda, 2 \rho)$, and the spectrum of $A(0; \lambda, 2 \rho)$ lies outside the interval $(-\alpha_0 + 3 \rho, \rho) \subset (-\alpha, \rho)$. $A(0; \lambda, 2 \rho)$ has $n_-$ eigenvalues with negative real part and $n_+ + 1$ eigenvalues with positive real part. Thus by standard exponential dichotomy theory (Coppel, Peterhof), for any $0 < \epsilon < \rho$ there exists families of projections $P^s(y; \beta^+, \lambda, 2 \rho)$ and $P^u(y; \beta^+, \lambda, 2 \rho)$ indexed by $y \in \R^+$ such that
+
+\begin{align*}
+|e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)P^s(y; \beta^+, \lambda, 2 \rho)| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(x - y)} && 0 \leq y \leq x \\
+|e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)P^u(y; \beta^+, \lambda, 2 \rho)| &\leq C e^{-(\rho - \epsilon)(y - x)} && 0 \leq x \leq y \\
+\end{align*}
+
+The ranges of the projections are $\dim \ran P^s(y; \beta^+, \lambda, 2 \rho) = n_-$ and $\dim \ran P^s(y; \beta^+, \lambda, 2 \rho) = n_+ + 1$. The projections $P^s(y; \beta^+, \lambda, 2 \rho)$ and $P^-(y; \beta^+, \lambda, 2 \rho)$ also satisfy the ``commuting'' relations
+
+\begin{align*}
+e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)P^s(y; \beta^+, \lambda, 2 \rho) 
+&= P^s(x; \beta^+, \lambda, 2 \rho) e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda) \\
+e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)P^u(y; \beta^+, \lambda, 2 \rho) 
+&= P^u(x; \beta^+, \lambda, 2 \rho)e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda) 
+\end{align*}
+
+We can cancel the $e^{2 \rho (x - y)}$ term to get 
+
+\begin{align*}
+\Phi(x, y; \beta^+, \lambda)P^s(y; \beta^+, \lambda, 2 \rho) 
+&= P^s(x; \beta^+, \lambda, 2 \rho) \Phi(x, y; \beta^+, \lambda) \\
+\Phi(x, y; \beta^+, \lambda)P^u(y; \beta^+, \lambda, 2 \rho) 
+&= P^u(x; \beta^+, \lambda, 2 \rho) \Phi(x, y; \beta^+, \lambda) 
+\end{align*}
+
+\item Similarly, using the exponential weight $-2 \rho$, the spectrum of $A(0; \lambda, -2 \rho)$ lies outside the interval $(-\rho, \alpha_0 - 3 \rho) \in (-\rho, \alpha)$. $A(0; \lambda, -2 \rho)$ has $n_- + 1$ eigenvalues with negative real part and $n_+$ eigenvalues with positive real part. Again, using standard exponential dichotomy theory, for the same $\epsilon$ as above there exists families of projections $P^s(y; \beta^+, \lambda, -2 \rho)$ and $P^u(y; \beta^+, \lambda, -2 \rho)$ indexed by $y \in \R^+$ such that
+
+\begin{align*}
+|e^{-2 \rho (x - y)}\Phi(x, y; \beta^+, \lambda)P^s(y; \beta^+, \lambda, -2 \rho)| &\leq C e^{-(\rho - \epsilon)(x - y)} && 0 \leq y \leq x \\
+|e^{-2 \rho (x - y)}\Phi(x, y; \beta^+, \lambda)P^u(y; \beta^+, \lambda, -2 \rho)| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(y - x)} && 0 \leq x \leq y \\
+\end{align*}
+
+The ranges of the projections are $\dim \ran P^s(y; \beta^+, \lambda, -2 \rho) = n_- + 1$ and $\dim \ran P^u(y; \beta^+, \lambda, -2 \rho) = n_+$. The projections $P^s(y; \beta^+, \lambda, -2 \rho)$ and $P^-(y; \beta^+, \lambda, -2 \rho)$ satisfy the same ``commuting'' relations as above.
+
+By Pet97, the stable range $\ran P^s(y; \beta^+, \lambda, -2 \rho)$ is uniquely determined. For the unstable range at $x = 0$, however, we are free to choose $\ran P^u(0; \beta^+, \lambda, -2 \rho)$ to be any complement of $\ran P^s(0; \beta^+, \lambda, -2 \rho)$. We will make such a choice later in the proof.\\
+
+\item Next, we show that 
+
+\begin{align*}
+\ran P^s(y; \beta^+, \lambda, 2 \rho) \subset \ran P^s(y; \beta^+, \lambda, -2 \rho) \\
+\ran P^u(y; \beta^+, \lambda, -2 \rho) \subset \ran P^s(y; \beta^+, \lambda, 2 \rho)
+\end{align*}
+
+Let $z \in \ran P^s(y; \beta^+, \lambda, 2 \rho)$. Then for all $x \geq y$
+
+\begin{align*}
+|e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)z| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(x - y)} \\
+|e^{-2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)z| &\leq C e^{-(\alpha_0 + \rho - \epsilon)(x - y)} \\
+&\leq C e^{-(\rho - \epsilon)(x - y)} \\
+\end{align*}
+
+Thus $z \in \ran P^s(y; \beta^+, \lambda, -2 \rho)$.
+
+\item 
+\begin{align*}
+|\Phi(x, y; \beta^+, \lambda)P_+(y; \beta^+, \lambda)| &\leq C e^{-(\alpha_0 - \rho - \epsilon)(x - y)} && 0 \leq y \leq x \\
+&\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
+\end{align*}
+
+Similarly we can show $\ran (I - P_-(y; \beta^+, \lambda)) \subset \ran(I - P_+(y; \beta^+, \lambda))$. Multiplying the estimate above by $e^{-2 \rho(y-x)}$, we have
+
+\begin{align*}
+|\Phi(x, y; \beta^+, \lambda)(I - P_-(y; \beta^+, \lambda))| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(y - x)} && 0 \leq x \leq y \\ \
+&\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y 
+\end{align*}
+
+
+\item First, we show that $\tilde{w}_+(x; \beta^+, \lambda) \perp \ran P^s_+(x; \beta^+, \lambda, -2 \rho)$ for all $x \geq 0$.\\
+
+Let $u(x) \in \ran P^s_+(x; \beta^+, \lambda)$. Then by Lemma \ref{trichotomy}, since
+
+\begin{align*}
+u(x) &= \Phi^s_+(x, 0; \beta^+, \lambda)u(0) \\
+&= \Phi(x, 0; \beta^+, \lambda) P^s_+(0; \beta^+, \lambda)u(0)\\
+&= P^s_+(x; \beta^+, \lambda) \Phi(x, 0; \beta^+, \lambda) u(0)
+\end{align*}
+
+$u(x) \in \ran P^s_+(x; \beta^+, \lambda)$ for all $x \geq 0$. Since $u(x)$ is a solution to \eqref{eig:V+} and $\tilde{w}(x; \beta^+, \lambda)$ is a solution to \eqref{eig:W+}, by Lemma \ref{eigadjoint}, the inner product $\langle u(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle$ is constant in $x$. Using this together with the continuity of the inner product, we have
+
+\begin{align*}
+\langle u(0), \tilde{w}_+(0; \beta^+, \lambda) \rangle &=
+\lim_{x \rightarrow \infty} \langle u(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle\\
+ &= \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \langle u(x), w_+(x; \beta^+, \lambda) \rangle \\
+&= \langle \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} u(x), w_0(\lambda) \rangle \\
+&= 0
+\end{align*}
+
+
+\item Let
+
+\begin{align*}
+P_+^s(x; \beta^+, \lambda) &= P_+(x; \beta^+, \lambda)\\
+P_+^u(x; \beta^+, \lambda) &= (I - P_-(x; \beta^+, \lambda)) \\
+P_+^c(x; \beta^+, \lambda) &= I - P_+^s(x; \beta^+, \lambda) - P_+^u(x; \beta^+, \lambda)
+\end{align*}
+
+From above we have for all $x \in \R^+$
+
+\[
+\R^m = \ran P_+^s(x; \beta^+, \lambda) \oplus \ran P_+^u(x; \beta^+, \lambda)
+\oplus \ran P_+^c(x; \beta^+, \lambda)
+\]
+
+ we also have $\dim \ran P_+^s(x; \beta^+, \lambda) = n_-$ and $\dim \ran P_+^u(x; \beta^+, \lambda) = n_+$ for all $x \in \R^+$. It follow that $\dim \ran P_+^s(x; \beta^+, \lambda) = 1$ for all $x \in \R^+$. The estimates and the ``commuting'' relations follow from what we have done above. In particular, the estimates are independent of $\beta^+$ and $\lambda$.
+
+\item The proof for $\R^-$ is essentially the same. The fact that we can use the same estimates for derivatives with respect to the parameters $\beta^\pm$ and $\lambda$ follows from Lemma 3.2 in San98, which follows from San93. In particular, we can Taylor expand in any of the parameters.
+
+\end{enumerate}
+\end{proof}
+\end{lemma}
+
+In the work which follows, will need a few bounds involving the projections and evolutions on the stable and unstable subspaces. We will show these in the following lemma.
+
+% lemma : various projection bounds
+
+\begin{lemma}\label{projbounds}
+Let
+
+\begin{enumerate}
+\item
+\begin{equation}\label{p1}
+p_1(X; \beta^+, \beta^-, \lambda) = \sup_{x \geq X} (|P^u_+(x; \beta^+, \lambda) - P_0^u| + |P^s_-(-x; \beta^-, \lambda) - P_0^s|)
+\end{equation}
+\item
+\begin{equation}\label{p5}
+p_5(\beta_i^+, \beta_i^-, \lambda) = |P^u_-(0; \beta_i^-, \lambda) - P^u_-(0; 0, 0)| + |P^s_+(0; \beta_i^+, \lambda) - P^s_+(0; 0, 0)|
+\end{equation}
+\item 
+\begin{equation}\label{p6}
+p_6(y; \beta_i^+, \beta_i^-, \lambda) = |\Phi^u_+(0, y; \beta_i^+, \lambda) - \Phi^u_+(0, y; 0, 0)| + |\Phi^s_-(0, -y; \lambda) - \Phi^s_-(0, -y; 0, 0)| 
+\end{equation}
+
+\end{enumerate}
+
+where $P_0^s$ and $P_0^u$ are the projections on the $E^s$ and $E^u$, the stable and unstable eigenspaces of the asymptotic matrix $A(0; 0)$. Then we have bounds
+
+\begin{align}
+p_1(X; \beta^+, \beta^-, \lambda) &= \mathcal{O}( e^{-\alpha X } + |\lambda| ) \\
+p_5(\beta_i^+, \beta_i^-, \lambda) &= \mathcal{O}(e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}} + |\lambda|) \\
+p_6(y; \beta_i^+, \beta_i^-, \lambda) &= \mathcal{O}(|\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}} ) e^{-\alpha |y|}
+\end{align}
+
+\begin{proof}
+All these bounds rely on the Taylor theorem. By the previous lemma, we can Taylor expand in $\beta^\pm$ and $\lambda$.\\
+
+For $p_1$, using the triangle inequality, we have
+
+\begin{align*}
+|P^u_+(x; \beta^+, \lambda) - P_0^u| 
+&\leq |P^u_+(x; \beta^+, \lambda) - P^u_+(x; \beta^+, 0)| + |P^u_+(x; \beta^+, 0) - P_0^u| 
+\end{align*}
+
+From Lemma 1.1 in San93, $|P^u_+(x; \beta^+, 0) - P_0^u| = \mathcal{O}(e^{-\alpha x})$. From the Taylor theorem about $\lambda = 0$, we have $|P^u_+(x; \beta^+, \lambda) - P^u_+(x; \beta^+, 0)| = \mathcal{O}(|\lambda|)$. Combining these yields the desired bound.\\
+
+For $p_5$, we use the Taylor theorem on $P^u_-(0; \beta_i^-, \lambda)$ about $(\beta_i^-, \lambda) = (0, 0)$ to get 
+
+\begin{align*}
+P^u_-(0; \beta_i^-, \lambda) - P^u_-(0; 0, 0) &= \mathcal{O}(|\lambda| + |\beta_i^-|) \\
+&= \mathcal{O}(|\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})
+\end{align*}
+
+where the estimate on $\beta_i^-$ comes from the existence problem. We get the same estimate from using the Taylor theorem on $P^s_+(0; \beta_i^+, \lambda)$.\\
+
+For $p_6$, we use the Taylor theorem on $\Phi^u_+(0, y; \beta_i^+, \lambda)$ at $(\beta_i^+, \lambda) = (0, 0)$ to get 
+
+\begin{align*}
+\Phi^u_+(&0, y; \beta_i^+, \lambda) - \Phi^u_+(0, y; 0, 0) \\
+&= \frac{\partial}{\partial \beta_i^+}\Phi^u_+(0, y; \beta_i^+, \lambda)\Big|_{(\beta_i^+, \lambda) = (0, 0)} \beta_i^+ + \frac{\partial}{\partial \lambda}\Phi^u_+(0, y; \beta_i^+, \lambda)\Big|_{(\beta_i^+, \lambda) = (0, 0)} \lambda + \mathcal{O}(|\beta_i^+|^2 + |\beta_i^+ \lambda| + |\lambda|^2) \\
+&= \mathcal{O}((|\lambda| + |\beta_i^+|)e^{-\alpha |y| }) \\
+&= \mathcal{O}((|\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})e^{-\alpha |y| }) \\
+\end{align*}
+
+where the derivatives of $\Phi^u_+(0, y; \beta_i^+, \lambda)$ with respect to $\beta_i^+$ and $\lambda$ are $\mathcal{O}(e^{-|\alpha|y}$ by Lemma \ref{trichotomy} and the estimate on $\beta_i^+$ comes from the existence problem. We get the same estimate for $\Phi^s_-(0, -y; \lambda)$.
+
+\end{proof}
+\end{lemma}
+
+
 
 In the next two lemmas, we show that $\tilde{w}_\pm$ is perpendicular (or can be made perpendicular) to the range of the stable and unstable projections.
 
