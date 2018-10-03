@@ -212,7 +212,7 @@ D_i d &= ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X
 \begin{proof}
 The first two bounds come from the bounds on the remainder term existence problem (the notation $V$ is used for the remainder term there), together with the fact that the matrix $A$ is a bounded linear operator. Note that the bound is strongest at $x = 0$ and is weakest at $\pm X_i$. \\
 
-For the third, we first recall that $H = -B Q_c$, and we have shown (somewhere else) that $q_c$ exists, is exponentially localized, and decays exponentially with rate $\alpha$. The same should hold for $\tilde{H}_i^\pm$ on the appropriate intervals.\\
+For the third, we first recall that $H = -B Q_c$, and we have shown (somewhere else) that $q_c$ exists, is exponentially localized, and decays exponentially with rate $\alpha$. An identical proof shows that the same holds for $(q_2p)_c$, thus for $\tilde{H}$.\\
  
 Next, we look at we look at $\Delta H = \tilde{H}_i^\pm - H$. Noting the definition of $B$, we only have to look at 
 
@@ -351,16 +351,9 @@ i.e. it does not matter if we project or evolve first. For any $\epsilon > 0$ we
 |\Phi^u_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y \\
 \end{align*}
 
-where $\alpha$ is defined above. The same estimates hold for all derivatives with respect to $\beta^\pm$ and $\lambda$. Finally, the projections $P^s_\pm$ and $P^u_\pm$ can be chosen such that at $y = 0$ we have, independent of $\beta^+$, $\beta^-$, and $\lambda$ we have
+where $\alpha$ is defined above. The same estimates hold for all derivatives with respect to $\beta^\pm$ and $\lambda$. 
 
-\begin{align*}
-\ker P^s_+(0; \beta^+; \lambda) &= \R \Psi(0) \oplus Y^- \\
-\ker P^u_-(0; \beta^-; \lambda) &= \R \Psi(0) \oplus Y^+ \\
-\ran P^u_+(0; \beta^+; \lambda) &= \R \Psi(0) \oplus Y^- \\
-\ran P^s_-(0; \beta^-; \lambda) &= \R \Psi(0) \oplus Y^+
-\end{align*}
-
-The center projection and evolution will be considered in the next section.
+We will derive an expression for the center projection and the center evolution.
 
 \begin{proof}
 \begin{enumerate}
@@ -467,7 +460,7 @@ From above we have for all $x \in \R^+$
 
  we also have $\dim \ran P_+^s(x; \beta^+, \lambda) = n_-$ and $\dim \ran P_+^u(x; \beta^+, \lambda) = n_+$ for all $x \in \R^+$. It follow that $\dim \ran P_+^s(x; \beta^+, \lambda) = 1$ for all $x \in \R^+$. The estimates and the ``commuting'' relations follow from what we have done above. In particular, the estimates are independent of $\beta^+$ and $\lambda$.
 
-\item The proof for $\R^_$ is essentially the same. The fact that we can use the same estimates for derivatives with respect to the parameters $\beta^\pm$ and $\lambda$ follows from Lemma 3.2 in San98, which follows from San93.  
+\item The proof for $\R^-$ is essentially the same. The fact that we can use the same estimates for derivatives with respect to the parameters $\beta^\pm$ and $\lambda$ follows from Lemma 3.2 in San98, which follows from San93. In particular, we can Taylor expand in any of the parameters.
 
 \end{enumerate}
 \end{proof}
@@ -505,7 +498,7 @@ p_6(y; \beta_i^+, \beta_i^-, \lambda) &= \mathcal{O}(|\lambda| + e^{-2 \alpha X_
 \end{align}
 
 \begin{proof}
-All these bounds rely on the Taylor theorem, AND WE ARE ASSUMING IT IS LEGIT IN ALL OF THESE CASES.\\
+All these bounds rely on the Taylor theorem. By the previous lemma, we can Taylor expand in $\beta^\pm$ and $\lambda$.\\
 
 For $p_1$, using the triangle inequality, we have
 
@@ -890,21 +883,16 @@ We cannot do the same thing for the other two ranges, since, for example, we can
 
 \begin{lemma}\label{perpinner}
 
-There exists a change of coordinates at $x = 0$ such that, after performing the coordinate change, we have for all $x \geq 0$,
+We can choose appropriate spaces for $\ran P_+^u(0; \beta^+, \lambda)$ and $\ran P_-^s(0; \beta^i, \lambda)$ at $x = 0 $ so that 
 
-\begin{equation}
-\tilde{w}_+(x; \beta^+, \lambda) \perp \ran P^u_+(x; \beta^+, \lambda)
-\end{equation}
-
-and for all $x \leq 0$
-
-\begin{equation}
-\tilde{w}_+(x; \beta^-, \lambda) \perp \ran P^s_-(x; \beta^-, \lambda)
-\end{equation}
+\begin{align}
+\tilde{w}_+(x; \beta^+, \lambda) &\perp \ran P^u_+(x; \beta^+, \lambda) && x \geq 0\\
+\tilde{w}_+(x; \beta^-, \lambda) &\perp \ran P^s_-(x; \beta^-, \lambda) && x \leq 0
+\end{align}
 
 \begin{proof}
 
-Let $u(x) \in \ran P^u_+(x; \beta^+, \lambda)$. Then by Lemma \ref{trichotomy},
+We consider the exponential dichotomy on $\R^+$ here. The proof is identical for the exponential dichotomy on $\R^-$. Let $u(x) \in \ran P^u_+(x; \beta^+, \lambda)$. Then by Lemma \ref{trichotomy},
 
 \begin{align*}
 u(x) &= \Phi_s^-(x, 0; \beta^+, \lambda)u(0) \\
@@ -912,9 +900,11 @@ u(x) &= \Phi_s^-(x, 0; \beta^+, \lambda)u(0) \\
 &= P^s_-(x; \beta^+, \lambda) \Phi(x, 0; \beta^+, \lambda) u(0)
 \end{align*}
 
-Since $u(x)$ is a solution to \eqref{eig:V+} and $\tilde{w}(x; \beta^+, \lambda)$ is a solution to \eqref{eig:W+}, by Lemma \ref{eigadjoint}, the inner product $\langle u(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle$ is constant in $x$. Thus if we change coordinates at $x = 0$ so that $\langle u(0), \tilde{w}_+(0; \beta^+, \lambda) \rangle = \langle u(0), w_+(0; \beta^+, \lambda) \rangle = 0$ for all $u(0) \in P^u_+(0; \beta^+, \lambda)$, the result will hold for all $x \geq 0$. The same is true for $x \leq 0$ if we change coordinates so that $\langle u(0), w_-(0; \beta^-, \lambda) \rangle = 0$ for all $u(0) \in P^s_-(x; \beta^-, \lambda)$. Thus we only have to consider the case where $x = 0$.
+Since $u(x)$ is a solution to \eqref{eig:V+} and $\tilde{w}(x; \beta^+, \lambda)$ is a solution to \eqref{eig:W+}, by Lemma \ref{eigadjoint}, the inner product $\langle u(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle$ is constant in $x$. Thus if we change coordinates at $x = 0$ so that $\langle u(0), \tilde{w}_+(0; \beta^+, \lambda) \rangle = \langle u(0), w_+(0; \beta^+, \lambda) \rangle = 0$ for all $u(0) \in P^u_+(0; \beta^+, \lambda)$, the result will hold for all $x \geq 0$. The same is true for $x \leq 0$ if we change coordinates so that $\langle u(0), w_-(0; \beta^-, \lambda) \rangle = 0$ for all $u(0) \in P^s_-(x; \beta^-, \lambda)$. Thus it only matters what happens at $x = 0$.\\
 
-NOT SURE WHAT TO DO HERE.
+As in the proof of Lemma \ref{trichotomy}, let 
+
+
 
 \end{proof}
 \end{lemma}
