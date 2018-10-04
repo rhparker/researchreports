@@ -773,14 +773,15 @@ u(y) &= \Phi(y, x; \beta^+, \lambda) e^{-2 \rho x} z\\
 is a solution to \eqref{eig:V+} with $u(x) = e^{-2 \rho x} z$. Since $\tilde{w}(y; \beta^+, \lambda)$ is a solution to \eqref{eig:W+}, by Lemma \ref{eigadjoint}, the inner product $\langle u(y), \tilde{w}_+(y; \beta^+, \lambda) \rangle$ is constant in $y$. Using this together with the continuity of the inner product, we have
 
 \begin{align*}
-|e^{-2 \rho x} \langle z, \tilde{w}_+(x; \beta^+, \lambda) \rangle| &= 
-|\langle e^{-2 \rho x} z, \tilde{w}_+(x; \beta^+, \lambda) \rangle| \\
-&= |\langle u(x), e^{-\overline{\nu(\lambda)} x } w_+(x; \beta^+, \lambda) \rangle| \\
-&= |\lim_{y \rightarrow \infty} \langle e^{-{\nu(\lambda)} y } u(y), w_+(y; \beta^+, \lambda) \rangle|\\
-&= |\langle \lim_{y \rightarrow \infty} e^{-{\nu(\lambda)} y } u(y), w_0(\lambda) \rangle |\\
-&= |\langle \lim_{y \rightarrow \infty} e^{-{\nu(\lambda)} y } \Phi(y, x; \beta^+, \lambda) e^{-2 \rho x} z, w_0(\lambda) \rangle |\\
-&\leq C e^{-2 \rho x}|e^{-{\nu(\lambda)} y } \Phi(y, x; \beta^+, \lambda) P^s_+(x; \beta^+, \lambda, 2 \rho) z |
+e^{-2 \rho x} \langle z, \tilde{w}_+(x; \beta^+, \lambda) \rangle &= 
+\langle e^{-2 \rho x} z, \tilde{w}_+(x; \beta^+, \lambda) \rangle \\
+&= \langle u(x), e^{-\overline{\nu(\lambda)} x } w_+(x; \beta^+, \lambda) \rangle \\
+&= \lim_{y \rightarrow \infty} \langle e^{-{\nu(\lambda)} y } u(y), w_+(y; \beta^+, \lambda) \rangle\\
+&= \langle \lim_{y \rightarrow \infty} e^{-{\nu(\lambda)} y } u(y), w_0(\lambda) \rangle \\
+&= \langle \lim_{y \rightarrow \infty} e^{-{\nu(\lambda)} y } \Phi(y, x; \beta^+, \lambda) e^{-2 \rho x} z, w_0(\lambda) \rangle \\
+&= e^{-2 \rho x} \langle \lim_{y \rightarrow \infty} e^{-{\nu(\lambda)} y } \Phi(y, x; \beta^+, \lambda) P^s_+(x; \beta^+, \lambda, 2 \rho) z, w_0(\lambda) \rangle 
 \end{align*}
+
 
 Thus using \eqref{Ps2rhobound}, by our choices of $\rho$ and $\epsilon$ we have
 
@@ -907,7 +908,7 @@ The ``commuting'' relation for the center subspace follows direction from this.
 \end{proof}
 \end{lemma}
 
-In the work which follows, will need a few bounds involving the projections and evolutions on the stable and unstable subspaces. We will show these in the following lemma.
+In the work which follows, will several estimates based on Lemma \ref{trichotomy}. First, we have bounds involving projections and evolutions on the stable and unstable subspaces. We will show these in the following lemma.
 
 % lemma : various projection bounds
 
@@ -973,178 +974,9 @@ where the derivatives of $\Phi^u_+(0, y; \beta_i^+, \lambda)$ with respect to $\
 \end{proof}
 \end{lemma}
 
+Finally, we have bounds involving the center subspace, which we present in the following lemma.
 
-
-In the next two lemmas, we show that $\tilde{w}_\pm$ is perpendicular (or can be made perpendicular) to the range of the stable and unstable projections.
-
-% lemma : \tilde{w}^\pm perpendicular to "outer" ranges
-
-\begin{lemma}\label{perpouter}
-
-For all $x \geq 0$,
-
-\begin{equation}
-\tilde{w}_+(x; \beta^+, \lambda) \perp \ran P^s_+(x; \beta^+, \lambda)
-\end{equation}
-
-For all $x \leq 0$
-
-\begin{equation}
-\tilde{w}_+(x; \beta^-, \lambda) \perp \ran P^u_+(x; \beta^-, \lambda)
-\end{equation}
-
-\begin{proof}
-
-Let $u(x) \in \ran P^s_+(x; \beta^+, \lambda)$. Then by Lemma \ref{trichotomy}, since
-
-\begin{align*}
-u(x) &= \Phi^s_+(x, 0; \beta^+, \lambda)u(0) \\
-&= \Phi(x, 0; \beta^+, \lambda) P^s_+(0; \beta^+, \lambda)u(0)\\
-&= P^s_+(x; \beta^+, \lambda) \Phi(x, 0; \beta^+, \lambda) u(0)
-\end{align*}
-
-$u(x) \in \ran P^s_+(x; \beta^+, \lambda)$ for all $x \geq 0$. Since $u(x)$ is a solution to \eqref{eig:V+} and $\tilde{w}(x; \beta^+, \lambda)$ is a solution to \eqref{eig:W+}, by Lemma \ref{eigadjoint}, the inner product $\langle u(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle$ is constant in $x$. Using this together with the continuity of the inner product, we have
-
-\begin{align*}
-\langle u(0), \tilde{w}_+(0; \beta^+, \lambda) \rangle &=
-\lim_{x \rightarrow \infty} \langle u(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle\\
- &= \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \langle u(x), w_+(x; \beta^+, \lambda) \rangle \\
-&= \langle \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} u(x), w_0(\lambda) \rangle \\
-&= 0
-\end{align*}
-
-since by Lemma \ref{trichotomy}, $u(x)$ decays exponentially with rate $a_0 > |\nu(\lambda)|$. Thus we have $\tilde{w}(0; \beta^+, \lambda) \perp \ran P^s(0; \beta^+, \lambda)$. By Lemma \ref{perpeigs}, $\tilde{w}_+(x; \beta^+, \lambda) \perp \ran P^s_+(x; \beta^+, \lambda)$ for all $x \geq 0$.\\
-
-The proof for $\tilde{w}_+(x; \beta^-, \lambda)$ is identical.
-
-\end{proof}
-\end{lemma} 
-
-We cannot do the same thing for the other two ranges, since, for example, we cannot take $x \rightarrow -\infty$ on $\R^+$. Thus we will need to make a coordinate change, which we do in the following lemma.
-
-% lemma : \tilde{w}^\pm perpendicular to "inner" ranges after change of coordinates
-
-\begin{lemma}\label{perpinner}
-
-We can choose appropriate spaces for $\ran P_+^u(0; \beta^+, \lambda)$ and $\ran P_-^s(0; \beta^i, \lambda)$ at $x = 0 $ so that 
-
-\begin{align}
-\tilde{w}_+(x; \beta^+, \lambda) &\perp \ran P^u_+(x; \beta^+, \lambda) && x \geq 0\\
-\tilde{w}_+(x; \beta^-, \lambda) &\perp \ran P^s_-(x; \beta^-, \lambda) && x \leq 0
-\end{align}
-
-\begin{proof}
-
-We consider the exponential dichotomy on $\R^+$ here. The proof is identical for the exponential dichotomy on $\R^-$. Let $u(x) \in \ran P^u_+(x; \beta^+, \lambda)$. Then by Lemma \ref{trichotomy},
-
-\begin{align*}
-u(x) &= \Phi_s^-(x, 0; \beta^+, \lambda)u(0) \\
-&= \Phi(x, 0; \beta^+, \lambda) P^s_-(0; \beta^+, \lambda)u(0)\\
-&= P^s_-(x; \beta^+, \lambda) \Phi(x, 0; \beta^+, \lambda) u(0)
-\end{align*}
-
-Since $u(x)$ is a solution to \eqref{eig:V+} and $\tilde{w}(x; \beta^+, \lambda)$ is a solution to \eqref{eig:W+}, by Lemma \ref{eigadjoint}, the inner product $\langle u(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle$ is constant in $x$. Thus if we change coordinates at $x = 0$ so that $\langle u(0), \tilde{w}_+(0; \beta^+, \lambda) \rangle = \langle u(0), w_+(0; \beta^+, \lambda) \rangle = 0$ for all $u(0) \in P^u_+(0; \beta^+, \lambda)$, the result will hold for all $x \geq 0$. The same is true for $x \leq 0$ if we change coordinates so that $\langle u(0), w_-(0; \beta^-, \lambda) \rangle = 0$ for all $u(0) \in P^s_-(x; \beta^-, \lambda)$. Thus it only matters what happens at $x = 0$.\\
-
-As in the proof of Lemma \ref{trichotomy}, let 
-
-
-
-\end{proof}
-\end{lemma}
-
-% lemma : center projection
-
-In the next lemma, we give an expression for the projection $P^c_+(x; \beta^+, \lambda)$ on the center subspace.
-
-\begin{lemma}\label{centerproj}
-
-For the projections on the center subspace, we have
-
-\begin{align}\label{Pc}
-P^c_+(x; \beta^+, \lambda)u &= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) && x \geq 0 \\
-P^c_-(x; \beta^-, \lambda)u &= \langle u, w_-(x; \beta^-, \lambda) \rangle v_-(x; \beta^-, \lambda) && x \leq 0
-\end{align}
-
-for $\lambda$ sufficiently small and all $\beta^+$, $\beta^-$.
-
-\begin{proof}
-
-We consider here only the projection $P^c_+$. The proof for $P^c_-$ is identical.
-
-\begin{enumerate}
-
-\item For fixed $\beta^+$ and $x \geq 0$, let $R^s_+(x; \beta^+, \lambda)$, $R^u_+(x; \beta^+, \lambda)$, and $R^c(x; \beta^+, \lambda)$ be the ranges of the stable, unstable, and center projections, respectively. By Lemma \ref{trichotomy}, for all $x \geq 0$
-
-\[
-\R^n = R^s_+(x; \beta^+, \lambda) \oplus R^u_+(x; \beta^+, \lambda) \oplus R^c_+(x; \beta^+, \lambda)
-\]
-
-Since, the dimension of $R^c(x; \beta^+, \lambda)$ is 1 and $\tilde{v}_+(x; \beta^+, \lambda) \in R^c(x; \beta^+, \lambda)$, $\tilde{v}_+(x; \beta^+, \lambda)$ is a basis vector for $R^c(x; \beta^+, \lambda)$. We can scale the basis vector by any constant we want, thus we can use $v_+(x; \beta^+, \lambda)$ as a basis vector for $R^c(x; \beta^+, \lambda)$.
-
-\item We claim that the following is an expression for $P^c_+(x; \beta^+, \lambda)$ for $x \geq 0$
-
-\begin{align*}
-P^c_+(x; \beta^+, \lambda)u &= \langle u, \tilde{w}_+(x; \beta^+, \lambda) \rangle \tilde{v}_+(x; \beta^+, \lambda) \\
-&= e^{-\nu(\lambda)x} e^{\nu(\lambda) x }\langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
-&= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda)
-\end{align*}
-
-$P^c_+$ is clearly linear, and its range is $\spn\{ v_+(x; \beta^+, \lambda) \}$, which is exactly what we want. Using Lemmas \ref{perpouter} and \ref{perpinner}, 
-
-\[
-\ker P^c_+(x; \beta^+, \lambda) = R^s_+(x; \beta^+, \lambda) \oplus R^u_+(x; \beta^+, \lambda)
-\]
-
-which is also exactly what we want.
-
-\item Finally, we need to verify that $P^c_+$ is in fact a projection. To do this, we will show that $P^c_+(x; \beta^+, \lambda)P^c_+(x; \beta^+, \lambda) = P^c_+(x; \beta^+, \lambda)$.
-
-\begin{align*}
-P^c_+(x; \beta^+, \lambda)( P^c_+(x; \beta^+, \lambda) u ) &= \langle \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
-&= \langle u, w_+(x; \beta^+, \lambda) \rangle \langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
-&= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
-&= P^c_+(x; \beta^+, \lambda) u 
-\end{align*}
-
-where $\langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle = 1$ for all $x \geq 0$ by Lemma \ref{perpeigs}. Thus this is indeed a projection.
-\end{enumerate}
-\end{proof}
-\end{lemma}
-
-Using this, we can now derive an expression for the evolution on the center subspace.
-
-% lemma : evolution on center space
-
-\begin{lemma}
-
-The center evolution $\Phi^c_\pm(x,y; \beta^\pm, \lambda)$ is given by
-
-\begin{align}\label{Phic}
-\Phi^c_+(x,y; \beta^+, \lambda) &= e^{\nu(\lambda)(x-y)} v_+(x; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle && x, y \geq 0 \\
-\Phi^c_-(x,y; \beta^-, \lambda) &= e^{\nu(\lambda)(x-y)} v_-(x; \beta^-, \lambda) \langle u, w_-(y; \beta^-, \lambda) \rangle && x, y \leq 0
-\end{align}
-
-\begin{proof}
-
-Again, we only look at the evolution $\Phi^c_+$. The proof for $\Phi^c_-$ is identical. Using the expression for $P^c_+$ from the previous lemma, we have
-
-\begin{align*}
-\Phi^c_+(x,y; \beta^+, \lambda)u &= \Phi(x,y; \beta^+, \lambda) P^c_+(y; \beta^+, \lambda) u \\
-&= \Phi(x,y; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle v_+(y; \beta^+, \lambda) \\
-&= \Phi(x,y; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(y; \beta^+, \lambda) \\
-&= \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} \Phi(x,y; \beta^+, \lambda) \tilde{v}_+(y; \beta^+, \lambda) \\
-&= \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(x; \beta^+, \lambda) \\
-&= \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} e^{\nu(\lambda)x} v_+(x; \beta^+, \lambda) \\
-&= e^{\nu(\lambda)(x-y)} v_+(x; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle 
-\end{align*}
-
-where we used the fact that $\tilde{v}_+$ is a solution to the eigenvalue problem \eqref{eig:V+}, thus under the evolution $\Phi(y, x; \beta^+, \lambda)$ we have $\Phi(y, x; \beta^+, \lambda)\tilde{v}_+(x; \beta^+, \lambda) = \tilde{v}_+(y; \beta^+, \lambda)$.
-\end{proof}
-\end{lemma}
-
-Finally, we have some useful limits and estimates involving the expressions defined in this section, which we present in the following lemma.
-
-% lemma : bounds involving these
+% lemma : bounds involving center subspace stuff
 
 \begin{lemma}\label{centerbounds}
 
