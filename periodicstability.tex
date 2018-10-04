@@ -630,23 +630,35 @@ such that the evolution operators $\Phi_\pm(x, y; \beta^\pm, \lambda)$ can be de
 \Phi^c_\pm(x, y; \beta^\pm, \lambda) &= \Phi_\pm(x, y; \beta^\pm, \lambda) P^c_\pm(y; \beta^\pm, \lambda) \\
 \end{align*}
 
-For the stable and unstable parts of the trichotomy, the projections satisfy 
+The projections satisfy 
 
 \begin{align*}
-\Phi_\pm(x, y; \beta^\pm, \lambda) P^{s/u}_\pm(y; \beta^\pm, \lambda) 
-= P^{s/u}_\pm(x; \beta^\pm, \lambda) \Phi_\pm(x, y; \beta^\pm, \lambda)
+\Phi_\pm(x, y; \beta^\pm, \lambda) P^{s/u/c}_\pm(y; \beta^\pm, \lambda) 
+= P^{s/u/c}_\pm(x; \beta^\pm, \lambda) \Phi_\pm(x, y; \beta^\pm, \lambda)
 \end{align*}
 
-i.e. it does not matter if we project or evolve first. For any $\epsilon > 0$ we can find $\delta > 0$ such that if $|\lambda| < \delta$, we have the following estimates for the stable and unstable evolutions, independent of $\lambda$
+i.e. it does not matter if we project or evolve first. For $|\lambda| < \delta$, we have the following estimates for the stable and unstable evolutions, which independent of $\lambda$ and $\beta^\pm$.
 
 \begin{align*}
 |\Phi^s_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
 |\Phi^u_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y \\
 \end{align*}
 
-where $\alpha$ is defined above. The same estimates hold for all derivatives with respect to $\beta^\pm$ and $\lambda$. 
+where $\alpha$ is defined above. The same estimates hold for all derivatives with respect to $\beta^\pm$ and $\lambda$.\\
 
-We will derive an expression for the center projection and the center evolution.
+An explicit form of the center projection is given by
+
+\begin{align}\label{Pc}
+P^c_+(x; \beta^+, \lambda)u &= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) && x \geq 0 \\
+P^c_-(x; \beta^-, \lambda)u &= \langle u, w_-(x; \beta^-, \lambda) \rangle v_-(x; \beta^-, \lambda) && x \leq 0
+\end{align}
+
+and an explicit form of the center evolution is given by
+
+\begin{align}\label{Phic}
+\Phi^c_+(x,y; \beta^+, \lambda) &= e^{\nu(\lambda)(x-y)} v_+(x; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle && x, y \geq 0 \\
+\Phi^c_-(x,y; \beta^-, \lambda) &= e^{\nu(\lambda)(x-y)} v_-(x; \beta^-, \lambda) \langle u, w_-(y; \beta^-, \lambda) \rangle && x, y \leq 0
+\end{align}
 
 \begin{proof}
 
@@ -687,7 +699,7 @@ It is also not hard to show that $\nu$ is an eigenvalue of the asymptotic matrix
 |e^{2 \rho (x - y)} \Phi(x, y; \beta^+, \lambda)P^u(y; \beta^+, \lambda, 2 \rho)| &\leq C e^{-(\rho - \epsilon)(y - x)} && 0 \leq x \leq y \\
 \end{align*}
 
-For the first equation, we can divide by $e^{2 \rho (x - y)}$ to get
+We can divide the first equation by $e^{2 \rho (x - y)}$ to get
 
 \begin{align}\label{Ps2rhobound}
 |\Phi(x, y; \beta^+, \lambda)P^s(y; \beta^+, \lambda, 2 \rho)| &\leq C e^{-(\alpha_0 - \rho - \epsilon)(x - y)} && 0 \leq y \leq x \\
@@ -718,11 +730,11 @@ We can cancel the $e^{2 \rho (x - y)}$ term to get
 |e^{-2 \rho (x - y)}\Phi(x, y; \beta^+, \lambda)P^u(y; \beta^+, \lambda, -2 \rho)| &\leq C e^{-(\alpha_0 - 3 \rho - \epsilon)(y - x)} && 0 \leq x \leq y \\
 \end{align*}
 
-For the second equation, we can divide by $e^{-2 \rho (x - y)}$ to get
+We can divide the second equation by $e^{-2 \rho (x - y)}$ to get
 
-\begin{align*}
-\Phi(x, y; \beta^+, \lambda)P^u(y; \beta^+, \lambda, -2 \rho)| &\leq C e^{-(\alpha_0 - \rho - \epsilon)(y - x)} && 0 \leq x \leq y \\
-\end{align*}
+\begin{align}\label{Pu2-rhobound}
+|\Phi(x, y; \beta^+, \lambda)P^u(y; \beta^+, \lambda, -2 \rho)| &\leq C e^{-(\alpha_0 - \rho - \epsilon)(y - x)} && 0 \leq x \leq y \\
+\end{align}
 
 For the ranges of the projections we have $\dim \ran P^s(y; \beta^+, \lambda, -2 \rho) = n_- + 1$ and $\dim \ran P^u(y; \beta^+, \lambda, -2 \rho) = n_+$. The projections $P^s(y; \beta^+, \lambda, -2 \rho)$ and $P^-(y; \beta^+, \lambda, -2 \rho)$ satisfy the same ``commuting'' relations as above.
 
@@ -779,28 +791,117 @@ Thus using \eqref{Ps2rhobound}, by our choices of $\rho$ and $\epsilon$ we have
 &= 0
 \end{align*}
 
-\item Next, we will choose a complement of $\ran P^s(0; \beta^+, \lambda, -2 \rho)$ to be $\ran P^u(0; \beta^+, \lambda, -2 \rho)$. Recall that $\ran P^s(y; \beta^+, \lambda, 2 \rho) \subset \ran P^s(y; \beta^+, \lambda, -2 \rho)$. Let $u_1, \dots, u_{n_-}$ be a basis for $\ran P^s(y; \beta^+, \lambda, 2 \rho)$. Note that by construction, $\tilde{v}_+(y; \beta^+, \lambda) \in \ran P^s(y; \beta^+, \lambda, -2 \rho)$ but $\tilde{v}_+(y; \beta^+, \lambda) \not\in \ran P^s(y; \beta^+, \lambda, 2 \rho)$. Since $\tilde{v}_+(0; \beta^+, \lambda) = v_+(0; \beta^+, \lambda)$, $u_1, \dots, u_{n_-}, v_+(0; \beta^+, \lambda)$ is a basis for $\ran P^s(y; \beta^+, \lambda, -2 \rho)$.\\
+\item Next, we will choose a complement of $\ran P^s(0; \beta^+, \lambda, -2 \rho)$ to be $\ran P^u(0; \beta^+, \lambda, -2 \rho)$. Recall that $\ran P^s(y; \beta^+, \lambda, 2 \rho) \subset \ran P^s(y; \beta^+, \lambda, -2 \rho)$. Let $u_1, \dots, u_{n_-}$ be a basis for $\ran P^s(y; \beta^+, \lambda, 2 \rho)$. Note that by our choice of exponential weights, $\tilde{v}_+(y; \beta^+, \lambda) \in \ran P^s(y; \beta^+, \lambda, -2 \rho)$ but $\tilde{v}_+(y; \beta^+, \lambda) \not\in \ran P^s(y; \beta^+, \lambda, 2 \rho)$. Since $\tilde{v}_+(0; \beta^+, \lambda) = v_+(0; \beta^+, \lambda)$, $\{u_1, \dots, u_{n_-}, v_+(0; \beta^+, \lambda)\}$ is a basis for $\ran P^s(y; \beta^+, \lambda, -2 \rho)$.\\
 
-Let $U = \span\{ w_+(0; \beta^+, \lambda), u_1, \dots, u_{n-1} \}^\perp$. We claim that $U$ is a complement of $\ran P^s(0; \beta^+, \lambda, -2 \rho)$. 
+Let $U = \spn\{ u_1, \dots, u_{n-1} , w_+(0; \beta^+, \lambda) \}^\perp$. We claim that $U$ is a complement of $\ran P^s(0; \beta^+, \lambda, -2 \rho)$. Let $\tilde{u}_1, \dots, \tilde{u}_{n^+}$ be a basis for $U$. All we have to show is that the set $\{ u_1, \dots, u_{n_-} , v_+(0; \beta^+, \lambda), \tilde{u}_1, \dots, \tilde{u}_{n_+} \}$ is linearly independent. By how we set things up, the set $\{ u_1, \dots, u_{n_-}, \tilde{u}_1, \dots, \tilde{u}_{n_+} \}$ is linearly independent. Thus all we have to show is that $v_+(0; \beta^+, \lambda)$ is linearly independent of these. From above, $v_+(0; \beta^+, \lambda)$ is linearly independent of $\{ u_1, \dots, u_{n_-}$. We also know from Lemma \ref{vwIP1} that $\langle v_+(0; \beta^+, \lambda), w_+(0; \beta^+, \lambda) = 1$, thus $v_+(0; \beta^+, \lambda)$ cannot be in $U$, otherwise it would be perpendicular to $w_+(0; \beta^+, \lambda)$. Thus $U$ is a complement of $\ran P^s(0; \beta^+, \lambda, -2 \rho)$, so we can take
 
+\begin{equation}
+\ran P^u(0; \beta^+, \lambda, -2 \rho) = \spn\{ u_1, \dots, u_{n-1} , w_+(0; \beta^+, \lambda) \}^\perp
+\end{equation}
 
+In particular, $\tilde{w}_+(0; \beta^+, \lambda) \perp \ran P^u(0; \beta^+, \lambda, -2 \rho)$.
+
+\item Next, we show that $\tilde{w}_+(x; \beta^+, \lambda) \perp \ran P^u_+(x; \beta^+, \lambda, -2 \rho)$ for all $x \geq 0$.\\
+
+For $x \geq 0$, let $z \in \ran P^u(x; \beta^+, \lambda, -2 \rho)$. Then 
 
 \begin{align*}
-P_+^s(x; \beta^+, \lambda) &= P_+(x; \beta^+, \lambda)\\
-P_+^u(x; \beta^+, \lambda) &= (I - P_-(x; \beta^+, \lambda)) \\
-P_+^c(x; \beta^+, \lambda) &= I - P_+^s(x; \beta^+, \lambda) - P_+^u(x; \beta^+, \lambda)
+z = e^{-2 \rho x} \Phi(x, 0; \beta^+, \lambda)z_0
 \end{align*}
 
-From above we have for all $x \in \R^+$
+for some $z_0 \in \ran P^u(0; \beta^+, \lambda, -2 \rho)$. Then
 
-\[
-\R^m = \ran P_+^s(x; \beta^+, \lambda) \oplus \ran P_+^u(x; \beta^+, \lambda)
-\oplus \ran P_+^c(x; \beta^+, \lambda)
-\]
+\begin{align*}
+\tilde{u}(y; -2 \rho) &= e^{-2 \rho y} \Phi(y, 0; \beta^+, \lambda)z_0\\
+\end{align*}
 
- we also have $\dim \ran P_+^s(x; \beta^+, \lambda) = n_-$ and $\dim \ran P_+^u(x; \beta^+, \lambda) = n_+$ for all $x \in \R^+$. It follow that $\dim \ran P_+^s(x; \beta^+, \lambda) = 1$ for all $x \in \R^+$. The estimates and the ``commuting'' relations follow from what we have done above. In particular, the estimates are independent of $\beta^+$ and $\lambda$.
+is a solution to \eqref{weightedeq} with $u(0) = z_0$ and $u(x) = z$. Thus
 
-\item The proof for $\R^-$ is essentially the same. The fact that we can use the same estimates for derivatives with respect to the parameters $\beta^\pm$ and $\lambda$ follows from Lemma 3.2 in San98, which follows from San93. In particular, we can Taylor expand in any of the parameters.
+\begin{align*}
+u(y) &= \Phi(y, 0; \beta^+, \lambda) z_0 \\
+\end{align*}
+
+is a solution to \eqref{eig:V+} with $u(0) = z_0$ and $u(x) = e^{2 \rho x} z$. Since $\tilde{w}(y; \beta^+, \lambda)$ is a solution to \eqref{eig:W+}, by Lemma \ref{eigadjoint}, the inner product $\langle u(y), \tilde{w}_+(y; \beta^+, \lambda) \rangle$ is constant in $y$. From our choice of $P^u(0; \beta^+, \lambda, -2 \rho)$, we have
+
+\begin{align*}
+0 &= \langle z_0, w_+(0; \beta^+, \lambda) \rangle \\
+&= \langle u(0), \tilde{w}_+(0; \beta^+, \lambda) \rangle \\
+&= \langle u(x), \tilde{w}_+(x; \beta^+, \lambda) \rangle \\
+&= \langle e^{2 \rho x} z, \tilde{w}_+(x; \beta^+, \lambda) \rangle \\
+&= e^{2 \rho x} \langle z, \tilde{w}_+(x; \beta^+, \lambda) \rangle 
+\end{align*}
+
+Since $e^{2 \rho x} > 0$, we conclude $\langle z, \tilde{w}_+(x; \beta^+, \lambda) \rangle = 0$.
+
+\item We are finally ready to put all of this together. For $x \geq 0$, let
+
+\begin{align*}
+P^s_+(x; \beta^+, \lambda) &= P^s(x; \beta^+, \lambda, 2 \rho) \\
+P^u_+(x; \beta^+, \lambda) &= P^u(x; \beta^+, \lambda, -2 \rho) \\
+P^c_+(x; \beta^+, \lambda)u &= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda)
+\end{align*}
+
+From \eqref{Ps2rhobound} and \eqref{Pu2-rhobound} we have the estimates
+
+\begin{align}
+|\Phi(x, y; \beta^+, \lambda)P_+^s(y; \beta^+, \lambda)| &\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
+|\Phi(x, y; \beta^+, \lambda)P_+^u(y; \beta^+, \lambda)| &\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y 
+\end{align}
+
+In particular, these estimates are independent of $\beta^+$ and $\lambda$. We also have the ``commuting'' relations from above. Note that from our definition of $P^c_+(x; \beta^+, \lambda)$, $\ran P^c_+(x; \beta^+, \lambda) = \spn \{ v_+(x; \beta^+, \lambda) \} $. Thus from above and the invariance of the projection ranges under the evolution, we have for all $x \geq 0$
+
+\begin{align*}
+\R^m = P^s_+(x; \beta^+, \lambda) \oplus P^u_+(x; \beta^+, \lambda) \oplus P^c_+(x; \beta^+, \lambda)
+\end{align*}
+
+We also have $\dim \ran P_+^s(x; \beta^+, \lambda) = n_-$, $\dim \ran P_+^u(x; \beta^+, \lambda) = n_+$, and $\dim \ran P_+^s(x; \beta^+, \lambda) = 1$ for all $x \in \R^+$. 
+
+\item Next, we have to show that $P^c_+(x; \beta^+, \lambda)$ as defined above is actually a projection on the ``center'' subspace. It is clear from its definition that is has the correct range. It also has the correct kernel, since $\langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle = 1$ for all $x \geq 0$, and from above we know that
+
+\begin{align*}
+w_+(x; \beta^+, \lambda) \perp \ran P^s_+(x; \beta^+, \lambda) \oplus \ran P^u_+(x; \beta^+, \lambda)
+\end{align*}
+
+since $w_+(x; \beta^+, \lambda)$ and $\tilde{w}_+(x; \beta^+, \lambda)$ are scalar multiples of each other.\\
+
+Finally, we need to verify that $P^c_+$ is in fact a projection. To do this, we will show that $P^c_+(x; \beta^+, \lambda)P^c_+(x; \beta^+, \lambda) = P^c_+(x; \beta^+, \lambda)$.
+
+\begin{align*}
+P^c_+(x; \beta^+, \lambda)( P^c_+(x; \beta^+, \lambda) u ) &= \langle \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
+&= \langle u, w_+(x; \beta^+, \lambda) \rangle \langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
+&= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda) \\
+&= P^c_+(x; \beta^+, \lambda) u 
+\end{align*}
+
+where $\langle v_+(x; \beta^+, \lambda), w_+(x; \beta^+, \lambda) \rangle = 1$ for all $x \geq 0$ by Lemma \ref{perpeigs}. Thus this is indeed a projection.
+
+\item Finally, we derive an expression for the evolution on the center subspace. Let
+
+\begin{equation}
+\Phi^c_+(x,y; \beta^+, \lambda) = \Phi(x,y; \beta^+, \lambda) P^c_+(y; \beta^+, \lambda)
+\end{equation}
+
+Then for any initial condition $u$, we have
+
+\begin{align*}
+\Phi(x,y; \beta^+, \lambda) P^c_+(y; \beta^+, \lambda) u 
+&= \Phi(x,y; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle v_+(y; \beta^+, \lambda) \\
+&= \Phi(x,y; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(y; \beta^+, \lambda) \\
+&= \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} \Phi(x,y; \beta^+, \lambda) \tilde{v}_+(y; \beta^+, \lambda) \\
+&= \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} \tilde{v}_+(x; \beta^+, \lambda) \\
+&= \langle u, w_+(y; \beta^+, \lambda) \rangle e^{-\nu(\lambda)y} e^{\nu(\lambda)x} v_+(x; \beta^+, \lambda) \\
+&= e^{\nu(\lambda)(x-y)} v_+(x; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle 
+\end{align*}
+
+where we used the fact that $\tilde{v}_+$ is a solution to the eigenvalue problem \eqref{eig:V+}, thus under the evolution $\Phi(y, x; \beta^+, \lambda)$ we have $\Phi(y, x; \beta^+, \lambda)\tilde{v}_+(x; \beta^+, \lambda) = \tilde{v}_+(y; \beta^+, \lambda)$. Thus the center evolution is given by
+
+\begin{align*}
+\Phi^c_+(x,y; \beta^+, \lambda) &= e^{\nu(\lambda)(x-y)} v_+(x; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle && x, y \geq 0 \\
+\end{align*}
+
+The ``commuting'' relation for the center subspace follows direction from this.
+
+\item The proof for $\R^-$ is identical. The fact that we can use the same estimates for derivatives with respect to the parameters $\beta^\pm$ and $\lambda$ follows from Lemma 3.2 in San98, which follows from San93. In particular, we can perform a Taylor expansion in any of the parameters.
 
 \end{enumerate}
 \end{proof}
