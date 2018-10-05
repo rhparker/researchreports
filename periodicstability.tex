@@ -562,7 +562,7 @@ By this lemma, we conclude that for $|\lambda| < \delta$, $\langle v_0(\lambda),
 \langle v_0(\lambda), w_0(\lambda) \rangle = 1
 \end{equation}
  
-Using Lemma \ref{veigproblem}, let $\tilde{v}_+(x; \beta^+, \lambda)$ and $\tilde{w}_+(x; \beta^+, \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V+} and its adjoint problem \eqref{eig:W+} such that
+Using Lemma \ref{veigproblem}, let $\tilde{v}_+(x; \beta^+, \lambda)$ and $\tilde{w}_+(x; \beta^+, \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V+} and its adjoint problem \eqref{eig:W+} on $\R^+$ such that
 
 \begin{align*}
 \lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \tilde{v}_+(x; \beta^+, \lambda) = v_0(\lambda) \\
@@ -571,10 +571,10 @@ Using Lemma \ref{veigproblem}, let $\tilde{v}_+(x; \beta^+, \lambda)$ and $\tild
 
 To scale out the exponential term, let
 
-\begin{align*}
-\tilde{v}_+(x; \beta^+, \lambda) &= e^{\nu(\lambda) x } v_+(x; \beta^+, \lambda) \\
-\tilde{w}_+(x; \beta^+, \lambda) &= e^{-\overline{\nu(\lambda)} x } w_+(x; \beta^+, \lambda) \\
-\end{align*}
+\begin{align}
+\tilde{v}_+(x; \beta^+, \lambda) &= e^{\nu(\lambda) x } v_+(x; \beta^+, \lambda) \label{tildev+} \\
+\tilde{w}_+(x; \beta^+, \lambda) &= e^{-\overline{\nu(\lambda)} x } w_+(x; \beta^+, \lambda) \label{tildew+} 
+\end{align}
 
 Then we have
 
@@ -585,7 +585,21 @@ Then we have
 
 We know that this limit exists, but since we scaled out the exponential term, we do not have a decay rate for $|v_+(x; \beta^+, \lambda) - v_0(\lambda)|$ or $|w_+(x; \beta^+, \lambda) - w_0(\lambda)|$.\\
 
-Similarly, we define $\tilde{v}_-(x; \beta^-, \lambda)$, $\tilde{w}_-(x; \beta^-, \lambda)$, $v_-(x; \beta^-, \lambda)$, and $w_-(x; \beta^-, \lambda)$ on $\R^-$. These have the same properties as the corresponding functions on $\R^+$ since the asymptotic matrix $A(0; \lambda)$ is the same as we take $x \rightarrow \pm \infty$.\\
+Similarly, using Corollary \ref{1devolneg}, let $\tilde{v}_-(x; \beta^-, \lambda)$ and $\tilde{w}_-(x; \beta^-, \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V-} and its adjoint problem \eqref{eig:W-} on $\R^-$ such that
+
+\begin{align*}
+\lim_{x \rightarrow -\infty} e^{-\nu(\lambda) x} \tilde{v}_-(x; \beta^-, \lambda) = v_0(\lambda) \\
+\lim_{x \rightarrow -\infty} e^{\overline{\nu(\lambda)} x} \tilde{w}_-(x; \beta^-, \lambda) = w_0(\lambda) \\
+\end{align*}
+
+Then we define
+
+\begin{align}
+\tilde{v}_-(x; \beta^-, \lambda) &= e^{\nu(\lambda) x } v_-(x; \beta^-, \lambda) \label{tildev-} \\
+\tilde{w}_-(x; \beta^-, \lambda) &= e^{-\overline{\nu(\lambda)} x } w_-(x; \beta^-, \lambda) \label{tildew-} 
+\end{align}
+
+These have the same properties as the corresponding functions on $\R^+$ since the asymptotic matrix $A(0; \lambda)$ is the same for $x \rightarrow -\infty$ as $x \rightarrow \infty$.\\
 
 In the final lemma of this section, we show that $\langle v_\pm(x; \beta^\pm, \lambda), w_\pm(x; \beta^\pm, \lambda) \rangle = 1$ for all $x \geq 0$.
 
@@ -1095,7 +1109,7 @@ P^c_+(x; \beta^+, \lambda)u &= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x
 P^c_-(x; \beta^-, \lambda)u &= \langle u, w_-(x; \beta^-, \lambda) \rangle v_-(x; \beta^-, \lambda) && x \leq 0
 \end{align}
 
-where $v_\pm(x; \beta^\pm, \lambda)$ and $w_\pm(x; \beta^\pm, \lambda)$ are defined above. An explicit form of the center evolution is given by
+where $v_\pm(x; \beta^\pm, \lambda)$ and $w_\pm(x; \beta^\pm, \lambda)$ are defined above in \eqref{tildev+}, \eqref{tildew+}, \eqref{tildev-}, and \eqref{tildew-}. An explicit form of the center evolution is given by
 
 \begin{align}\label{Phic}
 \Phi^c_+(x,y; \beta^+, \lambda) &= e^{\nu(\lambda)(x-y)} v_+(x; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle && x, y \geq 0 \\
