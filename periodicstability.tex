@@ -648,19 +648,53 @@ Let $\Phi(x, y; \beta^+, \lambda, \eta)$ be the evolution operator for \eqref{we
 \begin{lemma}\label{weightfacts}
 \begin{enumerate}[(i)]
 
-\item $V(x)$ is a solution to \eqref{evpsimple} if and only if $V_\eta(x) = e^{\eta x} V(x)$ is a solution to \eqref{weightedeq}.
+Let $A(x)$ be a matrix-valued function such that $A(x)$ is exponentially asymptotic to the constant matrix $A$. Consider the eigenvalue problem
+
+\begin{equation}\label{Veq1}
+V' = A(x)V
+\end{equation}
+
+and the corresponding weighted eigenvalue problem with exponential weight $\eta$
+
+\begin{equation}\label{Veq1eta}
+V_\eta' = (A(x) + \eta I)V_\eta
+\end{equation}
+
+\item $V(x)$ is a solution to \eqref{Veq1} if and only if $V_\eta(x) = e^{\eta x} V(x)$ is a solution to \eqref{Veq1eta}.
 
 \item The evolution operator $\Phi(x, y; \beta^+, \lambda, \eta)$ of \eqref{weightedeq} is given by
 \begin{equation}\label{evolweight}
 \Phi(x, y; \beta^+, \lambda, \eta) = e^{\eta(x - y)} \Phi(x, y; \beta^+, \lambda)
 \end{equation}
 
-\item $\nu$ is an eigenvalue of the asymptotic matrix $A(0; \lambda)$ if and only if $\nu + \eta$ is an eigenvalue of $A(0; \lambda, \eta)$. In other words, the exponential weight $\eta$ shifts all eigenvalues of the asymptotic matrix by $\eta$.
+\item $\nu$ is an eigenvalue of the asymptotic matrix $A$ if and only if $\nu + \eta$ is an eigenvalue of $A + \eta I$. In other words, the exponential weight $\eta$ shifts all eigenvalues of the asymptotic matrix by $\eta$.
 
 \end{enumerate}
 
 \begin{proof}
-Will fill in later.
+
+For (i), we have
+
+\begin{align*}
+V' = A(x)V &\iff e^{\eta x} V' = A(x) e^{\eta x} V \\
+&\iff \frac{d}{dx} (e^{\eta x} V') - \eta e^{\eta x} V = A(x) e^{\eta x} V \\
+&\iff \frac{d}{dx} (e^{\eta x} V') = ( A(x) + \eta I)V 
+\end{align*}
+
+For (ii), given an initial condition $z \in \R_m$ at y, $u(x) = \Phi(x, y; \beta^+, \lambda) z$ is the unique solution to \eqref{Veq1}. Thus by (i), $u_\eta(x) = e^{\eta x} \Phi(x, y; \beta^+, \lambda) z$ solves \eqref{Veq1eta}. At $x = y$, $u_\eta(y) = e^{\eta y} z$, so $u_\eta(x)$ is the unique solution to \eqref{Veq1eta} with initial condition $e^{\eta y} z$. Thus
+
+\begin{align*}
+u_\eta(x) = e^{\eta(x-y)} \Phi(x, y; \beta^+, \lambda) z
+\end{align*}
+
+is the the unique solution to \eqref{Veq1eta} with initial condition $z$.\\
+
+For (iii), we note that
+
+\begin{align*}
+\det(A - \nu I) = \det( (A + \eta I) - (\nu + \eta) I )
+\end{align*}
+
 \end{proof}
 \end{lemma}
 
@@ -910,7 +944,7 @@ In the next lemma, we define the center projection $P^c_+(x; \beta^+, \lambda)$.
 For $x \in \R^+$ and $u \in \R^m$, let
 
 \begin{equation}
-P^c_+(x; \beta^+, \lambda)u &= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda)
+P^c_+(x; \beta^+, \lambda)u = \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x; \beta^+, \lambda)
 \end{equation}
 
 Then $P^c_+(x; \beta^+, \lambda)$ is the projection on the center subspace. We also have the ``commuting'' relation
@@ -1048,6 +1082,8 @@ i.e. it does not matter if we project or evolve first. For $|\lambda| < \delta$,
 \begin{align*}
 |\Phi^s_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(x - y)} && 0 \leq y \leq x \\
 |\Phi^u_+(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(y - x)} && 0 \leq x \leq y \\
+|\Phi^s_-(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(x - y)} && y \leq x \leq 0 \\
+|\Phi^u_-(x, y; \beta^+, \lambda)| &\leq C e^{-\alpha(y - x)} && x \leq y \leq 0 \\
 \end{align*}
 
 where $\alpha$ is defined above. The same estimates hold for all derivatives with respect to $\beta^\pm$ and $\lambda$.\\
@@ -1059,7 +1095,7 @@ P^c_+(x; \beta^+, \lambda)u &= \langle u, w_+(x; \beta^+, \lambda) \rangle v_+(x
 P^c_-(x; \beta^-, \lambda)u &= \langle u, w_-(x; \beta^-, \lambda) \rangle v_-(x; \beta^-, \lambda) && x \leq 0
 \end{align}
 
-and an explicit form of the center evolution is given by
+where $v_\pm(x; \beta^\pm, \lambda)$ and $w_\pm(x; \beta^\pm, \lambda)$ are defined above. An explicit form of the center evolution is given by
 
 \begin{align}\label{Phic}
 \Phi^c_+(x,y; \beta^+, \lambda) &= e^{\nu(\lambda)(x-y)} v_+(x; \beta^+, \lambda) \langle u, w_+(y; \beta^+, \lambda) \rangle && x, y \geq 0 \\
@@ -1071,9 +1107,9 @@ and an explicit form of the center evolution is given by
 This follows from the previous lemmas. The proof for $\R^-$ is identical. The fact that we can use the same estimates for derivatives with respect to the parameters $\beta^\pm$ and $\lambda$ follows from Lemma 3.2 in San98, which follows from San93. In particular, we can perform a Taylor expansion in any of the parameters.
 
 \end{proof}
-\end{lemma}
+\end{theorem}
 
-In the work which follows, we will need several estimates based on Lemma \ref{trichotomy}. First, we have bounds involving projections and evolutions on the stable and unstable subspaces. We will show these in the following lemma.
+In the work which follows, we will need several estimates based on Theorem \ref{trichotomy}. First, we have bounds involving projections and evolutions on the stable and unstable subspaces. We will show these in the following lemma.
 
 % lemma : various projection bounds
 
@@ -1134,12 +1170,12 @@ For $p_6$, we use the Taylor theorem on $\Phi^u_+(0, y; \beta_i^+, \lambda)$ at 
 &= \mathcal{O}((|\lambda| + e^{-2 \alpha X_i} + e^{-2 \alpha X_{i-1}})e^{-\alpha |y| }) \\
 \end{align*}
 
-where the derivatives of $\Phi^u_+(0, y; \beta_i^+, \lambda)$ with respect to $\beta_i^+$ and $\lambda$ are $\mathcal{O}(e^{-|\alpha|y}$ by Lemma \ref{trichotomy} and the estimate on $\beta_i^+$ comes from the existence problem. We get the same estimate for $\Phi^s_-(0, -y; \lambda)$.
+where the derivatives of $\Phi^u_+(0, y; \beta_i^+, \lambda)$ with respect to $\beta_i^+$ and $\lambda$ are $\mathcal{O}(e^{-|\alpha|y}$ by Theorem \ref{trichotomy} and the estimate on $\beta_i^+$ comes from the existence problem. We get the same estimate for $\Phi^s_-(0, -y; \lambda)$.
 
 \end{proof}
 \end{lemma}
 
-Finally, we have bounds involving the center subspace, which we present in the following lemma.
+Finally, we have bounds involving the center subspace.
 
 % lemma : bounds involving center subspace stuff
 
@@ -2425,7 +2461,7 @@ We can now estimate the noncenter integrals which involve $W$.
 
 \begin{proof}
 
-We do the ``minus'' integral here. Substituting in our pointwise bound for $G_i^-(y)$, the improved bound for $W_i^-(y)$ from the previous lemma, and using Lemma \ref{trichotomy}
+We do the ``minus'' integral here. Substituting in our pointwise bound for $G_i^-(y)$, the improved bound for $W_i^-(y)$ from the previous lemma, and using Theorem \ref{trichotomy}
 
 \begin{align*}
 &\left| \int_{-X_{i-1}}^0 \langle \Psi(0), \Phi^s_-(0, y; \lambda) G_i^-(y) W_i^-(y) \rangle dy \right| \\
