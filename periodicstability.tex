@@ -127,19 +127,43 @@ We have not yet looked at $Y^0$, but this space will correspond in some sense to
 Returning to the problem at hand, we next use the piecewise construction of the periodic $n-$pulse to write this in the equivalent piecewise form
 
 \begin{align*}
-(V_i^\pm) &= A( q^\pm(0, \beta_i^\pm) + u_i^\pm) V_i^\pm + \lambda B V_i^\pm \\
+(V_i^\pm)' &= A( q^\pm(0, \beta_i^\pm) + u_i^\pm) V_i^\pm + \lambda B V_i^\pm \\
 V_i^-(0) &= V_i^+(0) \\
 V_i^+(X_i) &= V_{i+1}^-(-X_i) 
 \end{align*}
 
 for $i = 0, \dots, n-1$. \\
 
-Before we simplify this further, we note that if $u^*$ is an equilibrium solution, $A(u^*)$ has a 2-dimensional generalized kernel with the following generalized eigenvectors.
+At this point, we make the following hypothesis.
+
+\begin{hypothesis}\label{higherMelnikov}
+\begin{equation}\label{higherMelnikovnonzero}
+\langle q, q_c \rangle_{L^2(\R)} = \int_{-\infty}^\infty q(x) q_c(x) dx \neq 0
+\end{equation}
+\end{hypothesis}
+
+This is the higher order Melnikov integral, and numerics suggests that it is in fact nonzero.\\
+
+Before we simplify this further, we note that for the single pulse $q$, $L(q)$ has a 2-dimensional generalized kernel with the following generalized eigenfunctions.
 
 \begin{align}\label{genkernel}
-A(u^*)u^*_x &= 0 \nonumber \\
-A(u^*)(-u^*_c) &= u^*_x
+L(q)q_x &= 0 \nonumber \\
+L(q)(-q_c) &= q_x
 \end{align}
+
+The fact that this generalized kernel is 2-dimensional follows from Hypothesis \ref{higherMelnikov}. If there were another generalized eigenfunction $u$ in the Jordan chain, we would have by the Fredholm alternative
+
+\begin{align*}
+L(q) u = -q_c &\iff q_c \in (\ker L(q)^*)^\perp \\
+&\iff \langle q, q_c \rangle = 0 
+\end{align*} 
+
+This last quantity is nonzero by Hypothesis \ref{higherMelnikov}. It follows that
+
+\begin{align*}
+(Q_x)' &= A(q) Q_x \\
+(Q_c)' &= A(q) Q_c + B Q_x
+\end{align*}
 
 To exploit these, we write $V_i^\pm$ as 
 

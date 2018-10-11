@@ -384,15 +384,65 @@ The next two plots show that the Krein collision occurs between $c = 1.322$ (bef
 
 \subsection{Lin's Method (part 1)}
 
-In this section, we look at the eigenvalues of $A_0$. We expect this to be similar to SanStrut, since it's more-or-less the same thing but with a different nonlinearity. Using Matlab's \texttt{eig}, we can show that for the operator $A_0$ linearized about an $n-pulse$
+In this section, we look at the eigenvalues of $A_0$, i.e. look at the eigenvalue problem
+
+\[
+A_0 v = \lambda v
+\]
+
+We expect this to be similar to SanStrut, since it's more-or-less the same thing but with a different nonlinearity. Using Matlab's \texttt{eig}, we can show that for the operator $A_0$ linearized about an $n-pulse$
 
 \begin{enumerate}
-	\item The essential spectrum is $[a, \infty)$ for $a > 0$
-	\item There are $n$ negative eigenvalues clustered near the negative eigenvalue of $A_0$ for the single pulse.
+	\item The essential spectrum is $[a, \infty)$ for some $a > 0$
 	\item $n$ small eigenvalues near 0, one of which is actually at 0 (1D kernel)
+	\item There are $n$ negative eigenvalues clustered near the negative eigenvalue of $A_0$ for the single pulse.
 \end{enumerate}
 
-Using Lin's method (from San98) we can compute the small eigenvalues to leading order. For convenience, assume we a have an $n$-pulse, but assume that all the pulse distances are the same, say $2L$. (Of course, mixed-distance multipulses exist, but we will ignore that for now.) The, by Theorem 2 in San98, there are $n$ small eigenvalues which are given (to leading order) by solving $\det(aA - M \lambda I) = 0$. $M$ is the Melnikov integral, which in this case is
+We can verify this analytically.\\
+
+In system-form, the operator $A_0$ is given by
+
+\begin{equation}
+A_0(\lambda; u_*) = \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+\lambda - e^{u_*} & 0 & -c^2 & 0 
+\end{pmatrix}
+\end{equation}
+
+where $u^*$ is an equilibrium solution. The essential spectrum only depends on the asymptotic matrix, so since all solutions $u^*(x)$ we will care about are decay exponentially to 0 at both ends, we only have to look at the asymptotic matrix
+
+\begin{equation}
+A_0(0) = \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+\lambda - 1 & 0 & -c^2 & 0 
+\end{pmatrix}
+\end{equation}
+
+The characteristic polynomial of this is
+
+\[
+p(\nu) = c^2 \nu^2 - \lambda + \nu^4 + 1
+\]
+
+Plugging in $\nu = i r$, this becomes
+
+\[
+p(i r) = c^2 r^2 - \lambda + r^4 + 1 = 0
+\]
+
+Solving for $\lambda$ gives us
+
+\[
+\lambda = r^4 + c^2 r^2 + 1 = r^2(r^2 + c^2) + 1
+\]
+
+from which we see that the essential spectrum is $\lambda = [1, \infty)$.\\
+
+Using Lin's method (from San98) we can compute the small eigenvalues to leading order. It is easy to see that $q'$ is an eigenfunction with eigenvalue 0. For convenience, assume we a have an $n$-pulse, but assume that all the pulse distances are the same, say $2L$. (Of course, mixed-distance multipulses exist, but we will ignore that for now.) The, by Theorem 2 in San98, there are $n$ small eigenvalues which are given (to leading order) by solving $\det(aA - M \lambda I) = 0$. $M$ is the Melnikov integral, which in this case is
 
 \begin{equation}
 M = \int_{-\infty}^\infty (q'(x))^2 dx
@@ -447,7 +497,9 @@ which has solutions $\lambda = \{ 0, -a/M -3a/M \}$.\\
 
 For $c = 1.2$ and triple pulse 2,2, we have small eigenvalues from \texttt{eig} of $\{ -0.0145, -0.0401 \}$. The formula above predicts eigenvalues of $( -0.0127, -0.0381 \}$. The errors here are $0.049$ and $0.124$, which are not terrible.\\
 
-We don't really care about this, except to contrast to the quadratic eigenvalue problem.
+We don't really care about this, except to contrast to the quadratic eigenvalue problem.\\
+
+Similarly, using a method similar to SanStrut, we can show that $A_0(q)$ has a single negative eigenvalue, and we can use Lin's method to show that $A_0(q_n)$ has a $n$ negative eigenvalues all of which are close to the single negative eigenvalue of $A_0(q)$.
 
 \subsection{Krein Matrix}
 
@@ -681,7 +733,7 @@ Unfortunately, this is not what we have do deal with, since $A_0$ appears in the
 
 What we would like to do is somehow exploit the fact that we know how the 1-pulse case works, and that the 2-pulse is just a small perturbation of this.\\
 
-We proceed as follows. Some of this is handwaving, with details to be filled in if this all makes sense.
+We proceed as follows.
 
 \begin{enumerate}
 
@@ -703,15 +755,68 @@ where $||r(x)|| = e^{-\alpha X}$. We should have $d = (1, 1)$ for $s = q_2'$ (wh
 
 This thing will have a bunch of terms, most of which should be very small. Before we can deal with that, we need to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^+_{xx}$ and $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^-_{xx}$. By symmetry, we only have to look at one of them.
 
-\item Let $y = (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^+_{xx}$. Then 
+\item Let $\tilde{y} = (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^+_{xx}$. Then 
 
 \[
-P_{S^\perp} q^+_{xx} = (P_{S^\perp} A_0 P_{S^\perp}) y
+(P_{S^\perp} A_0 P_{S^\perp}) \tilde{y} = P_{S^\perp} q^+_{xx}
 \]
 
-This is the same as solving $A_0 y = q^+_{xx}$ on $S^\perp$, as long as $q^+_{xx}$ has no component in $S$. For now, we will assume that is the case.
+The strategy is to show that this has a unique solution, and then to use Lin's method to write this solution in terms of something we know plus a small remainder term. Let $y = P_{S^\perp} \tilde{y} \in S^\perp$. Then this becomes
 
-\item For convenience, let $k = -1/2c$. Given what we know about the single pulse, we want to write $y$ as a perturbation of $k q_c$, i.e.
+\[
+(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}
+\]
+
+Next, we look at the operator $P_{S^\perp} A_0$. The kernel of $P_{S^\perp} A_0$ contains: the kernel of $A_0$; the eigenfunctions $s_1$ and $s_2$; and any function $s$ for which $A_0 s = s_i$, $i = 1, 2$. We know that $\ker A_0 = \spn\{ q_2' \}$, and we have chosen $s_1 = q_2'$. We cannot solve $A_0 s = q_2'$, since by Fredholm theory that is only possible if $q_2' \perp \ker A_0^* = \ker A_0 = \spn\{ q_2' \}$ which is impossible. I think we know from Lin's method or somesuch that the eigenvalue $\nu_2$ corresponding to $s_2$ is simple. Thus we have
+
+\[
+\ker P_{S^\perp} A_0 = S
+\]
+
+Since $P_{S^\perp} A_0$ is self-adjoint (both $A_0$ and the projection $P_{S^\perp}$ are), we have
+
+
+\[
+\ran P_{S^\perp} A_0 = (\ker (P_{S^\perp} A_0)^* )^\perp = \ker(A_0 P_{S^\perp})^\perp
+\]
+
+Since $\ker(A_0 P_{S^\perp}) = S$, we have
+
+\[
+\ran P_{S^\perp} A_0 = S^\perp
+\]
+
+Thus we have $\dim \ker P_{S^\perp} A_0 = \text{codim } P_{S^\perp} A_0 = 2$. Since all orthogonal complements are closed, $P_{S^\perp} A_0$ has closed range. Thus $P_{S^\perp} A_0$ is a Fredholm operator with index 0.\\
+
+If we restrict the operator $P_{S^\perp} A_0$ to $S^\perp$ (which we can do since its range is $S^\perp$), we get rid of the 2-dimensional kernel, thus obtain an invertible operator. Thus we can solve
+
+\[
+(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}
+\]
+
+for $y \in S^\perp$, since the RHS is in $S^\perp$, i.e. we have
+
+\[
+y = (P_{S^\perp} A_0 |_{S^\perp})^{-1} (P_{S^\perp} q^+_{xx})
+\]
+
+This solution is unique (since we have an invertible operator). Furthermore, the spectrum of $(P_{S^\perp} A_0 |_{S^\perp}$ is bounded away from 0 (by what we know about the spectrum of $A_0$), thus the spectrum of $(P_{S^\perp} A_0 |_{S^\perp})^{-1}$ is bounded by a constant, i.e. 
+
+\[
+\text{spec } P_{S^\perp} A_0 |_{S^\perp}  \subset [-\rho, \rho]
+\]
+
+for some $\rho > 0$. Thus $P_{S^\perp} A_0$ is a bounded linear operator with operator norm
+
+\[
+|| P_{S^\perp} A_0 || \leq \frac{1}{\rho}
+\]
+
+This might require that $P_{S^\perp} A_0$ be normal, but that should be true since $A_0$ should commute with its spectral projections. Since $P_{S^\perp} A_0$ is bounded, this implies that $y$ is continuous.
+
+\item We have shown that there is a unique function $y$ with $(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}$. Now we will use Lin's method to find an expression for this $y$. In particular, we will use Lin's method to construct a solution to the problem $A_0 y = q^+_{xx}$\\
+
+For convenience, let $k = -1/2c$. Given what we know about the single pulse, we want to write $y$ as a perturbation of $k q_c$, i.e. 
 
 \[
 y = k q^+_c + w
@@ -813,6 +918,8 @@ R = \mathcal{O}(e^{-\alpha X} + |G|) = \mathcal{O}(e^{-\alpha X})
 and $||W|| < C e^{-\alpha X}$
 
 In adapting San98, we note that our system is similar to (3.7), except the $d_i$ is missing (i.e. we take it to be 1), there is no $\lambda$ (so we take it to be 1), $D = 0$, and the $\lambda B_i^\pm$ term is absent entirely.
+
+\item Using Lin's method (and taking it out of the first order system form), we have constructed a piecewise solution $y_i^\pm = k q^+_c + w_i^\pm$ to the problem $A_0 y = q^+_{xx}$. This solution must also solve $P_{S^\perp} A_0 y = P_{S^\perp} q^+_{xx}$. Since we have a unique, continuous solution to this, 
 
 \item We know we have a solution $y$ to $P_{S^\perp} q^+_{xx} = (P_{S^\perp} A_0 P_{S^\perp}) y$. In first-order system form, we must have $W = Y - Q^+_c$. Thus $W$ must be continuous, i.e. the jumps must be 0. This means we can use our estimate for $W$.
 
