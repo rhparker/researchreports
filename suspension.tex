@@ -586,8 +586,8 @@ The easiest case, which is almost trivial, is the single pulse, which we know ha
 \begin{align*}
 K(z) &= -z^2\left( \langle q_x, q_x \rangle - \langle q_x, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
 &= -z^2\left( \langle q_x, q_x \rangle + \langle A_1 q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
-&= -4 c^2 z^2\left( \langle q_x, q_x \rangle + \langle \partial_x q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x q_x \rangle \right) + \mathcal{O}(z^3) \\
-&= -4 c^2 z^2\left( \langle q_x, q_x \rangle + \langle q_{xx}, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx} \rangle \right) + \mathcal{O}(z^3) \\
+&= - z^2 \langle q_x, q_x \rangle - 4 c^2 z^2 \langle \partial_x q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x q_x \rangle \right) + \mathcal{O}(z^3) \\
+&= - z^2 \langle q_x, q_x \rangle - 4 c^2 z^2 \langle q_{xx}, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx} \rangle \right) + \mathcal{O}(z^3) \\
 \end{align*}
 
 All that is left is to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx}$. Since $S$ is the span of a single odd function, and $q_{xx}$ is an even function, $P_{S^\perp} q_{xx} = q_{xx}$. Thus we only need to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Let $s = (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Then $(P_{S^\perp} A_0 P_{S^\perp}) s = q_{xx}$. From \eqref{uc}, we have
@@ -611,10 +611,20 @@ K(z) = -b z^2 + \mathcal{O}(z^3)
 where
 
 \begin{align*}
-b &= 4 c^2 \left( \langle q_x, q_x \rangle - \frac{1}{2c} \langle q_{xx}, q_c \rangle \right)  \\
+b &= \langle q_x, q_x \rangle - 4 c^2 \left(\frac{1}{2c} \langle q_{xx}, q_c \rangle \right)  \\
+&= \langle q_x, q_x \rangle - 2 c \langle q_{xx}, q_c \rangle
 \end{align*}
 
-Numerics suggests this is negative, but hopefully we can find a way to show that.
+Integration by parts gives us
+
+\begin{align*}
+b &= \langle q_x, q_x \rangle + 2c \langle q_{x}, q_{xc} \rangle  \\
+&= \langle q_x, q_x \rangle + c \frac{\partial}{\partial c}\langle q_x, q_x \rangle \\
+&= ||q_x||^2 + c \frac{\partial}{\partial c}||q_x||^2 \\
+&= \frac{\partial}{\partial c} \left( c||q_x||^2 \right)
+\end{align*}
+
+Numerics suggests this is negative, but hopefully we can find a way to show that. Or we can just assume this thing is nonzero, which is reasonable.
 
 \subsubsection{2-pulse}
 
