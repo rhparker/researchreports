@@ -767,20 +767,28 @@ The strategy is to show that this has a unique solution, and then to use Lin's m
 (P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}
 \]
 
-Next, we look at the operator $P_{S^\perp} A_0$. The kernel of $P_{S^\perp} A_0$ contains: the kernel of $A_0$; the eigenfunctions $s_1$ and $s_2$; and any function $s$ for which $A_0 s = s_i$, $i = 1, 2$. We know that $\ker A_0 = \spn\{ q_2' \}$, and we have chosen $s_1 = q_2'$. We cannot solve $A_0 s = q_2'$, since by Fredholm theory that is only possible if $q_2' \perp \ker A_0^* = \ker A_0 = \spn\{ q_2' \}$ which is impossible. I think we know from Lin's method or somesuch that the eigenvalue $\nu_2$ corresponding to $s_2$ is simple. Thus we have
+Next, we look at the operator $P_{S^\perp} A_0$. First we note that since $A_0$ is self-adjoint, this is also self-adjoint, since
+
+\[
+(P_{S^\perp} A_0)^* = A_0^* P_{S^\perp}^* = A_0 P_{S^\perp} = P_{S^\perp} A_0
+\]
+
+where the last equality holds since operators commute with their own spectral projections.\\
+
+Next, we look at the kernel of $P_{S^\perp} A_0 = A_0 P_{S^\perp}$. This clearly contains $S$ (the kernel of $P_{S^\perp}$), but the question is whether is contains anything else. In this case, it does not, since $\ker A_0 = \spn\{ q_2' \}$, and $q_2' \in S$, so we have already taken care of that with the projection. Thus we have
 
 \[
 \ker P_{S^\perp} A_0 = S
 \]
 
-Since $P_{S^\perp} A_0$ is self-adjoint (both $A_0$ and the projection $P_{S^\perp}$ are), we have
+Since $P_{S^\perp} A_0$ is self-adjoint, we have
 
 
 \[
-\ran P_{S^\perp} A_0 = (\ker (P_{S^\perp} A_0)^* )^\perp = \ker(A_0 P_{S^\perp})^\perp
+\ran P_{S^\perp} A_0 = (\ker (P_{S^\perp} A_0)^* )^\perp = \ker(P_{S^\perp} A_0)^\perp
 \]
 
-Since $\ker(A_0 P_{S^\perp}) = S$, we have
+In other words,
 
 \[
 \ran P_{S^\perp} A_0 = S^\perp
@@ -800,21 +808,21 @@ for $y \in S^\perp$, since the RHS is in $S^\perp$, i.e. we have
 y = (P_{S^\perp} A_0 |_{S^\perp})^{-1} (P_{S^\perp} q^+_{xx})
 \]
 
-This solution is unique (since we have an invertible operator). Furthermore, the spectrum of $(P_{S^\perp} A_0 |_{S^\perp}$ is bounded away from 0 (by what we know about the spectrum of $A_0$), thus the spectrum of $(P_{S^\perp} A_0 |_{S^\perp})^{-1}$ is bounded by a constant, i.e. 
+This solution is unique (since we have an invertible operator). Furthermore, the spectrum of $P_{S^\perp} A_0 |_{S^\perp}$ is bounded away from 0 (by what we know about the spectrum of $A_0$), thus the spectrum of $(P_{S^\perp} A_0 |_{S^\perp})^{-1}$ is bounded by a constant, i.e. 
 
 \[
 \text{spec } P_{S^\perp} A_0 |_{S^\perp}  \subset [-\rho, \rho]
 \]
 
-for some $\rho > 0$. Thus $P_{S^\perp} A_0$ is a bounded linear operator with operator norm
+for some $\rho > 0$. Thus since $P_{S^\perp} A_0$ is self-adjoint, we can use the resolvent bound for normal operators to conclude that $(P_{S^\perp} A_0)^{-1}$ is a bounded linear operator with operator norm
 
 \[
-|| P_{S^\perp} A_0 || \leq \frac{1}{\rho}
+|| (P_{S^\perp} A_0)^{-1} || \leq \frac{1}{\rho}
 \]
 
-This might require that $P_{S^\perp} A_0$ be normal, but that should be true since $A_0$ should commute with its spectral projections. Since $P_{S^\perp} A_0$ is bounded, this implies that $y$ is continuous.
+It should easily follow that $y$ is continuous. In fact, since $(P_{S^\perp} A_0) y$ has to be well defined, $y$ must have four derivatives, and the first three must be continuous.
 
-\item We have shown that there is a unique function $y$ with $(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}$. Now we will use Lin's method to find an expression for this $y$. In particular, we will use Lin's method to construct a solution to the problem $A_0 y = q^+_{xx}$\\
+\item We have shown that there is a unique function $y$ with $(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}$. Now we will use Lin's method to find an expression for this $y$. In particular, we will use Lin's method to construct a solution to the problem $A_0 y = q^+_{xx}$. Of course, this is not exactly what we want, but let's do this first and see what it get us.\\
 
 For convenience, let $k = -1/2c$. Given what we know about the single pulse, we want to write $y$ as a perturbation of $k q_c$, i.e. 
 
@@ -919,9 +927,33 @@ and $||W|| < C e^{-\alpha X}$
 
 In adapting San98, we note that our system is similar to (3.7), except the $d_i$ is missing (i.e. we take it to be 1), there is no $\lambda$ (so we take it to be 1), $D = 0$, and the $\lambda B_i^\pm$ term is absent entirely.
 
-\item Using Lin's method (and taking it out of the first order system form), we have constructed a piecewise solution $y_i^\pm = k q^+_c + w_i^\pm$ to the problem $A_0 y = q^+_{xx}$. This solution must also solve $P_{S^\perp} A_0 y = P_{S^\perp} q^+_{xx}$. Since we have a unique, continuous solution to this, 
+\item Using Lin's method (and taking it out of the first order system form), we have constructed a piecewise solution $y_i^\pm = k q^+_c + w_i^\pm$ to the problem $A_0 y = q^+_{xx}$. We actually want a solution $y \in \ran P_{S^\perp}$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^+_{xx}$. But we can easily get this by applying the projection $P_{S^\perp}$ on both sides.
 
-\item We know we have a solution $y$ to $P_{S^\perp} q^+_{xx} = (P_{S^\perp} A_0 P_{S^\perp}) y$. In first-order system form, we must have $W = Y - Q^+_c$. Thus $W$ must be continuous, i.e. the jumps must be 0. This means we can use our estimate for $W$.
+\begin{align*}
+P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} q^+_{xx} \\
+P_{S^\perp} P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} q^+_{xx} \\
+P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) &= P_{S^\perp} q^+_{xx}
+\end{align*}
+
+where we used the fact that $P_{S^\perp}$ is a spectral projection which commutes with $A_0$. Thus $P_{S^\perp} y_i^\pm \in \ran P_{S^\perp}$ and $P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) = P_{S^\perp} q^+_{xx}$. 
+
+\item We showed above that the problem $(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}$ on $\ran P_{S^\perp}$ has a unique solution $y$, and that this solution has three continuous derivatives. Since these two solutions must be identical, this implies that we must have $y = P_{S^\perp} y_i^\pm$, and thus this has three continuous derivatives. In particular, this means that
+
+\begin{align*}
+y &= P_{S^\perp} k q^+_c + P_{S^\perp} w_i^\pm
+\end{align*}
+
+Since $P_{S^\perp} k q^+_c$ is smooth, $P_{S^\perp} w_i^\pm$ has three continuous derivatives. Since projections are bounded with norm of 1
+
+\[
+P_{S^\perp} w_i^\pm = \mathcal{O}(e^{-\alpha X})
+\]
+
+Thus
+
+\begin{align*}
+y &= P_{S^\perp} k q^+_c + \mathcal{O}(e^{-\alpha X})
+\end{align*}
 
 \item Now we can plug stuff into 
 
@@ -936,31 +968,121 @@ s(x) = d_1 q^+_x(x) + d_2 q^-_x(x) + r(x)
 
 and $||r(x)|| \leq C e^{-\alpha X}$. From above, we know that
 
-\[
-P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^\pm_{xx} = k q^\pm_c + \mathcal{O}(e^{-\alpha X})
-\]
+\begin{align*}
+P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^\pm_{xx} = P_{S^\perp} k q^\pm_c + \mathcal{O}(e^{-\alpha X})
+\end{align*}
 
 
-Since $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is bounded (since the spectrum of $P_{S^\perp} A_0 P_{S^\perp}$ is bounded away from 0), any of the terms involving $r(x)$ will be order $e^{-\alpha X}$. The mixed terms will all look like
+Since $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is bounded (we showed this above), any of the terms involving $r(x)$ will be order $e^{-\alpha X}$. The mixed terms will all look like
 
 \begin{align*}
-d_1 d_2 k \langle q^\pm_{xx}(x), q^\mp_c(x) \rangle + \mathcal{O}(e^{-\alpha X})
-& \mathcal{O}(e^{-\alpha X}) 
+d_1 d_2 k \langle q^\pm_{xx}(x), P_{S^\perp} q^\mp_c(x) \rangle + \mathcal{O}(e^{-\alpha X})
+&= \mathcal{O}(e^{-\alpha X}) 
 \end{align*}
 
 since $q^+$ and $q^-$ are exponentially localized about $\mp X$ (and are well separated since $X$ is sufficiently large).
 
-The other terms will look like 
+The nonmixed terms will look like 
 
 \begin{align*}
-d_i^2 \langle q^\pm_{xx}(x), k q^\pm_c(x) \rangle + \mathcal{O}(e^{-\alpha X}) 
+d_i^2 \langle q^\pm_{xx}(x), P_{S^\perp} k q^\pm_c(x) \rangle + \mathcal{O}(e^{-\alpha X}) 
+&= \langle q^\pm_{xx}(x), P_{S^\perp} k q^\pm_c(x) \rangle + \mathcal{O}(e^{-\alpha X}) 
 \end{align*}
 
 where we recall that $d_i = \pm 1$.
 
+\item This looks good, but we do want to get rid of the $P_{S^\perp} k q^\pm_c(x)$ in front of the $q^\pm_c(x)$. We should be able to easily do that since we know what the functions in $S$ look like, to leading order. Since $A_0$ is self-adjoint, we can write the projection $P_S$ as
+
+\[
+P_S = \frac{1}{||s_1||^2} \langle s_1, \cdot \rangle s_1 + \frac{1}{||s_2||^2} \langle s_2, \cdot \rangle s_2
+\] 
+
+Recall that we have
+
+\begin{align*}
+s_1(x) &= q^+_x(x) + q^-_x(x) + r_1(x) \\
+s_2(x) &= q^+_x(x) - q^-_x(x) + r_2(x) 
+\end{align*}
+
+where $||r_i(x)|| \leq C e^{-\alpha X}$, $i = 1, 2$. The normalization factors are annoying, so let's deal with them first. 
+
+\begin{align*}
+||q^+_x + q^-_x + r_1||^2 &= ||q^+_x||^2 + ||q^+_x||^2 + ||r_1||^2 + 2\langle q^+_x, q^-_x \rangle 
++ 2 \langle q^+_x + q^-_x, r_1 \rangle \\
+&= ||q^+_x||^2 + ||q^+_x||^2 + \mathcal{O}(e^{-\alpha X}) \\
+&= 2 ||q_x||^2 + \mathcal{O}(e^{-\alpha X})
+\end{align*}
+
+where we used the bound on the remainder term, the exponential localization of the $q^\pm$, and the fact that the $L^2$ norm of $q_x$ is unchanged with translation. Using the Taylor theorem, we have
+
+\begin{align*}
+\frac{1}{||s_1||^2} &= (2 ||q_x||^2 + \mathcal{O}(e^{-\alpha X}))^{-1} \\
+&= \frac{1}{2 ||q_x||^2}(1 + \mathcal{O}(e^{-\alpha X}))^{-1} \\
+&= \frac{1}{2 ||q_x||^2}(1 + \mathcal{O}(e^{-\alpha X}))
+\end{align*}
+
+Substituting this in to the expression for $P_S$, we have
+
+\begin{align*}
+P_S &= \frac{1}{2 ||q_x||^2} \langle s_1, \cdot \rangle s_1 + \frac{1}{2 ||q_x||^2} \langle s_2, \cdot \rangle s_2 + R_1(\cdot)
+\end{align*}
+
+where $||R_1|| \leq C e^{-\alpha X} $
 
 
+Substituting these the expressions for $s_i$, we have
 
+\begin{align*}
+P_S &= \frac{1}{2 ||q_x||^2}\langle q^+_x + q^-_x + r_1, \cdot \rangle(q^+_x + q^-_x + r_1) 
++ \frac{1}{2 ||q_x||^2} \langle q^+_x - q^-_x + r_2, \cdot \rangle (q^+_x - q^-_x + r_2) + R_1(\cdot)  \\
+&= \frac{1}{2 ||q_x||^2} \left( 2 \langle q^+_x, \cdot \rangle q^+_x + 2 \langle q^-_x, \cdot \rangle q^-_x
++ \langle r_1, \cdot \rangle s_1 + \langle r_2, \cdot \rangle s_2
++ \langle q^+_x + q^-_x, \cdot \rangle (r_1 + r_2) \right) + R_1(\cdot)
+\end{align*}
+
+Using Cauchy-Schwarz and the triangle inequality,
+
+\begin{align*}
+|| \langle r_1, \cdot \rangle s_1 + \langle r_2, \cdot \rangle s_2
++ \langle q^+_x + q^-_x, \cdot \rangle (r_1 + r_2) || \leq C e^{-\alpha X} ||\cdot||
+\
+\end{align*}
+
+Thus we have
+
+\begin{align*}
+P_S &= \frac{1}{||q_x||^2} \langle q^+_x, \cdot \rangle q^+_x + \frac{1}{||q_x||^2} \langle q^-_x, \cdot \rangle q^-_x + R_2(\cdot)
+\end{align*}
+
+where $||R_2|| \leq C e^{\alpha X}$. \\
+
+We are now set up to deal with $P_{S^\perp} k q^\pm_c(x)$. Looking at the positive piece, we have
+
+\begin{align*}
+P_{S^\perp} q^+_c &= (I - P_S)q^+_c \\
+&= q^+_c - \frac{1}{||q_x||^2} \langle q^+_x, q^+_c \rangle q^+_x - \frac{1}{||q_x||^2} \langle q^-_x, q^+_c \rangle q^-_x - R_2(q^+_c)
+\end{align*}
+
+The last two terms on the RHS are $\mathcal{O}(e^{-\alpha X})$, since we have a bound on the remainder term, and since the $q^\pm$ are exponentially localized. The second term on the RHS is 0 since by translation invariance, 
+
+\[
+\langle q^+_x, q^+_c \rangle = \langle q_x, q_c \rangle = 0
+\]
+
+and the inner product is 0 since it is the inner product of an odd and an even function.
+
+\item Putting all of this together, we have for $i = 1, 2$,
+
+\begin{align*}
+\langle \partial_x s_i, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x s_i \rangle
+&= \langle q^+_{xx}, k q^+_c \rangle + 
+\langle q^-_{xx}, k q^-_c \rangle 
++ \mathcal{O}(e^{-\alpha X}) \\
+&= 2 k \langle q_{xx}, q_c \rangle 
++ \mathcal{O}(e^{-\alpha X}) \\
+\end{align*}
+
+where we again used translation invariance of the $L^2$ inner product on $\R$.
 
 \end{enumerate}
 
