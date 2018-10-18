@@ -618,96 +618,66 @@ a_{ij} &= (K_1)_{ij} \\
 b_{ij} &= (K_2)_{ij}
 \end{align*}
 
-From Lin's method (San98), the $n-$pulse $q_n$ can be written as
+From Lin's method (San98), the $n-$pulse $q_n$ resembles to leading order $n$ copies of the primary pulse $q$. The $n$ peaks are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can therefore write $q_n$ as 
 
-\begin{align*}
-
+\begin{align*}\label{qn}
+q_n = \sum_{i = 1}^{n} q^i + r
 \end{align*}
 
-In the following lemmas, we 
+where each $q^i$ is a translate of the primary pulse $q$, i.e. $q^i = q(\cdot - X)$ for some $X$. From the Lin's method construction, translates $q^i$ are exponentially separated, i.e. $q^i q^j = \mathcal{O}(e^{-\alpha X_m})$ and $\langle q^i, q^j \rangle = \mathcal{O}(e^{-\alpha X_m})$ for $i \neq j$, where $X_m = \min\{ X_1, \dots, X_n \}$. We also get from Lin's method a uniform bound on the remainder term, i.e. $||r|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$.\\
 
-Before we continue, we will show that the entries of the matrix $K_1$ are exponentially small.\\
+Similarly, using Lin's method, we can write the eigenfunctions of $A_0$ in terms of translates of the derivative of the primary pulse. Each eigenfunction is, to leading order, a linear combination of these translates, i.e. for $j = 1, \dots, n$
 
-From Lin's method (San98), the $n-$pulse $q_n$ can be written piecewise on the $2n$ intervals $(-\infty, 0], [0, X_1], [-X_1, 0], [0, X_2] \dots, [-X_{n-1}, 0], [0, \infty)$ as $q_n = q + r_i^\pm$. For convenience, we take $X_0 = X_n = \infty$. The remainder terms $r_i^\pm$ satisfy the estimate 
+\begin{align}\label{sj}
+s_j = \sum_{i = 1}^{n} d_{ji} q^i_x + w_j
+\end{align}
 
-\[
-||r_i^\pm|| \leq C e^{-\alpha X_m}
-\]
+for constants $d_{ji} \in \C$, where again for the remainder terms we have $||w_j|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$. \\
 
-where $X_m = \min \{ X_1, \dots, X_{n-1} \}$. This estimate also holds for the derivative with respect to $x$. Now choose any two eigenfunctions $s_j, s_k$ from $S$. Then using Lin's method again (San98), the eigenfunctions can be written as 
+In the following lemmas, we will characterize the matrices $K_1$ and $K_1$, with the goal of showing that the Krein matrix is diagonal to leading order. First ill show that the entries of the matrix $K_1$ are exponentially small.\\
 
-\begin{align*}
-s_{ji}^\pm &= d_{ji}(q_x + (r_i^\pm)_x) + w_{ji}^\pm \\
-s_{ki}^\pm &= d_{ki}(q_x + (r_i^\pm)_x) + w_{ki}^\pm
-\end{align*}
+% lemma : K1 is exponentially small
 
-where the $d_{ji}$ and are constants, and the remainder terms also satisfy the estimate
+\begin{lemma}\label{K1small}
+The matrix $K_1$ is exponentially small, i.e. 
 
-\[
-||w_{ji}^\pm|| \leq C e^{-\alpha X_m}
-\]
+\begin{equation}
+K_1 = \mathcal{O}(e^{-\alpha X_m} )
+\end{equation}
 
-which also holds for derivatives with respect to $x$. For the single pulse $q(x)$ and for the eigenfunction $s_i(x)$, recall that we have the bound
+\begin{proof}
 
-\[
-|q(x)|, |s_i(x)| \leq C e^{-\alpha |x|}
-\]
-
-which also holds for derivatives with respect to $x$. We are interested in the inner product $\langle u, v_x\rangle$. Since everything is piecewise, we only have to look at this on a single piece, say the $i$th piece.
+Let $a_{jk} = (K_1)_{jk}$. We know from above that $a_{jj} = 0$, so we only need to consider the case $j \neq k$. Since $a_{jk} = \langle s_j, i A_1 s_k\rangle = 2 c i \langle s_j, (s_k)_x \rangle$, all we need to show is that $\langle s_j, (s_k)_x \rangle = \mathcal{O}(e^{-\alpha X_m}$. Using the expressions \eqref{sj} for the eigenfunctions, we have
 
 \begin{align*}
-\langle s_j, (s_k)_x \rangle &= 
-\int_{-X_{i-1}}^0 (d_{ji}(q_x(x) + (r_i^-)_x(x)) + w_{ji}^-(x))(d_{ki}(q_{xx}(x) + (r_i^-)_{xx}(x)) + (w_{ki}^-)_x(x)) dx \\
-&+ \int_0^{X_i} (d_{ji}(q_x(x) + (r_i^+)_x(x)) + w_{ji}^+(x))(d_{ki}(q_{xx}(x) + (r_i^+)_{xx}(x)) + (w_{ki}^+)_x(x)) dx
+\langle s_j &, (s_k)_x \rangle = 
+\langle \left( \sum_{i = 1}^{n} d_{ji} q^i_x + w_j \right) \left( \sum_{i = 1}^{n} d_{ki} q^j_{xx} + (w_k)_x \right) \rangle \\
+&= \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q^i_x, q^i_{xx} \rangle 
++ \sum_{i \neq l} d_{ji} d_{kl} \langle q^i_x, q^l_{xx} \rangle 
++ \langle \sum_{i = 1}^{n} d_{ji} q^i_x + w_j, (w_k)_x \rangle 
++ \langle w_j, \sum_{i = 1}^{n} d_{ki} q^j_{xx} \rangle \\
+&= \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q^i_x, q^i_{xx} \rangle 
++ \sum_{i \neq l} d_{ji} d_{kl} \langle q^i_x, q^l_{xx} \rangle 
++ \langle s_j, (w_k)_x \rangle 
++ \sum_{i = 1}^{n} d_{ki} \langle w_j, q^j_{xx} \rangle
 \end{align*}  
 
-This is a huge mess, but luckily it simplifies easily. First, we look at the integrals which do not involve a remainder term.
-
-\begin{align*}
-I_1 = \int_{-X_{i-1}}^0 &d_{ji} q_x(x) d_{ki}q_{xx}(x)dx + \int_0^{X_i} d_{ji} q_x(x) d_{ki}q_{xx}(x)dx \\
-&= d_{ji} d_{ki} \left( \int_{-\infty}^\infty q_x(x) q_{xx}(x) dx - \int_{-\infty}^{-X_{i-1}} q_x(x) q_{xx}(x)dx - \int_{X_i}^\infty q_x(x) q_{xx}(x)dx \right) \\
-&= d_{ji} d_{ki} \left( \langle q_x, q_{xx} \rangle - \int_{-\infty}^{-X_{i-1}} q_x(x) q_{xx}(x)dx - \int_{X_i}^\infty q_x(x) q_{xx}(x)dx \right) \\
-\end{align*}
-
-The inner product $\langle q_x, q_{xx} \rangle = 0$ since $q_x$ is an odd function and $q_{xx}$ is an even function. For the second integral, we have
-
-\begin{align*}
-\left| \int_{X_i}^\infty q_x(x) q_{xx}(x)dx \right| 
-\leq C e^{-\alpha X_m} \int_{X_m}^\infty e^{-\alpha x} dx \leq C e^{-2 \alpha X_m}
-\end{align*}
-
-The first integral has the same bound. Thus $I_1 = \mathcal{O}(e^{-2 \alpha X_m})$.\\
-
-For the remaining bounds we only look at the ``negative'' piece. The ``positive'' piece is similar. There are two more integrals to consider.
-
-\begin{align*}
-I_2 &= \int_{-X_{i-1}}^0 d_{ji} q_x(x)(d_{ki}(r_i^-)_{xx}(x) + (w_{ki}^-)_x(x)) dx \\
-I_3 &= \int_{-X_{i-1}}^0 (d_{ji}(r_i^-)_x(x) + w_{ji}^-(x))(d_{ki}(q_{xx}(x) + (r_i^-)_{xx}(x)) + (w_{ki}^-)_x(x)) dx \\
-\end{align*}
-
-For $I_2$, we have the bound
-
-\begin{align*}
-|I_3| &\leq C e^{-\alpha X_m} \int_{-\infty}^0 |q_x(x)| dx \\
-&\leq C e^{-\alpha X_m} \int_{-\infty}^0 e^{\alpha x} dx \\
-&\leq C e^{-\alpha X_m} 
-\end{align*}
-
-For $I_3$, we have the bound
-
-\begin{align*}
-|I_3| &\leq \int_{-X_{i-1}}^0 |d_{ji}(r_i^-)_x(x) + w_{ji}^-(x)||(s_k)_x(x)| dx \\
-&\leq C e^{-\alpha X_m} \int_{-\infty}^0 e^{\alpha x} dx \\
-&\leq C e^{-\alpha X_m} 
-\end{align*}
-
-Putting all of this together, since the entries of $K_1$ are given by
+For the first term on the RHS, since the $L^2$ inner product on $\R$ is translation invariant and the $q^i$ are translates of $q$, we have
 
 \[
-a_{jk} = \langle s_j, i A_1 s_k \rangle = 2 c i \langle s_j, (s_k)_x \rangle = \mathcal{O}(e^{-\alpha X_m} )
+\langle q^i_x, q^i_{xx} \rangle = \langle q_x, q_{xx} \rangle = 0
+\] 
+
+since we are taking the inner product of an even and an odd function. For the second term on the RHS, $\langle q^i_x, q^l_{xx} \rangle = \mathcal{O}(e^{-\alpha X_m})$ since the translates $q^i$ and $q^l$ and their derivatives are exponentially separated for $i \neq l$. For the third term, by Holder's inequality,
+
+\[
+|\langle s_j, (w_k)_x \rangle| \leq ||s_j||_{L^1} ||(w_k)_x||_{L^\infty} \leq C e^{-\alpha X_m}
 \]
 
-we conclude that all $K_1 = \mathcal{O}(e^{-\alpha X_m} )$.\\
+using the remainder bound and the fact that the eigenfunctions are exponentially localized, thus integrable. The same bound holds for the final term, again by Holder's inequality.
+
+\end{proof}
+\end{lemma}
 
 While we are at it, we will construct a new basis for $S$ with the desired property that each basis function in $S$ is localized on a different subinterval.
 
