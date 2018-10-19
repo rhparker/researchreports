@@ -529,7 +529,11 @@ The Krein matrix should work perfectly in this case, since we don't have to deal
 We know from the discussion in the previous section what the spectrum/eigenvalues of $A_0$ looks like. Since $A_0$ is Hermitian, the spectrum of $A_0$ is real. We also note that if we take $\lambda = i z$, the quadratic operator $p(iz)$ is Hermitian.
 \\
 
-Let $S = \spn\{s_1, \dots, s_n \}$, where $s_i$ are the eigenfunctions of $A_0$ corresponding to the small eigenvalues $\{\nu_1, \dots, \nu_n$. (We found these in the previous section using Lin's method). WLOG, we take $\nu_1 = 0$ and $s_1 = q'$, since we know the kernel of $A_0$ is 1-dimensional, and we know what the kernel eigenfunction is. We also note that since $A_0$ is self-adjoint and the eigenvalues $\nu_i$ are distinct, the corresponding eigenfunctions $s_i$ are orthogonal.
+Let $S = \spn\{s_1, \dots, s_n \}$, where $s_i$ are the eigenfunctions of $A_0$ corresponding to the small eigenvalues $\{\nu_1, \dots, \nu_n$. (We found these in the previous section using Lin's method). WLOG, we take $\nu_1 = 0$ and $s_1 = q'$, since we know the kernel of $A_0$ is 1-dimensional, and we know what the kernel eigenfunction is. We also note that since $A_0$ is self-adjoint and the eigenvalues $\nu_i$ are distinct, the corresponding eigenfunctions $s_i$ are orthogonal. We can then normalize the eigenfunctions so that
+
+\begin{equation}\label{orthonormaleigs}
+\langle s_i, s_j \rangle = \delta_{ij}
+\end{equation}
 
 With this setup, we can easily compute the Krein matrix using the top of p.4 in Kap2018. As long as as choose $c$ such that the Krein collision has not yet occurred, we get very accurate numerical results from this method, or at least they compare extremely well to the quadratic eigenvalue solver we are using. 
 
@@ -585,7 +589,7 @@ For the matrix $\tilde{K}_2$, we have
 (\tilde{K}_2)_{jk} &= \langle s_j, s_k \rangle - \langle s_j A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 ) s_k  \rangle \\
 \end{align*}
 
-since $A_2 = I$. Since the eigenfunctions are orthogonal, $\langle s_j, s_k \rangle = ||s_j||^2 \delta_{jk}$. Thus, $\tilde{K} = \text{diag}(||s_1||^2, \dots, ||s_n||^2 ) - K_2$, where
+since $A_2 = I$. Since the eigenfunctions are orthogonal, $\langle s_j, s_k \rangle = \delta_{jk}$. Thus, $\tilde{K} = I - K_2$, where
 
 \begin{align*}
 (K_2)_{jk} &= 
@@ -608,7 +612,7 @@ Thus the Krein matrix takes the form
 
 \begin{equation}\
 K_S(z) = \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} K_1 
-- \overline{z}^2 ( \text{diag}(||s_1||^2, \dots, ||s_n||^2 ) - K_2) + \mathcal{O}(|z|^3)
+- \overline{z}^2 ( I - K_2) + \mathcal{O}(|z|^3)
 \end{equation}
 
 where $K_1$ and $K_2$ are defined above. For convenience, we let
@@ -620,9 +624,9 @@ b_{ij} &= (K_2)_{ij}
 
 From Lin's method (San98), the $n-$pulse $q_n$ resembles to leading order $n$ copies of the primary pulse $q$. The $n$ peaks are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can therefore write $q_n$ as 
 
-\begin{align*}\label{qn}
+\begin{align}\label{qn}
 q_n = \sum_{i = 1}^{n} q^i + r
-\end{align*}
+\end{align}
 
 where each $q^i$ is a translate of the primary pulse $q$, i.e. $q^i = q(\cdot - X)$ for some $X$. From the Lin's method construction, translates $q^i$ are exponentially separated, i.e. $q^i q^j = \mathcal{O}(e^{-\alpha X_m})$ and $\langle q^i, q^j \rangle = \mathcal{O}(e^{-\alpha X_m})$ for $i \neq j$, where $X_m = \min\{ X_1, \dots, X_n \}$. We also get from Lin's method a uniform bound on the remainder term, i.e. $||r|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$.\\
 
@@ -632,7 +636,7 @@ Similarly, using Lin's method, we can write the eigenfunctions of $A_0$ in terms
 s_j = \sum_{i = 1}^{n} d_{ji} q^i_x + w_j
 \end{align}
 
-for constants $d_{ji} \in \C$, where again for the remainder terms we have $||w_j|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$. \\
+for constants $d_{ji} \in \C$. Let $D$ be the matrix defined by $(D)_{ji} = d_{ji}$. Note that this is not the same matrix $D$ as in San98. For the remainder terms we have $||w_j|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$. \\
 
 In the following lemmas, we will characterize the matrices $K_1$ and $K_1$, with the goal of showing that the Krein matrix is diagonal to leading order. First ill show that the entries of the matrix $K_1$ are exponentially small.\\
 
@@ -647,7 +651,7 @@ K_1 = \mathcal{O}(e^{-\alpha X_m} )
 
 \begin{proof}
 
-Let $a_{jk} = (K_1)_{jk}$. We know from above that $a_{jj} = 0$, so we only need to consider the case $j \neq k$. Since $a_{jk} = \langle s_j, i A_1 s_k\rangle = 2 c i \langle s_j, (s_k)_x \rangle$, all we need to show is that $\langle s_j, (s_k)_x \rangle = \mathcal{O}(e^{-\alpha X_m}$. Using the expressions \eqref{sj} for the eigenfunctions, we have
+Let $a_{jk} = (K_1)_{jk}$. We know from above that $a_{jj} = 0$, so we only need to consider the case $j \neq k$. Since $a_{jk} = \langle s_j, i A_1 s_k\rangle = 2 c i \langle s_j, (s_k)_x \rangle$, all we need to show is that $\langle s_j, (s_k)_x \rangle = \mathcal{O}(e^{-\alpha X_m}$. Using the expression \eqref{sj} for the eigenfunctions, we have
 
 \begin{align*}
 \langle s_j &, (s_k)_x \rangle = 
@@ -678,6 +682,113 @@ using the remainder bound and the fact that the eigenfunctions are exponentially
 
 \end{proof}
 \end{lemma}
+
+Next, we show that the rows of the matrix $D$ defined above are orthogonal to leading order.
+
+% lemma : orthogonal D
+
+\begin{lemma}\label{orthogonalD}
+Let $D$ be the matrix defined above representing the coefficients of the translates of the derivative of the primary pulse. Then the rows of $D$ are orthogonal to leading order, i.e. 
+
+\[
+\sum_{i = 1}^{n} d_{ji} d_{ki} = \frac{1}{||q_x||^2} \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
+\]
+
+\begin{proof}
+Since the eigenvalues $\nu_i$ are distinct, the eigenfunctions $s_i$ are orthogonal, and we normalized them above. Thus, using the expression \eqref{sj} for the eigenfunctions, we have, similar to Lemma \ref{K1small}
+
+\begin{align*}
+\delta_{jk} &= \langle s_j, s_k \rangle \\
+&= \langle \sum_{i = 1}^{n} d_{ji} q^i_x + w_j, \sum_{i = 1}^{n} d_{ki} q^i_x + w_k\rangle \\
+&= \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q^i_x, q^i_{x} \rangle 
++ \sum_{i \neq l} d_{ji} d_{kl} \langle q^i_x, q^l_{x} \rangle 
++ \langle s_j, w_k \rangle 
++ \sum_{i = 1}^{n} d_{ki} \langle w_j, q^j_{x} \rangle
+\end{align*}
+
+As in Lemma \ref{K1small}, the last three terms on the RHS are order $e^{-\alpha X_m}$. Since by translation invariance
+
+\[
+\langle q^i_x, q^i_{x} \rangle = \langle q_x, q_{x} \rangle = ||q_x||^2
+\]
+
+we have
+\[
+||q_x||^2 \sum_{i = 1}^{n} d_{ji} d_{ki} = \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
+\]
+
+dividing by $||q_x||^2$ gives us
+\[
+\sum_{i = 1}^{n} d_{ji} d_{ki} = \frac{1}{||q_x||^2} \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
+\]
+
+\end{proof}
+\end{lemma}
+
+% lemma
+
+\begin{lemma}\label{PA0invQxx}
+For all $i = 1, \dots, n$,
+ 
+\begin{equation}
+(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^i_{xx} = -\frac{1}{2c}P_{S^\perp} q^i_c
++ \mathcal{O}(e^{-\alpha X_m})
+\end{equation}
+\end{lemma}
+
+% lemma
+
+\begin{lemma}
+
+The matrix $K_2$ is given, to leading order, by
+
+\begin{equation}
+K_2 = -2c \frac{1}{||q_x||^2} \langle q_{xx}, q_c \rangle + \mathcal{O}(e^{-\alpha X_m})
+\end{equation}
+
+\begin{proof}
+
+\begin{align*}
+(K_2)_{jk} &= 4 c^2
+\langle (s_j)_{x}, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} (s_k)_{x} \rangle \\
+&= 4 c^2
+\langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \left( \sum_{i = 1}^{n} d_{ki} q^i_{xx} + (w_k)_x \right) \rangle \\
+&= -\frac{1}{2 c} 4 c^2 
+\langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, \sum_{i = 1}^{n} d_{ki} q^i_c + \mathcal{O}(e^{-\alpha X_m}) \rangle \\
+\end{align*}
+
+where we used Lemma \ref{PA0invQxx}, the fact that $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is a bounded linear operator from Lemma ???, and the bound on the remainder terms $w_i$. Simplifying this, we have
+
+\begin{align*}
+(K_2)_{jk} &= -2 c \left( 
+\langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, \sum_{i = 1}^{n} d_{ki} q^i_c + \mathcal{O}(e^{-\alpha X_m}) \rangle \right) \\
+&= -2 c \left( \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q^i_{xx}, q^i_c \rangle
++ \sum_{i\neq l} d_{ji} d_{kl} \langle q^i_{xx}, q^j_c \rangle
++ \langle (s_j)_x,  \mathcal{O}(e^{-\alpha X_m}) \rangle 
++ \sum_{i=1}^n \langle (w_j)_x, d_{ki} q^i_c \rangle \right)
+\end{align*}
+
+The last three terms on the RHS are $\mathcal{O}(e^{-\alpha X_m})$ as in Lemma \ref{K1small}. The first term on the RHS is
+
+\begin{align*}
+\sum_{i = 1}^{n} d_{ji} d_{ki} \langle q^i_{xx}, q^i_c \rangle &= \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q_{xx}, q_c \rangle \\
+&= \langle q_{xx}, q_c \rangle \sum_{i = 1}^{n} d_{ji} d_{ki} \\
+&= \langle q_{xx}, q_c \rangle \frac{1}{||q_x||^2} \delta_{jk} + \mathcal{O}(e^{-\alpha X_m})
+\end{align*}
+
+where the sum is given by Lemma \ref{orthogonalD}. Thus we have
+
+\begin{align*}
+K_2 = -2c \frac{1}{||q_x||^2} \langle q_{xx}, q_c \rangle + \mathcal{O}(e^{-\alpha X_m})
+\end{align*}
+
+\end{proof}
+\end{lemma}
+
+
+
+
+% specific stuff here
 
 While we are at it, we will construct a new basis for $S$ with the desired property that each basis function in $S$ is localized on a different subinterval.
 
