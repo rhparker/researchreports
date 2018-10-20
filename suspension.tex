@@ -529,10 +529,10 @@ The Krein matrix should work perfectly in this case, since we don't have to deal
 We know from the discussion in the previous section what the spectrum/eigenvalues of $A_0$ looks like. Since $A_0$ is Hermitian, the spectrum of $A_0$ is real. We also note that if we take $\lambda = i z$, the quadratic operator $p(iz)$ is Hermitian.
 \\
 
-Let $S = \spn\{s_1, \dots, s_n \}$, where $s_i$ are the eigenfunctions of $A_0$ corresponding to the small eigenvalues $\{\nu_1, \dots, \nu_n$. (We found these in the previous section using Lin's method). WLOG, we take $\nu_1 = 0$ and $s_1 = q'$, since we know the kernel of $A_0$ is 1-dimensional, and we know what the kernel eigenfunction is. We also note that since $A_0$ is self-adjoint and the eigenvalues $\nu_i$ are distinct, the corresponding eigenfunctions $s_i$ are orthogonal. We can then normalize the eigenfunctions so that
+Let $S = \spn\{s_1, \dots, s_n \}$, where $s_i$ are the eigenfunctions of $A_0$ corresponding to the small eigenvalues $\{\nu_1, \dots, \nu_n$. (We found these in the previous section using Lin's method). WLOG, we take $\nu_1 = 0$ and $s_1 = q'$, since we know the kernel of $A_0$ is 1-dimensional, and we know what the kernel eigenfunction is. We also note that since $A_0$ is self-adjoint and the eigenvalues $\nu_i$ are distinct, the corresponding eigenfunctions $s_i$ are orthogonal. Since we can scale the eigenfunctions any way we like, in order to make some later expressions look ``nicer'', we will take
 
 \begin{equation}\label{orthonormaleigs}
-\langle s_i, s_j \rangle = \delta_{ij}
+\langle s_i, s_j \rangle = ||q_x||^2 \delta_{ij}
 \end{equation}
 
 With this setup, we can easily compute the Krein matrix using the top of p.4 in Kap2018. As long as as choose $c$ such that the Krein collision has not yet occurred, we get very accurate numerical results from this method, or at least they compare extremely well to the quadratic eigenvalue solver we are using. 
@@ -556,7 +556,7 @@ Now that we know we can use the Krein matrix, we should be able to use the appro
 Recall that we are looking for purely imaginary eigenvalues, thus we take $\lambda = i z$, $z \in \R$. Then the operator $p(iz)$ is Hermitian, which implies that the Krein matrix is also Hermitian (p. 6 of Kap2018). By Lemma 5.6 in Kap2018, for small $|z|$ the Krein matrix is the $n \times n$ matrix
 
 \begin{equation}
-K_S(z) = \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} K_1 - \overline{z}^2 \tilde{K}_2 + \mathcal{O}(|z|^3)
+K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} K_1 - \overline{z}^2 \tilde{K}_2 + \mathcal{O}(|z|^3)
 \end{equation}
 
 where
@@ -571,7 +571,7 @@ and
 (\tilde{K}_2)_{jk} = \langle s_j, (A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 ) s_k  \rangle
 \end{equation}
 
-Note that we omit the $z$ out front from Lemma 5.6, i.e. we use the form of the Krein matrix from p.4 rather than the form in Theorem 3.1. The key observation is that this is, to leading order, a matrix-valued quadratic polynomial in $z$.
+Compared to Lemma 5.6, note that we have omitted the $z$ out front, i.e. we use the form of the Krein matrix from p.4 rather than the form in Theorem 3.1. Since we also scaled the eigenfunctions differently, we have an additional factor of $||q_x||^2$ in the first term. The key observation is that this is, to leading order, a matrix-valued quadratic polynomial in $z$.
 
 Since the operator $A_1$ is skew-Hermitian, $i A_1$ is Hermitian, thus for $K_1$ we have
 
@@ -589,7 +589,7 @@ For the matrix $\tilde{K}_2$, we have
 (\tilde{K}_2)_{jk} &= \langle s_j, s_k \rangle - \langle s_j A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 ) s_k  \rangle \\
 \end{align*}
 
-since $A_2 = I$. Since the eigenfunctions are orthogonal, $\langle s_j, s_k \rangle = \delta_{jk}$. Thus, $\tilde{K} = I - K_2$, where
+since $A_2 = I$. Since the eigenfunctions are orthogonal, by our chosen scaling we have, $\langle s_j, s_k \rangle = ||q_x||^2 \delta_{jk}$. Thus, $\tilde{K} = ||q_x||^2 I - K_2$, where
 
 \begin{align*}
 (K_2)_{jk} &= 
@@ -611,8 +611,8 @@ Since $A_0$ and its spectral projections are self-adjoint, and $A_0$ and the eig
 Thus the Krein matrix takes the form
 
 \begin{equation}\
-K_S(z) = \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} K_1 
-- \overline{z}^2 ( I - K_2) + \mathcal{O}(|z|^3)
+K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} K_1 
+- \overline{z}^2 ( ||q_x||^2 I - K_2) + \mathcal{O}(|z|^3)
 \end{equation}
 
 where $K_1$ and $K_2$ are defined above. For convenience, we let
@@ -621,6 +621,58 @@ where $K_1$ and $K_2$ are defined above. For convenience, we let
 a_{ij} &= (K_1)_{ij} \\
 b_{ij} &= (K_2)_{ij}
 \end{align*}
+
+Before we continue, we will characterize the Krein matrix for the 1-pulse, since in that case will it will be a scalar.
+
+% Lemma : Krein matrix, 1-pulse
+
+\begin{lemma}\label{Krein1pulse}
+For the linearization about the 1-pulse, the Krein matrix is the scalar
+
+\begin{equation}
+K(z) = -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \overline{z}^2 + \mathcal{O}(z^3)
+\end{equation}
+
+\begin{proof}
+
+For the 1-pulse, there is exactly one eigenvalue at 0, for which the corresponding eigenfunction is $q_x$, i.e. $\nu_1 = 0$ and $s_1 = q_x$ (there is no scaling needed here). Let $S = \ker A_0$ = $\spn \{q_x\}$. In this case, the Krein matrix will be 1x1, i.e. a scalar. Since $K_1$ is 0 on the diagonal $K_1 = 0$. Thus we are left with
+
+\begin{align*}
+K(z) &= -\overline{z}^2 \left( ||q_x||^2 - \langle q_x, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
+&= -\overline{z}^2 \left( ||q_x||^2 + \langle A_1 q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
+&= -\overline{z}^2 \left( ||q_x||^2 + 4 c^2 \langle \partial_x q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x q_x \rangle \right) + \mathcal{O}(z^3) \\
+&= -\overline{z}^2 \left( ||q_x||^2 + 4 c^2 \langle q_{xx}, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx} \rangle \right) + \mathcal{O}(z^3)
+\end{align*}
+
+All that remains is to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx}$. Since $S$ is the span of a single odd function, and $q_{xx}$ is an even function, $P_{S^\perp} q_{xx} = q_{xx}$. Thus we only need to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Let $y = (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Then $(P_{S^\perp} A_0 P_{S^\perp})y = q_{xx}$. From \eqref{uc}, we have
+
+\begin{equation*}\label{uc}
+A_0 \left( -\frac{1}{2c} q_c \right) = q_{xx}
+\end{equation*}
+
+Thus $s = -(1/2c) q_c + k q_x$ for some scalar $k$. Substituting this into the equation for $K(z)$, and noting that the $k q_x$ term is wiped out by the projection $P_{S^\perp}$, we have
+
+\[
+K(z) = -\overline{z}^2 \left( ||q_x||^2 - 2c \langle q_{xx}, q_c \rangle \right) + \mathcal{O}(z^3)
+\]
+
+Integration by parts gives us
+
+\begin{align*}
+||q_x||^2 - 2c \langle q_{xx}, q_c \rangle &= \langle q_x, q_x \rangle + 2c \langle q_{x}, q_{xc} \rangle  \\
+&= \langle q_x, q_x \rangle + c \frac{\partial}{\partial c}\langle q_x, q_x \rangle \\
+&= ||q_x||^2 + c \frac{\partial}{\partial c}||q_x||^2 \\
+&= \frac{\partial}{\partial c} \left( c||q_x||^2 \right)
+\end{align*}
+
+Thus this becomes 
+
+\begin{align*}
+K(z) = -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \overline{z}^2 + \mathcal{O}(z^3)
+\end{align*}
+
+\end{proof}
+\end{lemma}
 
 From Lin's method (San98), the $n-$pulse $q_n$ resembles to leading order $n$ copies of the primary pulse $q$. The $n$ peaks are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can therefore write $q_n$ as 
 
@@ -638,7 +690,7 @@ s_j = \sum_{i = 1}^{n} d_{ji} q^i_x + w_j
 
 for constants $d_{ji} \in \C$. Let $D$ be the matrix defined by $(D)_{ji} = d_{ji}$. Note that this is not the same matrix $D$ as in San98. For the remainder terms we have $||w_j|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$. \\
 
-In the following lemmas, we will characterize the matrices $K_1$ and $K_1$, with the goal of showing that the Krein matrix is diagonal to leading order. First ill show that the entries of the matrix $K_1$ are exponentially small.\\
+In the following lemmas, we will characterize the matrices $K_1$ and $K_1$, with the goal of showing that the Krein matrix is diagonal to leading order. First we will show that the entries of the matrix $K_1$ are exponentially small.\\
 
 % lemma : K1 is exponentially small
 
@@ -683,22 +735,22 @@ using the remainder bound and the fact that the eigenfunctions are exponentially
 \end{proof}
 \end{lemma}
 
-Next, we show that the rows of the matrix $D$ defined above are orthogonal to leading order.
+Next, we show that the rows of the matrix $D$ defined above are orthonormal to leading order.
 
 % lemma : orthogonal D
 
 \begin{lemma}\label{orthogonalD}
-Let $D$ be the matrix defined above representing the coefficients of the translates of the derivative of the primary pulse. Then the rows of $D$ are orthogonal to leading order, i.e. 
+Let $D$ be the matrix defined above representing the coefficients of the translates of the derivative of the primary pulse. Then the rows of $D$ are orthonormal to leading order, i.e. 
 
 \[
-\sum_{i = 1}^{n} d_{ji} d_{ki} = \frac{1}{||q_x||^2} \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
+\sum_{i = 1}^{n} d_{ji} d_{ki} = \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
 \]
 
 \begin{proof}
-Since the eigenvalues $\nu_i$ are distinct, the eigenfunctions $s_i$ are orthogonal, and we normalized them above. Thus, using the expression \eqref{sj} for the eigenfunctions, we have, similar to Lemma \ref{K1small}
+Since the eigenvalues $\nu_i$ are distinct, the eigenfunctions $s_i$ are orthogonal, and we have scaled them as discussed above. Thus, using the expression \eqref{sj} for the eigenfunctions, we have, similar to Lemma \ref{K1small}
 
 \begin{align*}
-\delta_{jk} &= \langle s_j, s_k \rangle \\
+||q_x||^2 \delta_{jk} &= \langle s_j, s_k \rangle \\
 &= \langle \sum_{i = 1}^{n} d_{ji} q^i_x + w_j, \sum_{i = 1}^{n} d_{ki} q^i_x + w_k\rangle \\
 &= \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q^i_x, q^i_{x} \rangle 
 + \sum_{i \neq l} d_{ji} d_{kl} \langle q^i_x, q^l_{x} \rangle 
@@ -706,7 +758,7 @@ Since the eigenvalues $\nu_i$ are distinct, the eigenfunctions $s_i$ are orthogo
 + \sum_{i = 1}^{n} d_{ki} \langle w_j, q^j_{x} \rangle
 \end{align*}
 
-As in Lemma \ref{K1small}, the last three terms on the RHS are order $e^{-\alpha X_m}$. Since by translation invariance
+As in Lemma \ref{K1small}, the last three terms on the RHS are order $e^{-\alpha X_m}$. Since by translation invariance we have for all $i$
 
 \[
 \langle q^i_x, q^i_{x} \rangle = \langle q_x, q_{x} \rangle = ||q_x||^2
@@ -714,12 +766,12 @@ As in Lemma \ref{K1small}, the last three terms on the RHS are order $e^{-\alpha
 
 we have
 \[
-||q_x||^2 \sum_{i = 1}^{n} d_{ji} d_{ki} = \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
+||q_x||^2 \sum_{i = 1}^{n} d_{ji} d_{ki} = ||q_x||^2 \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
 \]
 
 dividing by $||q_x||^2$ gives us
 \[
-\sum_{i = 1}^{n} d_{ji} d_{ki} = \frac{1}{||q_x||^2} \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
+\sum_{i = 1}^{n} d_{ji} d_{ki} = \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
 \]
 
 \end{proof}
@@ -738,12 +790,12 @@ For all $i = 1, \dots, n$,
 
 % lemma
 
-\begin{lemma}
+\begin{lemma}\label{K2exp}
 
 The matrix $K_2$ is given, to leading order, by
 
 \begin{equation}
-K_2 = -2c \frac{1}{||q_x||^2} \langle q_{xx}, q_c \rangle + \mathcal{O}(e^{-\alpha X_m})
+K_2 = -2c \langle q_{xx}, q_c \rangle I + \mathcal{O}(e^{-\alpha X_m})
 \end{equation}
 
 \begin{proof}
@@ -773,149 +825,30 @@ The last three terms on the RHS are $\mathcal{O}(e^{-\alpha X_m})$ as in Lemma \
 \begin{align*}
 \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q^i_{xx}, q^i_c \rangle &= \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q_{xx}, q_c \rangle \\
 &= \langle q_{xx}, q_c \rangle \sum_{i = 1}^{n} d_{ji} d_{ki} \\
-&= \langle q_{xx}, q_c \rangle \frac{1}{||q_x||^2} \delta_{jk} + \mathcal{O}(e^{-\alpha X_m})
+&= \langle q_{xx}, q_c \rangle \delta_{jk} + \mathcal{O}(e^{-\alpha X_m})
 \end{align*}
 
 where the sum is given by Lemma \ref{orthogonalD}. Thus we have
 
 \begin{align*}
-K_2 = -2c \frac{1}{||q_x||^2} \langle q_{xx}, q_c \rangle + \mathcal{O}(e^{-\alpha X_m})
+K_2 = -2c \langle q_{xx}, q_c \rangle + \mathcal{O}(e^{-\alpha X_m})
 \end{align*}
 
 \end{proof}
 \end{lemma}
 
+We combine these lemmas in the following theorem
 
+\begin{theorem}
+For the linearization of the suspension bridge equation about a multipulse equilibrium solution, the Krein matrix is given by
 
+\begin{equation}
+K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n)
+ - \overline{z}^2 ( ||q_x||^2 +  2c \langle q_{xx}, q_c \rangle) I + \mathcal{O}(e^{-\alpha X_m}|z| + |z|^3)
+\end{equation}
 
-% specific stuff here
+\end{theorem}
 
-While we are at it, we will construct a new basis for $S$ with the desired property that each basis function in $S$ is localized on a different subinterval.
-
-\subsubsection{A new basis}
-
-Recall that using Lin's method, an $n-$pulse is constructed by ``gluing'' together $n$ copies of the primary pulse at a suitable distance. Thus, if the pulses are separated by distances $2 X_1, \dots, 2 X_{n-1}$, Lin's method shows that we can write the $n-$pulse $q_n$ as
-
-\[
-q_n(x) = \sum_{i = 1}^n q^i(x) + r(x)
-\]
-
-where the $q^i(x)$ are the appropriate translates of the primary pulse. For example, for a 2-pulse, we would have $q^1(x) = q(x + X_1), q^2(x) = q(x - X_1)$. Letting $X_m = \min\{ X_1, \dots, X_{n-1} \}$, the remainder term $r(x) = \mathcal{O}(e^{-\alpha X_m}$.\\
-
-Recall that for an $n$-pulse, $A_0$ has $n$ eigenvalues $\{ \nu_1, \dots, \nu_n \}$ close to 0. The corresponding eigenfunctions are $\{ s_1, \dots, s_n \}$. We actually have $\nu_1 = 0$, and $s_1 = q_x$, which spans the kernel of $A_0$. Let $S$ be the span of these eigenfunctions. \\
-
-From Lin's method again (San98), each eigenfunction $s_j$ can be written as
-
-\begin{align*}
-s_j &= \sum_{i = 1}^n d_{ji} q^i_x + w_j \\ 
-\end{align*}
-
-where the remainder terms have uniform bound 
-
-\[
-||w_j|| \leq C e^{-\alpha X_m}
-\]
-
-Let $D$ be the matrix $D = (d_{ji})$ (not the same matrix $D$ as in San98). Then in matrix form, we can write the eigenfunctions as 
-
-\begin{align*}
-\begin{pmatrix}s_1 \\ \vdots \\ s_n \end{pmatrix} 
-= D \begin{pmatrix}q^1_x \\ \vdots \\ q^n_x \end{pmatrix} 
-+ \begin{pmatrix}w_1 \\ \vdots \\ w_n \end{pmatrix}  \\ 
-\end{align*}
-
-Since the eigenvalues $\nu_i$ are distinct, the eigenfunctions $s_j$ are linearly independent, thus the space $S$ which they span is $n$-dimensional.\\ 
-
-I believe that since the eigenfunctions are linearly independent, this implies that the matrix $D$ is nonsingular. I don't think this is actually too hard to show.\\
-
-Assuming $D$ is nonsingular, let  
-
-\begin{align*}
-\tilde{S} = 
-D^{-1} \begin{pmatrix}s_1 \\ \vdots \\ s_n \end{pmatrix} 
-= I \begin{pmatrix}q^1_x \\ \vdots \\ q^n_x \end{pmatrix} 
-+ D^{-1} \begin{pmatrix}w_1 \\ \vdots \\ w_n \end{pmatrix}  \\ 
-\end{align*}
-
-Let $\tilde{s}_1, \dots, \tilde{s}_n$ be the rows of $\tilde{S}$. Then the $\tilde{s}_i$ also are a basis for $S$. Furthermore, 
-
-\[
-\tilde{s}_i = q^i_x + \tilde{w}_i
-\]
-
-where we still have $||\tilde{w}_i|| \leq C e^{-\alpha X_m}$ since all we did was take finite linear combinations of remainder terms. Thus the $\tilde{s}_i$ are exponentially separated and we have a uniform bound on the remainder terms.\\
-
-Looking at this in terms of the 2-pulse, in that case we know that
-
-\[
-D = \begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix}
-\]
-
-The inverse is
-
-\[
-D^{-1} = \frac{1}{2} \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix}
-\]
-
-Applying this gives us
-
-\begin{align*}
-\tilde{s}_1 &= \frac{1}{2}(s_1 - s_2) = q^1 + \mathcal{O}(e^{-\alpha X_m})
- = q(\cdot + X_1) + \mathcal{O}(e^{-\alpha X_m})\\
-\tilde{s}_2 &= \frac{1}{2}(s_1 + s_2) = q^2 + \mathcal{O}(e^{-\alpha X_m})
- = q(\cdot - X_1) + \mathcal{O}(e^{-\alpha X_m}) \\
-\end{align*}
-
-which agrees with what we know (and what we have been using for that case).\\
-
-If we use the $\tilde{s}_i$ as a basis for $S$, we should be able to show that the Krein matrix is diagonal to leading order for all $n-$pulses.
-
-\subsubsection{1-pulse}
-
-The easiest case, which is almost trivial, is the single pulse, which we know has exactly one eigenvalue at the origin. For the Krein matrix, we take $S = \ker A_0$ = $\spn \{q_x\}$. Thus the Krein matrix will be 1x1, i.e. a scalar. In this case, $\nu_1 = 0$ and $K_1 = 0$, thus we have
-
-\begin{align*}
-K(z) &= -z^2\left( ||q_x||^2 - \langle q_x, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
-&= -z^2\left( ||q_x||^2 + \langle A_1 q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
-&= - z^2 ||q_x||^2 - 4 c^2 z^2 \langle \partial_x q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x q_x \rangle + \mathcal{O}(z^3) \\
-&= - z^2 ||q_x||^2 - 4 c^2 z^2 \langle q_{xx}, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx} \rangle + \mathcal{O}(z^3)
-\end{align*}
-
-All that is left is to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx}$. Since $S$ is the span of a single odd function, and $q_{xx}$ is an even function, $P_{S^\perp} q_{xx} = q_{xx}$. Thus we only need to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Let $s = (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Then $(P_{S^\perp} A_0 P_{S^\perp}) s = q_{xx}$. From \eqref{uc}, we have
-
-\begin{equation*}\label{uc}
-A_0 \left( -\frac{1}{2c} q_c \right) = q_{xx}
-\end{equation*}
-
-Thus we have
-
-\[
-s = -\frac{1}{2c} q_c + k q_x
-\]
-
-for some scalar $k$. Substituting this into the equation for $K(z)$, and noting that the $k q_x$ term is wiped out by the projection $P_{S^\perp}$, we have
-
-\[
-K(z) = -b z^2 + \mathcal{O}(z^3)
-\]
-
-where
-
-\begin{align*}
-b &= \langle q_x, q_x \rangle - 4 c^2 \left(\frac{1}{2c} \langle q_{xx}, q_c \rangle \right)  \\
-&= \langle q_x, q_x \rangle - 2 c \langle q_{xx}, q_c \rangle
-\end{align*}
-
-Integration by parts gives us
-
-\begin{align*}
-b &= \langle q_x, q_x \rangle + 2c \langle q_{x}, q_{xc} \rangle  \\
-&= \langle q_x, q_x \rangle + c \frac{\partial}{\partial c}\langle q_x, q_x \rangle \\
-&= ||q_x||^2 + c \frac{\partial}{\partial c}||q_x||^2 \\
-&= \frac{\partial}{\partial c} \left( c||q_x||^2 \right)
-\end{align*}
-
-Numerics suggests this is negative, but hopefully we can find a way to show that. Or we can just assume this thing is nonzero, which is reasonable.
 
 \subsubsection{2-pulse}
 
