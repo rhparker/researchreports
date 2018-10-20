@@ -777,15 +777,319 @@ dividing by $||q_x||^2$ gives us
 \end{proof}
 \end{lemma}
 
+Before we can deal with the matrix $K_2$, we need to deal with the term involving $(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k$ in $K_2$. We do that in a series of lemmas. First, we show that $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is a bounded linear operator on $S^\perp$.
+
+% lemma : PA_0 is invertible on Sperp
+
+\begin{lemma}
+When restricted to $S^\perp$, $P_{S^\perp} A_0 |_S^\perp$ is an invertible operator, and the inverse 
+$(P_{S^\perp} A_0 |_S^\perp)^{-1}$ is a bounded linear operator. If $z \in S^\perp$ is smooth, then 
+$y = (P_{S^\perp} A_0 |_{S^\perp})^{-1} z$ has four continuous derivatives.
+
+\begin{proof}
+Consider the operator $P_{S^\perp} A_0$. Since $A_0$ is self-adjoint and the projection $P_{S^\perp}$ is self-adjoint, $P_{S^\perp} A_0$ is also self-adjoint, since
+
+\[
+(P_{S^\perp} A_0)^* = A_0^* P_{S^\perp}^* = A_0 P_{S^\perp} = P_{S^\perp} A_0
+\]
+
+where the last equality holds since operators commute with their own spectral projections. Recall that we showed above that the essential spectrum of $A_0$ is $\sigma_{\text{ess}} = [1, \infty)$. Thus for any $\lambda \notin [1, \infty)$, the operator $A_0 - \lambda I$ is Fredholm with index 0. In particular, $A_0$ and $(A_0 - \nu_i I)$ are Fredholm with index 0. Since $A_0$ is Fredholm, its range is closed. Thus by the closed range theorem (see Yosida, etc), 
+
+\begin{equation}
+\ran A_0 = (\ker A_0^*)^\perp = (\ker A_0)^\perp
+\end{equation}
+
+where the last equality holds since $A_0$ is self-adjoint. Similarly, since $\nu \in \R$ and $\nu < 1$, we have
+
+\begin{equation}\label{KerRangeNu}
+\ran (A_0 - \nu_i I) = (\ker (A_0 - \nu_i I))^\perp 
+\end{equation}
+
+Next, we look at the kernel of $P_{S^\perp} A_0 = A_0 P_{S^\perp}$. This clearly contains $S$ (the kernel of $P_{S^\perp}$), but we need to ensure that it contains nothing else. It contains the kernel of $A_0$, but $\ker A_0 = \spn\{ q_2' \}$, and $q_2' \in S$, so we have already taken care of that. Finally, it contains any function $y$ for which $(A_0 - \nu_i I) y = s_i$, since that will be wiped out by the projection $P_{S^\perp}$. But we cannot have a function $y$ with $(A_0 - \nu_i I) y = s_i$, since by \eqref{KerRangeNu}, we would have $s_i \perp \ker (A_0 - \nu_i I)$, which contains $s_i$. Thus we conclude that
+
+\[
+\ker P_{S^\perp} A_0 = S 
+\]
+
+Since the range of $A_0$ is closed and $P_{S^\perp}$ is bounded, the range of $P_{S^\perp} A_0$ is closed. Thus by the closed range theorem and the fact that $P_{S^\perp} A_0$ is self-adjoint,
+
+\[
+\ran P_{S^\perp} A_0 = (\ker (P_{S^\perp} A_0)^*)^\perp = (\ker (P_{S^\perp} A_0))^\perp = S^\perp
+\]
+
+Since $\dim \ker P_{S^\perp} A_0 = \text{codim } P_{S^\perp} A_0 = 2$, $P_{S^\perp} A_0$ is a Fredholm operator with index 0.\\
+
+If we restrict the operator $P_{S^\perp} A_0$ to $S^\perp$ (which is well-defined since its range is $S^\perp$), we get rid of the 2-dimensional kernel, thus obtain an invertible operator. Thus for $z \in S^\perp$ we can solve the equation
+
+\[
+(P_{S^\perp} A_0) y = z
+\]
+
+uniquely for $y \in S^\perp$, i.e. we have for $z \in S^\perp$,
+
+\begin{equation}
+y = (P_{S^\perp} A_0 |_{S^\perp})^{-1} z
+\end{equation}
+
+IN THE NOTATION OF THIS PAPER, THIS IS WRITTEN
+
+\begin{equation*}
+y = (P_{S^\perp} A_0 P_{S^\perp})^{-1} z
+\end{equation*}
+
+Since the spectrum of $P_{S^\perp} A_0 |_{S^\perp}$ is bounded away from 0 (by what we discussed above about the spectrum of $A_0$), the spectrum of $(P_{S^\perp} A_0 |_{S^\perp})^{-1}$ is bounded by a constant, i.e. 
+
+\[
+\text{spec } P_{S^\perp} A_0 |_{S^\perp}  \subset [-\rho, \rho]
+\]
+
+for some $\rho > 0$. Thus since $P_{S^\perp} A_0$ is self-adjoint, we can use the resolvent bound for normal operators to conclude that $(P_{S^\perp} A_0)^{-1}$ is a bounded linear operator with operator norm
+
+\[
+|| (P_{S^\perp} A_0)^{-1} || \leq \frac{1}{\rho}
+\]
+
+Since $A_0: H^4 \in L^2 \rightarrow L^2$, if $z$ is smooth then $y (P_{S^\perp} A_0 |_{S^\perp})^{-1} z$ has four continuous derivatives.
+
+\end{proof}
+\end{lemma}
+
+Next, using the definition for $A_1$ and the expression \eqref{sj} for $s_k$, we need to evaluate
+
+\begin{align*}
+(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k 
+&= -2c \sum_{i = 1}^{n} d_{ji} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^i_{xx} + (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} (w_j)_x 
+\end{align*}
+
+Since $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is a bounded linear operator and the remainder term $(w_j)_x = \mathcal{O}(e^{-\alpha X_m})$, the last term on the RHS is also $\mathcal{O}(e^{-\alpha X_m})$. Thus all we need to do is evaluate $(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^i_{xx}$. We will do this using Lin's method. Before we can do that, we prove a useful lemma and corollary which gives a leading order expansion for $e^{q_n(x)}$.
+
 % lemma
 
-\begin{lemma}\label{PA0invQxx}
+\begin{lemma}\label{expsep}
+
+For the $n-$pulse $q_n(x)$ and for all $i = 1, \dots, n$
+
+\begin{equation}
+\exp(q_n(x)) = \exp( q^i(x)) + \sum_{j \neq i} (\exp(q^j(x)) - 1) + \mathcal{O}(e^{-\alpha X_m}) 
+\end{equation}
+
+\begin{proof}
+
+Recall from \eqref{qn} that 
+
+\[
+q_n = \sum_{i = 1}^{n} q^i + \mathcal{O}(e^{-\alpha X_m})
+\]
+
+Fix $i$, and let $s(x) = \sum_{j \neq i} q_j(x)$. Then we have
+
+\[
+q_n = q^i + s + \mathcal{O}(e^{-\alpha X_m})
+\]
+
+Using a Taylor expansion, 
+
+\begin{align*}
+\exp(q_n(x)) &= \exp( q^i(x) + s(x) + \mathcal{O}(e^{-\alpha X_m}) ) \\
+&= \exp( q^i(x) + s(x) ) \exp( \mathcal{O}(e^{-\alpha X_m}) )\\
+&= \exp( q^i(x) + s(x) ) (1 + \mathcal{O}(e^{-\alpha X_m})) \\
+&= \exp( q^i(x) + s(x) ) + \mathcal{O}(e^{-\alpha X_m}) \\
+&= \exp( q^i(x) )\exp(s(x)) + \mathcal{O}(e^{-\alpha X_m})
+\end{align*}
+
+where the penultimate line holds since $q$ is bounded. Looking at the first term on the RHS, we have
+
+\begin{align*}
+\exp( q^i(x))\exp(s(x)) &=
+\sum_{m=0}^\infty \frac{q^i(x)^m}{m!}
+\sum_{n=0}^\infty \frac{s(x)^n}{n!}\\
+&= \sum_{m=0}^\infty \frac{q^i(x)^m}{m!} 
++ \sum_{n=0}^\infty\frac{s(x)^n}{n!} - 1 +
+\sum_{m=1}^\infty \frac{q^i(x)^m}{m!}
+\sum_{n=1}^\infty \frac{s(x)^n}{n!} \\
+&= \exp( q^i(x)) + \exp(s(x)) - 1 +
+q^i(x)s(x)\sum_{m=0}^\infty \frac{q^i(x)^m}{(m+1)!}
+\sum_{n=0}^\infty \frac{s(x)^n}{(n+1)!}
+\end{align*}
+
+For the final term on the RHS, we have
+
+\begin{align*}
+\left| q^i(x)s(x)\sum_{m=0}^\infty \frac{q^i(x)^m}{(m+1)!} \sum_{n=0}^\infty \frac{s(x)^n}{(n+1)!} \right| 
+&\leq \left| q^i(x)s(x) \right| \sum_{m=0}^\infty \frac{|q^i(x)|^m}{m!} \sum_{n=0}^\infty \frac{|s(x)|^n}{n!}  \\
+&\leq \left| q^i(x)s(x) \right| e^{|q^i(x)|}e^{|s(x)|} \\
+&\leq C \left| q^i(x)s(x) \right|
+\end{align*}
+
+where in the last line we used the fact that $q$ is bounded. Since all $n$ peaks are exponentially separated, so are $q^i(x)$ and $s(x)$, thus $\left| q^i(x)s(x) \right| = \mathcal{O}(e^{-\alpha X_m})$. Putting this all together, we have
+
+\begin{equation}
+\exp(q_n) = \exp( q^i(x)) + \exp(s(x)) - 1 + \mathcal{O}(e^{-\alpha X_m}) 
+\end{equation}
+
+Repeat this $n - 2$ more times to get the result.
+
+\end{proof}
+\end{lemma}
+
+With this taken care of, we use Lin's method to solve $(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^i_{xx}$.
+
+% lemma
+
+\begin{lemma}\label{LinSolve}
 For all $i = 1, \dots, n$,
  
 \begin{equation}
 (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^i_{xx} = -\frac{1}{2c}P_{S^\perp} q^i_c
 + \mathcal{O}(e^{-\alpha X_m})
 \end{equation}
+
+\begin{proof}
+For convenience, let $k = -1/2c$, so that $A_0 k q_c$ = $q_{xx}$. Since everything involved is translation invariant, we also have $A_0 k q^i_c$ = $q^i_{xx}$. Applying the projection $P_{S^\perp}$ on both sides and using the fact that $A_0$ commutes with its own spectral projections, we have
+
+\begin{align*}
+P_{S^\perp} A_0 k q^i_c &= P_{S^\perp} q^-_{xx} \\
+A_0 (P_{S^\perp} k q^i_c) &= P_{S^\perp} q^i_{xx}
+\end{align*}
+
+Using this as motivation, we will look for a solution $y$ to 
+
+\begin{equation}\label{Lineq1}
+(P_{S^\perp} A_0) y = P_{S^\perp} q^i_{xx}
+\end{equation}
+
+of the form
+
+\begin{equation}\label{yansatz}
+y = P_{S^\perp} k q^i_c + w
+\end{equation}
+
+We will use Lin's method to show that $w$ is exponentially small. Using Lemma \ref{expsep}, we write $A_0$ as 
+
+\begin{equation}\label{A0expansion}
+A_0 = \partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x)
+\end{equation}
+
+where $||\tidle{h}|| = \mathcal{O}(e^{-\alpha X}$. Substituting in our ansatz \eqref{yansatz} for $y$ in \eqref{Lineq1}, we obtain
+
+\begin{align*}
+A_0 (P_{S^\perp} k q^i_c + w) &= P_{S^\perp} q^i_{xx} \\
+\left(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x) \right)P_{S^\perp} k q^i_c + A_0 w &= P_{S^\perp} q^i_{xx} \\
+(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)})P_{S^\perp} k q^i_c + \left( \sum_{j \neq i} (e^{q^j(x)} - 1)+ \tilde{h}(x) \right) P_{S^\perp}k q^i_c + A_0 w &= P_{S^\perp} q^i_{xx} \\
+A_0 w + \underbrace{\left( \sum_{j \neq i} (e^{q^j(x)} - 1)\right) P_{S^\perp} k q^i_c}_{\mathcal{O}(e^{-\alpha X})} 
++ \underbrace{h(x) P_{S^\perp}k q^i_c}_{\mathcal{O}(e^{-\alpha X})} &= 0 \\
+A_0 w + h(x) &= 0
+\end{align*}
+
+where we have collected all of the $\mathcal{O}(e^{-\alpha X})$ stuff and called it $h(x)$. Note that $A_0$ is still the linearization about the double pulse, but we will separate that out in the next step using our expansion \eqref{A0expansion} for $A_0$.
+
+\item Write this as a piecewise first order system in the standard way with the usual notation conventions. Note that we are doing the coordinates like in San98 and not like we did above.
+
+\begin{align*}
+(W_i^\pm)'(x) = A(q(x)) W_i^\pm(x) + G_i(x) W_i^\pm(x)+ B H(x)
+\end{align*}
+
+where
+
+\begin{align*}
+A(u^*(x)) &= \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+-e^{f(x)} & 0 & -c^2 & 0 
+\end{pmatrix},
+B = \begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 
+\end{pmatrix} \\
+G_1(x) &= \begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+1 - e^{q(x - 2 X)} & 0 & 0 & 0 
+\end{pmatrix}, 
+G_2(x) = \begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+1 - e^{q(x + 2 X)} & 0 & 0 & 0 
+\end{pmatrix}
+\end{align*}
+
+We have a nice symmetry here. $W_i^\pm$ is piecewise on the intervals $(-\infty, 0], [0, X], [-X, 0], [0, \infty)$.
+
+\item Now use Lin's method on this, i.e. solve the equations
+
+\begin{align*}
+(W_i^\pm)'(x) &= A(q(x)) W_i^\pm(x) + G_i(x) W_i^\pm(x)+ B H(x) \\
+W_1^+(X) - W_2^-(-X) &= 0 \\
+W_i^-(0) - W_i^+(0) \in \C \Psi(0) \\
+\end{align*}
+
+Where $\Psi(x)$ is the unique bounded solution to the adjoint equation $W' = -A(q(x))^* W$. These equations, solved via Lin's method, will give us a unique solution $W_i^\pm$, but these will in general have jumps at $x = 0$ (two jumps, for $i = 1, 2$).
+
+\item Write the fixed point equations. Let $\Phi$ be the evolution operator for $A(q(x))$, and let $\Phi^{s/u}_\pm$ be the appropriate pieces of the appropriate exponential dichotomies. Then we have
+
+\begin{align*}
+W_i^-(x) &= \Phi^s(x, -X_{i-1})a_{i-1}^- + \Phi^u_-(x, 0)b_i^- \\
+&+ \int_{0}^x \Phi^u_-(x, y)[G_i(x) W_i^-(x)+ B H(x)] dy \\
+&+ \int_{-X_{i-1}}^x \Phi^s_-(x, y)[G_i(x) W_i^-(x)+ B H(x) ] dy \\
+W_i^+(x) &= \Phi^u(x, X_i)a_i^+ + \Phi^s_+(x, 0)b_i^+ \\
+&+ \int_{0}^x \Phi^s_+(x, y)[G_i(x) W_i^+(x)+ B H(x) ] dy \\
+&+ \int_{X_i}^x \Phi^u_+(x, y)[G_i(x) W_i^+(x)+ B H(x) ] dy
+\end{align*}
+
+where the $a_i^\pm$ and $b_i^\pm$ live in the usual places, $a_0^- = a_2^+ = 0$, and $(X_0, X_1, X_2) = (-\infty, X, \infty)$. Note that everything here is nice, i.e. $||H||, ||G|| = \mathcal{O}(e^{-\alpha X)}$.
+
+Following Lin's method, using San98 (or something similar) as a reference, we obtain unique functions $W_i^\pm$ which solve the above. The jumps are given by (see, for example, Lemma 3.6 in San98)
+
+\begin{equation}
+\xi_i = \int_{-\infty}^\infty \langle \Psi(x), H(x) \rangle dx + R
+\end{equation}
+
+where the remainder $R$ has order
+
+\[
+R = \mathcal{O}(e^{-\alpha X} + |G|) = \mathcal{O}(e^{-\alpha X}) 
+\]
+
+and $||W|| < C e^{-\alpha X}$
+
+In adapting San98, we note that our system is similar to (3.7), except the $d_i$ is missing (i.e. we take it to be 1), there is no $\lambda$ (so we take it to be 1), $D = 0$, and the $\lambda B_i^\pm$ term is absent entirely.
+
+\item Using Lin's method (and taking it out of the first order system form), we have constructed a piecewise solution $y_i^\pm = P_{S^\perp} k q^+_c + w_i^\pm$ to the problem $A_0 y = P_{S^\perp} q^+_{xx}$. What we want is solution $y \in \ran P_{S^\perp}$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^+_{xx}$, i.e. we want the operator $P_{S^\perp} A_0$, not just $A_0$. But we can easily get this by applying the projection $P_{S^\perp}$ on both sides.
+
+\begin{align*}
+P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} P_{S^\perp} q^+_{xx} \\
+P_{S^\perp} P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} q^+_{xx} \\
+P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) &= P_{S^\perp} q^+_{xx}
+\end{align*}
+
+where we used the fact that $P_{S^\perp}$ is a spectral projection which commutes with $A_0$. Thus $P_{S^\perp} y_i^\pm \in \ran P_{S^\perp}$ and $P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) = P_{S^\perp} q^+_{xx}$. 
+
+\item We showed above that the problem $(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}$ on $\ran P_{S^\perp}$ has a unique solution $y$, and that this solution has three continuous derivatives. Since these two solutions must be identical, this implies that we must have $y = P_{S^\perp} y_i^\pm$, and thus this has three continuous derivatives. In particular, this means that
+
+\begin{align*}
+y &= P_{S^\perp} k q^+_c + P_{S^\perp} w_i^\pm
+\end{align*}
+
+Since $P_{S^\perp} k q^+_c$ is smooth, $P_{S^\perp} w_i^\pm$ has three continuous derivatives. Since projections are bounded with norm of 1
+
+\[
+P_{S^\perp} w_i^\pm = \mathcal{O}(e^{-\alpha X})
+\]
+
+Thus
+
+\begin{align*}
+y &= P_{S^\perp} k q^+_c + \mathcal{O}(e^{-\alpha X})
+\end{align*}
+
+\end{proof}
+
+
 \end{lemma}
 
 % lemma
@@ -809,7 +1113,7 @@ K_2 = -2c \langle q_{xx}, q_c \rangle I + \mathcal{O}(e^{-\alpha X_m})
 \langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, \sum_{i = 1}^{n} d_{ki} q^i_c + \mathcal{O}(e^{-\alpha X_m}) \rangle \\
 \end{align*}
 
-where we used Lemma \ref{PA0invQxx}, the fact that $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is a bounded linear operator from Lemma ???, and the bound on the remainder terms $w_i$. Simplifying this, we have
+where we used Lemma \ref{linsolve}, the fact that $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is a bounded linear operator from Lemma ???, and the bound on the remainder terms $w_i$. Simplifying this, we have
 
 \begin{align*}
 (K_2)_{jk} &= -2 c \left( 
@@ -846,7 +1150,6 @@ For the linearization of the suspension bridge equation about a multipulse equil
 K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n)
  - \overline{z}^2 ( ||q_x||^2 +  2c \langle q_{xx}, q_c \rangle) I + \mathcal{O}(e^{-\alpha X_m}|z| + |z|^3)
 \end{equation}
-
 \end{theorem}
 
 
