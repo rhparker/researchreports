@@ -674,13 +674,27 @@ K(z) = -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \overline{z}^2 + \
 \end{proof}
 \end{lemma}
 
-From Lin's method (San98), the $n-$pulse $q_n$ resembles to leading order $n$ copies of the primary pulse $q$. The $n$ peaks are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can therefore write $q_n$ as 
+From Lin's method (San98), the $n-$pulse $q_n$ resembles to leading order $n$ copies of the primary pulse $q$. The $n$ peaks are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can write $q_n$ as 
 
 \begin{align}\label{qn}
 q_n = \sum_{i = 1}^{n} q^i + r
 \end{align}
 
-where each $q^i$ is a translate of the primary pulse $q$, i.e. $q^i = q(\cdot - X)$ for some $X$. From the Lin's method construction, translates $q^i$ are exponentially separated, i.e. $q^i q^j = \mathcal{O}(e^{-\alpha X_m})$ and $\langle q^i, q^j \rangle = \mathcal{O}(e^{-\alpha X_m})$ for $i \neq j$, where $X_m = \min\{ X_1, \dots, X_n \}$. We also get from Lin's method a uniform bound on the remainder term, i.e. $||r|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$.\\
+where each $q^i$ is a translate of the primary pulse $q$ by some distance $L_i$, i.e. 
+
+\begin{equation}\label{qi}
+q^i = q(\cdot - L_i)
+\end{equation}
+
+For $i, j = 1, \dots, n$, let $\rho_{ji}$ be the signed distance between peak $i$ and peak $j$, i.e. 
+
+\begin{equation}\label{rhoji}
+\rho_{ji} = L_j - L_i
+\end{equation}
+
+We note that for all $i, j$, $|\rho_{ji}| \geq 2 X_m$.\\
+
+From the Lin's method construction, the translates $q_i$ are exponentially separated, i.e. $q^i q^j = \mathcal{O}(e^{-\alpha X_m})$ and $\langle q^i, q^j \rangle = \mathcal{O}(e^{-\alpha X_m})$ for $i \neq j$, where $X_m = \min\{ X_1, \dots, X_n \}$. We also get from Lin's method a uniform bound on the remainder term, i.e. $||r|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$.\\
 
 Similarly, using Lin's method, we can write the eigenfunctions of $A_0$ in terms of translates of the derivative of the primary pulse. Each eigenfunction is, to leading order, a linear combination of these translates, i.e. for $j = 1, \dots, n$
 
@@ -781,7 +795,7 @@ Before we can deal with the matrix $K_2$, we need to deal with the term involvin
 
 % lemma : PA_0 is invertible on Sperp
 
-\begin{lemma}
+\begin{lemma}\label{PA0inv}
 When restricted to $S^\perp$, $P_{S^\perp} A_0 |_S^\perp$ is an invertible operator, and the inverse 
 $(P_{S^\perp} A_0 |_S^\perp)^{-1}$ is a bounded linear operator. If $z \in S^\perp$ is smooth, then 
 $y = (P_{S^\perp} A_0 |_{S^\perp})^{-1} z$ has four continuous derivatives.
@@ -964,7 +978,7 @@ of the form
 y = P_{S^\perp} k q^i_c + w
 \end{equation}
 
-We will use Lin's method to show that $w$ is exponentially small. Using Lemma \ref{expsep}, we write $A_0$ as 
+We will use Lin's method to show that $w$ is exponentially small. Using Lemma \ref{expsep}, for $i = 1, \dots, n$ we can write $A_0$ as 
 
 \begin{equation}\label{A0expansion}
 A_0 = \partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x)
@@ -981,101 +995,89 @@ A_0 w + \underbrace{\left( \sum_{j \neq i} (e^{q^j(x)} - 1)\right) P_{S^\perp} k
 A_0 w + h(x) &= 0
 \end{align*}
 
-where we have collected all of the $\mathcal{O}(e^{-\alpha X})$ stuff and called it $h(x)$. Note that $A_0$ is still the linearization about the double pulse, but we will separate that out in the next step using our expansion \eqref{A0expansion} for $A_0$.
+where we have collected all of the $\mathcal{O}(e^{-\alpha X})$ stuff and called it $h(x)$. Note that $A_0$ is still the linearization about the double pulse, but we will separate that out in the next step using our expansion \eqref{A0expansion} for $A_0$.\\
 
-\item Write this as a piecewise first order system in the standard way with the usual notation conventions. Note that we are doing the coordinates like in San98 and not like we did above.
+Next, following San98, we write this piecewise as a first order system. First, as in San98, we choose the $2n$ intervals 
 
 \begin{align*}
-(W_i^\pm)'(x) = A(q(x)) W_i^\pm(x) + G_i(x) W_i^\pm(x)+ B H(x)
+(-\infty, 0], [0, X_1], [-X_1, 0], [0, X_2], \dots, [-X_{n-1}, 0], [0, \infty)
+\end{align*}
+
+Then, using the expansions \eqref{A0expansion} for $A_0$, we obtain the first order system
+
+\begin{align*}
+(W_i^\pm)'(x) = A(q(x)) W_i^\pm(x) + G_i(x) W_i^\pm(x) + B H(x)
 \end{align*}
 
 where
 
 \begin{align*}
-A(u^*(x)) &= \begin{pmatrix}
+A(q(x)) &= \begin{pmatrix}
 0 & 1 & 0 & 0 \\
 0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 1 \\
--e^{f(x)} & 0 & -c^2 & 0 
+-e^{q(x)} & 0 & -c^2 & 0 
 \end{pmatrix},
 B = \begin{pmatrix}
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 1 & 0 & 0 & 0 
-\end{pmatrix} \\
-G_1(x) &= \begin{pmatrix}
+\end{pmatrix},
+G_i(x) &= \begin{pmatrix}
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
-1 - e^{q(x - 2 X)} & 0 & 0 & 0 
-\end{pmatrix}, 
-G_2(x) = \begin{pmatrix}
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-1 - e^{q(x + 2 X)} & 0 & 0 & 0 
+\sum_{j \neq i} (1 - e^{q(x - \rho_{ji})}) & 0 & 0 & 0 
 \end{pmatrix}
 \end{align*}
 
-We have a nice symmetry here. $W_i^\pm$ is piecewise on the intervals $(-\infty, 0], [0, X], [-X, 0], [0, \infty)$.
+The key here is that we use a different expansion for $A_0$ on each piece. Now we use Lin's method, i.e. look to solve the equations
 
-\item Now use Lin's method on this, i.e. solve the equations
+\begin{align}
+(W_i^\pm)'(x) &= A(q(x)) W_i^\pm(x) + G_i(x) W_i^\pm(x)+ B H(x) \nonumber \\
+W_1^+(X) - W_2^-(-X) &= 0 \label{Wsystem} \\
+W_i^-(0) - W_i^+(0) \in \C \Psi(0) \nonumber 
+\end{align}
+
+
+Where $\Psi(x)$ is the unique bounded solution to the adjoint equation $W' = -A(q(x))^* W$. These equations, solved via Lin's method, will give us a unique solution $W_i^\pm$, but in general these will have jumps $n$ at $x = 0$ (in the piecewise coordinate system).\\
+
+From the bound on $h$, we have $||H|| = \mathcal{O}(e^{-\alpha X_m)}$. On the $i^\pm$ pieces, we note that by construction $q(x - \rho_{ji}) = \mathcal{O}(e^{-\alpha X_m})$ on the interval $[-X_{i-1}, X_i]$. Thus, using a Taylor series, we have on that interval
 
 \begin{align*}
-(W_i^\pm)'(x) &= A(q(x)) W_i^\pm(x) + G_i(x) W_i^\pm(x)+ B H(x) \\
-W_1^+(X) - W_2^-(-X) &= 0 \\
-W_i^-(0) - W_i^+(0) \in \C \Psi(0) \\
+1 - e^{q(x - \rho_{ji})} &= q(x - \rho_{ji}) + \mathcal{O}(q(x - \rho_{ji}))^2 = \mathcal{O}(e^{-\alpha X_m})
 \end{align*}
 
-Where $\Psi(x)$ is the unique bounded solution to the adjoint equation $W' = -A(q(x))^* W$. These equations, solved via Lin's method, will give us a unique solution $W_i^\pm$, but these will in general have jumps at $x = 0$ (two jumps, for $i = 1, 2$).
-
-\item Write the fixed point equations. Let $\Phi$ be the evolution operator for $A(q(x))$, and let $\Phi^{s/u}_\pm$ be the appropriate pieces of the appropriate exponential dichotomies. Then we have
-
-\begin{align*}
-W_i^-(x) &= \Phi^s(x, -X_{i-1})a_{i-1}^- + \Phi^u_-(x, 0)b_i^- \\
-&+ \int_{0}^x \Phi^u_-(x, y)[G_i(x) W_i^-(x)+ B H(x)] dy \\
-&+ \int_{-X_{i-1}}^x \Phi^s_-(x, y)[G_i(x) W_i^-(x)+ B H(x) ] dy \\
-W_i^+(x) &= \Phi^u(x, X_i)a_i^+ + \Phi^s_+(x, 0)b_i^+ \\
-&+ \int_{0}^x \Phi^s_+(x, y)[G_i(x) W_i^+(x)+ B H(x) ] dy \\
-&+ \int_{X_i}^x \Phi^u_+(x, y)[G_i(x) W_i^+(x)+ B H(x) ] dy
-\end{align*}
-
-where the $a_i^\pm$ and $b_i^\pm$ live in the usual places, $a_0^- = a_2^+ = 0$, and $(X_0, X_1, X_2) = (-\infty, X, \infty)$. Note that everything here is nice, i.e. $||H||, ||G|| = \mathcal{O}(e^{-\alpha X)}$.
-
-Following Lin's method, using San98 (or something similar) as a reference, we obtain unique functions $W_i^\pm$ which solve the above. The jumps are given by (see, for example, Lemma 3.6 in San98)
+Thus we conclude that $||G|| = \mathcal{O}(e^{-\alpha X_m)}$. With these bounds, we are set up to use Lin's method. Following San98 (or another suitable reference), we obtain unique functions $W_i^\pm$ which solve \eqref{Wsystem}. In adapting San98, we note that our system is similar to (3.7) in San98, except the $d_i$ is missing (we take it to be 1), there is no $\lambda$ (we take it to be 1), $D = 0$, and the $\lambda B_i^\pm$ term is absent entirely. The jumps are given by Lemma 3.6 in San98.
 
 \begin{equation}
 \xi_i = \int_{-\infty}^\infty \langle \Psi(x), H(x) \rangle dx + R
 \end{equation}
 
-where the remainder $R$ has order
+where for the remainder term we have $R = \mathcal{O}(e^{-\alpha X})$. A uniform bound on $W_i^\pm$, which is what we need, is given by
 
-\[
-R = \mathcal{O}(e^{-\alpha X} + |G|) = \mathcal{O}(e^{-\alpha X}) 
-\]
+\begin{equation}\label{Wbound}
+||W|| \leq C e^{-\alpha X}
+\end{equation}
 
-and $||W|| < C e^{-\alpha X}$
-
-In adapting San98, we note that our system is similar to (3.7), except the $d_i$ is missing (i.e. we take it to be 1), there is no $\lambda$ (so we take it to be 1), $D = 0$, and the $\lambda B_i^\pm$ term is absent entirely.
-
-\item Using Lin's method (and taking it out of the first order system form), we have constructed a piecewise solution $y_i^\pm = P_{S^\perp} k q^+_c + w_i^\pm$ to the problem $A_0 y = P_{S^\perp} q^+_{xx}$. What we want is solution $y \in \ran P_{S^\perp}$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^+_{xx}$, i.e. we want the operator $P_{S^\perp} A_0$, not just $A_0$. But we can easily get this by applying the projection $P_{S^\perp}$ on both sides.
+Taking this out of the first order system form, we have use Lin's method to construct a piecewise solution $y_i^\pm = P_{S^\perp} k q^i+_c + w_i^\pm$ to the problem $A_0 y = P_{S^\perp} q^i_{xx}$. What we want is solution $y \in \ran P_{S^\perp}$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^i_{xx}$, i.e. we want the operator $P_{S^\perp} A_0$ instead $A_0$. But we can easily get this by applying the projection $P_{S^\perp}$ to both sides.
 
 \begin{align*}
-P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} P_{S^\perp} q^+_{xx} \\
-P_{S^\perp} P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} q^+_{xx} \\
-P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) &= P_{S^\perp} q^+_{xx}
+P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} P_{S^\perp} q^i_{xx} \\
+P_{S^\perp} P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} q^i_{xx} \\
+P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) &= P_{S^\perp} q^i_{xx}
 \end{align*}
 
-where we used the fact that $P_{S^\perp}$ is a spectral projection which commutes with $A_0$. Thus $P_{S^\perp} y_i^\pm \in \ran P_{S^\perp}$ and $P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) = P_{S^\perp} q^+_{xx}$. 
+where we used the fact that $P_{S^\perp}$ is a spectral projection and thus commutes with $A_0$. Thus $P_{S^\perp} y_i^\pm \in \ran P_{S^\perp}$ and $P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) = P_{S^\perp} q^i_{xx}$.\\
 
-\item We showed above that the problem $(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}$ on $\ran P_{S^\perp}$ has a unique solution $y$, and that this solution has three continuous derivatives. Since these two solutions must be identical, this implies that we must have $y = P_{S^\perp} y_i^\pm$, and thus this has three continuous derivatives. In particular, this means that
+We showed in Lemma \ref{PA0inv} that $(P_{S^\perp} A_0)$ is an invertible operator on $S^\perp$. Thus $y = (P_{S^\perp} A_0|_{S^\perp} P_{S^\perp} q^i_{xx}$ is the unique solution to the problem $P_{S^\perp} A_0 = P_{S^\perp} q^i_{xx}$. Since $P_{S^\perp} y_i^\pm$ is another such solution, they must be identical. In particular, from Lemma \ref{PA0inv}, since $P_{S^\perp} q^i_{xx}$ is smooth, $y$ must have three continuous derivatives. Since $P_{S^\perp} k q^+_c$ is smooth and by uniqueness
 
 \begin{align*}
 y &= P_{S^\perp} k q^+_c + P_{S^\perp} w_i^\pm
 \end{align*}
 
-Since $P_{S^\perp} k q^+_c$ is smooth, $P_{S^\perp} w_i^\pm$ has three continuous derivatives. Since projections are bounded with norm of 1
+$P_{S^\perp} w_i^\pm$ must three continuous derivatives. In particular, this implies that the jumps $x_i$ are all 0. Since projections are bounded with norm of 1, using the uniform bound \eqref{Wbound} on $||W||$ we have 
 
 \[
 P_{S^\perp} w_i^\pm = \mathcal{O}(e^{-\alpha X})
@@ -1087,9 +1089,9 @@ Thus
 y &= P_{S^\perp} k q^+_c + \mathcal{O}(e^{-\alpha X})
 \end{align*}
 
+is the unique solution in $S^\perp$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^i_{xx}$.
+
 \end{proof}
-
-
 \end{lemma}
 
 % lemma
