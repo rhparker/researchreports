@@ -586,33 +586,22 @@ As expected, $K_1$ is a Hermitian matrix. In particular, this implies that the d
 For the matrix $\tilde{K}_2$, we have 
 
 \begin{align*}
-(\tilde{K}_2)_{jk} &= \langle s_j, s_k \rangle - \langle s_j A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 ) s_k  \rangle \\
+(\tilde{K}_2)_{jk} &= \langle s_j, s_k \rangle - \langle s_j, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k  \rangle \\
+&= \langle s_j, s_k \rangle + \langle P_{S^\perp} A_1 s_j, (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k  \rangle
 \end{align*}
 
-since $A_2 = I$. Since the eigenfunctions are orthogonal, by our chosen scaling we have, $\langle s_j, s_k \rangle = ||q_x||^2 \delta_{jk}$. Thus, $\tilde{K} = ||q_x||^2 I - K_2$, where
+since $A_2 = I$. Since the eigenfunctions are orthogonal, by our chosen scaling we have, $\langle s_j, s_k \rangle = ||q_x||^2 \delta_{jk}$. Thus, $\tilde{K} = ||q_x||^2 I + K_2$, where
 
 \begin{align*}
 (K_2)_{jk} &= 
-\langle s_j, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k \rangle
+\langle P_{S^\perp} A_1 s_j, (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k \rangle
 \end{align*}
 
-
-Since $A_0$ and its spectral projections are self-adjoint, and $A_0$ and the eigenfunctions are real, $K_2$ is a real, symmetric matrix, i.e.
-
-\begin{align*}
-(K_2)_{ij} =
-\langle s_i, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_j \rangle &= -\langle A_1 s_i, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_j \rangle \\
-&= -\langle P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i, A_1 s_j \rangle \\
-&= -\langle A_1 s_j, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i \rangle \\
-&= \langle s_j, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i \rangle \\
-&= (K_2)_{ji}
-\end{align*}
-
-Thus the Krein matrix takes the form
+Since $A_0$ and its spectral projections are self-adjoint, and $A_0$ and the eigenfunctions are real, $K_2$ is a real, symmetric matrix. Thus the Krein matrix takes the form
 
 \begin{equation}\label{Kreinform}
 K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} K_1 
-- \overline{z}^2 ( ||q_x||^2 I - K_2) + \mathcal{O}(|z|^3)
+- \overline{z}^2 ( ||q_x||^2 I + K_2) + \mathcal{O}(|z|^3)
 \end{equation}
 
 where $K_1$ and $K_2$ are defined above. For convenience, we let
@@ -638,13 +627,11 @@ K(z) = -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \overline{z}^2 + \
 For the 1-pulse, there is exactly one eigenvalue at 0, for which the corresponding eigenfunction is $q_x$, i.e. $\nu_1 = 0$ and $s_1 = q_x$ (there is no scaling needed here). Let $S = \ker A_0$ = $\spn \{q_x\}$. In this case, the Krein matrix will be 1x1, i.e. a scalar. Since $K_1$ is 0 on the diagonal $K_1 = 0$. Thus we are left with
 
 \begin{align*}
-K(z) &= -\overline{z}^2 \left( ||q_x||^2 - \langle q_x, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
-&= -\overline{z}^2 \left( ||q_x||^2 + \langle A_1 q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
-&= -\overline{z}^2 \left( ||q_x||^2 + 4 c^2 \langle \partial_x q_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x q_x \rangle \right) + \mathcal{O}(z^3) \\
-&= -\overline{z}^2 \left( ||q_x||^2 + 4 c^2 \langle q_{xx}, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx} \rangle \right) + \mathcal{O}(z^3)
+K(z) &= -\overline{z}^2 \left( ||q_x||^2 + \langle P_{S^\perp} A_1 q_x, (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
+&= -\overline{z}^2 \left( ||q_x||^2 + 4 c^2 \langle P_{S^\perp} q_{xx}, (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx} \rangle \right) + \mathcal{O}(z^3)
 \end{align*}
 
-All that remains is to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx}$. Since $S$ is the span of a single odd function, and $q_{xx}$ is an even function, $P_{S^\perp} q_{xx} = q_{xx}$. Thus we only need to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Let $y = (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Then $(P_{S^\perp} A_0 P_{S^\perp})y = q_{xx}$. From \eqref{uc}, we have
+All that remains is to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx}$. Since $S$ is the span of a single odd function, and $q_{xx}$ is an even function, $P_{S^\perp} q_{xx} = q_{xx}$. Thus we only need to evaluate $(P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Let $y = (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Then $(P_{S^\perp} A_0 P_{S^\perp})y = q_{xx}$. From \eqref{uc}, we have
 
 \begin{equation*}\label{uc}
 A_0 \left( -\frac{1}{2c} q_c \right) = q_{xx}
@@ -674,6 +661,107 @@ K(z) = -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \overline{z}^2 + \
 \end{proof}
 \end{lemma}
 
+Given the result of this lemma, we make the following hypothesis.
+
+\begin{hypothesis}
+\begin{equation}\label{hypnonzero}
+\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \neq 0
+\end{equation}
+\end{hypothesis}
+
+Numerics suggests that $\frac{\partial}{\partial c} \left( c||q_x||^2 \right) > 0$, so this hypothesis is reasonable. I would like to see this somewhere else in the literature, but no luck with that so far. In any case, Chen and McKenna (1997) do not mention it (or anything with derivatives with respect to $c$), nor do Van den Berg et al (2018). Pego and Weinstein have a $\frac{\partial}{\partial c} ||q||^2$ term, but they are looking at linear eigenvalue problems.\\
+
+We will need the following result for exponentially localized functions, which we prove in the following lemma.
+
+\begin{lemma}\label{exploc}
+Let $q_+(x)$ and $q_-(x)$ be exponentially localized pulses which decay exponentially with rate $\alpha$ and whose peaks are separated by a distance $2 X$. Then 
+
+\begin{enumerate}[(i)]
+	\item $ || q_-(x) q_+(x)||_{L^\infty(\R)} \leq C e^{2 \alpha X}$ 
+	\item $ | \langle q_-(x) q_+(x) \rangle | \leq C X e^{2 \alpha X}$ 
+	\item For any $0 < \epsilon < \alpha$, $| \langle q_-(x) q_+(x) \rangle | \leq C e^{(2 \alpha - \epsilon) X}$ 
+\end{enumerate}
+
+\begin{proof}
+Since we are working on $\R$ and the norms are translation invariant, we can WLOG take the peaks of $q_\pm(x)$ to be centered at $\pm X$, so that we have
+
+\begin{align*}
+|q_-(x)| \leq C e^{-\alpha|x + X|} \\
+|q_+(x)| \leq C e^{-\alpha|x - X|} \\
+\end{align*}
+
+\begin{enumerate}[(i)]
+
+\item For the $L^\infty$ norm, we split it up into four pieces and take the maximum over those pieces
+
+\begin{align*}
+|| q_-(x) & q_+(x)||_{L^\infty(\R)} \\
+&= \max\{ || q_-(x) q_+(x)||_{L^\infty(-\infty, -X]} + || q_-(x) q_+(x)||_{L^\infty[-X, 0])} \\
+&+ || q_-(x) q_+(x)||_{[0, X]} + || q_-(x) q_+(x)||_{L^\infty([X, \infty)} \}
+\end{align*}
+
+For $x \in (-\infty, -X]$ 
+
+\begin{align*}
+| q_-(x) q_+(x) | &\leq C e^{\alpha|x + X|} e^{-\alpha|x - X|} \\
+&= C e^{\alpha(x + X)} e^{\alpha(x - X)} \\
+&= C e^{2 \alpha x} \\
+&\leq C e^{-2 \alpha X} 
+\end{align*}
+
+since we are on the interval $(-\infty, -X]$. For $x \in [-X,0]$, 
+
+\begin{align*}
+| q_-(x) q_+(x) | &\leq C e^{\alpha|x + X|} e^{-\alpha|x - X|} \\
+&= C e^{-\alpha(x + X)} e^{\alpha(x - X)} \\
+&= C e^{-2 \alpha X}  \\
+\end{align*}
+
+The other two pieces are similar, and give identical bounds. Since all four pieces have the same uniform bound, the result follows.
+
+\item For the $L^2$ inner product, we again split the domain up into four pieces
+
+\begin{align}\label{splitL2}
+| \langle q_-(x) &q_+(x) \rangle | \\
+&\leq \int_{-\infty}^{-X} |q_-(x) q_+(x)| dx + \int_{-X}^0 |q_-(x) q_+(x)|
++\int_0^X |q_-(x) q_+(x)| dx +\int_X^\infty |q_-(x) q_+(x)| dx \nonumber
+\end{align}
+
+For the first integral, we have
+
+\begin{align*}
+\int_{-\infty}^{-X} |q_-(x) q_+(x)| dx &\leq C \int_{-\infty}^{-X} e^{\alpha(x + X)} e^{\alpha(x - X)} dx \\
+&= C \int_{-\infty}^{-X} e^{2 \alpha x} dx \\
+&= C e^{-2 \alpha X}
+\end{align*}
+
+For the second integral, we have
+
+\begin{align*}
+\int_{-X}^0 |q_-(x) q_+(x)| dx &\leq C \int_{-X}^0 e^{-\alpha(x + X)} e^{\alpha(x - X)} dx \\
+&= C \int_{-X}^0 e^{-2 \alpha X} dx \\
+&= C X e^{-2 \alpha X}
+\end{align*}
+
+The other two integrals are similar. Combining these gives us the bound (ii). For the bound (iii), choose any $\epsilon$ with $0 < \epsilon < \alpha$. Then for the second integral in \eqref{splitL2}, we also have
+
+\begin{align*}
+\int_{-X}^0 |q_-(x) q_+(x)| dx &\leq C \int_{-X}^0 e^{-\alpha(x + X)} e^{\alpha(x - X)} dx \\
+&= C \int_{-X}^0 e^{-(\alpha-\epsilon)(x + X)} e^{-\epsilon(x + X)}  e^{\alpha x} e^{-\alpha X} dx \\ 
+&= C e^{-(2 \alpha - \epsilon) X} \int_{-X}^0 e^{-(\alpha-\epsilon)x} e^{-\epsilon(x + X)}  e^{\alpha x}  dx \\ 
+&= C e^{-(2 \alpha - \epsilon) X} \int_{-X}^0 e^{\epsilon x} e^{-\epsilon(x + X)} dx \\ 
+&\leq C e^{-(2 \alpha - \epsilon) X} \int_{-X}^0 e^{-\epsilon(x + X)} dx \\ 
+&= C e^{-(2 \alpha - \epsilon) X} \frac{1}{\epsilon}\left( 1 - e^{-\epsilon X} \right) dx \\ 
+&\leq C e^{-(2 \alpha - \epsilon) X} dx \\ 
+\end{align*}
+
+where we used the fact that $0 < e^{\epsilon x} \leq 1$ since $x \leq 0$. Although we can choose any $\epsilon$ we want, the constant $C$ increases as $\epsilon$ gets smaller. The third integral in \eqref{splitL2} is similar. Since this bound is weaker than the bound for the first and fourth integrals in $\eqref{splitL2}$, the result (iii) follows.
+
+\end{enumerate}
+
+\end{proof}
+\end{lemma}
+
 From Lin's method (San98), the $n-$pulse $q_n$ resembles, to leading order, $n$ copies of the primary pulse $q$. The $n$ peaks are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can write $q_n$ as 
 
 \begin{align}\label{qn}
@@ -692,9 +780,7 @@ For $i, j = 1, \dots, n$, let $\rho_{ji}$ be the signed distance between peak $i
 \rho_{ji} = L_j - L_i
 \end{equation}
 
-We note that for all $i, j$, $|\rho_{ji}| \geq 2 X_m$.\\
-
-From the Lin's method construction of $q_n$, the translates $q^i$ are exponentially separated, i.e. $q^i q^j = \mathcal{O}(e^{-\alpha X_m})$ and $\langle q^i, q^j \rangle = \mathcal{O}(e^{-\alpha X_m})$ for $i \neq j$, where $X_m = \min\{ X_1, \dots, X_n \}$. We also get from Lin's method a uniform bound on the remainder term, i.e. $||r|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$.\\
+We note that for all $i, j$, $|\rho_{ji}| \geq 2 X_m$. We also get from Lin's method a uniform bound on the remainder term, i.e. $||r|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$ (see, for example, Theorem 1 in San98). From the Lin's method construction of $q_n$, the translates $q^i$ and all their derivatives are exponentially separated, thus Lemma \ref{exploc} applies with $X = X_m$ for $q^i, q^j$ and any of their derivatives with $i \neq j$.\\
 
 Similarly, using Lin's method, we can write the eigenfunctions of $A_0$ in terms of translates of the derivative of the primary pulse. Each eigenfunction is, to leading order, a linear combination of these translates, i.e. for $j = 1, \dots, n$
 
@@ -702,7 +788,13 @@ Similarly, using Lin's method, we can write the eigenfunctions of $A_0$ in terms
 s_j = \sum_{i = 1}^{n} d_{ji} q^i_x + w_j
 \end{align}
 
-for constants $d_{ji} \in \C$. Let $D$ be the matrix defined by $(D)_{ji} = d_{ji}$. Note that this is not the same matrix $D$ as in San98. For the remainder terms we have $||w_j|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$. \\
+for constants $d_{ji} \in \C$. Let $D$ be the matrix defined by $(D)_{ji} = d_{ji}$. Note that this is not the same matrix $D$ as in San98. For the remainder terms we have from Lin's method (see, for example, San98)
+
+\begin{equation}\label{sjwbound}
+||w_j|| \leq C e^{-2 \alpha X_m}
+\end{equation}
+
+which also holds for derivatives with respect to $x$. \\
 
 In the following lemmas, we will characterize the matrices $K_1$ and $K_1$, with the goal of showing that the Krein matrix is diagonal to leading order. First we will show that the entries of the matrix $K_1$ are exponentially small.\\
 
@@ -712,12 +804,12 @@ In the following lemmas, we will characterize the matrices $K_1$ and $K_1$, with
 The matrix $K_1$ is exponentially small, i.e. 
 
 \begin{equation}
-K_1 = \mathcal{O}(e^{-\alpha X_m} )
+K_1 = \mathcal{O}(e^{-(3 \alpha/2) X_m} )
 \end{equation}
 
 \begin{proof}
 
-Let $a_{jk} = (K_1)_{jk}$. We know from above that $a_{jj} = 0$, so we only need to consider the case $j \neq k$. Since $a_{jk} = \langle s_j, i A_1 s_k\rangle = 2 c i \langle s_j, (s_k)_x \rangle$, all we need to show is that $\langle s_j, (s_k)_x \rangle = \mathcal{O}(e^{-\alpha X_m}$. Using the expression \eqref{sj} for the eigenfunctions, we have
+Let $a_{jk} = (K_1)_{jk}$. We know from above that $a_{jj} = 0$, so we only need to consider the case $j \neq k$. Since $a_{jk} = \langle s_j, i A_1 s_k\rangle = 2 c i \langle s_j, (s_k)_x \rangle$, all we need to show is that $\langle s_j, (s_k)_x \rangle = \mathcal{O}(e^{-\alpha X_m})$. Using the expression \eqref{sj} for the eigenfunctions, we have
 
 \begin{align*}
 \langle s_j &, (s_k)_x \rangle = 
@@ -738,13 +830,13 @@ For the first term on the RHS, since the $L^2$ inner product on $\R$ is translat
 \langle q^i_x, q^i_{xx} \rangle = \langle q_x, q_{xx} \rangle = 0
 \] 
 
-since we are taking the inner product of an even and an odd function. For the second term on the RHS, $\langle q^i_x, q^l_{xx} \rangle = \mathcal{O}(e^{-\alpha X_m})$ since the translates $q^i$ and $q^l$ and their derivatives are exponentially separated for $i \neq l$. For the third term, by Holder's inequality,
+since we are taking the inner product of an even and an odd function. For the second term on the RHS, we use Lemma \ref{exploc} with $\epsilon = \alpha / 2$. Since $q^i_x$ and $q^l_{xx}$ are exponentially separated by at least $2 X_m$, $\langle q^i_x, q^l_{xx} \rangle = \mathcal{O}(e^{-(3 \alpha/2) X_m})$. For the third term, by Holder's inequality,
 
 \[
-|\langle s_j, (w_k)_x \rangle| \leq ||s_j||_{L^1} ||(w_k)_x||_{L^\infty} \leq C e^{-\alpha X_m}
+|\langle s_j, (w_k)_x \rangle| \leq ||s_j||_{L^1} ||(w_k)_x||_{L^\infty} \leq C e^{-2 \alpha X_m}
 \]
 
-using the remainder bound and the fact that the eigenfunctions are exponentially localized, thus integrable. The same bound holds for the final term, again by Holder's inequality.
+using the remainder bound \eqref{sjwbound} and the fact that the eigenfunctions are exponentially localized, thus integrable. The same bound holds for the final term, again by Holder's inequality. Since the bound for the second term in the RHS is the weakest, it dictates the overall bound.
 
 \end{proof}
 \end{lemma}
@@ -757,7 +849,7 @@ Next, we show that the rows of the matrix $D$ defined above are orthonormal to l
 Let $D$ be the matrix defined above representing the coefficients of the translates of the derivative of the primary pulse. Then the rows of $D$ are orthonormal to leading order, i.e. 
 
 \begin{equation}
-\sum_{i = 1}^{n} d_{ji} d_{ki} = \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
+\sum_{i = 1}^{n} d_{ji} d_{ki} = \delta_{ij} + \mathcal{O}(e^{-(3 \alpha/2) X_m})
 \end{equation}
 
 \begin{proof}
@@ -772,20 +864,20 @@ Since the eigenvalues $\nu_i$ are distinct, the eigenfunctions $s_i$ are orthogo
 + \sum_{i = 1}^{n} d_{ki} \langle w_j, q^j_{x} \rangle
 \end{align*}
 
-As in Lemma \ref{K1small}, the last three terms on the RHS are order $e^{-\alpha X_m}$. Since by translation invariance we have for all $i$
+As in Lemma \ref{K1small}, the second term on the RHS is order $e^{-(3 \alpha/2) X_m}$ and the last two terms on the RHS are order $e^{-2 \alpha X_m}$. By translation invariance, we have for all $i$
 
 \[
 \langle q^i_x, q^i_{x} \rangle = \langle q_x, q_{x} \rangle = ||q_x||^2
 \]
 
-we have
+Thus we have
 \[
-||q_x||^2 \sum_{i = 1}^{n} d_{ji} d_{ki} = ||q_x||^2 \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
+||q_x||^2 \sum_{i = 1}^{n} d_{ji} d_{ki} = ||q_x||^2 \delta_{ij} + \mathcal{O}(e^{-(3 \alpha / 2) X_m})
 \]
 
 dividing by $||q_x||^2$ gives us
 \[
-\sum_{i = 1}^{n} d_{ji} d_{ki} = \delta_{ij} + \mathcal{O}(e^{-\alpha X_m})
+\sum_{i = 1}^{n} d_{ji} d_{ki} = \delta_{ij} + \mathcal{O}(e^{-(3 \alpha / 2) X_m})
 \]
 
 \end{proof}
@@ -869,7 +961,7 @@ Next, using the definition for $A_1$ and the expression \eqref{sj} for $s_k$, we
 
 Since $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is a bounded linear operator and the remainder term $(w_j)_x = \mathcal{O}(e^{-\alpha X_m})$, the last term on the RHS is also $\mathcal{O}(e^{-\alpha X_m})$. Thus all we need to do is evaluate $(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^i_{xx}$. We will do this using Lin's method. Before we can do that, we prove a useful lemma and corollary which gives a leading order expansion for $e^{q_n(x)}$.
 
-% lemma : exponential separation
+% lemma : exponential separation 
 
 \begin{lemma}\label{expsep}
 
@@ -922,15 +1014,16 @@ For the final term on the RHS, we have
 
 \begin{align*}
 \left| q^i(x)s(x)\sum_{m=0}^\infty \frac{q^i(x)^m}{(m+1)!} \sum_{n=0}^\infty \frac{s(x)^n}{(n+1)!} \right| 
-&\leq \left| q^i(x)s(x) \right| \sum_{m=0}^\infty \frac{|q^i(x)|^m}{m!} \sum_{n=0}^\infty \frac{|s(x)|^n}{n!}  \\
+&\leq \left| q^i(x)s(x) \right| \sum_{m=0}^\infty \frac{|q^i(x)|^m}{m!} 
+\sum_{n=0}^\infty \frac{|s(x)|^n}{n!} \\
 &\leq \left| q^i(x)s(x) \right| e^{|q^i(x)|}e^{|s(x)|} \\
 &\leq C \left| q^i(x)s(x) \right|
 \end{align*}
 
-where in the last line we used the fact that $q$ is bounded. Since all $n$ peaks are exponentially separated, so are $q^i(x)$ and $s(x)$, thus $\left| q^i(x)s(x) \right| = \mathcal{O}(e^{-\alpha X_m})$. Putting this all together, we have
+where in the last line we used the fact that $q$ is bounded. Since all $n$ peaks are exponentially separated, so are $q^i(x)$ and $s(x)$, thus from Lemma \ref{expsep}, $\left| q^i(x)s(x) \right| = \mathcal{O}(e^{-\alpha 2 X_m})$. Putting this all together, we have
 
 \begin{equation}
-\exp(q_n) = \exp( q^i(x)) + \exp(s(x)) - 1 + \mathcal{O}(e^{-\alpha X_m}) 
+\exp(q_n) = \exp( q^i(x)) + (\exp(s(x)) - 1) + \mathcal{O}(e^{-\alpha X_m}) 
 \end{equation}
 
 Repeat this $n - 2$ more times to get the result.
@@ -938,7 +1031,7 @@ Repeat this $n - 2$ more times to get the result.
 \end{proof}
 \end{lemma}
 
-With this taken care of, we use Lin's method to solve $(P_{S^\perp} A_0 |_{S^\perp})^{-1} P_{S^\perp} q^i_{xx}$.
+With this taken care of, we will use Lin's method to solve $(P_{S^\perp} A_0 |_{S^\perp})^{-1} P_{S^\perp} q^i_{xx}$.
 
 % lemma
 
@@ -947,13 +1040,13 @@ For all $i = 1, \dots, n$,
  
 \begin{equation}
 (P_{S^\perp} A_0|_{S^\perp})^{-1} P_{S^\perp} q^i_{xx} = -\frac{1}{2c}P_{S^\perp} q^i_c
-+ w_i
++ \tilde{w}_i
 \end{equation}
 
-where
+where $\tilde{w}_i$ is smooth and 
 
 \begin{equation}
-\mathcal{O}(e^{-\alpha X_m})
+||\tilde{w}_i|| = \mathcal{O}(e^{-2 \alpha X_m})
 \end{equation}
 
 \begin{proof}
@@ -973,10 +1066,10 @@ Using this as motivation, we will look for a solution $y$ to
 of the form
 
 \begin{equation}\label{yansatz}
-y = P_{S^\perp} k q^i_c + w
+y = P_{S^\perp} k q^i_c + \tilde{w}
 \end{equation}
 
-We will use Lin's method to show that $w$ is exponentially small. Using Lemma \ref{expsep}, for $i = 1, \dots, n$ we can write $A_0$ as 
+We will use Lin's method to show that $\tilde{w}$ is exponentially small. Using Lemma \ref{expsep}, for $i = 1, \dots, n$ we can write $A_0$ as 
 
 \begin{equation}\label{A0expansion}
 A_0 = \partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x)
@@ -985,17 +1078,17 @@ A_0 = \partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)}
 where $||\tilde{h}|| = \mathcal{O}(e^{-\alpha X}$. Substituting in our ansatz \eqref{yansatz} for $y$ in \eqref{Lineq1}, we obtain
 
 \begin{align*}
-A_0 (P_{S^\perp} k q^i_c + w) &= P_{S^\perp} q^i_{xx} \\
-\left(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x) \right)P_{S^\perp} k q^i_c + A_0 w &= P_{S^\perp} q^i_{xx} \\
-(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)})P_{S^\perp} k q^i_c + \left( \sum_{j \neq i} (e^{q^j(x)} - 1)+ \tilde{h}(x) \right) P_{S^\perp}k q^i_c + A_0 w &= P_{S^\perp} q^i_{xx} \\
-A_0 w + \underbrace{\left( \sum_{j \neq i} (e^{q^j(x)} - 1)\right) P_{S^\perp} k q^i_c}_{\mathcal{O}(e^{-\alpha X})} 
+A_0 (P_{S^\perp} k q^i_c + \tilde{w}) &= P_{S^\perp} q^i_{xx} \\
+\left(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x) \right)P_{S^\perp} k q^i_c + A_0 \tilde{w} &= P_{S^\perp} q^i_{xx} \\
+(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)})P_{S^\perp} k q^i_c + \left( \sum_{j \neq i} (e^{q^j(x)} - 1)+ \tilde{h}(x) \right) P_{S^\perp}k q^i_c + A_0 \tilde{w} &= P_{S^\perp} q^i_{xx} \\
+A_0 \tilde{w} + \underbrace{\left( \sum_{j \neq i} (e^{q^j(x)} - 1)\right) P_{S^\perp} k q^i_c}_{\mathcal{O}(e^{-\alpha X})} 
 + \underbrace{h(x) P_{S^\perp}k q^i_c}_{\mathcal{O}(e^{-\alpha X})} &= 0 \\
-A_0 w + h(x) &= 0
+A_0 \tilde{w} + h(x) &= 0
 \end{align*}
 
 where we have collected all of the $\mathcal{O}(e^{-\alpha X})$ stuff and called it $h(x)$. Note that $A_0$ is still the linearization about the $n$-pulse, but we will separate that out in the next step using our expansion \eqref{A0expansion} for $A_0$.\\
 
-Next, following San98, we write this piecewise as a first order system. First, as in San98, we choose the $2n$ intervals 
+Next, following San98, we write this piecewise as a first order system. For convenience of notation, we use the notation $W$ when we write $\tilde{w}$ in the first order system. First, as in San98, we choose the $2n$ intervals 
 
 \begin{align*}
 (-\infty, 0], [0, X_1], [-X_1, 0], [0, X_2], \dots, [-X_{n-1}, 0], [0, \infty)
@@ -1052,13 +1145,13 @@ We conclude that $||G|| = \mathcal{O}(e^{-\alpha X_m)}$. With these bounds, we a
 \xi_i = \int_{-\infty}^\infty \langle \Psi(x), H(x) \rangle dx + R_i
 \end{equation}
 
-where the $R_i$ are remainder terms for which $R = \mathcal{O}(e^{-3 \alpha X_m})$. A uniform bound on $W_i^\pm$, which is what we need, is given by
+where the $R_i$ are remainder terms for which $R = \mathcal{O}(e^{-3 \alpha X_m})$. A uniform bound on $W_i^\pm$ comes from Lin's method and is given by 
 
 \begin{equation}\label{Wbound}
-||W|| \leq C e^{-\alpha X}
+||W|| \leq C e^{-2 \alpha X_m}
 \end{equation}
 
-Taking this out of the first order system form, we have constructed via Lin's method a piecewise solution $y_i^\pm = P_{S^\perp} k q^i+_c + w_i^\pm$ to the problem $A_0 y = P_{S^\perp} q^i_{xx}$. What we want is solution $y \in \ran P_{S^\perp}$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^i_{xx}$, i.e. we want the operator $P_{S^\perp} A_0$ instead $A_0$. But we can easily get this by applying the projection $P_{S^\perp}$ to both sides.
+Taking this out of the first order system form, we have constructed via Lin's method a piecewise solution $y_i^\pm = P_{S^\perp} k q^i+_c + \tilde{w}_i^\pm$ to the problem $A_0 y = P_{S^\perp} q^i_{xx}$. What we want is solution $y \in \ran P_{S^\perp}$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^i_{xx}$, i.e. we want the operator $P_{S^\perp} A_0$ instead $A_0$. But we can easily get this by applying the projection $P_{S^\perp}$ to both sides.
 
 \begin{align*}
 P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} P_{S^\perp} q^i_{xx} \\
@@ -1072,20 +1165,23 @@ where we used the fact that $P_{S^\perp}$ is a spectral projection and thus comm
 (P_{S^\perp} A_0)|_{S^\perp} (P_{S^\perp} y_i^\pm) = P_{S^\perp} q^i_{xx}
 \end{equation}
 
-We showed in Lemma \ref{PA0inv} that $(P_{S^\perp} A_0)|_{S^\perp}$ is an invertible operator on $S^\perp$. Thus $y = (P_{S^\perp} A_0)|_{S^\perp} P_{S^\perp} q^i_{xx}$ is the unique solution to the problem $P_{S^\perp} A_0 = P_{S^\perp} q^i_{xx}$. Since $P_{S^\perp} y_i^\pm$ is another such solution, they must be identical. In particular, from Lemma \ref{PA0inv}, since $P_{S^\perp} q^i_{xx}$ is smooth, $y$ must be smooth as well. Since $P_{S^\perp} k q^+_c$ is smooth and $y = P_{S^\perp} k q^i_c + P_{S^\perp} w_i^\pm$,
-$P_{S^\perp} w_i^\pm$ must be smooth. In particular, this implies that the jumps $\xi_i$ are all 0. Since projections are bounded with norm of 1, using the uniform bound \eqref{Wbound} on $||W||$ we have 
+We showed in Lemma \ref{PA0inv} that $(P_{S^\perp} A_0)|_{S^\perp}$ is an invertible operator on $S^\perp$. Thus $y = (P_{S^\perp} A_0)|_{S^\perp} P_{S^\perp} q^i_{xx}$ is the unique solution to the problem $P_{S^\perp} A_0 = P_{S^\perp} q^i_{xx}$. Since $P_{S^\perp} y_i^\pm$ is another such solution, they must be identical. In particular, from Lemma \ref{PA0inv}, since $P_{S^\perp} q^i_{xx}$ is smooth, $y$ must be smooth as well. Since $P_{S^\perp} k q^+_c$ is smooth and $y = P_{S^\perp} k q^i_c + P_{S^\perp} \tilde{w}_i^\pm$, $P_{S^\perp} \tilde{w}_i^\pm$ must be smooth. In particular, this implies that the jumps $\xi_i$ are all 0. Since projections are bounded with norm of 1, using the uniform bound \eqref{Wbound} on $||W||$ we have 
 
 \[
-P_{S^\perp} w_i^\pm = \mathcal{O}(e^{-\alpha X})
+P_{S^\perp} \tilde{w}_i^\pm = \mathcal{O}(e^{-2 \alpha X_m})
 \]
 
-Thus
+Thus the unique solution in $S^\perp$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^i_{xx}$.
 
 \begin{align*}
-y &= P_{S^\perp} k q^i_c + \mathcal{O}(e^{-\alpha X})
+y &= P_{S^\perp} k q^i_c + \tilde{w}_i
 \end{align*}
 
-is the unique solution in $S^\perp$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^i_{xx}$.
+where
+
+\begin{align*}
+||\tilde{w}_i|| = \mathcal{O}e^{-2 \alpha X_m}
+\end{align*}
 
 \end{proof}
 \end{lemma}
@@ -1097,43 +1193,43 @@ is the unique solution in $S^\perp$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^i_{xx}
 The matrix $K_2$ is given, to leading order, by
 
 \begin{equation}
-K_2 = -2c \langle q_{xx}, q_c \rangle I + \mathcal{O}(e^{-\alpha X_m})
+K_2 = -2c \langle q_{xx}, q_c \rangle I + \mathcal{O}(e^{-(3 \alpha/2) X_m})
 \end{equation}
 
 \begin{proof}
 
 \begin{align*}
-(K_2)_{jk} &= 4 c^2
-\langle (s_j)_{x}, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} (s_k)_{x} \rangle \\
-&= 4 c^2
-\langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \left( \sum_{i = 1}^{n} d_{ki} q^i_{xx} + (w_k)_x \right) \rangle \\
+(K_2)_{jk} 
+&= 4 c^2 \langle P_{S^\perp} (s_j)_{x}, (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} (s_k)_{x} \rangle \\
+&= 4 c^2 \langle (s_j)_{x}, P_{S^\perp}(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} (s_k)_{x} \rangle \\
+&= 4 c^2 \langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \left( \sum_{i = 1}^{n} d_{ki} q^i_{xx} + (w_k)_x \right) \rangle \\
 &= -\frac{1}{2 c} 4 c^2 
-\langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, \sum_{i = 1}^{n} d_{ki} q^i_c + \mathcal{O}(e^{-\alpha X_m}) \rangle \\
+\langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, \sum_{i = 1}^{n} d_{ki} q^i_c + \mathcal{O}(e^{-2 \alpha X_m}) \rangle \\
 \end{align*}
 
 where we used Lemma \ref{Linsolve}, the fact that $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is a bounded linear operator from Lemma \ref{PA0inv}, and the bound on the remainder terms $w_i$ from Lemma \ref{Linsolve}. Simplifying this, we have
 
 \begin{align*}
 (K_2)_{jk} &= -2 c \left( 
-\langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, \sum_{i = 1}^{n} d_{ki} q^i_c + \mathcal{O}(e^{-\alpha X_m}) \rangle \right) \\
+\langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, \sum_{i = 1}^{n} d_{ki} q^i_c + \mathcal{O}(e^{-2 \alpha X_m}) \rangle \right) \\
 &= -2 c \left( \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q^i_{xx}, q^i_c \rangle
 + \sum_{i\neq l} d_{ji} d_{kl} \langle q^i_{xx}, q^j_c \rangle
-+ \langle (s_j)_x,  \mathcal{O}(e^{-\alpha X_m}) \rangle 
++ \langle (s_j)_x,  \mathcal{O}(e^{-2 \alpha X_m}) \rangle 
 + \sum_{i=1}^n \langle (w_j)_x, d_{ki} q^i_c \rangle \right)
 \end{align*}
 
-The last three terms on the RHS are $\mathcal{O}(e^{-\alpha X_m})$ as in Lemma \ref{K1small}. The first term on the RHS is
+Since $q^i_{xx}$ and $q^j_c$ are exponentially separated for $i \neq j$ by at least $X_m$, the second term on the RHS is $\mathcal{O}(e^{-(3 \alpha/2) X_m})$ as in Lemma \ref{K1small}. The last two terms on the RHS are $\mathcal{O}(e^{-\alpha X_m})$ as in Lemma \ref{K1small}. The first term on the RHS is
 
 \begin{align*}
 \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q^i_{xx}, q^i_c \rangle &= \sum_{i = 1}^{n} d_{ji} d_{ki} \langle q_{xx}, q_c \rangle \\
 &= \langle q_{xx}, q_c \rangle \sum_{i = 1}^{n} d_{ji} d_{ki} \\
-&= \langle q_{xx}, q_c \rangle \delta_{jk} + \mathcal{O}(e^{-\alpha X_m})
+&= \langle q_{xx}, q_c \rangle \delta_{jk} + \mathcal{O}(e^{-(3 \alpha/2) X_m})
 \end{align*}
 
 where the sum is given by Lemma \ref{orthogonalD}. Thus we have
 
 \begin{align*}
-K_2 = -2c \langle q_{xx}, q_c \rangle + \mathcal{O}(e^{-\alpha X_m})
+K_2 = -2c \langle q_{xx}, q_c \rangle + \mathcal{O}(e^{-(3\alpha /2)X_m})
 \end{align*}
 
 \end{proof}
@@ -1144,649 +1240,73 @@ We combine these lemmas in the following theorem
 \begin{theorem}
 For the linearization of the suspension bridge equation about a multipulse equilibrium solution, the Krein matrix is given by
 
-\begin{equation}
+\begin{equation}\label{Kreinapprox}
 K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n)
- - \overline{z}^2 ( ||q_x||^2 +  2c \langle q_{xx}, q_c \rangle) I + \mathcal{O}(e^{-\alpha X_m}|z| + |z|^3)
+ - \overline{z}^2 \frac{\partial}{\partial c} \left( c||q_x||^2 \right) I + \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)
 \end{equation}
+
+\begin{proof}
+
+From \eqref{Kreinform}, Lemma \ref{K1small} and Lemma \ref{K2exp}, we have
+
+\begin{align*}
+K_S(z) &= ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} \mathcal{O} (e^{-(3 \alpha/2) X_m})
+ - \overline{z}^2 ( (||q_x||^2 - 2c \langle q_{xx}, q_c \rangle)I + \mathcal{O}(e^{-(3 \alpha/2) X_m}) + \mathcal{O}(|z|^3) \\
+ &= ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n) 
+ - \overline{z}^2 ( ||q_x||^2 - 2c \langle q_{xx}, q_c \rangle) + \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)
+\end{align*}
+
+From Lemma \ref{Krein1pulse}, we have
+
+\begin{align*}
+||q_x||^2 - 2c \langle q_{xx}, q_c \rangle 
+&= \frac{\partial}{\partial c} \left( c||q_x||^2 \right)
+\end{align*}
+
+Combining these gives us \eqref{Kreinapprox}. 
+
+\end{proof}
 \end{theorem}
 
-
-\subsubsection{2-pulse}
-
-The next easiest case is the 2-pulse, since the Krein matrix will be 2x2. Let's look at that first. \\
-
-Let 
+We can use this to compute the eigenvalues of the linearization of the suspension bridge equation about a multipulse equilibrium solution. To do that, we need to solve $\det K_S(z) = 0$ for $z$. Since we showed above that the Krein matrix is a perturbation of a diagonal matrix, for convenience we write
 
 \[
-K_1 = \begin{pmatrix} 0 & a \\ -a & 0 \end{pmatrix}
+K_S(z) = \text{diag}(k_1(z), \dots, k_n(z)) + \mathcal{O}(e^{-\alpha X_m}|z| + |z|^3)
 \]
 
-and let
+From (say) Ipsen and Rehman (2008), when we take the determinant, we should get something resembling
 
 \[
-\left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S = \begin{pmatrix} b_{11} & b_{12} \\ b_{12} & b_{22} \end{pmatrix}
+\det K_S(z) = \prod_{i = 1}^n (k_i(z) + r_i(z))
 \]
 
-Since the 2-pulse is an even function, it is not hard to show that the eigenfunction $s_2$ corresponding to the small nonzero eigenvalue $\nu_2$ is an even function as well. The kernel eigenfunction $s_1$ is an odd function since it is the derivative of an even function. Thus $\langle s_1, A_2 s_2 \rangle = \langle s_1, s_2 \rangle = 0$. Furthermore, we have
-
-\begin{align*}
-\langle s_1, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_2 \rangle 
-&= -\langle A_1 s_1, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_2 \rangle 
-\end{align*}
-
-The operator $A_0$ preserves the even/odd property of functions. The projection $P_{S^\perp}$ wipes out the components in $S$, which consists of one even function and one odd function. Thus $P_{S^\perp}$ also preservers the even/odd property of functions. The differential operator $A_1$ changes odd functions to even functions and vice versa. The inner product above is the inner product of an even function and an odd function, and thus must be 0, so we have $b_{12} = 0$. Thus we have
+where $r_i(z) = \mathcal{O}(e^{-\alpha X_m}|z| + |z|^3)$ and is real since $K_S(z)$ is Hermitian. Thus we can find $z$ by solving
 
 \[
-\left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S = \begin{pmatrix} b_{11} & 0 \\ 0 & b_{22} \end{pmatrix}
+||q_x||^2 \nu_i
+ - \overline{z}^2 \frac{\partial}{\partial c} \left( c||q_x||^2 \right) + \epsilon_1 e^{-\alpha X_m} z + \epsilon_2 z^3 = 0
 \]
 
-The idea is that if $\nu$ is negative, we expect (from numerics) for this to be real. If both $b_{ii}$ are negative, which numThe Krein matrix $K(z)$ is then, to leading order,
-
-\begin{equation}
-\tilde{K}(z) = \begin{pmatrix}
--b_{11} z^2 & i a z \\
-i a z & -b_{22} z^2 + \nu
-\end{pmatrix}
-\end{equation}
-
-where $\nu$ is the small, nonzero eigenvalue of $A_0$. Taking the determinant, setting it equal to 0, and solving for $z$, we get a double root at $z = 0$, as well as
-
-\begin{align*}
-z = \pm \sqrt{\nu /b_{22} + a^2/(b_{11} b_{22})}
-\end{align*} erics suggests, this will be the case, so all we have to do is show that.\\
-
-\begin{align*}
-b_{ii} &= \langle(s_i, A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_i \rangle \\
-&= \langle s_i, s_i \rangle - \langle s_i, c \partial_x P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} c \partial_x  s_i \rangle \\
-&= ||s_i||^2 + 4 c^2 \langle \partial_x s_i, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x s_i \rangle
-\end{align*}
-
-The idea here is that by Lin's method, we should be able to show that the $b_{ii}$ are, to leading order, equal to $b$ from the previous section. In that case, we are done, as long as we have showed that $b$ is negative. So let's show that.\\
-
-First, we look at $s_1 = q_2'$, where $q_2$ is the 2-pulse solution. Rather than using the piecewise form of $q$, as we do in Lin's method, we write the 2-pulse as
+Divide this by $-\frac{\partial}{\partial c} \left( c||q_x||^2 \right)$ and let
 
 \[
-q_2 = q(\cdot + X) + q(\cdot - X) + \mathcal{O}(e^{-\alpha X})
+b_i = \frac{||q_x||^2}{\frac{\partial}{\partial c} \left( c||q_x||^2 \right)} \nu_i
 \]
 
-Since the operator $A_0$ depends on the equilibrium solution we are linearizing about, we make that dependency explicit.
-
-\begin{equation}
-A_0(u^*) = \partial_x^4 + c^2 \partial_x^2 + e^{u^*}
-\end{equation}
-
-Let $A_0^+ = A_0(q(\cdot + X))$ and $A_0^- = A_0(q(\cdot - X))$. First, we would like to write $A_0(q_2)$ in terms of $A_0^+$ and $A_0^-$. The only issue here is the $e^{q2}$ term, so that is what we will deal with now.\\
-
-\begin{align*}
-\exp(q_2(x)) &= \exp( q(x + X) + q(x - X) + \mathcal{O}(e^{-\alpha X}) ) \\
-&= \exp( q(x + X) + q(x - X)) \exp( \mathcal{O}(e^{-\alpha X}) )\\
-&= \exp( q(x + X) + q(x - X)) (1 + \mathcal{O}(e^{-\alpha X})) \\
-&= \exp( q(x + X) + q(x - X)) + \mathcal{O}(e^{-\alpha X}) \\
-&= \exp( q(x + X))\exp(q(x - X)) + \mathcal{O}(e^{-\alpha X})
-\end{align*}
-
-where the last line holds since $q$ is bounded. For convenience, let $q^+(x) = q(x + X)$ and $q^-(x) = q(x - X)$. Looking at the first term on the RHS, we have
-
-\begin{align*}
-\exp( q^+(x))\exp(q^-(x)) &=
-\sum_{m=0}^\infty \frac{q^+(x)^m}{m!}
-\sum_{n=0}^\infty \frac{q^-(x)^n}{n!}\\
-&= \sum_{m=0}^\infty \frac{q^-(x)^m}{m!} 
-+ \sum_{n=0}^\infty\frac{q^-(x)^n}{n!} - 1 +
-\sum_{m=1}^\infty \frac{q^+(x)^m}{m!}
-\sum_{n=1}^\infty \frac{q^-(x)^n}{n!} \\
-&= \exp( q^+(x)) + \exp(q^-(x)) - 1 +
-q^+(x)q^-(x)\sum_{m=0}^\infty \frac{q^+(x)^m}{(m+1)!}
-\sum_{n=0}^\infty \frac{q^-(x)^n}{(n+1)!}
-\end{align*}
-
-For the final terms on the RHS, we have
-
-\begin{align*}
-\left| q^+(x)q^-(x)\sum_{m=0}^\infty \frac{q^+(x)^m}{(m+1)!} \sum_{n=0}^\infty \frac{q^-(x)^n}{(n+1)!} \right| 
-&\leq \left| q^+(x)q^-(x) \right| \sum_{m=0}^\infty \frac{|q^+(x)|^m}{m!} \sum_{n=0}^\infty \frac{|q^-(x)|^n}{n!}  \\
-&\leq \left| q^+(x)q^-(x) \right| e^{|q^+(x)|}e^{|q^-(x)|} \\
-&\leq C \left| q^+(x)q^-(x) \right|
-\end{align*}
-
-since $q^\pm$ are bounded. Since the two peaks are well separated, $q^+(x)q^-(x) = \mathcal{O}(e^{-\alpha X)}$. Thus, putting this all together, we have
-
-\begin{equation}
-\exp(q_2(x)) = \exp( q^+(x)) + \exp(q^-(x)) - 1 + \mathcal{O}(e^{-\alpha X}) 
-\end{equation}
-
-Thus we have
-
-\begin{align*}
-A_0(q_2(x)) &= \partial_x^4 + c^2 \partial_x^2 + e^{q_2(x)} \\
-&= \partial_x^4 + c^2 \partial_x^2 + e^{q^+(x)} + e^{q^-(x)} - 1 + \mathcal{O}(e^{-\alpha X})
-\end{align*}
-
-Unfortunately, this is not what we have do deal with, since $A_0$ appears in the form $(P_{S^\perp}A_0 P_{S^\perp})^{-1}$.\\
-
-What we would like to do is somehow exploit the fact that we know how the 1-pulse case works, and that the 2-pulse is just a small perturbation of this.\\
-
-We proceed as follows.
-
-\begin{enumerate}
-
-\item Write $q_2(x) = q^+(x) + q^-(x) + r(x)$, where $q^\pm$ are defined above, and $||r(x)|| = \mathcal{O}(e^{-\alpha X})$.
-
-\item Using Lin's method (exactly as in San98), an eigenfunction $s$ of $A_0$ can be written in the form
+Then (redefining the $\epsilon_i$), this becomes
 
 \[
-s(x) = d_1 q^+_x(x) + d_2 q^-_x(x) + r(x)
+\overline{z}^2 - b_i + \epsilon_1 e^{-\alpha X_m} z + \epsilon_2 z^3 = 0
 \]
 
-where $||r(x)|| = e^{-\alpha X}$. We should have $d = (1, 1)$ for $s = q_2'$ (which has eigenvalue 0) and $d = (1, -1)$ for the other eigenfunction (corresponding to the small, nonzero eigenvalue). So whatever we do for this will apply for both eigenfunctions.
-
-\item Plug this expression into the thing we want to evaluate, which we recall is
+Since we are taking $z$ real, this becomes
 
 \[
-\langle \partial_x s, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x s \rangle
+z^2 - b_i + \epsilon_1 e^{-\alpha X_m} z + \epsilon_2 z^3 = 0
 \]
 
-This thing will have a bunch of terms, most of which should be very small. Before we can deal with that, we need to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^+_{xx}$ and $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^-_{xx}$. By symmetry, we only have to look at one of them.
+which should have two roots approximately $z = \pm \sqrt{b_i}$ and a third root which is huge so it doesn't count.
 
-\item Let $\tilde{y} = (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^+_{xx}$. Then 
-
-\[
-(P_{S^\perp} A_0 P_{S^\perp}) \tilde{y} = P_{S^\perp} q^+_{xx}
-\]
-
-The strategy is to show that this has a unique solution, and then to use Lin's method to write this solution in terms of something we know plus a small remainder term. Let $y = P_{S^\perp} \tilde{y} \in S^\perp$. Then this becomes
-
-\[
-(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}
-\]
-
-Next, we look at the operator $P_{S^\perp} A_0$. First we note that since $A_0$ is self-adjoint and the projection $P_{S^\perp}$ is self-adjoint, $P_{S^\perp} A_0$ is also self-adjoint, since
-
-\[
-(P_{S^\perp} A_0)^* = A_0^* P_{S^\perp}^* = A_0 P_{S^\perp} = P_{S^\perp} A_0
-\]
-
-where the last equality holds since operators commute with their own spectral projections.\\
-
-Before we continue, we recall that we showed above that the essential spectrum of $A_0$ is $\sigma_{\text{ess}} = [1, \infty)$, thus for any $\lambda \notin [1, \infty)$, the operator $A_0 - \lambda I$ is Fredholm with index 0. In particular, $A_0$ and $(A_0 - \nu I)$ are Fredholm with index 0. Since $A_0$ is Fredholm, its range is closed. Thus by the closed range theorem (see Yosida, etc), 
-
-\[
-\ran A_0 = (\ker A_0^*)^\perp = (\ker A_0)^\perp
-\]
-
-where the last equality holds since $A_0$ is self-adjoint. Similarly, since $\nu \in \R$, we have
-
-\[
-\ran (A_0 - \nu I) = (\ker (A_0 - \nu I))^\perp 
-\]
-
-Next, we look at the kernel of $P_{S^\perp} A_0 = A_0 P_{S^\perp}$. This clearly contains $S$ (the kernel of $P_{S^\perp}$), but the question is whether is contains anything else. It contains the kernel of $A_0$, but $\ker A_0 = \spn\{ q_2' \}$, and $q_2' \in S$, so we have already taken care of that. Finally, it contains any functions $y$ for which $A_0 y \in S$, since that will be killed by the projection $P_{S^\perp}$. For $s_1 = q_x \in \ker A_0$, we cannot have a function $y$ with $A_0 y = q_x$, since that would imply that $q_x \perp \ker A_0*^ = \ker A_0$, which contains $q_x$. Similarly, if $(A_0 - \nu I)y = s_2$, that would imply $s_2 \perp \ker (A_0 - \nu I)$, which contains $s_2$. Thus we have
-
-\[
-\ker P_{S^\perp} A_0 = S 
-\]
-
-Since the range of $A_0$ is closed and $P_{S^\perp}$ is bounded, the range of $P_{S^\perp}$ is closed. Thus by the closed range theorem and the fact that $P_{S^\perp} A_0$ is self-adjoint,
-
-\[
-\ran P_{S^\perp} A_0 = (\ker (P_{S^\perp} A_0)^*)^\perp = (\ker (P_{S^\perp} A_0))^\perp = S^\perp
-\]
-
-Thus we have $\dim \ker P_{S^\perp} A_0 = \text{codim } P_{S^\perp} A_0 = 2$, and so $P_{S^\perp} A_0$ is a Fredholm operator with index 0.\\
-
-If we restrict the operator $P_{S^\perp} A_0$ to $S^\perp$ (which is well-defined since its range is $S^\perp$), we get rid of the 2-dimensional kernel, thus obtain an invertible operator. Thus we can solve
-
-\[
-(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}
-\]
-
-for $y \in S^\perp$, since the RHS is in $S^\perp$, i.e. we have
-
-\[
-y = (P_{S^\perp} A_0 |_{S^\perp})^{-1} (P_{S^\perp} q^+_{xx})
-\]
-
-This solution is unique (since we have an invertible operator). Furthermore, the spectrum of $P_{S^\perp} A_0 |_{S^\perp}$ is bounded away from 0 (by what we know about the spectrum of $A_0$), thus the spectrum of $(P_{S^\perp} A_0 |_{S^\perp})^{-1}$ is bounded by a constant, i.e. 
-
-\[
-\text{spec } P_{S^\perp} A_0 |_{S^\perp}  \subset [-\rho, \rho]
-\]
-
-for some $\rho > 0$. Thus since $P_{S^\perp} A_0$ is self-adjoint, we can use the resolvent bound for normal operators to conclude that $(P_{S^\perp} A_0)^{-1}$ is a bounded linear operator with operator norm
-
-\[
-|| (P_{S^\perp} A_0)^{-1} || \leq \frac{1}{\rho}
-\]
-
-Since $(P_{S^\perp} A_0) y$ has to be well defined, $y$ must have four derivatives, and the first three must be continuous.
-
-\item We have shown that there is a unique function $y$ with $(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}$. Now we will use Lin's method to find an expression for this $y$ in terms of things we know. In particular, we will use Lin's method to construct a solution to the problem $A_0 y = P_{S^\perp} q^+_{xx}$.\\
-
-Recall that
-
-\begin{equation*}
-A_0 \left( -\frac{1}{2c} q_c \right) = q_{xx}
-\end{equation*}
-
-For convenience, let $k = -1/2c$, so that $A_0 k q_c$ = $q_{xx}$. Since everything is translation invariant, we also have $A_0 k q^+_c$ = $q^+_{xx}$. Applying the projection $P_{S^\perp}$ on both sides and using the fact that $A_0$ commutes with its own spectral projections, we have
-
-\begin{align*}
-P_{S^\perp} A_0 k q_c &= P_{S^\perp} q_{xx} \\
-A_0 (P_{S^\perp} k q_c) &= P_{S^\perp} q_{xx}
-\end{align*}
-
-With this as motivation, we will look for a solution $y$ to $(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}$ of the form
-
-\[
-y = P_{S^\perp} k q^+_c + w
-\]
-
-where we hope $w$ is small. The idea is that Lin's method should give us a bound on $w$. From our expansion above, we have the following expression for $A_0$
-
-\[
-A_0 = \partial_x^4 + c^2 \partial_x^2 + e^{q^+(x)} + e^{q^-(x)} - 1 + h(x)
-\]
-
-where $||h|| = \mathcal{O}(e^{-\alpha X}$
-
-Substituting in our ansatz for $y$, we get
-
-\begin{align*}
-A_0 (P_{S^\perp} k q^+_c + w) &= P_{S^\perp} q^+_{xx} \\
-(\partial_x^4 + c^2 \partial_x^2 + e^{q^+(x)} + e^{q^-(x)} - 1 + h(x))P_{S^\perp} k q^+_c + A_0 w &= P_{S^\perp} q^+_{xx} \\
-(\partial_x^4 + c^2 \partial_x^2 + e^{q^+(x)})P_{S^\perp} k q^+_c + (e^{q^-(x)} - 1 + h(x))P_{S^\perp}k q^+_c + A_0 w &= P_{S^\perp} q^+_{xx} \\
-A_0 w + \underbrace{(e^{q^-(x)} - 1) P_{S^\perp} k q^+_c}_{\mathcal{O}(e^{-\alpha X})} 
-+ \underbrace{h(x) P_{S^\perp}k q^+_c}_{\mathcal{O}(e^{-\alpha X})} &= 0 \\
-A_0 w + h(x) &= 0
-\end{align*}
-
-where we have collected all of the $\mathcal{O}(e^{-\alpha X})$ stuff and called it $h(x)$ again. This looks good, except $A_0$ is still the linearization about the double pulse. But we have an expression for $A_0$ where we separate out the things, so that should be ok.
-
-\item Write this as a piecewise first order system in the standard way with the usual notation conventions. Note that we are doing the coordinates like in San98 and not like we did above.
-
-\begin{align*}
-(W_i^\pm)'(x) = A(q(x)) W_i^\pm(x) + G_i(x) W_i^\pm(x)+ B H(x)
-\end{align*}
-
-where
-
-\begin{align*}
-A(u^*(x)) &= \begin{pmatrix}
-0 & 1 & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1 \\
--e^{f(x)} & 0 & -c^2 & 0 
-\end{pmatrix},
-B = \begin{pmatrix}
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-1 & 0 & 0 & 0 
-\end{pmatrix} \\
-G_1(x) &= \begin{pmatrix}
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-1 - e^{q(x - 2 X)} & 0 & 0 & 0 
-\end{pmatrix}, 
-G_2(x) = \begin{pmatrix}
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-1 - e^{q(x + 2 X)} & 0 & 0 & 0 
-\end{pmatrix}
-\end{align*}
-
-We have a nice symmetry here. $W_i^\pm$ is piecewise on the intervals $(-\infty, 0], [0, X], [-X, 0], [0, \infty)$.
-
-\item Now use Lin's method on this, i.e. solve the equations
-
-\begin{align*}
-(W_i^\pm)'(x) &= A(q(x)) W_i^\pm(x) + G_i(x) W_i^\pm(x)+ B H(x) \\
-W_1^+(X) - W_2^-(-X) &= 0 \\
-W_i^-(0) - W_i^+(0) \in \C \Psi(0) \\
-\end{align*}
-
-Where $\Psi(x)$ is the unique bounded solution to the adjoint equation $W' = -A(q(x))^* W$. These equations, solved via Lin's method, will give us a unique solution $W_i^\pm$, but these will in general have jumps at $x = 0$ (two jumps, for $i = 1, 2$).
-
-\item Write the fixed point equations. Let $\Phi$ be the evolution operator for $A(q(x))$, and let $\Phi^{s/u}_\pm$ be the appropriate pieces of the appropriate exponential dichotomies. Then we have
-
-\begin{align*}
-W_i^-(x) &= \Phi^s(x, -X_{i-1})a_{i-1}^- + \Phi^u_-(x, 0)b_i^- \\
-&+ \int_{0}^x \Phi^u_-(x, y)[G_i(x) W_i^-(x)+ B H(x)] dy \\
-&+ \int_{-X_{i-1}}^x \Phi^s_-(x, y)[G_i(x) W_i^-(x)+ B H(x) ] dy \\
-W_i^+(x) &= \Phi^u(x, X_i)a_i^+ + \Phi^s_+(x, 0)b_i^+ \\
-&+ \int_{0}^x \Phi^s_+(x, y)[G_i(x) W_i^+(x)+ B H(x) ] dy \\
-&+ \int_{X_i}^x \Phi^u_+(x, y)[G_i(x) W_i^+(x)+ B H(x) ] dy
-\end{align*}
-
-where the $a_i^\pm$ and $b_i^\pm$ live in the usual places, $a_0^- = a_2^+ = 0$, and $(X_0, X_1, X_2) = (-\infty, X, \infty)$. Note that everything here is nice, i.e. $||H||, ||G|| = \mathcal{O}(e^{-\alpha X)}$.
-
-Following Lin's method, using San98 (or something similar) as a reference, we obtain unique functions $W_i^\pm$ which solve the above. The jumps are given by (see, for example, Lemma 3.6 in San98)
-
-\begin{equation}
-\xi_i = \int_{-\infty}^\infty \langle \Psi(x), H(x) \rangle dx + R
-\end{equation}
-
-where the remainder $R$ has order
-
-\[
-R = \mathcal{O}(e^{-\alpha X} + |G|) = \mathcal{O}(e^{-\alpha X}) 
-\]
-
-and $||W|| < C e^{-\alpha X}$
-
-In adapting San98, we note that our system is similar to (3.7), except the $d_i$ is missing (i.e. we take it to be 1), there is no $\lambda$ (so we take it to be 1), $D = 0$, and the $\lambda B_i^\pm$ term is absent entirely.
-
-\item Using Lin's method (and taking it out of the first order system form), we have constructed a piecewise solution $y_i^\pm = P_{S^\perp} k q^+_c + w_i^\pm$ to the problem $A_0 y = P_{S^\perp} q^+_{xx}$. What we want is solution $y \in \ran P_{S^\perp}$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^+_{xx}$, i.e. we want the operator $P_{S^\perp} A_0$, not just $A_0$. But we can easily get this by applying the projection $P_{S^\perp}$ on both sides.
-
-\begin{align*}
-P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} P_{S^\perp} q^+_{xx} \\
-P_{S^\perp} P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} q^+_{xx} \\
-P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) &= P_{S^\perp} q^+_{xx}
-\end{align*}
-
-where we used the fact that $P_{S^\perp}$ is a spectral projection which commutes with $A_0$. Thus $P_{S^\perp} y_i^\pm \in \ran P_{S^\perp}$ and $P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) = P_{S^\perp} q^+_{xx}$. 
-
-\item We showed above that the problem $(P_{S^\perp} A_0) y = P_{S^\perp} q^+_{xx}$ on $\ran P_{S^\perp}$ has a unique solution $y$, and that this solution has three continuous derivatives. Since these two solutions must be identical, this implies that we must have $y = P_{S^\perp} y_i^\pm$, and thus this has three continuous derivatives. In particular, this means that
-
-\begin{align*}
-y &= P_{S^\perp} k q^+_c + P_{S^\perp} w_i^\pm
-\end{align*}
-
-Since $P_{S^\perp} k q^+_c$ is smooth, $P_{S^\perp} w_i^\pm$ has three continuous derivatives. Since projections are bounded with norm of 1
-
-\[
-P_{S^\perp} w_i^\pm = \mathcal{O}(e^{-\alpha X})
-\]
-
-Thus
-
-\begin{align*}
-y &= P_{S^\perp} k q^+_c + \mathcal{O}(e^{-\alpha X})
-\end{align*}
-
-\item Now we can plug stuff into 
-
-\[
-\langle \partial_x s, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x s \rangle
-\]
-where 
-
-\[
-s(x) = d_1 q^+_x(x) + d_2 q^-_x(x) + r(x)
-\]
-
-and $||r(x)|| \leq C e^{-\alpha X}$. From above, we know that
-
-\begin{align*}
-P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^\pm_{xx} = P_{S^\perp} k q^\pm_c + \mathcal{O}(e^{-\alpha X})
-\end{align*}
-
-
-Since $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is bounded (we showed this above), any of the terms involving $r(x)$ will be order $e^{-\alpha X}$. The mixed terms will all look like
-
-\begin{align*}
-d_1 d_2 k \langle q^\pm_{xx}(x), P_{S^\perp} q^\mp_c(x) \rangle + \mathcal{O}(e^{-\alpha X})
-&= \mathcal{O}(e^{-\alpha X}) 
-\end{align*}
-
-since $q^+$ and $q^-$ are exponentially localized about $\mp X$ (and are well separated since $X$ is sufficiently large).
-
-The nonmixed terms will look like 
-
-\begin{align*}
-d_i^2 \langle q^\pm_{xx}(x), P_{S^\perp} k q^\pm_c(x) \rangle + \mathcal{O}(e^{-\alpha X}) 
-&= \langle q^\pm_{xx}(x), P_{S^\perp} k q^\pm_c(x) \rangle + \mathcal{O}(e^{-\alpha X}) 
-\end{align*}
-
-where we recall that $d_i = \pm 1$.
-
-\item This looks good, but we do want to get rid of the $P_{S^\perp} k q^\pm_c(x)$ in front of the $q^\pm_c(x)$. We should be able to easily do that since we know what the functions in $S$ look like, to leading order. Since $A_0$ is self-adjoint, we can write the projection $P_S$ as
-
-\[
-P_S = \frac{1}{||s_1||^2} \langle s_1, \cdot \rangle s_1 + \frac{1}{||s_2||^2} \langle s_2, \cdot \rangle s_2
-\] 
-
-Recall that we have
-
-\begin{align*}
-s_1(x) &= q^+_x(x) + q^-_x(x) + r_1(x) \\
-s_2(x) &= q^+_x(x) - q^-_x(x) + r_2(x) 
-\end{align*}
-
-where $||r_i(x)|| \leq C e^{-\alpha X}$, $i = 1, 2$. The normalization factors are annoying, so let's deal with them first. 
-
-\begin{align*}
-||s_i||^2 &= ||q^+_x + q^-_x + r_i||^2 \\
-&= ||q^+_x||^2 + ||q^+_x||^2 + ||r_i||^2 + 2\langle q^+_x, q^-_x \rangle 
-+ 2 \langle q^+_x + q^-_x, r_i \rangle \\
-&= ||q^+_x||^2 + ||q^+_x||^2 + \mathcal{O}(e^{-\alpha X}) \\
-&= 2 ||q_x||^2 + \mathcal{O}(e^{-\alpha X})
-\end{align*}
-
-where we used the bound on the remainder term, the exponential localization of the $q^\pm$, and the fact that the $L^2$ norm of $q_x$ is unchanged with translation. Using the Taylor theorem, we have
-
-\begin{align*}
-\frac{1}{||s_1||^2} &= (2 ||q_x||^2 + \mathcal{O}(e^{-\alpha X}))^{-1} \\
-&= \frac{1}{2 ||q_x||^2}(1 + \mathcal{O}(e^{-\alpha X}))^{-1} \\
-&= \frac{1}{2 ||q_x||^2}(1 + \mathcal{O}(e^{-\alpha X}))
-\end{align*}
-
-Substituting this in to the expression for $P_S$, we have
-
-\begin{align*}
-P_S &= \frac{1}{2 ||q_x||^2} \langle s_1, \cdot \rangle s_1 + \frac{1}{2 ||q_x||^2} \langle s_2, \cdot \rangle s_2 + R_1(\cdot)
-\end{align*}
-
-where $||R_1|| \leq C e^{-\alpha X} $
-
-
-Substituting these the expressions for $s_i$, we have
-
-\begin{align*}
-P_S &= \frac{1}{2 ||q_x||^2}\langle q^+_x + q^-_x + r_1, \cdot \rangle(q^+_x + q^-_x + r_1) 
-+ \frac{1}{2 ||q_x||^2} \langle q^+_x - q^-_x + r_2, \cdot \rangle (q^+_x - q^-_x + r_2) + R_1(\cdot)  \\
-&= \frac{1}{2 ||q_x||^2} \left( 2 \langle q^+_x, \cdot \rangle q^+_x + 2 \langle q^-_x, \cdot \rangle q^-_x
-+ \langle r_1, \cdot \rangle s_1 + \langle r_2, \cdot \rangle s_2
-+ \langle q^+_x + q^-_x, \cdot \rangle (r_1 + r_2) \right) + R_1(\cdot)
-\end{align*}
-
-Using Cauchy-Schwarz and the triangle inequality,
-
-\begin{align*}
-|| \langle r_1, \cdot \rangle s_1 + \langle r_2, \cdot \rangle s_2
-+ \langle q^+_x + q^-_x, \cdot \rangle (r_1 + r_2) || \leq C e^{-\alpha X} ||\cdot||
-\
-\end{align*}
-
-Thus we have
-
-\begin{align*}
-P_S &= \frac{1}{||q_x||^2} \langle q^+_x, \cdot \rangle q^+_x + \frac{1}{||q_x||^2} \langle q^-_x, \cdot \rangle q^-_x + R_2(\cdot)
-\end{align*}
-
-where $||R_2|| \leq C e^{\alpha X}$. \\
-
-We are now set up to deal with $P_{S^\perp} k q^\pm_c(x)$. Looking at the positive piece, we have
-
-\begin{align*}
-P_{S^\perp} q^+_c &= (I - P_S)q^+_c \\
-&= q^+_c - \frac{1}{||q_x||^2} \langle q^+_x, q^+_c \rangle q^+_x - \frac{1}{||q_x||^2} \langle q^-_x, q^+_c \rangle q^-_x - R_2(q^+_c)
-\end{align*}
-
-The last two terms on the RHS are $\mathcal{O}(e^{-\alpha X})$, since we have a bound on the remainder term, and since the $q^\pm$ are exponentially localized. The second term on the RHS is 0 since by translation invariance, 
-
-\[
-\langle q^+_x, q^+_c \rangle = \langle q_x, q_c \rangle = 0
-\]
-
-and the inner product is 0 since it is the inner product of an odd and an even function.
-
-\item Putting all of this together, we have for $i = 1, 2$,
-
-\begin{align*}
-\langle \partial_x s_i, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x s_i \rangle
-&= \langle q^+_{xx}, k q^+_c \rangle + 
-\langle q^-_{xx}, k q^-_c \rangle 
-+ \mathcal{O}(e^{-\alpha X}) \\
-&= 2 k \langle q_{xx}, q_c \rangle 
-+ \mathcal{O}(e^{-\alpha X}) \\
-\end{align*}
-
-where we again used translation invariance of the $L^2$ inner product on $\R$.
-
-\item We can now use this to compute the coefficients $b_{ii}$ of the Krein matrix, to leading order. For $i = 1, 2$ we have
-
-\begin{align*}
-b_{ii} &= ||s_i||^2 + 4 c^2 (2 k) \langle q_{xx}, q_c \rangle + \mathcal{O}(e^{-\alpha X}) \\
-&= 2 ||q_x||^2 - 4 c \langle q_{xx}, q_c \rangle + \mathcal{O}(e^{-\alpha X}) \\
-&= 2 ||q_x||^2 + 4 c \langle q_x, q_{xc} \rangle + \mathcal{O}(e^{-\alpha X}) \\
-&= 2 ||q_x||^2 + 2 c \frac{\partial}{\partial c} \langle q_x, q_x \rangle + \mathcal{O}(e^{-\alpha X}) \\
-&= 2 \frac{\partial}{\partial c}\left( c ||q_x||^2 \right) + \mathcal{O}(e^{-\alpha X}) \\
-&= 2 b + \mathcal{O}(e^{-\alpha X})
-\end{align*}
-
-where $b = \frac{\partial}{\partial c}\left( c ||q_x||^2 \right)$ is the coefficient from the 1-pulse.\\
-
-\item The Krein matrix becomes
-
-\begin{equation}
-K(z) = \begin{pmatrix}
--(2 b + \mathcal{O}(e^{-\alpha X})) z^2 & i a z \\
-i a z & -(2 b + \mathcal{O}(e^{-\alpha X})) z^2 + \nu
-\end{pmatrix}
-+ \mathcal{O}(z^3)
-\end{equation}
-
-Now we taking the determinant and set it equal to 0. The idea here is that $K(z)$ is real, thus its eigenvalues are real. In particular, for any fixed $z$, this means that the characteristic polynomial $\det(K(z) - t I)$ has two real roots. We are interested in the case when one of these roots is 0, i.e. when $\det(K(z)) = 0$. We also know that $K(z)$ is analytic in $z$ for sufficiently small $|z|$. Note that the $\mathcal{O}(z^3)$ term at the end represents a matrix with entries which are of that order. 
-
-
-\end{enumerate}
-
-GARBAGE FOLLOWS
-
-for $i = 1, 2$. Assume we have the bound
-
-\[
-|(u_i^\pm)^{(n)}(x)| \leq C e^{-\alpha X}
-\] 
-
-which is the same as Theorem 1 in San98 with $u_i^\pm$ replaced with its $n$th derivative (this should follow from San93). Then it is not hard to see that 
-
-\[
-||q_2||^2 = 2 ||q||^2 + \mathcal{O}(e^{-\alpha X})
-\]
-
-For the other term, since $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is bounded, we should have
-
-\begin{align*}
-\langle \partial_x q_2', P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \partial_x q_2 \rangle 
-= 2 \langle q'', P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q'' \rangle + \mathcal{O}(e^{-\alpha X})
-\end{align*}
-
-Putting this all together, we conclude that 
-
-\[
-b_{11} = 2b + \mathcal{O}(e^{-\alpha X})
-\]
-
-Now we look at $b_{22}$. In this case, recall from San98 that the eigenfunction $s_2$ is a piecewise perturbation of $q'$. Writing this eigenfunction as $s$, we have
-
-\[
-s_i^\pm = d_i q_2' + w_i^\pm
-\]
-
-for $i = 1, 2$, where the $d_i$ are constants and we have the bound $|w_i^\pm| \leq C e^{-2 \alpha X}|d|$. Since the eigenvalue associated with this eigenfunction is real, the $d_i$ are real. Furthermore, $s$ is even (as remarked above). Since $q_2'$ is odd, we must have $d_2 = -d_1$, and the $w_i^\pm$ have the appropriate symmetry to make $s$ even. Furthermore, since we can scale eigenfunctions by any constant, we can take $d_1 = 1$. Thus we only need to look at the left half of this. It is not hard to see in this case that we will have the same thing as above, i.e. 
-
-\[
-b_{22} = 2b + \mathcal{O}(e^{-\alpha X})
-\]
-
-Thus the Krein matrix should be
-
-\begin{equation}
-K(z) = \begin{pmatrix}
--b z^2 & i a z \\
-i a z & -b z^2 + \nu
-\end{pmatrix} + \mathcal{O}(e^{-\alpha X} z^2 + z^3)
-\end{equation}
-
-Thus, we have, to leading order,
-
-\begin{align*}
-z = \pm \sqrt{\nu / b + a^2/ b^2 }
-\end{align*} 
-
-where 
-
-\[
-a = \langle 2c q_2'', s_2 \rangle
-\]
-
-\begin{align*}
-b &= 4 c^2 \left( \langle q_x, q_x \rangle - \frac{1}{2c} \langle q_{xx}, q_c \rangle \right)  \\
-\end{align*}
-
-As long as $\nu$ and $b$ have the same sign, $z$ is real, and thus we have two complex conjugate eigenvalues, to leading order. Since everything is analytic, we should be able to conclude we have two complex conjugate eigenvalues.\\
-
-Numerics suggests that $b < 0$, thus this should hold for $\nu < 0$.\\
-
-Here is table showing how good these approximations are.
-
-\begin{table}[H]
-\begin{tabular}{llll}
-Pulse & $z$ (full Krein matrix) & $z$ (approx Krein matrix)\\
-Double Pulse 2  & 0.0625 & 0.0614 \\
-Double Pulse 4  & 0.0176 & 0.0175 \\
-\end{tabular}
-\caption{Eigenvalues and approximate eigenvalues from Krein matrix. $c = 1.2$, finite difference method, $N = 512$. }
-\end{table}
-
-\subsubsection{Multi-pulse}
-
-We can extend this to the multipulse. Let
-
-\[
-A_1|_S = \begin{pmatrix} 0 & a_{12} & a_{13} & \dots & a_{1n} \\ 
--a_{12} & 0 & a_{23} & \dots & a_{2n} \\
--a_{13} & -a_{23} & 0 & \dots & a_{3n} \\
-\vdots & \vdots & & \vdots \\
--a_{1n} & -a_{2n} & -a_{3n} & \dots & 0
-\end{pmatrix} 
-\]
-
-and let
-
-\[
-\left( A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 \right)|_S = 
-\begin{pmatrix} b_{11} & b_{12} & \dots & b_{1n} \\ 
-b_{12} & b_{22}  & \dots & b_{2n} \\
-\vdots & \vdots & & \vdots \\
-b_{1n} & b_{2n}  & \dots & b_{nn}
-\end{pmatrix}
-\]
-
-Numerics suggests that the $a_{ij}$ are small compared to the diagonal entries $b_{ii}$ (some appear to be 0, but not all of them). Numerics also suggests that the off-diagonal entires $b_{ij}, i \neq j$ are small compared to the $b_{ii}$ (again, some appear to be 0, but not all of them, as in the 2-pulse case). Given these observations it seems reasonable to hypothesize that the approximate Krein matrix is diagonally dominant, and can thus be approximated with the diagonal matrix
-
-\begin{align*}
-\tilde{K}_2(z) &= \begin{pmatrix}
--b_{11} z^2 & 0 & \dots & 0\\
-0 & -b_{22} z^2 + \nu_2 & \dots & 0 \\
-\vdots & \vdots & & \vdots \\
-0 & 0 & \dots & -b_{nn} z^2 + \nu_n
-\end{pmatrix}
-\end{align*}
-
-Thus the small eigenvalues are approximately given by $\tilde{z}_i = \pm \sqrt{\nu_i / b_{ii}}$. We can check how close this is for the triple pulse 2,2.
-
-\begin{table}[H]
-\begin{tabular}{lll}
-Pulse & Eigenvalue from \texttt{quadeig} & Approximate eigenvalue $\tilde{z}$ \\
-Triple Pulse 2,2  & $\pm 0.0446i, \pm 0.0764i$ & 0.0440, 0.0724 \\
-\end{tabular}
-\caption{Eigenvalues from quadratic eigenvalue problem, computed with \texttt{quadeig} and from the approximate Krein matrix $\tilde{K}_2$. $c = 1.2$, finite difference method, $N = 512$. }
-\end{table}
 
 \subsection{Lin's Method (part 2)}
 
