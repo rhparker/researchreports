@@ -622,6 +622,8 @@ For the linearization about the 1-pulse, the Krein matrix is the scalar
 K(z) = -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \overline{z}^2 + \mathcal{O}(z^3)
 \end{equation}
 
+This is the stability criterion in Theorem 3 of Grillakis et al (1987).
+
 \begin{proof}
 
 For the 1-pulse, there is exactly one eigenvalue at 0, for which the corresponding eigenfunction is $q_x$, i.e. $\nu_1 = 0$ and $s_1 = q_x$ (there is no scaling needed here). Let $S = \ker A_0$ = $\spn \{q_x\}$. In this case, the Krein matrix will be 1x1, i.e. a scalar. Since $K_1$ is 0 on the diagonal $K_1 = 0$. Thus we are left with
@@ -652,24 +654,32 @@ Integration by parts gives us
 &= \frac{\partial}{\partial c} \left( c||q_x||^2 \right)
 \end{align*}
 
-Thus this becomes 
+Thus the Krein matrix becomes 
 
 \begin{align*}
 K(z) = -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \overline{z}^2 + \mathcal{O}(z^3)
 \end{align*}
 
+The leading order term of $K(z)$ is the stability criterion $d''(c)$ from Theorem 3 of Grillakis et al (1987). Using $c$ to represent the wave speed instead of $\omega$ and $q$ to represent the single pulse traveling wave with that speed, this is given on the bottom of p. 187 as
+
+\begin{equation}
+d'(c) &= -c \int |q_x|^2 dx = -c ||q_x||_{L^2(\R)}
+\end{equation}
+
+The stability criterion from Theorem 3 is $d''(c)$. By that theorem, the single pulse solution $q(x)$ is stable if $d''(c) > 0$.
+
 \end{proof}
 \end{lemma}
 
-Given the result of this lemma, we make the following hypothesis.
+Given the result of this lemma and the stability criterion from Grillakis et al (1987), we make the following hypothesis, which tells us that the single pulse solution $q(x)$ is stable.
 
 \begin{hypothesis}
 \begin{equation}\label{hypnonzero}
-\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \neq 0
+\frac{\partial}{\partial c} \left( c||q_x||^2 \right) < 0
 \end{equation}
 \end{hypothesis}
 
-Numerics suggests that $\frac{\partial}{\partial c} \left( c||q_x||^2 \right) > 0$, so this hypothesis is reasonable. I would like to see this somewhere else in the literature, but no luck with that so far. In any case, Chen and McKenna (1997) do not mention it (or anything with derivatives with respect to $c$), nor do Van den Berg et al (2018). Pego and Weinstein have a $\frac{\partial}{\partial c} ||q||^2$ term, but they are looking at linear eigenvalue problems.\\
+Numerics suggests that $\frac{\partial}{\partial c} \left( c||q_x||^2 \right) > 0$, so this hypothesis is reasonable. \\
 
 We will need the following result for exponentially localized functions, which we prove in the following lemma.
 
@@ -1277,14 +1287,14 @@ K_S(z) = \text{diag}(k_1(z), \dots, k_n(z)) + \mathcal{O}(e^{-\alpha X_m}|z| + |
 From (say) Ipsen and Rehman (2008), when we take the determinant, we should get something resembling
 
 \[
-\det K_S(z) = \prod_{i = 1}^n (k_i(z) + r_i(z))
+\det K_S(z) = \prod_{i = 1}^n (k_i(z) + \tilde{r}_i(z))
 \]
 
-where $r_i(z) = \mathcal{O}(e^{-\alpha X_m}|z| + |z|^3)$ and is real since $K_S(z)$ is Hermitian. Thus we can find $z$ by solving
+where $\tilde{r}_i(z) = \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)$ and is real since $K_S(z)$ is Hermitian. Thus we can find $z$ by solving
 
 \[
 ||q_x||^2 \nu_i
- - \overline{z}^2 \frac{\partial}{\partial c} \left( c||q_x||^2 \right) + \epsilon_1 e^{-\alpha X_m} z + \epsilon_2 z^3 = 0
+ - \overline{z}^2 \frac{\partial}{\partial c} \left( c||q_x||^2 \right) + \tilde{r}_i(z) = 0
 \]
 
 Divide this by $-\frac{\partial}{\partial c} \left( c||q_x||^2 \right)$ and let
@@ -1293,19 +1303,78 @@ Divide this by $-\frac{\partial}{\partial c} \left( c||q_x||^2 \right)$ and let
 b_i = \frac{||q_x||^2}{\frac{\partial}{\partial c} \left( c||q_x||^2 \right)} \nu_i
 \]
 
-Then (redefining the $\epsilon_i$), this becomes
+Then (redefining $\tilde{r}_i(z)$), this becomes
 
 \[
-\overline{z}^2 - b_i + \epsilon_1 e^{-\alpha X_m} z + \epsilon_2 z^3 = 0
+\overline{z}^2 - b_i + \tilde{r}_i(z) = 0
 \]
 
 Since we are taking $z$ real, this becomes
 
 \[
-z^2 - b_i + \epsilon_1 e^{-\alpha X_m} z + \epsilon_2 z^3 = 0
+z^2 - b_i + \tilde{r}_i(z) = 0
 \]
 
-which should have two roots approximately $z = \pm \sqrt{b_i}$ and a third root which is huge so it doesn't count.
+Since $\tilde{r}_i(z) = \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)$, we can write this as
+
+\begin{equation}\label{fz}
+f_i(z) = z^2 + \epsilon_1 z - b_i + \tilde{r}_i(z) = 0
+\end{equation}
+
+where $\epsilon_1  = \mathcal{O}(e^{-(3 \alpha/2) X_m})$ and we have again redefined $\tilde{r}_i(z)$ so that $\tilde{r}_i(z) = \mathcal{O}(|z|^3)$. Let
+
+\begin{equation}\label{gz}
+g_i(z) = z^2 + \epsilon_1 z - b_i
+\end{equation}
+
+Then $f_i(z) = g_i(z) + \tilde{r}_i(z)$. Since we are taking $z$ small (the expansion used in Kap2018 is only valid for small $z$), the term $\tilde{r}_i(z)$ will be very small, so we should have approximately $f(z) = g(z)$. With this motivation, let's look at the quadratic part $g(z)$first, i.e. solve $g_i(z) = z^2 + \epsilon_1 z - b_i = 0$. This is easily solvable for $z$ to get
+
+\begin{align*}
+z &= \frac{1}{2}\left(-\epsilon_1 \pm \sqrt{\epsilon_1^2 + 4 b_i}\right) \\
+&=  \pm \sqrt{b_i} \left( 1 + \frac{\epsilon_1^2}{4 b_i} \right)^{1/2} - \frac{1}{2} \epsilon_1
+\end{align*}
+
+Recall that $\epsilon_1  = \mathcal{O}(e^{-(3 \alpha/2) X_m})$. From Lin's method, the eigenvalues $\nu_i = \mathcal{O}(e^{-2 X_m})$, thus the $b_i$ are of the same order. This implies
+
+\begin{equation}
+\frac{\epsilon_1^2}{4 b_i} = \mathcal{O}(e^{-\alpha X_m})
+\end{equation}
+
+so for sufficiently large $X_m$, $|\epsilon_1^2/4 b_i| < 1$. Thus we can use a Taylor expansion to get
+
+\begin{align*}
+z &= \pm \sqrt{b_i} \left( 1 + \frac{1}{2} \frac{\epsilon_1^2}{4 b_i} + \mathcal{O}\left( \frac{\epsilon_1^2}{4 b_i}\right)^2 \right) - \frac{1}{2} \epsilon_1 \\
+&= \pm \sqrt{b_i} \left( 1 + \mathcal{O}(e^{-\alpha X_m}) \right) - \frac{1}{2} \epsilon_1 \\
+&= \pm \sqrt{b_i} + \mathcal{O}(e^{-3 \alpha X_m}) - \frac{1}{2} \epsilon_1 \\
+&= \pm \sqrt{b_i} + \mathcal{O}(e^{-(3 \alpha/2) X_m})
+\end{align*}
+
+since $\epsilon_1  = \mathcal{O}(e^{-(3 \alpha/2) X_m})$. Let $z_i^\pm$ be two roots of \eqref{gz}. Then $z_i^\pm = \mathcal{O}(e^{-\alpha X_m})$ and $\tilde{r}(z_i^\pm) = \mathcal{O}(e^{-3 \alpha X_m})$. Next, we expand $f_i(z)$ in a Taylor series about $z_i^+$.
+
+\begin{align*}
+f_i(z_i^+ + \epsilon) &= g_i(z_i^+) + \epsilon g_i'(z_i^+) 
++ \tilde{r}_i(z_i^+) + \epsilon \tilde{r}_i'(z_i^+) + \mathcal{O}(\epsilon^2) \\
+&= \epsilon g_i'(z_i^+) 
++ \tilde{r}_i(z_i^+) + \epsilon \tilde{r}_i'(z_i^+) + \mathcal{O}(\epsilon^2)
+\end{align*} 
+
+since $g_i(z_i^+) = 0$. Let 
+
+\begin{align*}
+h_i(\epsilon) &= f(z_i^+ + \epsilon) - \tilde{r}(z_i^+) \\
+&= \epsilon g'(z_i^+) + \epsilon \tilde{r}_i'(z_i^+) + \mathcal{O}(\epsilon^2)
+\end{align*}
+
+We can easily see that $h_i(0) = 0$. If we can find an $\epsilon$ near 0 with $h(\epsilon) = 0$, it will follow that $f_i(z_i^+ + \epsilon)$ = 0, and we are done. To do that, we would like to use the inverse function theorem. Evaluating $h'(0)$, we have
+
+\begin{align*}
+h'(0) &= g'(z_i^+) + \tilde{r}_i'(z_i^+) \\
+&= 2 z_i^+ + \epsilon_1 + \mathcal{O}(z_i^+)^2 \\
+&= 2 z_i^+ + \mathcal{O}(z_i^+)^{3/2} + \mathcal{O}(z_i^+)^2 \\
+&= 2 z_i^+ + \mathcal{O}(z_i^+)^{3/2} 
+\end{align*}
+
+For sufficiently small $z_i^+$, which we can always obtain since $z_i^+ = \mathcal{O}(e^{-\alpha X_m})$, $h'(0)$ is nonzero. thus by the inverse function theorem, $h(\epsilon)$ is invertible in a neighborhood of $\epsilon = 0$. 
 
 
 \subsection{Lin's Method (part 2)}
@@ -1516,6 +1585,8 @@ Since one of these is nonzero, we should be good. In fact, we need $M_1$ to be 0
 \subsection{References}
 
 Y.Chen and P.J.McKenna. Traveling Waves in a Nonlinearly Suspended Beam: Theoretical Results and Numerical Observations. Journal of Differential Equations Volume 136, Issue 2, 20 May 1997, Pages 325-355.\\
+
+M.Grillakis, J.Shatah, and W.Strauss. Stability theory of solitary waves in the presence of symmetry, I. Journal of Functional Analysis Volume 74, Issue 1, 1987, Pages 160-197.\\
 
 Will add other references when I do the actual writeup.
 
