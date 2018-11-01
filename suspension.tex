@@ -53,9 +53,9 @@
 
 \subsection{Background}
 
-We look at the suspended beam equation from Chen97. The idea is to look at an equation which has a second order time derivative which also possesses multimodal solutions. This is suggested on p. 2095 of SanStrut and p. 351 of Chen97.\\
+We look at the suspension bridge equation from Chen97. The idea is to look at an equation which has a second order time derivative which also possesses multimodal solutions. This is suggested on p. 2095 of SanStrut and p. 351 of Chen97.\\
 
-The equation we will look at is
+The equation we will look at here is
 
 \begin{equation}\label{susp}
 u_{tt} + u_{xxxx} + e^{u - 1} - 1 = 0
@@ -67,21 +67,15 @@ Note that the equation used for most of the analysis in Chen97 is
 u_{tt} + u_{xxxx} + u^+ - 1 = 0
 \end{equation}
 
-which has a cusp at $u = 0$. On p. 351 of Chen97, Chen and McKenna note that they have proved existence of solutions only to \eqref{susp2}, not to \eqref{susp}, but there is strong numerical evidence that similar solutions exist for \eqref{susp}. Fortunately, this has been addressed in the intervening years (and we will get to it in a bit). \\
+which has a cusp at $u = 0$. On p. 351 of Chen97, Chen and McKenna note that they have proved existence of traveling wave solutions only to \eqref{susp2}, not to \eqref{susp}, but there is strong numerical evidence that similar solutions exist for \eqref{susp}. This issue has since been resolved for traveling wave solutions and will be discussed below. \\
 
-We are interested in traveling wave solutions, so we take a modified form of the usual traveling wave ansatz. Letting $\xi = x - ct$, we take
+First, to make our lives easier, we make the change of variables $u - 1 \mapsto u$ so that pulse solutions will decay to a baseline of 0 instead of 1. This gives us
 
-\begin{equation}
-u(x, t) = z(\xi, t) + 1 = z(x - ct, t) + 1
+\begin{equation}\label{susp3}
+u_{tt} + u_{xxxx} + e^{u} - 1 = 0
 \end{equation}
 
-Substituting this into \eqref{susp} gives us
-
-\begin{equation*}
-z_{tt} - c z_{\xi t} + c^2 z_{\xi \xi} + z_{\xi \xi \xi \xi} + e^{z} - 1 = 0
-\end{equation*}
-
-The advantage of adding 1 in our ansatz is that the background for $z$ is at $z = 0$, whereas for $u$ it is at $u = 1$. Since it's annoying to use $z$ and $\xi$, we rewrite this using $u$ and $x$ to get our traveling frame suspended beam equation
+Since we are interested in traveling wave solutions, we make the usual traveling wave ansatz. Letting $\xi = x - ct$, substituting this into \eqref{susp3}, and changing $\xi$ back to $x$, we have
 
 \begin{equation}\label{susp3}
 u_{tt} - 2 c u_{x t} + u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
@@ -93,23 +87,21 @@ For an equilibrium solution (such as a homoclinic orbit), all time derivatives a
 u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
 \end{equation}
 
-which is (46) on p. 342 of Chen97, with $\tilde{f}(u) = e^u - 1$.\\
+which is (46) on p. 342 of Chen97, with $\tilde{f}(u) = e^u - 1$. Note that $u = 0$ is a solution to this. A homoclinic orbit, if it exists, connects this constant equilibrium state to itself. The existence of a homoclinic orbit equilibrium solution was shown in Vdb18 using a computer-assisted proof method. They proved (Theorem 1) that a symmetric homoclinic orbit exists for \eqref{eqODE} for all parameter values $c$ with $c^2 \in [0.5, 1.9]$.\\
 
-Note that $u = 0$ is a solution to this. A homoclinic orbit, if it exists, connects this constant equilibrium state to itself. If we linearize about this trivial solution, we get the ODE
+Linearizing about this trivial solution, we obtain the ODE
 
 \begin{equation}
 v_{xxxx} + c^2 v_{xx} + 1 = 0
 \end{equation}
 
-which has eigenvalues
+which has four eigenvalues
 
 \begin{equation}
 \nu = \pm \sqrt{\frac{-c^2 \pm \sqrt{c^4 - 4}}{2} }
 \end{equation}
 
-Note that $\sqrt{c^4 - 4}$ is always less that $c^2$ is magnitude. If $|c| < \sqrt{2}$, we have a complex conjugate quartet $\nu = \pm \alpha \pm \beta i$. When $c^2 = \sqrt{2}$, these eigenvalues collide on the imaginary axis at $\pm i$, then for $c^2 > 2$ we have a quartet of purely imaginary eigenvalues. Thus a bifurcation occurs at $c^2 = 2$.\\
-
-The existence of a homoclinic orbit equilibrium solution was shown by van den Berg et al (2018) using a computer-assisted proof method. They proved (Theorem 1) that a symmetric homoclinic orbit exists for \eqref{eqODE} for all parameter values $c^2 \in [0.5, 1.9]$. If we assume this homoclinic orbit is transversely constructed (or find that result in this paper), we can apply the results of SanStrut to get the existence of multi-pulse solutions.
+Note that $\sqrt{c^4 - 4}$ is always less that $c^2$ is magnitude. If $|c| < \sqrt{2}$, we have a complex conjugate quartet $\nu = \pm \alpha \pm \beta i$. When $c^2 = 2$, these eigenvalues collide on the imaginary axis at $\pm i$, then for $c^2 > 2$ we have a quartet of purely imaginary eigenvalues. Thus a bifurcation occurs at $c^2 = 2$. We expect that multipulse solutions will only be possible for $c^2 < 2$.
 
 \subsection{Eigenvalue Problem}
 
@@ -144,7 +136,7 @@ A(\lambda; u_*) = \begin{pmatrix}
 \end{pmatrix}
 \end{equation}
 
-Assume we there exists an exponentially localized solution $u_0(x)$. Then, we can find the essential spectrum by looking at the asymptotic matrix
+Assume there exists an exponentially localized solution $u_0(x)$. We can find the essential spectrum by looking at the asymptotic matrix
 
 \begin{equation*}
 A_\infty(\lambda) = \begin{pmatrix}
@@ -242,11 +234,9 @@ A_0 \partial_x u_* &=
 
 where we use the fact that $u_*$ is an equilibrium solution, thus must satisfy \eqref{eqODE}. Thus 0 is an eigenvalue of \eqref{evp} with corresponding eigenfunction $\partial_x u_*$.\\
 
-When we solve for the eigenvalues numerically (again, details below), we get eigenvalues (close to) 0, but both eigenfunctions look like the derivative of $u_*$. In this case, I don't think we can have a generalized kernel function since the operator $A_0$ is self-adjoint, so by the Fredholm alternative we cannot have a function $v$ such that $A_0 v = \partial_x u_*$. (Otherwise $\partial_x u_*$ would be perpendicular to the kernel of $A_0^* = A_0$, which is impossible.)\\
+We cannot have a generalized kernel function since the operator $A_0$ is self-adjoint; by the Fredholm alternative we cannot have a function $v$ such that $A_0 v = \partial_x u_*$. (Otherwise $\partial_x u_*$ would be perpendicular to the kernel of $A_0^* = A_0$, which is impossible.)\\
 
-Best guess is that we get two eigenvalues at 0 from the quadratic solver because of how it works.\\
-
-We also want to look at the derivative with respect to the speed $c$, since it often shows up in these types of problems. Taking the derivative of \eqref{eqODE} with respect to $c$, we get
+We also want to look at the derivative with respect to the speed $c$, since it will be important in what is to follow. Taking the derivative of \eqref{eqODE} with respect to $c$, we get
 
 \begin{align*}
 0 &= u_{xxxxc} + 2 c u_{xx} + c^2 u_{xxc} + e^{u} u_c \\
@@ -265,7 +255,155 @@ In other words, we have
 A_0 \partial_c u^* = -2 c u^*_{xx}
 \end{equation}
 
-This will be useful later.
+
+\subsection{Stability of Primary Pulse}
+
+Choose a speed $c$ with $c^2 \in [0.5, 1.9]$, so that we can apply the results of Vdb18 and conclude that a homoclinic orbit exists. To assess stability of this primary pulse, we follow Grill87.\\
+
+Letting $v = u_t$, we can write \eqref{susp3} in the form 
+
+\begin{equation}\label{2dsystem}
+\frac{d \textbf{u} }{dt} = J E'(\textbf{u})
+\end{equation}
+
+where $\textbf{u} = \begin{pmatrix}u&v\end{pmatrix}^T$, $J$ is the standard symplectic matrix
+
+\begin{equation*}
+J = \begin{pmatrix}0 & 1 \\ -1 & 0 \end{pmatrix}
+\end{equation*}
+
+and $E(\textbf{u})$ is the energy
+
+\begin{equation}\label{energy}
+E(\textbf{u}) = \int_{-\infty}^\infty \left(\frac{1}{2} v^2 + \frac{1}{2}u_{xx}^2 + e^{u} - u \right)dx
+\end{equation}
+
+The energy $E$ is conserved (in $t$), since
+
+\begin{align*}
+\frac{d}{dt} E(\textbf{u}) &= \langle E'(\textbf{u}), \textbf{u}_t \rangle \\
+&= \langle E'(\textbf{u}), J E'(\textbf{u}) \rangle \\
+&= 0
+\end{align*}
+
+where the last equality holds because $J$ is skew-symmetric.\\
+
+The equation \eqref{2dsystem} is invariant under the unitary translation group $T(s)$, defined by $T(s)\phi(\cdot) = \phi(\cdot - s)$. It is easy to see that $T^*(s) = [T(s)]^{-1} = T(-s)$. The infinitesimal generator of $T(s)$ is
+
+\begin{equation}
+T'(0) = \begin{pmatrix}\partial_x & 0 \\ 0 & \partial_x \end{pmatrix}
+\end{equation}
+
+The energy $E(\textbf{u})$ is also invariant under $T(s)$, i.e. $E(T(s) \textbf{u}) = E(\textbf{u})$ for all $s \in \R$. This is clear since \eqref{energy} does not involve $x$ directly, and we are integrating over $\R$. If we differentiate $E(T(s) \textbf{u}) = E(\textbf{u})$ with respect to $s$ at $s = 0$, we obtain the relation
+
+\begin{equation}\label{IP1}
+\langle E'(\textbf{u}), T'(0) \textbf{u} \rangle = 0
+\end{equation}
+
+As in Grill87, we define 
+
+\begin{equation}\label{defB}
+B = J^{-1} T'(0) = \begin{pmatrix}0 & -\partial_x \\ \partial_x & 0\end{pmatrix}
+\end{equation}
+
+Since $B$ is the product of two skew-symmetric operators, $B$ is self-adjoint. Using this, we define the momentum as
+
+\begin{equation}\label{defQ}
+Q(\textbf{u}) = \frac{1}{2}\langle B \textbf{u}, \textbf{u} \rangle
+\end{equation}
+
+It is not hard to show that $Q'(\textbf{u}) = B \textbf{u}$. Expanding \eqref{defQ} and integrating by parts, we get
+
+\begin{align*}
+Q(\textbf{u}) &= \frac{1}{2}\langle (-v_x, u_x), (u, v) \rangle \\
+&= \frac{1}{2} \left( -\int_{-\infty}^\infty v_x u dx + \int_{-\infty}^\infty u_x v dx \right) \\
+&= \int_{-\infty}^\infty u_x v dx
+\end{align*}
+
+The momentum $Q(\textbf{u})$ is also conserved in $t$, since
+
+\begin{align*}
+\frac{d}{dt} E(\textbf{u}) &= \langle Q'(\textbf{u}), \textbf{u}_t \rangle \\ 
+&= \langle B \textbf{u}, J E'(\textbf{u}) \rangle \\
+&= -\langle J B \textbf{u}, E'(\textbf{u}) \rangle \\
+&= -\langle T'(0) \textbf{u}, E'(\textbf{u}) \rangle \\
+&= 0
+\end{align*}
+
+where we used \eqref{defB} and \eqref{IP1}.\\
+
+To show that the primary pulse is stable, we will use Theorem 3 in Grill87. To do this, we need to verify the assumptions of the theorem. Assumption 1 concerns existence of solutions to \eqref{2dsystem}. We will take this as a hypothesis (unless we can find a reference to this somewhere. Chen and McKenna do not look at this).
+
+\begin{hypothesis}
+For every initial condition $\textbf{u}_0$ there exists a solution $\textbf{u}(t)$ to \eqref{2dsystem} on the interval $I = [0, T]$, where $T$ only depends on $||\textbf{u}_0||$, such that $\textbf{u}(0) = \textbf{u}(0)$. 
+\end{hypothesis}
+
+Assumption 2 in Grill87 involves bound states, which are special solutions of the form
+
+\begin{equation}\label{boundstate}
+\textbf{u}(x, t) = T(ct)\boldsymbol\phi(x) = \boldsymbol\phi(x - ct)
+\end{equation}
+
+(We use the variable $c$ to represent speed instead of $\omega$). By p. 166 of Grill87, if $\boldsymbol\phi(x) $ satisfies the stationary equation
+
+\begin{equation}
+E'(\boldsymbol\phi) - c Q'(\boldsymbol\phi) = 0
+\end{equation}
+
+then $T(ct)\boldsymbol\phi$ is a bound state. Writing $\boldsymbol\phi = \begin{pmatrix}\phi&\psi\end{pmatrix}^T$, in our case this becomes the pair of equations
+
+\begin{align*}
+\phi_{xxxx} + c \psi_x + e^{\phi} - 1 &= 0 \\
+\psi - c \phi_x &= 0
+\end{align*} 
+
+Substituting the second equation into the first gives us
+
+\begin{equation}
+\phi_{xxxx} + c^2 \psi_{xx} + e^{\phi} - 1 = 0
+\end{equation}
+
+which is the same as \eqref{eqODE}. Thus, by Vdb2018, a symmetric homoclinic orbit solution to \eqref{eqODE} exists for all $c \in [\sqrt{0.5}, \sqrt{1.9}]$. Let $q(x; c)$ be this solution, and let $\textbf{q}=\begin{pmatrix}q&cq_x\end{pmatrix}$. (We use the notation $q$ for homoclinic orbits.) By smooth dependence on parameters, since \eqref{eqODE} is smooth in $c$, the map $c \mapsto \textbf{q}(x; c)$ is smooth in $c$. Since the solution $\textbf{q}(x; c)$ is smooth, part (c) in Assumption 2 of Grill87 is satisfied, i.e. $\textbf{q}(x; c) \in D(T'(0)^3) \cap D(J I T'(0)^2)$. Finally, since none of the derivatives in $x$ of $\textbf{q}(x; c)$ are 0, $T'(0)q(x; c) \neq 0$. Thus Assumption 2 in Grill87 is satisfied.\\
+
+Finally, as in Grill87, we define the scalar
+
+\begin{equation}\label{defd}
+d(c) = E(\textbf{q}(x; c)) - c Q(\textbf{q}(x; c))
+\end{equation}
+
+and the operator 
+
+\begin{equation}\label{defHc}
+H_c = E''(\textbf{q}(x; c)) - c Q''(\textbf{q}(x; c))
+\end{equation}
+
+For this particular problem, we have
+
+\begin{equation}
+H_c = \begin{pmatrix}
+\partial_x^4 + e^q & c \partial_x \\
+-c \partial_x & 1
+\end{pmatrix}
+\end{equation}
+
+To verify Assumption 3, we need to look at the spectrum of $H_c$. First, we look at the kernel of $H_c$. Solving $H_c \textbf{u} = 0$ is equivalent to solving the system of equations
+
+\begin{align*}
+u_{xxxx} + e^q u + c v_x &= 0 \\
+-c u_x + v &= 0
+\end{align*}
+
+Multiplying the second equation by $c$, differentiating with respect to $x$, and substituting it into the first equation, we get
+
+\begin{equation}
+(\partial_x^4 + c^2 \partial_x^2 + e^q)u = 0
+\end{equation}
+
+which, in the notation of the previous section is
+
+\begin{equation}
+A_0 u = 0
+\end{equation}
 
 \subsection{Numerics, Construction of Solutions}
 
@@ -1356,7 +1494,9 @@ z &= \pm \sqrt{\tilde{b}_i} \left( 1 + \frac{1}{2} \frac{\epsilon_1^2}{4 \tilde{
 
 since $\epsilon_1  = \mathcal{O}(e^{-(3 \alpha/2) X_m})$. Let $z_i^\pm$ be two roots of \eqref{gz}. Then $z_i^\pm = \mathcal{O}(e^{-\alpha X_m})$ and $\tilde{r}(z_i^\pm) = \mathcal{O}(e^{-3 \alpha X_m})$.\\
 
-Now that we have taken care of this, we look to solve \eqref{fz}, i.e. $f_i(z) = 0$. Since we have estimates on the remainder term and know the order of $\tilde{b}_i$, it is clear that for $\tilde{b}_i$, \eqref{fz} has two roots near $z_i^\pm$, the roots of \eqref{gz}. We can, of course, show this. There are many ways to do it, including using Newton's method with initial guess of $z_i^\pm$ and showing that it converges to a unique root using the Newton-Kantorovich theorem. In this case, we can show it directly with ordinary calculus, so we will just do that. We proceed in the following steps. We will look for the root of $f_i(z)$ near $z_i^+$. Recall that $z_i^+ > 0$. The other one is similar.
+Now that we have taken care of this, we look to solve \eqref{fz}, i.e. $f_i(z) = 0$. Since we have estimates on the remainder term and know the order of $\tilde{b}_i$, it is clear that for $\tilde{b}_i$, \eqref{fz} has two roots near $z_i^\pm$, the roots of \eqref{gz}. \\
+
+We can, of course, show this. There are many ways to do it, including using Newton's method with initial guess of $z_i^\pm$ and showing that it converges to a unique root using the Newton-Kantorovich theorem. In this case, we can show it directly with ordinary calculus, so we will just do that. We proceed in the following steps. We will look for the root of $f_i(z)$ near $z_i^+$. Recall that $z_i^+ > 0$. The other one is similar.
 
 \begin{enumerate}
 
@@ -1415,6 +1555,7 @@ b_i = \frac{||q_x||^2}{\frac{\partial}{\partial c} \left( c||q_x||^2 \right)} \n
 Since the denominator is negative by Hypothesis 1 and the numerator is always positive, $\sqrt{b_i}$ is real if $\nu_i < 0$. Recalling that we took $\lambda = i z$ in the initial setup, where $z$ is real, we conclude the following.\\
 
 If $\nu_i < 0$ for $i = 2, \dots, n$ (recall that we always have $\nu_1 = 0$), the eigenvalues of the linearization about the $n-$pulse are:
+
 \begin{enumerate}
 	\item A double eigenvalue at 0
 	\item $n-1$ pairs of purely imaginary eigenvalues $\pm \lambda_i$. To leading order, we have $\lambda_i = \sqrt{b_i}$. By Hamiltonian symmetry, we can conclude that these eigenvalues must be purely imaginary, since if the error term bumped us off the imaginary axis, we would have to have a quartet, and we don't have enough eigenvalues to do that.

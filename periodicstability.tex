@@ -73,6 +73,12 @@ To assess the linear stability of such periodic multipulse solutions, we will lo
 L(u^*) = \partial_x^5 - \partial_x^3 + c \partial_x - 2 u^* \partial x - 2 u^*_x = 0
 \end{equation}
 
+Note that we can write this as $L = \partial_x H(u^*)$, where $H(u^*)$ is the self-adjoint operator
+
+\begin{equation}
+H(u^*) = \partial_x^4 - \partial_x^2 + c - 2 u^*
+\end{equation}
+
 First, we write the eigenvalue problem as the first order system
 
 \begin{equation}
@@ -91,38 +97,35 @@ Before we continue, we note that if we consider $A(0)$, the linearization about 
 
 As in the existence problem, we make the following nondegeneracy assumption.
 
-\begin{hypothesis}
+\begin{hypothesis}\label{nondegen}
 \[
 T_{Q(0)} W^u(0) \cap T_{Q(0)} W_s(0) = \R Q'(0)
 \]
 \end{hypothesis}
 
-where $Q(x)$ is the single pulse solution on $\R$. This is equivalent to the the fact that $Q'(x)$ is the unique bounded solution to the variational equation
+where $Q(x)$ is the single pulse solution on $\R$, written as a vector-valued function in $R^5$ un the usual way. Define the variational equation and adjoint variational equation as follows.
+
+\begin{align}
+V' = A(q)V \label{vareq} \\
+W' = -A(q)^*W \label{adjvareq}
+\end{align}
+
+If $A(0)$ were hyperbolic (as in San98), Hypothesis \ref{nondegen} would be equivalent to the the fact that $Q'(x)$ is the unique bounded solution to the variational equation \eqref{vareq}. This is not the case here, since we are on a periodic domain. This is easiest to see by looking at the adjoint equation $L(q)^* v = 0$. Since $L(q)^* = (\partial_x H(q))^* = -H(q) \partial_x$, we can easily see that there are two bounded solutions to this: $q(x)$ and the constant function $1$. The constant function is periodic, so we have to consider it here.\\
+
+Thus there are two bounded solutions $\Psi_2(x)$ and $\Psi_2(x)$ of \eqref{adjvareq} corresponding to $q(x)$ and 1. Consequently, there will be two bounded solutions to the variational equation \eqref{vareq}. One of these is $q'(x)$. We will call the other $\tilde{q}$, although we will not likely need it for anything.\\
+
+Next, as in San98, we decompose the tangent space at $Q(0)$ as
 
 \begin{equation}
-V' = A(q)V
+\R^5 = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^-
 \end{equation}
 
-It follows from San93 that the adjoint variational equation
-
-\begin{equation}
-W' = -A(q)^*W
-\end{equation}
-
-has a unique bounded solution $\Psi$. Next, as in San98, we decompose the tangent space at $Q(0)$ as
-
-\begin{equation}
-\R^5 = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^- \oplus Y^0
-\end{equation}
-
-where $Z = \R \Psi(0)$, and $Y^+$ and $Y^-$ are chosen so that
+where $Z = \spn\{ \Psi_1(0), \Psi_2(0) \}$, and $Y^+$ and $Y^-$ are chosen so that
 
 \begin{align*}
 T_{Q(0)} W^s(0) &= \R Q'(0) \oplus Y^+ \\
 T_{Q(0)} W^u(0) &= \R Q'(0) \oplus Y^- \\
 \end{align*}
-
-We have not yet looked at $Y^0$, but this space will correspond in some sense to the center manifold of $A(0)$. For now, we can say nothing about this space, but since it is one-dimensional, we will be able to fully characterize it in a later section.\\
 
 Returning to the problem at hand, we next use the piecewise construction of the periodic $n-$pulse to write this in the equivalent piecewise form
 
@@ -291,17 +294,17 @@ $\nu$ is in the essential spectrum of $L_\infty$ whenever we have a solution $\n
 For the problem on the real line, this tells us what we already know, i.e. that the essential spectrum is the entire imaginary axis. For the periodic problem, we impose the additional requirement that the eigenfunctions $e^{\nu x}$ must be periodic on $[-X, X]$. This implies 
 
 \begin{align*}
-r = \pm \frac{n \pi}{X} && n \in \N
+r = \pm \frac{n \pi}{X} && n \in \N_0
 \end{align*}
 
 In terms of $\lambda$, the essential spectrum of $L_\infty$ is given by
 
 \begin{equation}
 \sigma_{\text{ess}} = \left\{ \pm i \left[ \left(\frac{n \pi}{X}\right)^5 
-+ \left(\frac{n \pi}{X}\right)^3 + c \left(\frac{n \pi}{X}\right) \right] : n \in \N \right\}
++ \left(\frac{n \pi}{X}\right)^3 + c \left(\frac{n \pi}{X}\right) \right] : n \in \N_0 \right\}
 \end{equation}
 
-This is also approximately the essential spectrum of $L(u^*)$. In particular, the essential spectrum is a countable set of isolated points, and the elements of the essential spectrum of smallest magnitude are of order $\pm c \pi / X$.
+This is also approximately the essential spectrum of $L(u^*)$. In particular, the essential spectrum is a countable set of isolated points. For $n = 0$, $\lambda = 0$ is in the essential spectrum, which should correspond to $\tilde{q}$ (defined above). For the rest of the essential spectrum, the elements of smallest magnitude are of order $\pm c \pi / X$.
 
 
 \subsection{General Form}
