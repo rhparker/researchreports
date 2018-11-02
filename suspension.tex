@@ -105,29 +105,43 @@ Note that $\sqrt{c^4 - 4}$ is always less that $c^2$ is magnitude. If $|c| < \sq
 
 \subsection{Eigenvalue Problem}
 
-For linear stability analysis, we look at the PDE eigenvalue problem. To do this, assume we have found an equilibrium solution $u^*(x)$ of \eqref{eqODE}. Then we linearize around this by taking the standard linearization ansatz
+For linear stability analysis, we look at the PDE eigenvalue problem. To do this, assume we have found an equilibrium solution $u_*(x)$ of \eqref{eqODE}. We linearize around $u^*(x)$ by taking the standard linearization ansatz
 
 \begin{equation}
 u(x,t) = u_*(x) + \epsilon e^{\lambda t} v(x)
 \end{equation}
 
-Plugging this into \eqref{susp3} and keeping only terms up to order $\epsilon$, we obtain the quadratic eigenvalue problem
+Plugging this into \eqref{susp3} and keeping only terms of order $\epsilon$, we obtain the quadratic eigenvalue problem
 
 \begin{equation}\label{evp}
 [\lambda^2 - 2 c \partial_x \lambda + (\partial_x^4 + c^2 \partial_x^2 + e^{u_*})]v = 0
 \end{equation}
 
-which is in the general form of a quadratic eigenvalue problem $(A_2 \lambda^2 + A_1 \lambda + A_0)v = 0$, where in this case $A_2 = I$. We can also write this as
+This is in the general form of a quadratic eigenvalue problem 
+
+\[
+(A_2 \lambda^2 + A_1 \lambda + A_0)v = 0
+\]
+
+where
+
+\begin{align}
+A_0 &= \partial_x^4 + c^2 \partial_x^2 + e^{u_*} \\
+A_1 &= -2 c \partial_x \\
+A_2 &= I
+\end{align}
+
+We can also write this as
 
 \begin{equation}\label{evp2}
 [(\lambda - c \partial_x)^2 + \partial_x^4 + e^{u_*}]v = 0
 \end{equation}
 
-Before we do that, we look at symmetry. For a given equilibrium solution $u^*$, suppose we have a solution $v(x)$ to \eqref{evp} with corresponding eigenvalue $\lambda$. By taking complex conjugates, it follows that $\overline{v}(x)$ is a solution with corresponding eigenvalue $\overline{\lambda}$. As long as $u^*(x)$ is an even function (which it typically is), if we replace $v(x)$ by $v(-x)$ and $\lambda$ by $-\lambda$, we also have a solution (this follows from the odd/even properties of the various operators involved). Thus we have the typical 4-fold symmetry of eigenvalues.\\ 
+Next, we look at symmetry. For a given equilibrium solution $u_*$, suppose we have a solution $v(x)$ to \eqref{evp} with corresponding eigenvalue $\lambda$. By taking complex conjugates, it follows that $\overline{v}(x)$ is a solution with corresponding eigenvalue $\overline{\lambda}$. If we assume that $u^*(x)$ is an even function, we can replace $v(x)$ by $v(-x)$ and $\lambda$ by $-\lambda$ to obtain another solution to \eqref{evp}. Thus for the linearization about an even function, we have the typical 4-fold symmetry of eigenvalues.\\ 
 
-To continue, let's write the eigenvalue problem as a first order system. Letting $V = (v_1, v_2, v_3, v_4) = (v, v_x, v_{xx}, v_{xxx})$, we have $V' = A(\lambda; u^*)V$, where
+To continue, we write the eigenvalue problem as a first order system. Letting $V = (v_1, v_2, v_3, v_4) = (v, v_x, v_{xx}, v_{xxx})$, \eqref{evp} becomes $V' = A(\lambda; u^*)V$, where
 
-\begin{equation}
+\begin{equation}\label{evpsystem}
 A(\lambda; u_*) = \begin{pmatrix}
 0 & 1 & 0 & 0 \\
 0 & 0 & 1 & 0 \\
@@ -136,37 +150,39 @@ A(\lambda; u_*) = \begin{pmatrix}
 \end{pmatrix}
 \end{equation}
 
-Assume there exists an exponentially localized solution $u_0(x)$. We can find the essential spectrum by looking at the asymptotic matrix
+\subsubsection{Essential Spectrum}
 
-\begin{equation*}
+Suppose there exists an exponentially localized solution $u_*(x)$ of \eqref{eqODE}. By the Weyl Essential Spectrum Theorem, the essential spectrum of $A(\lambda; u_*)$ is the same as that of the asymptotic matrix $A_\infty = A(\lambda; 0)$.
+
+\begin{equation}\label{Ainf}
 A_\infty(\lambda) = \begin{pmatrix}
-0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 \\ 
 0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 1 \\
 -(\lambda^2 + 1) & 2 c \lambda & -c^2 & 0 
 \end{pmatrix}
-\end{equation*}
+\end{equation}
 
-The characteristic polynomial of this is 
+The characteristic polynomial of \eqref{Ainf} is
 
 \begin{equation}\label{charpoly}
 p(\nu) = \nu^4 + c^2 \nu^2 - 2 c \lambda \nu + (\lambda^2 + 1) 
 \end{equation} 
 
-For the essential spectrum, we want the values of $\lambda$ for which we have a purely imaginary eigenvalue, i.e. $\nu = i r$ for $r \in \R$. Plugging this in and collecting terms in $\lambda$, we get the equation
+The essential spectrum is the set of all $\lambda \in \C$ for which $A_\infty$ has a purely imaginary eigenvalue. To find this, we substitute $\nu = i r$ for $r \in \R$ into \eqref{charpoly}. Collecting terms in $\lambda$, we obtain the equation
 
 \begin{equation}\label{fredholmborder}
 \lambda^2 - 2 i c r \lambda - c^2 r^2  + r^4 + 1 = 0 
 \end{equation} 
 
-Solving for $\lambda$, we have
+Solving for $\lambda$, this becomes
 
 \begin{align*}
 \lambda_\pm(r) &= i c r \pm \sqrt{-1 - r^4} \\
 &= \left( c r \pm \sqrt{1 + r^4} \right) i
 \end{align*}
 
-since $-1 - r^4 \leq -1 < 0$. Thus the essential spectrum is purely imaginary. Since $\lambda(r) \rightarrow \pm \infty$ as $r \rightarrow \pm \infty$, the essential spectrum extends out to infinity along the imaginary axis. The question is whether the essential spectrum is the entire imaginary axis or whether there is a gap around the origin. Matlab suggests a gap at the origin, so let's look at that. Here is a plot of $\lambda_\pm(r)$ for $c = 1$ which shows that gap.
+since $-1 - r^4 \leq -1 < 0$. Thus the essential spectrum is purely imaginary. Since $\lambda_\pm(r) \rightarrow \pm \infty$ as $r \rightarrow \pm \infty$, the essential spectrum extends out to infinity along the imaginary axis. The only remaining question is whether the essential spectrum contains a gap around the origin, i.e. is bounded away from 0. Matlab suggests there is such a gap at the origin, so we will look at that here. This is a plot of $\lambda_\pm(r)$ for $c = 1$ which shows that gap.
 
 \begin{figure}[H]
 \centering
@@ -193,7 +209,7 @@ Solving $\lambda_+'(r) = 0$ involves solving the 6th order polynomial
 4 r^6 - c^2 r^4 + c^2 = 0
 \]
 
-Mathematica will actually do it (!), but it is an epic mess. So we will look at it numerically using Matlab. The next plot shows the minimum value of $\lambda_+(r)$ as a function of $c$. Note that for $c = 0$ this minimum is clearly $0$, and for $c = \sqrt{2}$ it is not hard to show that this minimum is actually 0 (hence no essential spectrum gap.) $c = \sqrt{2}$ is the bifurcation point mentioned above, so this is consistent.
+Mathematica will actually do it (!), but it is an epic mess. So we will look at it numerically using Matlab. The next plot shows the minimum value of $\lambda_+(r)$ as a function of $c$. Note that for $c = 0$ this minimum is clearly $0$, and for $c = \sqrt{2}$ it is not hard to show that this minimum is actually 0 (hence no essential spectrum gap). $c = \sqrt{2}$ is the bifurcation point mentioned above, so this is consistent.
 
 \begin{figure}[H]
 \centering
@@ -204,18 +220,11 @@ Mathematica will actually do it (!), but it is an epic mess. So we will look at 
 
 Note that this minimum decreases strictly as $c$ increases, so the essential spectrum gap narrows (to 0) as $c$ increases from 0 to $\sqrt{2}$.\\
 
-We could probably do better, i.e. approximate or get an exact formula (likely a nasty one) for this curve, but this is good enough for now.\\
+We could probably do better, i.e. approximate or get an exact formula (likely a nasty one) for this curve, but this is good enough for now.
 
-When we compute the spectrum numerically with Matlab (details on how we do this are below), we see this essential spectrum gap around the origin. For $c = 1.2$, Matlab predicts that the essential spectrum gap is $[-0.2061, 0.2061]$. Here are plots of the computed spectrum from Matlab of the linearization about the single pulse solution. These show this essential spectrum gap. The eigenvalues at 0 are from translation invariance, which are discussed below.
+\subsubsection{Point Spectrum}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=8cm]{essspecboundsF256.eps}
-\includegraphics[width=8cm]{essspecboundsFD256.eps}
-\caption{Essential spectrum gap for $c = 1.2$. Fourier spectral methods, $N = 256$ (left), finite difference methods, $N = 256$ (right)}
-\end{figure}
-
-Now that have looked at the essential spectrum, we can move on the point spectrum. There are only a few things we can say at this point.\\
+Now that have looked at the essential spectrum, we can move on the point spectrum. At this point, there are only a few things we can say.\\
 
 If $\lambda = 0$, the eigenvalue problem reduces to
 
@@ -223,7 +232,8 @@ If $\lambda = 0$, the eigenvalue problem reduces to
 A_0 v = (\partial_x^4 + c^2 \partial_x^2 + e^{u_*})v = 0
 \end{equation*}
 
-If we take $v = \partial_x u_*$, then 
+Thus we are are interested in the kernel of $A_0$. If we take $v = \partial_x u_*$, then
+
 \begin{align*}
 A_0 \partial_x u_* &= 
 (\partial_x^4 + c^2 \partial_x^2 + e^{u_*})\partial_x u_* \\
@@ -234,9 +244,18 @@ A_0 \partial_x u_* &=
 
 where we use the fact that $u_*$ is an equilibrium solution, thus must satisfy \eqref{eqODE}. Thus 0 is an eigenvalue of \eqref{evp} with corresponding eigenfunction $\partial_x u_*$.\\
 
-We cannot have a generalized kernel function since the operator $A_0$ is self-adjoint; by the Fredholm alternative we cannot have a function $v$ such that $A_0 v = \partial_x u_*$. (Otherwise $\partial_x u_*$ would be perpendicular to the kernel of $A_0^* = A_0$, which is impossible.)\\
+Since the operator $A_0$ is self-adjoint, by the Fredholm alternative we cannot have a function $v$ such that $A_0 v = \partial_x u_*$. (Otherwise $\partial_x u_*$ would be perpendicular to the kernel of $A_0^* = A_0$, which is impossible.) In other words, we cannot have a Jordan chain ending in $\partial_x u^*$.\\
 
-We also want to look at the derivative with respect to the speed $c$, since it will be important in what is to follow. Taking the derivative of \eqref{eqODE} with respect to $c$, we get
+Thus it makes sense to take the following hypothesis, which states that there is nothing else in the kernel of $A_0$.
+
+\begin{hypothesis}\label{kerA0hyp}
+The kernel of $A_0$ is given by
+\begin{equation}\label{kerA0}
+\ker A_0 = \spn\{ \partial_x u_*\}
+\end{equation}
+\end{hypothesis}
+
+Finally, we look at the derivative with respect to the speed $c$, since it will be important in what is to follow. Taking the derivative of \eqref{eqODE} with respect to $c$, we get
 
 \begin{align*}
 0 &= u_{xxxxc} + 2 c u_{xx} + c^2 u_{xxc} + e^{u} u_c \\
@@ -249,12 +268,76 @@ At an equilibrium solution $u_*$, we rearrange this to get
 (\partial_x^4 + c^2 \partial_x^2 + e^{u^*})u^*_c &= -2 c u^*_{xx}
 \end{align*}
 
-In other words, we have
+This simplifies to 
 
 \begin{equation}\label{uc}
 A_0 \partial_c u^* = -2 c u^*_{xx}
 \end{equation}
 
+For $\lambda \neq 0$, there is nothing else we can say now regarding the point spectrum. To find these eigenvalues, we will have to use another technique, such as the Krein matrix or Lin's method.
+
+\subsubsection{Numerics}
+
+In this section, we compute the spectrum numerically with Matlab and the \texttt{quadeig} package. For $c = 1.2$, here are plots of the spectrum of the linearization of \eqref{evp} about the single pulse solution. Matlab shows an essential spectrum gap, as discussed above, and predicts that this gap is $[-0.2061, 0.2061]$. The eigenvalue at 0 is from translation invariance, as discussed above.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{essspecboundsF256.eps}
+\includegraphics[width=8cm]{essspecboundsFD256.eps}
+\caption{Essential spectrum gap for $c = 1.2$. Fourier spectral methods, $N = 256$ (left), finite difference methods, $N = 256$ (right)}
+\end{figure}
+
+\subsection{\texorpdfstring{Spectrum of $A_0$}{}}
+
+At this point, we pause to look at the spectrum of the operator $A_0$. Since $A_0$ is self-adjoint, its spectrum will be real. First, we look at the essential spectrum. Writing the eigenvalue problem as a first order system, the operator $A_0$ is given by
+
+\begin{equation}\label{A0system}
+A_0(\lambda; u_*) = \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+\lambda - e^{u_*} & 0 & -c^2 & 0 
+\end{pmatrix}
+\end{equation}
+
+where $u^*$ is an equilibrium solution which is exponentially localized. By the Weyl Essential Spectrum Theorem, the essential spectrum only depends on the asymptotic matrix $A_0(\lambda; 0)$.
+
+\begin{equation}
+A_0(\lambda; 0) = \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+\lambda - 1 & 0 & -c^2 & 0 
+\end{pmatrix}
+\end{equation}
+
+The characteristic polynomial of the asymptotic matrix is 
+
+\[
+p(\nu) = \nu^4 + c^2 \nu^2 - \lambda + 1
+\]
+
+For the essential spectrum, we take $\nu = i r$, where $r \in \R$. This becomes
+
+\[
+p(i r) = r^4 - c^2 r^2 - \lambda + 1 = 0
+\]
+
+Solving for $\lambda$ gives us
+
+\[
+\lambda(r) = r^4 - c^2 r^2 + 1 = r^2(r^2 - c^2) + 1
+\]
+
+This is a fourth-order polynomial with limits of $\infty$ at both ends, so all we need to do is find its minimum. Since $\lambda'(r) = 4 r^3 - 2 c^2 r = 2 r(2 r^2 - c^2)$, there will be a minimum when $r = c/\sqrt{2}$. At this minimum, $\lambda = 1 - c^4/4$. Thus, the essential spectrum of $A_0$ is given by
+
+\begin{equation}
+\sigma_{\text{ess}}(A_0) = [1 - c^4/4, \infty)
+\end{equation}
+
+For $c \in (0, \sqrt{2})$, which are the values of $c$ under consideration, the essential spectrum of $A_0$ is positive and bounded away from the origin.\\
+
+We discussed the kernel of $A_0$ above. By Hypothesis \ref{kerA0hyp}, the kernel of $A_0$ is one-dimensional and is spanned by $\partial_x u_*$. 
 
 \subsection{Stability of Primary Pulse}
 
@@ -404,6 +487,10 @@ which, in the notation of the previous section is
 \begin{equation}
 A_0 u = 0
 \end{equation}
+
+By Hypothesis \ref{kerA0hyp}, it follows that the kernel of $H_c$ is spanned by $T'(0) \textbf{q}$.\\
+
+Finally, we need to show that $H_w$ has exactly one negative eigenvalue. 
 
 \subsection{Numerics, Construction of Solutions}
 
