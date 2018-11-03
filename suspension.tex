@@ -42,6 +42,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}
 \newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
 \newtheorem{assumption}{Assumption}
 \newtheorem{hypothesis}{Hypothesis}
 
@@ -287,7 +288,7 @@ In this section, we compute the spectrum numerically with Matlab and the \texttt
 \caption{Essential spectrum gap for $c = 1.2$. Fourier spectral methods, $N = 256$ (left), finite difference methods, $N = 256$ (right)}
 \end{figure}
 
-\subsection{\texorpdfstring{Spectrum of $A_0$}{}}
+\subsubsection{\texorpdfstring{Spectrum of $A_0$}{}}
 
 At this point, we pause to look at the spectrum of the operator $A_0$. Since $A_0$ is self-adjoint, its spectrum will be real. First, we look at the essential spectrum. Writing the eigenvalue problem as a first order system, the operator $A_0$ is given by
 
@@ -331,13 +332,29 @@ Solving for $\lambda$ gives us
 
 This is a fourth-order polynomial with limits of $\infty$ at both ends, so all we need to do is find its minimum. Since $\lambda'(r) = 4 r^3 - 2 c^2 r = 2 r(2 r^2 - c^2)$, there will be a minimum when $r = c/\sqrt{2}$. At this minimum, $\lambda = 1 - c^4/4$. Thus, the essential spectrum of $A_0$ is given by
 
-\begin{equation}
+\begin{equation}\label{A0ess}
 \sigma_{\text{ess}}(A_0) = [1 - c^4/4, \infty)
 \end{equation}
 
 For $c \in (0, \sqrt{2})$, which are the values of $c$ under consideration, the essential spectrum of $A_0$ is positive and bounded away from the origin.\\
 
-We discussed the kernel of $A_0$ above. By Hypothesis \ref{kerA0hyp}, the kernel of $A_0$ is one-dimensional and is spanned by $\partial_x u_*$. 
+We discussed the kernel of $A_0$ above. By Hypothesis \ref{kerA0hyp}, the kernel of $A_0$ is one-dimensional and is spanned by $\partial_x u_*$. Thus we have a single eigenvalue of $A_0$ at 0. \\
+
+Any remaining eigenvalues will depend on the solution we are linearizing about. In what follows, will consider the linearization about a single-pulse homoclinic orbit $q(x)$. First, we compute the spectrum of $A_0$ numerically.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{specA0.eps}
+\caption{Spectrum of $A_0$. $c = 1.3$. Finite difference methods, $N = 513$.}
+\end{figure}
+
+We see that there is a single eigenvalue at 0, and that the essential spectrum is bounded away from 0 and is (approximately) given by \eqref{A0ess}. We also note the presence of a single negative eigenvalue.\\
+
+In this case (as opposed to SanStrut), it will be difficult (if not impossible) to prove the existence of a unique negative eigenvalue. The plot above suggests this is the case. In addition, we have numerically $\langle A_0 q, q \rangle < 0$. Thus we make the following hypothesis.
+
+\begin{hypothesis}\label{A0neg}
+For $c \in (0, \sqrt{2})$, the operator $A_0$ has exactly one negative eigenvalue $\lambda_- < 0$ with corresponding eigenfunction $v_-(x)$.
+\end{hypothesis}
 
 \subsection{Stability of Primary Pulse}
 
@@ -429,7 +446,7 @@ Assumption 2 in Grill87 involves bound states, which are special solutions of th
 
 (We use the variable $c$ to represent speed instead of $\omega$). By p. 166 of Grill87, if $\boldsymbol\phi(x) $ satisfies the stationary equation
 
-\begin{equation}
+\begin{equation}\label{boundstateeq}
 E'(\boldsymbol\phi) - c Q'(\boldsymbol\phi) = 0
 \end{equation}
 
@@ -469,7 +486,30 @@ H_c = \begin{pmatrix}
 \end{pmatrix}
 \end{equation}
 
-To verify Assumption 3, we need to look at the spectrum of $H_c$. First, we look at the kernel of $H_c$. Solving $H_c \textbf{u} = 0$ is equivalent to solving the system of equations
+We will verify Assumption 3B instead of Assumption 3. (This is suggested in the errata at the end of Grill90). For $\textbf{u} = \begin{pmatrix}u & v\end{pmatrix}^T$, 
+
+\begin{align*}
+\langle H_c \textbf{u}, \textbf{u} \rangle
+&= \langle \begin{pmatrix} (\partial_x^4 + e^q)u + c \partial_x v \\ -c \partial_x u + v  \end{pmatrix},
+\begin{pmatrix} u \\ v \end{pmatrix} \rangle \\ 
+&= \langle (\partial_x^4 + e^q)u + c \partial_x v, u \rangle + \langle -c \partial_x u + v, v\rangle \\
+&= \langle (\partial_x^4 + e^q)u, u \rangle + c \langle \partial_x v, u \rangle + c \langle -\partial_x u, v \rangle + \langle v, v \rangle \\
+&= \langle (\partial_x^4 + e^q)u, u \rangle + c^2 \langle \partial_x^2 u, u \rangle - 2 c \langle \partial_x u, v \rangle + \langle v, v \rangle - c^2 \langle \partial_x^2 u, u \rangle\\
+&= \langle A_0 u, u \rangle + \langle v, v \rangle - 2 c \langle v, \partial_x u \rangle + c^2 \langle \partial_x, \partial_x u \rangle\\
+&= \langle A_0 u, u \rangle + || v - c \partial_x u||^2
+\end{align*}
+
+By Hypothesis \ref{A0neg}, $A_0$ has exactly one negative eigenvalue $\lambda_- < 0$ with corresponding eigenfunction $v_-(x)$. Let $\textbf{u} = \begin{pmatrix} v_-(x), c \partial_x v_-(x) \end{pmatrix}^T$. Substituting this in, we obtain
+
+\begin{align*}
+\langle H_c \textbf{u}, \textbf{u} \rangle &=
+\langle A_0 v_-, v_- \rangle + || c \partial_x v_- - c \partial_x v_-||^2 \\
+&= \lambda_- ||v_-||^2 < 0
+\end{align*}
+
+which verifies part (i) of Assumption 3B.\\
+
+Next, we find kernel of $H_c$ by solving $H_c \textbf{u} = 0$. This is equivalent to solving the system of equations
 
 \begin{align*}
 u_{xxxx} + e^q u + c v_x &= 0 \\
@@ -488,13 +528,65 @@ which, in the notation of the previous section is
 A_0 u = 0
 \end{equation}
 
-By Hypothesis \ref{kerA0hyp}, it follows that the kernel of $H_c$ is spanned by $T'(0) \textbf{q}$.\\
+By Hypothesis \ref{kerA0hyp}, the kernel of $A_0$ is spanned by $\partial_x q$, thus the kernel of $H_c$ is spanned by $\begin{pmatrix} \partial_x q, c \partial_x^2 q \end{pmatrix}$. Define the subspace $S$ by
 
-Finally, we need to show that $H_w$ has exactly one negative eigenvalue. 
+\begin{equation}
+S = \spn\{ \partial_x q, v_-\}
+\end{equation}
+
+i.e. $S$ is the span of all eigenfunction of $A_0$ which correspond to eigenvalues which are not positive. Then define the space
+
+\begin{equation}
+\tilde{S} = \left\{
+\begin{pmatrix}u & v\end{pmatrix}^T : u \in S^\perp, v = 0
+\right\}
+\end{equation}
+
+Then $S$ is a closed subspace. For any $\textbf{u} = \begin{pmatrix}u & 0\end{pmatrix}^T \in \tilde{S}$, since $A_0$ is positive definite on $S^\perp$, there exists a constant $\delta > 0$ such that $\langle A_0 u, u \rangle \geq \delta ||u||^2$. Thus we have
+
+\begin{align*}
+\langle H_c \textbf{u}, \textbf{u} \rangle 
+&= \langle A_0 u, u \rangle + || -c \partial_x u||^2 \\
+&\geq \delta ||u||^2\\
+&\delta ||\textbf{u}||^2
+\end{align*}
+
+This verifies part (ii) of Assumption 3B. Part (iii) holds since $v_-$ and $q_x$ are linearly independent. Having verified Assumptions 1, 2, and 3B, we can invoke Theorem 3 of Grill87 to conclude that $q(x)$ is stable if and only if $d''(c) > 0$. Differentiating \eqref{defd}, we have
+
+\begin{align*}
+d'(c) &= E'(\textbf{q})\partial_c \textbf{q} - Q(\textbf{q}) - c Q'(\textbf{q}) \partial_c \textbf{q} \\
+&= [E'(\textbf{q}) - c Q'(\textbf{q})]\partial_c \textbf{q} - Q(\textbf{q}) \\
+&= - Q(\textbf{q}) \\
+&= -\int_{-\infty}^\infty q_x c q_x dx \\
+&= -c ||q_x||^2
+\end{align*}
+
+since $E'(\textbf{q}) - c Q'(\textbf{q}) = 0$ by \eqref{boundstateeq}, since $\textbf{q}$ is a bound state. Differentiating once more, we have
+
+\begin{align*}
+d''(c) &= -\frac{\partial}{\partial c} \left( c ||q_x||^2 \right)
+\end{align*}
+
+Thus we can state the following proposition.
+
+\begin{proposition}\label{stabcrit}
+Let $c \in [\sqrt{0.5}, \sqrt{1.9}]$, and let $q(x; c)$ be the symmetric homoclinic orbit (single pulse) solution to \eqref{eqODE} associated with this speed $c$. Then $q(x)$ is stable if and only if $d''(c) > 0$, where
+
+\begin{equation}\label{dcc}
+d''(c) = -\frac{\partial}{\partial c} \left( c ||q_x||^2 \right)
+\end{equation}
+\end{proposition}
+
+In our case, numerics suggest that $d''(c) > 0$, so $q(x)$ is stable. Thus we make the following hypothesis.
+
+\begin{hypothesis}\label{hypdccpos}
+$d''(c) > 0$ for $c \in [\sqrt{0.5}, \sqrt{1.9}]$.
+\end{hypothesis}
+
 
 \subsection{Numerics, Construction of Solutions}
 
-The big issue here is that stationary solutions to \eqref{eqODE} are hard to come by. Nonetheless, we have figured out a way to compute these numerically, although it is a bit dicey. Our method is a variant of the mountain pass and string methods, and essentially combines Chen97 and Chamard10.
+Stationary solutions to \eqref{eqODE} are hard to come by. Nonetheless, we have figured out a way to compute these numerically, although it is a bit dicey. Our method is a variant of the mountain pass and string methods, and essentially combines Chen97 and Chamard10.
 
 \begin{enumerate}
 	\item The energy functional $I \in C^1(H^2, \R)$ is given by
@@ -844,10 +936,10 @@ Before we continue, we will characterize the Krein matrix for the 1-pulse, since
 For the linearization about the 1-pulse, the Krein matrix is the scalar
 
 \begin{equation}
-K(z) = -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \overline{z}^2 + \mathcal{O}(z^3)
+K(z) = d''(c) \overline{z}^2 + \mathcal{O}(z^3)
 \end{equation}
 
-The leading order term is the stability criterion in Theorem 3 of Grillakis et al (1987).
+where $d''(c)$ is the stability criterion from Grill87. The form of $d''(c)$ for this problem is given in \eqref{dcc}.
 
 \begin{proof}
 
@@ -882,28 +974,12 @@ Integration by parts gives us
 Thus the Krein matrix becomes 
 
 \begin{align*}
-K(z) = -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \overline{z}^2 + \mathcal{O}(z^3)
+K(z) &= -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \overline{z}^2 + \mathcal{O}(z^3) \\
+&= d''(c) \overline{z}^2 + \mathcal{O}(z^3)
 \end{align*}
 
-The leading order term of $K(z)$ is the stability criterion $d''(c)$ from Theorem 3 of Grillakis et al (1987). Using $c$ to represent the wave speed instead of $\omega$ and $q$ to represent the single pulse traveling wave with that speed, this is given on the bottom of p. 187 as
-
-\begin{equation}
-d'(c) = -c \int |q_x|^2 dx = -c ||q_x||_{L^2(\R)}
-\end{equation}
-
-The stability criterion from Theorem 3 is $d''(c) > 0$. 
 \end{proof}
 \end{lemma}
-
-Given the result of this lemma and the stability criterion from Grillakis et al (1987), we make the following hypothesis, which tells us that the single pulse solution $q(x)$ is stable.
-
-\begin{hypothesis}
-\begin{equation}\label{hypnonzero}
-\frac{\partial}{\partial c} \left( c||q_x||^2 \right) < 0
-\end{equation}
-\end{hypothesis}
-
-Numerics suggests that $\frac{\partial}{\partial c} \left( c||q_x||^2 \right) < 0$, so this hypothesis is reasonable. \\
 
 We will need the following result for exponentially localized functions, which we prove in the following lemma.
 
@@ -1476,7 +1552,7 @@ For the linearization of the suspension bridge equation about a multipulse equil
 
 \begin{equation}\label{Kreinapprox}
 K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n)
- - \overline{z}^2 \frac{\partial}{\partial c} \left( c||q_x||^2 \right) I + \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)
+ + d''(c) I \overline{z}^2 + \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)
 \end{equation}
 
 \begin{proof}
@@ -1493,11 +1569,12 @@ K_S(z) &= ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} \mathcal{O} 
 From Lemma \ref{Krein1pulse}, we have
 
 \begin{align*}
-||q_x||^2 - 2c \langle q_{xx}, q_c \rangle 
-&= \frac{\partial}{\partial c} \left( c||q_x||^2 \right)
+-\left(||q_x||^2 - 2c \langle q_{xx}, q_c \rangle\right) 
+&= -\frac{\partial}{\partial c} \left( c||q_x||^2 \right) \\
+&= d''(c)
 \end{align*}
 
-Combining these gives us \eqref{Kreinapprox}. 
+where $d''(c)$ is defined in \eqref{dcc}. Combining these gives us \eqref{Kreinapprox}. 
 
 \end{proof}
 \end{theorem}
