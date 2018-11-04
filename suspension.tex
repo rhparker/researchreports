@@ -217,8 +217,8 @@ Mathematica will actually do it (!), but it is an epic mess. So we will look at 
 \begin{figure}[H]
 \centering
 \includegraphics[width=10cm]{minlambdaplus.eps}
-\label{fig:essspec1}
-\caption{Imaginary part of the purely imaginary essential spectrum for $c = 1$.}
+\label{fig:essspec2}
+\caption{Minimum distance from essential spectrum to origin as a function of $c$.}
 \end{figure}
 
 Note that this minimum decreases strictly as $c$ increases, so the essential spectrum gap narrows (to 0) as $c$ increases from 0 to $\sqrt{2}$.\\
@@ -550,7 +550,7 @@ Then $\tilde{N}$ is a closed subspace. For any $\textbf{u} = \begin{pmatrix}u & 
 \langle H_c \textbf{u}, \textbf{u} \rangle 
 &= \langle A_0(q) u, u \rangle + || -c \partial_x u||^2 \\
 &\geq \delta ||u||^2\\
-&\delta ||\textbf{u}||^2
+&= \delta ||\textbf{u}||^2
 \end{align*}
 
 This verifies part (ii) of Assumption 3B. Part (iii) holds since $v_-$ and $q_x$ are linearly independent. Having verified Assumptions 1, 2, and 3B, we can invoke Theorem 3 of Grill87 to conclude that $q(x)$ is stable if and only if $d''(c) > 0$. Differentiating \eqref{defd}, we have
@@ -649,7 +649,13 @@ From Lin's method (San98), the eigenfunctions $s_i$ are, to leading order, linea
 s_j = \sum_{i = 1}^{n} d_{ji} q^i_x + w_j
 \end{align}
 
-for constants $d_{ji} \in \C$, where the $q^i$ are defined above. Let $D$ be the matrix defined by $(D)_{ji} = d_{ji}$. (Note that this is not the same matrix $D$ as in San98.) For the remainder terms, we have from Lin's method the uniform bound
+for constants $d_{ji} \in \C$, where the $q^i$ are defined above. Let $D$ be the matrix defined by 
+
+\begin{equation}\label{matrixD}
+(D)_{ji} = d_{ji}
+\end{equation}
+
+(Note that this is not the same matrix $D$ as in San98). For the remainder terms, we have from Lin's method the uniform bound
 
 \begin{equation}\label{sjwbound}
 ||w_j|| \leq C e^{-2 \alpha X_m}
@@ -782,46 +788,25 @@ The next two plots show that the Krein collision occurs between $c = 1.322$ (bef
 
 \subsubsection{Background and Numerics}
 
-We are finally ready to look at the Krein matrix.
+We are finally ready to use the Krein matrix to compute the small eigenvalues of the quadratic eigenvalue problem \eqref{quadeig}.\\
 
-Before we do that, we can look at the Krein matrix as means of computing eigenvalues in the case where they are (predicted to be) purely imaginary. The hope is that we can get theoretical results for the 2-pulse and nice numerics for the n-pulse.
-\\
+Since $A_0(u_*)$ and $A_2$ are Hermitian and $A_1$ is skew-Hermitian, if we take $\lambda = i z$, where $z \in \R$, the quadratic operator $P_2(iz)$ is Hermitian.\\
 
-This is an application Todd Kapitula's unpublished paper Krein Matrix for Star-Even Operator Polynomials (2018). Here we look at the polynomial eigenvalue problem for the suspension bridge problem linearized about stationary solution $q$. This second degree eigenvalue problem is given by
-
-\begin{equation}
-p(\lambda)v = (A_0 + A_1 \lambda + A_2 \lambda^2 )v = 0
-\end{equation}
-
-where
-
-\begin{align*}
-A_0 &= \partial_x^4 + c^2 \partial_x^2 + e^{q} \\
-A_1 &= - 2 c \partial_x \\
-A_2 &= I 
-\end{align*}
-
-Note that $A_0$ and $A_2$ are Hermitian, and $A_1$ is skew-Hermitian.\\
-
-The Krein matrix should work perfectly in this case, since we don't have to deal with invertibility of operators and since the essential spectrum is purely imaginary and bounded away from the origin.\\
-
-We know from the discussion in the previous section what the spectrum/eigenvalues of $A_0$ looks like. Since $A_0$ is Hermitian, the spectrum of $A_0$ is real. We also note that if we take $\lambda = i z$, the quadratic operator $p(iz)$ is Hermitian.
-\\
-
-
-Let
+Let $q_n$ be an $n-$pulse solution to \eqref{eqODE}, and let $S$ be the subspace spanned by the eigenfunctions of $A_0(q_n)$ corresponding to the $n$ eigenvalues near 0.
 
 \begin{equation}\label{defS}
 S = \spn\{s_1, \dots, s_n \}
 \end{equation}
 
-where $s_i$ are the eigenfunctions of $A_0$ corresponding to the small eigenvalues $\{\nu_1, \dots, \nu_n$. (We found these in the previous section using Lin's method). WLOG, we take $\nu_1 = 0$ and $s_1 = q'$, since we know the kernel of $A_0$ is 1-dimensional, and we know what the kernel eigenfunction is. We also note that since $A_0$ is self-adjoint and the eigenvalues $\nu_i$ are distinct, the corresponding eigenfunctions $s_i$ are orthogonal. Since we can scale the eigenfunctions any way we like, in order to make some later expressions look ``nicer'', we will take
+We found these eigenfunctions and eigenvalues in a previous section using Lin's method. Recall that $\nu_1 = 0$, the eigenfunctions are orthogonal, and that we have scaled the eigenfunctions so that 
 
-\begin{equation}\label{orthonormaleigs}
+\begin{equation}
 \langle s_i, s_j \rangle = ||q_x||^2 \delta_{ij}
 \end{equation}
 
-With this setup, we can easily compute the Krein matrix using the top of p.4 in Kap2018. As long as as choose $c$ such that the Krein collision has not yet occurred, we get very accurate numerical results from this method, or at least they compare extremely well to the quadratic eigenvalue solver we are using. 
+where $q$ is the primary pulse.\\
+
+First, we compute the Krein matrix numerically using the top of p.4 in Kap2018. As long as as choose $c$ small enough so that the Krein collision has not yet occurred, we get very accurate numerical results from this method (or at least they compare extremely well to the quadratic eigenvalue solver). 
 
 \begin{table}[H]
 \begin{tabular}{lll}
@@ -833,13 +818,11 @@ Double Pulse 2    & $\pm 0.0176i$ & 0.0176 \\
 \caption{Eigenvalues from quadratic eigenvalue problem, computed with \texttt{quadeig} and from the Krein matrix. $c = 1.2$, finite difference method, $N = 512$. }
 \end{table}
 
-So, basically, the Krein matrix nails it every time.\\
+\subsubsection{Approximation for Small Eigenvalues}
 
-\subsubsection{Approxmation for Small Eigenvalues}
+To get analytical results, we use the approximation in Section 5 of Kap2018, since are are looking for eigenvalues near the origin. Recall that we take $\lambda = i z$, so the Krein matrix is a function of $z$. The operator $P_2(iz)$ is Hermitian, which implies that the Krein matrix is also Hermitian (p. 6 of Kap2018). In the case where we are looking for purely imaginary eigenvalues we have $z \in \R$.\\
 
-Now that we know we can use the Krein matrix, we should be able to use the approximation in Section 5 of Kap2018 since these eigenvalues are small.\\
-
-Since we are looking for purely imaginary eigenvalues, we take $\lambda = i z$. Then the operator $p(iz)$ is Hermitian, which implies that the Krein matrix is also Hermitian (p. 6 of Kap2018). Following Lemma 5.6 in Kap2018, for small $|z|$ the Krein matrix is the $n \times n$ matrix
+Following Lemma 5.6 in Kap2018, for small $|z|$ the Krein matrix is the $n \times n$ matrix
 
 \begin{equation}
 K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} K_1 - \overline{z}^2 \tilde{K}_2 + \mathcal{O}(|z|^3)
@@ -854,10 +837,10 @@ where
 and
 
 \begin{equation}
-(\tilde{K}_2)_{jk} = \langle s_j, (A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 ) s_k  \rangle
+(\tilde{K}_2)_{jk} = \langle s_j, (A_2 - A_1 P_{S^\perp} (P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} A_1 ) s_k  \rangle
 \end{equation}
 
-Compared to Lemma 5.6, note that we have omitted the $z$ out front, i.e. we use the form of the Krein matrix from p.4 rather than the form in Theorem 3.1. Since we also scaled the eigenfunctions differently, we have an additional factor of $||q_x||^2$ in the first term. The key observation is that this is, to leading order, a matrix-valued quadratic polynomial in $z$.\\
+Compared to Lemma 5.6, note that we have omitted the $-z$ out front, i.e. we use the form of the Krein matrix from p.4 rather than the form in Theorem 3.1. Since we also scaled the eigenfunctions differently, we have an additional factor of $||q_x||^2$ in the first term. The key observation is that this is, to leading order, a matrix-valued quadratic polynomial in $z$ (and its complex conjugate). In the case where we take $z$ to be real, this is a polynomial in $z$ only.\\
 
 Since the operator $A_1$ is skew-Hermitian, $i A_1$ is Hermitian, thus for $K_1$ we have
 
@@ -867,37 +850,32 @@ Since the operator $A_1$ is skew-Hermitian, $i A_1$ is Hermitian, thus for $K_1$
 &= \overline{ (K_1)_{kj} }
 \end{align*}
 
-As expected, $K_1$ is a Hermitian matrix. In particular, this implies that the diagonal entries are real. Since $A_0$ and the eigenfunctions $s_i$ are real, $(K_1)_{ii} = \langle s_i, i A_1 s_i \rangle = \langle s_i, i A_1 s_i \rangle$ is purely imaginary, thus must be 0. We conclude that diagonal terms of $K_1$ are 0.\\
+As expected, $K_1$ is a Hermitian matrix. In particular, this implies that the diagonal entries are real. Since $A_0(q_n)$ and the eigenfunctions $s_i$ are real, $(K_1)_{ii} = \langle s_i, i A_1 s_i \rangle = \langle s_i, i A_1 s_i \rangle$ is purely imaginary, thus must be 0. We conclude that diagonal terms of $K_1$ are 0.\\
 
 For the matrix $\tilde{K}_2$, we have 
 
 \begin{align*}
-(\tilde{K}_2)_{jk} &= \langle s_j, s_k \rangle - \langle s_j, A_1 P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k  \rangle \\
-&= \langle s_j, s_k \rangle + \langle P_{S^\perp} A_1 s_j, (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k  \rangle
+(\tilde{K}_2)_{jk} &= \langle s_j, s_k \rangle - \langle s_j, A_1 P_{S^\perp} (P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k  \rangle \\
+&= \langle s_j, s_k \rangle + \langle P_{S^\perp} A_1 s_j, (P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k  \rangle
 \end{align*}
 
 since $A_2 = I$. Since the eigenfunctions are orthogonal, by our chosen scaling we have, $\langle s_j, s_k \rangle = ||q_x||^2 \delta_{jk}$. Thus, $\tilde{K} = ||q_x||^2 I + K_2$, where
 
 \begin{align*}
 (K_2)_{jk} &= 
-\langle P_{S^\perp} A_1 s_j, (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k \rangle
+\langle P_{S^\perp} A_1 s_j, (P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k \rangle
 \end{align*}
 
-Since $A_0$ and its spectral projections are self-adjoint, and $A_0$ and the eigenfunctions are real, $K_2$ is a real, symmetric matrix. Thus the Krein matrix takes the form
+Since $A_0(q_n)$ and its spectral projections are self-adjoint, and $A_0(q_n)$ and the eigenfunctions are real, $K_2$ is a real, symmetric matrix. Thus the Krein matrix takes the form
 
 \begin{equation}\label{Kreinform}
 K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} K_1 
 - \overline{z}^2 ( ||q_x||^2 I + K_2) + \mathcal{O}(|z|^3)
 \end{equation}
 
-where $K_1$ and $K_2$ are defined above. For convenience, we let
+where $K_1$ and $K_2$ are defined above.\\
 
-\begin{align*}
-a_{ij} &= (K_1)_{ij} \\
-b_{ij} &= (K_2)_{ij}
-\end{align*}
-
-Before we continue, we will characterize the Krein matrix for the 1-pulse, since in that case will it will be a scalar.
+Next, we characterize the Krein matrix for the 1-pulse, since in that case will it will be a scalar.
 
 % Lemma : Krein matrix, 1-pulse
 
@@ -912,17 +890,17 @@ where $d''(c)$ is the stability criterion from Grill87. The form of $d''(c)$ for
 
 \begin{proof}
 
-For the 1-pulse, there is exactly one eigenvalue at 0, for which the corresponding eigenfunction is $q_x$, i.e. $\nu_1 = 0$ and $s_1 = q_x$ (there is no scaling needed here). Let $S = \ker A_0$ = $\spn \{q_x\}$. In this case, the Krein matrix will be 1x1, i.e. a scalar. Since $K_1$ is 0 on the diagonal $K_1 = 0$. Thus we are left with
+For the 1-pulse, there is exactly one eigenvalue at 0, for which the corresponding eigenfunction is $q_x$, i.e. $\nu_1 = 0$ and $s_1 = q_x$ (there is no scaling needed here). Let $S = \ker A_0(q)$ = $\spn \{q_x\}$. In this case, the Krein matrix will be 1x1, i.e. a scalar. Since $K_1$ is 0 on the diagonal, $K_1 = 0$. Thus we are left with
 
 \begin{align*}
-K(z) &= -\overline{z}^2 \left( ||q_x||^2 + \langle P_{S^\perp} A_1 q_x, (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
-&= -\overline{z}^2 \left( ||q_x||^2 + 4 c^2 \langle P_{S^\perp} q_{xx}, (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx} \rangle \right) + \mathcal{O}(z^3)
+K(z) &= -\overline{z}^2 \left( ||q_x||^2 + \langle P_{S^\perp} A_1 q_x, (P_{S^\perp} A_0(q) P_{S^\perp})^{-1} P_{S^\perp} A_1 q_x \rangle \right) + \mathcal{O}(z^3) \\
+&= -\overline{z}^2 \left( ||q_x||^2 + 4 c^2 \langle P_{S^\perp} q_{xx}, (P_{S^\perp} A_0(q) P_{S^\perp})^{-1} P_{S^\perp} q_{xx} \rangle \right) + \mathcal{O}(z^3)
 \end{align*}
 
-All that remains is to evaluate $P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q_{xx}$. Since $S$ is the span of a single odd function, and $q_{xx}$ is an even function, $P_{S^\perp} q_{xx} = q_{xx}$. Thus we only need to evaluate $(P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Let $y = (P_{S^\perp} A_0 P_{S^\perp})^{-1} q_{xx}$. Then $(P_{S^\perp} A_0 P_{S^\perp})y = q_{xx}$. From \eqref{uc}, we have
+All that remains is to evaluate $P_{S^\perp} (P_{S^\perp} A_0(q) P_{S^\perp})^{-1} P_{S^\perp} q_{xx}$. Since $S$ is the span of a single odd function, and $q_{xx}$ is an even function, $P_{S^\perp} q_{xx} = q_{xx}$. Thus we only need to evaluate $(P_{S^\perp} A_0(q) P_{S^\perp})^{-1} q_{xx}$. Let $y = (P_{S^\perp} A_0(q) P_{S^\perp})^{-1} q_{xx}$. Then $(P_{S^\perp} A_0(q) P_{S^\perp})y = q_{xx}$. From \eqref{uc}, we have
 
 \begin{equation*}\label{uc}
-A_0 \left( -\frac{1}{2c} q_c \right) = q_{xx}
+A_0(q) \left( -\frac{1}{2c} q_c \right) = q_{xx}
 \end{equation*}
 
 Thus $s = -(1/2c) q_c + k q_x$ for some scalar $k$. Substituting this into the equation for $K(z)$, and noting that the $k q_x$ term is wiped out by the projection $P_{S^\perp}$, we have
@@ -1022,7 +1000,7 @@ For the second integral, we have
 &= C X e^{-2 \alpha X}
 \end{align*}
 
-The other two integrals are similar. Combining these gives us the bound (ii). For the bound (iii), choose any $\epsilon$ with $0 < \epsilon < \alpha$. Then for the second integral in \eqref{splitL2}, we also have
+The other two integrals are similar. Combining these gives us the bound (ii). For the bound (iii), choose any $\epsilon$ with $0 < \epsilon < \alpha$. Then for the second integral in \eqref{splitL2}, we also have the bound
 
 \begin{align*}
 \int_{-X}^0 |q_-(x) q_+(x)| dx &\leq C \int_{-X}^0 e^{-\alpha(x + X)} e^{\alpha(x - X)} dx \\
@@ -1041,41 +1019,7 @@ where we used the fact that $0 < e^{\epsilon x} \leq 1$ since $x \leq 0$. Althou
 \end{proof}
 \end{lemma}
 
-From Lin's method (San98), the $n-$pulse $q_n$ resembles, to leading order, $n$ copies of the primary pulse $q$. The $n$ peaks are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can write $q_n$ as 
-
-\begin{align}\label{qn}
-q_n = \sum_{i = 1}^{n} q^i + r
-\end{align}
-
-where each $q^i$ is a translate of the primary pulse $q$ by some distance $L_i$, i.e. 
-
-\begin{equation}\label{qi}
-q^i = q(\cdot - L_i)
-\end{equation}
-
-For $i, j = 1, \dots, n$, let $\rho_{ji}$ be the signed distance between peak $i$ and peak $j$, i.e. 
-
-\begin{equation}\label{rhoji}
-\rho_{ji} = L_j - L_i
-\end{equation}
-
-We note that for all $i, j$, $|\rho_{ji}| \geq 2 X_m$. We also get from Lin's method a uniform bound on the remainder term, i.e. $||r|| \leq C e^{-\alpha X_m}$, which also holds for derivatives with respect to $x$ (see, for example, Theorem 1 in San98). From the Lin's method construction of $q_n$, the translates $q^i$ and all their derivatives are exponentially separated, thus Lemma \ref{exploc} applies with $X = X_m$ for $q^i, q^j$ and any of their derivatives with $i \neq j$.\\
-
-Similarly, using Lin's method, we can write the eigenfunctions of $A_0$ in terms of translates of the derivative of the primary pulse. Each eigenfunction is, to leading order, a linear combination of these translates, i.e. for $j = 1, \dots, n$
-
-\begin{align}\label{sj}
-s_j = \sum_{i = 1}^{n} d_{ji} q^i_x + w_j
-\end{align}
-
-for constants $d_{ji} \in \C$. Let $D$ be the matrix defined by $(D)_{ji} = d_{ji}$. Note that this is not the same matrix $D$ as in San98. For the remainder terms we have from Lin's method (see, for example, San98)
-
-\begin{equation}\label{sjwbound}
-||w_j|| \leq C e^{-2 \alpha X_m}
-\end{equation}
-
-which also holds for derivatives with respect to $x$. \\
-
-In the following lemmas, we will characterize the matrices $K_1$ and $K_1$, with the goal of showing that the Krein matrix is diagonal to leading order. First we will show that the entries of the matrix $K_1$ are exponentially small.\\
+In the next series of lemmas, we look at the individual components of the Krein matrix. First, we show that the matrix $K_1$ is exponentially small.
 
 % lemma : K1 is exponentially small
 
@@ -1120,19 +1064,19 @@ using the remainder bound \eqref{sjwbound} and the fact that the eigenfunctions 
 \end{proof}
 \end{lemma}
 
-Next, we show that the rows of the matrix $D$ defined above are orthonormal to leading order.
+Next, we show that the rows of the matrix $D$ defined in \eqref{matrixD} are orthonormal to leading order.
 
 % lemma : orthogonal D
 
 \begin{lemma}\label{orthogonalD}
-Let $D$ be the matrix defined above representing the coefficients of the translates of the derivative of the primary pulse. Then the rows of $D$ are orthonormal to leading order, i.e. 
+Let $D$ be the matrix defined in \eqref{matrixD} representing the coefficients of the translates of the derivative of the primary pulse. Then the rows of $D$ are orthonormal to leading order, i.e. 
 
 \begin{equation}
 \sum_{i = 1}^{n} d_{ji} d_{ki} = \delta_{ij} + \mathcal{O}(e^{-(3 \alpha/2) X_m})
 \end{equation}
 
 \begin{proof}
-Since the eigenvalues $\nu_i$ are distinct, the eigenfunctions $s_i$ are orthogonal, and we have scaled them so that $||s_i|| = ||q_x||$. Thus, using the expression \eqref{sj} for the eigenfunctions, we have, similar to Lemma \ref{K1small}
+Since the eigenvalues $\nu_i$ are distinct, the eigenfunctions $s_i$ are orthogonal. Recall that we have scaled them so that $||s_i|| = ||q_x||$. Thus, using the expression \eqref{sj} for the eigenfunctions, we have, similar to Lemma \ref{K1small}
 
 \begin{align*}
 ||q_x||^2 \delta_{jk} &= \langle s_j, s_k \rangle \\
@@ -1162,71 +1106,71 @@ dividing by $||q_x||^2$ gives us
 \end{proof}
 \end{lemma}
 
-Before we can analyze matrix $K_2$, we need to deal with the term involving $(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k$ in $K_2$. We do that in a series of lemmas. First, we show that $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is a bounded linear operator on $S^\perp$.
+Before we can look at matrix $K_2$, we need to look at the term involving $(P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k$ which is found in $K_2$. We do that in a series of lemmas. First, we show that $(P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1}$ is a bounded linear operator on $S^\perp$.
 
 % lemma : PA_0 is invertible on Sperp
 
 \begin{lemma}\label{PA0inv}
-When restricted to $S^\perp$, $P_{S^\perp} A_0 |_{S^\perp}$ is an invertible linear operator, and its inverse $(P_{S^\perp} A_0 |_{S^\perp})^{-1}$ is a bounded linear operator. If $z \in S^\perp$ is smooth, then $y = (P_{S^\perp} A_0 |_{S^\perp})^{-1} z$ is smooth as well.
+When restricted to $S^\perp$, $P_{S^\perp} A_0(q_n) |_{S^\perp}$ is an invertible linear operator, and its inverse $(P_{S^\perp} A_0(q_n)  |_{S^\perp})^{-1}$ is a bounded linear operator. If $z \in S^\perp$ is smooth, then $y = (P_{S^\perp} A_0(q_n)  |_{S^\perp})^{-1} z$ is smooth as well.
 
 \begin{proof}
-Consider the operator $P_{S^\perp} A_0$. Since $A_0$ is self-adjoint and the projection $P_{S^\perp}$ is self-adjoint, $P_{S^\perp} A_0$ is also self-adjoint, since
+Consider the operator $P_{S^\perp} A_0(q_n) $. Since $A_0(q_n) $ is self-adjoint and the projection $P_{S^\perp}$ is self-adjoint, $P_{S^\perp} A_0(q_n) $ is also self-adjoint, since
 
 \[
-(P_{S^\perp} A_0)^* = A_0^* P_{S^\perp}^* = A_0 P_{S^\perp} = P_{S^\perp} A_0
+(P_{S^\perp} A_0(q_n) )^* = A_0(q_n) ^* P_{S^\perp}^* = A_0(q_n)  P_{S^\perp} = P_{S^\perp} A_0(q_n) 
 \]
 
-where the last equality holds since operators commute with their own spectral projections. We showed above that the essential spectrum of $A_0$ is $\sigma_{\text{ess}} = [1, \infty)$. Thus for any $\lambda \notin [1, \infty)$, the operator $A_0 - \lambda I$ is Fredholm with index 0. In particular, $A_0$ and $(A_0 - \nu_i I)$ are Fredholm with index 0. Since $A_0$ is Fredholm, its range is closed. Thus by the closed range theorem (see Yosida, etc), 
+where the last equality holds since operators commute with their own spectral projections. We showed above that the essential spectrum of $A_0(q_n) $ is $\sigma_{\text{ess}} = [1, \infty)$. Thus for any $\lambda \notin [1, \infty)$, the operator $A_0(q_n)  - \lambda I$ is Fredholm with index 0. In particular, $A_0(q_n) $ and $(A_0(q_n)  - \nu_i I)$ are Fredholm with index 0. Since $A_0(q_n) $ is Fredholm, its range is closed. Thus by the closed range theorem (see Yosida, etc), 
 
 \begin{equation}
-\ran A_0 = (\ker A_0^*)^\perp = (\ker A_0)^\perp
+\ran A_0(q_n)  = (\ker A_0(q_n)^*)^\perp = (\ker A_0(q_n))^\perp
 \end{equation}
 
-where the last equality holds since $A_0$ is self-adjoint. Similarly, since $\nu \in \R$ and $\nu < 1$, we have
+where the last equality holds since $A_0(q_n)$ is self-adjoint. Similarly, since $\nu \in \R$ and $\nu < 1$, we have
 
 \begin{equation}\label{KerRangeNu}
-\ran (A_0 - \nu_i I) = (\ker (A_0 - \nu_i I))^\perp 
+\ran (A_0(q_n) - \nu_i I) = (\ker (A_0(q_n) - \nu_i I))^\perp 
 \end{equation}
 
-Next, we look at the kernel of $P_{S^\perp} A_0 = A_0 P_{S^\perp}$. This clearly contains $S$ (the kernel of $P_{S^\perp}$), but we need to ensure that it contains nothing else. It contains the kernel of $A_0$, but $\ker A_0 = \spn\{ q_n' \}$, and $q_n' \in S$, so we have already taken care of that. Finally, it contains any function $y$ for which $(A_0 - \nu_i I) y = s_i$, since that will be wiped out by the projection $P_{S^\perp}$. But we cannot have a function $y$ with $(A_0 - \nu_i I) y = s_i$, since by \eqref{KerRangeNu}, we would have $s_i \perp \ker (A_0 - \nu_i I)$, which contains $s_i$. Thus we conclude that
+Next, we look at the kernel of $P_{S^\perp} A_0(q_n) = A_0(q_n) P_{S^\perp}$. This clearly contains $S$ (the kernel of $P_{S^\perp}$), but we need to ensure that it contains nothing else. It contains the kernel of $A_0(q_n)$, but $\ker A_0(q_n) = \spn\{ q_n' \}$, and $q_n' \in S$, so we have already taken care of that. Finally, it contains any function $y$ for which $(A_0(q_n) - \nu_i I) y = s_i$, since that will be wiped out by the projection $P_{S^\perp}$. But we cannot have a function $y$ with $(A_0(q_n) - \nu_i I) y = s_i$, since by \eqref{KerRangeNu}, we would have $s_i \perp \ker (A_0(q_n) - \nu_i I)$, which contains $s_i$. Thus we conclude that
 
 \[
-\ker P_{S^\perp} A_0 = S 
+\ker P_{S^\perp} A_0(q_n) = S 
 \]
 
-Since the range of $A_0$ is closed and $P_{S^\perp}$ is bounded, the range of $P_{S^\perp} A_0$ is closed. Thus by the closed range theorem and the fact that $P_{S^\perp} A_0$ is self-adjoint,
+Since the range of $A_0(q_n)$ is closed and $P_{S^\perp}$ is bounded, the range of $P_{S^\perp} A_0(q_n)$ is closed. Thus by the closed range theorem and the fact that $P_{S^\perp} A_0(q_n)$ is self-adjoint,
 
 \[
-\ran P_{S^\perp} A_0 = (\ker (P_{S^\perp} A_0)^*)^\perp = (\ker (P_{S^\perp} A_0))^\perp = S^\perp
+\ran P_{S^\perp} A_0(q_n) = (\ker (P_{S^\perp} A_0(q_n))^*)^\perp = (\ker (P_{S^\perp} A_0(q_n)))^\perp = S^\perp
 \]
 
-Since $\dim \ker P_{S^\perp} A_0 = \text{codim } P_{S^\perp} A_0 = 2$, $P_{S^\perp} A_0$ is a Fredholm operator with index 0.\\
+Since $\dim \ker P_{S^\perp} A_0(q_n) = \text{codim } P_{S^\perp} A_0(q_n) = 2$, $P_{S^\perp} A_0(q_n)$ is a Fredholm operator with index 0.\\
 
-If we restrict the operator $P_{S^\perp} A_0$ to $S^\perp$ (which is well-defined since its range is $S^\perp$), we get rid of the 2-dimensional kernel, thus obtain an invertible operator. Thus for $z \in S^\perp$ we can solve the equation
+If we restrict the operator $P_{S^\perp} A_0(q_n)$ to $S^\perp$ (which is well-defined since its range is $S^\perp$), we get rid of the 2-dimensional kernel, thus obtain an invertible operator. Thus for $z \in S^\perp$ we can solve the equation
 
 \[
-(P_{S^\perp} A_0) y = z
+(P_{S^\perp} A_0(q_n)) y = z
 \]
 
 uniquely for $y \in S^\perp$, i.e. we have for $z \in S^\perp$,
 
 \begin{equation}
-y = (P_{S^\perp} A_0 |_{S^\perp})^{-1} z
+y = (P_{S^\perp} A_0(q_n) |_{S^\perp})^{-1} z
 \end{equation}
 
-Note that in Kap2018, this operator is written $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$. Since the spectrum of $P_{S^\perp} A_0 |_{S^\perp}$ is bounded away from 0 (by what we discussed above about the spectrum of $A_0$), the spectrum of $(P_{S^\perp} A_0 |_{S^\perp})^{-1}$ is bounded by a constant, i.e. 
+Note that in Kap2018, this operator is written $(P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1}$. Since the spectrum of $P_{S^\perp} A_0(q_n) |_{S^\perp}$ is bounded away from 0 (by what we discussed above about the spectrum of $A_0(q_n)$), the spectrum of $(P_{S^\perp} A_0(q_n) |_{S^\perp})^{-1}$ is bounded by a constant, i.e. 
 
 \[
-\text{spec } P_{S^\perp} A_0 |_{S^\perp}  \subset [-\rho, \rho]
+\text{spec } P_{S^\perp} A_0(q_n) |_{S^\perp}  \subset [-\rho, \rho]
 \]
 
-for some $\rho > 0$. Since $P_{S^\perp} A_0$ is self-adjoint, we can use the resolvent bound for normal operators to conclude that $(P_{S^\perp} A_0 |_{S^\perp})^{-1}$ is a bounded linear operator with operator norm
+for some $\rho > 0$. Since $P_{S^\perp} A_0(q_n)$ is self-adjoint, we can use the resolvent bound for normal operators to conclude that $(P_{S^\perp} A_0(q_n) |_{S^\perp})^{-1}$ is a bounded linear operator with operator norm
 
 \[
-|| (P_{S^\perp} A_0|_{S^\perp})^{-1} || \leq \frac{1}{\rho}
+|| (P_{S^\perp} A_0(q_n)|_{S^\perp})^{-1} || \leq \frac{1}{\rho}
 \]
 
-Since $A_0: H^4 \in L^2 \rightarrow L^2$, if $z$ is smooth then $y (P_{S^\perp} A_0 |_{S^\perp})^{-1} z$ must be smooth as well.
+Since $A_0(q_n): H^4 \in L^2 \rightarrow L^2$, if $z$ is smooth then $y (P_{S^\perp} A_0(q_n) |_{S^\perp})^{-1} z$ must be smooth as well.
 
 \end{proof}
 \end{lemma}
@@ -1234,11 +1178,11 @@ Since $A_0: H^4 \in L^2 \rightarrow L^2$, if $z$ is smooth then $y (P_{S^\perp} 
 Next, using the definition for $A_1$ and the expression \eqref{sj} for $s_k$, we need to evaluate
 
 \begin{align*}
-(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k 
-&= -2c \sum_{i = 1}^{n} d_{ji} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^i_{xx} + (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} (w_j)_x 
+(P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} A_1 s_k 
+&= -2c \sum_{i = 1}^{n} d_{ji} (P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} q^i_{xx} + (P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} (w_j)_x 
 \end{align*}
 
-Since $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is a bounded linear operator and the remainder term $(w_j)_x = \mathcal{O}(e^{-\alpha X_m})$, the last term on the RHS is also $\mathcal{O}(e^{-\alpha X_m})$. Thus all we need to do is evaluate $(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} q^i_{xx}$. We will do this using Lin's method. Before we can do that, we prove a useful lemma and corollary which gives a leading order expansion for $e^{q_n(x)}$.
+Since $(P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1}$ is a bounded linear operator and the remainder term $(w_j)_x = \mathcal{O}(e^{-\alpha X_m})$, the last term on the RHS is also $\mathcal{O}(e^{-\alpha X_m})$. Thus all we need to do is evaluate $(P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} q^i_{xx}$. We will do this using Lin's method. Before we can do that, we prove a useful lemma and corollary which gives a leading order expansion for $e^{q_n(x)}$.
 
 % lemma : exponential separation 
 
@@ -1310,15 +1254,15 @@ Repeat this $n - 2$ more times to get the result.
 \end{proof}
 \end{lemma}
 
-With this taken care of, we will use Lin's method to solve $(P_{S^\perp} A_0 |_{S^\perp})^{-1} P_{S^\perp} q^i_{xx}$.
+With this taken care of, we will use Lin's method to solve $(P_{S^\perp} A_0(q_n) |_{S^\perp})^{-1} P_{S^\perp} q^i_{xx}$.
 
-% lemma
+% lemma : solve with Lin's method
 
 \begin{lemma}\label{Linsolve}
 For all $i = 1, \dots, n$,
  
 \begin{equation}
-(P_{S^\perp} A_0|_{S^\perp})^{-1} P_{S^\perp} q^i_{xx} = -\frac{1}{2c}P_{S^\perp} q^i_c
+(P_{S^\perp} A_0(q_n)|_{S^\perp})^{-1} P_{S^\perp} q^i_{xx} = -\frac{1}{2c}P_{S^\perp} q^i_c
 + \tilde{w}_i
 \end{equation}
 
@@ -1329,17 +1273,17 @@ where $\tilde{w}_i$ is smooth and
 \end{equation}
 
 \begin{proof}
-For convenience, let $k = -1/2c$, so that $A_0 k q_c$ = $q_{xx}$. Since everything involved is translation invariant, we also have $A_0 k q^i_c$ = $q^i_{xx}$. Applying the projection $P_{S^\perp}$ on both sides and using the fact that $A_0$ commutes with its own spectral projections, we have
+For convenience, let $k = -1/2c$, so that $A_0(q) k q_c$ = $q_{xx}$. Since everything involved is translation invariant, we also have $A_0(q^i) k q^i_c$ = $q^i_{xx}$. Applying the projection $P_{S^\perp}$ on both sides and using the fact that $A_0(q_n)$ commutes with its own spectral projections, we have
 
 \begin{align*}
-P_{S^\perp} A_0 k q^i_c &= P_{S^\perp} q^-_{xx} \\
-A_0 (P_{S^\perp} k q^i_c) &= P_{S^\perp} q^i_{xx}
+P_{S^\perp} A_0(q_n) k q^i_c &= P_{S^\perp} q^-_{xx} \\
+A_0(q_n) (P_{S^\perp} k q^i_c) &= P_{S^\perp} q^i_{xx}
 \end{align*}
 
 Using this as motivation, we will look for a solution $y$ to 
 
 \begin{equation}\label{Lineq1}
-(P_{S^\perp} A_0) y = P_{S^\perp} q^i_{xx}
+(P_{S^\perp} A_0(q_n)) y = P_{S^\perp} q^i_{xx}
 \end{equation}
 
 of the form
@@ -1348,24 +1292,25 @@ of the form
 y = P_{S^\perp} k q^i_c + \tilde{w}
 \end{equation}
 
-We will use Lin's method to show that $\tilde{w}$ is exponentially small. Using Lemma \ref{expsep}, for $i = 1, \dots, n$ we can write $A_0$ as 
+We will use Lin's method to show that $\tilde{w}$ is exponentially small. Using Lemma \ref{expsep}, for $i = 1, \dots, n$ we can write $A_0(q_n)$ as 
 
-\begin{equation}\label{A0expansion}
-A_0 = \partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x)
-\end{equation}
+\begin{align}\label{A0expansion}
+A_0(q_n) &= \partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x) \\
+&= A_0(q^i) + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x) \nolabel
+\end{align}
 
 where $||\tilde{h}|| = \mathcal{O}(e^{-\alpha X}$. Substituting in our ansatz \eqref{yansatz} for $y$ in \eqref{Lineq1}, we obtain
 
 \begin{align*}
-A_0 (P_{S^\perp} k q^i_c + \tilde{w}) &= P_{S^\perp} q^i_{xx} \\
-\left(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x) \right)P_{S^\perp} k q^i_c + A_0 \tilde{w} &= P_{S^\perp} q^i_{xx} \\
-(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)})P_{S^\perp} k q^i_c + \left( \sum_{j \neq i} (e^{q^j(x)} - 1)+ \tilde{h}(x) \right) P_{S^\perp}k q^i_c + A_0 \tilde{w} &= P_{S^\perp} q^i_{xx} \\
-A_0 \tilde{w} + \underbrace{\left( \sum_{j \neq i} (e^{q^j(x)} - 1)\right) P_{S^\perp} k q^i_c}_{\mathcal{O}(e^{-\alpha X})} 
+A_0(q_n) (P_{S^\perp} k q^i_c + \tilde{w}) &= P_{S^\perp} q^i_{xx} \\
+\left(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x) \right)P_{S^\perp} k q^i_c + A_0(q_n) \tilde{w} &= P_{S^\perp} q^i_{xx} \\
+(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)})P_{S^\perp} k q^i_c + \left( \sum_{j \neq i} (e^{q^j(x)} - 1)+ \tilde{h}(x) \right) P_{S^\perp}k q^i_c + A_0(q_n) \tilde{w} &= P_{S^\perp} q^i_{xx} \\
+A_0(q_n) \tilde{w} + \underbrace{\left( \sum_{j \neq i} (e^{q^j(x)} - 1)\right) P_{S^\perp} k q^i_c}_{\mathcal{O}(e^{-\alpha X})} 
 + \underbrace{h(x) P_{S^\perp}k q^i_c}_{\mathcal{O}(e^{-\alpha X})} &= 0 \\
-A_0 \tilde{w} + h(x) &= 0
+A_0(q_n) \tilde{w} + h(x) &= 0
 \end{align*}
 
-where we have collected all of the $\mathcal{O}(e^{-\alpha X})$ stuff and called it $h(x)$. Note that $A_0$ is still the linearization about the $n$-pulse, but we will separate that out in the next step using our expansion \eqref{A0expansion} for $A_0$.\\
+where we have collected all of the $\mathcal{O}(e^{-\alpha X})$ stuff and called it $h(x)$. Note that $A_0(q_n)$ is still the linearization about the $n$-pulse, but we will separate that out in the next step using our expansion \eqref{A0expansion} for $A_0(q_n)$.\\
 
 Next, following San98, we write this piecewise as a first order system. For convenience of notation, we use the notation $W$ when we write $\tilde{w}$ in the first order system. First, as in San98, we choose the $2n$ intervals 
 
@@ -1373,7 +1318,7 @@ Next, following San98, we write this piecewise as a first order system. For conv
 (-\infty, 0], [0, X_1], [-X_1, 0], [0, X_2], \dots, [-X_{n-1}, 0], [0, \infty)
 \end{align*}
 
-Then, using the expansions \eqref{A0expansion} for $A_0$, we obtain the first order system
+Then, using the expansions \eqref{A0expansion} for $A_0(q_n)$ (and noting the shift of coordinates), we obtain the first order system
 
 \begin{align*}
 (W_i^\pm)'(x) = A(q(x)) W_i^\pm(x) + G_i(x) W_i^\pm(x) + B H(x)
@@ -1402,7 +1347,7 @@ G_i(x) &= \begin{pmatrix}
 \end{pmatrix}
 \end{align*}
 
-The key here is that the expansions $A_0$ in \eqref{A0expansion} depend on $i$, so we have a different expansion on each piece. Now we use Lin's method, i.e. look to solve the equations
+The key here is that the expansions for $A_0(q_n)$ in \eqref{A0expansion} depend on $i$, so we have a different expansion on each piece. Now we use Lin's method, i.e. look to solve the equations
 
 \begin{align}
 (W_i^\pm)'(x) &= A(q(x)) W_i^\pm(x) + G_i(x) W_i^\pm(x)+ B H(x) \nonumber \\
@@ -1430,27 +1375,27 @@ where the $R_i$ are remainder terms for which $R = \mathcal{O}(e^{-3 \alpha X_m}
 ||W|| \leq C e^{-2 \alpha X_m}
 \end{equation}
 
-Taking this out of the first order system form, we have constructed via Lin's method a piecewise solution $y_i^\pm = P_{S^\perp} k q^i+_c + \tilde{w}_i^\pm$ to the problem $A_0 y = P_{S^\perp} q^i_{xx}$. What we want is solution $y \in \ran P_{S^\perp}$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^i_{xx}$, i.e. we want the operator $P_{S^\perp} A_0$ instead $A_0$. But we can easily get this by applying the projection $P_{S^\perp}$ to both sides.
+Taking this out of the first order system form, we have constructed via Lin's method a piecewise solution $y_i^\pm = P_{S^\perp} k q^i+_c + \tilde{w}_i^\pm$ to the problem $A_0(q_n) y = P_{S^\perp} q^i_{xx}$. What we want is solution $y \in \ran P_{S^\perp}$ to $P_{S^\perp} A_0(q_n) y = P_{S^\perp} q^i_{xx}$, i.e. we want the operator $P_{S^\perp} A_0(q_n)$ instead $A_0(q_n)$. But we can easily get this by applying the projection $P_{S^\perp}$ to both sides.
 
 \begin{align*}
-P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} P_{S^\perp} q^i_{xx} \\
-P_{S^\perp} P_{S^\perp} A_0 y_i^\pm &= P_{S^\perp} q^i_{xx} \\
-P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) &= P_{S^\perp} q^i_{xx}
+P_{S^\perp} A_0(q_n) y_i^\pm &= P_{S^\perp} P_{S^\perp} q^i_{xx} \\
+P_{S^\perp} P_{S^\perp} A_0(q_n) y_i^\pm &= P_{S^\perp} q^i_{xx} \\
+P_{S^\perp} A_0(q_n) (P_{S^\perp} y_i^\pm) &= P_{S^\perp} q^i_{xx}
 \end{align*}
 
-where we used the fact that $P_{S^\perp}$ is a spectral projection and thus commutes with $A_0$. Thus $P_{S^\perp} y_i^\pm \in \ran P_{S^\perp}$ and $P_{S^\perp} A_0 (P_{S^\perp} y_i^\pm) = P_{S^\perp} q^i_{xx}$. Since everything above is in $S^\perp$, this is equivalent to
+where we used the fact that $P_{S^\perp}$ is a spectral projection and thus commutes with $A_0(q_n)$. Thus $P_{S^\perp} y_i^\pm \in \ran P_{S^\perp}$ and $P_{S^\perp} A_0(q_n) (P_{S^\perp} y_i^\pm) = P_{S^\perp} q^i_{xx}$. Since everything above is in $S^\perp$, this is equivalent to
 
 \begin{equation}
-(P_{S^\perp} A_0)|_{S^\perp} (P_{S^\perp} y_i^\pm) = P_{S^\perp} q^i_{xx}
+(P_{S^\perp} A_0(q_n))|_{S^\perp} (P_{S^\perp} y_i^\pm) = P_{S^\perp} q^i_{xx}
 \end{equation}
 
-We showed in Lemma \ref{PA0inv} that $(P_{S^\perp} A_0)|_{S^\perp}$ is an invertible operator on $S^\perp$. Thus $y = (P_{S^\perp} A_0)|_{S^\perp} P_{S^\perp} q^i_{xx}$ is the unique solution to the problem $P_{S^\perp} A_0 = P_{S^\perp} q^i_{xx}$. Since $P_{S^\perp} y_i^\pm$ is another such solution, they must be identical. In particular, from Lemma \ref{PA0inv}, since $P_{S^\perp} q^i_{xx}$ is smooth, $y$ must be smooth as well. Since $P_{S^\perp} k q^+_c$ is smooth and $y = P_{S^\perp} k q^i_c + P_{S^\perp} \tilde{w}_i^\pm$, $P_{S^\perp} \tilde{w}_i^\pm$ must be smooth. In particular, this implies that the jumps $\xi_i$ are all 0. Since projections are bounded with norm of 1, using the uniform bound \eqref{Wbound} on $||W||$ we have 
+We showed in Lemma \ref{PA0inv} that $(P_{S^\perp} A_0(q_n))|_{S^\perp}$ is an invertible operator on $S^\perp$. Thus $y = (P_{S^\perp} A_0(q_n))|_{S^\perp} P_{S^\perp} q^i_{xx}$ is the unique solution to the problem $P_{S^\perp} A_0(q_n) = P_{S^\perp} q^i_{xx}$. Since $P_{S^\perp} y_i^\pm$ is another such solution, they must be identical. In particular, from Lemma \ref{PA0inv}, since $P_{S^\perp} q^i_{xx}$ is smooth, $y$ must be smooth as well. Since $P_{S^\perp} k q^+_c$ is smooth and $y = P_{S^\perp} k q^i_c + P_{S^\perp} \tilde{w}_i^\pm$, $P_{S^\perp} \tilde{w}_i^\pm$ must be smooth. In particular, this implies that the jumps $\xi_i$ are all 0. Since projections are bounded with norm of 1, using the uniform bound \eqref{Wbound} on $||W||$ we have 
 
 \[
 P_{S^\perp} \tilde{w}_i^\pm = \mathcal{O}(e^{-2 \alpha X_m})
 \]
 
-Thus the unique solution in $S^\perp$ to $P_{S^\perp} A_0 y = P_{S^\perp} q^i_{xx}$.
+Thus the unique solution in $S^\perp$ to $P_{S^\perp} A_0(q_n) y = P_{S^\perp} q^i_{xx}$.
 
 \begin{align*}
 y &= P_{S^\perp} k q^i_c + \tilde{w}_i
@@ -1464,6 +1409,8 @@ where
 
 \end{proof}
 \end{lemma}
+
+Finally, we show that the matrix $K_2$ is diagonally dominant
 
 % lemma : K_2 is diagonally dominant
 
@@ -1479,14 +1426,14 @@ K_2 = -2c \langle q_{xx}, q_c \rangle I + \mathcal{O}(e^{-(3 \alpha/2) X_m})
 
 \begin{align*}
 (K_2)_{jk} 
-&= 4 c^2 \langle P_{S^\perp} (s_j)_{x}, (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} (s_k)_{x} \rangle \\
-&= 4 c^2 \langle (s_j)_{x}, P_{S^\perp}(P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} (s_k)_{x} \rangle \\
-&= 4 c^2 \langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, P_{S^\perp} (P_{S^\perp} A_0 P_{S^\perp})^{-1} P_{S^\perp} \left( \sum_{i = 1}^{n} d_{ki} q^i_{xx} + (w_k)_x \right) \rangle \\
+&= 4 c^2 \langle P_{S^\perp} (s_j)_{x}, (P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} (s_k)_{x} \rangle \\
+&= 4 c^2 \langle (s_j)_{x}, P_{S^\perp}(P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} (s_k)_{x} \rangle \\
+&= 4 c^2 \langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, P_{S^\perp} (P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1} P_{S^\perp} \left( \sum_{i = 1}^{n} d_{ki} q^i_{xx} + (w_k)_x \right) \rangle \\
 &= -\frac{1}{2 c} 4 c^2 
 \langle \sum_{i = 1}^{n} d_{ji} q^i_{xx} + (w_j)_x, \sum_{i = 1}^{n} d_{ki} q^i_c + \mathcal{O}(e^{-2 \alpha X_m}) \rangle \\
 \end{align*}
 
-where we used Lemma \ref{Linsolve}, the fact that $(P_{S^\perp} A_0 P_{S^\perp})^{-1}$ is a bounded linear operator from Lemma \ref{PA0inv}, and the bound on the remainder terms $w_i$ from Lemma \ref{Linsolve}. Simplifying this, we have
+where we used Lemma \ref{Linsolve}, the fact that $(P_{S^\perp} A_0(q_n) P_{S^\perp})^{-1}$ is a bounded linear operator from Lemma \ref{PA0inv}, and the bound on the remainder terms $w_i$ from Lemma \ref{Linsolve}. Simplifying this, we have
 
 \begin{align*}
 (K_2)_{jk} &= -2 c \left( 
