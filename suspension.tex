@@ -1463,8 +1463,8 @@ K_2 = -2c \langle q_{xx}, q_c \rangle + \mathcal{O}(e^{-(3\alpha /2)X_m})
 
 We combine these lemmas in the following theorem
 
-\begin{theorem}
-For the linearization of the suspension bridge equation about a multipulse equilibrium solution, the Krein matrix is given by
+\begin{theorem}\label{Kreindiagdom}
+For the linearization of the suspension bridge equation about an $n-$pulse equilibrium solution $q_n(x)$, the Krein matrix is given by
 
 \begin{equation}\label{Kreinapprox}
 K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n)
@@ -1495,151 +1495,82 @@ where $d''(c)$ is defined in \eqref{dcc}. Combining these gives us \eqref{Kreina
 \end{proof}
 \end{theorem}
 
-We can use this to compute the eigenvalues of the linearization of the suspension bridge equation about a multipulse equilibrium solution. To do that, we need to solve $\det K_S(z) = 0$ for $z$. Since we showed above that the Krein matrix is a perturbation of a diagonal matrix, for convenience we write
-
-\[
-K_S(z) = \text{diag}(k_1(z), \dots, k_n(z)) + \mathcal{O}(e^{-\alpha X_m}|z| + |z|^3)
-\]
-
-From (say) Ipsen and Rehman (2008), when we take the determinant, we should get something resembling
-
-\[
-\det K_S(z) = \prod_{i = 1}^n (k_i(z) + \tilde{r}_i(z))
-\]
-
-where $\tilde{r}_i(z) = \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)$ and is real since $K_S(z)$ is Hermitian. Thus we can find $z$ by solving
-
-\[
-||q_x||^2 \nu_i
- - \overline{z}^2 \frac{\partial}{\partial c} \left( c||q_x||^2 \right) + \tilde{r}_i(z) = 0
-\]
-
-Divide this by $-\frac{\partial}{\partial c} \left( c||q_x||^2 \right)$ and let
-
-\[
-b_i = \frac{||q_x||^2}{\frac{\partial}{\partial c} \left( c||q_x||^2 \right)} \nu_i
-\]
-
-Then (redefining $\tilde{r}_i(z)$), this becomes
-
-\[
-\overline{z}^2 - b_i + \tilde{r}_i(z) = 0
-\]
-
-Since we are taking $z$ real, this becomes
-
-\[
-z^2 - b_i + \tilde{r}_i(z) = 0
-\]
-
-Since $\tilde{r}_i(z) = \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)$, we can write this as
-
-\begin{equation}\label{fz}
-\tilde{f}_i(z) = (1 + \epsilon_2) z^2 + \epsilon_1 z - b_i + \tilde{r}_i(z) = 0
-\end{equation}
-
-where $\epsilon_1, \epsilon_2  = \mathcal{O}(e^{-(3 \alpha/2) X_m})$ and we have again redefined $\tilde{r}_i(z)$ so that $\tilde{r}_i(z) = \mathcal{O}(|z|^3)$. Dividing by $(1 + \epsilon_2) = \mathcal{O}(1)$, this becomes
-
-\begin{equation}\label{fz}
-f_i(z) = z^2 + \epsilon_1 z - \tilde{b}_i + \tilde{r}_i(z) = 0
-\end{equation}
-
-where we have redefined $\epsilon_1$ (but it is still $\mathcal{O}(e^{-(3 \alpha/2) X_m})$) and $\tilde{r}_i(z)$ appropriately, and $\tilde{b}_i = b_i / (1 + \epsilon_2)$. Let
-
-\begin{equation}\label{gz}
-g_i(z) = z^2 + \epsilon_1 z - \tilde{b}_i
-\end{equation}
-
-Then $f_i(z) = g_i(z) + \tilde{r}_i(z)$. Since we are taking $z$ small (the expansion used in Kap2018 is only valid for small $z$), the term $\tilde{r}_i(z)$ will be very small, so we should have approximately $f(z) = g(z)$. With this motivation, let's first look at the quadratic part $g(z)$, i.e. solve $g_i(z) = z^2 + \epsilon_1 z - \tilde{b}_i = 0$. The idea here is to make sure we have sufficient control over the remainder terms so that they do not interfere. This is easily solvable for $z$ to get
-
-\begin{align*}
-z &= \frac{1}{2}\left(-\epsilon_1 \pm \sqrt{\epsilon_1^2 + 4 \tilde{b}_i}\right) \\
-&=  \pm \sqrt{\tilde{b}_i} \left( 1 + \frac{\epsilon_1^2}{4 \tilde{b}_i} \right)^{1/2} - \frac{1}{2} \epsilon_1
-\end{align*}
-
-Recall that $\epsilon_1  = \mathcal{O}(e^{-(3 \alpha/2) X_m})$. From Lin's method, the eigenvalues $\nu_i = \mathcal{O}(e^{-2 X_m})$, thus the $\tilde{b}_i$ are of the same order. This implies
+We can use this to compute the eigenvalues of the linearization of the suspension bridge equation about $q_n(x)$. To do that, we need to solve $\det K_S(z) = 0$ for $z$. Since by Theorem \ref{Kreindiagdom}, the Krein matrix is a perturbation of a diagonal matrix, we can write $K_S(z)$ as 
 
 \begin{equation}
-\frac{\epsilon_1^2}{4 \tilde{b}_i} = \mathcal{O}(e^{-\alpha X_m})
+K_S(z) = \text{diag}(k_1(z), \dots, k_n(z)) + \mathcal{O}(e^{-\alpha X_m}|z| + |z|^3)
 \end{equation}
 
-For sufficiently large $X_m$, $|\epsilon_1^2/4 \tilde{b}_i| < 1$. Thus we can use a Taylor expansion to get
+where for $i = 1, \dots, n$
 
-\begin{align*}
-z &= \pm \sqrt{\tilde{b}_i} \left( 1 + \frac{1}{2} \frac{\epsilon_1^2}{4 \tilde{b}_i} + \mathcal{O}\left( \frac{\epsilon_1^2}{4 \tilde{b}_i}\right)^2 \right) - \frac{1}{2} \epsilon_1 \\
-&= \pm \sqrt{\tilde{b}_i} \left( 1 + \mathcal{O}(e^{-\alpha X_m}) \right) - \frac{1}{2} \epsilon_1 \\
-&= \pm \sqrt{\tilde{b}_i} + \mathcal{O}(e^{-3 \alpha X_m}) - \frac{1}{2} \epsilon_1 \\
-&= \pm \sqrt{\tilde{b}_i} + \mathcal{O}(e^{-(3 \alpha/2) X_m})
-\end{align*}
+\begin{equation}
+k_i(z) = ||q_x||^2 \nu_i + d''(c) \overline{z}^2
+\end{equation}
 
-since $\epsilon_1  = \mathcal{O}(e^{-(3 \alpha/2) X_m})$. Let $z_i^\pm$ be two roots of \eqref{gz}. Then $z_i^\pm = \mathcal{O}(e^{-\alpha X_m})$ and $\tilde{r}(z_i^\pm) = \mathcal{O}(e^{-3 \alpha X_m})$.\\
+From (say) Ipsen and Rehman (2008), the determinant of $K_S(z)$ is given by
 
-Now that we have taken care of this, we look to solve \eqref{fz}, i.e. $f_i(z) = 0$. Since we have estimates on the remainder term and know the order of $\tilde{b}_i$, it is clear that for $\tilde{b}_i$, \eqref{fz} has two roots near $z_i^\pm$, the roots of \eqref{gz}. \\
+\begin{equation}\label{detK}
+\det K_S(z) = \prod_{i = 1}^n (k_i(z) + \tilde{r}_i(z))
+\end{equation}
 
-We can, of course, show this. There are many ways to do it, including using Newton's method with initial guess of $z_i^\pm$ and showing that it converges to a unique root using the Newton-Kantorovich theorem. In this case, we can show it directly with ordinary calculus, so we will just do that. We proceed in the following steps. We will look for the root of $f_i(z)$ near $z_i^+$. Recall that $z_i^+ > 0$. The other one is similar.
-
-\begin{enumerate}
-
-\item Evaluate the first two derivatives of $f_i$. 
-\begin{align*}
-f_i'(z) &= 2z + \epsilon_1 + \mathcal{O}(z^2) \\
-f_i''(z) &= 2 + \mathcal{O}(z)
-\end{align*}
-
-\item Since $\epsilon_1 = \mathcal{O}(e^{-(3 \alpha/2) X_m}) = \mathcal{O}((z_i^+)^{3/2})$ and the remainder term in $f_i'(z_i^+)$ is $\mathcal{O}((z_i^+)^2)$, choose $z_i^+$ sufficiently small so that $f_i'(z_i^+) \geq z_i^+$.
-
-\item Since $z_i^+ = \mathcal{O}(e^{-\alpha X_m})$, if necessary, increase $X_m$ so that $1 \leq f_i''(z) \leq 3$ on the interval $I = [3 z_i^+ /4, 5 z_i^+/4]$.
-
-\item Since we have a bound on the second derivative, it follows that $f_i'(z) > z_i^+/4$ for $z \in I$. Thus $f$ is strictly increasing, and therefore invertible, on $I$. 
-
-\item Finally, we need to show that $f(I)$ contains 0. To do this, we evaluate $f(z)$ at the endpoints of $I$.
-
-\begin{align*}
-f_i(3 z_i^+/4) &= f_i(z_i^+ - z_i^+/4) \\
-&= ((z_i^+)^2 + \epsilon_1 z_i^+ - \tilde{b}_i) - (7/16)(z_i^+)^2 
-+ \epsilon_1 z_i^+/4 + \mathcal{O}((z_i^+)^3) \\
-&= - (7/16)(z_i^+)^2 + \mathcal{O}((z_i^+)^{5/2}) + \mathcal{O}((z_i^+)^3)
-\end{align*}
-
-Since the last two terms on the RHS are higher order than the first term, we can decrease $z_i^+$, if necessary, so that $f_i(3 z_i^+/4) < 0$. Similarly, we can get $f_i(5 z_i^+/4) > 0$. Since $f_i$ is continuous, by the IFT there exists $z^* \in I$ with $f_i(z^*) = 0$. This is the root we are looking for.
-
-\item We can get a bound on $z^*$ by using the derivative of $(f_i)^{-1}$ on $I$. Since $f_i'(z) > z_i^+/4$ for $z \in I$, $|((f_i)^{-1})'(y)| < 4 / z_i^+$ on $f(I)$. In particular, this implies
-
-\begin{align*}
-|z^* - z_i^+| &\leq \frac{4}{z_i^+}|0 - f(z_i^+)| \\
-&= \frac{4}{z_i^+}\mathcal{O}((z_i^+)^3) \\
-&= \mathcal{O}((z_i^+)^2)
-\end{align*}
-
-\item Now that we have found the root $z^*$ that we want, we can put this all together to determine how far it is from $\sqrt{b_i}$. By the triangle inequality,
-
-\begin{align*}
-|z^* - \sqrt{b_i}| &\leq |z^* - z_i^+| + |z_i^+ - \sqrt{\tilde{b}_i}| + |\sqrt{b_i} - \sqrt{\tilde{b}_i} | \\
-&= \mathcal{O}(e^{-(3 \alpha/2) X_m})
-\end{align*}
-
-\end{enumerate}
-
-The same hold for the root $z_i^-$. We conclude that for an $n-pulse$, the Krein matrix has $n$ pairs of roots, which are given by
-
-\begin{align*}
-z_i &= \pm \sqrt{b_i} + \mathcal{O}(e^{-(3 \alpha/2) X_m})
-\end{align*}
-
-where 
+where $\tilde{r}_i(z) = \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)$. Thus all that remains is to solve
 
 \[
-b_i = \frac{||q_x||^2}{\frac{\partial}{\partial c} \left( c||q_x||^2 \right)} \nu_i
+k_i(z) + \tilde{r}_i(z) = 0
 \]
 
-Since the denominator is negative by Hypothesis 1 and the numerator is always positive, $\sqrt{b_i}$ is real if $\nu_i < 0$. Recalling that we took $\lambda = i z$ in the initial setup, where $z$ is real, we conclude the following.\\
+for $i = 1, \dots, n$.\\
 
-If $\nu_i < 0$ for $i = 2, \dots, n$ (recall that we always have $\nu_1 = 0$), the eigenvalues of the linearization about the $n-$pulse are:
+We are interested in proving (neutral) stability when all the $\nu_i \leq 0$. 
 
-\begin{enumerate}
-	\item A double eigenvalue at 0
-	\item $n-1$ pairs of purely imaginary eigenvalues $\pm \lambda_i$. To leading order, we have $\lambda_i = \sqrt{b_i}$. By Hamiltonian symmetry, we can conclude that these eigenvalues must be purely imaginary, since if the error term bumped us off the imaginary axis, we would have to have a quartet, and we don't have enough eigenvalues to do that.
-\end{enumerate}
+\begin{lemma}
+Let $q_n(x)$ be an $n-$pulse solution to \eqref{eqforz}, and suppose $\nu_i \leq 0$ for all eigenvalues $\nu_1, \dots, \nu_n$ of $A_0(q_n)$. Then \eqref{quadeig}, the linearization about $q_n(x)$, has $2n$ eigenvalues near 0, which are given by
+
+\begin{equation}
+\lambda_i^\pm = \pm i \left( ||q_x|| \sqrt{ -\frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m} \right)
+\end{equation}
+
+\begin{proof}
+Fix $i = 1, \dots, n$ and take $z \in \R$, since we are looking for purely imaginary eigenvalues. Thus the Krein matrix is Hermitian. By \eqref{detK}, we need to solve
+
+\begin{equation}\label{eqforz}
+||q_x||^2 \nu_i + d''(c) z^2 + \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3) = 0
+\end{equation}
+
+where the higher order terms are real since the Krein matrix is Hermitian (the determinant of $K_S(z)$ is the product of the eigenvalues of $K_S(x)$, and those eigenvalues are real). Since $\nu_i < 0$ and $d''(c) > 0$ by Hypothesis \ref{hypdccpos}, $||q_x||^2 \nu_i / d''(c) < 0$. Let
+
+\begin{equation}
+\epsilon^2 = -\frac{||q_x||^2 \nu_i}{d''(c)} > 0
+\end{equation}
+
+Then \eqref{eqforz} becomes
+
+\begin{equation}
+z^2 - \epsilon^2 + \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3) = 0
+\end{equation}
+
+Letting $y = \epsilon z$ and noting that $\epsilon = \mathcal{O}(e^{-\alpha X_m})$, our equation becomes
+
+\begin{equation}
+y^2 - 1 + \mathcal{O}(\epsilon^{1/2 }|y| + \epsilon|y^3|) = 0
+\end{equation}
+
+For $\epsilon$ sufficiently small, this has two roots at $y = \pm 1 + \mathcal{O}(\epsilon^{1/2}$. Thus \eqref{eqforz} has two solutions at
+
+\begin{equation}
+z_i^\pm = \pm ||q_x|| \sqrt{ -\frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m})
+\end{equation}
+
+where the remainder term is real. We conclude that the quadratic eigenvalue problem \eqref{quadeig} for the linearization about $q_n(x)$ has $2n$ eigenvalues which are purely imaginary and are located at
+
+\begin{equation}
+\lambda_i^\pm = \pm i \left( ||q_x|| \sqrt{ -\frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m} \right)
+\end{equation}
+
+since we have complex-conjugate symmetry of eigenvalues.
+
+\end{proof}
+\end{lemma}
 
 
 \subsection{References}
