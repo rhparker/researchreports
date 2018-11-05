@@ -50,27 +50,31 @@
 
 \begin{document}
 
-\section{Suspension Bridge Equation}
+\section{Chen-McKenna Suspension Bridge Equation}
 
 \subsection{Background}
 
-We look at the suspension bridge equation from Chen97. The idea is to look at an equation which has a second order time derivative which also possesses multimodal solutions. This is suggested on p. 2095 of SanStrut and p. 351 of Chen97.\\
-
-The equation we will look at here is
+In \cite{McKenna1990}, McKenna and Walter propose the following equation to model traveling waves on an infinitely long suspended beam.
 
 \begin{equation}\label{susp}
-u_{tt} + u_{xxxx} + e^{u - 1} - 1 = 0
-\end{equation}
-
-Note that the equation used for most of the analysis in Chen97 is 
-
-\begin{equation}\label{susp2}
 u_{tt} + u_{xxxx} + u^+ - 1 = 0
 \end{equation}
 
-which has a cusp at $u = 0$. On p. 351 of Chen97, Chen and McKenna note that they have proved existence of traveling wave solutions only to \eqref{susp2}, not to \eqref{susp}, but there is strong numerical evidence that similar solutions exist for \eqref{susp}. This issue has since been resolved for traveling wave solutions and will be discussed below. \\
+They explicitly compute traveling wave solutions to \eqref{susp}. However, this equation has a cusp at $u = 0$ which is difficult for numerical analysis. In \cite{Chen1997}, Chen and McKenna use a mountain pass technique to prove existence of localized traveling wave solutions to the more general equation
 
-First, to make our lives easier, we make the change of variables $u - 1 \mapsto u$ so that pulse solutions will decay to a baseline of 0 instead of 1. This gives us
+\begin{equation}\label{suspgen}
+u_{tt} + u_{xxxx} + f(u) = 0
+\end{equation}
+
+where the nonlinearity $f(u)$ is ``similar'' to $u^+$. In \cite{Chen1997} Chen and McKenna also propose the following model
+
+\begin{equation}\label{susp2}
+u_{tt} + u_{xxxx} + e^{u - 1} - 1 = 0
+\end{equation}
+
+which is a ``smooth approximation'' to \eqref{susp}. Chen and McKenna were unable to prove existence of solutions to \eqref{susp2}, but they note that there is strong numerical evidence that similar solutions exist for \eqref{susp2} as for \eqref{susp}. In \cite{Smets2002} (Theorem 11), Smets and van den Berg prove existence of a localized traveling wave solution to \eqref{susp2} for almost all speeds $c \in (0, \sqrt{2})$. In \cite{Berg2018}, van den Berg et al us a computer-assisted proof technique (Theorem 1) to prove existence of a localized traveling wave solution to \eqref{susp2} for all speeds $c$ with $c^2 \in [0.5, 1.9]$.\\
+
+We are interested in multi-pulse solution to \eqref{susp2}, the existence of which is suggested in \cite{Chen1997} and \cite{Sandstede1997}. we make the change of variables $u - 1 \mapsto u$ so that pulse solutions will decay to a baseline of 0 instead of 1. This gives us
 
 \begin{equation}\label{susp3}
 u_{tt} + u_{xxxx} + e^{u} - 1 = 0
@@ -88,11 +92,15 @@ For an equilibrium solution (such as a homoclinic orbit), all time derivatives a
 u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
 \end{equation}
 
-which is (46) on p. 342 of Chen97, with $\tilde{f}(u) = e^u - 1$. Note that $u = 0$ is a solution to this. A homoclinic orbit, if it exists, connects this constant equilibrium state to itself. The existence of a homoclinic orbit equilibrium solution was shown in Vdb18 using a computer-assisted proof method. They proved (Theorem 1) that a symmetric homoclinic orbit $q(x; c)$ exists for \eqref{eqODE} for all parameter values $c$ with $c^2 \in [0.5, 1.9]$.\\
+which is (46) on p. 342 of \cite{Chen1997}, with $\tilde{f}(u) = e^u - 1$. The equilibrium ODE \eqref{eqODE} is Hamiltonian with energy
 
-Linearizing about the trivial solution $u = 0$, we obtain the ODE
+\begin{equation}\label{eqH}
+H(u) = u_x u_{xxx} - \frac{1}{2}u_{xx}^2 + \frac{c^2}{2}u_x^2 + e^u - u
+\end{equation}
 
-\begin{equation}
+Since $u = 0$ is a solution to \eqref{eqODE}, we linearize about this trivial solution to obtain the ODE
+
+\begin{equation}\label{lineartrivial}
 v_{xxxx} + c^2 v_{xx} + 1 = 0
 \end{equation}
 
@@ -102,7 +110,15 @@ which has four eigenvalues
 \nu = \pm \sqrt{\frac{-c^2 \pm \sqrt{c^4 - 4}}{2} }
 \end{equation}
 
-Note that $\sqrt{c^4 - 4}$ is always less that $c^2$ is magnitude. If $|c| < \sqrt{2}$, we have a complex conjugate quartet $\nu = \pm \alpha \pm \beta i$, so the equilibrium at 0 is hyperbolic. When $c^2 = 2$, these eigenvalues collide on the imaginary axis at $\pm i$, then for $c^2 > 2$ we have a quartet of purely imaginary eigenvalues. Thus a bifurcation occurs at $c^2 = 2$. We expect that multipulse solutions will only be possible for $c^2 < 2$.
+Note that $\sqrt{c^4 - 4}$ is always less that $c^2$ is magnitude. If $|c| < \sqrt{2}$, we have a complex conjugate quartet $\nu = \pm \alpha \pm \beta i$, so the equilibrium at 0 is hyperbolic. When $c^2 = 2$, these eigenvalues collide on the imaginary axis at $\pm i$, then for $c^2 > 2$ we have a quartet of purely imaginary eigenvalues. Thus a bifurcation occurs at $c^2 = 2$. We expect that multipulse solutions will only be possible for $c^2 < 2$.\\
+
+For the reminder of this discussion, we will take $c \in [0.5, 1.9] \subset (0, \sqrt{2})$, so that a homoclinic orbit solution to \eqref{eqODE} is known to exist and the linearization about 0 is hyperbolic. Let 
+
+\begin{equation}
+\nu = \pm \alpha \pm \beta i$
+\end{equation}
+
+be the eigenvalues of \eqref{lineartrivial}, where $\alpha, \beta > 0$.
 
 \subsection{Eigenvalue Problem}
 
@@ -352,7 +368,7 @@ Any remaining eigenvalues will depend on the solution we are linearizing about. 
 
 We see that there is a single eigenvalue at 0. We also see that the essential spectrum is positive, bounded away from 0, and is (approximately) given by \eqref{A0ess}. We also note the presence of a single negative eigenvalue.\\
 
-In this case (as opposed to SanStrut), it will be difficult (if not impossible) to prove the existence of a unique negative eigenvalue. The plot above suggests this is the case. In addition, we can compute numerically that $\langle A_0(q) q, q \rangle < 0$, so $A_0(q)$ is not positive definite. Thus we make the following hypothesis.
+In this case (as opposed to \cite{Sandstede1997}), it will be difficult (if not impossible) to prove the existence of a unique negative eigenvalue. The plot above suggests this is the case. In addition, we can compute numerically that $\langle A_0(q) q, q \rangle < 0$, so $A_0(q)$ is not positive definite. Thus we make the following hypothesis.
 
 \begin{hypothesis}\label{A0neg}
 For $c \in (0, \sqrt{2})$ and corresponding primary pulse $q(x; c)$, the operator $A_0(q)$ has exactly one negative eigenvalue $\lambda_- < 0$ with corresponding eigenfunction $v_-(x)$.
@@ -360,7 +376,7 @@ For $c \in (0, \sqrt{2})$ and corresponding primary pulse $q(x; c)$, the operato
 
 \subsection{Stability of Primary Pulse}
 
-Choose a speed $c$ with $c^2 \in [0.5, 1.9]$, so that we can apply the results of Vdb18 and conclude that a symmetric homoclinic orbit $q(x; c)$ exists. To assess stability of this primary pulse, we follow Grill87.\\
+Choose a speed $c$ with $c^2 \in [0.5, 1.9]$, so that we can apply the results of \cite{Berg2018} and conclude that a symmetric homoclinic orbit $q(x; c)$ exists. To assess stability of this primary pulse, we follow \cite{Grillakis1987}.\\
 
 Letting $v = u_t$, we can write \eqref{susp3} in the form 
 
@@ -402,7 +418,7 @@ The energy $E(\textbf{u})$ is also invariant under $T(s)$, i.e. $E(T(s) \textbf{
 \langle E'(\textbf{u}), T'(0) \textbf{u} \rangle = 0
 \end{equation}
 
-As in Grill87, we define 
+As in \cite{Grillakis1987}, we define 
 
 \begin{equation}\label{defB}
 B = J^{-1} T'(0) = \begin{pmatrix}0 & -\partial_x \\ \partial_x & 0\end{pmatrix}
@@ -434,19 +450,19 @@ The momentum $Q(\textbf{u})$ is also conserved in $t$, since
 
 where we used \eqref{defB} and \eqref{IP1}.\\
 
-To show that the primary pulse $q(x; c)$ is stable, we will use Theorem 3 in Grill87. To do this, we need to verify the assumptions of the theorem. Assumption 1 concerns existence of solutions to \eqref{2dsystem}. We will take this as a hypothesis (unless we can find a reference to this somewhere. Chen and McKenna do not look at this).
+To show that the primary pulse $q(x; c)$ is stable, we will use Theorem 3 in \cite{Grillakis1987}. To do this, we need to verify the assumptions of the theorem. Assumption 1 concerns existence of solutions to \eqref{2dsystem}. We will take this as a hypothesis (unless we can find a reference to this somewhere. Chen and McKenna do not look at this).
 
 \begin{hypothesis}
 For every initial condition $\textbf{u}_0$ there exists a solution $\textbf{u}(t)$ to \eqref{2dsystem} on the interval $I = [0, T]$, where $T$ only depends on $||\textbf{u}_0||$, such that $\textbf{u}(0) = \textbf{u}(0)$. 
 \end{hypothesis}
 
-Assumption 2 in Grill87 involves bound states, which are special solutions of the form
+Assumption 2 in \cite{Grillakis1987} involves bound states, which are special solutions of the form
 
 \begin{equation}\label{boundstate}
 \textbf{u}(x, t) = T(ct)\boldsymbol\phi(x) = \boldsymbol\phi(x - ct)
 \end{equation}
 
-(We use the variable $c$ to represent speed instead of $\omega$). By p. 166 of Grill87, if $\boldsymbol\phi(x) $ satisfies the stationary equation
+(We use the variable $c$ to represent speed instead of $\omega$). By p. 166 of \cite{Grillakis1987}, if $\boldsymbol\phi(x) $ satisfies the stationary equation
 
 \begin{equation}\label{boundstateeq}
 E'(\boldsymbol\phi) - c Q'(\boldsymbol\phi) = 0
@@ -465,9 +481,9 @@ Substituting the second equation into the first gives us
 \phi_{xxxx} + c^2 \psi_{xx} + e^{\phi} - 1 = 0
 \end{equation}
 
-Since this is the same as \eqref{eqODE}, $\phi = q(x; c)$ is a bound state solution to \eqref{boundstateeq}. Let $\textbf{q}(x; c) =\begin{pmatrix}q(x; c) &c q_x(x; c) \end{pmatrix}$. By smooth dependence on parameters, since \eqref{eqODE} is smooth in $c$, the map $c \mapsto \textbf{q}(x; c)$ is smooth in $c$. Since the solution $\textbf{q}(x; c)$ is smooth, part (c) in Assumption 2 of Grill87 is satisfied, i.e. $\textbf{q}(x; c) \in D(T'(0)^3) \cap D(J I T'(0)^2)$. Finally, since none of the derivatives in $x$ of $\textbf{q}(x; c)$ are 0, $T'(0)q(x; c) \neq 0$. Thus Assumption 2 in Grill87 is satisfied.\\
+Since this is the same as \eqref{eqODE}, $\phi = q(x; c)$ is a bound state solution to \eqref{boundstateeq}. Let $\textbf{q}(x; c) =\begin{pmatrix}q(x; c) &c q_x(x; c) \end{pmatrix}$. By smooth dependence on parameters, since \eqref{eqODE} is smooth in $c$, the map $c \mapsto \textbf{q}(x; c)$ is smooth in $c$. Since the solution $\textbf{q}(x; c)$ is smooth, part (c) in Assumption 2 of \cite{Grillakis1987} is satisfied, i.e. $\textbf{q}(x; c) \in D(T'(0)^3) \cap D(J I T'(0)^2)$. Finally, since none of the derivatives in $x$ of $\textbf{q}(x; c)$ are 0, $T'(0)q(x; c) \neq 0$. Thus Assumption 2 in \cite{Grillakis1987} is satisfied.\\
 
-Finally, as in Grill87, we define the scalar
+Finally, as in \cite{Grillakis1987}, we define the scalar
 
 \begin{equation}\label{defd}
 d(c) = E(\textbf{q}(x; c)) - c Q(\textbf{q}(x; c))
@@ -488,7 +504,7 @@ H_c = \begin{pmatrix}
 \end{pmatrix}
 \end{equation}
 
-We will verify Assumption 3B instead of Assumption 3. (This is suggested in the errata at the end of Grill90). For $\textbf{u} = \begin{pmatrix}u & v\end{pmatrix}^T$, 
+We will verify Assumption 3B instead of Assumption 3. (This is suggested in the errata at the end of \cite{Grillakis1990}). For $\textbf{u} = \begin{pmatrix}u & v\end{pmatrix}^T$, 
 
 \begin{align*}
 \langle H_c \textbf{u}, \textbf{u} \rangle
@@ -553,7 +569,7 @@ Then $\tilde{N}$ is a closed subspace. For any $\textbf{u} = \begin{pmatrix}u & 
 &= \delta ||\textbf{u}||^2
 \end{align*}
 
-This verifies part (ii) of Assumption 3B. Part (iii) holds since $v_-$ and $q_x$ are linearly independent. Having verified Assumptions 1, 2, and 3B, we can invoke Theorem 3 of Grill87 to conclude that $q(x)$ is stable if and only if $d''(c) > 0$. Differentiating \eqref{defd}, we have
+This verifies part (ii) of Assumption 3B. Part (iii) holds since $v_-$ and $q_x$ are linearly independent. Having verified Assumptions 1, 2, and 3B, we can invoke Theorem 3 of \cite{Grillakis1987} to conclude that $q(x)$ is stable if and only if $d''(c) > 0$. Differentiating \eqref{defd}, we have
 
 \begin{align*}
 d'(c) &= E'(\textbf{q})\partial_c \textbf{q} - Q(\textbf{q}) - c Q'(\textbf{q}) \partial_c \textbf{q} \\
@@ -599,7 +615,7 @@ T_{q(0; c} W^s(0; c) \cap T_{q(0; c} W^u(0; c) = \R q'(0; c).
 \]
 \end{hypothesis}
 
-Recall that 0 is a hyperbolic equilibrium for \eqref{eqODE} and that \eqref{eqODE} is a Hamiltonian system. Then, using Lin's method (San93, San98, SanStrut), we can construct an $n-$pulse which resembles, to leading order, $n$ copies of the primary pulse $q$ joined together. The $n$ peaks of $q_n$ are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can write $q_n$ as 
+Recall that 0 is a hyperbolic equilibrium for \eqref{eqODE} and that \eqref{eqODE} is a Hamiltonian system. Then, using Lin's method (San93, \cite{Sandstede1998}, \cite{Sandstede1997}), we can construct an $n-$pulse which resembles, to leading order, $n$ copies of the primary pulse $q$ joined together. The $n$ peaks of $q_n$ are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can write $q_n$ as 
 
 \begin{align}\label{qn}
 q_n = \sum_{i = 1}^{n} q^i + r
@@ -623,7 +639,7 @@ where
 X_m = \min\{X_1, \dots, X_n \}
 \end{equation}
 
-This bound holds for all derivatives with respect to $x$ (see Theorem 1 in San98). Since everything is translation invariant, we do not need to define a ``center'' for the multipulse. For $i, j = 1, \dots, n$, let $\rho_{ji}$ be the signed distance between peak $i$ and peak $j$, i.e. 
+This bound holds for all derivatives with respect to $x$ (see Theorem 1 in \cite{Sandstede1998}). Since everything is translation invariant, we do not need to define a ``center'' for the multipulse. For $i, j = 1, \dots, n$, let $\rho_{ji}$ be the signed distance between peak $i$ and peak $j$, i.e. 
 
 \begin{equation}\label{rhoji}
 \rho_{ji} = L_j - L_i
@@ -631,7 +647,7 @@ This bound holds for all derivatives with respect to $x$ (see Theorem 1 in San98
 
 Then for all $i, j$, $|\rho_{ji}| \geq 2 X_m$.\\
 
-Using Lin's method again (following San98), we can show that $A_0(q_n)$ has $n$ distinct small eigenvalues near 0 (this includes one eigenvalue at 0 corresponding to the kernel eigenfunction $\partial_x q_n$). Let $\{\nu_1, \dots, \nu_n\}$ be these small eigenvalues, and let $\{s_1, \dots, s_n \}$ be the corresponding eigenfunctions. We number these so that $\nu_1 = 0$. Since $A_0$ is self-adjoint and the eigenvalues $\nu_i$ are distinct, the eigenfunctions $s_i$ are orthogonal. Since we can scale the eigenfunctions any way we like, we will take
+Using Lin's method again (following \cite{Sandstede1998}), we can show that $A_0(q_n)$ has $n$ distinct small eigenvalues near 0 (this includes one eigenvalue at 0 corresponding to the kernel eigenfunction $\partial_x q_n$). Let $\{\nu_1, \dots, \nu_n\}$ be these small eigenvalues, and let $\{s_1, \dots, s_n \}$ be the corresponding eigenfunctions. We number these so that $\nu_1 = 0$. Since $A_0$ is self-adjoint and the eigenvalues $\nu_i$ are distinct, the eigenfunctions $s_i$ are orthogonal. Since we can scale the eigenfunctions any way we like, we will take
 
 \begin{equation}\label{orthonormaleigs}
 \langle s_i, s_j \rangle = ||q_x(x; c)||^2 \delta_{ij}
@@ -643,7 +659,7 @@ From Lin's method, these eigenvalues are small. In particular, we have for $i = 
 |\nu_i| = \mathcal{O}(e^{-2 \alpha X_m})
 \end{equation}
 
-From Lin's method (San98), the eigenfunctions $s_i$ are, to leading order, linear combinations of translates of the derivative of the primary pulse. In other words, for $j = 1, \dots, n$
+From Lin's method (\cite{Sandstede1998}), the eigenfunctions $s_i$ are, to leading order, linear combinations of translates of the derivative of the primary pulse. In other words, for $j = 1, \dots, n$
 
 \begin{align}\label{sj}
 s_j = \sum_{i = 1}^{n} d_{ji} q^i_x + w_j
@@ -655,7 +671,7 @@ for constants $d_{ji} \in \C$, where the $q^i$ are defined above. Let $D$ be the
 (D)_{ji} = d_{ji}
 \end{equation}
 
-(Note that this is not the same matrix $D$ as in San98). For the remainder terms, we have from Lin's method the uniform bound
+(Note that this is not the same matrix $D$ as in \cite{Sandstede1998}). For the remainder terms, we have from Lin's method the uniform bound
 
 \begin{equation}\label{sjwbound}
 ||w_j|| \leq C e^{-2 \alpha X_m}
@@ -665,7 +681,7 @@ which also holds for derivatives with respect to $x$.
 
 \subsubsection{Numerics}
 
-In this section, we numerically construct multipulse solutions to \eqref{eqODE}. We start by constructing the primary pulse. Unlike systems such as KdV5, we do not have an exact solution to \eqref{eqODE} for any value of $c$, thus we cannot do parameter continuation. Nevertheless, using a variant of the mountain pass and string methods which combines Chen97 and Chamard10, we can construct a primary pulse as follows.
+In this section, we numerically construct multipulse solutions to \eqref{eqODE}. We start by constructing the primary pulse. Unlike systems such as KdV5, we do not have an exact solution to \eqref{eqODE} for any value of $c$, thus we cannot do parameter continuation. Nevertheless, using a variant of the mountain pass and string methods which combines \cite{Chen1997} and \cite{Chamard2011}, we can construct a primary pulse as follows.
 
 \begin{enumerate}
 	\item The energy functional $I \in C^1(H^2, \R)$ is given by
@@ -676,23 +692,23 @@ In this section, we numerically construct multipulse solutions to \eqref{eqODE}.
 	where $z$ is a function of $x$. For the numerical method, we truncate the domain to $[-L, L]$ for $L$ large.
 	\item To do the mountain pass method, we need to find
 	\begin{enumerate}
-		\item A function $e_1 \in H^2$ which is a local minimum of $I$. From Lemma 2.4 in Chen97, $e_1 = 0$ satisfies this.
-		\item A function $e_2 \in H^2$ for which $I(e_2) < I(e^1) = I(0) = 0$. We can use Lemma 2.5 in Chen97 to find such an $e_2$. 
+		\item A function $e_1 \in H^2$ which is a local minimum of $I$. From Lemma 2.4 in \cite{Chen1997}, $e_1 = 0$ satisfies this.
+		\item A function $e_2 \in H^2$ for which $I(e_2) < I(e^1) = I(0) = 0$. We can use Lemma 2.5 in \cite{Chen1997} to find such an $e_2$. 
 	\end{enumerate} 
 	The solution we want, by the Mountain Pass Lemma, is the infimum of the maxima of $I$ along all paths joining $e_1$ and $e_2$.
-	\item Choose a discretization scheme. Following Chen97, we use the finite difference method.
-	\item We then use the String Method from Chamard10.
+	\item Choose a discretization scheme. Following \cite{Chen1997}, we use the finite difference method.
+	\item We then use the String Method from \cite{Chamard2011}.
 	\begin{enumerate}
 		\item Join $e_1$ and $e_2$ by a piecewise linear path $U(t) = t e_1 + (1-t) e_2 = (1-t)e_2$. Choose a discrete set of values for $t$ which are evenly spaced, i.e. the $N+1$ values $t = [0, 1/N, 2/N, ..., 1]$ for some reasonably sized $N$. We ended up using $N = 10$, which worked fine.
 		\item Reparameterize the path to get points more-or-less equidistantly distributed in the $H^1$ norm.
-		\item Evaluate the steepest decent direction $v(t_i)$ for all points $U(t_i)$ along the path. The steepest descent direction is computed as in section 3 of Chen97.
+		\item Evaluate the steepest decent direction $v(t_i)$ for all points $U(t_i)$ along the path. The steepest descent direction is computed as in section 3 of \cite{Chen1997}.
 		\item For constrained maximal step size $h_M$, perform gradient descent on all points on the path $U(t_i)$ in the direction of $v(t_i)$.
 		\item Go back to the reparameterization step, and repeat all this a bunch of times. Theoretically there is a termination condition, but we don't actually need to worry about that since we will be using Matlab's \texttt{fsolve}.
 	\end{enumerate}
 	\item After doing this a bunch of times, take the element of the path for which $I(U(t_i))$ is maximum. Or take one close to the maximum. Use this as an initial guess for Matlab's \texttt{fsolve}. This should converge to the solution we are looking for.
 \end{enumerate}
 
-Here are plots of the primary pulse $q(x; c)$ found using this method for $c = 1.354$ and $c = 1.40$. Compare these to figure 3 on p. 347 of Chen97. Note that by the substitution we performed, the baseline in our plots is at 0 as opposed to 1 in Chen97.
+Here are plots of the primary pulse $q(x; c)$ found using this method for $c = 1.354$ and $c = 1.40$. Compare these to figure 3 on p. 347 of \cite{Chen1997}. Note that by the substitution we performed, the baseline in our plots is at 0 as opposed to 1 in \cite{Chen1997}.
 
 \begin{figure}[H]
 \centering
@@ -767,7 +783,7 @@ We can also construct multipulses. For example, here is a triple pulse for $c = 
 \caption{Triple pulse 2,2 (left). Spectrum of linearization about triple pulse 2,2 (right). Finite difference methods, $N = 512$, $c = 1.2$.}
 \end{figure}
 
-For other values of $c$, the odd-numbered double pulses have the same eigenvalue pattern, so we will focus on the even-numbered double pulses. Let's look at $c = 1.354$ (this value was used in Chen97). For Double Pulse 2, we now have a quartet of interaction eigenvalues. Their imaginary part now lies \emph{outside} the essential spectrum gap. This suggests that a Krein collision has occurred, where the interaction eigenvalues collide with the smallest essential spectrum eigenvalue and then form a quartet.
+For other values of $c$, the odd-numbered double pulses have the same eigenvalue pattern, so we will focus on the even-numbered double pulses. Let's look at $c = 1.354$ (this value was used in \cite{Chen1997}). For Double Pulse 2, we now have a quartet of interaction eigenvalues. Their imaginary part now lies \emph{outside} the essential spectrum gap. This suggests that a Krein collision has occurred, where the interaction eigenvalues collide with the smallest essential spectrum eigenvalue and then form a quartet.
 
 \begin{figure}[H]
 \centering
@@ -886,7 +902,7 @@ For the linearization about the 1-pulse, the Krein matrix is the scalar
 K(z) = d''(c) \overline{z}^2 + \mathcal{O}(z^3)
 \end{equation}
 
-where $d''(c)$ is the stability criterion from Grill87. The form of $d''(c)$ for this problem is given in \eqref{dcc}.
+where $d''(c)$ is the stability criterion from \cite{Grillakis1987}. The form of $d''(c)$ for this problem is given in \eqref{dcc}.
 
 \begin{proof}
 
@@ -1312,7 +1328,7 @@ A_0(q_n) \tilde{w} + h(x) &= 0
 
 where we have collected all of the $\mathcal{O}(e^{-\alpha X})$ stuff and called it $h(x)$. Note that $A_0(q_n)$ is still the linearization about the $n$-pulse, but we will separate that out in the next step using our expansion \eqref{A0expansion} for $A_0(q_n)$.\\
 
-Next, following San98, we write this piecewise as a first order system. For convenience of notation, we use the notation $W$ when we write $\tilde{w}$ in the first order system. First, as in San98, we choose the $2n$ intervals 
+Next, following \cite{Sandstede1998}, we write this piecewise as a first order system. For convenience of notation, we use the notation $W$ when we write $\tilde{w}$ in the first order system. First, as in \cite{Sandstede1998}, we choose the $2n$ intervals 
 
 \begin{align*}
 (-\infty, 0], [0, X_1], [-X_1, 0], [0, X_2], \dots, [-X_{n-1}, 0], [0, \infty)
@@ -1363,7 +1379,7 @@ From the bound on $h$, we have $||H|| = \mathcal{O}(e^{-\alpha X_m)}$. On the $i
 1 - e^{q(x - \rho_{ji})} &= q(x - \rho_{ji}) + \mathcal{O}(q(x - \rho_{ji}))^2 = \mathcal{O}(e^{-\alpha X_m})
 \end{align*}
 
-We conclude that $||G|| = \mathcal{O}(e^{-\alpha X_m)}$. With these bounds, we are set up to use Lin's method. Following San98 (or another suitable reference), we obtain unique functions $W_i^\pm$ which solve \eqref{Wsystem}. In adapting San98, we note that our system is similar to (3.7) in San98, except the $d_i$ is missing (we take it to be 1), there is no $\lambda$ (we take it to be 1), $D = 0$, and the $\lambda B_i^\pm$ term is absent entirely. The jumps are given by Lemma 3.6 in San98.
+We conclude that $||G|| = \mathcal{O}(e^{-\alpha X_m)}$. With these bounds, we are set up to use Lin's method. Following \cite{Sandstede1998} (or another suitable reference), we obtain unique functions $W_i^\pm$ which solve \eqref{Wsystem}. In adapting \cite{Sandstede1998}, we note that our system is similar to (3.7) in \cite{Sandstede1998}, except the $d_i$ is missing (we take it to be 1), there is no $\lambda$ (we take it to be 1), $D = 0$, and the $\lambda B_i^\pm$ term is absent entirely. The jumps are given by Lemma 3.6 in \cite{Sandstede1998}.
 
 \begin{equation}
 \xi_i = \int_{-\infty}^\infty \langle \Psi(x), H(x) \rangle dx + R_i
@@ -1573,15 +1589,7 @@ since we have complex-conjugate symmetry of eigenvalues.
 \end{lemma}
 
 
-\subsection{References}
-
-Y.Chen and P.J.McKenna. Traveling Waves in a Nonlinearly Suspended Beam: Theoretical Results and Numerical Observations. Journal of Differential Equations Volume 136, Issue 2, 20 May 1997, Pages 325-355.\\
-
-M.Grillakis, J.Shatah, and W.Strauss. Stability theory of solitary waves in the presence of symmetry, I. Journal of Functional Analysis Volume 74, Issue 1, 1987, Pages 160-197.\\
-
-Ilse.Ipsen and R.Rehman. Perturbation Bounds for Determinants and Characteristic Polynomials. SIAM J. Matrix Anal. \& Appl., 30(2), 762–776.\\
-
-Will add other references when I do the actual paper/writeup/thesis/whatever.
+\bibliography{suspension.bib}
 
 
 \end{document}
