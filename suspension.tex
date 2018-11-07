@@ -60,19 +60,19 @@ In \cite{McKenna1990}, McKenna and Walter propose the following equation to mode
 u_{tt} + u_{xxxx} + u^+ - 1 = 0
 \end{equation}
 
-They explicitly compute traveling wave solutions to \eqref{susp}. However, this equation has a cusp at $u = 0$ which is difficult for numerical analysis. In \cite{Chen1997}, Chen and McKenna use a mountain pass technique to prove existence of localized traveling wave solutions to the more general equation
+They explicitly compute localized traveling wave solutions to \eqref{susp}. This equation, however, has a cusp at $u = 0$ which is difficult for numerical analysis. In \cite{Chen1997}, Chen and McKenna use a mountain pass technique to prove existence of localized traveling wave solutions to the more general equation
 
 \begin{equation}\label{suspgen}
 u_{tt} + u_{xxxx} + f(u) = 0
 \end{equation}
 
-where the nonlinearity $f(u)$ is ``similar'' to $u^+$. In \cite{Chen1997} Chen and McKenna also propose the following model
+where the nonlinearity $f(u)$ is ``similar'' to $u^+$. They also propose the following model
 
 \begin{equation}\label{susp2}
 u_{tt} + u_{xxxx} + e^{u - 1} - 1 = 0
 \end{equation}
 
-which is a ``smooth approximation'' to \eqref{susp}. Chen and McKenna were unable to prove existence of solutions to \eqref{susp2}, but they note that there is strong numerical evidence that similar solutions exist for \eqref{susp2} as for \eqref{susp}. In \cite{Smets2002} (Theorem 11), Smets and van den Berg prove existence of a localized traveling wave solution to \eqref{susp2} for almost all speeds $c \in (0, \sqrt{2})$. In \cite{Berg2018}, van den Berg et al us a computer-assisted proof technique (Theorem 1) to prove existence of a localized traveling wave solution to \eqref{susp2} for all speeds $c$ with $c^2 \in [0.5, 1.9]$.\\
+which is a ``smooth approximation'' to \eqref{susp}. Chen and McKenna were unable to prove existence of solutions to \eqref{susp2}, but they note that there is strong numerical evidence that similar solutions exist for \eqref{susp2} as for \eqref{susp}. In \cite{Smets2002} (Theorem 11), Smets and van den Berg prove existence of a localized traveling wave solution to \eqref{susp2} for almost all speeds $c \in (0, \sqrt{2})$. In \cite{Berg2018}, van den Berg et al use a computer-assisted proof technique (Theorem 1) to prove existence of a localized traveling wave solution to \eqref{susp2} for all speeds $c$ with $c^2 \in [0.5, 1.9]$.\\
 
 We are interested in multi-pulse solutions to \eqref{susp2}, the existence of which is suggested in \cite{Chen1997} and \cite{Sandstede1997}. We make the change of variables $u - 1 \mapsto u$ so that pulse solutions will decay to a baseline of 0 instead of 1. This gives us
 
@@ -156,7 +156,7 @@ We can also write this as
 [(\lambda - c \partial_x)^2 + \partial_x^4 + e^{u_*}]v = 0
 \end{equation}
 
-Next, we look at symmetry. For a given equilibrium solution $u_*$, suppose we have a solution $v(x)$ to \eqref{evp} with corresponding eigenvalue $\lambda$. By taking complex conjugates, it follows that $\overline{v}(x)$ is a solution with corresponding eigenvalue $\overline{\lambda}$. If we take $u^*(x)$ to be an even function, we can replace $v(x)$ by $v(-x)$ and $\lambda$ by $-\lambda$ to obtain another solution to \eqref{evp}. Thus for the linearization about an even function, we have the typical 4-fold symmetry of eigenvalues.\\ 
+Next, we look at symmetry. For a given equilibrium solution $u_*$, suppose we have a solution $v(x)$ to \eqref{evp} with corresponding eigenvalue $\lambda$. By taking complex conjugates, it follows that $\overline{v}(x)$ is a solution with corresponding eigenvalue $\overline{\lambda}$. If we take $u^*(x)$ to be an even function, we can replace $v(x)$ by $v(-x)$ and $\lambda$ by $-\lambda$ to obtain another solution to \eqref{evp}. Thus for the linearization about an even function, we have the typical four-fold symmetry of eigenvalues.\\ 
 
 To continue, we write the eigenvalue problem as a first order system. Letting $V = (v_1, v_2, v_3, v_4) = (v, v_x, v_{xx}, v_{xxx})$, \eqref{evp} becomes $V' = A(\lambda; u^*)V$, where
 
@@ -228,7 +228,7 @@ Solving $\lambda_+'(r) = 0$ involves solving the 6th order polynomial
 4 r^6 - c^2 r^4 + c^2 = 0
 \]
 
-Mathematica will actually do it (!), but it is an epic mess. So we will look at it numerically using Matlab. The next plot shows the minimum value of $\lambda_+(r)$ as a function of $c$. Note that for $c = 0$ this minimum is clearly $0$, and for $c = \sqrt{2}$ it is not hard to show that this minimum is actually 0 (hence no essential spectrum gap). $c = \sqrt{2}$ is the bifurcation point mentioned above, so this is consistent.
+Mathematica will actually do it (!), but it is an epic mess. So we will look at it numerically using Matlab. The next plot shows the minimum value of $\lambda_+(r)$ as a function of $c$. Note that for $c = 0$ this minimum is at 1, and for $c = \sqrt{2}$ it is not hard to show that this minimum is actually 0 (hence no essential spectrum gap). The bifurcation point uis $c = \sqrt{2}$ as mentioned above, so this is consistent.
 
 \begin{figure}[H]
 \centering
@@ -611,11 +611,11 @@ Let $c \in [\sqrt{0.5}, \sqrt{1.9}]$ and let $q(x; c)$ be the symmetric homoclin
 \begin{hypothesis}\label{transverseq}
 The primary pulse $q(x; c)$ is transversely constructed, i.e. 
 \[
-T_{q(0; c} W^s(0; c) \cap T_{q(0; c} W^u(0; c) = \R q'(0; c).
+T_{q(0; c)} W^s(0; c) \cap T_{q(0; c)} W^u(0; c) = \R q'(0; c).
 \]
 \end{hypothesis}
 
-Recall that 0 is a hyperbolic equilibrium for \eqref{eqODE} and that \eqref{eqODE} is a Hamiltonian system. Then, using Lin's method (San93, \cite{Sandstede1998}, \cite{Sandstede1997}), we can construct an $n-$pulse which resembles, to leading order, $n$ copies of the primary pulse $q$ joined together. The $n$ peaks of $q_n$ are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can write $q_n$ as 
+Recall that 0 is a hyperbolic equilibrium for \eqref{eqODE} and that \eqref{eqODE} is a Hamiltonian system. Then, using Lin's method (\cite{Sanstede1993}, \cite{Sandstede1998}, \cite{Sandstede1997}), we can construct an $n-$pulse which resembles, to leading order, $n$ copies of the primary pulse $q$ joined together. The $n$ peaks of $q_n$ are separated by distances $2 X_1, \dots, 2 X_{n-1}$. We can write $q_n$ as 
 
 \begin{align}\label{qn}
 q_n = \sum_{i = 1}^{n} q^i + r
@@ -730,7 +730,7 @@ We also compute solutions for other values of $c$.
 
 Let $\nu = \pm \alpha \pm i \beta$ be the eigenvalues of the linearization about the zero solution. Then we can show numerically that the tail decays exponentially with rate (approximately) $\alpha$, and the period of the tail oscillations is (approximately) $2 \pi / \beta$. This is what we expect. \\
 
-Now that we have constructed the primary pulse, we can join the tails to form double pulses. This join can only be performed every quarter period, i.e. every $\pi / 2 \beta$, so this produces a countable family of double pulses. After gluing two primary pulses together at the approprate interval and using Matlab's \texttt{fsolve} function, here are the first four double pulses for $c = 1.2$.
+Now that we have constructed the primary pulse, we can join the tails to form double pulses. This join can only be performed every quarter period, i.e. every $\pi / 2 \beta$, so this produces a countable family of double pulses. After gluing two primary pulses together at the appropriate interval and using Matlab's \texttt{fsolve} function, here are the first four double pulses for $c = 1.2$.
 
 \begin{figure}[H]
 \centering
@@ -1259,7 +1259,7 @@ For the final term on the RHS, we have
 &\leq C \left| q^i(x)s(x) \right|
 \end{align*}
 
-where in the last line we used the fact that $q$ is bounded. Since all $n$ peaks are exponentially separated, so are $q^i(x)$ and $s(x)$, thus from Lemma \ref{expsep}, $\left| q^i(x)s(x) \right| = \mathcal{O}(e^{-\alpha 2 X_m})$. Putting this all together, we have
+where in the last line we used the fact that $q$ is bounded. Since all $n$ peaks are exponentially separated, so are $q^i(x)$ and $s(x)$, thus from Lemma \ref{expsep}, $\left| q^i(x)s(x) \right| = \mathcal{O}(e^{-2 \alpha X_m})$. Putting this all together, we have
 
 \begin{equation}
 \exp(q_n) = \exp( q^i(x)) + (\exp(s(x)) - 1) + \mathcal{O}(e^{-\alpha X_m}) 
@@ -1279,20 +1279,14 @@ For all $i = 1, \dots, n$,
  
 \begin{equation}
 (P_{S^\perp} A_0(q_n)|_{S^\perp})^{-1} P_{S^\perp} q^i_{xx} = -\frac{1}{2c}P_{S^\perp} q^i_c
-+ \tilde{w}_i
-\end{equation}
-
-where $\tilde{w}_i$ is smooth and 
-
-\begin{equation}
-||\tilde{w}_i|| = \mathcal{O}(e^{-2 \alpha X_m})
++ \mathcal{O}(e^{-2 \alpha X_m})
 \end{equation}
 
 \begin{proof}
 For convenience, let $k = -1/2c$, so that $A_0(q) k q_c$ = $q_{xx}$. Since everything involved is translation invariant, we also have $A_0(q^i) k q^i_c$ = $q^i_{xx}$. Applying the projection $P_{S^\perp}$ on both sides and using the fact that $A_0(q_n)$ commutes with its own spectral projections, we have
 
 \begin{align*}
-P_{S^\perp} A_0(q_n) k q^i_c &= P_{S^\perp} q^-_{xx} \\
+P_{S^\perp} A_0(q_n) k q^i_c &= P_{S^\perp} q^i_{xx} \\
 A_0(q_n) (P_{S^\perp} k q^i_c) &= P_{S^\perp} q^i_{xx}
 \end{align*}
 
@@ -1315,18 +1309,18 @@ A_0(q_n) &= \partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q
 &= A_0(q^i) + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x) \nonumber
 \end{align}
 
-where $||\tilde{h}|| = \mathcal{O}(e^{-\alpha X}$. Substituting in our ansatz \eqref{yansatz} for $y$ in \eqref{Lineq1}, we obtain
+where $||\tilde{h}|| = \mathcal{O}(e^{-\alpha X_m)}$. Substituting in our ansatz \eqref{yansatz} for $y$ in \eqref{Lineq1}, we obtain
 
 \begin{align*}
 A_0(q_n) (P_{S^\perp} k q^i_c + \tilde{w}) &= P_{S^\perp} q^i_{xx} \\
 \left(\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)} + \sum_{j \neq i} (e^{q^j(x)} - 1) + \tilde{h}(x) \right)P_{S^\perp} k q^i_c + A_0(q_n) \tilde{w} &= P_{S^\perp} q^i_{xx} \\
 (\partial_x^4 + c^2 \partial_x^2 + e^{q^i(x)})P_{S^\perp} k q^i_c + \left( \sum_{j \neq i} (e^{q^j(x)} - 1)+ \tilde{h}(x) \right) P_{S^\perp}k q^i_c + A_0(q_n) \tilde{w} &= P_{S^\perp} q^i_{xx} \\
-A_0(q_n) \tilde{w} + \underbrace{\left( \sum_{j \neq i} (e^{q^j(x)} - 1)\right) P_{S^\perp} k q^i_c}_{\mathcal{O}(e^{-\alpha X})} 
-+ \underbrace{h(x) P_{S^\perp}k q^i_c}_{\mathcal{O}(e^{-\alpha X})} &= 0 \\
+A_0(q_n) \tilde{w} + \underbrace{\left( \sum_{j \neq i} (e^{q^j(x)} - 1)\right) P_{S^\perp} k q^i_c}_{\mathcal{O}(e^{-\alpha X_m})} 
++ \underbrace{h(x) P_{S^\perp}k q^i_c}_{\mathcal{O}(e^{-\alpha X_m})} &= 0 \\
 A_0(q_n) \tilde{w} + h(x) &= 0
 \end{align*}
 
-where we have collected all of the $\mathcal{O}(e^{-\alpha X})$ stuff and called it $h(x)$. Note that $A_0(q_n)$ is still the linearization about the $n$-pulse, but we will separate that out in the next step using our expansion \eqref{A0expansion} for $A_0(q_n)$.\\
+where we have collected all of the $\mathcal{O}(e^{-\alpha X_m})$ stuff and called it $h(x)$. Note that $A_0(q_n)$ is still the linearization about the $n$-pulse, but we will separate that out in the next step using our expansion \eqref{A0expansion} for $A_0(q_n)$.\\
 
 Next, following \cite{Sandstede1998}, we write this piecewise as a first order system. For convenience of notation, we use the notation $W$ when we write $\tilde{w}$ in the first order system. First, as in \cite{Sandstede1998}, we choose the $2n$ intervals 
 
@@ -1414,13 +1408,13 @@ P_{S^\perp} \tilde{w}_i^\pm = \mathcal{O}(e^{-2 \alpha X_m})
 Thus the unique solution in $S^\perp$ to $P_{S^\perp} A_0(q_n) y = P_{S^\perp} q^i_{xx}$.
 
 \begin{align*}
-y &= P_{S^\perp} k q^i_c + \tilde{w}_i
+y &= P_{S^\perp} k q^i_c + P_{S^\perp} \tilde{w}_i
 \end{align*}
 
 where
 
 \begin{align*}
-||\tilde{w}_i|| = \mathcal{O}e^{-2 \alpha X_m}
+||\tilde{w}_i|| = \mathcal{O}(e^{-2 \alpha X_m})
 \end{align*}
 
 \end{proof}
@@ -1523,7 +1517,7 @@ where for $i = 1, \dots, n$
 k_i(z) = ||q_x||^2 \nu_i + d''(c) \overline{z}^2
 \end{equation}
 
-From (say) Ipsen and Rehman (2008), the determinant of $K_S(z)$ is given by
+From \cite{Ipsen2008}, the determinant of $K_S(z)$ is given by
 
 \begin{equation}\label{detK}
 \det K_S(z) = \prod_{i = 1}^n (k_i(z) + \tilde{r}_i(z))
@@ -1537,23 +1531,23 @@ k_i(z) + \tilde{r}_i(z) = 0
 
 for $i = 1, \dots, n$.\\
 
-We are interested in proving (neutral) stability when all the $\nu_i \leq 0$. 
+Since we are interested in proving (neutral) stability when all the $\nu_i \leq 0$, we have the following proposition.
 
-\begin{lemma}
-Let $q_n(x)$ be an $n-$pulse solution to \eqref{eqforz}, and suppose $\nu_i \leq 0$ for all eigenvalues $\nu_1, \dots, \nu_n$ of $A_0(q_n)$. Then \eqref{quadeig}, the linearization about $q_n(x)$, has $2n$ eigenvalues near 0, which are given by
+\begin{proposition}
+Let $q_n(x)$ be an $n-$pulse solution to \eqref{eqODE}, and suppose for the small eigenvalues of $A_0(q_n)$ we have $\nu_1, \dots, \nu_n \leq 0$. Then \eqref{quadeig}, the linearization of \eqref{suspc} about $q_n(x)$, has $2n$ purely imaginary eigenvalues near 0, which are given by
 
-\begin{equation}
-\lambda_i^\pm = \pm i \left( ||q_x|| \sqrt{ -\frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m} \right)
+\begin{equation}\label{npulseKreineigs}
+\lambda_i^\pm = \pm i \left( ||q_x|| \sqrt{ -\frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m}) \right)
 \end{equation}
 
 \begin{proof}
-Fix $i = 1, \dots, n$ and take $z \in \R$, since we are looking for purely imaginary eigenvalues. Thus the Krein matrix is Hermitian. By \eqref{detK}, we need to solve
+Fix $i = 1, \dots, n$. Since we are looking for purely imaginary eigenvalues, take $z \in \R$. Thus the Krein matrix is Hermitian. By \eqref{detK}, we need to solve
 
 \begin{equation}\label{eqforz}
 ||q_x||^2 \nu_i + d''(c) z^2 + \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3) = 0
 \end{equation}
 
-where the higher order terms are real since the Krein matrix is Hermitian (the determinant of $K_S(z)$ is the product of the eigenvalues of $K_S(x)$, and those eigenvalues are real). Since $\nu_i < 0$ and $d''(c) > 0$ by Hypothesis \ref{hypdccpos}, $||q_x||^2 \nu_i / d''(c) < 0$. Let
+where the higher order terms are real since the Krein matrix is Hermitian. Since $\nu_i \leq 0$ by assumption and $d''(c) > 0$ by Hypothesis \ref{hypdccpos}, $||q_x||^2 \nu_i / d''(c) < 0$. Let
 
 \begin{equation}
 \epsilon^2 = -\frac{||q_x||^2 \nu_i}{d''(c)} > 0
@@ -1561,32 +1555,26 @@ where the higher order terms are real since the Krein matrix is Hermitian (the d
 
 Then \eqref{eqforz} becomes
 
-\begin{equation}
+\begin{equation}\label{eqforz2}
 z^2 - \epsilon^2 + \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3) = 0
 \end{equation}
 
-Letting $y = \epsilon z$ and noting that $\epsilon = \mathcal{O}(e^{-\alpha X_m})$, our equation becomes
+Letting $y = \epsilon z$ and noting that $\epsilon = \mathcal{O}(e^{-\alpha X_m})$, \eqref{eqforz2} becomes
 
-\begin{equation}
+\begin{equation}\label{eqforz3}
 y^2 - 1 + \mathcal{O}(\epsilon^{1/2 }|y| + \epsilon|y^3|) = 0
 \end{equation}
 
-For $\epsilon$ sufficiently small, this has two roots at $y = \pm 1 + \mathcal{O}(\epsilon^{1/2}$. Thus \eqref{eqforz} has two solutions at
+For sufficiently small $\epsilon$, \eqref{eqforz3} has two roots at $y = \pm 1 + \mathcal{O}(\epsilon^{1/2}$. Thus \eqref{eqforz} has two solutions at
 
 \begin{equation}
 z_i^\pm = \pm ||q_x|| \sqrt{ -\frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m})
 \end{equation}
 
-where the remainder term is real. We conclude that the quadratic eigenvalue problem \eqref{quadeig} for the linearization about $q_n(x)$ has $2n$ eigenvalues which are purely imaginary and are located at
-
-\begin{equation}
-\lambda_i^\pm = \pm i \left( ||q_x|| \sqrt{ -\frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m} \right)
-\end{equation}
-
-since we have complex-conjugate symmetry of eigenvalues.
+where the remainder term is real. Since \eqref{quadeig} has complex-conjugate symmetry of eigenvalues, we conclude that the quadratic eigenvalue problem \eqref{quadeig} for the linearization about $q_n(x)$ has $2n$ eigenvalues which are purely imaginary and are given by \eqref{npulseKreineigs}.
 
 \end{proof}
-\end{lemma}
+\end{proposition}
 
 
 \bibliography{suspension.bib}

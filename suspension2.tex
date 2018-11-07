@@ -490,12 +490,16 @@ where $\tilde{r}_i(z) = \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)$. Thus all
 
 Since we are interested in proving (neutral) stability when all the $\nu_i \leq 0$, we have the following proposition.
 
-\begin{proposition}
+% stability criterion
+
+\begin{proposition}\label{stabcrit}
 Let $q_n(x)$ be an $n-$pulse solution to \eqref{eqODE}, and suppose for the small eigenvalues of $A_0(q_n)$ we have $\nu_1, \dots, \nu_n \leq 0$. Then \eqref{quadeig}, the linearization of \eqref{suspc} about $q_n(x)$, has $2n$ purely imaginary eigenvalues near 0, which are given by
 
 \begin{equation}\label{npulseKreineigs}
 \lambda_i^\pm = \pm i \left( ||q_x|| \sqrt{ -\frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m}) \right)
 \end{equation}
+
+Thus $q_n(x)$ is linearly neutrally stable.
 
 \begin{proof}
 Fix $i = 1, \dots, n$. Since we are looking for purely imaginary eigenvalues, take $z \in \R$. Thus the Krein matrix is Hermitian. By \eqref{detK}, we need to solve
@@ -506,7 +510,7 @@ Fix $i = 1, \dots, n$. Since we are looking for purely imaginary eigenvalues, ta
 
 where the higher order terms are real since the Krein matrix is Hermitian. Since $\nu_i \leq 0$ by assumption and $d''(c) > 0$ by Hypothesis \ref{hypdccpos}, $||q_x||^2 \nu_i / d''(c) < 0$. Let
 
-\begin{equation}
+\begin{equation}\label{epsilon2}
 \epsilon^2 = -\frac{||q_x||^2 \nu_i}{d''(c)} > 0
 \end{equation}
 
@@ -529,6 +533,31 @@ z_i^\pm = \pm ||q_x|| \sqrt{ -\frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alph
 \end{equation}
 
 where the remainder term is real. Since \eqref{quadeig} has complex-conjugate symmetry of eigenvalues, we conclude that the quadratic eigenvalue problem \eqref{quadeig} for the linearization about $q_n(x)$ has $2n$ eigenvalues which are purely imaginary and are given by \eqref{npulseKreineigs}.
+
+\end{proof}
+\end{proposition}
+
+We also have an instability criterion.
+
+% instability criterion
+
+\begin{proposition}\label{instabcrit}
+Let $q_n(x)$ be an $n-$pulse solution to \eqref{eqODE}, and suppose $\nu_i > 0$ for one of the small eigenvalues of $A_0(q_n)$. Then \eqref{quadeig}, the linearization of \eqref{suspc} about $q_n(x)$, has at least one eigenvalue with positive real part, thus $q_n(x)$ is linearly unstable.
+
+\begin{proof}
+We proceed exactly as in Proposition \ref{stabcrit}, except we do not take $z \in R$, thus the Krein matrix is not Hermitian. We define $\epsilon^2$ as in \eqref{epsilon2}, but this time we have $\epsilon^2 < 0$. Proceeding as in Proposition \ref{stabcrit}, we conclude that $\det K(z) = 0$ for 
+
+\begin{equation}
+z = -i ||q_x|| \sqrt{ \frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m})
+\end{equation}
+
+Thus \eqref{quadeig} has an eigenvalue at
+
+\begin{equation}
+\lambda = ||q_x|| \sqrt{ \frac{ \nu_i}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m})
+\end{equation}
+
+which has positive real part for sufficiently large $X_m$. 
 
 \end{proof}
 \end{proposition}
