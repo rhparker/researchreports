@@ -54,27 +54,19 @@
 
 \subsection{Background}
 
-In \cite{McKenna1990}, McKenna and Walter propose the following equation to model traveling waves on an infinitely long suspended beam.
+In \cite{McKenna1990}, McKenna and Walter propose the following equation to model traveling waves on an infinitely long suspended beam
 
 \begin{equation}\label{susp}
 u_{tt} + u_{xxxx} + u^+ - 1 = 0
 \end{equation}
 
-They explicitly compute localized traveling wave solutions to \eqref{susp}. This equation, however, has a cusp at $u = 0$ which is difficult for numerical analysis. In \cite{Chen1997}, Chen and McKenna use the mountain pass technique to prove existence of localized traveling wave solutions to the more general equation
-
-\begin{equation}\label{suspgen}
-u_{tt} + u_{xxxx} + f(u) = 0
-\end{equation}
-
-where the nonlinearity $f(u)$ is ``similar'' to $u^+$. They also propose the model
+where $u^+ = \max(u, 0)$. In \cite{Chen1997}, Chen and McKenna propose the model
 
 \begin{equation}\label{susp2}
-u_{tt} + u_{xxxx} + e^{u - 1} - 1 = 0
+u_{tt} + u_{xxxx} + e^{u} - 1 = 0
 \end{equation}
 
-which is a ``smooth approximation'' to \eqref{susp}. In \cite{Chen1997}, Chen and McKenna were unable to prove existence of solutions to \eqref{susp2}, but they note that there is strong numerical evidence that similar solutions exist for \eqref{susp2} as for \eqref{susp}. In \cite{Smets2002} (Theorem 11), Smets and van den Berg prove existence of a localized traveling wave solution to \eqref{susp2} for almost all speeds $c \in (0, \sqrt{2})$. In \cite{Berg2018}, van den Berg et al use a computer-assisted proof technique (Theorem 1) to prove existence of a localized traveling wave solution to \eqref{susp2} for all speeds $c$ with $c^2 \in [0.5, 1.9]$.\\
-
-We are interested in multi-pulse solutions to \eqref{susp2}. For convenience, we make the change of variables $u - 1 \mapsto u$ so that pulse solutions will decay to a baseline of 0 instead of 1. This gives us
+which is a smooth approximation to \eqref{susp}. Making the change of variables $u - 1 \mapsto u$ so that localized solutions will decay to a baseline of 0 instead of 1, we will consider the equation
 
 \begin{equation}\label{susp3}
 u_{tt} + u_{xxxx} + e^{u} - 1 = 0
@@ -92,13 +84,132 @@ An equilibrium solution satisfies the ODE
 u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
 \end{equation}
 
-which is the same as (46) in \cite{Chen1997}, with $\tilde{f}(u) = e^u - 1$. This equation is Hamiltonian with energy
+In \cite{Smets2002} (Theorem 11), Smets and van den Berg prove existence of a localized, symmetric traveling wave solution $q(x; c)$ to \eqref{susp2} for almost all speeds $c \in (0, \sqrt{2})$. In \cite{Berg2018}, van den Berg et al use a computer-assisted proof technique (Theorem 1) to prove existence of such solutions to \eqref{susp2} for all speeds $c$ with $c^2 \in [0.5, 1.9]$.\\
 
-\begin{equation}\label{eqH}
+We are interested in the existence and stability of multi-pulse solutions to \eqref{suspc}. First, we look at existence. For any solution $u_*$ to \eqref{eqODE}, the linearization of \eqref{eqODE} about $u_*$ is given by
+
+\begin{equation}\label{defA0}
+A_0(u^*) = \partial_x^4 + c^2 \partial_x^2 + e^{u_*}
+\end{equation}
+
+For $c \in (0, \sqrt{2})$, $A_0(0)$ is hyperbolic, and its spectrum is given by
+
+\begin{align}\label{specA00}
+\sigma(A_0(0)) &= \pm \alpha \pm \beta i && \alpha, \beta > 0
+\end{align}
+
+In addition, equation \eqref{eqODE} is Hamiltonian with energy
+
+\begin{equation}\label{defH}
 H(u) = u_x u_{xxx} - \frac{1}{2}u_{xx}^2 + \frac{c^2}{2}u_x^2 + e^u - u
 \end{equation}
 
-For $c \in (0, \sqrt{2})$, the linearization about the trivial solution $u = 0$ is hyperbolic, with a quartet of eigenvalues $\pm \alpha \pm \beta i$, $\alpha, \beta > 0$. For the reminder of this discussion, we will take $c \in [\sqrt{0.5}, \sqrt{1.9}] \subset (0, \sqrt{2})$ so that a symmetric homoclinic orbit solution $q(x; c)$ to \eqref{eqODE} is known to exist and the linearization about $u = 0$ is hyperbolic.\\
+We also make the following hypothesis.
+
+\begin{hypothesis}\label{A0kernel}
+The operator $A_0(q(x; c))$ has a one-dimensional kernel spanned by $\partial_x q(x; c)$.
+\end{hypothesis}
+
+from which it follows that the primary pulse $q(x; c)$ is transversely constructed. Thus we have the following theorem, which is adapted from Theorem 3.6 in \cite{Sandstede1997}.
+
+\begin{theorem}\label{multiexist}
+Let $q(x; c)$ be a localized solution to \eqref{eqODE} such that Hypothesis \ref{A0kernel} holds. Then for any $n \geq 2$ and any sequence of nonnegative integers $k_0, \dots, k_{n-1}$ with at least one of the $k_j \in \{0, 1 \}$, there exists a nonnegative integer $m_0$ such that
+\begin{enumerate}
+	\item For any nonnegative integer $m$ with $m \geq m_0$, there exists a unique $n-$modal solution $q_n(x, c)$ to \eqref{eqODE} which is of the form
+	\begin{align}\label{qn}
+	q_n(x; c) = \sum_{j = 1}^{n} q^j(x; c) + r(x; c)
+	\end{align}
+	where each $q^j(x; c)$ is a translate of the primary pulse $q(x; c)$. The distance between the peaks of $q^j$ and $q^{j+1}$ is $2 X_j$, where
+	\begin{equation}
+	X_j \approx \frac{\pi}{\beta}(2 m + k_j) + \tilde{X}
+	\end{equation}
+	and $\tilde{X}$ is a constant. The remainder term $r(x; c)$ has uniform bound
+	\begin{equation}\label{rbound}
+	||r|| \leq C e^{-\alpha X_m}
+	\end{equation}
+	where $X_m = \min\{X_1, \dots, X_{n-1}\}$.
+	\item The linear operator $A_0(q_n)$ has precisely $n$ real eigenvalues $\nu_j$ near 0, where $\nu_1 = 0$ is a simple eigenvalue and $\nu_j = \mathcal{O}(e^{-2\alpha X_m})$ for $j = 2, \dots, n$. Moreover, for $j = 2, \dots, n$,
+	\begin{align*}
+	\nu_j < 0 \text{ if } k_j \text{ is odd} \\
+	\nu_j > 0 \text{ if } k_j \text{ is even} 
+	\end{align*}
+\end{enumerate}
+
+\begin{proof}
+Using \eqref{specA00}, \eqref{defH}, and Hypothesis \ref{A0kernel}, this follows from Theorem 3.6 in \cite{Sandstede1997}. The bound on $r(x; c)$ in (i) follows from \cite{Sanstede1993} and \cite{Sandstede1998}. The eigenvalues $\nu_j$ are real since $A_0(q_n)$ is self-adjoint. The signs of the eigenvalues in (iii) follow from \cite{Sandstede1997} and the fact that the Melnikov integral $M = \int_{-\infty}^\infty |q_x|^2 dx > 0$.
+\end{proof}
+\end{theorem}
+
+To determine linear stability of these multi-pulse solutions, we look at the linearization of the PDE \eqref{suspc} about $q_n(x; c)$, which is the following quadratic eigenvalue probem
+
+\begin{equation}\label{quadeig}
+P_2(\lambda; q_n)v =  [A_2 \lambda^2 + A_1 \lambda + A_0(q_n)]v = 0
+\end{equation}
+
+where $A_0(q_n)$ is defined in \eqref{defA0} and 
+
+\begin{align}
+A_1 &= -2 c \partial_x \\
+A_2 &= I
+\end{align}
+
+We will use the Krein matrix to find the eigenvalues of \eqref{quadeig}. Applying Theorem \ref{multiexist}, let $\nu_1, \dots, \nu_n$ be the small eigenvalues of $A_0(q_n)$, and let $s_1, \dots, s_n$ be the corresponding eigenfunctions. Define the space $S$ by
+
+\begin{equation}\label{defS}
+S = \spn\{s_1, \dots, s_n \}
+\end{equation}
+
+and define the Krein matrix $K_S(z)$ as on p.4 of Kap2018. We make the following hypotheses.
+
+\begin{hypothesis}\label{PDEexisthyp}
+For every initial condition $u_0(x)$ there exists a solution $u(x, t)$ to \eqref{suspc} on the interval $I = [0, T]$, where $T$ only depends on $\max{ \{ ||u_0||, ||(u_0)_t|| \} }$.
+\end{hypothesis}
+
+\begin{hypothesis}\label{A0neg}
+The operator $A_0(q)$ has a unique, simple negative eigenvalue $\lambda_- < 0$ with corresponding eigenfunction $v_-(x)$.
+\end{hypothesis}
+
+\begin{hypothesis}\label{dccpos}
+$d''(c) > 0$ for $c^2 \in (0, 2)$, where $d(c)$ is defined in (2.16) of \cite{Grillakis1987} and 
+
+\begin{equation}\label{dcc}
+d''(c) = -\frac{\partial}{\partial c} \left( c ||q_x||^2 \right)
+\end{equation}
+\end{hypothesis}
+
+We now present the following theorem, which is the main result of this section.
+
+\begin{theorem}\label{Kreindiag}
+Let $q_n(x; c)$ be an $n-$modal solution to \eqref{eqODE}. Assume Hypotheses \ref{A0kernel}, \ref{existhyp}, \ref{A0neg}, and \ref{dccpos}. Then the Krein matrix is given by
+
+\begin{equation}\label{Kreinapprox}
+K_S(z) = ||q_x||^2 \text{diag} (\nu_1, \dots, \nu_n)
+ + d''(c) I \overline{z}^2 + \mathcal{O}(e^{-(3 \alpha/2) X_m}|z| + |z|^3)
+\end{equation}
+
+which is diagonal to leading order.
+
+\end{theorem}
+
+As a corollary, we have the following criteria for linear stability and instability of the multi-pulse solutions $q_n(x; c)$.
+
+\begin{corollary}\label{stabcrit}
+Let $q_n(x; c)$ be an $n-$pulse solution to \eqref{eqODE}, and assume the same hypotheses as in Theorem \ref{Kreindiag}. Let $\nu_1, \dots, \nu_n$ be the small eigenvalues of $A_0(q_n)$, as defined in Theorem \ref{multiexist}, where $\nu_1 = 0$.
+\begin{enumerate}
+	\item If $\nu_2, \dots, \nu_n < 0$, then \eqref{quadeig} has $2n$ purely imaginary eigenvalues near 0, which are given by
+
+	\begin{equation}\label{npulseKreineigs}
+	\lambda_j^\pm = \pm i \left( ||q_x|| \sqrt{ \frac{|\nu_j|}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m}) \right)
+	\end{equation}
+
+	Thus $q_n(x; c)$ is linearly neutrally stable.
+
+	\item If $\nu_j > 0$ for some $j = 2, \dots, n$, then \eqref{quadeig} has at least one eigenvalue with positive real part. Thus $q_n(x; c)$ is linearly unstable.
+\end{enumerate}
+
+\end{corollary}
+
+\subsection{Numerics}
 
 This primary pulse solution $q(x; c)$ can be constructed numerically using the string method in \cite{Chamard2011}. The following figure shows these solutions for the same values of $c$ as in Figure 3 of \cite{Chen1997}.
 
@@ -158,7 +269,7 @@ which is positive and bounded away from 0 for $c \in (0, \sqrt{2})$. If we linea
 
 Based on this numerical result, we make the following hypothesis.
 
-\begin{hypothesis}\label{A0neg}
+\begin{hypothesis}\label{hyp_A0neg}
 \begin{enumerate}[(i)]
 \mbox{}
 \item For any exponentially localized equilibrium solution $u_*(x)$ to \eqref{eqODE}, the operator $A_0(u_*)$ has a one-dimensional kernel spanned by $\partial_x u_*(x)$. 
@@ -217,7 +328,7 @@ We need to verify Assumptions 1, 2, and 3B in \cite{Grillakis1987}. Assumption 1
 
 For this equation \eqref{suspc}, numerical analysis suggests that $d''(c) > 0$, indicating that $q(x; c)$ is stable. We therefore make the following hypothesis.
 
-\begin{hypothesis}\label{hypdccpos}
+\begin{hypothesis}\label{hyp_dccpos}
 $d''(c) > 0$ for $c^2 \in [0.5, 1.9]$.
 \end{hypothesis}
 
