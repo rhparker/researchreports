@@ -36,6 +36,8 @@
 \DeclareMathOperator{\spn}{span}
 \DeclareMathOperator{\ran}{range}
 
+\setlength\parindent{0pt}
+
 \graphicspath{ {suspension/} }
 
 \newtheorem{lemma}{Lemma}
@@ -66,39 +68,39 @@ where $u^+ = \max(u, 0)$. In \cite{Chen1997}, Chen and McKenna propose the model
 u_{tt} + u_{xxxx} + e^{u} - 1 = 0
 \end{equation}
 
-which is a smooth approximation to \eqref{susp}. Making the change of variables $u - 1 \mapsto u$ so that localized solutions will decay to a baseline of 0 instead of 1, we will consider the equation
+which is a smooth approximation to \eqref{susp}. Making the change of variables $u - 1 \mapsto u$ so that localized solutions will decay to a baseline of 0, we will consider the equation
 
 \begin{equation}\label{susp3}
 u_{tt} + u_{xxxx} + e^{u} - 1 = 0
 \end{equation}
 
-In a co-moving frame with speed $c$, this becomes
+In a co-moving frame with speed $c$, equation \eqref{susp3} becomes
 
 \begin{equation}\label{suspc}
 u_{tt} - 2 c u_{x t} + u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
 \end{equation}
 
-An equilibrium solution satisfies the ODE
+An equilibrium solution to \eqref{suspc} satisfies the ODE
 
 \begin{equation}\label{eqODE}
 u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
 \end{equation}
 
-In \cite{Smets2002} (Theorem 11), Smets and van den Berg prove existence of a localized, symmetric traveling wave solution $q(x; c)$ to \eqref{susp2} for almost all speeds $c \in (0, \sqrt{2})$. In \cite{Berg2018}, van den Berg et al use a computer-assisted proof technique (Theorem 1) to prove existence of such solutions to \eqref{susp2} for all speeds $c$ with $c^2 \in [0.5, 1.9]$.\\
+In \cite[Theorem 11]{Smets2002}, Smets and van den Berg prove existence of a localized, symmetric solution $q(x; c)$ to \eqref{susp2} for almost all speeds $c \in (0, \sqrt{2})$. In \cite[Theorem 1]{Berg2018}, van den Berg et al use a computer-assisted proof technique to show existence of such solutions to \eqref{susp2} for all speeds $c$ with $c^2 \in [0.5, 1.9]$.\\
 
-We are interested in the existence and stability of multi-pulse solutions to \eqref{suspc}. First, we look at existence. For any solution $u_*$ to \eqref{eqODE}, the linearization of \eqref{eqODE} about $u_*$ is given by
+We are interested in the existence and stability of multi-pulse equilibrium solutions to \eqref{suspc}. First, we look at existence. For any solution $u_*$ to \eqref{eqODE}, the linearization of \eqref{eqODE} about $u_*$ is given by
 
 \begin{equation}\label{defA0}
 A_0(u^*) = \partial_x^4 + c^2 \partial_x^2 + e^{u_*}
 \end{equation}
 
-For $c \in (0, \sqrt{2})$, $A_0(0)$ is hyperbolic, and its spectrum is given by
+For $c \in (0, \sqrt{2})$, $A_0(0)$ is hyperbolic, and its spectrum is
 
 \begin{align}\label{specA00}
-\sigma(A_0(0)) &= \pm \alpha \pm \beta i && \alpha, \beta > 0
+\sigma(A_0(0)) &= \pm \sqrt{\frac{-c^2 \pm \sqrt{c^4 - 4}}{2} } = \pm \alpha \pm \beta i
 \end{align}
 
-In addition, equation \eqref{eqODE} is Hamiltonian with energy
+for some $\alpha, \beta > 0$. In addition, equation \eqref{eqODE} is Hamiltonian with energy
 
 \begin{equation}\label{defH}
 H(u) = u_x u_{xxx} - \frac{1}{2}u_{xx}^2 + \frac{c^2}{2}u_x^2 + e^u - u
@@ -107,15 +109,15 @@ H(u) = u_x u_{xxx} - \frac{1}{2}u_{xx}^2 + \frac{c^2}{2}u_x^2 + e^u - u
 We also make the following hypothesis.
 
 \begin{hypothesis}\label{A0kernel}
-The operator $A_0(q(x; c))$ has a one-dimensional kernel spanned by $\partial_x q(x; c)$.
+The operator $A_0(q(x; c))$ on $L^2(\R)$ has a one-dimensional kernel spanned by $\partial_x q(x; c)$.
 \end{hypothesis}
 
-from which it follows that the primary pulse $q(x; c)$ is transversely constructed. Thus we have the following theorem, which is adapted from Theorem 3.6 in \cite{Sandstede1997}.
+From this hypothesis, it follows that the primary pulse $q(x; c)$ is transversely constructed. Thus we have the following theorem, which is adapted from \cite[Theorem 3.6]{Sandstede1997}.
 
 \begin{theorem}\label{multiexist}
-Let $q(x; c)$ be a localized solution to \eqref{eqODE} such that Hypothesis \ref{A0kernel} holds. Then for any $n \geq 2$ and any sequence of nonnegative integers $k_0, \dots, k_{n-1}$ with at least one of the $k_j \in \{0, 1 \}$, there exists a nonnegative integer $m_0$ such that
-\begin{enumerate}
-	\item For any nonnegative integer $m$ with $m \geq m_0$, there exists a unique $n-$modal solution $q_n(x, c)$ to \eqref{eqODE} which is of the form
+Let $q(x; c)$ be a localized solution to \eqref{eqODE} such that Hypothesis \ref{A0kernel} holds. Then for any $n \geq 2$ and any sequence of nonnegative integers $k_1, \dots, k_{n-1}$ with at least one of the $k_j \in \{0, 1 \}$, there exists a nonnegative integer $m_0$ such that
+\begin{enumerate}[(i)]
+	\item For any integer $m$ with $m \geq m_0$, there exists a unique $n-$modal solution $q_n(x, c)$ to \eqref{eqODE} which is of the form
 	\begin{align}\label{qn}
 	q_n(x; c) = \sum_{j = 1}^{n} q^j(x; c) + r(x; c)
 	\end{align}
@@ -128,7 +130,7 @@ Let $q(x; c)$ be a localized solution to \eqref{eqODE} such that Hypothesis \ref
 	||r|| \leq C e^{-\alpha X_m}
 	\end{equation}
 	where $X_m = \min\{X_1, \dots, X_{n-1}\}$.
-	\item The linear operator $A_0(q_n)$ has precisely $n$ real eigenvalues $\nu_j$ near 0, where $\nu_1 = 0$ is a simple eigenvalue and $\nu_j = \mathcal{O}(e^{-2\alpha X_m})$ for $j = 2, \dots, n$. Moreover, for $j = 2, \dots, n$,
+	\item The linear operator $A_0(q_n)$ on $L^2(\R)$ has precisely $n$ real eigenvalues $\nu_j$ near 0, where $\nu_1 = 0$ is a simple eigenvalue and $\nu_j = \mathcal{O}(e^{-2\alpha X_m})$ for $j = 2, \dots, n$. Moreover, for $j = 2, \dots, n$,
 	\begin{align*}
 	\nu_j < 0 \text{ if } k_j \text{ is odd} \\
 	\nu_j > 0 \text{ if } k_j \text{ is even} 
@@ -136,7 +138,7 @@ Let $q(x; c)$ be a localized solution to \eqref{eqODE} such that Hypothesis \ref
 \end{enumerate}
 
 \begin{proof}
-Using \eqref{specA00}, \eqref{defH}, and Hypothesis \ref{A0kernel}, this follows from Theorem 3.6 in \cite{Sandstede1997}. The bound on $r(x; c)$ in (i) follows from \cite{Sanstede1993} and \cite{Sandstede1998}. The eigenvalues $\nu_j$ are real since $A_0(q_n)$ is self-adjoint. The signs of the eigenvalues in (iii) follow from \cite{Sandstede1997} and the fact that the Melnikov integral $M = \int_{-\infty}^\infty |q_x|^2 dx > 0$.
+Using \eqref{specA00}, \eqref{defH}, and Hypothesis \ref{A0kernel}, this follows from Theorem 3.6 in \cite{Sandstede1997}. The bound on $r(x; c)$ in (i) follows from \cite{Sanstede1993} and \cite{Sandstede1998}. The eigenvalues $\nu_j$ are real since $A_0(q_n)$ is self-adjoint. The signs of the eigenvalues in (iii) follow from \cite{Sandstede1997} and the fact that the Melnikov integral $M = \int_{-\infty}^\infty |q_x|^2 dx$ is positive.
 \end{proof}
 \end{theorem}
 
@@ -153,13 +155,13 @@ A_1 &= -2 c \partial_x \\
 A_2 &= I
 \end{align}
 
-We will use the Krein matrix to find the eigenvalues of \eqref{quadeig}. Applying Theorem \ref{multiexist}, let $\nu_1, \dots, \nu_n$ be the small eigenvalues of $A_0(q_n)$, and let $s_1, \dots, s_n$ be the corresponding eigenfunctions. Define the space $S$ by
+We will use the Krein matrix to find the eigenvalues of \eqref{quadeig}. Applying Theorem \ref{multiexist}, let $\{\nu_1, \dots, \nu_n\}$ be the small eigenvalues of $A_0(q_n)$, and let \{$s_1, \dots, s_n\}$ be the corresponding eigenfunctions. Define the space $S$ by
 
 \begin{equation}\label{defS}
 S = \spn\{s_1, \dots, s_n \}
 \end{equation}
 
-and define the Krein matrix $K_S(z)$ as on p.4 of Kap2018. We make the following hypotheses.
+and define the Krein matrix $K_S(z)$ as on P.4 OF THIS PAPER. We make the following hypotheses, which, by \cite{Grillakis1987}, give stability of the primary pulse $q(x; c)$.
 
 \begin{hypothesis}\label{PDEexisthyp}
 For every initial condition $u_0(x)$ there exists a solution $u(x, t)$ to \eqref{suspc} on the interval $I = [0, T]$, where $T$ only depends on $\max{ \{ ||u_0||, ||(u_0)_t|| \} }$.
@@ -180,7 +182,7 @@ d''(c) = -\frac{\partial}{\partial c} \left( c ||q_x||^2 \right)
 We now present the following theorem, which is the main result of this section.
 
 \begin{theorem}\label{Kreindiag}
-Let $q_n(x; c)$ be an $n-$modal solution to \eqref{eqODE}. Assume Hypotheses \ref{A0kernel}, \ref{existhyp}, \ref{A0neg}, and \ref{dccpos}. Then the Krein matrix is given by
+Let $q_n(x; c)$ be an $n-$modal solution to \eqref{eqODE}. Assume Hypotheses \ref{A0kernel}, \ref{PDEexisthyp}, \ref{A0neg}, and \ref{dccpos}. Then the Krein matrix is given by
 
 \begin{equation}\label{Kreinapprox}
 K_S(z) = ||q_x||^2 \text{diag} (\nu_1, \dots, \nu_n)
@@ -195,7 +197,7 @@ As a corollary, we have the following criteria for linear stability and instabil
 
 \begin{corollary}\label{stabcrit}
 Let $q_n(x; c)$ be an $n-$pulse solution to \eqref{eqODE}, and assume the same hypotheses as in Theorem \ref{Kreindiag}. Let $\nu_1, \dots, \nu_n$ be the small eigenvalues of $A_0(q_n)$, as defined in Theorem \ref{multiexist}, where $\nu_1 = 0$.
-\begin{enumerate}
+\begin{enumerate}[(i)]
 	\item If $\nu_2, \dots, \nu_n < 0$, then \eqref{quadeig} has $2n$ purely imaginary eigenvalues near 0, which are given by
 
 	\begin{equation}\label{npulseKreineigs}
@@ -231,7 +233,7 @@ u(x,t) = u_*(x) + \epsilon e^{\lambda t} v(x)
 
 and keep only terms of order $\epsilon$ to obtain the quadratic eigenvalue problem
 
-\begin{equation}\label{quadeig}
+\begin{equation}\label{quadeig2}
 P_2(\lambda; u_*)v =  [A_2 \lambda^2 + A_1 \lambda + A_0(u_*)]v = 0
 \end{equation}
 
