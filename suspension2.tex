@@ -47,6 +47,7 @@
 \newtheorem{proposition}{Proposition}
 \newtheorem{assumption}{Assumption}
 \newtheorem{hypothesis}{Hypothesis}
+\newtheorem{remark}{Remark}
 
 \newtheorem{notation}{Notation}
 
@@ -54,21 +55,21 @@
 
 \section{Chen-McKenna Suspension Bridge Equation}
 
-\subsection{Background}
+\subsection{Background and Main Results}\label{sec:mainresults}
 
-In \cite{McKenna1990}, McKenna and Walter propose the following equation to model traveling waves on an infinitely long suspended beam
+Motivated by observations of traveling waves on suspension bridges, McKenna and Walter (\cite{McKenna1990}) proposed the model
 
 \begin{equation}\label{susp}
 u_{tt} + u_{xxxx} + u^+ - 1 = 0,
 \end{equation}
 
-where $u^+ = \max(u, 0)$. This model was motivated by observations of traveling waves on suspension bridges. In \cite{Chen1997}, Chen and McKenna introduce the following smooth approximation to \eqref{susp}
+to describe waves propagating on an infinitely long suspended beam, where $u^+ = \max(u, 0)$. To reduce the complexity due to the nonsmooth term $u^+$, Chen and McKenna (\cite{Chen1997}) introduced the regularized equation 
 
 \begin{equation}\label{susp2}
 u_{tt} + u_{xxxx} + e^{u-1} - 1 = 0.
 \end{equation}
 
-The analytic function $e^{u-1}$ is less likely to introduce error into numerical schemes than the non-smooth function $u^+$. Making the change of variables $u - 1 \mapsto u$ in \eqref{susp2} so that localized solutions will decay to a baseline of 0, we will consider the equation
+Making the change of variables $u - 1 \mapsto u$ in \eqref{susp2} so that localized solutions will decay to a baseline of 0, we will consider the equation
 
 \begin{equation}\label{susp3}
 u_{tt} + u_{xxxx} + e^{u} - 1 = 0.
@@ -88,25 +89,29 @@ u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0.
 
 In \cite[Theorem 11]{Smets2002}, Smets and van den Berg prove existence of a localized, symmetric solution $q(x; c)$ to \eqref{eqODE} for almost all speeds $c \in (0, \sqrt{2})$. In \cite[Theorem 1]{Berg2018}, van den Berg et al use a computer-assisted proof technique to show existence of such solutions to \eqref{eqODE} for all speeds $c$ with $c^2 \in [0.5, 1.9]$. For what follows, we will take $c \in [\sqrt{0.5}, \sqrt{1.9}]$ so that a primary pulse solution $q(x; c)$ is known to exist. \\
 
-We are interested in the existence and stability of multi-pulse equilibrium solutions to \eqref{suspc}. A multi-pulse is a localized, multi-modal solution $q_n(x; c) $to \eqref{eqODE} which resembles multiple, well-separated copies of the primary pulse $q(x; c)$. First, we look at existence. For any solution $u_*$ to \eqref{eqODE}, the linearization of \eqref{eqODE} about $u_*$ is given by
+We are interested in the existence and stability of multi-pulse equilibrium solutions to \eqref{suspc}. A multi-pulse is a localized, multi-modal solution $q_n(x; c) $to \eqref{eqODE} which resembles multiple, well-separated copies of the primary pulse $q(x; c)$. \\
+
+First, we look at existence. The linearization of \eqref{eqODE} about a given solution $u_*$ of \eqref{eqODE} is given by 
 
 \begin{equation}\label{defA0}
 A_0(u^*) = \partial_x^4 + c^2 \partial_x^2 + e^{u_*}.
 \end{equation}
 
-For $c \in (0, \sqrt{2})$, $A_0(0)$ is hyperbolic, and its spectrum is
-
-\begin{align}\label{specA00}
-\sigma(A_0(0)) &= \pm \sqrt{\frac{-c^2 \pm \sqrt{c^4 - 4}}{2} } = \pm \alpha \pm \beta i,
-\end{align}
-
-for some $\alpha, \beta > 0$. The constant $\alpha$ is the exponential decay rate of localized solutions to \eqref{eqODE}. We make the following hypothesis.
+We make the following hypothesis.
 
 \begin{hypothesis}\label{A0kernel}
 The operator $A_0(q(x; c))$ on $L^2(\R)$ has a one-dimensional kernel spanned by $\partial_x q(x; c)$.
 \end{hypothesis}
 
-From this hypothesis, it follows that the primary pulse $q(x; c)$ is transversely constructed. Thus we have the following theorem, which is adapted from \cite[Theorem 3.6]{Sandstede1997}.
+From this hypothesis, it follows that the primary pulse $q(x; c)$ is transversely constructed. We will also need the following result. For $c \in (0, \sqrt{2})$, the solutions to the constant-coefficient equation $A_0(0)v = \partial_x^4 v + c^2 \partial_x^2 v + 1 = 0$ are given by $v = e^{\mu x}$, where
+
+\begin{align}\label{specA00}
+\mu = \pm \sqrt{\frac{-c^2 \pm \sqrt{c^4 - 4}}{2} } = \pm \alpha \pm \beta i,
+\end{align}
+
+for $\alpha, \beta > 0$. The constant $\alpha$ is the exponential decay rate of localized solutions to \eqref{eqODE}.\\
+
+Thus we have the following theorem, which is adapted from \cite[Theorem 3.6]{Sandstede1997}.
 
 \begin{theorem}\label{multiexist}
 Let $q(x; c)$ be a localized solution to \eqref{eqODE} for which Hypothesis \ref{A0kernel} holds. Then for any $n \geq 2$ and any sequence of nonnegative integers $k_1, \dots, k_{n-1}$ with at least one of the $k_j \in \{0, 1 \}$, there exists a nonnegative integer $m_0$ and $\delta > 0$ such that
@@ -123,19 +128,19 @@ Let $q(x; c)$ be a localized solution to \eqref{eqODE} for which Hypothesis \ref
 	\begin{equation}\label{rbound}
 	||r|| \leq C e^{-\alpha X_m},
 	\end{equation}
-	where $\alpha$ is defined in \eqref{specA00} and $X_m = \min\{X_1, \dots, X_{n-1}\}$.
+	where $\alpha$ is defined in \eqref{specA00}, and $X_m = \min\{X_1, \dots, X_{n-1}\}$.
 
-	\item The linear operator $A_0(q_n)$ on $L^2(\R)$ has precisely $n$ real eigenvalues $\nu_j$ with $|\nu_j| < \delta$, where $\nu_n = 0$ is a simple eigenvalue and for $j = 1, \dots, n-1$,
+	\item The linear operator $A_0(q_n)$ on $L^2(\R)$ has precisely $n$ real eigenvalues $\nu_j$ with $|\nu_j| < \delta$, where $\nu_n = 0$ is a simple eigenvalue, and for $j = 1, \dots, n-1$,
 	\begin{align*}
 	\nu_j < 0 \text{ if } k_j \text{ is odd} \\
 	\nu_j > 0 \text{ if } k_j \text{ is even} 
 	\end{align*}
 
-	\item For $j = 1, \dots, n-1$, $\nu_j = \mathcal{O}(e^{-2\alpha X_m})$ and the eigenfunctions $s_j$ are given by
+	\item For $j = 1, \dots, n-1$, $\nu_j = \mathcal{O}(e^{-2\alpha X_m})$ and the corresponding eigenfunctions $s_j$ are given by
 	\begin{align}\label{sj}
-	s_j = \sum_{i = 1}^{n} d_{ji} q^i_x + w_j
+	s_j = \sum_{k = 1}^{n} d_{jk} q^k_x + w_j
 	\end{align}
-	where $d_{ji} \in \C$ are constants and the remainder terms $w_j$ satisfy
+	where $d_{jk} \in \C$ are constants and the remainder terms $w_j$ satisfy
 	\begin{equation}\label{sjwbound}
 	||w_j|| \leq C e^{-2 \alpha X_m}
 	\end{equation}
@@ -153,7 +158,7 @@ Using \eqref{specA00}, \eqref{defH}, Hypothesis \ref{A0kernel}, and the fact tha
 \end{proof}
 \end{theorem}
 
-To determine linear PDE stability of these multi-pulse solutions, we look at the linearization of the PDE \eqref{suspc} about $q_n(x; c)$, which is the following quadratic eigenvalue problem
+To determine linear PDE stability of the multi-pulse solutions constructed in Theorem \ref{multiexist}, we look at the linearization of the PDE \eqref{suspc} about $q_n(x; c)$, which is the quadratic eigenvalue problem
 
 \begin{equation}\label{quadeig}
 P_2(\lambda; q_n)v =  [A_2 \lambda^2 + A_1 \lambda + A_0(q_n)]v = 0,
@@ -166,21 +171,29 @@ A_1 &= -2 c \partial_x \\
 A_2 &= I
 \end{align}
 
-For $c \in (0, \sqrt{2})$, by the Weyl essential spectrum theorem, the essential spectrum of \eqref{quadeig} is independent of $q_n$ and is given by
+For $c \in (0, \sqrt{2})$, by the Weyl essential spectrum theorem \cite[Theorem 2.2.6]{Kapitula2013}, the essential spectrum of \eqref{quadeig} is independent of $q_n$ and is given by
 
 \begin{equation}\label{quadess}
-\sigma_{\text{ess}}(P_2) = (-\infty, \rho] \cup [\rho, \infty),
+\sigma_{\text{ess}}(P_2) = \{ r i : |r| \geq \rho \},
 \end{equation}
 
-where $\rho > 0$ and is the minimum of the function $\lambda(r) = c r + \sqrt{1 + r^4}$; this minimum is positive for $c \in (0, \sqrt{2})$. Thus the essential spectrum is purely imaginary and bounded away from 0.\\
+where $\rho > 0$ is the minimum of the function $\lambda(r) = c r + \sqrt{1 + r^4}$; $\rho$ is positive for $c \in (0, \sqrt{2})$ and $\rho \rightarrow 0$ as $c \rightarrow \sqrt{2}$. Thus the essential spectrum is purely imaginary and bounded away from 0.\\
 
-Linear PDE stability thus depends on the point spectrum. We will use the Krein matrix to find the eigenvalues of \eqref{quadeig}. Applying Theorem \ref{multiexist}, let $\{\nu_1, \dots, \nu_n\}$ be the small eigenvalues of $A_0(q_n)$, and let \{$s_1, \dots, s_n\}$ be the corresponding eigenfunctions. Define the space $S$ by
+Linear PDE stability thus depends on the point spectrum. We will use the Krein matrix to find the eigenvalues of \eqref{quadeig}. Using Theorem \ref{multiexist}, we know that $A(q_n)$ has precisely $n$ eigenvalues near the origin; denote these eigenvalues $\{\nu_1, \dots, \nu_n\}$ and the associated eigenfunctions \{$s_1, \dots, s_n\}$. Define the space $S$ by
 
 \begin{equation}\label{defS}
 S = \spn\{s_1, \dots, s_n \},
 \end{equation}
 
-and define the Krein matrix $K_S(z)$ as on P.4 OF THIS PAPER. We make the following hypotheses, which, by \cite[Theorems 5.5 and 3]{Grillakis1987}, give stability of the primary pulse $q(x; c)$.
+Letting $\lambda = iz$, define the Krein matrix $K_S(z)$ by
+
+\begin{equation}\label{Kreinmatrix}
+[K_S(z)]_{jk} = 
+\langle s_j , P_2(iz)s_k\rangle 
+- \langle s_j , P_2(iz) P_{S^{\perp}} (P_{S^{\perp}} P_2(iz)|_{S^{\perp}} )^{-1} P_{S^{\perp}} P_2(iz) s_k \rangle,
+\end{equation}
+
+which is the form in Theorem 3.1 OF THIS PAPER, with the $-z$ out front omitted. We make the following hypotheses, which, by Lemma \ref{qstable} in section \ref{sec:proofs}, give stability of the primary pulse $q(x; c)$. We will provide numerical evidence that these hypotheses are met in section \ref{sec:numerics} below.
 
 \begin{hypothesis}\label{PDEexisthyp}
 For every initial condition $u_0(x)$ there exists a solution $u(x, t)$ to \eqref{suspc} on the interval $I = [0, T]$, where $T$ only depends on $\max{ \{ ||u_0||, ||(u_0)_t|| \} }$.
@@ -217,7 +230,7 @@ As a corollary, we have the following criteria for linear PDE stability and inst
 \begin{corollary}\label{stabcrit}
 Let $q_n(x; c)$ be an $n-$pulse solution to \eqref{eqODE}, constructed as in Theorem \ref{multiexist} using the sequence of nonnegative integers $\{ k_1, \dots, k_{n-1} \}$. Assume the same hypotheses as in Theorem \ref{Kreindiag}. Let $\nu_1, \dots, \nu_n$ be the small eigenvalues of $A_0(q_n)$, where $\nu_n = 0$.
 \begin{enumerate}[(i)]
-	\item If $\nu_1, \dots, \nu_{n-1} < 0$ (equivalently, all $k_j$ are odd), then \eqref{quadeig} has $2n - 2$ purely imaginary eigenvalues near 0, which are given by
+	\item If $\nu_1, \dots, \nu_{n-1} < 0$ (equivalently, all $k_j$ are odd), then for sufficiently large $X_m$, equation \eqref{quadeig} has $2n - 2$ purely imaginary eigenvalues near 0, which are given by
 
 	\begin{equation}\label{npulseKreineigs}
 	\lambda_j^\pm = \pm i \left( ||q_x|| \sqrt{ \frac{|\nu_j|}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m}) \right).
@@ -225,12 +238,14 @@ Let $q_n(x; c)$ be an $n-$pulse solution to \eqref{eqODE}, constructed as in The
 
 	Thus $q_n(x; c)$ is linearly neutrally stable.
 
-	\item If $\nu_j > 0$ for some $j = 1, \dots, n-1$ (equivalently, at least one $k_j$ is even), then \eqref{quadeig} has at least one eigenvalue with positive real part. Thus $q_n(x; c)$ is linearly unstable.
+	\item If $\nu_j > 0$ for some $j = 1, \dots, n-1$ (equivalently, at least one $k_j$ is even), then equation \eqref{quadeig} has at least one eigenvalue with positive real part. Thus $q_n(x; c)$ is linearly unstable.
 \end{enumerate}
-
 \end{corollary}
 
-\subsection{Numerics}
+\begin{remark}The stability criterion (i) from Corollary \ref{stabcrit} only holds for sufficiently large $X_m$. In particular, if this is not the case, there may be a Krein collision between an interaction eigenvalue and the essential spectrum. This is illustrated numerically in the next section.
+\end{remark}
+
+\subsection{Numerics}\label{sec:numerics}
 
 In this section, we show numerical results to illustrate the results of the previous section. First, we can construct a primary pulse solution $q(x; c)$ numerically using the string method from \cite{Chamard2011}. Figure \ref{fig:single1} shows these solutions for the same values of $c$ as in \cite[Figure 3]{Chen1997}.
 
@@ -251,7 +266,7 @@ Next, we compute the spectrum of the operator $A_0(q(x; c))$ numerically using M
 \label{fig:specA0}
 \end{figure}
 
-We can construct multi-pulse solutions numerically by joining together multiple copies of the primary pulse and using Matlab's \texttt{fsolve} function; consecutive distances between peaks given by Theorem \ref{multiexist}. The first four double pulse solutions are shown in Figure \ref{fig:double}.
+We can construct multi-pulse solutions numerically by joining together multiple copies of the primary pulse and using Matlab's \texttt{fsolve} function; consecutive distances between peaks given by Theorem \ref{multiexist}. The first four double pulse solutions are shown in Figure \ref{fig:double}. These double pulses are numbered using the integer $k_1$ from Theorem \ref{multiexist}.
 
 \begin{figure}[H]
 \centering
@@ -261,7 +276,7 @@ We can construct multi-pulse solutions numerically by joining together multiple 
 \label{fig:double}
 \end{figure}
 
-We can verify part (ii) of Theorem \ref{multiexist} numerically by computing the spectrum of $A_0(q_2(x; c))$. The spectrum of $A_0(q_2)$ for double pulses 0 and 1 are shown in Figure \ref{fig:specA0double}. In both cases, there is an eigenvalue at 0. For double pulse 0, there is an additional positive eigenvalue, and for double pulse 1, there is an additional negative eigenvalue.
+We can verify part (ii) of Theorem \ref{multiexist} numerically by computing the spectrum of $A_0(q_2(x; c))$. The spectrum of $A_0(q_2)$ for double pulses 0 and 1 are shown in Figure \ref{fig:specA0double}. In both cases, there is an eigenvalue at 0. For double pulse 0, there is an additional small positive eigenvalue, and for double pulse 1, there is an additional small negative eigenvalue.
 
 \begin{figure}[H]
 \centering
@@ -271,7 +286,7 @@ We can verify part (ii) of Theorem \ref{multiexist} numerically by computing the
 \label{fig:specA0double}
 \end{figure}
 
-Finally, we verify Corollary \ref{stabcrit} by computing the eigenvalues of \eqref{quadeig} directly using the Matlab package \texttt{quadeig} from \cite{Hammarling2013}. For double pulse 0, $A_0(q_2)$ has one small positive eigenvalue, thus, by Corollary \ref{stabcrit}, equation \eqref{quadeig} has an eigenvalue with positive real part. For double pulse 1, the small eigenvalue of $A_0(q_2)$ is negative, thus by Corollary \ref{stabcrit}, the eigenvalues of \eqref{quadeig} are purely imaginary. These are shown in Figure \ref{fig:quadeigdouble}.
+We verify Corollary \ref{stabcrit} by computing the eigenvalues of \eqref{quadeig} directly using the Matlab package \texttt{quadeig} from \cite{Hammarling2013}. For double pulse 0, $A_0(q_2)$ has one small positive eigenvalue, thus, by Corollary \ref{stabcrit}, equation \eqref{quadeig} has an eigenvalue with positive real part. For double pulse 1, the small eigenvalue of $A_0(q_2)$ is negative, thus by Corollary \ref{stabcrit}, since the distance between the two peaks is sufficiently large, the eigenvalues of \eqref{quadeig} are purely imaginary. These are shown in Figure \ref{fig:quadeigdouble}.
 
 \begin{figure}[H]
 \centering
@@ -281,28 +296,29 @@ Finally, we verify Corollary \ref{stabcrit} by computing the eigenvalues of \eqr
 \label{fig:quadeigdouble}
 \end{figure}
 
-WHAT TO DO WITH KREIN COLLISION?\\
-
-For other values of $c$, the odd-numbered double pulses have the same eigenvalue pattern, so we will focus on the even-numbered double pulses. Let's look at $c = 1.354$ (this value was used in \cite{Chen1997}). For Double Pulse 2, we now have a quartet of interaction eigenvalues. Their imaginary part now lies \emph{outside} the essential spectrum gap. This suggests that a Krein collision has occurred, where the interaction eigenvalues collide with the smallest essential spectrum eigenvalue and then form a quartet.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=8cm]{spec1354_double2.eps}
-\caption{Linearization about Double Pulse 2. Spectrum showing Krein quartet. Finite difference methods, $N = 512$, $c = 1.354$.}
-\end{figure}
-
-The final two plots show that the Krein collision occurs between $c = 1.322$ (before collision) and $c = 1.323$ (after collision).
+As $c$ increases towards $\sqrt{2}$, the essential spectrum boundary $\rho$ decreases towards 0. For double pulse 1, a Krein collision occurs when the purely imaginary interaction eigenvalue collides with the smallest essential spectrum eigenvalue. Figure \ref{fig:Kreincollision} shows this Krein collision occurring between $c = 1.322$ and $c = 1.323$.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=8cm]{spec1322_double2.eps}
 \includegraphics[width=8cm]{spec1323_double2.eps}
-\caption{Linearization about Double Pulse 2. Spectrum before Krein collision ($c = 1.322$, left) and after Krein collision ($c = 1.323$, right). Finite difference methods, $N = 512$}
+\caption{Spectrum of \eqref{quadeig} for double pulse 1. Before Krein collision ($c = 1.322$, left) and after Krein collision ($c = 1.323$, right). Finite difference methods, $N = 512$}
+\label{fig:Kreincollision}
+\end{figure}
+
+We can also see the Krein collision by plotting the eigenvalues of the Krein matrix. In the left panel of Figure \ref{fig:KScollision}, before the Krein collision, we have an interaction eigenvalue (positive Krein signature) to the left of the first essential spectrum eigenvalue (negative Krein signature). In the right panel of Figure \ref{fig:KScollision}, the Krein collision has taken place; the two eigenvalues of opposite Krein signatures have collided and moved off the imaginary axis.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{Kreineigbefore.eps}
+\includegraphics[width=8cm]{Kreineigafter.eps}
+\caption{Eigenvalue of the Krein matrix $K_s(z)$ versus $z$. Before Krein collision ($c = 1.322$, left) and after Krein collision ($c = 1.323$, right).}
+\label{fig:KScollision}
 \end{figure}
  
-\subsection{Proofs}
+\subsection{Proofs of Results from Section \ref{sec:mainresults}}\label{sec:proofs}
 
-\subsubsection{Stability of Primary Pulse}
+\subsubsection{Proof of Stability of Primary Pulse}
 
 First, we show stability of the primary pulse $q(x; c)$.
 
@@ -350,15 +366,7 @@ Using Theorem \ref{multiexist}, let $q_n(x; c)$ be an $n-$modal solution to \eqr
 \langle s_i, s_j \rangle = ||q_x(x; c)||^2 \delta_{ij}.
 \end{equation}
 
-Define the Krein matrix $K_S(\lambda)$ as on p.4 OF THIS PAPER by 
-
-\begin{equation}
-[K_S(\lambda)]_{jk} = 
-\langle s_j , P_2(\lambda)s_k\rangle 
-- \langle s_j , P_2(\lambda) P_{S^{\perp}} (P_{S^{\perp}} P_2(\lambda)|_{S^{\perp}} )^{-1} P_{S^{\perp}} P_2(\lambda) s_k \rangle.
-\end{equation}
-
-Let $\lambda = i z$. Using Lemma 5.6 IN THIS PAPER and \eqref{orthoeigs}, for small $|z|$ the Krein matrix is the $n \times n$ matrix
+Define the Krein matrix $K_S(z)$ by \eqref{Kreinmatrix}. Using Lemma 5.6 IN THIS PAPER and \eqref{orthoeigs}, for small $|z|$, the Krein matrix is the $n \times n$ matrix
 
 \begin{equation}\label{Kreinform}
 K_S(z) = ||q_x||^2 \text{diag}(\nu_1, \dots, \nu_n) + \overline{z} K_1 
@@ -526,15 +534,15 @@ By Lemma \ref{PA0inv}, $(P_{S^\perp} A_0(q_n)|_{S^\perp})^{-1}$ is a bounded lin
 + \sum_{l=1}^n \langle (w_j)_x, d_{kl} q^l_c \rangle \right) + \mathcal{O}(e^{-2 \alpha X_m}).
 \end{align*}
 
-For the first term on the RHS, by translation invariance and Lemma \ref{orthogonald},
+Since $q^l_{xx}$ and $q^j_c$ are exponentially separated, the second term on the RHS is $\mathcal{O}(e^{-(3 \alpha/2) X_m})$. Using Holder's inequality and the remainder bound \eqref{sjwbound}, the last term on the RHS is $\mathcal{O}(e^{-2 \alpha X_m})$. For the first term on the RHS, by translation invariance and Lemma \ref{orthogonald},
 
 \begin{align*}
-\sum_{i = 1}^{n} d_{ji} d_{ki} \langle q^i_{xx}, q^i_c \rangle
-&= \langle q_{xx}, q_c \rangle \sum_{i = 1}^{n} d_{ji} d_{ki} \\
+\sum_{l = 1}^{n} d_{jl} d_{kl} \langle q^l_{xx}, q^l_c \rangle
+&= \langle q_{xx}, q_c \rangle \sum_{l = 1}^{n} d_{jl} d_{kl} \\
 &= \langle q_{xx}, q_c \rangle \delta_{jk} + \mathcal{O}(e^{-(3 \alpha/2) X_m}).
 \end{align*}
 
-Since $q^l_{xx}$ and $q^j_c$ are exponentially separated, the second term on the RHS is $\mathcal{O}(e^{-(3 \alpha/2) X_m})$. Using Holder's inequality and the remainder bound \eqref{sjwbound}, the last term on the RHS is $\mathcal{O}(e^{-2 \alpha X_m})$. Combining these, we obtain \eqref{K2final}.
+Combining these, we obtain \eqref{K2final}.
 
 \end{proof}
 \end{lemma}
@@ -557,7 +565,7 @@ K_S(z)
 
 which is \eqref{Kreinapprox} in Theorem \ref{Kreindiag}.
 
-\subsection{Proof of Corollary}
+\subsection{Proof of Corollary \ref{stabcrit}}
 
 By p.4 OF THIS PAPER, the eigenvalues of \eqref{quadeig} are found by solving $\det K_S(z) = 0$ for $z$. By Theorem \ref{Kreindiag}, we can write the Krein matrix $K_S(z)$ as 
 
@@ -605,7 +613,7 @@ Letting $y = \epsilon_j z$ and noting that $\epsilon_j = \mathcal{O}(e^{-\alpha 
 y^2 - 1 + \mathcal{O}(\epsilon_j^{1/2 }|y| + \epsilon|y^3|) = 0.
 \end{equation}
 
-For sufficiently small $\epsilon_j$, equation \eqref{eqforz3} has two roots at $y = \pm 1 + \mathcal{O}(\epsilon_j^{1/2}$. Thus \eqref{eqforz} has two solutions
+For sufficiently small $\epsilon_j$, equation \eqref{eqforz3} has two roots at $y = \pm 1 + \mathcal{O}(\epsilon_j^{1/2})$. Thus, for sufficiently large $X_m$, equation \eqref{eqforz} has two solutions
 
 \begin{equation}
 z_j^\pm = \pm ||q_x|| \sqrt{ -\frac{ \nu_j}{d''(c)} } + \mathcal{O}(e^{-(3 \alpha/2) X_m}),
