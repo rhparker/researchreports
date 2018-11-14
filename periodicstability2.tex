@@ -1,0 +1,113 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\ran}{ran}
+
+\graphicspath{ {periodic/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\newtheorem{notation}{Notation}
+
+\begin{document}
+
+Here we look at the variational problem / adjoint variational equation for the linearization of KdV5 about an equilbrium solution $u^*$. This linearization is
+
+\begin{equation}
+L(u^*) = \partial_x H(u^*) = \partial_x ( \partial_x^4 - \partial_x^2 + c - 2 u^*)
+\end{equation}
+
+The variational / adjoint variational equations are
+
+\begin{align}
+V' = A(q)V \label{vareq} \\
+W' = -A(q)^*W \label{adjvareq}
+\end{align}
+
+where
+
+\begin{align}
+A(u^*) = \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
+2u^*_x(x) & 2u^*(x) - c & 0 & 1 & 0 \end{pmatrix}
+\end{align}
+
+If we consider $A(0)$ for $c > 1/4$ we have eigenvalues $\nu = \{ 0, \pm \alpha \pm \beta i\}$, where $\alpha, \beta > 0$. The equilibrium at 0 is not hyperbolic, so we cannot directly apply the results of San98. The equilibrium at 0 has 2-dimensional stable/unstable manifolds, and a 1-dimensional center manifold. Let $W^{s/u/c}(0)$ be these manifolds.\\
+
+Let $q(x)$ be the primary pulse (homoclinic orbit) solution, whose existence is known. Since its existence comes from the 4th order (integrated) problem, for which the equilibrim at 0 is hyperbolic, we still have the same nondegeneracy assumption as before
+
+\begin{hypothesis}\label{nondegen}
+\[
+T_{Q(0)} W^u(0) \cap T_{Q(0)} W_s(0) = \R Q'(0)
+\]
+\end{hypothesis}
+
+where $Q(x)$ is the single pulse solution on $\R$, written as a vector-valued function in $R^5$ in the usual way.\\
+
+We cannot conclude from this that Hypothesis \ref{nondegen} is equivalent to the the fact that $Q'(x)$ is the unique bounded solution to the variational equation \eqref{vareq}. The easiest way to see this is by looking at the adjoint equation $L(q)^* v = 0$. Since $L(q)^* = (\partial_x H(q))^* = -H(q) \partial_x$, we can easily see that there are two bounded solutions to this: $q(x)$ and the constant function $1$. Since we are on a periodic domain, the constant function is periodic and in $L^2$, so we have to consider it here.\\
+
+Thus there are two bounded solutions $\Psi_1(x) = \nabla H(q(x))$ and $\Psi_2(x)$ of \eqref{adjvareq}, corresponding to $q(x)$ and 1. Consequently, there will be two bounded solutions to the variational equation \eqref{vareq}. One of these is $Q'(x)$. Let $\tilde{Q}$ be the other.
+\\
+
+Next, as in San98, we will decompose the tangent space at $Q(0)$. First, we define $Y^-$ and $Y^+$ as the ``rest of'' the tangent space of the unstable/stable manifolds.
+
+\begin{align*}
+T_{Q(0)} W^u(0) &= \R Q'(0) \oplus Y^- \\
+T_{Q(0)} W^s(0) &= \R Q'(0) \oplus Y^+
+\end{align*}
+
+Counting dimensions and using Hypothesis \ref{nondegen}, $\R Q'(0) \oplus Y^- \oplus Y^+$ is a 3-dimensional space. 
+
+We also have
+
+\[
+\Psi_1(0) \perp Q'(0) \oplus Y^- \oplus Y^+
+\]
+
+which should follow from the fact that the inner product $\langle \Psi(x), V(x) \rangle$ is constant for any solution $\Psi(x)$ to \ref{adjvareq} and any solution $V(x)$ to \ref{vareq}, and $\Psi(x)$ decays to 0 (exponentially) at both ends. Thus $\R Q'(0) \oplus \R \Psi(0) \oplus Y^- \oplus Y^+$ is a 4-dimensional space. We have only one dimension left, which will be some sort of ``center'' space. Let $Y^0$ be this center space at $x = 0$, i.e.  
+
+\[
+\R^5 = \R Q'(0) \oplus \R \Psi(0) \oplus Y^- \oplus Y^+ \oplus Y^0
+\]
+
+Now look at $\tilde{Q}$, the other bounded solution to the variational equation. Since $]\langle \Psi_1(x), \tilde{Q}(x) \rangle$ is constant, $\Psi_1(x)$ decays at both ends, and $\tilde{Q}(x)$ is bounded, we have $\tilde{Q}(0) \perp \Psi_1(0)$. \\
+
+
+\end{document}
