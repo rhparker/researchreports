@@ -1816,10 +1816,12 @@ Finally, we want to satisfy the conditions
 
 \begin{align*}
 W_i^\pm(0) &\in \C \Psi(0) \oplus Y^0 \oplus Y^+ \oplus Y^- \\
-W_i^+(0) - W_i^-(0) \in \C \Psi(0) \oplus Y^0
+W_i^+(0) - W_i^-(0) &\in \C \Psi(0)
 \end{align*}
 
-This is different from what we have been doing (and different from San98), but the idea here is that we are allowing for jumps to occur along the center subspace $Y^0$ as well. Recall that
+In other words, we allow the remainder terms $W_i^\pm(0)$ to perturb in any direction other than along $Q'(0)$, but we require the jump to only be in the direction of $\Psi(0)$.
+
+Recall that
 
 \[
 \C^m = \C \Psi(0) \oplus \C Q'(0) \oplus Y^0 \oplus Y^+ \oplus Y^- 
@@ -1830,12 +1832,21 @@ This condition is equivalent to the three projections
 \begin{align*}
 P(\C Q'(0))W_i^-(0) &= 0 \\
 P(\C Q'(0))W_i^+(0) &= 0 \\
-P(Y^+ \oplus Y^-) ( W_i^+(0) - W_i^-(0) ) &= 0
+P(Y^+ \oplus Y^- \oplus Y^0) ( W_i^+(0) - W_i^-(0) ) &= 0
 \end{align*}
 
-where the kernel of each projection is the remaining spaces in the direct sum. We can ignore $\C Q'(0)$ in the third equation since we ditched any component in it in the first two equations.\\
+where the kernel of each projection is the remaining spaces in the direct sum. We can ignore $\C Q'(0)$ in the third equation since we ditched any component in it in the first two equations. Splitting up the third projection, this is equivalent to the four projections
+
+\begin{align*}
+P(\C Q'(0))W_i^-(0) &= 0 \\
+P(\C Q'(0))W_i^+(0) &= 0 \\
+P(Y^+ \oplus Y^-) ( W_i^+(0) - W_i^-(0) ) &= 0 \\
+P(Y^0) ( W_i^+(0) - W_i^-(0) ) &= 0
+\end{align*}
 
 Since the stable and unstable range spaces at $\lambda = 0$ both contain $\C Q'(0)$, we decompose $b^\pm$ uniquely as $b^\pm = x^\pm + y^\pm$, where $x^\pm \in \C Q'(0)$ and $y^\pm \in Y^\pm$.\\
+
+IN A PREVIOUS VERSION, we used the conditions $P(Y^0)W_i^-(0) = 0$ and $P(Y^0)W_i^+(0) = 0$ to solve for the $c_i^\pm$, but we did not use the matching conditon at $\pm X_i$ to get one in term of the other. If we do that, we have an overdetermined system for the $c_i^\pm$ with no guarantee of a solution. So we will not do that.\\
 
 We will solve this system in the next lemma.
 
@@ -1878,24 +1889,62 @@ At $x = 0$, the fixed point equations become
 
 \begin{align*}
 W_i^-(0) = \Phi^s_-(&0, -X_{i-1}; \beta_i^-, \lambda)a_{i-1}^- + b_i^- + (P^u_-(0; \beta_i^-, \lambda) - P^u_-(0; 0, 0))b_i^- \\
-&+ e^{\nu(\lambda)X_{i-1}} v_-(0; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) \rangle c_{i-1}^- \\
+&+ v_-(0; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) \rangle e^{\nu(\lambda)X_{i-1}} c_{i-1}^- \\
 &+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \beta_i^-, \lambda) [ G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y) ] dy \\
 &+ \int_{-X_{i-1}}^0
 e^{\nu(\lambda)y} v_-(0; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \\
 W_i^+(0) = \Phi^u_+(&0, X_i; \beta_i^+, \lambda)a_i^+ + b_i^+ + (P^s_+(0; \beta_i^+, \lambda) - P^s_-(0; 0, 0))b_i^+ \\
-&+ e^{-\nu(\lambda) X_i} v_+(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle c_i^+ \\
+&+ v_+(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle e^{-\nu(\lambda) X_i} c_i^+ \\
 &+ \int_{X_i}^0 \Phi^u_+(0, y; \beta_i^+, \lambda) [ G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y) ] dy \\
 &+ \int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy
 \end{align*}
 
-where we have added and subtracted $P^s_-(0; 0, 0))b_i^+ = b_i^+$ and $P^u_-(0; 0, 0))b_i^- = b_i^-$ since we want the $b_i^\pm$ to disappear when we take the projections. Plugging these expressions for $W_i^\pm(0)$ into the above set of projections, we get the matrix equation
+where we have added and subtracted $P^s_-(0; 0, 0))b_i^+ = b_i^+$ and $P^u_-(0; 0, 0))b_i^- = b_i^-$ since we want the $b_i^\pm$ to disappear when we take the projections. Next, we manipulate things so that the we have the $c_i^\pm$ coefficients where we want them. Looking at the term in front of $e^{\nu(\lambda)X_{i-1}} c_{i-1}^-$, we have
+
+\begin{align*}
+v_-(0; \beta_i^-, \lambda) & \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) \rangle \\
+&= v_-(0; \beta_i^-, \lambda) ( \langle v_0(\lambda), w_0(\lambda) \rangle + \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) - w_0(\lambda) + w_0(\lambda) \rangle ) \\
+&= v_-(0; 0, 0) + (v_-(0; \beta_i^-, \lambda) - v_-(0; 0, 0)) \\
+&+ v_-(0; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) - w_0(\lambda) + w_0(\lambda) \rangle )
+\end{align*}
+
+Substitituting this (and the similar expression in front of $e^{-\nu(\lambda)X_i} c_i^+$), we have
+
+\begin{align*}
+W_i^-(0) &=  b_i^- + e^{\nu(\lambda)X_{i-1}} c_{i-1}^- v_-(0; 0, 0) \\
+&+\Phi^s_-(0, -X_{i-1}; \beta_i^-, \lambda)a_{i-1}^- + (P^u_-(0; \beta_i^-, \lambda) - P^u_-(0; 0, 0))b_i^- \\
+&+ (v_-(0; \beta_i^-, \lambda) - v_-(0; 0, 0)) \\
+&+ v_-(0; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) - w_0(\lambda) + w_0(\lambda) \rangle ) e^{\nu(\lambda)X_{i-1}} c_{i-1}^- \\
+&+ \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \beta_i^-, \lambda) [ G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y) ] dy \\
+&+ \int_{-X_{i-1}}^0
+e^{\nu(\lambda)y} v_-(0; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \\
+W_i^+(0) &= b_i^+ + e^{-\nu(\lambda) X_i} c_i^+ v_+(0; 0, 0) \\
+&+ \Phi^u_+(0, X_i; \beta_i^+, \lambda)a_i^+ + (P^s_+(0; \beta_i^+, \lambda) - P^s_-(0; 0, 0))b_i^+ \\
+&+ v_+(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle e^{-\nu(\lambda) X_i} c_i^+ \\
+&+ (v_+(0; \beta_i^+, \lambda) - v_+(0; 0, 0)) \rangle e^{-\nu(\lambda) X_i} c_i^+ \\
+&+ v_+(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) - w_0(\lambda) + w_0(\lambda) \rangle ) e^{\nu(\lambda)X_i} \rangle e^{-\nu(\lambda) X_i} c_i^+ \\
+&+ \int_{X_i}^0 \Phi^u_+(0, y; \beta_i^+, \lambda) [ G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y) ] dy \\
+&+ \int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy
+\end{align*}
+
+Now we plug these expressions for $W_i^\pm(0)$ into the above set of projections. WE ARE ASSUMING FOR NOW THAT WE DID THE MANIFOLD THING, WHICH MEANS THAT $v_-(0; 0, 0) = v_+(0; 0, 0) = Y^0$. We get the matrix equation
 
 \[
 \begin{pmatrix}x_i^- \\ x_i^+ \\ 
-y_i^+ - y_i^- \end{pmatrix} + L_4(\lambda)(b, c, d) = 0
+y_i^+ - y_i^- \\ 
+\tilde{c}_i^+ - \tilde{c}_{i-1}^- - \end{pmatrix} + L_4(\lambda)(b, c, d) = 0
 \]
 
-where $L_4(\lambda)(b, c, d)$ contains the terms that don't get eliminated outright by the projections. For the bound on $L_4$, we need to get bounds on the integral terms involving $W$ in a similar fashion to what we did in the previous lemmas. First, we find a bound for the center integral involving $W$ on the ``minus'' piece.\\
+where, for convenience,
+
+\begin{align*}
+\tilde{c}_i^+ &= e^{-\nu(\lambda)X_i} c_i^+ \\ 
+\tilde{c}_i^- &= e^{\nu(\lambda)X_i} c_i^-
+\end{align*}
+
+The $L_4(\lambda)(b, c, d)$ term contains the terms that don't get eliminated outright by the projections. $L_4(\lambda)$ does not depend on $a$ or $W$ since we already solved for them in the previous lemma. \\
+
+For the bound on $L_4$, we need to get bounds on the integral terms involving $W$ in a similar fashion to what we did in the previous lemmas. First, we find a bound for the center integral involving $W$ on the ``minus'' piece.\\
 
 \begin{align*}
 &\left| \int_{-X_{i-1}}^0
