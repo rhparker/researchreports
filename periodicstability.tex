@@ -2220,32 +2220,31 @@ since by Theorem \ref{trichotomy}, $P^c_+(0; \beta_i^+, \lambda) P^u_+(0; \beta_
 
 \end{align*}
 
-WE STOPPED HERE.
+This will give us three integrals. The first one has bound
 
 \begin{align*}
-|W_i^-(x)| &\leq C ( e^{|\nu(\lambda)|(X_{i-1} + x)} |c_{i-1}^-| + e^{-\tilde{\alpha}(X_{i-1} + x)}|D||d| + |\tilde{c}| + |\lambda|^2 |d| ) \\
-|W_i^+(x)| &\leq C ( e^{|\nu(\lambda)|(X_i - x)} |c_i^+| + e^{-\tilde{\alpha}(X_i - x)}|D||d| + |\tilde{c}| + |\lambda|^2 |d| )
-\end{align*}
-
-This will give us three integrals. The last one is the most straightforward. From that, we get the bound
-
-\begin{align*}
-(|\tilde{c}| + e^{-\tilde{\alpha}X_m}|D||d| + |\lambda|^2 |d| ) \Big|  \int_0^{X_i} e^{-\alpha y} e^{-\alpha X_i} e^{-\alpha (X_i - y)} dy \Big| \leq C e^{-\alpha X_m } (|\tilde{c}| + e^{-\tilde{\alpha}X_m}|D||d| + |\lambda|^2 |d| )
-\end{align*}
-
-The first one has bound
-
-\begin{align*}
-\Big|  \int_0^{X_i} e^{-\alpha y} e^{-\alpha X_i} e^{-\alpha (X_i - y)} e^{|\nu(\lambda)|(X_i - y)} |c_i^+| dy \Big| \leq C e^{-\alpha X_m } |c|
+\int_0^{X_i} &e^{-\alpha y} e^{-\alpha X_i} e^{-\alpha (X_i - y)} e^{|\nu(\lambda)|(X_i - y)} |c_i^+| dy \leq |c| \int_0^{X_i} e^{-\alpha y} e^{-\alpha X_i} e^{-(\alpha - |\nu(\lambda)|) (X_i - y)} dy \\ 
+&\leq |c| \int_0^{X_i} e^{-\alpha y} e^{-\alpha X_i} e^{-\tilde{\alpha}(X_i - y)} dy \\
+&\leq e^{-(\alpha + \tilde{\alpha}) X_m} |c| \int_0^{X_i} e^{-(\alpha - \tilde{\alpha}) y} dy \\
+&\leq C e^{-(\alpha + \tilde{\alpha}) X_m} |c|
 \end{align*}
 
 The second one has bound
 
 \begin{align*}
-\Big|  \int_0^{X_i} e^{-\alpha y} e^{-\alpha X_i} e^{-\alpha (X_i - y)} e^{-\tilde{\alpha}(X_i - y)}|D_i||d|  dy \Big| \leq C e^{-(\alpha + \tilde{\alpha}) X_m } |D||d|
+\int_0^{X_i} &e^{-\alpha y} e^{-\alpha X_i} e^{-\alpha (X_i - y)} e^{-\tilde{\alpha}(X_i - y)}|D||d|  dy \leq |D| |d| e^{-(\alpha + \tilde{\alpha})X_m } \int_0^{X_i} e^{-(\alpha - \tilde{\alpha})y } dy \\
+&\leq C e^{-(\alpha + \tilde{\alpha}) X_m } |D||d|
 \end{align*}
 
-The integral involving $\tilde{H}$ has bound
+The last one has bound
+
+\begin{align*}
+(|\tilde{c}| + |\lambda|^2 |d| ) &\int_0^{X_i} e^{-\alpha y} e^{-\alpha X_i} e^{-\alpha (X_i - y)} dy \leq (|\tilde{c}| + |\lambda|^2 |d| ) \int_0^{X_i} e^{-\alpha y} e^{-\alpha X_i} e^{-\tilde{\alpha} (X_i - y)} dy \\
+&\leq e^{-(\alpha + \tilde{\alpha})X_m } (|\tilde{c}| + |\lambda|^2 |d| ) \int_0^{X_i} e^{-(\alpha - \tilde{\alpha})y } dy \\
+&\leq C e^{-(\alpha + \tilde{\alpha})X_m } (|\tilde{c}| + |\lambda|^2 |d| )
+\end{align*}
+
+For the second integral involving $\tilde{H}$, we have bound
 
 \begin{align*}
 \Big| \int_{X_i}^0 \Phi^u_+(0, y; \beta_i^+, \lambda) \lambda^2 d_i \tilde{H}_i^+(y) dy \Big| \leq C |\lambda|^2 |d|
@@ -2255,22 +2254,46 @@ Putting all of this together, we have bound
 
 \begin{align*}
 \Big| P(Y^0) &\int_{X_i}^0 \Phi^u_+(0, y; \beta_i^+, \lambda) [ G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y) ] dy \Big| \\
-&\leq C p_4(0; \lambda)( e^{-\alpha X_m } (|\tilde{c}| + e^{-\tilde{\alpha}X_m}|D||d| + |\lambda|^2 |d| ) + e^{-\alpha X_m } |c| + e^{-(\alpha + \tilde{\alpha}) X_m } |D||d| + |\lambda|^2|d|) \\
-&\leq C (|\lambda| + e^{-2 \alpha X_m})( e^{-\alpha X_m}(|c| + |\tilde{c}|) +  e^{-(\alpha + \tilde{\alpha}) X_m } |D||d| + |\lambda|^2|d|)
+&\leq C p_4(0; \lambda)(e^{-(\alpha + \tilde{\alpha}) X_m} |c| + e^{-(\alpha + \tilde{\alpha}) X_m } |D||d| + e^{-(\alpha + \tilde{\alpha})X_m } (|\tilde{c}| + |\lambda|^2 |d| ) + |\lambda|^2 |d|) \\
+&\leq C (|\lambda| + e^{-2 \alpha X_m})(e^{-(\alpha + \tilde{\alpha}) X_m}( |c| + |\tilde{c}| + |D||d|) + |\lambda|^2 |d|)
 \end{align*}
 
-\item For the center integral involving $W$, we have, using the bound from Lemma \ref{inv3} for the integral and $B_2$,
+\item The center integral involving $W$ is similar to the noncenter integral involving $W$. Using the piecewise bounds on $W$ from Lemma \ref{inv3}
 
 \begin{align*}
 \Big| P(Y^0) &\int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy \Big| \\
-&\leq C ( e^{-(\alpha - |\nu(\lambda)|) X_i} |b| + e^{-(\alpha - 3 |\nu(\lambda)|) X_i}|\tilde{c}_i| + e^{-(\alpha - |\nu(\lambda)|) X_i} (|\lambda|^2 + |D_i|)|d| ) \\
-&\leq C \Big( e^{-(\alpha - |\nu(\lambda)|) X_i} (p_2(X_m; \lambda) + p_4(\lambda) + p_5(\beta_i^+, \beta_i^-, \lambda) + e^{-(\alpha - 3 |\nu(\lambda)|) X_m)} )|\tilde{c}| + e^{-(\alpha - |\nu(\lambda)|) X_m}|D||d|+ |\lambda|^2|d|\\
-&+ e^{-(\alpha - 3 |\nu(\lambda)|) X_i}|\tilde{c}_i| + e^{-(\alpha - |\nu(\lambda)|) X_i} (|\lambda|^2 + |D_i|)|d| \Big) \\
-&\leq C \Big( e^{-(\alpha - 3 |\nu(\lambda)|) X_m}|\tilde{c}| + e^{-(\alpha - |\nu(\lambda)|) X_m} (|\lambda|^2 + |D|)|d| \Big) \\
-&\leq C \Big( e^{\tilde{\alpha} X_m}|\tilde{c}| + e^{-\tilde{\alpha} X_m} (|\lambda|^2 + |D|)|d| \Big) \\
+&\leq C \int_{X_i}^0 e^{|\nu(\lambda)|y} e^{-\alpha X_i} e^{-\alpha (X_i - y)} ( e^{|\nu(\lambda)|(X_i - y)} |c_i^+| + e^{-\tilde{\alpha}(X_i - y)}|D||d| + |\tilde{c}| + |\lambda|^2 |d| )
 \end{align*}
 
-\item For the center integral not involving $W$, we have
+Again, we have three integrals to evaluate. The first one has bound
+
+\begin{align*}
+\int_0^{X_i} & e^{-\alpha X_i} e^{-\alpha (X_i - y)} e^{|\nu(\lambda)|(X_i - y)} |c_i^+| dy \leq |c| \int_0^{X_i} e^{-\alpha X_i} e^{-(\alpha - |\nu(\lambda)|) (X_i - y)} dy \\ 
+&\leq e^{-\alpha  X_m} |c| \int_0^{X_i} e^{-(\alpha - |\nu(\lambda)|) (X_i - y)}  dy \\
+&\leq C e^{-\alpha X_m} |c|
+\end{align*}
+
+The second one has bound
+
+\begin{align*}
+\int_0^{X_i} &e^{-\alpha X_i} e^{-\alpha (X_i - y)} e^{-\tilde{\alpha}(X_i - y)}|D||d|  dy \leq |D| |d| e^{-\alpha X_m } \int_0^{X_i} e^{-(\alpha + \tilde{\alpha})(X_i - y) } dy \\
+&\leq C e^{-\alpha X_m } |D||d|
+\end{align*}
+
+The last one has bound
+
+\begin{align*}
+(|\tilde{c}| + |\lambda|^2 |d| ) &\int_0^{X_i} e^{-\alpha X_i} e^{-\alpha (X_i - y)} dy \leq C e^{-\alpha X_m } (|\tilde{c}| + |\lambda|^2 |d| )
+\end{align*}
+
+All together, the bound is
+
+\begin{align*}
+\Big| P(Y^0) &\int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy \Big| \\
+&\leq C e^{-\alpha X_m} ( |c| + |\tilde{c}| + |D||d| + |\lambda|^2 |d| )
+\end{align*}
+
+\item For the center integral involving $\tilde{H}$, we have
 
 \begin{align*}
 P(Y^0) &\int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle \lambda^2 d_i \tilde{H}_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy \\
@@ -2285,32 +2308,32 @@ We are going to need to evaluate the $\tilde{H}$ integral, so let's do that now.
 &\leq C \int_0^{X_i} e^{-\alpha y} e^{|\nu(\lambda)| y} dy \leq C
 \end{align*}
 
-Thus we have
+Thus we have, using this and the bound for $p_4(0; \lambda)$ from Lemma \ref{centerbounds}
 
 \begin{align*}
 P(Y^0) &\int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle \lambda^2 d_i \tilde{H}_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy \\
-&= P^c_+(0; \beta_i^+, \lambda) \int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle \lambda^2 d_i \tilde{H}_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy + \mathcal{O}(|\lambda|^2(|\lambda + e^{-2 \alpha X_m})|d| ) \\
-&= \lambda^2 d_i \int_{X_i}^0 e^{\nu(\lambda)y}  \langle \tilde{H}_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy + \mathcal{O}(|\lambda|^2(|\lambda| + e^{-2 \alpha X_m})|d| )\\
-&= \lambda^2 d_i \int_{X_i}^0 e^{\nu(\lambda)y}  \langle H(y), w_+(y; \beta_i^+, \lambda) \rangle dy + \lambda^2 d_i \int_{X_i}^0 e^{\nu(\lambda)y}  \langle \Delta H_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy + \mathcal{O}(|\lambda|^2(|\lambda| + e^{-2 \alpha X_m})|d| )
+&= P^c_+(0; \beta_i^+, \lambda) \int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle \lambda^2 d_i \tilde{H}_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy + \mathcal{O}((|\lambda| + e^{-2 \alpha X_m})|\lambda|^2||d| ) \\
+&= \lambda^2 d_i \int_{X_i}^0 e^{\nu(\lambda)y}  \langle \tilde{H}_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy + \mathcal{O}((|\lambda| + e^{-2 \alpha X_m})|\lambda|^2||d| )\\
+&= \lambda^2 d_i \int_{X_i}^0 e^{\nu(\lambda)y}  \langle H(y), w_+(y; \beta_i^+, \lambda) \rangle dy + \lambda^2 d_i \int_{X_i}^0 e^{\nu(\lambda)y}  \langle \Delta H_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy + \mathcal{O}((|\lambda| + e^{-2 \alpha X_m})|\lambda|^2||d| ) )
 \end{align*}
 
-Since we have a bound on $\Delta H$, the second integral becomes
+Since $|\Delta H_i^+(y)| \leq C(e^{-\alpha X_i}) e^{-\alpha (X_i - y)}$, the second integral becomes
 
 \begin{align*}
 \Big| \int_{X_i}^0 e^{\nu(\lambda)y} \langle \Delta H_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy \Big| &\leq C e^{-\alpha X_i} \int_0^{X_i} e^{|\nu(\lambda)y|} e^{-\alpha (X_i - y)} dy \\
 &\leq C e^{-(\alpha - |\nu(\lambda)|) X_i} \int_0^{X_i} e^{-\alpha (X_i - y)} dy \\
-&\leq C e^{-\tilde{\alpha} X_i}
+&\leq C e^{-\tilde{\alpha} X_m}
 \end{align*}
 
-For the first integral, since $w_+(y; \beta_i^+, \lambda) = w_+(y; 0, 0) + \mathcal{O}(|\lambda| + e^{-2 \alpha X_m}$
+For the first integral, since $w_+(y; \beta_i^+, \lambda) = w_+(y; 0, 0) + \mathcal{O}(|\lambda| + e^{-2 \alpha X_m}$ from Lemma \ref{centerbounds}
 
 \begin{align*}
-\lambda^2 d_i &\int_{X_i}^0 e^{\nu(\lambda)y}  \langle H(y), w_+(y; \beta_i^+, \lambda) \rangle dy = \lambda^2 d_i \int_{X_i}^0 e^{\nu(\lambda)y}  \langle H(y), w(y; 0, 0) \rangle dy +  \mathcal{O}(|\lambda|^2(|\lambda| + e^{-2 \alpha X_m})|d| ) \\
+\lambda^2 d_i &\int_{X_i}^0 e^{\nu(\lambda)y}  \langle H(y), w_+(y; \beta_i^+, \lambda) \rangle dy = \lambda^2 d_i \int_{X_i}^0 e^{\nu(\lambda)y}  \langle H(y), w(y; 0, 0) \rangle dy + \mathcal{O}((|\lambda| + e^{-2 \alpha X_m})|\lambda|^2|d| ) \\
 &= \lambda^2 d_i \int_\infty^0 e^{\nu(\lambda)y}  \langle H(y), w(y; 0, 0) \rangle dy 
 - \lambda^2 d_i \int_\infty^{X_i} e^{\nu(\lambda)y}  \langle H(y), w(y; 0, 0) \rangle dy
-+ \mathcal{O}(|\lambda|^2(|\lambda| + e^{-2 \alpha X_m})|d| ) \\
++ \mathcal{O}((|\lambda| + e^{-2 \alpha X_m})|\lambda|^2|d| ) \\
 &= -\lambda^2 d_i \int_0^\infty e^{\nu(\lambda)y}  \langle H(y), w(y; 0, 0) \rangle dy 
-+ \mathcal{O}(|\lambda|^2(|\lambda| + e^{-\tilde{\alpha} X_m})|d| ) 
++ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 |d| ) 
 \end{align*}
 
 Thus we have
@@ -2318,7 +2341,7 @@ Thus we have
 \begin{align*}
 P(Y^0) &\int_{X_i}^0 e^{\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle \lambda^2 d_i \tilde{H}_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy \\
 &= -\lambda^2 d_i \int_0^\infty e^{\nu(\lambda)y}  \langle H(y), w(y; 0, 0) \rangle dy 
-+ \mathcal{O}(|\lambda|^2(|\lambda| + e^{-\tilde{\alpha} X_m})|d| )  
++ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 |d| )  
 \end{align*}
 
 Similarly,
@@ -2327,12 +2350,10 @@ Similarly,
 P(Y^0) &\int_{-X_{i-1}}^0
 e^{\nu(\lambda)y} v_-(0; \beta_i^-, \lambda) \langle \lambda^2 d_i \tilde{H}_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \\
 &= \lambda^2 d_i \int_{-\infty}^0 e^{\nu(\lambda)y}  \langle H(y), w(y; 0, 0) \rangle dy 
-+ \mathcal{O}(|\lambda|^2(|\lambda| + e^{-\tilde{\alpha} X_m})|d| ) 
++ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 |d| ) 
 \end{align*}
 
 \end{enumerate}
-
-Now that we have all of these estimates, we can plug them in to get what we want. Recalling that the projection $P(Y^0)$ eliminates the $b_i^\pm$ terms, we have
 
 \begin{align*}
 P(Y^0)&(W_i^+(0) - W_i^-(0)) 
