@@ -2449,7 +2449,7 @@ The remainder term $R^c_i(c^-,d)$ has bound
 We can write this in matrix form as
 
 \begin{align*}
-K c^- &= 
+K(\lambda) c^- &= 
 \begin{pmatrix}
 e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
 -e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
@@ -2461,9 +2461,15 @@ e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
 c_1^- \\ \vdots \\ c_{n-1}^- \\ c_0^-
 \end{pmatrix} \\
 &= \lambda^2 M(\lambda) \begin{pmatrix}
-d_1 \\ \vdots \\ d_n
-\end{pmatrix} + R^c(\lambda)(c^-,d)
+d_1 \\ \dots \\ d_n
+\end{pmatrix} - R^c(\lambda)(c^-,d)
 \end{align*}
+
+i.e.
+
+\begin{equation}
+K(\lambda)c^- -\lambda^2 M(\lambda) I d + R^c(\lambda)(c^-,d) = 0
+\end{equation}
 
 where
 
@@ -2474,7 +2480,7 @@ M(\lambda) = \int_{-\infty}^\infty e^{-\nu(\lambda)y} \langle H(y), w(y; 0, 0) \
 \end{proof}
 \end{lemma}
 
-Since we will need to take the determinant of the matrix $K$ above, the following lemma gives us an expression for that determinant.
+Since we will need to take the determinant of the matrix $K(\lambda)$ above, the following lemma gives us an expression for that determinant.
 
 \begin{lemma}
 Let $A$ be the ``periodic'' bi-diagonal matrix
@@ -2520,20 +2526,20 @@ since both of the matrices on the RHS are triangular.
 \end{proof}
 \end{lemma}
 
-Using this to evaluate the $\det K$, we have
+Using this to evaluate the $\det K(\lambda)$, we have
 
 \begin{align*}
-\det K &= \prod_{k = 0}^{n-1} e^{-\nu(\lambda)X_k} + (-1)^{n-1} \prod_{k = 0}^{n-1} (-e^{\nu(\lambda)X_k}) \\
+\det K(\lambda) &= \prod_{k = 0}^{n-1} e^{-\nu(\lambda)X_k} + (-1)^{n-1} \prod_{k = 0}^{n-1} (-e^{\nu(\lambda)X_k}) \\
 &= e^{-\nu(\lambda) X} - e^{\nu(\lambda) X}
 \end{align*}
 
 where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. Note that the determinant depends on the domain length only, not on the individual pulse distances. Thus we have
 
 \[
-\det K = 0 \iff \nu(\lambda) = i \frac{n \pi}{X}, n \in \Z
+\det K(\lambda) = 0 \iff \nu(\lambda) = i \frac{n \pi}{X}, n \in \Z
 \]
 
-\subsubsection{Second Jump Equation}
+\subsubsection{Jump in Adjoint Direction}
 
 For our final step, we estimate the jumps along the adjoint solution.
 
@@ -3013,7 +3019,7 @@ e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tild
 Using the fixed point equations at $x = 0$, we evaluate $\langle \Psi(0), W_i^+(0) - W_i^-(0) \rangle$. The first two terms on the RHS of \eqref{jumpexp} come from Lemma \ref{jumpa}. The higher order Melnikov integral term comes from Lemma \ref{noncenterH}. For the remainder term, we use all the other jump estimation lemmas above to get the estimate
 
 \begin{align*}
-|R&(\lambda)(d)_i| \leq C \Big( 
+|R&(\lambda)(c^-, d)_i| \leq C \Big( 
 e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-(\alpha + \tilde{\alpha})X_m} |c^-| + e^{-(\alpha + \tilde{\alpha})X_m}(|\lambda|^2 + |D| )|d| \\
 &+ (|\lambda| + e^{-2 \alpha X_m})(e^{-\alpha X_m}|c^-| + (e^{-\alpha X_m}|D|+ |\lambda|^2 )|d|) \\
 &+ e^{-(\alpha + \tilde{\alpha}) X_m} |c^-| + e^{-2 \alpha X_m} |D||d| + e^{-(\tilde{\alpha} + \alpha) X_m} |\lambda|^2 |d| \\
@@ -3024,7 +3030,7 @@ e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-(\alpha + \tilde{\alpha})X_m} |c^
 Simplifying and dropping higher order terms, this becomes
 
 \begin{align*}
-|R&(\lambda)(d)_i| \leq C \Big( 
+|R&(\lambda)(c^-, d)_i| \leq C \Big( 
 e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
 (|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-\alpha X_m} |D| + |\lambda|^2)|d| \Big)
 \end{align*}
@@ -3032,16 +3038,16 @@ e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tild
 \end{proof}
 \end{lemma}
 
-We are now ready to substitute in all the things to get something we can use to solve for the eigenvalues $\lambda$.
+We write the jump conditions for the jump in the adjoint direction in matrix form in the following lemma.
 
-% theorem : solution to EVP
+% lemma : adjoint jump condition in matrix form 
 
-\begin{theorem}\label{evpsol}
+\begin{lemma}\label{evpsol}
 
-The eigenvalue problem has a solution for nonzero eigenvalue $\lambda \in V_\lambda$ if and only if
+The $n$ jump conditions in the adjoint direction can be written in matrix form as
 
-\begin{equation}\label{matrixdet}
-E(\lambda) = \det S(\lambda) = \det(A - \lambda^2 MI + R(\lambda) ) = 0
+\begin{equation}\label{adjmatrix}
+A - \lambda^2 MI + R(\lambda)(c^-, d) = 0
 \end{equation}
 
 where $M$ is the higher order Melnikov integral 
@@ -3050,7 +3056,7 @@ where $M$ is the higher order Melnikov integral
 M =  \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy
 \end{equation}
 
-and $A$ is the matrix defined by
+and $A$ is the $n \times n$ matrix defined by
 
 \begin{align*}
 A &= \begin{pmatrix}
@@ -3073,72 +3079,64 @@ a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
 \tilde{a}_i &= \langle \Psi(-X_i), Q'(X_i) \rangle
 \end{align*}
 
-The remainder $R(\lambda)$ is analytic in $\lambda$ and has bound
+The remainder $R(\lambda)(c^-, d)$ is analytic in $\lambda$ and has bound
 
 \begin{align*}
-|R(\lambda)(d)| &\leq C \Big( e^{-(\alpha + \tilde{\alpha})X_1}( e^{-\alpha X_1} + |\lambda|  )  
-+ (e^{-\alpha X_1} + |\lambda| ) |\lambda|^2 \Big) |d|
+|R&(\lambda)(c^-, d)_i| \leq C \Big( 
+e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + (|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-2 \alpha X_m} + |\lambda|^2)|d| \Big)
 \end{align*}
 
 \begin{proof}
 
-First, we plug in $D_i$ and $D_{i-1}$ into \eqref{jumpexp} from the previous lemma. 
-Recall that we have the following expression for $D_i$ from Hypothesis \ref{problembounds}.
+First, we plug in $D_i d$ and $D_{i-1} d$ into \eqref{jumpexp} from the previous lemma. 
+Recall that we have the following expression for $D_id $ from Lemma \ref{problembounds}.
 
 \[
-D_i = ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
+D_i d = ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
 \]
 
-where $i = 0, \dots, n-1$. Substituting this into $\langle \Psi(X_i), P^u_0 D_i d \rangle$ and using the fact that $\Psi(\pm X_i)$ is order $e^{-\alpha X_i}$, we have
+Substituting this into $\langle \Psi(X_i), P^u_0 D_i d \rangle$ and using the fact that $\Psi(\pm X_i)$ is order $e^{-\alpha X_i}$, we have
 
 \begin{align*}
-\langle \Psi(X_i), P^u_0 D_i d \rangle &= \langle \Psi(X_i), (Q'(X_i) + Q'(-X_i)(d_{i+1} - d_i ) \rangle + \mathcal{O} \left( e^{-2 \alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
+\langle \Psi(X_i), P^u_0 D_i d \rangle &= \langle \Psi(X_i), P^u_0 (Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) \rangle + \mathcal{O} \left( e^{-2 \alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
 \end{align*}
 
-Note that $\langle \Psi(X_i), Q'(X_i) \rangle = 0$, since $\langle \Psi(0), Q'(0) \rangle = 0$ and the inner product is constant in $x$. Thus we have 
+Now we deal with $P^u_0 Q'(X_i)$ and $P^u_0 Q'(-X_i)$. For the first, we have
 
 \begin{align*}
-\langle \Psi(X_i), P^u_0 D_i d \rangle &= \langle \Psi(X_i), Q'(-X_i) \rangle (d_{i+1} - d_i ) + \mathcal{O} \left( e^{-2 \alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
+P^u_0 Q'(X_i) &= P^u_0( (P^s_+(X_i; 0, 0) - P^s_0) Q'(X_i) + P^s_0 Q'(X_i) ) \\
+&= P^u_0( (P^s_+(X_i; 0, 0) - P^s_0) Q'(X_i) \\
+&= \mathcal{O}(e^{-2\alpha X_i})
 \end{align*}
 
-Similarly, we have
+where we use the UNPROVEN ASSUMPTION that $P^s_+(X; 0, 0) - P^s_0) = \mathcal{O}(e^{-\alpha X})$. Similarly, 
 
 \begin{align*}
-\langle \Psi(-X_{i-1}), P^u_0 D_{i-1} d \rangle &= \langle \Psi(-X_{i-1}), Q'(X_{i-1}) \rangle (d_i - d_{i-1} ) + \mathcal{O} \left( e^{-2 \alpha X_{i-1}} \left( |\lambda| +  e^{-\alpha X_{i-1}}  \right) |d| \right)
+P^u_0 Q'(-X_i) &= (P^u_0 - P^u_-(-X_i; 0, 0))Q'(-X_i) + P^u_-(-X_i; 0, 0)Q'(-X_i) \\
+&= Q'(-X_i) + \mathcal{O}(e^{-2\alpha X_i})
 \end{align*}
 
-Thus the jumps at $x = 0$ are given by
+The terms involving $P^s_0$ are similar. Thus the jumps are given by
+
+\begin{equation}\label{jumpexp2}
+\xi_i = \langle \Psi(X_i), Q'(-X_i) \rangle (d_{i+1} - d_i ) + \langle \Psi(-X_{i-1}), Q'(X_{i-1}) \rangle (d_i - d_{i-1} ) - d_i \lambda^2 \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy + R_i(c^-, d)
+\end{equation}
+
+where we have incorporated the two $\mathcal{O}(e^{-3\alpha X_i})$ terms into the remainder. Since $D = \mathcal{O}(e^{-\alpha X_m})$, we substitute this into the remainder bound from the previous lemma to get
 
 \begin{align*}
-\xi_i &= \langle \Psi(0), W_i^+(0) - W_i^-(0) \rangle \\
-&= \langle \Psi(X_i), Q'(-X_i) \rangle (d_{i+1} - d_i ) + \langle \Psi(-X_{i-1}), Q'(X_{i-1}) \rangle (d_i - d_{i-1} ) - \lambda^2 d_i M + R(\lambda)(d)_i
+|R&(\lambda)(c^-, d)_i| \leq C \Big( 
+e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
+(|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-2 \alpha X_m} + |\lambda|^2)|d| \Big)
 \end{align*}
 
-where $M$ is the higher order Melnikov integral defined above. The bound for the remainder term $R(\lambda)(d)_i$ in this expression is given by the bound for the remainder term from Lemma \ref{jump} together with the additional remainder terms from the substitution of the $D_i$.
+Let 
 
-\begin{align*}
-R(\lambda)(d)_i &\leq C \Big( ( e^{-\alpha X_m} + p_5(\beta_i^+, \beta_i^-, \lambda) + |\lambda|  )(|\lambda|^2 + e^{-\tilde{\alpha}X_m} |D|) \\
-&+ e^{-2 \alpha X_m} ( |\lambda| +  e^{-\alpha X_m} ) \Big) |d|
-\end{align*}
+\begin{equation*}
+M =  \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy
+\end{equation*}
 
-Since $|D| = \mathcal{O}(e^{-\alpha X_m})$ and, from Lemma \ref{projbounds}, 
-$|p_5(\beta_i^+, \beta_i^-, \lambda)| \leq C( e^{-2 \alpha X_m} + |\lambda|)$, we have
-
-Thus we have
-
-\begin{align*}
-R(\lambda)(d)_i &\leq C \Big( ( e^{-\alpha X_m} +  e^{-2 \alpha X_m} + |\lambda|  )(|\lambda|^2 + e^{-\tilde{\alpha}X_m} e^{-\alpha X_m}) + e^{-2 \alpha X_m} ( |\lambda| +  e^{-\alpha X_m} ) \Big) |d|
-\end{align*}
-
-Simplifying and dropping higher order terms, the bound becomes
-
-\begin{align*}
-R(\lambda)(d)_i &\leq C \Big( ( e^{-\alpha X_m} + |\lambda|  )(e^{-(\alpha + \tilde{\alpha})X_m} + |\lambda|^2 ) \Big) |d|
-\end{align*}
-
-Since we are taking $\lambda = \mathcal{O}(e^{-\alpha X_m})$, this remainder bound is sufficient!\\
-
-Analogous to San98, we let
+be the higher order Melnikov integral defined above. As in San98, we let
 
 \begin{align*}
 a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
@@ -3151,10 +3149,10 @@ where $i = 0, \dots, n-1$. Then the jumps are given by
 \xi_i &= a_i (d_{i+1} - d_i ) + \tilde{a}_{i-1} (d_i - d_{i-1} ) - \lambda^2 d_i M + R(\lambda)(d)_i
 \end{align*}
 
-As in San98, we can write the jump equations in matrix form as 
+We can thus write the jump conditions in matrix form as 
 
 \begin{align*}
-S(\lambda)d = (A - \lambda^2 MI + R(\lambda))d = 0
+(A - \lambda^2 MI)d + R(\lambda)(c^-,d) = 0
 \end{align*}
 
 where $A$ is the following $n \times n$ matrix, which is a ``periodic analogue'' of the tridiagonal matrix $A$ in San98. For $n = 2$, we have
@@ -3180,10 +3178,79 @@ a_{n-1} & & & & -\tilde{a}_{n-2} & \tilde{a}_{n-2} - a_{n-1} \\
 \end{pmatrix}
 \]
 
-The eigenvalue problem thus has a solution for $\lambda \neq 0$ if and only if the equation $S(\lambda)d = 0$ has a nonzero solution $d$, i.e. if and only if 
+\end{proof}
+\end{lemma}
+
+\subsubsection{Solution Condition}
+
+Now we are ready to put the two jump conditions together. From the previous two sections, we need to solve simultaneously
+
+\begin{align*}
+(A - \lambda^2 MI)d + R(\lambda)(c^-,d) &= 0 \\
+K(\lambda)c^- -\lambda^2 M(\lambda) I d + R^c(\lambda)(c^-,d) &= 0
+\end{align*}
+
+We combine these in the following theorem.
+
+\begin{theorem}
+
+The jump conditions can be written as the block diagonal matrix equation 
+
+\begin{equation}
+\begin{pmatrix}
+K(\lambda) & -\lambda^2 M(\lambda) I \\
+0 & A - \lambda^2 MI
+\end{pmatrix}
+\begin{pmatrix}c^- \\ d \end{pmatrix}
++ R(\lambda)(c^-,d) + R^c(\lambda)(c^-,d) = 0
+\end{equation}
+
+where the parts of this are defined above. The remainder terms have bounds
+
+\begin{align*}
+R^c(\lambda)(c^-,d) &\leq C \Big( (e^{-\tilde{\alpha} X_m} + P_2(X_m; \lambda))|c^-| + e^{|\nu(\lambda)|X_i} p_2(X_i; \lambda)|c_i^-| + ((|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 + e^{-(\tilde{\alpha} + \alpha) X_m} + e^{-\tilde{\alpha} X_m} |\lambda| ) |d| \Big) \\
+|R(\lambda)(c^-, d)_i| &\leq C \Big( 
+e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
+(|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-2 \alpha X_m} + |\lambda|^2)|d| \Big)
+\end{align*}
+
+WE WILL EVENTUALLY COMBINE THESE, BUT (1) WE NEED TO CHARACTERISE $p_2$ and (2) THE BOUND $R^c(\lambda)(c^-,d)$ HAS SOME TERMS OF TOO HIGH ORDER.\\
+
+Thus, we have a solution to our eigenvalue problem if $\nu(\lambda) = i \frac{n \pi}{X}, n \in \Z$ or $\det(A - \lambda^2 MI) = 0$.
+
+\begin{proof}
+
+We can write the two jump conditions in matrix form as the block matrix equation
 
 \[
-E(\lambda) = \det S(\lambda) = \det(A - \lambda^2 MI + R(\lambda) ) = 0
+\begin{pmatrix}
+K(\lambda) & -\lambda^2 M(\lambda) I \\
+0 & A - \lambda^2 MI
+\end{pmatrix}
+\begin{pmatrix}c^- \\ d \end{pmatrix}
++ R(\lambda)(c^-,d) + R^c(\lambda)(c^-,d) = 0
+\]
+
+To leading order, this has a nontrivial solution if and only if the block diagonal matrix is singular, i.e. if and only if its determinant is 0. Since this is a triangular block diagonal matrix, its determinant is given by 
+
+\begin{align*}
+\det \begin{pmatrix}
+K(\lambda) & -\lambda^2 M(\lambda) I \\
+0 & A - \lambda^2 MI
+\end{pmatrix} &= \det K(\lambda) \det(A - \lambda^2 MI)\\
+&= ( e^{-\nu(\lambda) X} - e^{\nu(\lambda) X} ) \det(A - \lambda^2 MI)
+\end{align*}
+
+where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. Thus we have a nontrivial solution to the jump equations if and only if 
+
+\[
+\nu(\lambda) = i \frac{n \pi}{X}, n \in \Z
+\]
+
+or 
+
+\[
+\det(A - \lambda^2 MI) = 0
 \]
 
 \end{proof}
