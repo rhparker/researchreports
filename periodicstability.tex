@@ -1691,14 +1691,14 @@ W_i^+(X_i) &- W_{i+1}^-(-X_i) = P^u_+(X_i; \beta_i^+, \lambda) a_i^+ - P^s_-(-X_
 &- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}_i^-(y) ] dy
 \end{align*}
 
-We now manipulate this to get it into a form we can use. First, we get the coefficients $a_i^\pm$ and $c_i^\pm$ by themselves by adding and subtracting $P_0^u a_i^+$ and $P_0^s a_i^-$, and $v_0(0)$. Since $a_i^- \in E^u$ and $a_i^+ \in E^s$, 
+We now manipulate this to get it into a form we can use. First, we get the coefficients $a_i^\pm$ and $c_i^\pm$ by themselves by adding and subtracting $P_0^u a_i^+$ and $P_0^s a_i^-$, and $v_0(\lambda)$. Since $a_i^- \in E^u$ and $a_i^+ \in E^s$, 
 
 \begin{align*}
-D_i d &= a_i^+ - a_i^- + (c_i^+ - c_i^-)v_0(0) \\
+D_i d &= a_i^+ - a_i^- + (c_i^+ - c_i^-)v_0(\lambda) \\
 &+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-, \lambda) - P_0^s)a_i^- \\
 &+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda)b_{i+1}^- \\
-&+ (v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(0) ) c_i^+ \\
-&- (v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle - v_0(0) ) c_i^- \\
+&+ (v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(\lambda) ) c_i^+ \\
+&- (v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle - v_0(\lambda) ) c_i^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}_i^+(y) ] dy \\
 &- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}_i^-(y) ] dy
 \end{align*}
@@ -1706,11 +1706,11 @@ D_i d &= a_i^+ - a_i^- + (c_i^+ - c_i^-)v_0(0) \\
 Rearranging this, we obtain
 
 \begin{align*}
-a_i^- &- a_i^+ + (c_i^+ - c_i^-)v_0(0) = -D_i d  \\
+a_i^- &- a_i^+ + (c_i^+ - c_i^-)v_0(\lambda) = -D_i d  \\
 &+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-,\lambda) - P_0^s)a_i^- \\
 &+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda) b_{i+1}^- \\
-&+ (v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(0) ) c_i^+ \\
-&- (v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle - v_0(0) ) c_i^- \\
+&+ (v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(\lambda) ) c_i^+ \\
+&- (v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle - v_0(\lambda) ) c_i^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}_i^+(y) ] dy \\
 &- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}_i^-(y) ] dy
 \end{align*}
@@ -1718,10 +1718,10 @@ a_i^- &- a_i^+ + (c_i^+ - c_i^-)v_0(0) = -D_i d  \\
 What we want eventually is to have an expression for $c_i^+ - c_i^-$. However, we cannot perform the inversion using this, since the RHS is not in terms of $c_i^+ - c_i^-$. The way around this is to solve for one of them in terms of the other and substitute back. Since it does not matter which one we do, we will solve for $c_i^+$. This gives us
 
 \begin{align*}
-a_i^- &- a_i^+ + c_i^+ = -D_i d  \\
+a_i^- &- a_i^+ + c_i^+ v_0(\lambda) = -D_i d  \\
 &+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-,\lambda) - P_0^s)a_i^- \\
 &+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda) b_{i+1}^- \\
-&+ (v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(0) ) c_i^+ \\
+&+ (v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(\lambda) ) c_i^+ \\
 &- v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}_i^+(y) ] dy \\
 &- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}_i^-(y) ] dy
@@ -1730,15 +1730,15 @@ a_i^- &- a_i^+ + c_i^+ = -D_i d  \\
 We write this as
 
 \begin{align*}
-a_i^- &- a_i^+ + c_i^+ = -D_i d + L_3(\lambda)_i(a, b, c_i^+, c_i^-, d)
+a_i^- &- a_i^+ + c_i^+ v_0(\lambda) = -D_i d + L_3(\lambda)_i(a, b, c_i^+, c_i^-, d)
 \end{align*}
 
-Where $L_3(\lambda)(a, b, c, d)_i$ is the rest of the terms on the RHS, i.e. 
+Where $L_3(\lambda)(a, b, c_i^+, c_i^-, d)_i$ is the rest of the terms on the RHS, i.e. 
 
 \begin{align*}
 L_3(\lambda)&(a, b, c_i^+, c_i^-, d)_i = (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-,\lambda) - P_0^s)a_i^- \\
 &+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda) b_{i+1}^- \\
-&+ (v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(0) ) c_i^+ \\
+&+ (v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(\lambda)) c_i^+ \\
 &- v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}_i^+(y) ] dy \\
 &- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}_i^-(y) ] dy
@@ -1776,26 +1776,25 @@ The ``negative'' piece is similar. This works out the way we want, since the ``n
 &\leq C \left( e^{-\alpha X_i} (|a| + |b_{i+1}^-| + |\lambda|^2 |d|) + e^{-(\alpha - |\nu(\lambda)|)X_i} |c_i^-| \right)
 \end{align*}
 
-
 For the piece involving $c_i^+$, we have
 
 \begin{align*}
-|v_+(X_i; &\beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(0) | |c_i^+| \\
-&= |v_+(X_i; \beta_i^+, \lambda) (\langle v_0(\lambda), w_0(\lambda) \rangle + \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) - w_0(\lambda) \rangle) - v_0(0) | |c_i^+| \\
-&\leq (|v_+(X_i; \beta_i^+, \lambda) - v_0(0)| 
+|v_+(X_i; &\beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(\lambda) | |c_i^+| \\
+&= |v_+(X_i; \beta_i^+, \lambda) (\langle v_0(\lambda), w_0(\lambda) \rangle + \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) - w_0(\lambda) \rangle) - v_0(\lambda) | |c_i^+| \\
+&\leq (|v_+(X_i; \beta_i^+, \lambda) - v_0(\lambda)| 
 + |v_+(X_i; \beta_i^+, \lambda)||\langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) - w_0(\lambda) \rangle|)|c_i^+| \\
-&\leq (p_2(X_i, \lambda) + p_3(\lambda))|c_i^+|
+&\leq p_2(X_i, \lambda)|c_i^+|
 \end{align*}
 
 Thus we have the following bound for $L_3$.
 
 \begin{align*}
 L_3(\lambda)&(a, b, c_i^+, c_i^-, d)_i \leq C ( p_1(X_i; \lambda)|a_i|
-+ e^{-\alpha X_i}(|b_i^+| + |b_{i+1}^-|) + (p_2(X_i; \lambda) + p_3(\lambda))|c_i^+| + |c_i^-| \\
++ e^{-\alpha X_i}(|b_i^+| + |b_{i+1}^-|) + p_2(X_i; \lambda)|c_i^+| + |c_i^-| \\
 &+ e^{-\alpha X_i}(|a| + |b_i^+| + |b_{i+1}^-| + |\lambda|^2 |d|) + e^{-(\alpha - |\nu(\lambda)|)X_i} |c_i| + e^{-(\tilde{\alpha}+|\nu(\lambda)|) X_i} |\lambda^2| |d| )
 \end{align*}
 
-where $p_1(\lambda)$ is defined in Lemma \ref{projbounds}, and $p_2(X_i; \lambda)$ and $p_3(\lambda)$ are defined in Lemma \ref{centerbounds}.\\
+where $p_1(\lambda)$ is defined in Lemma \ref{projbounds}, and $p_2(X_i; \lambda)$ is defined in Lemma \ref{centerbounds}.\\
 
 Combining terms and simplifying, the final bound for $L_3$ is
 
