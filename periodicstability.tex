@@ -2241,7 +2241,7 @@ P(Y^0) ( v_-(0; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^
 and
 
 \begin{align*}
-P(Y^0) ( v_+(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^+) + \mathcal{O}(p_2(X_i; \lambda))
+P(Y^0) ( v_+(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^+ + \mathcal{O}(p_2(X_i; \lambda))
 \end{align*}
 
 To write this in terms of $c_i^-$, we use $c_i^+ = c_i^- + A_4(\lambda)_i^c(c^-, d) + \mathcal{O}( e^{-\alpha X_i} (|\lambda| +  e^{-\alpha X_i} ) |d| )$.
@@ -2426,57 +2426,43 @@ e^{\nu(\lambda)y} v_-(0; \beta_i^-, \lambda) \langle \lambda^2 d_i \tilde{H}_i^-
 
 \end{enumerate}
 
-Now that we have estimates on all the things, we can plug them all into the expression above to get
+Now that we have estimates on all the things, we can plug them all into the expression above to get the $n$ equations ($i = 1, \dots, n$)
+
 \begin{align*}
 P(Y^0)&(W_i^+(0) - W_i^-(0)) 
-= - \lambda^2 d_i \int_{-\infty}^\infty e^{\nu(\lambda)y}  \langle H(y), w(y; 0, 0) \rangle dy + R^c_i(c^-,d)
+= e^{-\nu(\lambda)X_i} c_i^- - e^{\nu(\lambda)X_{i-1}} c_{i-1}^- - \lambda^2 d_i \int_{-\infty}^\infty e^{\nu(\lambda)y}  \langle H(y), w(y; 0, 0) \rangle dy + R^c_i(c^-,d)
 \end{align*}
 
-The remainder term $R^c_i(c, \tilde{c},d)$ has terms in both $c$ and $\tilde{c}$, and has bound
+The remainder term $R^c_i(c^-,d)$ has terms in both $c$ and $\tilde{c}$, and has bound
 
 \begin{align*}
-|R^c_i&(c, \tilde{c},d)| \leq C \Big( \\
-&e^{-\alpha X_m} ( e^{-\alpha X_m} |\tilde{c}| + |c| + e^{-\tilde{\alpha} X_m} |\lambda^2| |d| + |D||d| ) \\
-&+(|\lambda| + e^{-2 \alpha X_m}) ( |\tilde{c}| + (e^{-\tilde{\alpha} X_m}|D| + |\lambda|^2 )|d| ) \\
-&+ (|\lambda| + e^{-2 \alpha X_m} + p_2(X_m; \lambda))|\tilde{c}| \\
-&+ e^{-\alpha X_m} ( |c| + |\tilde{c}| + |D||d| + |\lambda|^2 |d| ) \\
-&+ ((|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 |d| ) \Big) \\
-&\leq C \Big( e^{-\alpha X_m}|c| + (e^{-\alpha X_m } + |\lambda| + p_2(X_m, \lambda)|\tilde{c}| 
-+ (e^{-\alpha X_m} + e^{-\tilde{\alpha} X_m}|\lambda|)|D||d| + (|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 |d| \Big) 
+|R^c_i&(c^-,d)| \leq C \Big( e^{-\alpha X_m} ( |c^-| + e^{-\tilde{\alpha} X_m} |\lambda^2| |d| + |D||d| ) \\
+&+ (|\lambda| + e^{-2 \alpha X_m})( e^{-\alpha X_m}( |c^-| + |D||d|) + |\lambda|^2 |d| ) \\
+&+ (e^{-\tilde{\alpha} X_m} + P_2(X_m; \lambda))|c^-| + e^{|\nu(\lambda)|X_i}(p_2(X_i; \lambda) + |\lambda|)|c_i^-| 
++ e^{-\tilde{\alpha} X_m}( |\lambda| + |D| + e^{-\alpha X_i} ) |d| \\
+&+ e^{-\alpha X_m} ( |c^-| + (|\lambda|^2 + |D|) |d| ) \\
+&+ (|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 |d| 
+\Big) \\
+&\leq C \Big( (e^{-\tilde{\alpha} X_m} + P_2(X_m; \lambda))|c^-| + e^{|\nu(\lambda)|X_i}(p_2(X_i; \lambda) + |\lambda|)|c_i^-| + ((|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 + e^{-\tilde{\alpha} X_m}|D| + e^{-\tilde{\alpha} X_m} |\lambda| ) |d| \Big)
 \end{align*}
 
-The only thing which remains to do is to put $c_i^-$ in terms of $c_i^+$ using the expression we derived above.
+We can write this in matrix form as
 
 \begin{align*}
-c_i^- = c_i^+ + \mathcal{O}\Big( e^{-\alpha X_i}|\tilde{c}| + (e^{-\tilde{\alpha} X_i} + |\lambda| + p_2(X_i; \lambda))|c|
-+ e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i}|\lambda^2||d| + e^{-\alpha X_i}(|D| + |\lambda| +  e^{-\alpha X_i}) |d| ) \Big)
-\end{align*}
-
-Since $c_i^-$ appears to leading order as $\tilde{c}_i^-$, we have
-
-\begin{align*}
-\tilde{c}_{i-1}^- &= e^{}
-\tilde{c}_{i-1}^- + \mathcal{O}(( e^{-\alpha X_m}|\tilde{c}| + (e^{-\tilde{\alpha} X_m} + |\lambda| + p_2(X_i; \lambda))|c|
-+ e^{-\tilde{\alpha} X_m} (|\lambda^2| + |D|)|d| ))
-\end{align*}
-
-
-
-\begin{align*}
-K c^+ &= 
+K c^- &= 
 \begin{pmatrix}
-e^{-\nu(\lambda)X_0} & & & & & -e^{\nu(\lambda)X_{n-1}} \\
--e^{\nu(\lambda)X_0} & e^{-\nu(\lambda)X_1} \\
-& -e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
+e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
+-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
+& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
 \vdots & & \vdots & &&  \vdots \\
-& & & & -e^{\nu(\lambda)X_{n-2}} & e^{-\nu(\lambda)X_{n-1}} 
+& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
 \end{pmatrix}
 \begin{pmatrix}
-c_0^+ \\ \vdots \\ c_{n-1}^+
+c_1^- \\ \vdots \\ c_{n-1}^- \\ c_0^-
 \end{pmatrix} \\
 &= \lambda^2 M(\lambda) \begin{pmatrix}
 d_1 \\ \vdots \\ d_n
-\end{pmatrix} + R^c(\lambda, \tilde{c},d)
+\end{pmatrix} + R^c(\lambda)(c^-,d)
 \end{align*}
 
 where
@@ -2484,118 +2470,11 @@ where
 \[
 M(\lambda) = \int_{-\infty}^\infty e^{-\nu(\lambda)y} \langle H(y), w(y; 0, 0) \rangle dy
 \]
-
-And it looks like (for now) the remainder term has order resembling
-
-\[
-R^c(\lambda, \tilde{c},d) = \mathcal{O}((e^{-\alpha X_m} + |\lambda| + p_2(X_m; \lambda)|\tilde{c}| + (e^{-\tilde{\alpha} X_m} + |\lambda|)|\lambda|^2|d| + e^{-\tilde{\alpha} X_m}|D||d| )
-\]
-
-The question is whether this is good enough?\\
-
-Recall that
-
-\begin{align*}
-\tilde{c}_i^+ &= e^{-\nu(\lambda)X_i} c_i^+ \\ 
-\tilde{c}_i^- &= e^{\nu(\lambda)X_i} c_i^-
-\end{align*}
-
-and
-
-\[
-p_2(X; \lambda) = |v_\pm(\pm X; \beta^\pm, \lambda) - v_0(\lambda)| + |w_\pm(\pm X; \beta^\pm, \lambda) - w_0(\lambda)|
-\]
-
-where $p_2(X; \lambda) \rightarrow 0$ as $x \rightarrow \infty$, but we do not have a rate for this decay.\\
-
-For the determinant, we have
-
-\begin{align*}
-\det K &= \prod_{k = 0}^{n-1} e^{-\nu(\lambda)X_k} + (-1)^{n-1} \prod_{k = 0}^{n-1} (-e^{\nu(\lambda)X_k}) \\
-&= e^{-\nu(\lambda) X} - e^{\nu(\lambda) X}
-\end{align*}
-
-where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain.
 
 \end{proof}
 \end{lemma}
 
-
-\subsubsection{First Jump Equation}
-
-Here we have to deal with the jump 
-
-\begin{equation}
-\xi_i = \langle Y_0, W_i^+(0) - W_i^-(0) \rangle 
-\end{equation}
-
-At $x = 0$, the fixed point equations are
-
-\begin{align*}
-W_i^+(0) - W_i^-(0) &= b_i^+ - b_i^- \\
-&+ \Phi^u_+(0, X_i; \beta_i^+, \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \beta_i^-, \lambda)a_{i-1}^- \\
-&+(P^s_+(0; \beta_i^+, \lambda) - P^s_-(0; 0, 0))b_i^+  - (P^u_-(0; \beta_i^-, \lambda) - P^u_-(0; 0, 0))b_i^- \\
-&+ v_+(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle e^{-\nu(\lambda)X_i} c_i^+ \\
-&- v_-(0; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) \rangle e^{\nu(\lambda)X_{i-1}} c_{i-1}^- \\
-&+ \int_{X_i}^0 \Phi^u_+(0, y; \beta_i^+, \lambda) [ G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y) ] dy \\
-&+ \int_{X_i}^0 e^{-\nu(\lambda)y} v_+(0; \beta_i^+, \lambda) \langle G_i^+(y)W_i^+(y) + \lambda^2 d_i \tilde{H}_i^+(y), w_+(y; \beta_i^+, \lambda) \rangle dy \\
-&- \int_{-X_{i-1}}^0 \Phi^s_-(0, y; \beta_i^-, \lambda) [ G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y) ] dy \\
-&- \int_{-X_{i-1}}^0
-e^{\nu(\lambda)y} v_-(0; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \\
-\end{align*}
-
-The idea is that we should be able to use this condition to solve for the $c_i$. Recall that from above we used the matching condition at $\pm X_i$ to solve for $c_i^-$ in terms of $c_i^+$, i.e. 
-
-\[
-c_i^- = c_i^+ - P_0^c D_i d + h.o.t.
-\]
-
-where we will assume the estimate on the h.o.t. is good enough for now, and deal with it if this all works. We are also assuming that $v_\pm$ and $w_\pm$ from above are equal and smooth at $x = 0$, so we will just call them $v$ and $w$ here. This should follow from the ``manifold argument''. Thus the projection on $Y_0$ is given by
-
-\[
-P^c(0; 0, 0)u = \langle u, w(0; 0, 0) \rangle v(0; 0, 0)
-\]
-
-Appplying this projection, we have something resembling
-
-\begin{align*}
-P^c(0; 0, 0)&( W_i^+(0) - W_i^-(0)) = e^{-\nu(\lambda)X_i} c_i^+ - e^{\nu(\lambda)X_{i-1}} c_{i-1}^- \\
-&- \lambda^2 d_i \int_{-\infty}^\infty e^{-\nu(\lambda)y} \langle H(y), w(y; 0, 0) \rangle dy + h.o.t.
-= 0
-\end{align*}
-
-Since $H(y)$ decays exponentially with rate $\alpha$ and $w(y; 0, 0)$ is bounded, the integral above is finite. Substituting in for $c_{i-1}^-$, this becomes
-
-\begin{align*}
-P^c(0; 0, 0)&( W_i^+(0) - W_i^-(0)) = e^{-\nu(\lambda)X_i} c_i^+ - e^{\nu(\lambda)X_{i-1}} c_{i-1}^+ + e^{\nu(\lambda)X_{i-1}} P_0^c D_i d \\
-&- \lambda^2 d_i \int_{-\infty}^\infty e^{-\nu(\lambda)y} \langle H(y), w(y; 0, 0) \rangle dy + h.o.t.
-= 0
-\end{align*}
-
-Note that the higher order terms include some small stuff multiplied by the $c_i^+$. From the definition of $D_i$, it also should not be hard to show that $e^{\nu(\lambda)X_{i-1}} P_0^c D_i d$ is small. In any case, we have $n$ equations for the $c_i^+$, which we can express in matrix form as
-
-\begin{align*}
-K c^+ &= 
-\begin{pmatrix}
-e^{-\nu(\lambda)X_0} & & & & & -e^{\nu(\lambda)X_{n-1}} \\
--e^{\nu(\lambda)X_0} & e^{-\nu(\lambda)X_1} \\
-& -e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
-\vdots & & \vdots & &&  \vdots \\
-& & & & -e^{\nu(\lambda)X_{n-2}} & e^{-\nu(\lambda)X_{n-1}} 
-\end{pmatrix}
-\begin{pmatrix}
-c_0^+ \\ \vdots \\ c_{n-1}^+
-\end{pmatrix}\\
-&= \lambda^2 M(\lambda) \text{diag}(d_i) + h.o.t.
-\end{align*}
-
-where
-
-\[
-M(\lambda) = \int_{-\infty}^\infty e^{-\nu(\lambda)y} \langle H(y), w(y; 0, 0) \rangle dy
-\]
-
-For now, we ignore the higher order terms (which of course we cannot entirely do since they involve the $c_i^+$). Thus (approximately) we should be able to solve this uniquely for the $c_i^+$ if $\det K \neq 0$. The following lemma gives us an expression for the determinant.
+Since we need to take the determinant of the matrix $K$ above, the following lemma gives us an expression for that determinant.
 
 \begin{lemma}
 Let $A$ be the ``periodic'' bi-diagonal matrix
@@ -2653,10 +2532,6 @@ where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. Note that th
 \[
 \det K = 0 \iff \nu(\lambda) = i \frac{n \pi}{X}, n \in \Z
 \]
-
-This condition looks good. If $\det K$ is nonzero, we should be able to solve uniquely for the $c_i^+$, then solve the second jump equation.\\
-
-If $\det K = 0$, I am not sure what to do.\\
 
 \subsubsection{Second Jump Equation}
 
