@@ -113,20 +113,22 @@ W' = -A(q)^*W \label{adjvareq}
 
 If $A(0)$ were hyperbolic (as in San98), Hypothesis \ref{nondegen} would be equivalent to the the fact that $Q'(x)$ is the unique bounded solution to the variational equation \eqref{vareq}. This is not the case here, since we are on a periodic domain. This is easiest to see by looking at the adjoint equation $L(q)^* v = 0$. Since $L(q)^* = (\partial_x H(q))^* = -H(q) \partial_x$, we can easily see that there are two bounded solutions to this: $q(x)$ and the constant function $1$. The constant function is periodic, so we have to consider it here.\\
 
-Thus there are two bounded solutions $\Psi_2(x)$ and $\Psi_2(x)$ of \eqref{adjvareq} corresponding to $q(x)$ and 1. Consequently, there will be two bounded solutions to the variational equation \eqref{vareq}. One of these is $q'(x)$. We will call the other $\tilde{q}$, although we will not likely need it for anything.\\
+Thus there are two bounded solutions $\Psi_2(x)$ and $\Psi_2(x)$ of \eqref{adjvareq} corresponding to $q(x)$ and 1. We know that $q'(x)$ is a bounded solutions to the variational equation \eqref{vareq}. We will find another below.\\
 
 Next, as in San98, we decompose the tangent space at $Q(0)$ as
 
 \begin{equation}
-\R^5 = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^-
+\R^5 = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^- \oplus Y^0
 \end{equation}
 
-where $Z = \spn\{ \Psi_1(0), \Psi_2(0) \}$, and $Y^+$ and $Y^-$ are chosen so that
+where $Y^+$ and $Y^-$ are chosen so that
 
 \begin{align*}
 T_{Q(0)} W^s(0) &= \R Q'(0) \oplus Y^+ \\
 T_{Q(0)} W^u(0) &= \R Q'(0) \oplus Y^- \\
 \end{align*}
+
+We will deal with $Y^0$ later.\\
 
 Returning to the problem at hand, we next use the piecewise construction of the periodic $n-$pulse to write this in the equivalent piecewise form
 
@@ -479,7 +481,7 @@ from which we conclude that
 ||F(\phi) - F(\psi) ||_{\sigma, a} \leq \frac{1}{2} ||\phi - \psi ||_{\sigma, a}
 \]
 
-Since $F$ is a contraction on the Banach space $B_{\sigma, a}$, by the Banach Fixed Point Theorem the map $F$ has a unique fixed point, i.e. a unique $\phi(x) \in B_{\sigma, a}$ such that $F(\phi) = \phi$. Note that by the fixed point theorem and definition of $B_{\sigma, a}$, we only have $\phi(x)$ defined for $\phi \geq a$. However, choosing the initial condition $\phi(a)$ at $x = a$, by the existence and uniqueness of solutions to \eqref{veigproblem} and the global Lipschitz condition placed on $R(x)$ (which guarantees global existence of solutions), we can extend $\phi(x)$ uniquely to all of $\R$. This extension of $\phi(x)$ to $\R$ is given by the same formula we have for $\phi(x)$ when $x \geq a$.
+Since $F$ is a contraction on the Banach space $B_{\sigma, a}$, by the Banach Fixed Point Theorem the map $F$ has a unique fixed point, i.e. a unique $\phi(x) \in B_{\sigma, a}$ such that $F(\phi) = \phi$. Note that by the fixed point theorem and definition of $B_{\sigma, a}$, we only have $\phi(x)$ defined for $\phi \geq a$. However, choosing the initial condition $\phi(a)$ at $x = a$, by the existence and uniqueness of solutions to \eqref{veigproblem} and the global Lipschitz condition placed on $R(x)$ (which guarantees global existence of solutions), we can extend $\phi(x)$ uniquely to all of $\R^+$. This extension of $\phi(x)$ to $\R^+$ is given by the same formula we have for $\phi(x)$ when $x \geq a$.
 
 \begin{equation}\label{fpphi}
 \phi(x) = e^{\nu x} p + \int_a^x Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2(x - y)R(y)\phi(y)dy
@@ -703,6 +705,9 @@ For all $x \geq 0$ we have
 \eqref{vwIP1+} follows from combining these two results. The proof on $\R^-$ is identical.
 \end{proof}
 \end{lemma}
+
+\subsubsection{}
+
 
 \subsection{Exponential Trichotomy}
 
@@ -3214,7 +3219,23 @@ e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tild
 (|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-2 \alpha X_m} + |\lambda|^2)|d| \Big)
 \end{align*}
 
-WE WILL EVENTUALLY COMBINE THESE, BUT (1) WE NEED TO CHARACTERISE $p_2$ and (2) THE BOUND $R^c(\lambda)(c^-,d)$ HAS SOME TERMS OF TOO HIGH ORDER.\\
+WE WILL EVENTUALLY COMBINE THESE, BUT WE DO NOT FOR NOW SINCE THE PROBLEMATIC TERMS ARE ALL IN $R^c(\lambda)(c^-,d)$. THINGS WE NEED TO LOOK AT ARE:
+\begin{enumerate}
+	\item Characterize $p_2(X_i; \lambda)$. 
+	\item The $e^{-(\tilde{\alpha} + \alpha) X_m}$ term in $R^c(\lambda)(c^-,d)$. This comes from
+
+	\begin{align*}
+	\int_0^{X_i} &e^{|\nu(\lambda)|y} e^{-\alpha X_i} e^{-\alpha (X_i - y)} e^{-\tilde{\alpha}(X_i - y)}|D||d|  dy \leq |D| |d| e^{-\alpha X_m } \int_0^{X_i} e^{-(\alpha + \tilde{\alpha})(X_i - y) } dy \\ &\leq C e^{-\alpha X_m } |D||d|
+	\end{align*}
+
+	\item The $e^{-\tilde{\alpha} X_m} |\lambda|$ term in $R^c(\lambda)(c^-,d)$. This comes from
+
+	\begin{equation*}
+	|P^0_c(\lambda) D_i d| \leq C \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
+	\end{equation*}
+
+
+\end{enumerate}
 
 Thus, we have a solution to our eigenvalue problem if $\nu(\lambda) = i \frac{n \pi}{X}, n \in \Z$ or $\det(A - \lambda^2 MI) = 0$.
 
