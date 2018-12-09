@@ -1,0 +1,261 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}, plainpages=false]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\ran}{range}
+
+\graphicspath{ {suspension/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\newtheorem{notation}{Notation}
+
+\begin{document}
+
+\section{Chen-McKenna Suspension Bridge Equation}
+
+\subsection{Background}
+
+In \cite{McKenna1990}, McKenna and Walter propose the following equation to model traveling waves on an infinitely long suspended beam.
+
+\begin{equation}\label{susp}
+u_{tt} + u_{xxxx} + u^+ - 1 = 0
+\end{equation}
+
+They explicitly compute localized traveling wave solutions to \eqref{susp}. This equation, however, has a cusp at $u = 0$ which is difficult for numerical analysis. In \cite{Chen1997}, Chen and McKenna use a mountain pass technique to prove existence of localized traveling wave solutions to the more general equation
+
+\begin{equation}\label{suspgen}
+u_{tt} + u_{xxxx} + f(u) = 0
+\end{equation}
+
+where the nonlinearity $f(u)$ is ``similar'' to $u^+$. They also propose the following model
+
+\begin{equation}\label{susp2}
+u_{tt} + u_{xxxx} + e^{u - 1} - 1 = 0
+\end{equation}
+
+which is a ``smooth approximation'' to \eqref{susp}. Chen and McKenna were unable to prove existence of solutions to \eqref{susp2}, but they note that there is strong numerical evidence that similar solutions exist for \eqref{susp2} as for \eqref{susp}. In \cite{Smets2002} (Theorem 11), Smets and van den Berg prove existence of a localized traveling wave solution to \eqref{susp2} for almost all speeds $c \in (0, \sqrt{2})$. In \cite{Berg2018}, van den Berg et al use a computer-assisted proof technique (Theorem 1) to prove existence of a localized traveling wave solution to \eqref{susp2} for all speeds $c$ with $c^2 \in [0.5, 1.9]$.\\
+
+We are interested in multi-pulse solutions to \eqref{susp2}, the existence of which is suggested in \cite{Chen1997} and \cite{Sandstede1997}. We make the change of variables $u - 1 \mapsto u$ so that pulse solutions will decay to a baseline of 0 instead of 1. This gives us
+
+\begin{equation}\label{susp3}
+u_{tt} + u_{xxxx} + e^{u} - 1 = 0
+\end{equation}
+
+Since we are interested in traveling wave solutions, we make the usual traveling wave ansatz. Letting $\xi = x - ct$, substituting this into \eqref{susp3}, and changing $\xi$ back to $x$, we have
+
+\begin{equation}\label{susp3}
+u_{tt} - 2 c u_{x t} + u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
+\end{equation}
+
+For an equilibrium solution (such as a homoclinic orbit), all time derivatives are zero, so any equilibrium solution must satisfy the ODE
+
+\begin{equation}\label{eqODE}
+u_{xxxx} + c^2 u_{xx} + e^{u} - 1 = 0
+\end{equation}
+
+which is (46) on p. 342 of \cite{Chen1997}, with $\tilde{f}(u) = e^u - 1$. The equilibrium ODE \eqref{eqODE} is Hamiltonian with energy
+
+\begin{equation}\label{eqH}
+H(u) = u_x u_{xxx} - \frac{1}{2}u_{xx}^2 + \frac{c^2}{2}u_x^2 + e^u - u
+\end{equation}
+
+Since $u = 0$ is a solution to \eqref{eqODE}, we linearize about this trivial solution to obtain the ODE
+
+\begin{equation}\label{lineartrivial}
+v_{xxxx} + c^2 v_{xx} + 1 = 0
+\end{equation}
+
+which has four eigenvalues
+
+\begin{equation}
+\nu = \pm \sqrt{\frac{-c^2 \pm \sqrt{c^4 - 4}}{2} }
+\end{equation}
+
+Note that $\sqrt{c^4 - 4}$ is always less that $c^2$ is magnitude. If $|c| < \sqrt{2}$, we have a complex conjugate quartet $\nu = \pm \alpha \pm \beta i$, so the equilibrium at 0 is hyperbolic. When $c^2 = 2$, these eigenvalues collide on the imaginary axis at $\pm i$, then for $c^2 > 2$ we have a quartet of purely imaginary eigenvalues. Thus a bifurcation occurs at $c^2 = 2$. We expect that multipulse solutions will only be possible for $c^2 < 2$.\\
+
+For the reminder of this discussion, we will take $c \in [0.5, 1.9] \subset (0, \sqrt{2})$, so that a homoclinic orbit solution to \eqref{eqODE} is known to exist and the linearization about 0 is hyperbolic. Let 
+
+\begin{equation}
+\nu = \pm \alpha \pm \beta i
+\end{equation}
+
+be the eigenvalues of \eqref{lineartrivial}, where $\alpha, \beta > 0$.
+
+\subsection{Eigenvalue Problem}
+
+For linear stability analysis, we look at the PDE eigenvalue problem. To do this, assume we have found an equilibrium solution $u_*(x)$ of \eqref{eqODE}. We linearize around $u^*(x)$ by taking the standard linearization ansatz
+
+\begin{equation}
+u(x,t) = u_*(x) + \epsilon e^{\lambda t} v(x)
+\end{equation}
+
+Plugging this into \eqref{susp3} and keeping only terms of order $\epsilon$, we obtain the quadratic eigenvalue problem
+
+\begin{equation}\label{evp}
+[\lambda^2 - 2 c \partial_x \lambda + (\partial_x^4 + c^2 \partial_x^2 + e^{u_*})]v = 0
+\end{equation}
+
+This is in the general form of a quadratic eigenvalue problem 
+
+\begin{equation}\label{quadeig}
+P_2(\lambda; u_*)v =  [A_2 \lambda^2 + A_1 \lambda + A_0(u_*)]v = 0
+\end{equation}
+
+where
+
+\begin{align}
+A_0(u^*) &= \partial_x^4 + c^2 \partial_x^2 + e^{u_*} \\
+A_1 &= -2 c \partial_x \\
+A_2 &= I
+\end{align}
+
+Note that the operator $A_0(u_*)$ is the only of the operators which depends on the equilibrium solution we are linearizing about.\\
+
+We can also write this as
+
+\begin{equation}\label{evp2}
+[(\lambda - c \partial_x)^2 + \partial_x^4 + e^{u_*}]v = 0
+\end{equation}
+
+\subsection{Multi-symplectic structure}
+
+Before we do Lin's method on this, we will write our equation in a multi-symplectic structure, following Bridges97. The idea is that if we were to naively use Lin's method on the ``standard'' 4th order system, we would wind up with terms in both $\lambda$ and $\lambda^2$, which would annoying, if not impossible, to deal with.\\
+
+Following the nonlinear Klein-Gordon example from Bridges97 (and extending it to two more dimensions), we let $Z = (u, v, w_1, w_2, w_3)^T$, where 
+
+\begin{align*}
+v &= u_t \\
+w_1 &= u_x \\
+w_2 &= u_{xx} \\
+w_3 &= u_{xxx}
+\end{align*}
+
+Then we can write \eqref{susp3} as the multi-symplectic structure
+
+\[
+M Z_t + K Z_x = \nabla S(Z)
+\]
+
+where $M$ and $K$ are the constant, skew-symmetric (but noninvertible) matrices
+
+\begin{align*}
+M &= \begin{pmatrix}
+0 & 1 & 0 & 0 & 0 \\
+-1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{pmatrix}, 
+K = \begin{pmatrix}
+0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & -1 & 0 & 0 \\
+-1 & 0 & 0 & 0 & 0 \\
+\end{pmatrix}
+\end{align*}
+
+and
+
+\[
+S(Z) = -V''(u) + \frac{1}{2}(w_3^2 - v^2 - w_1^2 - w_2^2)
+\]
+
+where $V'(u) = e^u - 1$ in our case. Just so we have it, 
+
+\[
+\nabla S(Z) = \begin{pmatrix}
+-V'(u) \\ -v \\ w_3 \\ -w_2 \\ -w_1
+\end{pmatrix}
+\]
+
+Next, we substitute our traveling wave ansatz, i.e. we let $\xi = x - ct$. Renaming the spatial variable back to $x$, we have the system
+
+\[
+M Z_t + (K - cM)Z_x = \nabla S(Z)
+\]
+
+Let
+
+\[
+J = K - cM = 
+\begin{pmatrix}
+0 & -c & 0 & 0 & 1 \\
+c & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & -1 & 0 & 0 \\
+-1 & 0 & 0 & 0 & 0 \\
+\end{pmatrix}
+\]
+
+Then in the co-moving frame with speed $c$, our equation becomes
+
+\[
+M Z_t + J Z_x = \nabla S(Z)
+\]
+
+Finally, we linearize about an equlibrium solution $Z^*$ by taking the standard linearization ansatz $\tilde{Z} = Z^* + \epsilon e^{\lambda t} Z$ and keeping only terms up to order $\epsilon$. Thus we get the linearized system
+
+\[
+J Z_x = (A(u^*(x)) - \lambda M) Z
+\]
+
+where
+
+\[
+A(u^*(x)) = 
+\begin{pmatrix}
+-V''(u^*(x)) & 0 & 0 & 0 & 0 \\
+0 & -1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & -1 & 0 \\
+0 & 0 & -1 & 0 & 0 \\
+\end{pmatrix}
+\]
+
+We note that $J$ is singular with a 1-dimensional kernel, so we cannot just move it to the other size.
+
+
+% \bibliography{suspension.bib}
+
+
+\end{document}
