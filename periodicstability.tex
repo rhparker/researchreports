@@ -382,200 +382,7 @@ Before we continue, we define the following constants
 
 \subsection{Characterization of Center Subspace}
 
-Consider the family of equations
-
-\begin{equation}\label{varparam}
-(V^\pm)' = A(q^\pm(0, \beta^\pm); \lambda) V^\pm
-\end{equation}
-
-parameterized by $\beta^\pm$ and $\lambda$, where $V^+$ is defined on $\R^+$ and $V^-$ is defined on $\R^-$, and the functions $q^\pm(0, \beta^\pm)(x)$ are defined in the existence problem. Let $\Phi_\pm(x, y; \beta^\pm, \lambda)$ be the family of evolution operators associated with \eqref{varparam}, where $\Phi_+$ is defined for $x, y \in \R^+$ and $\Phi_-$ is defined for $x, y \in \R^-$. Recall that the asymptotic matrix $A(0; \lambda)$ has a small eigenvalue $\nu(\lambda)$ with $|3 \nu(\lambda)| < \rho$ for all $|\lambda| < \delta$. In this section, we will construct a solution to \eqref{varparam} and its adjoint problem which grows/decays with exponential rate $\nu(\lambda)$.\\
-
-We start by proving the following lemma, based on Exercise 29 on p. 104 of Coddington and Levinson (1955).
-
-% lemma : 1d evolution of EVP on R^+
-
-\begin{lemma}\label{1devolpos}
-Consider the eigenvalue problem on $\R^+$
-
-\begin{equation}\label{veigproblem}
-V(x)' = AV(x) + R(x)V(x)
-\end{equation}
-
-where $V(x) \in R^n$, $A$ is a constant, diagonalizable $n \times n$ matrix, and $R(x): \R \rightarrow \R^n$ is an integrable function which is globally Lipschitz continuous in $x$. Let $\nu$ be any eigenvalue of $A$ with corresponding eigenvector $p$, i.e. $A p = \nu p$. Then there is a unique solution $\phi(x)$ to \eqref{veigproblem} such that 
-
-\[
-\lim_{x\rightarrow\infty} \phi(x) e^{-\nu x} = p
-\]
-
-In other words, for large $x$, the solution $\phi(x)$ resembles that of the constant coefficient eigenvalue problem $V(x)' = AV(x)$.
-
-\begin{proof}
-Let $\sigma = \text{Re} \nu$. Let $\nu_1, \dots, \nu_n$ be the $n$ eigenvalues of $A$ with corresponding eigenvectors $p_1, \dots, p_n$. Since we are assuming that $A$ is diagonalizable, we have a complete set of $n$ of these. Order the eigenvalues by increasing real part; if more than one eigenvalue has the same real part, any order is fine, as long as we make sure that any eigenvalue besides $\nu$ with real part $\sigma$ occurs after $\nu$ in the list. Then $\nu = \nu_k$ for some $k$, $\text{Re} \nu_j < \sigma$ for $j < k$ (as long as $k \neq 1$), and $\text{Re} \nu_j \geq \sigma$ for $j \geq k$. \\
-
-Let $e^{Ax}$ be the fundamental matrix solution for $U' = A U$, and split $e^{Ax}$ up into
-\[
-e^{Ax} = Y_1(x) + Y_2(x)
-\]
-
-where $Y_1$ involves only eigenvectors corresponding to eigenvalues $\nu_1, \dots, \nu_{k-1}$ and $Y_2$ involves only eigenvectors corresponding to eigenvalues $\nu_{k}, \dots, \nu_n$. Since $A$ is a constant-coefficient matrix, we can write down an explicit formula for $Y_1$ and $Y_2$. Essentially, all we need to do is change coordinates to the eigenbasis, evolve along the appropriate eigenvectors, and zero out the other ones. To be specific, let P be the $n \times n$ matrix with columns $p_1, \dots, p_n$. Since we are assuming $A$ is diagonalizable, this matrix is invertible, and $D = P^{-1}AP$ is diagonal with eigenvalues $\nu_1, \dots, \nu_n$ on the diagonal. Recall that the matrix exponential is given by $e^{Ax} = P^{-1}e^{Dx}P$. Starting with the matrix $D$, form the matrix $D_1$ by keeping only the eigenvalues $\nu_1, \dots, \nu_{k-1}$ on the diagonal, and form the matrix $D_2$ by keeping only the eigenvalues $\nu_{k}, \dots, \nu_n$ on the diagonal. Then we have
-
-\begin{align*}
-Y_1(x) &= P^{-1}e^{D_1x}P \\
-Y_1(x) &= P^{-1}e^{D_2x}P \\
-\end{align*}
- 
-Choose $\delta$ such that $0 < \delta < \sigma - \text{Re} \nu_{k-1}$, i.e. smaller than the spectral gap between $\nu$ and the eigenvalue with the next smallest real part. (If $k = 1$, $Y_1 = 0$, $Y_2 = e^{Ax}$, and we don't care about $\delta$). Then we can find a constant $C$ such that
-
-\begin{align*} 
-|Y_1(x)| &\leq Ce^{(\sigma - \delta)x} && x \geq 0 \\
-|Y_2(x)| &\leq Ce^{\sigma x} && x \leq 0 
-\end{align*}
-
-Define the exponentially weighted function space with weight $\sigma$
-
-\[
-B_{\sigma, a} = \{ f \in C^0([a, \infty), \R^n) : \sup_{x \in [a, \infty)} |e^{-\sigma x} f(x)| < \infty 
-\]
-
-where $a$ will be chosen later. The norm on this space is given by
-
-\[
-||f||_{\sigma, a} = \sup_{x \in [a, \infty)} |e^{-\sigma x} f(x)|
-\]
-
-In other words, we allow functions in $B_{\sigma, a}$ to grow exponentially as $x \rightarrow \infty$ at a rate of $\sigma$ or slower. It is known that $B_{\sigma, a}$ is a Banach space. Define the operator $F$ on $B_{\sigma, a}$ by
-
-\begin{align*}
-F(\phi)(x) = e^{\nu x} p + \int_a^x Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2(x - y)R(y)\phi(y)dy
-\end{align*}
-
-where the $a$ in the integral is the same as in $B_{\sigma, a}$ and will be chosen later. First we show that $F: B_{\sigma, a} \rightarrow B_{\sigma, a}$. Let $\phi \in B_{\sigma, a}$. For $x \geq a$ we have
-
-\begin{align*}
-|e^{-\sigma x} &F(\phi)(x)| \leq e^{(\nu - \sigma) x} |p| + \int_a^x |Y_1(x - y)||R(y)||\phi(y)| dy + \int_x^\infty |Y_2(x - y)||R(y)||\phi(y)|dy \\
-&\leq |p| + C \left( e^{-\sigma x}  \int_a^x e^{(\sigma - \delta)(x - y)}|R(y)||\phi(y)| dy + e^{-\sigma x}  \int_x^\infty e^{\sigma(x - y)}|R(y)||\phi(y)|dy \right) \\
-&\leq |p| +  C \left( \int_a^x e^{-\delta(x - y)}|R(y)||e^{-\sigma y}\phi(y)| dy + \int_x^\infty |R(y)||e^{-\sigma y} \phi(y)|dy \right) \\
-&\leq |p| + C ||\phi||_{\sigma, a}\left( \int_a^x e^{-\delta(x - y)}|R(y)| dy + \int_x^\infty |R(y)|dy \right) \\
-&\leq |p| + C ||\phi||_{\sigma, a} \int_a^\infty |R(y)| dy 
-\end{align*}
-
-Since $R$ is integrable, the RHS is finite, thus the map $F: B_{\sigma, a} \rightarrow B_{\sigma, a}$ is well defined. Now we show the map $F$ is a contraction. Let $\phi, \psi \in B_{\sigma, a}$. For $x \geq a$ we have
-
-\begin{align*}
-|e^{-\sigma x}( &F(\phi)(x) - F(\psi)(x))| \leq \int_a^x |Y_1(x - y)||R(y)||\phi(y) - \psi(y)| dy + \int_x^\infty |Y_2(x - y)||R(y)||\phi(y) - \psi(y)|dy \\
-&\leq C \left( e^{-\sigma x}  \int_a^x e^{(\sigma - \delta)(x - y)}|R(y)||\phi(y) - \psi(y)| dy + e^{-\sigma x}  \int_x^\infty e^{\sigma(x - y)}|R(y)||\phi(y) - \psi(y)|dy \right) \\
-&\leq C \left( \int_a^x e^{-\delta(x - y)}|R(y)||e^{-\sigma y}(\phi(y) - \psi(y))| dy + \int_x^\infty |R(y)||e^{-\sigma y} (\phi(y) - \psi(y))|dy \right) \\
-&\leq C ||\phi - \psi ||_{\sigma, a}\left( \int_a^x e^{-\delta(x - y)}|R(y)| dy + \int_x^\infty |R(y)|dy \right) \\
-&\leq C ||\phi - \psi ||_{\sigma, a} \int_a^\infty |R(y)| dy 
-\end{align*}
-
-Since $R$ is integrable, we can choose $a$ sufficiently large so that
-
-\[
-\int_a^\infty |R(y)| dy < \frac{1}{2C}
-\]
-
-from which we conclude that
-
-\[
-||F(\phi) - F(\psi) ||_{\sigma, a} \leq \frac{1}{2} ||\phi - \psi ||_{\sigma, a}
-\]
-
-Since $F$ is a contraction on the Banach space $B_{\sigma, a}$, by the Banach Fixed Point Theorem the map $F$ has a unique fixed point, i.e. a unique $\phi(x) \in B_{\sigma, a}$ such that $F(\phi) = \phi$. Note that by the fixed point theorem and definition of $B_{\sigma, a}$, we only have $\phi(x)$ defined for $\phi \geq a$. However, choosing the initial condition $\phi(a)$ at $x = a$, by the existence and uniqueness of solutions to \eqref{veigproblem} and the global Lipschitz condition placed on $R(x)$ (which guarantees global existence of solutions), we can extend $\phi(x)$ uniquely to all of $\R^+$. This extension of $\phi(x)$ to $\R^+$ is given by the same formula we have for $\phi(x)$ when $x \geq a$.
-
-\begin{equation}\label{fpphi}
-\phi(x) = e^{\nu x} p + \int_a^x Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2(x - y)R(y)\phi(y)dy
-\end{equation}
-
-To see this, all we need to do is show that it satisfies the ODE \eqref{veigproblem}. Differentiating \eqref{fpphi}, we get
-
-\begin{align*}
-\phi'(x) &= \nu e^{\nu x} p + (Y_1(0) + Y_2(0))R(x)\phi(x) + \int_a^x Y_1'(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2'(x - y)R(y)\phi(y)dy \\
-&= e^{\nu x} A p + e^{0A}R(x)\phi(x) + \int_a^x A Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x A Y_2(x - y)R(y)\phi(y)dy \\
-&= A \left( e^{\nu x} p + \int_a^x Y_1(x - y)R(y)\phi(y)dy + \int_\infty^x Y_2(x - y)R(y)\phi(y)dy \right) + R(x) \phi(x) \\
-&= A \phi(x) + R(x) \phi(x)
-\end{align*}
-
-Thus $\phi(x)$ defined in \eqref{fpphi} is the unique extension that we seek. All that remains is to show what happens when $x \rightarrow \infty$. Since we are interested in end behavior, we only need to consider what happens when $x \geq a$. Since $\phi(x) \in B_{\lambda, a}$, $||\phi||_{\sigma, a}$ is finite and independent of $x$. Thus for $x \geq a$, using what we did above, 
-
-\begin{align*}
-|e^{-\sigma x} &(\phi(x) - e^{\nu x} p)| \leq C ||\phi||_{\sigma, a}\left( \int_a^x e^{-\delta(x - y)}|R(y)| dy + \int_x^\infty |R(y)|dy \right) \\
-&\leq C ||\phi||_{\sigma, a}\left( \int_a^{x/2} e^{-\delta(x - y)}|R(y)| dy + \int_{x/2}^x |R(y)|+ \int_x^\infty |R(y)|dy \right)\\
-&\leq C ||\phi||_{\sigma, a}\left( e^{-\delta(x/2)} \int_a^{x/2} e^{-\delta(x/2 - y)}|R(y)| dy + \int_{x/2}^\infty |R(y)|dy \right)\\
-&\leq C ||\phi||_{\sigma, a}\left( e^{-\delta(x/2)} \int_a^{\infty} |R(y)| dy + \int_{x/2}^\infty |R(y)|dy \right)\\
-&\leq ||\phi||_{\sigma, a}\left(\frac{1}{2} e^{-\delta(x/2)} + \int_{x/2}^\infty |R(y)|dy \right)
-\end{align*}
-
-Since $\delta > 0$, $R(x)$ is integrable, and $||\phi||_{\sigma, a}$ is constant, both terms on the RHS go to 0 as $x \rightarrow \infty$. Thus we conclude that
-
-\[
-\lim_{x \rightarrow \infty} |e^{-\sigma x} (\phi(x) - e^{\nu x} p)| = 0
-\]
-
-Pulling out a factor of $e^{\nu x}$, this becomes 
-
-\[
-\lim_{x \rightarrow \infty} |e^{(\nu - \sigma) x}||\phi(x) e^{-\nu x} - p)| = 0
-\]
-
-since $\text{Re} \phi = \nu$, $|e^{(\nu - \sigma) x} = 1$ for all $x$. Thus we conclude that
-
-\[
-\lim_{x \rightarrow \infty} |\phi(x) e^{-\nu x} - p)| = 0
-\]  
-
-from which it follows that
-
-\[
-\lim_{x\rightarrow\infty} \phi(x) e^{-\nu x} = p
-\]
-
-\end{proof}
-\end{lemma}
-
-We have the same result on $R^-$, as shown in the following corollary
-
-% corrolary : same result on R^-
-
-\begin{corollary}\label{1devolneg}
-The same result holds on $(-\infty, 0]$ if we take $x \rightarrow -\infty$, i.e. there is a unique solution $\tilde{\phi}(x)$ to \eqref{veigproblem} such that 
-
-\[
-\lim_{x\rightarrow -\infty} \tilde{\phi}(x) e^{-\nu x} = p
-\]
-
-This function in general will not be the same as $\phi(x)$ in Lemma \ref{1devolpos}.
-
-\begin{proof}
-First we replace $x$ with $-x$ in \eqref{veigproblem}
-
-\begin{align*}
-V'(-x) = A V(-x) + R(-x)V(-x)
-\end{align*}
-
-Let $\tilde{V}(x) = V(-x)$ and $\tilde{R}(x) = -R(-x)$. Then since $\tilde{V}'(x) = -V'(-x)$, we get
-
-\begin{align*}
-\tilde{V}'(x) = -A \tilde{V}(x) + \tilde{R}(x)\tilde{V}(x)
-\end{align*}
-
-Now we use Lemma \ref{1devolpos} on $\tilde{V}$ (for $x \geq 0$). Since $-A$ has an eigenvector $p$ with corresponding eigenvalue $-\nu$, by the above lemma we can find a unique solution $\psi(x)$ such that 
-
-\[
-\lim_{x\rightarrow \infty} \psi(x) e^{(-\nu)(-x)} = p
-\]
-
-Let $\tilde{\phi(x)} = \psi(-x)$. Then $\tilde{\phi(x)}$ solves the original problem, and
-
-\[
-\lim_{x\rightarrow -\infty} \tilde{\phi}(x) e^{-\nu x } = p
-\]
-
-\end{proof}
-\end{corollary}
-
-We will now use these lemmas to characterize the ``center'' subspace. Fix $\beta^+$, $\beta^-$, and $
-\lambda$ with $|\lambda| < \delta$. We are interested in the following pair of eigenvalue problems together with their adjoint problems.
+Fix $\beta^+$, $\beta^-$, $\lambda$ with $|\beta^+|, |\beta^-|, |\lambda| < \delta$. We are interested in the following pair of eigenvalue problems together with their adjoint problems.
 
 \begin{align}
 V_+' &= A(q^+(0, \beta^+)(x); \lambda) V_+ && x \geq 0 \label{eig:V+} \\
@@ -637,45 +444,216 @@ By this lemma, we conclude that for $|\lambda| < \delta$, $\langle v_0(\lambda),
 \begin{equation}\label{v0w0IP1}
 \langle v_0(\lambda), w_0(\lambda) \rangle = 1
 \end{equation}
- 
-Using Lemma \ref{veigproblem}, let $\tilde{v}_+(x; \beta^+, \lambda)$ and $\tilde{w}_+(x; \beta^+, \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V+} and its adjoint problem \eqref{eig:W+} on $\R^+$ such that
+
+Next, we will construct solutions to the eigenvalue problem and its adjoint problem which grow/decay with exponential rate $\nu(\lambda)$. The key to doing this the gap lemma, which is based on Zum2018.
+
+% Lemma : Gap Lemma (Zumbrun version)
+
+This is the version from Zum2018.
+
+\begin{lemma}\label{gaplemma}
+Let $W \in \C^N$, and consider the family of ODEs on $R^-$
+
+\begin{equation}\label{LambdaEVP}
+W(x)' = A(x; \Lambda) W
+\end{equation}
+
+where $\Lambda \in \Omega \subset C^m$. Assume that
+
+\begin{enumerate}
+	\item The map $\Lambda \mapsto A(\cdot; \Lambda)$ is analytic in $\Lambda$.
+	\item $A(x; \Lambda) \rightarrow A_\pm(\lambda)$ (independent of $\Lambda$) as $x \rightarrow \pm \infty$, and for $|\Lambda| < \delta$ we have the uniform exponential decay estimates 
+	\begin{align}
+	\left| \frac{\partial^k}{\partial x^k} A(x; \Lambda) - A_\pm(\Lambda) \right| 
+	&\leq C e^{-\theta |x|} && 0 \leq k \leq K
+	\end{align}
+	where $\alpha > 0$, $C > 0$, and $K$ is a nonnegative integer,.
+\end{enumerate}
+
+Suppose $V^-(\Lambda)$ is an eigenvector of $A_-(\Lambda)$ with corresponding eigenvalue $\mu(\Lambda)$, both analytic in $\Lambda$. Then there exists a solution of \ref{paramEVP} of the form 
+
+\begin{equation}
+W(x; \Lambda) = V(x; \Lambda) e^{\mu(\Lambda)x}
+\end{equation}
+
+where $V$ is $C^1$ in $x$ and analytic in $\Lambda$ for $|\Lambda| < \delta$, and for any fixed $\tilde{\theta} < \theta$
+
+\begin{align}
+V(x; \Lambda) = V^-(\Lambda) + \mathcal{O}(e^{-\tilde{\theta}|x|}|V^-(\Lambda)|) && x < 0
+\end{align}
+
+\begin{proof}
+This is identical to Zum2018, and is only here for my own edification.\\
+
+Let $W(x; \Lambda) = V(x; \Lambda) e^{\mu(\Lambda) x}$. Substituting this into \eqref{LambdaEVP} and simplifying, we obtain the equivalent ODE
+
+\begin{equation}\label{VEVP}
+V(x; \Lambda)' = (A_- - \mu(\Lambda)I)V(x; \Lambda) + \Theta(x; \Lambda) V(x; \Lambda)
+\end{equation}
+
+where $\Theta(x; \Lambda) = (A(x; \Lambda) - A_-(\Lambda)) = \mathcal{O}(e^{-\theta|x|})$. Choose any $\tilde{\theta} < \theta_1 < \theta$ such that the real part of the spectrum of $A_-$ lies either to the left or to the right of the vertical line $\text{Re}(\nu) = \text{Re}(\mu(\Lambda) + \theta_1$ in the complex plane. We should be able to make sure this is case for all $|\Lambda| < \delta$ since all the eigenvalues of $A_(\Lambda)$ are analytic in $\Lambda$.\\
+
+Then for $|\Lambda| < \delta$, we can define the spectral projections $P(\Lambda)$ and $Q(\Lambda)$, where $P(\Lambda)$ projects onto the direct sum of all eigenspaces of $A_-(\Lambda)$ corresponding to eigenvalues $\nu$ with $\text{Re}(\nu) < \text{Re}(\mu(\Lambda) + \theta_1$, and $Q(\Lambda)$ projects onto the direct sum of all eigenspaces of $A_-(\Lambda)$ corresponding to eigenvalues $\nu$ with $\text{Re}(\nu) > \text{Re}(\mu(\Lambda) + \theta_1$. $P(\Lambda)$ and $Q(\Lambda)$ are analytic in $\Lambda$ for $|\Lambda| < \delta$, and from our definition of $\theta_1$ we have the estimates
 
 \begin{align*}
-\lim_{x \rightarrow \infty} e^{-\nu(\lambda) x} \tilde{v}_+(x; \beta^+, \lambda) = v_0(\lambda) \\
-\lim_{x \rightarrow \infty} e^{\overline{\nu(\lambda)} x} \tilde{w}_+(x; \beta^+, \lambda) = w_0(\lambda) \\
+\left|e^{(A_-(\Lambda) - \mu(\Lambda)I)x}P| &\leq C e^{\theta_1 x} && x \geq 0 \\
+\left|e^{(A_-(\Lambda) - \mu(\Lambda)I)x}Q| &\leq C e^{\theta_1 x} && x \leq 0 \\
 \end{align*}
 
-To scale out the exponential term, let
+Note that $P(\Lambda) + Q(\Lambda) = I$. Define the map $T$ on $L^\infty(-\infty, -M]$ by
+
+\begin{align*}
+TV(x; \Lambda) &= V^-(\Lambda) 
++ \int_{-\infty}^x e^{(A_-(\Lambda) - \mu(\Lambda)I)(x-y)}P\Theta(y; \Lambda) V(y; \Lambda) dy \\
+&- \int_x^{-M} e^{(A_-(\Lambda) - \mu(\Lambda)I)(x-y)}Q\Theta(y; \Lambda) V(y; \Lambda) dy
+\end{align*}
+
+Taking the absolute value of both sides, for $x \leq 0$
+
+\begin{align*}
+|TV(x; \Lambda)| &\leq |V^-(\Lambda)| + C ||V(x; \Lambda)||_{L^\infty(-\infty, -M]}
+\left( \int_{-\infty}^x e^{\theta_1 (x - y)} e^{\theta y} dy + \int_x^{-M} e^{\theta_1 (x - y)} e^{\theta y} dy \right) \\
+&\leq |V^-(\Lambda)| + C ||V(x; \Lambda)||_{L^\infty(-\infty, -M]} e^{\theta_1 x} \int_{-\infty}^M e^{(\theta - \theta_1) y} dy \right) \\
+&= \leq |V^-(\Lambda)| + C ||V(x; \Lambda)||_{L^\infty(-\infty, -M]} e^{\theta_1 x} \frac{e^{-(\theta - \theta_1)M}}{\theta - \theta_1}\\
+&\leq |V^-(\Lambda)| + C ||V(x; \Lambda)||_{L^\infty(-\infty, -M]} e^{\theta_1 x} e^{-(\theta - \theta_1)M} \\
+&\leq |V^-(\Lambda)| + C ||V(x; \Lambda)||_{L^\infty(-\infty, -M]} e^{-(\theta - \theta_1)M} \\
+& < \infty
+\end{align*}
+
+Since the RHS is independent of $x$, we have $T: L^\infty(-\infty, -M] \rightarrow L^\infty(-\infty, -M]$. Next, we look at
+
+\begin{align*}
+|TV_1(x; \Lambda) - TV_2(x; \Lambda)| &\leq C ||V_1(x; \Lambda) - V_2(x; \Lambda)||_{L^\infty(-\infty, -M]} e^{\theta_1 x} \frac{e^{-(\theta - \theta_1)M}}{\theta - \theta_1}\\
+\end{align*}
+
+Since $e^{-(\theta - \theta_1)M} \rightarrow 0$ as $m \rightarrow \infty$, for sufficiently large $M$ we have 
+
+\begin{align*}
+|TV_1(x; \Lambda) - TV_2(x; \Lambda)|_{L^\infty(-\infty, -M]} &\leq \frac{1}{2} ||V_1(x; \Lambda) - V_2(x; \Lambda)||_{L^\infty(-\infty, -M]} 
+\end{align*}
+
+Thus the map $T$ is a contaction. Since $L^\infty(-\infty, -M]$ is a Banach space, by the Banach fixed point theorem, the map $T$ has a unique fixed point $V = TV$, i.e. we have a function $V \in L^\infty(-\infty, -M]$ such that 
+
+\begin{align*}
+V(x; \lambda) &= V^-(\Lambda) 
++ \int_{-\infty}^x e^{(A_-(\Lambda) - \mu(\Lambda)I)x}P\Theta(y; \Lambda) V(y; \Lambda) dy 
+- \int_x^{-M} e^{(A_-(\Lambda) - \mu(\Lambda)I)x}Q\Theta(y; \Lambda) V(y; \Lambda) dy
+\end{align*}
+
+Differentiating this with respect to $x$, we obtain
+
+\begin{align*}
+V'(x; \Lambda) &= P\Theta(x; \Lambda) V(x; \Lambda) +
+(A_-(\Lambda) - \mu(\Lambda)I) \int_{-\infty}^x e^{(A_-(\Lambda) - \mu(\Lambda)I)(x-y)}P\Theta(y; \Lambda) V(y; \Lambda) dy \\
+&-(-Q\Theta(x; \Lambda) V(x; \Lambda))
+-(A_-(\Lambda) - \mu(\Lambda)I) \int_x^{-M} e^{(A_-(\Lambda) - \mu(\Lambda)I)(x-y)}Q\Theta(y; \Lambda) V(y; \Lambda) dy \\
+&= P\Theta(x; \Lambda) V(x; \Lambda) + Q\Theta(y; \Lambda) V(x; \Lambda) + (A_-(\Lambda) - \mu(\Lambda)I)(T V(x; \lambda) - V^-(\Lambda) ) \\
+&= (P + Q)\Theta(x; \Lambda) V(x; \Lambda) + (A_-(\Lambda) - \mu(\Lambda)I)(V(x; \lambda) - V^-(\Lambda) ) \\
+&= (A_-(\Lambda) - \mu(\Lambda)I)V(x; \lambda) + \Theta(x; \Lambda) V(x; \Lambda) - (A_-(\Lambda) - \mu(\Lambda)I)V^-(\Lambda) \\
+&= (A_-(\Lambda) - \mu(\Lambda)I)V(x; \lambda) + \Theta(x; \Lambda) V(x; \Lambda)
+\end{align*}
+
+where we used the fact that $TV = V$ and $(A_-(\Lambda) - \mu(\Lambda)I)V^-(\Lambda) = 0$. Thus $V(x; \Lambda$ solves \eqref{VEVP}. Since $TV = V$, we let $V_1 = V$ and $V_2 = 0$ in the above to get the estimate
+
+\begin{align*}
+|V(x; \Lambda) - V^-(\Lambda)| &= |T(V(x; \Lambda)) - T(0)| \\
+&\leq C ||V(x; \Lambda) - 0||_{L^\infty(-\infty, -M]} e^{\theta_1 x} \\
+\end{align*}
+
+Similarly, for suffiently large $M$, we have
+
+\begin{align*}
+|V(x; \Lambda)| - |V^-(\Lambda)| &\leq | |V(x; \Lambda)| - |V^-(\Lambda)| | \\
+&\leq |V(x; \Lambda) - V^-(\Lambda)| \\
+&= |T(V(x; \Lambda)) - T(0)| \\
+&\leq \frac{1}{2} ||V(x; \Lambda)||_{L^\infty(-\infty, -M]}
+\end{align*}
+
+Thus
+
+\begin{align*}
+||V(x; \Lambda)||_{L^\infty(-\infty, -M]} \leq 2 |V^-(\Lambda)|
+\end{align*}
+
+Combining these, we have
+
+\begin{align*}
+|V(x; \Lambda) - V^-(\Lambda)| &\leq C e^{\tilde{\theta} x}|V^-(\Lambda)| \\
+\end{align*}
+
+from which we get
+
+\begin{align*}
+|V(x; \Lambda) = V^-(\Lambda) + \mathcal{O}( e^{\tilde{\theta} x}|V^-(\Lambda)| )\\
+\end{align*}
+
+\end{proof}
+\end{lemma}
+
+% Lemma : Gap Lemma
+
+This is the version we use.
+
+\begin{lemma}\label{gaplemma}
+Let $V \in \C^N$, and consider the family of ODEs on $R^-$
+
+\begin{equation}\label{paramEVP}
+V(x)' = A(x; \lambda, \beta) V
+\end{equation}
+
+where $\lambda \in \C$ and $\beta \in C^m$, and $|\lambda|, |\beta| < \delta$ for some $\delta > 0$. Assume that
+
+\begin{enumerate}
+	\item The map $\lambda, \beta \mapsto A(\cdot; \lambda, \beta)$ is analytic in $\lambda$ and $\beta$.
+	\item For $|\lambda|, |\beta| < \delta$, $A(x; \lambda, \beta) \rightarrow A_\infty(\lambda)$ (independent of $\beta$) as $x \rightarrow \pm \infty$, and we have the uniform exponential decay estimates 
+	\begin{align}
+	\left| \frac{\partial^k}{\partial x^k} A(x; \lambda; \beta) - A_\infty(\lambda) \right| 
+	&\leq C e^{-\alpha |x|} && 0 \leq k \leq K
+	\end{align}
+	where $\alpha > 0$, $C > 0$, and $K$ is a nonnegative integer,.
+\end{enumerate}
+
+Suppose $P(\lambda)$ is an eigenvector of $A_\infty(\lambda)$ with corresponding eigenvalue $\nu(\lambda)$, both analytic in $\lambda$. Then there exists a solution of \ref{paramEVP} of the form 
+
+\begin{equation}
+\tilde{V}(x; \lambda, \beta) = V(x; \lambda, \beta) e^{\nu(\lambda)x}
+\end{equation}
+
+where $V$ is $C^1$ in $x$ and analytic in $\lambda$ and $\beta$ for $|\lambda|, |\beta| < \delta$, and for any $\epsilon > 0$
+
+\begin{align}
+V(x; \lambda, \beta) = P(\lambda) + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|P(\lambda)|) && x < 0
+\end{align}
+
+\end{lemma}
+ 
+Using Lemma \ref{gaplemma}, let $\tilde{v}_+(x; \beta^+, \lambda)$ and $\tilde{w}_+(x; \beta^+, \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V+} and its adjoint problem \eqref{eig:W+} on $\R^+$ of the form 
 
 \begin{align}
 \tilde{v}_+(x; \beta^+, \lambda) &= e^{\nu(\lambda) x } v_+(x; \beta^+, \lambda) \label{tildev+} \\
 \tilde{w}_+(x; \beta^+, \lambda) &= e^{-\overline{\nu(\lambda)} x } w_+(x; \beta^+, \lambda) \label{tildew+} 
 \end{align}
 
-Then we have
+where
 
 \begin{align*}
-\lim_{x \rightarrow \infty} v_+(x; \beta^+, \lambda) = v_0(\lambda) \\
-\lim_{x \rightarrow \infty} w_+(x; \beta^+, \lambda) = w_0(\lambda) \\
+v_+(x; \beta^+, \lambda) &= v_0(\lambda) + \mathcal{O}(e^{-(\tilde{\alpha} + |\nu(\lambda)|)|x|}) \\
+w_+(x; \beta^+, \lambda) &= w_0(\lambda) + \mathcal{O}(e^{-(\tilde{\alpha} + |\nu(\lambda)|)|x|})\\
 \end{align*}
 
-We know that this limit exists, but since we scaled out the exponential term, we do not have a decay rate for $|v_+(x; \beta^+, \lambda) - v_0(\lambda)|$ or $|w_+(x; \beta^+, \lambda) - w_0(\lambda)|$.\\
-
-Similarly, using Corollary \ref{1devolneg}, let $\tilde{v}_-(x; \beta^-, \lambda)$ and $\tilde{w}_-(x; \beta^-, \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V-} and its adjoint problem \eqref{eig:W-} on $\R^-$ such that
-
-\begin{align*}
-\lim_{x \rightarrow -\infty} e^{-\nu(\lambda) x} \tilde{v}_-(x; \beta^-, \lambda) = v_0(\lambda) \\
-\lim_{x \rightarrow -\infty} e^{\overline{\nu(\lambda)} x} \tilde{w}_-(x; \beta^-, \lambda) = w_0(\lambda) \\
-\end{align*}
-
-Then we define
+Similarly, let $\tilde{v}_-(x; \beta^-, \lambda)$ and $\tilde{w}_-(x; \beta^-, \lambda)$ be solutions to the eigenvalue problem \eqref{eig:V-} and its adjoint problem \eqref{eig:W-} on $\R^-$ such that
 
 \begin{align}
 \tilde{v}_-(x; \beta^-, \lambda) &= e^{\nu(\lambda) x } v_-(x; \beta^-, \lambda) \label{tildev-} \\
 \tilde{w}_-(x; \beta^-, \lambda) &= e^{-\overline{\nu(\lambda)} x } w_-(x; \beta^-, \lambda) \label{tildew-} 
 \end{align}
 
-These have the same properties as the corresponding functions on $\R^+$ since the asymptotic matrix $A(0; \lambda)$ is the same for $x \rightarrow -\infty$ as $x \rightarrow \infty$.\\
+where
+
+\begin{align*}
+v_-(x; \beta^-, \lambda) &= v_0(\lambda) + \mathcal{O}(e^{-(\tilde{\alpha} + |\nu(\lambda)|)|x|}) \\
+w_-(x; \beta^-, \lambda) &= w_0(\lambda) + \mathcal{O}(e^{-(\tilde{\alpha} + |\nu(\lambda)|)|x|})\\
+\end{align*}
 
 In the final lemma of this section, we show that $\langle v_\pm(x; \beta^\pm, \lambda), w_\pm(x; \beta^\pm, \lambda) \rangle = 1$ for all $x \geq 0$.
 
@@ -705,9 +683,6 @@ For all $x \geq 0$ we have
 \eqref{vwIP1+} follows from combining these two results. The proof on $\R^-$ is identical.
 \end{proof}
 \end{lemma}
-
-\subsubsection{}
-
 
 \subsection{Exponential Trichotomy}
 
@@ -1289,7 +1264,7 @@ Let
 Then 
 
 \begin{equation}\label{p2limit}
-p_2(X; \lambda) \rightarrow 0 \text{ as } |X| \rightarrow \infty,
+p_2(X; \lambda) = \mathcal{O}(e^{-\tilde{\alpha} X} )
 \end{equation}
 
 \begin{equation}\label{p3bound}
@@ -1299,12 +1274,17 @@ p_3(X; \lambda) = \mathcal{O}(\lambda),
 and
 
 \begin{equation}\label{p3bound}
-p_4(X; \lambda) = \mathcal{O}(\lambda + e^{-2 \alpha X_m} )
+p_4(X; \lambda) = \mathcal{O}(\lambda + e^{-2 \alpha X} )
 \end{equation}
 
 \begin{proof}
 
-For $p_2$, since $v_\pm(\pm x; \beta^\pm, \lambda) \rightarrow v_0(\lambda)$ and $w_\pm(\pm x; \beta^\pm, \lambda) \rightarrow w_0(\lambda)$ as $|x| \rightarrow \infty$, $p_2(X; \lambda) \rightarrow 0$ as $|X| \rightarrow \infty$. Since we scaled out the exponential factor, we do not have a rate of convergence for this, thus cannot get an actual estimate. Fortunately, this will not matter.\\
+The bound on $p_2$ follows from the gap lemma, since
+
+\begin{align*}
+v_\pm(X; \beta^\pm, \lambda) &= v_0(\lambda) + \mathcal{O}(e^{-\tilde{\alpha}|X|}) \\
+w_\pm(X; \beta^\pm, \lambda) &= w_0(\lambda) + \mathcal{O}(e^{-\tilde{\alpha}|X|})\\
+\end{align*}
 
 For $p_3$, we can expand $v_0(\lambda)$ in a Taylor series in $\lambda$ to get
 
@@ -1331,7 +1311,9 @@ Define the spaces
 V_W &= \bigoplus_{i=0}^{n-1} C^0([-X_{i-1}, 0], \C^m) \oplus C^0([0, X_i], \C^m) \\
 V_a &= \bigoplus_{i=0}^{n-1} E^u \oplus E^s\\
 V_b &= \bigoplus_{i=0}^{n-1} \ran P^u_-(0; 0, 0) \oplus \ran P^s_+(0; 0, 0) \\
-V_c &= \bigoplus_{i=0}^{n-1} \spn \{v_0(\lambda)\} \oplus \spn \{v_0(\lambda)\} \\
+V_c^+ &= \bigoplus_{i=0}^{n-1} \spn \{v_0(\lambda)\} \\
+V_c^- &= \bigoplus_{i=0}^{n-1} \spn \{v_0(\lambda)\} \\
+V_c &= V_c^+ \oplus V_c^- \\
 V_\lambda &= B_\delta(0) \subset \C
 \end{align*}
 
@@ -1645,46 +1627,42 @@ W_i^+(X_i) - W_{i+1}^-(-X_i) &= D_i d \\
 
 \begin{lemma}\label{inv2}
 
-% There exist operators
+There exist operators
 
-% \begin{align*}
-% A_1: V_\lambda \times V_b \times V_c \times V_d \rightarrow V_a \\
-% W_2: V_\lambda \times V_b \times V_c \times V_d \rightarrow V_W \\
-% \end{align*}
+\begin{align*}
+A_1: V_\lambda \times V_b \times V_c^- \times V_d \rightarrow V_a \times V_c^+\\
+W_2: V_\lambda \times V_b \times V_c^- \times V_d \rightarrow V_W \\
+\end{align*}
 
-% such that $(a,W) = ( A_1(\lambda)(b,c,d), W_2(\lambda)(b,c,d) )$ solves our system. These operators are analytic in $\lambda$ and linear in $(b,c,d)$. Piecewise bounds for them are given by
+such that $( (a, c^+) ,W) = ( A_1(\lambda)(b,c^-,d), W_2(\lambda)(b,c^-,d) )$ solves our system. These operators are analytic in $\lambda$ and linear in $(b,c^-,d)$. Piecewise bounds are given by
 
-% \begin{align*}
-% |A_1(\lambda)_i&(b, c, d)| \\
-% &\leq C \Big( (e^{-\alpha X_i} + ||G||) |b| + ( p_2(X_i; \lambda) + p_3(\lambda)  + e^{-(\alpha - |\nu(\lambda)|)X_i} )|c_i|
-% + (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + |D_i||d| \Big)
-% \end{align*} 
+\begin{align}\label{A1bound}
+|A_1&(\lambda)_i(b, c_i^-, d)|
+\leq C \Big( e^{-\alpha X_i} |b| + |c_i^-| + e^{-(\tilde{\alpha}+|\nu(\lambda)|) X_i} |\lambda^2| |d| + |D_i||d| \Big)
+\end{align} 
 
-% and
+and
 
-% \begin{align}
-% |W_2(\lambda)(b,c,d)_i^-|| &\leq C \Big( |b| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}| + (|\lambda|^2 + |D_{i-1}|)|d| \Big) \\
-% |W_2(\lambda)(b,c,d)_i^+|| 
-% &\leq C \Big( |b| + e^{|\nu(\lambda)|X_i}|c_i| + (|\lambda|^2 + |D_i|)|d| \Big)
-% \end{align} 
+\begin{align}
+|W_2(\lambda)(b,c^-,d)_i^-|| &\leq C \Big( |b| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}^-| + (|\lambda|^2 + |D_{i-1}|)|d| \Big) \\
+|W_2(\lambda)(b,c^-,d)_i^+|| 
+&\leq C \Big( |b| + e^{|\nu(\lambda)|X_i}|c_i^-| + (|\lambda|^2 + |D_i|)|d| \Big)
+\end{align}
 
-We can write $a_i^\pm$ and $c_i^+$ as 
+In addition, we can write $a_i^\pm$ and $c_i^+$ as 
 
 \begin{align*}
 a_i^+ &= P^u_0 D_i d + A_2(\lambda)_i^+(b, c, d) \\
 a_i^- &= -P^s_0 D_i d + A_2(\lambda)_i^-(b, c, d) \\
-c_i^+ &= c_i^- - P^c_0 D_i d + A_2(\lambda)_i^c(b, c, d)
+c_i^+ &= c_i^- + A_2(\lambda)_i^c(b, c, d) + \mathcal{O}( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| )
 \end{align*}
 
 where $A_2$ is a bounded operator with estimate
 
 \begin{align*}
-|A_2&(\lambda)_i(b, c, d)| \\
-&\leq C \Big( (e^{-\alpha X_i} + ||G||)|b| + (p_1(X_i; \lambda) + ||G|| + p_2(X_i; \lambda) + p_3(\lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i})|c_i| \\
-&+ (e^{-\tilde{\alpha} X_i} + ||G||) |\lambda^2| |d| + |D_i||d|\Big)
+|A_2&(\lambda)_i(b, c^-, d)| \leq C ( e^{-\alpha X_i} |b| + e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i} |c_i^-| 
++ e^{-(\tilde{\alpha} + |\nu(\lambda)|) X_i} |\lambda^2| |d| + e^{-(\alpha - |\nu(\lambda)|) X_i}|D_i||d| ) \\
 \end{align*}
-
-$p_1(X_i; \lambda)$ is defined in Lemma \ref{projbounds}, and $p_2(X_i; \lambda)$ and $p_3(\lambda)$ are defined in Lemma \ref{centerbounds}. 
 
 \begin{proof}
 
@@ -1698,31 +1676,19 @@ W_i^+(X_i) &- W_{i+1}^-(-X_i) = P^u_+(X_i; \beta_i^+, \lambda) a_i^+ - P^s_-(-X_
 &- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}_i^-(y) ] dy
 \end{align*}
 
-We now manipulate this to get it into a form we can use. First, we get the coefficients $a_i^\pm$ and $c_i^\pm$ by themselves by adding and subtracting $P_0^u a_i^+$ and $P_0^s a_i^-$, and $v_0(\lambda)$. Since $a_i^- \in E^u$ and $a_i^+ \in E^s$, 
+We now manipulate this to get it into a form we can use. First, we get the coefficients $a_i^\pm$ and $c_i^\pm$ by themselves by adding and subtracting $P_0^u a_i^+$ and $P_0^s a_i^-$, and $v_0(\lambda)$. Since $a_i^- \in E^u$ and $a_i^+ \in E^s$, this becomes
 
 \begin{align*}
-D_i d &= a_i^+ - a_i^- + (c_i^+ - c_i^-)v_0(\lambda) \\
+D_i d &= a_i^+ - a_i^- + c_i^+ v_0(\lambda) \\
 &+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-, \lambda) - P_0^s)a_i^- \\
 &+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda)b_{i+1}^- \\
 &+ (v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(\lambda) ) c_i^+ \\
-&- (v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle - v_0(\lambda) ) c_i^- \\
+&- v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle c_i^- \\
 &+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}_i^+(y) ] dy \\
 &- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}_i^-(y) ] dy
 \end{align*}
 
-Rearranging this, we obtain
-
-\begin{align*}
-a_i^- &- a_i^+ + (c_i^+ - c_i^-)v_0(\lambda) = -D_i d  \\
-&+ (P^u_+(X_i; \beta_i^+, \lambda) - P_0^u)a_i^+ - (P^s_-(-X_i; \beta_{i+1}^-,\lambda) - P_0^s)a_i^- \\
-&+ \Phi^s_+(X_i, 0; \beta_i^+, \lambda)b_i^+ - \Phi^u_-(-X_i, 0; \beta_{i+1}^-, \lambda) b_{i+1}^- \\
-&+ (v_+(X_i; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle - v_0(\lambda) ) c_i^+ \\
-&- (v_-(-X_i; \beta_{i+1}^-, \lambda) \langle v_0(\lambda), w_-(-X_i; \beta_{i+1}^-, \lambda) \rangle - v_0(\lambda) ) c_i^- \\
-&+ \int_0^{X_i} \Phi^s_+(X_i, y; \beta_i^+, \lambda) [ G_i^+(y) W_i^+(y) + d_i \lambda^2 \tilde{H}_i^+(y) ] dy \\
-&- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}_i^-(y) ] dy
-\end{align*}
-
-What we want eventually is to have an expression for $c_i^+ - c_i^-$. However, we cannot perform the inversion using this, since the RHS is not in terms of $c_i^+ - c_i^-$. The way around this is to solve for one of them in terms of the other and substitute back. Since it does not matter which one we do, we will solve for $c_i^+$. This gives us
+Note that we are solving for the $c_i^+$ in terms of the $c_i^-$, so we only add and subtract $v_0(\lambda)$ for the $c_i^+$ term. This choice is arbitrary, i.e. we could have just as easily solved for $c_i^-$ in terms of $c_i^+$. Rearranging this, we obtain
 
 \begin{align*}
 a_i^- &- a_i^+ + c_i^+ v_0(\lambda) = -D_i d  \\
@@ -1774,9 +1740,7 @@ For the integral term involving $W$, we use the piecewise bound on $W_i^+$ from 
 &\leq C \left( e^{-\alpha X_i} (|a| + |b_i^+| + |\lambda|^2 |d|) + e^{-(\alpha - |\nu(\lambda)|)X_i} |c_i^+| \right)
 \end{align*}
 
-where we used the fact that $|\nu(\lambda)| \leq \alpha$.  
-
-The ``negative'' piece is similar. This works out the way we want, since the ``negative'' piece involves $W_{i+1}$, but the piecewise bound for $W_{i+1}$ involves $c_i^-$.
+where we used the fact that $|\nu(\lambda)| \leq \alpha$. The ``negative'' piece is similar. This works out the way we want, since the ``negative'' piece involves $W_{i+1}$, but the piecewise bound for $W_{i+1}$ involves $c_i^-$.
 
 \begin{align*}
 &\left| \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) G_{i+1}^-(y) W_{i+1}^-(y) dy \right| \\
@@ -1812,7 +1776,7 @@ L_3(\lambda)&(a, b, c_i^+, c_i^-, d)_i \leq C ( (p_1(X_m; \lambda) + e^{-\alpha 
 + e^{-(\tilde{\alpha}+|\nu(\lambda)|) X_i} |\lambda^2| |d| )
 \end{align*}
 
-We use Lemma \ref{projbounds} for a bound on $p_1(X_m; \lambda)$. Using Lemma \ref{centerbounds}, we take $X_m$ sufficiently large so that $p_2(X_i; \lambda) < \delta$ for all $i$. Thus we have
+We use Lemma \ref{projbounds} for a bound on $p_1(X_m; \lambda)$ and Lemma \ref{centerbounds} for a bound on $p_2(X_i; \lambda)$. Taking $X_m$ sufficiently large, we have
 
 \begin{align*}
 L_3(\lambda)&(a, b, c^+, c^-, d)\leq C (\delta (|a| + |c^+|) + e^{-\alpha X_i}(|b_i^+| + |b_{i+1}^-|) + |c^-| + e^{-(\tilde{\alpha}+|\nu(\lambda)|) X_i} |\lambda^2| |d|)
@@ -1844,7 +1808,7 @@ A bound which is uniform in $|b|$ is
 \leq C \Big( e^{-\alpha X_i} |b| + |c_i^-| + e^{-(\tilde{\alpha}+|\nu(\lambda)|) X_i} |\lambda^2| |d| + |D_i||d| \Big)
 \end{align*} 
 
-Recall that $C^{2m+1} = E^s \oplus E^u \oplus \R v_0(\lambda)$. Next, we hit our expression for $D_i d$ with the projections $P^s_0$, $P^u_0$, and $P^c_0(\lambda)$ (the projections on these three components) to eliminate some of the terms. We start with
+Recall that $C^{2m+1} = E^s \oplus E^u \oplus \R v_0(\lambda)$. Next, we hit our expression for $D_i d$ with the projections $P^s_0$, $P^u_0$, and $P^c_0(\lambda)$ (the projections on these three components) to eliminate some of the terms. This time we add and subtract $v_0(\lambda)$ for both of the $c_i^\pm$ terms so we can get $(c_i^+ - c_i^-)v_0(\lambda)$ on the LHS.
 
 \begin{align*}
 a_i^- &- a_i^+ + (c_i^+ - c_i^-)v_0(\lambda) = -D_i d  \\
@@ -1856,15 +1820,15 @@ a_i^- &- a_i^+ + (c_i^+ - c_i^-)v_0(\lambda) = -D_i d  \\
 &- \int_0^{-X_i} \Phi^u_-(-X_i, y; \beta_{i+1}^-, \lambda) [ G_{i+1}^-(y) W_{i+1}^-(y) + d_{i+1} \lambda^2 \tilde{H}_i^-(y) ] dy
 \end{align*}
 
-This time, we take projections $P^s_0$, $P^u_0$, and $P^c_0(\lambda)$ individually. This becomes
+Let $\tilde{L}_3(\lambda)_i(a, b, c_i^+, c_i^-, d)$ be everything on the RHS of this except for the $D_i d$ term.  We take projections $P^s_0$, $P^u_0$, and $P^c_0(\lambda)$ individually. This becomes
 
 \begin{align*}
-a_i^+ &= P^u_0 D_i d - P^u_0 L_3(\lambda)_i(a, b, c_i^+, c_i^-, d) \\
-a_i^- &= -P^s_0 D_i d + P^s_0 L_3(\lambda)_i(a, b, c_i^+, c_i^-, d) \\
-(c_i^+ - c_i^-)v_0(0) &= -P^c_0(\lambda) D_i d + P^c_0(\lambda) L_3(\lambda)_i(a, b, c_i^+, c_i^-, d) \\
+a_i^+ &= P^u_0 D_i d - P^u_0 \tilde{L}_3(\lambda)_i(a, b, c_i^+, c_i^-, d) \\
+a_i^- &= -P^s_0 D_i d + P^s_0 \tilde{L}_3(\lambda)_i(a, b, c_i^+, c_i^-, d) \\
+(c_i^+ - c_i^-)v_0(0) &= -P^c_0(\lambda) D_i d + P^c_0(\lambda) \tilde{L}_3(\lambda)_i(a, b, c_i^+, c_i^-, d) \\
 \end{align*}
 
-Define $A_2$ to be all the stuff on the RHS other than the $D_i d$ term. Thus, using the bound for $P^c_0 D_i d$, we have
+Define $A_2$ to be all the stuff on the RHS other than the $D_i d$ term. Using the bound for $P^c_0 D_i d$ from Lemma \ref{P0cDid}, we have
 
 \begin{align*}
 a_i^+ &= P^u_0 D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
@@ -1882,14 +1846,16 @@ We can come up with a bound for $A_2$ using the bound for $A_1$ and the estimate
 &\leq C ( (p_1(X_i; \lambda) + p_2(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i})( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + |c_i^-| + e^{-(\tilde{\alpha} + |\nu(\lambda)|) X_i} |\lambda^2| |d| + |D_i||d|) \\
 &+ e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + (p_2(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i})|c_i^-| \
 + e^{-(\tilde{\alpha} + |\nu(\lambda)|) X_i} |\lambda^2| |d| ) \\
-&\leq C ( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + (p_2(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i})|c_i^-| \
+&\leq C ( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + (e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i} + e^{-(\alpha - |\nu(\lambda)|)X_i})|c_i^-| \
++ e^{-(\tilde{\alpha} + |\nu(\lambda)|) X_i} |\lambda^2| |d| + e^{-(\alpha - |\nu(\lambda)|) X_i}|D_i||d| ) \\
+&\leq C ( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i} |c_i^-| 
 + e^{-(\tilde{\alpha} + |\nu(\lambda)|) X_i} |\lambda^2| |d| + e^{-(\alpha - |\nu(\lambda)|) X_i}|D_i||d| ) \\
 \end{align*}
 
 Alternatively, we can make this uniform in $|b|$.
 
 \begin{align*}
-|A_2&(\lambda)_i(b, c^-, d)| \leq C ( e^{-\alpha X_i} |b| + (p_2(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i})|c_i^-| \
+|A_2&(\lambda)_i(b, c^-, d)| \leq C ( e^{-\alpha X_i} |b| + e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i} |c_i^-| 
 + e^{-(\tilde{\alpha} + |\nu(\lambda)|) X_i} |\lambda^2| |d| + e^{-(\alpha - |\nu(\lambda)|) X_i}|D_i||d| ) \\
 \end{align*}
 
@@ -1962,35 +1928,42 @@ BEFORE WE DO THIS, WE WILL MAKE A CHANGE OF VARIABLES so that for sufficiently s
 % inversion 3
 
 \begin{lemma}\label{inv3}
-There exists an operator
+There exists operators
 
 \begin{align*}
-B_1(\lambda): V_\lambda \times V_d \times V_c \rightarrow V_b \\
+B_1: V_\lambda \times V_c^- \times V_d \rightarrow V_b \\
+A_3: V_\lambda \times V_c^- \times V_d \times V_d \rightarrow V_a \\
+W_3: V_\lambda \times V_c^- \times V_d \times V_d \rightarrow V_W \\
 \end{align*}
 
-such that 
-\[
-b = B_1(\lambda)(c^-, d)
-\]
+such that $( (a, c^+) , b, W) = ( A_3(\lambda)(c^-,d), B_1(\lambda)(c^-, d), W_3(\lambda)(c^-,d) )$ solves our system. These operators are analytic in $\lambda$ and linear in $(c^-,d)$. Uniform bounds for $B_1$ and $A_3$ are given by
 
-and
+\begin{align}
+|B_1(\lambda)(c, d)| &\leq C \Big( e^{-\alpha X_m}( |c^-| + |D||d|) + |\lambda|^2 |d| \Big) \\
+|A_3(\lambda)_i(b, c^-, d)| &\leq C \Big( e^{-\alpha X_m} |c^-| + |c_i^-| + e^{-(\tilde{\alpha}+|\nu(\lambda)|) X_i} |\lambda^2| |d| + |D||d| \Big)
+\end{align} 
+
+Piecewise bounds for $W_3$ are given by
+
+\begin{align}
+|W_3(\lambda)(b,c^-,d)_i^-|| &\leq C \Big( e^{-\alpha X_m} |c^-| + e^{|\nu(\lambda)|X_{i-1}}|c_{i-1}^-| + (|\lambda|^2 + |D|)|d| \Big) \\
+|W_3(\lambda)(b,c^-,d)_i^+|| 
+&\leq C \Big( e^{-\alpha X_m} |c^-| + e^{|\nu(\lambda)|X_i}|c_i^-| + (|\lambda|^2 + |D|)|d| \Big)
+\end{align}
+
+Again, we can write
 
 \begin{align*}
-(a,b,&\tilde{c}, W) 
-= (A_1(\lambda)(B_1(\lambda)d, d), B_1(\lambda)d, W_2(\lambda)(B_1(\lambda)d, d))
+a_i^+ &= P^u_0 D_i d + A_4(\lambda)_i^+(c^-, d) \\
+a_i^- &= -P^s_0 D_i d + A_4(\lambda)_i^-(c^-, d) \\
+c_i^+ &= c_i^- + A_4(\lambda)_i^c(c^-, d) + \mathcal{O}( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| )
 \end{align*}
 
-solves our system. The operator $B_1(\lambda)$ is analytic in $\lambda$ and linear in $c, d$ and has piecewise bound
+where $A_4(\lambda)(c^-, d)$ is analytic in $\lambda$ and linear in $c^-, d$ and has bound
 
-\begin{align*}
-|B_1(\lambda)_i(c, d)| &\leq C ( (e^{-(\alpha - |\nu(\lambda)|) X_i} + e^{-(\alpha - |\nu(\lambda)|) X_{i-1}} ) |D| + |\lambda|^2 )|d|
-\end{align*}
-
-It also has uniform bound
-
-\begin{equation}
-|B_1(\lambda)(d)| \leq C ( e^{-(\alpha - |\nu(\lambda)|) X_m} |D| + |\lambda|^2 )|d|
-\end{equation}
+\begin{align}
+|A_4&(\lambda)_i(c^-, d)| \leq C e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i} ( |c^-| + |\lambda^2| |d| + |D||d| )
+\end{align}
 
 \begin{proof}
 
@@ -2172,8 +2145,11 @@ We can do the same thing for the piecewise, $x-$dependent bounds.
 Finally, we plug $B_1$ into $A_2$ to get $A_4$.
 
 \begin{align*}
-|A_4&(\lambda)_i(b, c^-, d)| \leq C ( e^{-\alpha X_i} e^{-\alpha X_m}|c^-| + (p_2(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i})|c_i^-| \
+|A_4&(\lambda)_i(c^-, d)| \leq C ( e^{-\alpha X_i} e^{-\alpha X_m}|c^-| + e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i} |c_i^-| 
 + e^{-(\tilde{\alpha} + |\nu(\lambda)|) X_i} |\lambda^2| |d| + e^{-(\alpha - |\nu(\lambda)|) X_i}|D||d| ) \\
+&\leq C ( e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i} |c^-| 
++ e^{-(\tilde{\alpha} + |\nu(\lambda)|) X_i} |\lambda^2| |d| + e^{-(\alpha - |\nu(\lambda)|) X_i}|D||d| ) \\
+&\leq C e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i} ( |c^-| + |\lambda^2| |d| + |D||d| )
 \end{align*}
 
 \end{proof}
@@ -2181,23 +2157,61 @@ Finally, we plug $B_1$ into $A_2$ to get $A_4$.
 
 \subsection{Jump Conditions}
 
-In this case, we have jump equations in two directions: $Y_0$ and $\Psi(0)$. 
+We have jump equations in two directions: $Y_0$ and $\Psi(0)$. We will look at the jumps in the two directions separately, then combine them.
 
 \subsubsection{Jump in Center Direction}
 
-In the next lemma, we look at the equation
+In the next lemma, we look at jump in the $Y_0$ direction, i.e. the equation
 
 \[
-P(Y^0) ( W_i^+(0) - W_i^-(0) ) = 0
+\xi^c_i = P(Y^0) ( W_i^+(0) - W_i^-(0) ) = 0
 \]
 
 which is the jump condition in the center direction $Y_0$.
 
 \begin{lemma}
-STATE LEMMA HERE
+
+The jumps in the $Y_0$ direction are given by 
+
+\begin{equation}
+\xi^c_i 
+= e^{-\nu(\lambda)X_i} c_i^- - e^{\nu(\lambda)X_{i-1}} c_{i-1}^- - \lambda^2 d_i \int_{-\infty}^\infty e^{\nu(\lambda)y}  \langle H(y), w(y; 0, 0) \rangle dy + R^c_i(c^-,d)
+\end{equation}
+
+for $i = 1, \dots, n$. The remainder term $R^c_i(c^-,d)$ has bound
+
+\begin{align}
+|R^c_i&(c^-,d)| \leq C \Big( e^{-\tilde{\alpha} X_m} |c^-| + ((|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 + e^{-\tilde{\alpha} X_m}|D| + e^{-\tilde{\alpha} X_m} |\lambda| ) |d| \Big)
+\end{align}
+
+We can write the $n$ center jump conditions in matrix form as
+
+\begin{equation}
+K(\lambda)c^- -\lambda^2 M(\lambda) I d + R^c(\lambda)(c^-,d) = 0
+\end{equation}
+
+where $c^- = (c_1^-, \dots, c_{n-1}^-, c_0^-)$, $d = (d_1, \dots, d_n)$, 
+
+\begin{equation}
+K(\lambda) = 
+\begin{pmatrix}
+e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
+-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
+& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
+\vdots & & \vdots & &&  \vdots \\
+& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
+\end{pmatrix}
+\end{equation}
+
+and
+
+\begin{equation}
+M(\lambda) = \int_{-\infty}^\infty e^{-\nu(\lambda)y} \langle H(y), w(y; 0, 0) \rangle dy
+\end{equation}
+
 \begin{proof}
 
-Since everything is a mess, we will do the estimates we need first, then plug them into the expression for $W_i^+(0) - W_i^-(0)$.
+Evaluating the fixed point equations at $x = 0$, we have the following expression for $W_i^+(0) - W_i^-(0)$.
 
 \begin{align*}
 W_i^+(0) &- W_i^-(0) = \Phi^u_+(0, X_i; \beta_i^+, \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \beta_i^-, \lambda)a_{i-1}^- + x_i^+ + y_i^+ - x_i^- - y_i^- \\
@@ -2211,7 +2225,7 @@ W_i^+(0) &- W_i^-(0) = \Phi^u_+(0, X_i; \beta_i^+, \lambda)a_i^+ - \Phi^s_-(0, -
 e^{\nu(\lambda)y} v_-(0; \beta_i^-, \lambda) \langle G_i^-(y)W_i^-(y) + \lambda^2 d_i \tilde{H}_i^-(y), w_-(y; \beta_i^-, \lambda) \rangle dy \\
 \end{align*}
 
-The projection $P(Y_0)$ will kill the $x_i^\pm$ and $y_i^\pm$ terms outright. Recall that the center projection is given by
+The projection $P(Y_0)$ will eliminate the $x_i^\pm$ and $y_i^\pm$ terms outright. Recall that the center projection is given by
 
 \[
 P^c_\pm(0; \beta_i^\pm, \lambda)u = \langle u, w_\pm(0; \beta_i^\pm, \lambda) \rangle v_\pm(0; \beta_i^\pm, \lambda)
@@ -2235,28 +2249,28 @@ In order to get what we want, we rewrite the coefficients of the center terms as
 v_+&(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle \\
 &= v_+(0; \beta_i^+, \lambda) ( \langle v_0(\lambda), w_0(\lambda) \rangle + \langle v_0(\lambda), w_0(\lambda) - w_+(X_i; \beta_i^+, \lambda) \rangle) \\
 &= v_+(0; \beta_i^+, \lambda) ( \langle v_0(\lambda), w_0(\lambda) \rangle + \mathcal{O}(p_2(X_i; \lambda)) \\
-&= v_+(0; \beta_i^+, \lambda) + \mathcal{O}(p_2(X_i; \lambda))
+&= v_+(0; \beta_i^+, \lambda) + \mathcal{O}(p_2(X_i; \lambda)) \\
+&= v_+(0; \beta_i^+, \lambda) + \mathcal{O}( e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i})
 \end{align*}
 
-Thus we have
+where we used the bound for $p_2$ from Lemma \ref{centerbounds}. Thus we have
 
 \begin{align*}
-P(Y^0) ( v_-(0; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) \rangle e^{\nu(\lambda)X_{i-1}} c_{i-1}^-) &= e^{\nu(\lambda)X_{i-1}} c_{i-1}^- + \mathcal{O}(p_2(X_{i-1}; \lambda))
+P(Y^0) ( v_-(0; \beta_i^-, \lambda) \langle v_0(\lambda), w_-(-X_{i-1}; \beta_i^-, \lambda) \rangle e^{\nu(\lambda)X_{i-1}} c_{i-1}^- &= e^{\nu(\lambda)X_{i-1}} c_{i-1}^- + \mathcal{O}( e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_{i-1}})
 \end{align*}
 
 and
 
 \begin{align*}
-P(Y^0) ( v_+(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^+ + \mathcal{O}(p_2(X_i; \lambda))
+P(Y^0) ( v_+(0; \beta_i^+, \lambda) \langle v_0(\lambda), w_+(X_i; \beta_i^+, \lambda) \rangle e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^+ + \mathcal{O}( e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_{i-1}})
 \end{align*}
 
 To write this in terms of $c_i^-$, we use $c_i^+ = c_i^- + A_4(\lambda)_i^c(c^-, d) + \mathcal{O}( e^{-\alpha X_i} (|\lambda| +  e^{-\alpha X_i} ) |d| )$.
 
 \begin{align*}
-e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}((e^{|\nu(\lambda)|X_i})( e^{-\alpha X_i} e^{-\alpha X_m}|c^-| + (p_2(X_i; \lambda) + e^{-(\alpha - |\nu(\lambda)|)X_i})|c_i^-| \\
-&+ e^{-(\tilde{\alpha} + |\nu(\lambda)|) X_i} |\lambda^2| |d| + e^{-(\alpha - |\nu(\lambda)|) X_i}|D||d| +  e^{-\alpha X_i} (|\lambda| +  e^{-\alpha X_i} ) |d| )) \\
-&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}(e^{-\tilde{\alpha} X_m}|c^-| + e^{|\nu(\lambda)|X_i} p_2(X_i; \lambda) |c_i^-| 
-+ e^{-\tilde{\alpha} X_m}( |\lambda| + |D| + e^{-\alpha X_i} ) |d| )
+e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}(e^{|\nu(\lambda)|X_i} e^{-(\tilde{\alpha} + |\nu(\lambda)|)X_i} ( |c_i^-| + |\lambda^2| |d|+ |D||d|) +  e^{-\alpha X_i} (|\lambda| +  e^{-\alpha X_i} ) |d| )) \\
+&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}(e^{-\tilde{\alpha} X_m} |c^-| 
++ e^{-\tilde{\alpha} X_m}( |\lambda| + |D| + e^{-\alpha X_i} ) |d| ) \\
 \end{align*}
 
 Now we estimate the remaining terms involved in $P(Y_0)(W_i^+(0) - W_i^-(0)$. For the terms involving $a_i^\pm$, we use the bound $A_3$ from Lemma \ref{inv3}.
@@ -2443,12 +2457,12 @@ The remainder term $R^c_i(c^-,d)$ has bound
 \begin{align*}
 |R^c_i&(c^-,d)| \leq C \Big( e^{-\alpha X_m} ( |c^-| + e^{-\tilde{\alpha} X_m} |\lambda^2| |d| + |D||d| ) \\
 &+ (|\lambda| + e^{-2 \alpha X_m})( e^{-\alpha X_m}( |c^-| + |D||d|) + |\lambda|^2 |d| ) \\
-&+ (e^{-\tilde{\alpha} X_m} + P_2(X_m; \lambda))|c^-| + e^{|\nu(\lambda)|X_i} p_2(X_i; \lambda)|c_i^-| 
+&+ (e^{-\tilde{\alpha} X_m} |c^-|  
 + e^{-\tilde{\alpha} X_m}( |\lambda| + |D| + e^{-\alpha X_i} ) |d| \\
 &+ e^{-\alpha X_m} ( |c^-| + (|\lambda|^2 + |D|) |d| ) \\
 &+ (|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 |d| 
 \Big) \\
-&\leq C \Big( (e^{-\tilde{\alpha} X_m} + P_2(X_m; \lambda))|c^-| + e^{|\nu(\lambda)|X_i} p_2(X_i; \lambda)|c_i^-| + ((|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 + e^{-\tilde{\alpha} X_m}|D| + e^{-\tilde{\alpha} X_m} |\lambda| ) |d| \Big)
+&\leq C \Big( e^{-\tilde{\alpha} X_m} |c^-| + ((|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 + e^{-\tilde{\alpha} X_m}|D| + e^{-\tilde{\alpha} X_m} |\lambda| ) |d| \Big)
 \end{align*}
 
 We can write this in matrix form as
@@ -2585,7 +2599,7 @@ For the terms involving $a$ in the jump $\xi_i$, we have
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \rangle \\
 &= \langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^s_0 D_{i-1} d \rangle \\
-&+ \mathcal{O}\Big( e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-(\alpha + \tilde{\alpha})X_m} |c^-| + e^{-(\alpha + \tilde{\alpha})X_m}(|\lambda|^2 + |D| )|d| \Big)
+&+ \mathcal{O}\Big( e^{-(\alpha + \tilde{\alpha})X_m} |c^-| + e^{-(\alpha + \tilde{\alpha})X_m}(|\lambda|^2 + |D| )|d| \Big)
 \end{align*}
 
 \begin{proof}
@@ -2625,7 +2639,7 @@ For the third term, we use the estimate for $A_4$ to get
 
 \begin{align*}
 |\langle \Psi(0), \Phi^u_+(0, X_i; \lambda) A_4(\lambda)_i^+(b,c,d) \rangle| 
-\leq C e^{-\alpha X_m}\Big( p_2(X_i; \lambda)|c_i^-| +  e^{-\tilde{\alpha}X_m}( |c^-| + |\lambda|^2 |d| + |D||d| ) \Big)
+\leq C e^{-\alpha X_m}\Big( e^{-\tilde{\alpha}X_m}( |c^-| + |\lambda|^2 |d| + |D||d| ) \Big)
 \end{align*}
 
 The first term on the RHS is what we want.
@@ -2641,7 +2655,7 @@ WHERE WE HAVE ASSUMED THAT $P^u_+(X; 0, 0) - P^u_0 = \mathcal{O}(e^{-\alpha X})$
 
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \beta_i^+, \lambda) a_i^+ \rangle \\
-&= \langle \Psi(X_i), P^u_0 D_i d \rangle + \mathcal{O}\Big( e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-(\alpha + \tilde{\alpha})X_m} |c^-| 
+&= \langle \Psi(X_i), P^u_0 D_i d \rangle + \mathcal{O}\Big( e^{-(\alpha + \tilde{\alpha})X_m} |c^-| 
 + e^{-(\alpha + \tilde{\alpha})X_m}(|\lambda|^2 + |D| )|d| \Big)
 \end{align*}
 
@@ -2650,7 +2664,7 @@ Similarly we have
 \begin{align*}
 \langle \Psi(0), &\Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \rangle \\
 &= -\langle \Psi(-X_{i-1}), P^s_0 D_{i-1} d \rangle
-+ \mathcal{O}\Big( e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-(\alpha + \tilde{\alpha})X_m} |c^-| 
++ \mathcal{O}\Big( e^{-(\alpha + \tilde{\alpha})X_m} |c^-| 
 + e^{-(\alpha + \tilde{\alpha})X_m}(|\lambda|^2 + |D| )|d| \Big)
 \end{align*}
 
@@ -2659,7 +2673,7 @@ Putting everything together, we have
 \begin{align*}
 \langle \Psi(0), &\Phi^u_+(0, X_i; \lambda)a_i^+ - \Phi^s_-(0, -X_{i-1}; \lambda)a_{i-1}^- \rangle \\
 &= \langle \Psi(X_i), P^u_0 D_i d \rangle + \langle \Psi(-X_{i-1}), P^s_0 D_{i-1} d \rangle \\
-&+ \mathcal{O}\Big( e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-(\alpha + \tilde{\alpha})X_m} |c^-| 
+&+ \mathcal{O}\Big( e^{-(\alpha + \tilde{\alpha})X_m} |c^-| 
 + e^{-(\alpha + \tilde{\alpha})X_m}(|\lambda|^2 + |D| )|d| \Big)
 \end{align*}
 
@@ -3015,8 +3029,7 @@ we have the following expression
 where the remainder term $R(\lambda)_i(d)$ has bound
 
 \begin{align}\label{remainder1}
-|R_i(c^-, d)| \leq C \Big( 
-e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
+|R_i(c^-, d)| \leq C \Big( e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
 (|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-\alpha X_m} |D| + |\lambda|^2)|d| \Big)
 \end{align}
 
@@ -3024,8 +3037,7 @@ e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tild
 Using the fixed point equations at $x = 0$, we evaluate $\langle \Psi(0), W_i^+(0) - W_i^-(0) \rangle$. The first two terms on the RHS of \eqref{jumpexp} come from Lemma \ref{jumpa}. The higher order Melnikov integral term comes from Lemma \ref{noncenterH}. For the remainder term, we use all the other jump estimation lemmas above to get the estimate
 
 \begin{align*}
-|R&(\lambda)(c^-, d)_i| \leq C \Big( 
-e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-(\alpha + \tilde{\alpha})X_m} |c^-| + e^{-(\alpha + \tilde{\alpha})X_m}(|\lambda|^2 + |D| )|d| \\
+|R&(\lambda)(c^-, d)_i| \leq C \Big( e^{-(\alpha + \tilde{\alpha})X_m} |c^-| + e^{-(\alpha + \tilde{\alpha})X_m}(|\lambda|^2 + |D| )|d| \\
 &+ (|\lambda| + e^{-2 \alpha X_m})(e^{-\alpha X_m}|c^-| + (e^{-\alpha X_m}|D|+ |\lambda|^2 )|d|) \\
 &+ e^{-(\alpha + \tilde{\alpha}) X_m} |c^-| + e^{-2 \alpha X_m} |D||d| + e^{-(\tilde{\alpha} + \alpha) X_m} |\lambda|^2 |d| \\
 &+ (|\lambda| + e^{-\alpha X_m} ) |\lambda|^2 |d|
@@ -3035,8 +3047,7 @@ e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-(\alpha + \tilde{\alpha})X_m} |c^
 Simplifying and dropping higher order terms, this becomes
 
 \begin{align*}
-|R&(\lambda)(c^-, d)_i| \leq C \Big( 
-e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
+|R&(\lambda)(c^-, d)_i| \leq C \Big( e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
 (|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-\alpha X_m} |D| + |\lambda|^2)|d| \Big)
 \end{align*}
 
@@ -3087,8 +3098,7 @@ a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
 The remainder $R(\lambda)(c^-, d)$ is analytic in $\lambda$ and has bound
 
 \begin{align*}
-|R&(\lambda)(c^-, d)_i| \leq C \Big( 
-e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + (|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-2 \alpha X_m} + |\lambda|^2)|d| \Big)
+|R&(\lambda)(c^-, d)_i| \leq C \Big( e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + (|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-2 \alpha X_m} + |\lambda|^2)|d| \Big)
 \end{align*}
 
 \begin{proof}
@@ -3130,8 +3140,7 @@ The terms involving $P^s_0$ are similar. Thus the jumps are given by
 where we have incorporated the two $\mathcal{O}(e^{-3\alpha X_i})$ terms into the remainder. Since $D = \mathcal{O}(e^{-\alpha X_m})$, we substitute this into the remainder bound from the previous lemma to get
 
 \begin{align*}
-|R&(\lambda)(c^-, d)_i| \leq C \Big( 
-e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
+|R&(\lambda)(c^-, d)_i| \leq C \Big( e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
 (|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-2 \alpha X_m} + |\lambda|^2)|d| \Big)
 \end{align*}
 
@@ -3197,59 +3206,125 @@ K(\lambda)c^- -\lambda^2 M(\lambda) I d + R^c(\lambda)(c^-,d) &= 0
 
 We combine these in the following theorem.
 
-\begin{theorem}
+\begin{theorem}\label{blockmatrixform}
 
 The jump conditions can be written as the block diagonal matrix equation 
 
 \begin{equation}
 \begin{pmatrix}
-K(\lambda) & -\lambda^2 M(\lambda) I \\
-0 & A - \lambda^2 MI
+K(\lambda) + C_1 & -\lambda^2 M(\lambda) I + D_1 \\
+C_2 & A - \lambda^2 MI + D_2
 \end{pmatrix}
-\begin{pmatrix}c^- \\ d \end{pmatrix}
-+ R(\lambda)(c^-,d) + R^c(\lambda)(c^-,d) = 0
+\begin{pmatrix}c^- \\ d \end{pmatrix} = 0
 \end{equation}
 
-where the parts of this are defined above. The remainder terms have bounds
+where 
+
+\begin{enumerate}
+\item $c^- = (c_1^-, \dots, c_{n-1}^-, c_0^-)$
+\item $d = (d_1, \dots, d_n)$
+\item $M$ is the higher order Melnikov integral
+
+\begin{equation}
+M =  \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy
+\end{equation}
+
+For this specific problem,
+
+\begin{equation*}
+M =  \int_{-\infty}^\infty q(y) q_c(y) dy
+\end{equation*}
+
+\item $M(\lambda)$ is given by
+
+\begin{equation}
+M(\lambda) = \int_{-\infty}^\infty e^{-\nu(\lambda)y} \langle H(y), w(y; 0, 0) \rangle dy
+\end{equation}
+
+where $w(y; 0, 0)$ is a bounded (but not exponentially decaying) solution to the (unperturbed) adjoint variational equation. If, say, we assume that the constant solution $1$ is the only such solution, this would become
+
+\begin{equation*}
+M(0) =  \int_{-\infty}^\infty q_c(y) dy
+\end{equation*}
+
+\item The matrix $K(\lambda)$ is given by
+
+\begin{equation}\label{blockdiag}
+K(\lambda) = 
+\begin{pmatrix}
+e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
+-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
+& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
+\vdots & & \vdots & &&  \vdots \\
+& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
+\end{pmatrix}
+\end{equation}
+
+where $\nu(\lambda)$ is the small eigenvalue of the asympotic matrix $A(0; \lambda)$.
+
+\item The matrix $A$ is given by
 
 \begin{align*}
-R^c(\lambda)(c^-,d) &\leq C \Big( (e^{-\tilde{\alpha} X_m} + P_2(X_m; \lambda))|c^-| + e^{|\nu(\lambda)|X_i} p_2(X_i; \lambda)|c_i^-| + ((|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 + e^{-(\tilde{\alpha} + \alpha) X_m} + e^{-\tilde{\alpha} X_m} |\lambda| ) |d| \Big) \\
-|R(\lambda)(c^-, d)_i| &\leq C \Big( 
-e^{-\alpha X_m} p_2(X_i; \lambda)|c_i^-| + e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
-(|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-2 \alpha X_m} + |\lambda|^2)|d| \Big)
+A &= \begin{pmatrix}
+-a_0 + \tilde{a}_1 & a_0 - \tilde{a}_1 \\
+-\tilde{a}_0 + a_1 & \tilde{a}_0 - a_1
+\end{pmatrix} && n = 2 \\
+A &= \begin{pmatrix}
+\tilde{a}_{n-1} - a_0 & a_0 & & & \dots & -\tilde{a}_{n-1}\\
+-\tilde{a}_0 & \tilde{a}_0 - a_1 &  a_1 \\
+& -\tilde{a}_1 & \tilde{a}_1 - a_2 &  a_2 \\
+& & \vdots & & \vdots \\
+a_{n-1} & & & & -\tilde{a}_{n-2} & \tilde{a}_{n-2} - a_{n-1} \\
+\end{pmatrix} && n > 2
 \end{align*}
 
-WE WILL EVENTUALLY COMBINE THESE, BUT WE DO NOT FOR NOW SINCE THE PROBLEMATIC TERMS ARE ALL IN $R^c(\lambda)(c^-,d)$. THINGS WE NEED TO LOOK AT ARE:
-\begin{enumerate}
-	\item Characterize $p_2(X_i; \lambda)$. 
-	\item The $e^{-(\tilde{\alpha} + \alpha) X_m}$ term in $R^c(\lambda)(c^-,d)$. This comes from
+where
 
-	\begin{align*}
-	\int_0^{X_i} &e^{|\nu(\lambda)|y} e^{-\alpha X_i} e^{-\alpha (X_i - y)} e^{-\tilde{\alpha}(X_i - y)}|D||d|  dy \leq |D| |d| e^{-\alpha X_m } \int_0^{X_i} e^{-(\alpha + \tilde{\alpha})(X_i - y) } dy \\ &\leq C e^{-\alpha X_m } |D||d|
-	\end{align*}
-
-	\item The $e^{-\tilde{\alpha} X_m} |\lambda|$ term in $R^c(\lambda)(c^-,d)$. This comes from
-
-	\begin{equation*}
-	|P^0_c(\lambda) D_i d| \leq C \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
-	\end{equation*}
-
+\begin{align*}
+a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
+\tilde{a}_i &= \langle \Psi(-X_i), Q'(X_i) \rangle
+\end{align*}
 
 \end{enumerate}
 
-Thus, we have a solution to our eigenvalue problem if $\nu(\lambda) = i \frac{n \pi}{X}, n \in \Z$ or $\det(A - \lambda^2 MI) = 0$.
+The remainder terms $C_1, D_1, C_2, D_2$ have bounds
+
+\begin{align*}
+C_1 &\leq C e^{-\tilde{\alpha} X_m} \\
+D_1 &\leq C \Big( (|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 + e^{-(\tilde{\alpha} + \alpha) X_m} + e^{-\tilde{\alpha} X_m} |\lambda| \Big) \leq C (|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda|^2 + e^{-\tilde{\alpha} X_m})\\
+C_2 &\leq C e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m}) \\
+D_2 &\leq C (|\lambda| + e^{-\tilde{\alpha} X_m} )( |\lambda|^2 + e^{-2 \alpha X_m} )
+\end{align*}
+
+To leading order, equation \eqref{blockdiag} is given by
+\begin{equation}
+\begin{pmatrix}
+K(\lambda) & -\lambda^2 M(\lambda) I  \\
+0 & A - \lambda^2 MI 
+\end{pmatrix}
+\begin{pmatrix}c^- \\ d \end{pmatrix} = 0
+\end{equation}
+
+Thus, to leading order, the eigenvalue problem has a nontrivial solution if either of the following conditions holds.
+
+\begin{enumerate}[(i)]
+\item $\nu(\lambda) = i \frac{n \pi}{X}, n \in \Z$ 
+\item $\det(A - \lambda^2 MI) = 0$
+\end{enumerate}
+
+where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. Note that $M(\lambda)$ does not appear in these conditions.\\
 
 \begin{proof}
 
-We can write the two jump conditions in matrix form as the block matrix equation
+Using the above lemmas, we can write the two jump conditions in matrix form as the block matrix equation
 
 \[
 \begin{pmatrix}
 K(\lambda) & -\lambda^2 M(\lambda) I \\
 0 & A - \lambda^2 MI
 \end{pmatrix}
-\begin{pmatrix}c^- \\ d \end{pmatrix}
-+ R(\lambda)(c^-,d) + R^c(\lambda)(c^-,d) = 0
+\begin{pmatrix}c^- \\ d \end{pmatrix} +
+\begin{pmatrix} R(\lambda)(c^-,d) \\ R^c( \lambda)(c^-,d) \end{pmatrix}  = 0
 \]
 
 To leading order, this has a nontrivial solution if and only if the block diagonal matrix is singular, i.e. if and only if its determinant is 0. Since this is a triangular block diagonal matrix, its determinant is given by 
@@ -3262,7 +3337,7 @@ K(\lambda) & -\lambda^2 M(\lambda) I \\
 &= ( e^{-\nu(\lambda) X} - e^{\nu(\lambda) X} ) \det(A - \lambda^2 MI)
 \end{align*}
 
-where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. Thus we have a nontrivial solution to the jump equations if and only if 
+where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. We computed the determinant of $K(\lambda)$ above. Thus we have a nontrivial solution to the jump equations if and only if 
 
 \[
 \nu(\lambda) = i \frac{n \pi}{X}, n \in \Z
