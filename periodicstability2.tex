@@ -55,23 +55,23 @@ Here we look at the variational problem / adjoint variational equation for the l
 L(u^*) = \partial_x H(u^*) = \partial_x ( \partial_x^4 - \partial_x^2 + c - 2 u^*)
 \end{equation}
 
-The variational / adjoint variational equations are
+The variational / adjoint variational equations for the linearization about the primary pulse solution $q(x)$ are given by
 
 \begin{align}
-V' = A(q)V \label{vareq} \\
-W' = -A(q)^*W \label{adjvareq}
+V' = A(q(x))V \label{vareq} \\
+W' = -A(q(x))^*W \label{adjvareq}
 \end{align}
 
 where
 
 \begin{align}
-A(u^*) = \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
+A(u^*(x)) = \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
 2u^*_x(x) & 2u^*(x) - c & 0 & 1 & 0 \end{pmatrix}
 \end{align}
 
 If we consider $A(0)$ for $c > 1/4$ we have eigenvalues $\nu = \{ 0, \pm \alpha \pm \beta i\}$, where $\alpha, \beta > 0$. The equilibrium at 0 is not hyperbolic, so we cannot directly apply the results of San98. The equilibrium at 0 has 2-dimensional stable/unstable manifolds, and a 1-dimensional center manifold. Let $W^{s/u/c}(0)$ be these manifolds.\\
 
-Let $q(x)$ be the primary pulse (homoclinic orbit) solution, whose existence is known. Since its existence comes from the 4th order (integrated) problem, for which the equilibrim at 0 is hyperbolic, we still have the same nondegeneracy assumption as before
+Let $q(x)$ be the primary pulse (homoclinic orbit) solution, whose existence is known. Since its existence comes from the 4th order (integrated) problem, for which the equilibrim at 0 is hyperbolic, we will still make the same nondegeneracy assumption as before, i.e. we will assume the stable and unstable manifolds have a 1-dimensional intersection.
 
 \begin{hypothesis}\label{nondegen}
 \[
@@ -79,12 +79,11 @@ T_{Q(0)} W^u(0) \cap T_{Q(0)} W_s(0) = \R Q'(0)
 \]
 \end{hypothesis}
 
-where $Q(x)$ is the single pulse solution on $\R$, written as a vector-valued function in $R^5$ in the usual way.\\
+where $Q(x)$ is the single pulse solution on $\R$, written as a vector-valued function in $R^5$ in the usual way. We cannot conclude from Hypothesis \ref{nondegen} that $Q'(x)$ is the unique bounded solution to the variational equation \eqref{vareq}.\\
 
-We cannot conclude from this that Hypothesis \ref{nondegen} is equivalent to the the fact that $Q'(x)$ is the unique bounded solution to the variational equation \eqref{vareq}. The easiest way to see this is by looking at the adjoint equation $L(q)^* v = 0$. Since $L(q)^* = (\partial_x H(q))^* = -H(q) \partial_x$, we can easily see that there are two bounded solutions to this: $q(x)$ and the constant function $1$. Since we are on a periodic domain, the constant function is periodic and in $L^2$, so we have to consider it here.\\
+Now, we look at the adjoint variational equation. Since $L(q)^* = (\partial_x H(q))^* = -H(q) \partial_x$, we can easily see that there are two bounded solutions to this: $q(x)$ and the constant function $1$. Since we are on a periodic domain, the constant function is periodic and in $L^2$, so we have to consider it here.\\
 
-Thus there are two bounded solutions $\Psi_1(x) = \nabla H(q(x))$ and $\Psi_2(x)$ of \eqref{adjvareq}, corresponding to $q(x)$ and 1. Consequently, there will be two bounded solutions to the variational equation \eqref{vareq}. One of these is $Q'(x)$. Let $\tilde{Q}$ be the other.
-\\
+Thus there are two bounded solutions $\Psi(x) = \nabla H(q(x))$ and $\Psi_c(x)$ of \eqref{adjvareq}, corresponding to $q(x)$ and 1.\\
 
 Next, as in San98, we will decompose the tangent space at $Q(0)$. First, we define $Y^-$ and $Y^+$ as the ``rest of'' the tangent space of the unstable/stable manifolds.
 
@@ -93,21 +92,46 @@ T_{Q(0)} W^u(0) &= \R Q'(0) \oplus Y^- \\
 T_{Q(0)} W^s(0) &= \R Q'(0) \oplus Y^+
 \end{align*}
 
-Counting dimensions and using Hypothesis \ref{nondegen}, $\R Q'(0) \oplus Y^- \oplus Y^+$ is a 3-dimensional space. 
+Counting dimensions and using Hypothesis \ref{nondegen}, $\R Q'(0) \oplus Y^- \oplus Y^+$ is ``missing'' two dimensions, so we want to fill that in.\\
 
-We also have
+Before we do that, we need to look at how the variational equation works. The idea, as far as I know, is that that the variational equation evolves the tangent spaces of the stable/unstable/center manifolds $W^{s/u/c}(0)$. I have not found a good reference on this but it seems to make sense. In any case, let $\Phi(x, y)$ be the evolution operator for the variational equation \eqref{vareq} on $\R$. This, of course, means that $\Phi(x, 0)Y$ is the unique solution to \eqref{vareq} for any IC $Y$given at $x = 0$. In this case, there are no perturbations or parameters. Then we should have the following.
+
+\begin{enumerate}
+	\item $Q'(x)$ is a solution to \eqref{vareq}, so we know what $U(x) = \Phi(x)Q'(0)$ is.
+	\item For an IC $Y \in Y^-$ and $x \leq 0$, $|\Phi(x, 0) Y| \leq C e^{\alpha x}$. The decay rate $\alpha$ is the known decay rate of the unstable/stable manifold of the original equation.
+	\item For an IC $Y \in Y^+$ and $x \geq 0$, $|\Phi(x, 0) Y| \leq C e^{-\alpha x}$. 
+\end{enumerate}
+
+Recall that we showed (somewhere) that
+
+\begin{enumerate}[(i)]
+\item $\langle V(x), W(x) \rangle$ is constant in $x$ for any solutions $V(x)$ to \eqref{vareq} and $W(x)$ to \eqref{adjvareq}.
+\item $\Phi(x, y)^*$ is the evolution operator for \eqref{adjvareq}.
+\end{enumerate}
+
+Since the inner product is continuous in $x$, it follows that if as $x \rightarrow \infty$ (or $-\infty$), if either $V(x)$ or $W(x)$ decays exponentially and the other one is bounded (it could decay too of course), then $\langle V(0), W(0) \rangle = 0$, i.e. $V(0) \perp W(0)$. Choosing the appropriate things for $V(x)$ and either $\Psi(x)$ or $\Psi_c(x)$ for $W(x)$ we conclude that
+
+\begin{align*}
+\Psi(0) &\perp Q'(0) \oplus Y^- \oplus Y^+ \\
+\Psi_c(0) &\perp Q'(0) \oplus Y^- \oplus Y^+
+\end{align*}
+
+Since $\Psi(0)$ and $\Psi_c(0)$ are linearly independent, we conclude that 
 
 \[
-\Psi_1(0) \perp Q'(0) \oplus Y^- \oplus Y^+
+\R^{2m + 1} = Q'(0) \oplus Y^- \oplus Y^+ \oplus \Psi(0) \oplus \Psi_c(0) 
 \]
 
-which should follow from the fact that the inner product $\langle \Psi(x), V(x) \rangle$ is constant for any solution $\Psi(x)$ to \ref{adjvareq} and any solution $V(x)$ to \ref{vareq}, and $\Psi(x)$ decays to 0 (exponentially) at both ends. Thus $\R Q'(0) \oplus \R \Psi(0) \oplus Y^- \oplus Y^+$ is a 4-dimensional space. We have only one dimension left, which will be some sort of ``center'' space. Let $Y^0$ be this center space at $x = 0$, i.e.  
+(this is $\R^5$ for KdV5).\\
 
-\[
-\R^5 = \R Q'(0) \oplus \R \Psi(0) \oplus Y^- \oplus Y^+ \oplus Y^0
-\]
+Now we use the Gap Lemma from Zum2018. Taking $\lambda = 0$ (and the parameters $\beta_i^\pm = 0$), we can find solutions $V^\pm(x)$ and $W^\pm(x)$ on $\R^\pm$ which are given by
 
-Now look at $\tilde{Q}$, the other bounded solution to the variational equation. Since $]\langle \Psi_1(x), \tilde{Q}(x) \rangle$ is constant, $\Psi_1(x)$ decays at both ends, and $\tilde{Q}(x)$ is bounded, we have $\tilde{Q}(0) \perp \Psi_1(0)$. \\
+\begin{align}
+V^\pm(x) = V(0) + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|V(0)|) \\
+W^\pm(x) = W(0) + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|W(0)|)
+\end{align}
+
+$V(0)$ and $W(0)$ are the eigenvectors of $A(0)$ and $A(0)^*$ corresponding to the eigenvalue 0. In this case, we have $V(0) = (1, 0, 0, 0, 0)$ and $W(0) = (c, 0, -1, 0, 1)$. $\epsilon > 0$ is arbitrary.
 
 
 \end{document}
