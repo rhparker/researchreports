@@ -122,16 +122,108 @@ Since $\Psi(0)$ and $\Psi_c(0)$ are linearly independent, we conclude that
 \R^{2m + 1} = Q'(0) \oplus Y^- \oplus Y^+ \oplus \Psi(0) \oplus \Psi_c(0) 
 \]
 
-(this is $\R^5$ for KdV5).\\
+(this is $\R^5$ for KdV5). If we want to ignore $Y_c(0)$, we can take
+
+\[
+\R^{2m + 1} = Q'(0) \oplus Y^- \oplus Y^+ \oplus \Psi(0) \oplus Y^0 
+\]
+
+where $Y^0$ is perpendicular to the other 4 things.\\
 
 Now we use the Gap Lemma from Zum2018. Taking $\lambda = 0$ (and the parameters $\beta_i^\pm = 0$), we can find solutions $V^\pm(x)$ and $W^\pm(x)$ on $\R^\pm$ which are given by
 
-\begin{align}
-V^\pm(x) = V(0) + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|V(0)|) \\
-W^\pm(x) = W(0) + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|W(0)|)
-\end{align}
+\begin{align*}
+V^\pm(x) = V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|V_0|) \\
+W^\pm(x) = W_0 + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|W_0|)
+\end{align*}
 
-$V(0)$ and $W(0)$ are the eigenvectors of $A(0)$ and $A(0)^*$ corresponding to the eigenvalue 0. In this case, we have $V(0) = (1, 0, 0, 0, 0)$ and $W(0) = (c, 0, -1, 0, 1)$. $\epsilon > 0$ is arbitrary.
+where the decay is in the appropriate direction. $V_0$ and $W_0$ are the eigenvectors of $A(0)$ and $A(0)^*$ corresponding to the eigenvalue 0. In this case, we have $V_0 = (1, 0, 0, 0, 0)$ and $W_0 = (c, 0, -1, 0, 1)$. $\epsilon > 0$ is arbitrary. Since the inner product $\langle V^\pm(x), W^\pm(x) \rangle$ is constant and the inner product is continuous in both arguments, from the above expressions we have for all appropriate $x$
+
+
+\[
+\langle V^\pm(x), W^\pm(x) \rangle = \langle V_0, W_0 \rangle = c \neq 0
+\]
+
+In particular, $\langle V^\pm(0), W^\pm(0) \rangle \neq 0$. We would like to know where $V^\pm(0)$ and $W^\pm(0)$ fit into the overall scheme above. 
+
+Since $V^+(x)$ is bounded and $\Psi(x)$ decays exponentially, we have $V^+(0) \perp \Psi(0)$. Obviously we cannot say the same thing for $\Psi_c(0)$ since $\Psi_c(x)$ does not decay exponentially.\\
+
+Let $y^+ \in Y^+$. Then since $\Phi(x, 0)y^+$ is an exponentially decaying solution to \eqref{vareq} on $\R^+$ and $W^+(x)$ is a bounded solution to \eqref{adjvareq} on $\R^+$, we conclude as above that $W^+(0) \perp Y^+$. We get the same result if we take $x^+ \in \R Q'(0)$, thus we conclude that $W^+(0) \perp \R Q'(0)$. Doing the same thing on $R^-$, we get $W^-(0) \perp Y^-$ and $W^-(0) \perp \R Q'(0)$.\\
+
+Next, we look at an initial condition $y^- \in Y^-$. Taking the inner product of a solution starting at $y^-$ with $W^+(0)$, we have for $x \geq 0$
+
+\begin{align*}
+\langle y^-, W^+(0) \rangle &= \langle \Phi(0, x) \Phi(x, 0) y^-, W^+(0) \rangle \\
+&= \langle \Phi(x, 0) y^-, \Phi(x, 0)^* W^+(0) \rangle \\
+&= \langle \Phi(x, 0) y^-, W^+(x) \rangle 
+\end{align*}
+
+The LHS of this is constant. As we take the $x \rightarrow 0$, the RHS blows up, since $\Phi(x, 0) y^-$ evolves forward along the unstable manifold (thus increases exponentially in magnitude), and $W^+(x)$ stays bounded. The only way around this is for $\langle y^-, W^+(0) \rangle = 0$, thus we must have $Y^- \perp W^+(0)$. Similarly we can show that $Y^+ \perp W^-(0)$.\\ 
+
+Thus we have shown
+
+\begin{align*}
+W^+(0) \perp Y^+ \oplus Y^- \oplus \R Q'(0) \\
+W^+(0) \perp Y^+ \oplus Y^- \oplus \R Q'(0)
+\end{align*}
+
+This means that 
+
+\begin{align*}
+W^+(0), W^-(0) \in \R \Psi(0) \oplus \R \Psi_c(0) \\
+\end{align*}
+
+Using this direct sum, we can write $W^+(0)$ uniquely as
+
+\[
+W^+(0) = z \Psi(0) + z_c \Psi_c(0)
+\]
+
+Evolving this forward, since the evolution operator is linear, we have 
+
+\[
+W^+(x) = z \Psi(x) + z_c \Psi_c(x)
+\]
+
+Taking $x \rightarrow \infty$ and recalling that $\Psi(x)$ decays exponentially to 0, we have
+
+\[
+z_c \lim_{x \rightarrow \infty} \Psi_c(x) = \lim_{x \rightarrow \infty} W^+(x) = W_0
+\]
+
+Since we can scale eigenfunctions any way we want, we can scale 
+
+
+
+
+
+
+
+
+
+
+So since it has no component in $\Psi(0)$, let's write $V^+(0)$ as
+
+\[
+V^+(0) = y^0 + y^- + y^+ + x^+
+\]
+
+where $y^0 \in Y^0, y^- \in Y^+, y^- \in Y^-, x^+ \in \R Q'(0)$. We can pick whatever we want as an IC and get a solution to \eqref{vareq}, so let's take the IC $V^+(0) - y^+ - x^+ = y^0 + y^-$. By linearity,
+
+\begin{align*}
+\Phi(x, 0)( V^+(0) - y^+ - x ) &= \Phi(x, 0)V^+(0) - \Phi(x, 0) y^+ - \Phi(x, 0) x^+ \\
+&= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x}|V_0|) + \mathcal{O}(e^{-\alpha x}|y^+| + 
+\mathcal{O}(e^{-\alpha x}|x^+|) \\
+&= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x})
+\end{align*}
+
+So with this IC, we still have a solution with the property we want. Thus for our solution $V^+(x)$ we can take $V^+(0) \in Y^- \oplus Y^0$. We can do the same thing with $V^-(x)$, so we can take $V^-(0) \in Y^- \oplus Y^0$. Thus we have solutions to \eqref{vareq}
+
+\begin{align*}
+V^+(x) &= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x}) && V^+(0) \in Y^0 \oplus Y^-, x \geq 0 \\
+V^-(x) &= V_0 + \mathcal{O}(e^{(\alpha - \epsilon)x}) && V^-(0) \in Y^0 \oplus Y^+, x \geq 0
+\end{align*}
+
 
 
 \end{document}
