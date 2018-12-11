@@ -49,6 +49,8 @@
 
 \begin{document}
 
+\subsection*{Variational Equation}
+
 Here we look at the variational problem / adjoint variational equation for the linearization of KdV5 about an equilbrium solution $u^*$. This linearization is
 
 \begin{equation}
@@ -89,6 +91,8 @@ Thus there are two bounded solutions $\Psi(x) = \nabla H(q(x))$ and $\Psi_c(x)$ 
 \Psi_c(x) = (c - 2 q(x), 0, -1, 0, 1)
 \]
 
+\subsection{Decomposition of Tangent Space}
+
 Next, as in San98, we will decompose the tangent space at $Q(0)$. First, we define $Y^-$ and $Y^+$ as the ``rest of'' the tangent space of the unstable/stable manifolds.
 
 \begin{align*}
@@ -96,24 +100,24 @@ T_{Q(0)} W^u(0) &= \R Q'(0) \oplus Y^- \\
 T_{Q(0)} W^s(0) &= \R Q'(0) \oplus Y^+
 \end{align*}
 
-Counting dimensions and using Hypothesis \ref{nondegen}, $\R Q'(0) \oplus Y^- \oplus Y^+$ is ``missing'' two dimensions, so we want to fill that in.\\
+Counting dimensions and using Hypothesis \ref{nondegen}, $\R Q'(0) \oplus Y^- \oplus Y^+$ is ``missing'' two dimensions needed to fill out $\R^5$, so we want to find those.\\
 
 Before we do that, we need to look at how the variational equation works. The idea, as far as I know, is that that the variational equation evolves the tangent spaces of the stable/unstable/center manifolds $W^{s/u/c}(0)$. I have not found a good reference on this but it seems to make sense. In any case, let $\Phi(x, y)$ be the evolution operator for the variational equation \eqref{vareq} on $\R$. This, of course, means that $\Phi(x, 0)Y$ is the unique solution to \eqref{vareq} for any IC $Y$given at $x = 0$. In this case, there are no perturbations or parameters. Then we should have the following.
 
 \begin{enumerate}
-	\item $Q'(x)$ is a solution to \eqref{vareq}, so we know what $U(x) = \Phi(x)Q'(0)$ is.
-	\item For an IC $Y \in Y^-$ and $x \leq 0$, $|\Phi(x, 0) Y| \leq C e^{\alpha x}$. The decay rate $\alpha$ is the known decay rate of the unstable/stable manifold of the original equation.
+	\item $Q'(x)$ is a solution to \eqref{vareq}, so we know that $Q'(x) = \Phi(x, 0)Q'(0)$.
+	\item For an IC $Y \in Y^-$ and $x \leq 0$, $|\Phi(x, 0) Y| \leq C e^{\alpha x}$. The decay rate $\alpha$ is the known decay rate of the unstable/stable manifold of the original (nonlinear) equation.
 	\item For an IC $Y \in Y^+$ and $x \geq 0$, $|\Phi(x, 0) Y| \leq C e^{-\alpha x}$. 
 \end{enumerate}
 
-Recall that we showed (somewhere) that
+We showed before that
 
 \begin{enumerate}[(i)]
 \item $\langle V(x), W(x) \rangle$ is constant in $x$ for any solutions $V(x)$ to \eqref{vareq} and $W(x)$ to \eqref{adjvareq}.
 \item $\Phi(x, y)^*$ is the evolution operator for \eqref{adjvareq}.
 \end{enumerate}
 
-Since the inner product is continuous in $x$, it follows that if as $x \rightarrow \infty$ (or $-\infty$), if either $V(x)$ or $W(x)$ decays exponentially and the other one is bounded (it could decay too of course), then $\langle V(0), W(0) \rangle = 0$, i.e. $V(0) \perp W(0)$. Choosing the appropriate things for $V(x)$ and either $\Psi(x)$ or $\Psi_c(x)$ for $W(x)$ we conclude that
+Since the inner product is continuous in both components, it follows that if as $x \rightarrow \infty$ (or $-\infty$), if either $V(x)$ or $W(x)$ decays exponentially and the other one is bounded (it could decay too of course), then $\langle V(0), W(0) \rangle = 0$, i.e. $V(0) \perp W(0)$. Choosing the appropriate things for $V(x)$ and either $\Psi(x)$ or $\Psi_c(x)$ for $W(x)$ we conclude that
 
 \begin{align*}
 \Psi(0) &\perp Q'(0) \oplus Y^- \oplus Y^+ \\
@@ -123,17 +127,19 @@ Since the inner product is continuous in $x$, it follows that if as $x \rightarr
 Since $\Psi(0)$ and $\Psi_c(0)$ are linearly independent, we conclude that 
 
 \[
-\R^{2m + 1} = Q'(0) \oplus Y^- \oplus Y^+ \oplus \Psi(0) \oplus \Psi_c(0) 
+\R^5 = Q'(0) \oplus Y^- \oplus Y^+ \oplus \Psi(0) \oplus \Psi_c(0) 
 \]
 
-Now we use the Gap Lemma from Zum2018. Taking $\lambda = 0$ (and the parameters $\beta_i^\pm = 0$), we can find solutions $V^\pm(x)$ and $W^\pm(x)$ on $\R^\pm$ which are given by
+\subsection*{Center Subspace}
+
+Now we use the Gap Lemma from Zum2018. Taking $\lambda = 0$ (and the parameters $\beta_i^\pm = 0$), we can find solutions $V^\pm(x)$ and $W^\pm(x)$ to \eqref{vareq} and \eqref{adjvareq} on $\R^\pm$ which are given by
 
 \begin{align*}
 V^\pm(x) = V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|V_0|) \\
 W^\pm(x) = W_0 + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|W_0|)
 \end{align*}
 
-where the decay is in the appropriate direction. $V_0$ and $W_0$ are the eigenvectors of $A(0)$ and $A(0)^*$ corresponding to the eigenvalue 0. In this case, we have $V_0 = (1, 0, 0, 0, 0)$ and $W_0 = (c, 0, -1, 0, 1)$. $\epsilon > 0$ is arbitrary. Since the inner product $\langle V^\pm(x), W^\pm(x) \rangle$ is constant and the inner product is continuous in both arguments, from the above expressions we have for all appropriate $x$
+where the decay is in the appropriate direction. $V_0$ and $W_0$ are the eigenvectors of $A(0)$ and $A(0)^*$ corresponding to the eigenvalue 0. In this case, we have $V_0 = (1, 0, 0, 0, 0)$ and $W_0 = (c, 0, -1, 0, 1)$. The constant $\epsilon > 0$ is arbitrary. Since the inner product $\langle V^\pm(x), W^\pm(x) \rangle$ is constant and the inner product is continuous in both arguments, from the above expressions we have for all (appropriate) $x$
 
 \[
 \langle V^\pm(x), W^\pm(x) \rangle = \langle V_0, W_0 \rangle = c \neq 0
@@ -141,22 +147,19 @@ where the decay is in the appropriate direction. $V_0$ and $W_0$ are the eigenve
 
 In particular, $\langle V^\pm(0), W^\pm(0) \rangle \neq 0$. We would like to know where $V^\pm(0)$ and $W^\pm(0)$ fit into the overall scheme above. \\
 
-Since we have an expression for $\Psi_c(x)$ it has the same decay properties as $W^\pm(x)$ and decays in both directions to the same thing, we conclude that $W^\pm(x) = \Psi_c(x)$, i.e. it's not actually two discontinuous pieces! So from now on, we will just use $\Psi_c(x)$. We have
+Since we have an expression for $\Psi_c(x)$, it has the same decay properties as $W^\pm(x)$, and it decays in both directions to the same thing as $W^\pm(x)$, we can take $W^\pm(x) = \Psi_c(x)$, so from now on, we will do that. (We can actually add any scalar multiple of $\Psi(x)$ to $\Psi_c(x)$ and preserve these properties.) Thus we have
 
 \[
 \langle V^\pm(0), \Psi_c(0) \rangle = c \neq 0
 \]
 
-Now that we have dealt with $W^\pm(x)$, we turn our attention to $V^\pm(x)$. Since $V^+(x)$ is bounded and $\Psi(x)$ decays exponentially, we have $V^+(0) \perp \Psi(0)$. 
-
-
-So since it has no component in $\Psi(0)$, let's write $V^+(0)$ as
+Now that we have dealt with $W^\pm(x)$, we turn our attention to $V^\pm(x)$. Since $V^+(x)$ is bounded and $\Psi(x)$ decays exponentially, we have $V^+(0) \perp \Psi(0)$. Since it has no component in $\Psi(0)$, let's write $V^+(0)$ as
 
 \[
 V^+(0) = y^0 + y^- + y^+ + x^+
 \]
 
-where $y^0 \in \R \Psi_c(0), y^- \in Y^+, y^- \in Y^-, x^+ \in \R Q'(0)$. Since we can pick whatever we want as an IC and get a solution to \eqref{vareq}, let's take the IC $V^+(0) - y^+ - x^+ = y^0 + y^-$. By linearity of the evolution (since the variational equation is linear),
+where $y^0 \in \R \Psi_c(0), y^- \in Y^+, y^- \in Y^-, x^+ \in \R Q'(0)$. Since we can pick whatever we want as an IC, let's take the IC $V^+(0) - y^+ - x^+ = y^0 + y^-$. Since the variational equation is linear,
 
 \begin{align*}
 \Phi(x, 0)( V^+(0) - y^+ - x ) &= \Phi(x, 0)V^+(0) - \Phi(x, 0) y^+ - \Phi(x, 0) x^+ \\
@@ -165,22 +168,67 @@ where $y^0 \in \R \Psi_c(0), y^- \in Y^+, y^- \in Y^-, x^+ \in \R Q'(0)$. Since 
 &= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x})
 \end{align*}
 
-So using this IC, we still have a solution with the property we want. Thus, let $\tilde{V}^+(x)$ bt be solution to \eqref{vareq} with IC $V^+(0) - y^+ - x^+$, i.e. with IC only in $Y^- \oplus \R \Psi_c(0)$. We can do the same thing with $V^-(x)$ to get a solution $\tilde{V}^-(x)$ to \eqref{vareq} with IC only in $Y^+ \oplus \R \Psi_c(0)$. Thus we have solutions to \eqref{vareq}
+So using this IC, we still have a solution with the property we want.\\
+
+Let $\tilde{V}^+(x)$ bt be solution to \eqref{vareq} with IC $V^+(0) - y^+ - x^+$, i.e. with IC only in $Y^- \oplus \R \Psi_c(0)$. We can do the same thing with $V^-(x)$ to get a solution $\tilde{V}^-(x)$ to \eqref{vareq} with IC only in $Y^+ \oplus \R \Psi_c(0)$. Thus we have solutions to \eqref{vareq}
 
 \begin{align*}
 \tilde{V}^+(x) &= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x}) && \tilde{V}^+(0) \in \R \Psi_c(0) \oplus Y^-, x \geq 0 \\
 \tilde{V}^-(x) &= V_0 + \mathcal{O}(e^{(\alpha - \epsilon)x}) && \tilde{V}^-(0) \in \R \Psi_c(0) \oplus Y^+, x \geq 0
 \end{align*}
 
-To match these things up at $x = 0$, all we need to do is show that their initial conditions can have no component in $Y^\pm$. But this must be the case. To see that (in a handwavey fashion), suppose $\tilde{V}^+(0) = z \Psi_c(0) + y^-$, where $y^- \in Y^-$. Since $Y^-$ is the tangent space of the unstable manifold $W^u(0)$, ICs there will blow up exponentially as $x \rightarrow \infty$, i.e. as $x \rightarrow \infty$, $\Phi(x)y^-$ will blow up in magnitude and give us a component in $E^u$, which we know from the above limit cannot be the case. Thus $\tilde{V}^+(0)$ cannot have a component in $Y^-$. Similarly, $\tilde{V}^-(0)$ cannot have a component in $Y^+$. Thus we have solutions 
+To match these things up at $x = 0$, all we need to do is show that their initial conditions can have no component in $Y^\pm$. But this must be the case. To see that (in a handwavey fashion), suppose $\tilde{V}^+(0) = z \Psi_c(0) + y^-$, where $y^- \in Y^-$. Since $Y^-$ is the tangent space of the unstable manifold $W^u(0)$, ICs there will blow up (exponentially) as $x \rightarrow \infty$; or, at least, as $x \rightarrow \infty$, $\Phi(x)y^-$ will increase in magnitude and give us in the limit a component in $E^u$, which we know from above cannot happen. Thus $\tilde{V}^+(0)$ cannot have a component in $Y^-$. Similarly, $\tilde{V}^-(0)$ cannot have a component in $Y^+$. Thus we have solutions 
 
 \begin{align*}
 \tilde{V}^+(x) &= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x}) && \tilde{V}^+(0) \in \R \Psi_c(0), x \geq 0 \\
 \tilde{V}^-(x) &= V_0 + \mathcal{O}(e^{(\alpha - \epsilon)x}) && \tilde{V}^-(0) \in \R \Psi_c(0), x \geq 0
 \end{align*}
 
-We are now done, since these two solutions behave the way we want, and at $x = 0$ both $\tilde{V}^+(0)$ and $\tilde{V}^-(0)$ are in the same direction as $\Psi_c(0)$. Since we are just taking projections, I don't think we need these things to actually be equal at $x = 0$, but that would certainly be nice.
+We are now done, since these two solutions behave the way we want, and at $x = 0$ both $\tilde{V}^+(0)$ and $\tilde{V}^-(0)$ are in the same direction as $\Psi_c(0)$. Since we are just taking projections, I don't think we need these things to actually be equal at $x = 0$, but that would certainly be nice. If we want, we can take the same IC in the middle (say, $\Psi_c(0)$, but then the ends might not have the same limits, but at least they would be up to scalar multiples.
 
+\subsection{Coordinate Changes, etc}
 
+We have (hopefully) dealt with the variational problem for the unperturbed case. However, we need to deal with the perturbed case, where we have ICs in $Y^\pm$ (the $\beta^\pm$) and $\lambda \neq 0$ (but small). We have to deal with this separately on $R^\pm$. Thus we have
+
+\begin{align}
+V_+' &= A(q^+(0, \beta^+)(x); \lambda) V_+ && x \geq 0 \label{eig:V+} \\
+W_+' &= -A(q^+(0, \beta^+)(x); \lambda)^* W_+ && x \geq 0\label{eig:W+} \\
+V_-' &= A(q^-(0, \beta^-)(x); \lambda) V_- && x \leq 0 \label{eig:V-} \\
+W_-' &= -A(q^-(0, \beta^-)(x); \lambda)^* W_- && x \leq 0 \label{eig:W-}
+\end{align}
+
+We can still use Zum2018, i.e. we can find solutions on $\R^+$. Recalling that $\nu(\lambda)$ is the small ``center'' eigenvalue of $A(0; \lambda)$, we have for $\R^+$ solutions
+
+\begin{align}
+\tilde{v}_+(x; \beta^+, \lambda) &= e^{\nu(\lambda) x } v_+(x; \beta^+, \lambda) \label{tildev+} \\
+\tilde{w}_+(x; \beta^+, \lambda) &= e^{-\overline{\nu(\lambda)} x } w_+(x; \beta^+, \lambda) \label{tildew+} 
+\end{align}
+
+where
+
+\begin{align*}
+v_+(x; \beta^+, \lambda) &= v_0(\lambda) + \mathcal{O}(e^{-(\tilde{\alpha} + |\nu(\lambda)|)|x|}) \\
+w_+(x; \beta^+, \lambda) &= w_0(\lambda) + \mathcal{O}(e^{-(\tilde{\alpha} + |\nu(\lambda)|)|x|})\\
+\end{align*}
+
+and solutions on $\R^-$
+
+\begin{align}
+\tilde{v}_-(x; \beta^-, \lambda) &= e^{\nu(\lambda) x } v_-(x; \beta^-, \lambda) \label{tildev-} \\
+\tilde{w}_-(x; \beta^-, \lambda) &= e^{-\overline{\nu(\lambda)} x } w_-(x; \beta^-, \lambda) \label{tildew-} 
+\end{align}
+
+where
+
+\begin{align*}
+v_-(x; \beta^-, \lambda) &= v_0(\lambda) + \mathcal{O}(e^{-(\tilde{\alpha} + |\nu(\lambda)|)|x|}) \\
+w_-(x; \beta^-, \lambda) &= w_0(\lambda) + \mathcal{O}(e^{-(\tilde{\alpha} + |\nu(\lambda)|)|x|})\\
+\end{align*}
+
+(These should really all be capital letters by my notation convention, but I'll deal with that once we get all the stuff to, like, actually work.)\\
+
+Ideal change of coordinates: For sufficiently small $\lambda$ and $\beta^\pm$, change coordinates so that $v_-(0; \beta^-, \lambda)$ is in the same direction as $v_-(0; 0, 0)$ and $v_+(0; \beta^+, \lambda)$ is in the same direction as $v_+(0; 0, 0)$. By what we did above, both $v_-(0; 0, 0)$ and $v_+(0; 0, 0)$ are in the same direction as $\Psi_c(0)$, so the change of coordinates puts all of this stuff into the same 1-dimensional subspace. The idea is that we can completely separate out what happens on this ``center'' subspace from the other stable/unstable subspaces.\\
+
+Less ideal change of coordinates. Same as above, except only for $\lambda$. Since the $\beta^\pm$ perturbations are small (order $e^{-2\alpha X_m}$), we should be able to get away with only doing this, but we will have more small (annoying) remainder terms.
 
 \end{document}
