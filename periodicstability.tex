@@ -3354,74 +3354,248 @@ or
 \end{proof}
 \end{theorem}
 
-As a corollary, for the 2-periodic pulse in KdV5, we can compute the eigenvalues exactly.
+% look at it for 2-pulse
 
-% corrolary : eigenvalues for 2-per pulse
+\subsubsection{2-pulse}
 
-\begin{corollary}
-The nonzero eigenvalues are given, to leading order, by
-
-\begin{equation}
-\lambda = \pm \sqrt{-2a/M}
-\end{equation}
-
-where $M$ is the higher order Melnikov integral defined in Theorem \ref{evpsol} and 
+Let's look at this for the periodic 2-pulse. For now, we take $C_1 = D_1 = D_2 = 0$, so we have the block diagonal matrix equation
 
 \begin{equation}
-a = \langle \Psi (X_1), Q'(-X_1) \rangle + \langle \Psi (X_2), Q'(-X_2) \rangle 
+\tilde{A}\begin{pmatrix}c^- \\ d \end{pmatrix} = \begin{pmatrix}
+K(\lambda) & -\lambda^2 M(\lambda) I  \\
+C_2 & A - \lambda^2 MI
+\end{pmatrix}
+\begin{pmatrix}c^- \\ d \end{pmatrix} = 0
 \end{equation}
 
-For $M a < 0$, the eigenvalues lie on the real axis and for $M a > 0$ the eigenvalues lie on the imaginary axis.
-
-\begin{proof}
-
-For KdV5, we know the form of $\Psi(x)$ (we showed this for the exponentially weighted version on the real line), thus it is not hard to show that
+Note that
 
 \[
 \tilde{a}_i = \langle \Psi(-X_i), Q'(X_i) \rangle = -\langle \Psi(X_i), Q'(-X_i) \rangle = -a_i
 \]
 
-Thus the matrix $A$ from Theorem \ref{evpsol} becomes
+Thus we have
 
 \begin{align*}
-A = 
-\begin{pmatrix}
+A &== \begin{pmatrix}
 -a_0 - a_1 & a_0 + a_1 \\
 a_0 + a_1 & -a_0 - a_1
-\end{pmatrix}
-= a \begin{pmatrix}
+\end{pmatrix} \\
+&= (a_0 + a_1)
+\begin{pmatrix}
 -1 & 1 \\
 1 & -1
 \end{pmatrix}
 \end{align*}
 
-where $a = a_1 + a_2$. Using Theorem \ref{evpsol}, the eigenvalues are given, to leading order, by 
+We can take $a_i = e^{-2 \alpha X_i}$ (which is its order of magnitude). Then this becomes
 
-\begin{align*}
-\det \left[ a \begin{pmatrix}
+\[
+A = (e^{-2 \alpha X_0} + e^{-2 \alpha X_1})
+\begin{pmatrix}
 -1 & 1 \\
 1 & -1
 \end{pmatrix}
-- \lambda^2 MI \right] = 
-\det \begin{pmatrix}
--a - \lambda^2 M & a \\
-a & -a - \lambda^2 M
-\end{pmatrix}
- = 0
-\end{align*}
+\]
 
-Solving this for $\lambda$, the eigenvalues are given, to leading order, by
+Or, letting $a = e^{-2 \alpha X_0} + e^{-2 \alpha X_1}$, we have
+
+\[
+A =
+\begin{pmatrix}
+-a & a \\
+a & -a
+\end{pmatrix}
+\]
+
+Take $c_2 = e^{-\alpha X_m}(|\lambda| + e^{-\alpha X_m})$, i.e. ditch the tilde for convenience, and suppose $C_2$ is just a 4x4 block composed of $c_2$. Then $\tilde{A}$ is the 4x4 matrix
+
+\[
+\tilde{A} = 
+\begin{pmatrix}
+e^{-\nu(\lambda)X_1} & -e^{\nu(\lambda)X_0} & -\lambda^2 M(\lambda) & 0 \\
+-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_0} & 0 & -\lambda^2 M(\lambda) \\
+c_2 & c_2 & -a - \lambda^2 M & a \\
+c_2 & c_2 & a & -a - \lambda^2 M
+\end{pmatrix}
+\]
+
+This looks terrible. Since life is too short to take 4x4 determinants by hand, we will ask Stephen Wolfram, i.e. Mathematica, for help. Doing \texttt{ Det[$\tilde{A}$]//Simplify} gives us
 
 \begin{align*}
-0 &= (-a - \lambda^2 M)^2 - a^2 \\
-&= a^2 + 2 a \lambda^2 M + \lambda^4 M^2 - a^2 \\
-&= 2 a \lambda^2 M + \lambda^4 M^2 \\
-&= \lambda^2 M (2a + M \lambda^2 )
+\det{\tilde{A}} &= 
+-e^{-\nu(\lambda)(X_0 + X_1)} (e^{\nu(\lambda)(X_0 + X_1)} + 1) 
+\lambda^2 (2 a + \lambda^2 M) \Big( 
+(e^{\nu(\lambda)(X_0 + X_1)} - 1) M + c_2 M(\lambda)(e^{\nu(\lambda) X_0} + e^{\nu(\lambda) X_1})  \Big) \\
+&= -(e^{-\nu(\lambda)(X_0 + X_1)} + 1) 
+\lambda^2 (2 a + \lambda^2 M) M \left( 
+(e^{\nu(\lambda)(X_0 + X_1)} - 1) + c_2 \frac{M(\lambda)}{M}(e^{\nu(\lambda) X_0} + e^{\nu(\lambda) X_1})  \right) \\
+&= -(e^{-\nu(\lambda)X} + 1) 
+\lambda^2 M (2 a + \lambda^2 M) \left( 
+(e^{\nu(\lambda)X} - 1) + c_2 \frac{M(\lambda)}{M}(e^{\nu(\lambda) X_0} + e^{\nu(\lambda) X_1})  \right) 
 \end{align*}
 
-This has two roots at 0 (corresponding to the 2-dimensional generalized kernel) as well as two roots at $\pm \sqrt{-2a/M}$. To leading order, these will be purely imaginary or real depending on the sign of $a$. By Theorem \ref{evpsol} these are the only four small eigenvalues. By symmetry we know that if there is an eigenvalue in the first quadrant of the complex plane, i.e. $\lambda = \alpha + \beta i$ with $\alpha, \beta > 0$, we must have a quartet of eigenvalues. This is not possible here, since there must be two eigenvalues at 0 and there are only 4 total eigenvalues. Thus the only possibilities are that the eigenvalues lie on the real axis (for $M a < 0$) or on the imaginary axis for $M a > 0$.
+This actually looks promising. In fact, $\det (A - \lambda^2 M) = \lambda^2 (2 a + \lambda^2 M)$ is part of this product, which is great, and $c_2$ only appears in one place. In fact, this is zero if either $\det (A - \lambda^2 M) = 0$ or $\nu(\lambda) = i n \pi / X$ for $n$ odd. (We don't have this for $n$ even). Next, we multiply the term out front inside the rightmost term to get
 
-\end{proof}
-\end{corollary}
+\begin{align*}
+\det{\tilde{A}}
+&= \lambda^2 M (2 a + \lambda^2 M) \left( 
+(e^{\nu(\lambda)X} - e^{-\nu(\lambda)X}) + c_2 \frac{M(\lambda)}{M}(e^{-\nu(\lambda)(X_0 + X_1)} + 1) (e^{\nu(\lambda) X_0} + e^{\nu(\lambda) X_1})  \right) \\
+&= \lambda^2 M (2 a + \lambda^2 M) \left( 
+(e^{\nu(\lambda)X} - e^{-\nu(\lambda)X}) + c_2 \frac{M(\lambda)}{M}((e^{\nu(\lambda)X_0} + e^{\nu(\lambda)X_1}) + (e^{-\nu(\lambda) X_0} + e^{-\nu(\lambda) X_1}) \right) 
+\end{align*}
+
+Let's look at the remainder term. Regardless of the sign of $\nu(\lambda)$, we will have
+
+\begin{align*}
+|(e^{\nu(\lambda)X_0} + e^{\nu(\lambda)X_1}) + (e^{-\nu(\lambda) X_0} + e^{-\nu(\lambda) X_1})| &\leq C |e^{\nu(\lambda)(X_0 + X_1)} - e^{-\nu(\lambda)(X_0 + X_1)}| \\
+&= C |e^{\nu(\lambda)X} - e^{-\nu(\lambda)X}|
+\end{align*}
+
+Since $M$ and $M(\lambda)$ are constants, using the order of $c_2$, this becomes
+
+\begin{align*}
+\det{\tilde{A}}
+&= \lambda^2 M (2 a + \lambda^2 M) 
+(e^{\nu(\lambda)X} - e^{-\nu(\lambda)X})\Big(1 + \mathcal{O}(e^{-\alpha X_m}(|\lambda| + e^{-\alpha X_m}) \Big)
+\end{align*}
+
+In terms of the determinants of the matrices we care about, this is
+
+\begin{align}\label{tildeA2}
+\det{\tilde{A}}
+&= \det(A - \lambda^2 M) \det(K(\lambda))\Big(1 + \mathcal{O}(e^{-\alpha X_m}(|\lambda| + e^{-\alpha X_m}) \Big)
+\end{align}
+
+This actually looks really good. If $c_2 = 0$, this reduces to the product of determinants of $K(\lambda)$ and $A - \lambda^2 M$, since in that case we have
+
+\begin{align*}
+\det{\tilde{A}} 
+&= \lambda^2 M (2 a + \lambda^2 M)(e^{\nu(\lambda)X} - e^{-\nu(\lambda)X})
+\end{align*}
+
+\subsubsection{n-pulse}
+
+Now comes the fun part where we generalize this to the $n-$pulse, which will be a $2n \times 2n$ matrix. Stephen will not be of much use here (in fact, if you do the 3-pulse in Mathematica, it looks terrible), so we will need to figure something else out. Let
+
+\[
+\tilde{A} = 
+\begin{pmatrix}
+K(\lambda) & -\lambda^2 M(\lambda) I  \\
+C_2 & A - \lambda^2 MI
+\end{pmatrix}
+\]
+
+First, we swap the rows, since we can just as easily write the system that way.
+
+\[
+\tilde{A} = 
+\begin{pmatrix}
+C_2 & A - \lambda^2 MI \\
+K(\lambda) & -\lambda^2  M(\lambda) I  \\
+\end{pmatrix}
+\]
+
+Here, we are lucky, since the matrices in the bottom row commute ($-\lambda^2  M(\lambda) I$ is a scalar multiple of the identity). Thus, using the Wikipedia article on the determinant, we have
+
+
+\begin{align*}
+\det \tilde{A} &= \det \Big( 
+-\lambda^2  M(\lambda) I C_2 - 
+K(\lambda)(A -\lambda^2  MI) \Big) \\
+&= \det \Big( K(\lambda)(A -\lambda^2  MI) + 
+\lambda^2 M(\lambda) C_2 
+ \Big) \\
+\end{align*}
+
+(Since this matrix is $2n \times 2n$, we can ditch the negative sign, not that it matters.) So this is now the determinant of what we want plus something small. We could easily do an expansion if $K(\lambda)(A -\lambda^2  MI)$ were invertible, but of course we cannot assume that! Writing the remainder term as $R(\lambda)$, we have
+
+\begin{align}\label{tildeAn}
+\det \tilde{A} &= \det \Big( 
+-\lambda^2  M(\lambda) I C_2 - 
+K(\lambda)(A -\lambda^2  MI) \Big) \\
+&= \det \Big( K(\lambda)(A -\lambda^2  MI) + 
+R(\lambda)
+ \Big) \\
+\end{align}
+
+where
+
+\[
+R(\lambda) = \mathcal{O}(e^{-\alpha X_m}|\lambda^2|(|\lambda| + e^{-\alpha X_m}) )
+\]
+
+We might be able do a perturbation analysis on this. Or we can leave it in the form, which resembles Theorem 2 in San98. If we take $\lambda = \mathcal{O}(e^{-\alpha X_m})$, then the remainder term is order $\mathcal{O}(e^{-4\alpha X_m})$ and the higher order terms are at most order $\mathcal{O}(e^{-2 \alpha X_m})$, so this should be good. 1`	`''
+
+
+% As a corollary, for the 2-periodic pulse in KdV5, we can compute the eigenvalues exactly.
+
+% % corrolary : eigenvalues for 2-per pulse
+
+% \begin{corollary}
+% The nonzero eigenvalues are given, to leading order, by
+
+% \begin{equation}
+% \lambda = \pm \sqrt{-2a/M}
+% \end{equation}
+
+% where $M$ is the higher order Melnikov integral defined in Theorem \ref{evpsol} and 
+
+% \begin{equation}
+% a = \langle \Psi (X_1), Q'(-X_1) \rangle + \langle \Psi (X_2), Q'(-X_2) \rangle 
+% \end{equation}
+
+% For $M a < 0$, the eigenvalues lie on the real axis and for $M a > 0$ the eigenvalues lie on the imaginary axis.
+
+% \begin{proof}
+
+% For KdV5, we know the form of $\Psi(x)$ (we showed this for the exponentially weighted version on the real line), thus it is not hard to show that
+
+% \[
+% \tilde{a}_i = \langle \Psi(-X_i), Q'(X_i) \rangle = -\langle \Psi(X_i), Q'(-X_i) \rangle = -a_i
+% \]
+
+% Thus the matrix $A$ from Theorem \ref{evpsol} becomes
+
+% \begin{align*}
+% A = 
+% \begin{pmatrix}
+% -a_0 - a_1 & a_0 + a_1 \\
+% a_0 + a_1 & -a_0 - a_1
+% \end{pmatrix}
+% = a \begin{pmatrix}
+% -1 & 1 \\
+% 1 & -1
+% \end{pmatrix}
+% \end{align*}
+
+% where $a = a_1 + a_2$. Using Theorem \ref{evpsol}, the eigenvalues are given, to leading order, by 
+
+% \begin{align*}
+% \det \left[ a \begin{pmatrix}
+% -1 & 1 \\
+% 1 & -1
+% \end{pmatrix}
+% - \lambda^2 MI \right] = 
+% \det \begin{pmatrix}
+% -a - \lambda^2 M & a \\
+% a & -a - \lambda^2 M
+% \end{pmatrix}
+%  = 0
+% \end{align*}
+
+% Solving this for $\lambda$, the eigenvalues are given, to leading order, by
+
+% \begin{align*}
+% 0 &= (-a - \lambda^2 M)^2 - a^2 \\
+% &= a^2 + 2 a \lambda^2 M + \lambda^4 M^2 - a^2 \\
+% &= 2 a \lambda^2 M + \lambda^4 M^2 \\
+% &= \lambda^2 M (2a + M \lambda^2 )
+% \end{align*}
+
+% This has two roots at 0 (corresponding to the 2-dimensional generalized kernel) as well as two roots at $\pm \sqrt{-2a/M}$. To leading order, these will be purely imaginary or real depending on the sign of $a$. By Theorem \ref{evpsol} these are the only four small eigenvalues. By symmetry we know that if there is an eigenvalue in the first quadrant of the complex plane, i.e. $\lambda = \alpha + \beta i$ with $\alpha, \beta > 0$, we must have a quartet of eigenvalues. This is not possible here, since there must be two eigenvalues at 0 and there are only 4 total eigenvalues. Thus the only possibilities are that the eigenvalues lie on the real axis (for $M a < 0$) or on the imaginary axis for $M a > 0$.
+
+% % \end{proof}
+% \end{corollary}
 
 \end{document}

@@ -67,7 +67,7 @@ W' = -A(q(x))^*W \label{adjvareq}
 where
 
 \begin{align}
-A(u^*(x)) = \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
+A(u^*(x)) = \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \\
 2u^*_x(x) & 2u^*(x) - c & 0 & 1 & 0 \end{pmatrix}
 \end{align}
 
@@ -85,7 +85,19 @@ where $Q(x)$ is the single pulse solution on $\R$, written as a vector-valued fu
 
 Now, we look at the adjoint variational equation. Since $L(q)^* = (\partial_x H(q))^* = -H(q) \partial_x$, we can easily see that there are two bounded solutions to this: $q(x)$ and the constant function $1$. Since we are on a periodic domain, the constant function is periodic and in $L^2$, so we have to consider it here.\\
 
-Thus there are two bounded solutions $\Psi(x) = \nabla H(q(x))$ and $\Psi_c(x)$ of \eqref{adjvareq}, corresponding to $q(x)$ and 1. Somewhere we have an expression for $\Psi(x)$; all that really matters is that the final component is $q(x)$. We can get an expression for $\Psi_c(x)$ using our expression for $A(q(x))^*$ and plugging 1 in for the final component. If we do that, we get
+Thus there are two bounded solutions $\Psi(x) = \nabla H(q(x))$ and $\Psi_c(x)$ of \eqref{adjvareq}, corresponding to $q(x)$ and 1. We computed $\Psi(x)$ previously.
+
+\[
+\Psi(x) = \begin{pmatrix}
+q^{(4)}(x) - q''(x) + (-2q(x) + c)q(x)\\
+-q^{(3)}(x) + q'(x) \\
+q''(x) - q(x) \\
+-q'(x) \\
+q(x)
+\end{pmatrix}
+\]
+
+All that really matters is that the last component is $q(x)$. We know this decays exponentially to 0, which is also clear upon inspection. Similarly, we can obtain an expression for $\Psi_c(x)$, which will have 1 as the last component.
 
 \[
 \Psi_c(x) = (c - 2 q(x), 0, -1, 0, 1)
@@ -124,10 +136,20 @@ Since the inner product is continuous in both components, it follows that if as 
 \Psi_c(0) &\perp Q'(0) \oplus Y^- \oplus Y^+
 \end{align*}
 
-Since $\Psi(0)$ and $\Psi_c(0)$ are linearly independent, we conclude that 
+$\Psi(0)$ and $\Psi_c(0)$ are linearly independent, but we do not expect them to be perpendicular. We can, if we like, compute the inner product $\langle \Psi(0), \Psi_c(0) \rangle$, and it is nonzero.\\
+
+Let $Y^0 = (\Psi(0) \oplus \perp Q'(0) \oplus Y^- \oplus Y^+)^\perp$, which is 1-dimensional. Then 
 
 \[
-\R^5 = Q'(0) \oplus Y^- \oplus Y^+ \oplus \Psi(0) \oplus \Psi_c(0) 
+\R^5 = \R Q'(0) \oplus Y^- \oplus Y^+ \oplus \R \Psi(0) \oplus Y^0
+\]
+
+This is not an orthogonal system, since $Q'(0)$, $Y^+$, and $Y^-$ are not necessarily mutually perpendicular, but it should be good enough.\\
+
+It is worth noting that
+
+\[
+(\R \Psi(0))^\perp = \R Q'(0) \oplus Y^- \oplus Y^+ \oplus Y^0
 \]
 
 \subsection*{Center Subspace}
@@ -147,44 +169,76 @@ where the decay is in the appropriate direction. $V_0$ and $W_0$ are the eigenve
 
 In particular, $\langle V^\pm(0), W^\pm(0) \rangle \neq 0$. We would like to know where $V^\pm(0)$ and $W^\pm(0)$ fit into the overall scheme above. \\
 
-Since we have an expression for $\Psi_c(x)$, it has the same decay properties as $W^\pm(x)$, and it decays in both directions to the same thing as $W^\pm(x)$, we can take $W^\pm(x) = \Psi_c(x)$, so from now on, we will do that. (We can actually add any scalar multiple of $\Psi(x)$ to $\Psi_c(x)$ and preserve these properties.) Thus we have
+\subsubsection*{Adjoint Center Solution}
+
+Looking at the expression for $\Psi_c(x)$, it has the same decay properties as $W^\pm(x)$, and noth it and $W^\pm(x)$ decay (in the appropriate direction) to the constant vector $W_0$. Thus we can take $W^\pm(x) = \Psi_c(x)$, so from now on, we will do that. Thus we have
 
 \[
-\langle V^\pm(0), \Psi_c(0) \rangle = c \neq 0
+\langle V^\pm(0), \Psi_c(0) \rangle = \langle V_0, W_0 \rangle = c \neq 0
 \]
 
-Now that we have dealt with $W^\pm(x)$, we turn our attention to $V^\pm(x)$. Since $V^+(x)$ is bounded and $\Psi(x)$ decays exponentially, we have $V^+(0) \perp \Psi(0)$. Since it has no component in $\Psi(0)$, let's write $V^+(0)$ as
+\subsubsection*{Variational Center Solution}
+
+We now turn our attention to $V^\pm(x)$. We look at $V^+(x)$ first. Since $V^+(x)$ is bounded and $\Psi(x)$ decays exponentially as $x \rightarrow \infty$, we have $V^+(0) \perp \Psi(0)$, i.e. 
+
+\[
+V^+(0) \in (\R \Psi(0))^\perp = \R Q'(0) \oplus Y^- \oplus Y^+ \oplus Y^0
+\]
+
+Thus we can write 
 
 \[
 V^+(0) = y^0 + y^- + y^+ + x^+
 \]
 
-where $y^0 \in \R \Psi_c(0), y^- \in Y^+, y^- \in Y^-, x^+ \in \R Q'(0)$. Since we can pick whatever we want as an IC, let's take the IC $V^+(0) - y^+ - x^+ = y^0 + y^-$. Since the variational equation is linear,
+where $y^0 \in Y^0, y^- \in Y^+, y^- \in Y^-, x^+ \in \R Q'(0)$. Since we can pick whatever we want as an IC, let's use the IC $V^+(0) - y^+ - x^+ = y^0 + y^-$. Since the variational equation is linear,
 
 \begin{align*}
-\Phi(x, 0)( V^+(0) - y^+ - x ) &= \Phi(x, 0)V^+(0) - \Phi(x, 0) y^+ - \Phi(x, 0) x^+ \\
+\Phi(x, 0)( V^+(0) - y^+ - x^+ ) &= \Phi(x, 0)V^+(0) - \Phi(x, 0) y^+ - \Phi(x, 0) x^+ \\
 &= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x}|V_0|) + \mathcal{O}(e^{-\alpha x}|y^+| + 
 \mathcal{O}(e^{-\alpha x}|x^+|) \\
 &= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x})
 \end{align*}
 
-So using this IC, we still have a solution with the property we want.\\
-
-Let $\tilde{V}^+(x)$ bt be solution to \eqref{vareq} with IC $V^+(0) - y^+ - x^+$, i.e. with IC only in $Y^- \oplus \R \Psi_c(0)$. We can do the same thing with $V^-(x)$ to get a solution $\tilde{V}^-(x)$ to \eqref{vareq} with IC only in $Y^+ \oplus \R \Psi_c(0)$. Thus we have solutions to \eqref{vareq}
+Using this IC, we still have a solution with the property we want. Let $\tilde{V}^+(x)$ be be solution to \eqref{vareq} with IC $V^+(0) - y^+ - x^+ = y^- + y^0$, i.e. with $\tilde{V}^+(0) \in Y^- \oplus Y^0$. We can do the same thing with $V^-(x)$ to get a solution $\tilde{V}^-(x)$ to \eqref{vareq} with $\tilde{V}^-(0) \in Y^+ \oplus Y^0$. Thus we have solutions to \eqref{vareq}
 
 \begin{align*}
-\tilde{V}^+(x) &= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x}) && \tilde{V}^+(0) \in \R \Psi_c(0) \oplus Y^-, x \geq 0 \\
-\tilde{V}^-(x) &= V_0 + \mathcal{O}(e^{(\alpha - \epsilon)x}) && \tilde{V}^-(0) \in \R \Psi_c(0) \oplus Y^+, x \geq 0
+\tilde{V}^+(x) &= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x}) && \tilde{V}^+(0) \in Y^0 \oplus Y^-, x \geq 0 \\
+\tilde{V}^-(x) &= V_0 + \mathcal{O}(e^{(\alpha - \epsilon)x}) && \tilde{V}^-(0) \in Y^0 \oplus Y^+, x \geq 0
 \end{align*}
 
-To match these things up at $x = 0$, all we need to do is show that their initial conditions can have no component in $Y^\pm$. But this must be the case. To see that (in a handwavey fashion), suppose $\tilde{V}^+(0) = z \Psi_c(0) + y^-$, where $y^- \in Y^-$. Since $Y^-$ is the tangent space of the unstable manifold $W^u(0)$, ICs there will blow up (exponentially) as $x \rightarrow \infty$; or, at least, as $x \rightarrow \infty$, $\Phi(x)y^-$ will increase in magnitude and give us in the limit a component in $E^u$, which we know from above cannot happen. Thus $\tilde{V}^+(0)$ cannot have a component in $Y^-$. Similarly, $\tilde{V}^-(0)$ cannot have a component in $Y^+$. Thus we have solutions 
+To match these things up at $x = 0$, all we need to do is show that their initial conditions can have no component in $Y^\pm$. But this must be the case. To see that (in a handwavey fashion), suppose $\tilde{V}^+(0) = y^0 + y^-$, where $y^0 \in Y^0$ and $y^- \in Y^-$. Since $Y^-$ is the tangent space of the unstable manifold $W^u(0)$, ICs there will blow up (exponentially) as $x \rightarrow \infty$; or, at least, as $x \rightarrow \infty$, $\Phi(x,0)y^-$ will increase in magnitude and give us in the limit a component in $E^u$, which we know from above cannot happen. Thus $\tilde{V}^+(0)$ cannot have a component in $Y^-$. Similarly, $\tilde{V}^-(0)$ cannot have a component in $Y^+$. Thus we have solutions 
 
 \begin{align*}
-\tilde{V}^+(x) &= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x}) && \tilde{V}^+(0) \in \R \Psi_c(0), x \geq 0 \\
-\tilde{V}^-(x) &= V_0 + \mathcal{O}(e^{(\alpha - \epsilon)x}) && \tilde{V}^-(0) \in \R \Psi_c(0), x \geq 0
+\tilde{V}^+(x) &= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)x}) && \tilde{V}^+(0) \in Y_0, x \geq 0 \\
+\tilde{V}^-(x) &= V_0 + \mathcal{O}(e^{(\alpha - \epsilon)x}) && \tilde{V}^-(0) \in Y_0, x \geq 0
 \end{align*}
 
-We are now done, since these two solutions behave the way we want, and at $x = 0$ both $\tilde{V}^+(0)$ and $\tilde{V}^-(0)$ are in the same direction as $\Psi_c(0)$. Since we are just taking projections, I don't think we need these things to actually be equal at $x = 0$, but that would certainly be nice. If we want, we can take the same IC in the middle (say, $\Psi_c(0)$, but then the ends might not have the same limits, but at least they would be up to scalar multiples.
+We are now done, since these two solutions behave the way we want, and at $x = 0$, both $\tilde{V}^+(0)$ and $\tilde{V}^-(0)$ are contained in $Y^0$. This does not mean that $\tilde{V}^+(0) = \tilde{V}^-(0)$; we just know they are both contained in $Y^0$. Since this space is 1-dimensional, these must be scalar multiples of each other.\\
+
+We would like to show that they are in fact equal. To do this, choose any initial condition $y^0 \in Y_0$ (say, a unit vector in that space). Then by what we have shown above, $V(x) = \Phi(x, 0)y^0$ is a bounded solution to \eqref{vareq} on $\R$, and its limits at $\pm \infty$ are scalar multiples of $V_0$, which may (in general) be different.\\
+
+We will use a reversibility argument here. To see this, it is easiest to take this out of the 5th order system and write the variational equation as
+
+\[
+L(q)v = \partial_x H(q)v = \partial_x ( \partial_x^4 - \partial_x^2 + c - 2 q)v = 
+(\partial_x^5 - \partial_x^3 + c \partial_x - 2 q \partial_x - 2 q_x)v
+\]
+
+Suppose $v(x)$ is a solution to this. Then it is not hard to show that so is $v(-x)$. Since the primary pulse $q(x)$ is even,
+
+\begin{align*}
+L(q(x))v(-x) &= -v^{(5)}(-x) + v'''(-x) - c v'(-x) + 2 q(x)v'(-x) - 2 q_x(x)v(-x) \\
+&= -( v^{(5)}(-x) - v'''(-x) + c v'(-x) - 2 q(x)v'(-x) + 2 q_x(x)v(-x) ) \\
+&= -( v^{(5)}(-x) - v'''(-x) + c v'(-x) - 2 q(-x)v'(-x) - 2 q_x(-x)v(-x) ) \\
+&= -L(q(-x))v(-x) \\
+&= -L(q(y))v(y) = 0
+\end{align*}
+
+where in the last line we let $y = -x$. 
+
+
+
 
 \subsection{Coordinate Changes, etc}
 
