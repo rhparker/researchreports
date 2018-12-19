@@ -252,8 +252,242 @@ A(u^*(x)) =
 \end{pmatrix}
 \]
 
-We note that $J$ is singular with a 1-dimensional kernel, so we cannot just move it to the other size.
+We note that $J$ is singular with a 1-dimensional kernel, so we cannot just move it to the other size.\\
 
+This is all fine and good, but probably will not buy us anything useful.
+
+
+\subsection{Lin's Method}
+
+We will try the same thing as was done in San98. The main difference here is that we have a quadratic eigenvalue problem. The linearization about the rest state is hyperbolic, so that should present no problem. And we know that we have an eigenvalue at 0, so we should be able to perturb that eigenfunction to construct the interaction eigenfunctions. Numerical plots of the interaction eigenfunctions suggest that should be possible, and there is no reason to suspect this won't work.
+
+\begin{enumerate}
+
+\item Let $q(x)$ be a single pulse equilibrium solution to \eqref{eqODE}, which we know exists for certain speeds $c$ and decays exponentilly with rate $\alpha$. We also have constructed a multi-pulse $q_n(x)$ which resembles multiple, well-separated copies of $q(x)$, i.e. on the appropriate intervals we have 
+
+\[
+q_n(x) = \sum_{j = 1}^{n} q^j(x) + r(x)
+\]
+
+where $q^j(x)$ are translates of $q(x)$, and the remainder term $r(x)$ is small and we have estimates on it. Recall that the EVP is
+
+\begin{equation}\label{quadeig}
+P_2(\lambda; q_n)v =  [A_2 \lambda^2 + A_1 \lambda + A_0(q_n)]v = 0,
+\end{equation} 
+
+where
+
+\begin{align}
+A_0(u^*) &= \partial_x^4 + c^2 \partial_x^2 + e^{u_*} \\
+A_1 &= -2 c \partial_x \\
+A_2 &= I
+\end{align}
+
+From earlier stuff, we have the expansion for $A_0(q_n)$
+
+\begin{align}\label{A0expansion} 
+A_0(q_n) &= A_0(q^j) + \sum_{k \neq j} (e^{q^k(x)} - 1) + \tilde{h}(x),
+\end{align}
+
+where $||\tilde{h}|| = \mathcal{O}(e^{-\alpha X_m})$
+
+\item Write the EVP as 1st order system following San98. In other words, split off the $\lambda$ terms. Let $V = (v_1, v_2, v_3, v_4) = (v, v_x, v_{xx}, v_{xxx})$. Then we have
+
+\begin{equation}\label{splitevp}
+V' = A(q_n)V + \lambda B_1 V + \lambda^2 B_2 V
+\end{equation}
+
+where
+
+\begin{equation}
+A(u^*) = \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+-e^{u^*} & 0 & -c^2 & 0 
+\end{pmatrix}
+\end{equation}
+
+\begin{align*}
+B_1 = \begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 2 c & 0 & 0 
+\end{pmatrix} &&
+B_2 = \begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+-1 & 0 & 0 & 0 
+\end{pmatrix}
+\end{align*}
+
+\item The variational and adjoint variational equations we will use are
+
+\begin{align}
+V' &= A(q)V \\
+W' &= -A(q)^* W
+\end{align}
+
+For now, we assume that $Q'$ is the unique bounded solution to the variational equation, and that therefore the adjoint variational equation has a unique bounded solution $\Psi$. Let $Z = \C \Psi(0)$.
+
+\item To exploit all of this, we will write our eigenfunction piecewise in the usual way as
+
+\[
+V_i^\pm = d_i Q_n' + W_i^\pm = d_i(Q' + (R_i^\pm)') + W_i^\pm
+\]
+
+
+Now we substitute this into \eqref{splitevp}. Using the fact that $(Q_n')' = A(q_n)Q_n'$, this becomes, piecewise on the appropriate intervals, 
+
+\[
+(W_i^\pm)' = A(q_n)W_i^\pm + \lambda B_1 W_i^\pm + \lambda^2 B_2 W_i^\pm 
++ \lambda B_1 d_i Q_n' + \lambda^2 B_2 d_i Q_n' 
+\]
+
+Let 
+
+\begin{align*}
+\tilde{H}_i^\pm &= Q_n' = Q' + (R_i^\pm)' \\
+H &= Q'
+\end{align*}
+
+Then this becomes
+
+\[
+(W_i^\pm)' = A(q_n)W_i^\pm + \lambda B_1 W_i^\pm + \lambda^2 B_2 W_i^\pm 
++ \lambda B_1 d_i \tilde{H}_i^\pm + \lambda^2 B_2 d_i \tilde{H}_i^\pm 
+\]
+
+Finally, we want to write $A(q_n)$ as a perturbation of $A(q)$. We have for all $j$
+
+\begin{align}\label{A0expansion} 
+e^{q_n} &= e^{q^j} + \sum_{k \neq j} (e^{q^k(x)} - 1) + \tilde{h}(x),
+\end{align}
+
+where $||\tilde{h}|| = \mathcal{O}(e^{-\alpha X_m})$. Thus we have
+
+\[
+A(q_n) = A(q) + G_i^\pm(x)
+\]
+
+where since the peaks of the $n-$pulse are well-separated,
+
+\[
+||G_i^\pm|| \leq C e^{-\alpha X_m}
+\]
+
+This gives us the EVP
+
+\[
+(W_i^\pm)' = A(q)W_i^\pm + (G_i^\pm + \lambda B_1 + \lambda^2 B_2) W_i^\pm 
++ d_i( \lambda B_1 + \lambda^2 B_2 ) \tilde{H}_i^\pm 
+\]
+
+Thus we have the following system we need to solve.
+
+\begin{enumerate}[(i)]
+\item $(W_i^\pm)' A(q)W_i^\pm + (G_i^\pm + \lambda B_1 + \lambda^2 B_2) W_i^\pm + d_i( \lambda B_1 + \lambda^2 B_2 ) \tilde{H}_i^\pm$
+\item $W_i^\pm(0) \in Z \oplus Y^+ \oplus Y^-$
+\item $W_i^+(0) - W_i^-(0) \in Z$
+\item $W_i^+(X_i) - W_{i+1}^-(-X_i) = D_i d$
+\end{enumerate}
+
+where
+
+\begin{equation}
+D_i d = (Q'(-X_i) + (R_{i+1}^-)(-X_i))d_{i+1} - (Q'(X_i) + (R_i^+(X_i))d_i
+\end{equation}
+
+Compare this to (3.7) and (3.8) in San98. This is essentially the same except for the quadratic terms in $\lambda$.\\
+
+\item Let $\Phi(y, x)$ be the evolution operator of the variational equation. Since the linearization about the zero solution is hyperbolic, the adjoint variational equation has an exponential dichotomy on $\R^\pm$, and we split the evolution operator up into pieces $\Phi_\pm^{s/u}$ on the appropriate pieces of the dichotomy. We have the usual estimates for these.\\
+
+Next, we write this in integrated form. This will be the same as in San98, except we have the presence of the $\lambda^2$ terms.
+
+\begin{align*}
+W_i^-(x) = \Phi_-^s(&x, -X_{i-1})a_{i-1}^- + \Phi_-^u(x, 0)b_i^- \\
+&+ \int_0^x \Phi_-^u(x, y)[(G_i^-(y) + \lambda B_1 + \lambda^2 B_2) W_i^-(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^-(y) ] dy \\
+&+ \int_{-X_{i-1}}^x \Phi_-^s(x, y)[(G_i^-(y) + \lambda B_1 + \lambda^2 B_2) W_i^-(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^-(y) ] dy \\
+W_i^+(x) = \Phi_+^u(&x, X_i)a_i^+ + \Phi_+^s(x, 0)b_i^+ \\
+&+ \int_0^x \Phi_+^s(x, y)[(G_i^+(y) + \lambda B_1 + \lambda^2 B_2) W_i^+(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^+(y) ] dy \\
+&+ \int_{X_i}^x \Phi_+^u(x, y) [(G_i^+(y) + \lambda B_1 + \lambda^2 B_2) W_i^+(y) + d_i (\lambda B_1 + \lambda^2 B_2) \tilde{H}_i^+(y) ] dy
+\end{align*}
+
+Again, these are similar to (3.14) in San98, except for the presence of the $\lambda^2$ terms.\\
+
+\item Before we keep going, by what we have learned so far, this will produce two Melkinov integrals, one for each of the $B_i$. These should be, based on what we have from before
+
+\begin{align*}
+M_1 &= \int_{-\infty}^\infty \langle \Psi(x), B_1 H(x) \rangle dx \\
+M_2 &= \int_{-\infty}^\infty \langle \Psi(x), B_2 H(x) \rangle dx
+\end{align*}
+
+Since $H(x) = Q'(x)$, we know what that is. We need to figure out what $\Psi$ is. The variational problem, if we write it as a 4th order ODE, is
+
+\[
+(\partial_x^4 + c^2 \partial_x^2 + e^{q})]v = 0
+\]
+
+This has unique bounded solution $q'(x)$. Since only even derivatives are involved, this is self-adjoint, thus the adjoint variational problem, when written in this form, also has a unique solution $q'(x)$. We know from before that this implies that for the system-version $\Psi' = -A(q)^* \Psi$, the fourth component of $\Psi$ is $q'(x)$. From this we can determine the rest. Written out, the matrix equation $W' = -A(q)^* W$ is
+
+\begin{equation}
+\begin{pmatrix}w_1 \\ w_2 \\ w_3 \\ w_4 \end{pmatrix}' =
+\begin{pmatrix}
+0 & 0 & 0 & e^q \\
+-1 & 0 & 0 & 0 \\
+0 & -1 & 0 & c^2 \\
+0 & 0 & -1 & 0 
+\end{pmatrix}
+\begin{pmatrix}w_1 \\ w_2 \\ w_3 \\ w_4 \end{pmatrix}
+\end{equation}
+
+This is equivalent to the system of four equations
+
+\begin{align*}
+w_1' &= e^q w_4 \\
+w_2' &= -w_1 \\
+w_3' &= -w_2 + c^2 w_4 \\
+w_4' &= -w_3
+\end{align*}
+
+Rearranging to solve for $(w_1, w_2, w_3)$ in terms of $w_4$, we have
+
+\begin{align*}
+w_3 &= -w_4' \\
+w_2 &= w_4'' + c^2 w_4 \\
+w_1 &= -w_4''' - c^2 w_4'
+\end{align*}
+
+The final equation becomes $-w_4'''' - c^2 w_4'' = e^q w^4$, which is satisfied, as expected, by $w_4 = q'$. Thus we have
+
+\begin{align*}
+\Psi = \begin{pmatrix}
+-q'''' - c^2 q''\\
+q''' + c^2 q'\\
+-q''\\
+q'
+\end{pmatrix}
+\end{align*}
+
+Using this, we can compute the Melnikov integrals.
+
+\begin{align*}
+M_1 &= \int_{-\infty}^\infty \langle \Psi(x), B_1 H(x) \rangle dx \\
+&= \int_{-\infty}^\infty 2 c q''(x) q'(x) dx \\
+&= 0 \\
+M_2 &= \int_{-\infty}^\infty \langle \Psi(x), B_2 H(x) \rangle dx \\
+&= \int_{-\infty}^\infty  (q'(x))^2 dx \\
+&\neq 0
+\end{align*}
+
+Since one of these is nonzero, we should be good. In fact, we need $M_1$ to be 0 to get the eigenvalues we expect.
+
+\item If we work through all of this naively and try to guess what the result is, we do not get the right result. The naive guess for the double pulse is that, after all is said and done, we get $\lambda^2 = \sqrt{-2a / M}$, i.e. these eigenvalues are the square roots of the eigenvalues of $A_0$. From our numerics and Krein matrix calculations, we have shown this is not the case. Thus either we set the problem up incorrectly, or there are other terms contributing to the leading order estimate which we have not accounted for in the naive guess.
+
+
+\end{enumerate}
 
 % \bibliography{suspension.bib}
 
