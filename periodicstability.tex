@@ -2206,7 +2206,7 @@ For sufficiently small $\delta$, the operator $S_2$ is invertible, thus we have
 
 \begin{align}
 b = B_1(\lambda)(c,d) 
-= -S_2^{-1} ( J_2(0, 0,L_4(\lambda)(0, c, d)
+= -S_2^{-1} ( J_2(0, 0, L_4(\lambda)(0, c, d)
 \end{align}
 
 The bound on $B_1$ is given by the bound on $L_4$, where we note which piece is involved.
@@ -3249,8 +3249,8 @@ The jump conditions can be written as the block diagonal matrix equation
 
 \begin{equation}
 \begin{pmatrix}
-K(\lambda) & -\lambda^2 M(\lambda) I  \\
-0 & A - \lambda^2 MI 
+K(\lambda)(I + \tilde{C}_1) & -\lambda^2 M(\lambda) I + D_1 \\
+K(\lambda)\tilde{C}_2 + C_2 & A - \lambda^2 MI + D_2
 \end{pmatrix}
 \begin{pmatrix}c^- \\ d \end{pmatrix} 
 + \begin{pmatrix}
@@ -3260,20 +3260,21 @@ R(\lambda)(c^-, d)
 = 0
 \end{equation}
 
-where we have remainder bounds
+where the remainder matrices $C_i, \tilde{C}_i, D_i$ have bounds
 
 \begin{align*}
-| R^c(\lambda)(c^-, d)_i| &\leq C \Big( (|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-2 \alpha X_m}) |\tilde{c}| + e^{-\tilde{\alpha} X_m} |c^-| + (|\lambda|^3 + e^{-(\alpha + \tilde{\alpha}) X_m} + e^{-\tilde{\alpha} X_m} |\lambda| ) |d| \Big) \\
-|R(\lambda)(c^-, d)_i| &\leq C \Big( (|\lambda| + e^{-2 \alpha X_m})|\tilde{c}| + e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} )|c^-| + 
-(|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-2 \alpha X_m} + |\lambda|^2)|d| \Big)
+| C_1 | &\leq C e^{-\tilde{\alpha} X_m}  \\
+| \tilde{C}_1 | &\leq C (|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-2 \alpha X_m}) \\
+| D_1 | &\leq C (|\lambda|^3 + e^{-(\alpha + \tilde{\alpha}) X_m} + e^{-\tilde{\alpha} X_m} |\lambda| ) \\
+| C_2 | &\leq C e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m} ) \\
+| \tilde{C}_2 | &\leq C (|\lambda| + e^{-2 \alpha X_m}) \\
+| D_2 | &\leq C (|\lambda| + e^{-\tilde{\alpha} X_m} )( e^{-2 \alpha X_m} + |\lambda|^2)
 \end{align*}
 
 and
 
 \begin{enumerate}
 \item $c^- = (c_1^-, \dots, c_{n-1}^-, c_0^-)$
-\item $\tilde{c}_i^\pm = e^{\pm \nu(\lambda) X_i} c_i^-$
-\item $|\tilde{c}| = \max_i{| e^{\pm \nu(\lambda) X_i} c_i^- | }$
 \item $d = (d_1, \dots, d_n)$
 \item $M$ is the higher order Melnikov integral
 
