@@ -1,0 +1,269 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}, plainpages=false]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\ran}{range}
+
+\setlength\parindent{0pt}
+
+\graphicspath{ {kdv5/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+\newtheorem{remark}{Remark}
+
+\newtheorem{notation}{Notation}
+
+\begin{document}
+
+\section{5th order KdV Equation}
+
+\subsection{Background}\label{sec:background}
+
+The fifth-order Korteweg-de Vries equation (KdV5) is a nonlinear, dispersive partial differential equation which is used to model physical phenomena such as capillary-gravity water waves and plasma waves. There are many versions of this equation. The one we will study is
+
+\begin{equation}\label{KdV5}
+u_t = u_{xxxxx} - u_{xxx} - 2 u u_x
+\end{equation}
+
+which can also be written as
+
+\begin{equation}\label{KdV5alt}
+u_t = \partial_x(u_{xxxx} - u_{xx} - u^2)
+\end{equation}
+
+Since we are interested in traveling wave solutions, we write \eqref{KdV5} in a co-moving frame with speed $c$ by letting $\xi = x - ct$. Making this substitution, and renaming the independent variable back to $x$, we have
+
+\begin{equation}\label{KdV5c}
+u_t = u_{xxxxx} - u_{xxx} + c u_x - 2 u u_x
+\end{equation}
+
+Equation \eqref{KdV5c} is Hamiltonian, with energy given by 
+
+\begin{equation} \label{energy}
+E(u) = -\int_{-\infty}^{\infty} \left( \frac{1}{2}u_{xx}^2 + \frac{1}{2}u_x^2 + \frac{1}{2}cu^2 - \frac{1}{3}u^3 \right) dx
+\end{equation}
+
+and \eqref{KdV5c} can be written in standard Hamiltonian form as
+
+\[
+u_t = \partial_x E'(u)
+\]
+
+where the operator $\partial_x$ is skew-symmetric. It is not hard to show that the energy $E(u)$ is conserved (in time).\\
+
+An equilibrium solution to \eqref{suspc} satisfies the 5th order nonlinear ODE
+
+\begin{equation}\label{eqODE}
+u_{xxxxx} - u_{xxx} + c u_x - 2 u u_x = 0
+\end{equation}
+
+It is clear that the trivial solution $u = 0$ is a solution to \eqref{eqODE}. A primary pulse solution is a homoclinic orbit which connects the trivial solution $u = 0$ to itself. Since such a solution decays (exponentially) to 0 at both ends, a primary pulse solution must also satisfy the 4th order ODE
+
+\begin{equation}\label{eqODE4}
+u_{xxxx} - u_{xx} + c u - u^2 = 0,
+\end{equation}
+
+which is obtained from \eqref{eqODE} by integrating once and taking the constant of integration to be 0, since we are assuming the solution decays to 0 at both ends. Equation \eqref{eqODE4} is also Hamiltonian (in $x$), with energy given by
+
+\begin{equation}\label{Hamiltonian}
+H(u, u', u'', u''') = u'u''' - \frac{1}{2}(u'^2) - \frac{1}{2}(u'')^2 + \frac{c}{2}u^2 - \frac{1}{3}u^3 
+\end{equation}
+
+It is not hard to show that $H$ is conserved (in $x$).\\
+
+The linearization of \eqref{eqODE4} about a given solution $u_*$ of \eqref{eqODE4} is given by the operator
+
+\begin{equation}\label{defA0}
+A_0(u^*) = \partial_x^4 - \partial_x^2 + c - 2 u^* 
+\end{equation}
+
+For the linearization about the trivial solution $u^* = 0$, the eigenvalues are given by the solutions to the fourth-order polynomial equation $\nu^4 - \nu^2 + c = 0$, which are
+
+\begin{align}\label{specA0}
+\nu = \pm \sqrt{ \frac{1 \pm \sqrt{1 - 4c} }{2}}
+\end{align}
+
+Since two eigenvalues have positive real part and two have negative real part, the equibrium at 0 is hyperbolic with a two-dimensional stable manifold and a two-dimensional unstable manifold. For $0 < c < 1/4$, all four eigenvalues are real. A bifurcation takes place at $c = 1/4$, and for $c > 1/4$, there is a quartet of eigenvalues of the form $\pm \alpha \pm \beta i$, where $\alpha, \beta > 0$.\\
+
+A primary pulse solution connects the stable and unstable manifolds. Its existence is given in the following theorem. The proof involves the mountain pass technique.
+
+\begin{theorem}[Groves98, Chug07]\label{singleexist}
+\[\]
+\begin{enumerate}[(i)]
+\item For $c>0$, a primary pulse solution $q(x; c)$ exists to \eqref{eqODE4}. This solution is smooth, even, and decays exponentially to 0 as $x \rightarrow \pm \infty$.
+\item The linearization $A_0(q(x; c))$ about this primary pulse soution has exactly one negative eigenvalue with an even eigenfunction and a simple kernel with the odd eigenfunction $q'(x; c)$.
+\end{enumerate}
+\end{theorem}
+
+We are interested in the existence and stability of multi-pulse equilibrium solutions to \eqref{KdV5}. A multi-pulse is a localized, multi-modal solution $q_n(x; c) $to \eqref{eqODE4} which resembles multiple, well-separated copies of the primary pulse $q(x; c)$. The existence of multi-pulse solutions is given in the following theorem, which is adapted from SanStrut
+
+\begin{theorem}\label{multiexist}[SanStrut]
+Let $q(x; c)$ be a localized solution to \eqref{eqODE4}, with $c > 1/4$. Recall that the spectrum of $A_0(0)$ is given by $\nu = \pm \alpha \pm \beta i$, where $\alpha, \beta > 0$. Then for any $n \geq 2$ and any sequence of nonnegative integers $k_1, \dots, k_{n-1}$ with at least one of the $k_j \in \{0, 1 \}$, there exists a nonnegative integer $m_0$ and $\delta > 0$ such that
+\begin{enumerate}[(i)]
+	\item For any integer $m$ with $m \geq m_0$, there exists a unique $n-$modal solution $q_n(x, c)$ to \eqref{eqODE4} which is of the form
+	\begin{align}\label{qn}
+	q_n(x; c) = \sum_{j = 1}^{n} q^j(x; c) + r(x; c),
+	\end{align}
+	where each $q^j(x; c)$ is a translate of the primary pulse $q(x; c)$. The distance between the peaks of $q^j$ and $q^{j+1}$ is $2 X_j$, where
+	\begin{equation*}
+	X_j \approx \frac{\pi}{\beta}(2 m + k_j) + \tilde{X},
+	\end{equation*}
+	and $\tilde{X}$ is a constant. The remainder term $r(x; c)$ satisfies
+	\begin{equation}\label{rbound}
+	||r|| \leq C e^{-\alpha X_m},
+	\end{equation}
+	where $X_m = \min\{X_1, \dots, X_{n-1}\}$.
+
+	\item The linear operator $A_0(q_n(x; c))$ on $L^2(\R)$ has precisely $n$ real eigenvalues $\nu_j$ with $|\nu_j| < \delta$, where $\nu_n = 0$ is a simple eigenvalue, and for $j = 1, \dots, n-1$,
+	\begin{align*}
+	\nu_j < 0 \text{ if } k_j \text{ is odd} \\
+	\nu_j > 0 \text{ if } k_j \text{ is even} 
+	\end{align*}
+
+\end{enumerate}
+
+\begin{proof}
+By Theorem \ref{singleexist}, $q(x; c)$ is a transversely-constructed, localized solution to \eqref{eqODE4} with simple kernel $q'(x; c)$. Since $c > 1/4$, the eigenvalues of $A_0(0)$ are of the form $\pm \alpha \pm \beta i$, with $\alpha, \beta > 0$. Furthermore, equation \eqref{eqODE4} is Hamiltonian with energy $H$ given by \eqref{Hamiltonian}. Thus the hypotheses of Theorem 3.6 in \cite{Sandstede1997} are satisfied. Since the Melnikov integral $M = \int_{-\infty}^\infty |q_x|^2 dx$ is positive, (i) and (ii) follow from Theorem 3.6 in \cite{Sandstede1997}, except for the bound on $r(x; c)$ in (i), which follows from \cite{Sanstede1993} and \cite{Sandstede1998}. The eigenvalues $\nu_j$ are real since $A_0(q_n)$ is self-adjoint.
+\end{proof}
+\end{theorem}
+
+To determine linear PDE stability of the multi-pulse solutions constructed in Theorem \ref{multiexist}, we look at the linearization of the PDE \eqref{KdV5c} about $q_n(x; c)$. Substituting the usual lineariazation ansatz $u(x, t) = e^{\lambda t} v(x)$ into \eqref{KdV5c} and simplifying, we obtain the PDE eigenvalue problem $L(q_n(x)) v = \lambda v$, where
+
+\begin{equation}\label{PDEeig}
+L(q_n(x)) = \partial_x A_0(q_n(x)) = \partial_x^5 - \partial_x^5 + c \partial_x - 2 q_n \partial_x - 2 \partial_x q_n  
+\end{equation}
+
+For $c > 0$, by the Weyl essential spectrum theorem \cite[Theorem 2.2.6]{Kapitula2013}, the essential spectrum of \eqref{PDEeig} is independent of $q_n$ and consists of the entire imaginarly axis. Linear PDE stability thus depends on the point spectrum. \\
+
+Unfortunately, the linearization of \eqref{KdV5c} about the trivial solution $u = 0$ is not hyperbolic since $L(0)$ has an eigenvalue of 0. Thus we cannot directly apply the results of \cite{Sandstede1998}. To get around this problem, we will use an exponentially weighted space.
+
+\subsection{Exponentially Weighted Spaces}\label{sec:background}
+
+We will pose our eigenvalue problem in the exponentially weighted space $H_\eta^k(\R)$, where $\eta$ is the exponential weight, and the norm of the space is given by
+
+\[
+||u||_{H_\eta^k(\R)} = ||e^{\eta x}u||_{H^k}
+\]
+
+In the exponentially weighted space, the operator $L(q_n(x))$ becomes the operator $L_\eta(q_n(x))$, which is given by
+
+\begin{equation}\label{Leta}
+L_\eta = e^{\eta x} L e^{-\eta x} = e^{\eta x} \partial_x H e^{-\eta x}
+\end{equation}
+
+We can write the eigenvalue problem as a first-order system. For the unweighted problem, we do this in the usual way. Letting $V = (v, v', v'', v''', v'''')$, the unweighted eigenvalue problem becomes
+
+\[
+V' = A(q_n(x))V + \lambda B V
+\]
+
+where
+
+\begin{align*}
+B = \begin{pmatrix}0 & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\0  & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\1 & 0 & 0 & 0 & 0 \end{pmatrix} && 
+A(q_n(x)) = \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
+2q_n'(x) & 2q_n(x) - c & 0 & 1 & 0 \end{pmatrix} 
+\end{align*}
+
+Note that $L_\eta u = \lambda u$ if and only if $L v = \lambda v$, where $v = e^{-\eta x} u$. Motivated by this, let $V = e^{-\eta x} U$. Substituting this into the unweighted problem, we get
+
+\begin{align*}
+e^{-\eta x} U' - \eta e^{-\eta x}U &= A(q_n(x))e^{-\eta x}U + \lambda B e^{-\eta x}U \\
+U' &= (A(q_n(x)) + \eta I) U + \lambda B U
+\end{align*}
+
+Renaming $U$ back to $V$, the weighted eigenvalue problem is
+
+\begin{equation}\label{weightedeig}
+V' = (A(q_n(x)) + \eta I)V + \lambda B V
+\end{equation}
+
+We see that each row of $V$ is $(\partial_x - \eta)$ operated on the previous row, which is consistent with how we have defined our exponentially weighted space. We also note that the weight $\eta$ shifts the (spatial) eigenvalues by $\eta$ (in the direction given by the sign of $\eta$). 
+
+Before we go too much further, we need to choose $\eta$. For the linearization about the zero-solution, the nonzero eigenvalues of $A(0)$ are given by
+
+\[
+\nu = \pm \sqrt{ \frac{1 \pm \sqrt{1 - 4c} }{2}}
+\]
+
+Two have positive real part and two have negative real part, and these are negatives of each other. Let $\alpha_0 > 0$ be the smallest real part of the unstable eigenvalues, so $-\alpha_0$ is the largest real part of the stable eigenvalues. Since the primary pulse (and all its derivatives) decays asymptotally exponentially with rate equal to or faster than $\alpha_0$ (i.e. $|e^{-\alpha_0 |x|} q(x)|$ is bounded), we need to choose $\eta$ with either $0 < \eta < \alpha_0$ or $-\alpha_0 < \eta < 0$ so that $q(x)$ (and its derivatives) still decays in the exponentially weighted space. Since it does not matter which one we choose, we will take $\eta > 0$.\\
+
+Recall that in the unweighted space, $L(q_n)$ has a kernel with algebraic multiplicy 2 and geometric multiplicity 1. The eigenfunction and generalized eigenfunction are given by
+
+\begin{align*}
+L(q_n) q_n' &= 0 \\
+L(q_n) (-\partial_c q_n) &= q_n'
+\end{align*}
+
+In the first-order system, these become
+
+\begin{align*}
+(Q_n')' &= A(q_n) Q_n' \\
+(-\partial_c Q_n)' &= A(q_n) (-\partial_c Q_n) + B Q_n'
+\end{align*}
+
+In the weighted space, these become
+
+\begin{align*}
+(e^{\eta x} Q_n')' &= (A(q_n(x)) + \eta I) e^{\eta x}  Q_n' \\
+(-e^{\eta x} \partial_c Q_n)' &= (A(q_n(x)) + \eta I) (-e^{\eta x} \partial_c Q_n) + B e^{\eta x} Q_n'
+\end{align*}
+
+Returning to the weighted eigenvalue problem, we make the piecewise ansatz (on the same pieces as in \cite{Sandstede1998})
+
+\[
+V_i^\pm = d_i (e^{\eta x} Q' + \lambda e^{\eta x} \partial_c Q) + W_i^\pm
+\]
+
+where the $d_i$ are constants which we will solve for.
+
+Plugging this into the eigenvalue problem, we have
+
+\begin{align*}
+(W^\pm)' &= A(q, \eta)W^\pm + \lambda B (e^{\eta x} Q') + \lambda B W^\pm \\
+W^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
+W^+(0) - W^-(0) &\in \C \psi(0) 
+\end{align*}
+
+\bibliography{suspension.bib}
+
+
+\end{document}
