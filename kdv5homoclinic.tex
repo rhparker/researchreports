@@ -218,13 +218,13 @@ V' = (A(q_n(x)) + \eta I)V + \lambda B V
 
 We see that each row of $V$ is $(\partial_x - \eta)$ operated on the previous row, which is consistent with how we have defined our exponentially weighted space. We also note that the weight $\eta$ shifts the (spatial) eigenvalues by $\eta$ (in the direction given by the sign of $\eta$). 
 
-Before we go too much further, we need to choose $\eta$. For the linearization about the zero-solution, the nonzero eigenvalues of $A(0)$ are given by
+Before we go too much further, we need to choose $\eta$. For the linearization about the zero-solution, recall that the nonzero eigenvalues of $A(0)$ are given by
 
 \[
 \nu = \pm \sqrt{ \frac{1 \pm \sqrt{1 - 4c} }{2}}
 \]
 
-Two have positive real part and two have negative real part, and these are negatives of each other. Let $\alpha_0 > 0$ be the smallest real part of the unstable eigenvalues, so $-\alpha_0$ is the largest real part of the stable eigenvalues. Since the primary pulse (and all its derivatives) decays asymptotally exponentially with rate equal to or faster than $\alpha_0$ (i.e. $|e^{-\alpha_0 |x|} q(x)|$ is bounded), we need to choose $\eta$ with either $0 < \eta < \alpha_0$ or $-\alpha_0 < \eta < 0$ so that $q(x)$ (and its derivatives) still decays in the exponentially weighted space. Since it does not matter which one we choose, we will take $\eta > 0$.\\
+Two have positive real part and two have negative real part, and these are negatives of each other. Let $\alpha > 0$ be the smallest real part of the unstable eigenvalues, so $-\alpha$ is the largest real part of the stable eigenvalues. Since the primary pulse (and all its derivatives) decays asymptotally exponentially with rate equal to or faster than $\alpha$ (i.e. $|e^{-\alpha |x|} q(x)|$ is bounded), we need to choose $\eta$ with either $0 < \eta < \alpha$ or $-\alpha < \eta < 0$ so that $q(x)$ (and its derivatives) still decays in the exponentially weighted space. Since it does not matter which one we choose, we will take $0 < \eta < \alpha$. Thus the eigenvalues of $A(0) + \eta I$ lie outside the open interval $(-\alpha + \eta, \eta)$.\\
 
 Recall that in the unweighted space, $L(q_n)$ has a kernel with algebraic multiplicy 2 and geometric multiplicity 1. The eigenfunction and generalized eigenfunction are given by
 
@@ -247,6 +247,82 @@ In the weighted space, these become
 (-e^{\eta x} \partial_c Q_n)' &= (A(q_n(x)) + \eta I) (-e^{\eta x} \partial_c Q_n) + B e^{\eta x} Q_n'
 \end{align*}
 
+Finally, consider the variational equation and adjoint variational equation
+
+\begin{align}
+V' &= (A(q(x)) + \eta I)V \label{vareq} \\
+W' &= -(A(q(x)) + \eta I)^* W \label{adjvareq}
+\end{align}
+  
+Let $\Phi(x, y; \eta)$ be the evolution operator for the variational equation. 
+
+Then we decompose $\Phi(x, y; \eta)$ in an exponential dichotomy according to the following lemma, which is the same as Lemma 3.2 in \cite{Sandstede1998}.
+
+% lemma : exponential dichotomy 
+
+\begin{lemma}\label{dichotomy}
+The evolution $\Phi(x, y; \eta)$ can be decomposed in exponential dichotomies on $\R^+$ and $R^-$ as
+
+\begin{align*}
+\Phi(x, y; \eta) &= \Phi^s_+(x, y; \eta) + \Phi^u_+(x, y; \eta) && x, y \geq 0 \\
+\Phi(x, y; \eta) &= \Phi^s_-(x, y; \eta) + \Phi^u_-(x, y; \eta) && x, y \leq 0 
+\end{align*}
+
+for which we have estimates
+
+\begin{align*}
+|\Phi^s_+(y,x; \eta)| &\leq Ce^{-\alpha^s(y-x)} && 0 \leq x \leq y \\
+|\Phi^u_+(y,x; \eta)| &\leq Ce^{\alpha^u(y-x)}  && 0 \leq y \leq x \\
+|\Phi^s_-(y,x; \eta)| &\leq Ce^{-\alpha^s(y-x)} && x \leq y \leq 0 \\
+|\Phi^u_-(y,x; \eta)| &\leq Ce^{\alpha^u(y-x)}  && y \leq x \leq 0 \\
+\end{align*}
+
+The projection operators at $x$ are given by
+
+\begin{align*}
+P^s_\pm(x; \eta) &= \Phi^s_\pm(x,x)\\
+P^u_\pm(x; \eta) &= \Phi^u_\pm(x,x)\\
+\end{align*}
+
+for which we have estimates
+
+\begin{align*}
+|P^s_+(x; \eta) - P_0^s(\eta)| \leq Ce^{-\alpha^s x} && x \geq 0 \\
+|P^u_+(x; \eta) - P_0^u(\eta)| \leq Ce^{-\alpha^s x} && x \geq 0 \\
+|P^s_-(x; \eta) - P_0^s(\eta)| \leq Ce^{\alpha^u x} && x \leq 0 \\
+|P^u_-(x; \eta) - P_0^u(\eta)| \leq Ce^{\alpha^u x} && x \leq 0 \\
+\end{align*}
+
+where $P_0^s(\eta)$ and $P_0^u(\eta)$ are the eigenprojections for the equilibrium at 0 in the weighted space. 
+
+\end{lemma}
+
+We make the following hypothesis.
+
+\begin{hypothesis}
+There exists a unique bounded solution $V_\eta(x)$ to the weighted variational equation \eqref{vareq}.
+\end{hypothesis}
+
+This unique bounded solution must be given by $V_\eta(x) = e^{\eta x} Q'(x)$, since the unweighted  variational equation has solution $Q'(x)$, given by
+
+\begin{equation}
+Q'(x) = (q'(x), q''(x), q'''(x), q''''(x), q'''''(x))^T.
+\end{equation}
+
+It follows that the weighted adjoint variational equation \eqref{adjvareq} has a unique bounded solution $\Psi_\eta(x)$. Since we have a solution $\Psi(x)$ to the unweighted adjoint variational equation given by
+
+\begin{equation}\label{Psi}
+\Psi(x) = \begin{pmatrix}
+q''''(x) - q''(x) + (-2q(x) + c)q(x)\\
+-q'''(x) + q'(x) \\
+q''(x) - q(x) \\
+-q'(x) \\
+q(x)
+\end{pmatrix}
+\end{equation}
+
+the unique bounded solution to \eqref{adjvareq} must be given by $\Psi_\eta(x) = e^{-\eta x}\Psi(x)$.
+
 \subsection{Piecewise Ansatz}
 
 Let the multi-pulse $q_n(x; c)$ be constructed as in Theorem \ref{multiexist} with peak distances $2 X_1, \dots, 2 X_{n-1}$. Let $X_0 = X_n = \infty$. Following \cite{Sandstede1998}, we will construct our ansatz piecewise on the $2n$ intervals
@@ -264,7 +340,7 @@ q_n(x) = q(x) + r_i^\pm(x)
 where for the remainder term, we have the uniform bound from Theorem \ref{multiexist}
 
 \begin{equation}\label{ripmbound}
-|r_i^\pm(x)| &= e^{-\alpha X_m} 
+|r_i^\pm(x)| = e^{-\alpha X_m} 
 \end{equation}
 
 which holds for all derivatives of $r_i^\pm(x)$. Returning to the first-order system, we make the piecewise ansatz 
@@ -284,9 +360,14 @@ W_i^+(X_i) - W_{i+1}^-(-X_i) &= D_i(\eta) d
 
 where
 
+\begin{equation}\label{Aeta}
+A(u(x); \eta) = A(u(x)) + \eta I
+\end{equation}
+
+and
+
 \begin{equation}\label{Did}
-A(u(x); \eta) &= A(u(x)) + \eta I
-D_i(\eta) d &= d_{i+1} e^{-\eta X_i}[ Q_n'(-X_i) + \lambda \partial_c Q_n(-X_i)] 
+D_i(\eta) d = d_{i+1} e^{-\eta X_i}[ Q_n'(-X_i) + \lambda \partial_c Q_n(-X_i)] 
 - d_i e^{\eta X_i}[ Q_n'(X_i) + \lambda \partial_c Q_n(X_i)] 
 \end{equation}
 
@@ -301,7 +382,7 @@ H(x) &= e^{\eta x} \partial_c Q(x)
 Then the system we will investigate is
 
 \begin{align*}
-(W_i^\pm)' &= A(q_n(x); \eta) W_i^\pm + \lambda B W_i^\pm + \lambda^2  \tilde{H} \\
+(W_i^\pm)' &= A(q_n(x); \eta) W_i^\pm + \lambda B W_i^\pm + \lambda^2 \tilde{H} \\
 W^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
 W^+(0) - W^-(0) &\in \C \psi(0) \\
 W_i^+(X_i) - W_{i+1}^-(-X_i) &= D_i(\eta) d
@@ -312,7 +393,9 @@ In the next lemma, we show some estimates similar to that in Lemma 3.1 in Sandst
 % estimates lemma
 
 \begin{lemma}\label{estimates}
+
 We have the estimates
+
 \begin{align*}
 |G_i^\pm(x; \eta)| &\leq C|R_i^\pm(x)| \leq C e^{-\alpha X_m} \\
 | \tilde{H}_i^\pm(x)  - H(x) | & \leq C | e^{\eta x} R_i^\pm(x)| \leq C e^{-(\alpha - \eta) X_m}  \\
@@ -347,26 +430,194 @@ Adapting Lemma 2.6 in \cite{Sandstede1998}, we have
 
 \begin{align*}
 |R_{i+1}^-(-X_i) - Q(X_i)| \leq C e^{-2 \alpha X_m} \\
-|R_{i}^+(X_i) - Q(-X_i)| \leeq C e^{-2 \alpha X_m}
+|R_{i}^+(X_i) - Q(-X_i)| \leq C e^{-2 \alpha X_m}
 \end{align*}
 
 which hold as well for derivatives with respect to $x$ and $c$. Substituting these into the expression for $D_i d$
 
 \begin{align*}
-D_i d &= d_{i+1} e^{-\eta X_i} \left[ Q'(X_i) + Q'(-X_i) + \lambda( \partial_c Q(X_i) + \partial_c Q_c(-X_i)) + \mathcal{O} \left( e^{-2 \alpha X_m} \right) ] \\
-&- d_i e^{\eta X_i} \left[ Q'(X_i) + Q'(-X_i) + \lambda( \partial_c Q(X_i) + \partial_c Q_c(-X_i)) + \mathcal{O} \left( e^{-2 \alpha X_m} \right) ]
+D_i d &= d_{i+1} e^{-\eta X_i} \left[ Q'(X_i) + Q'(-X_i) + \lambda( \partial_c Q(X_i) + \partial_c Q_c(-X_i)) + \mathcal{O} \left( e^{-2 \alpha X_m} \right) \right] \\
+&- d_i e^{\eta X_i} \left[ Q'(X_i) + Q'(-X_i) + \lambda( \partial_c Q(X_i) + \partial_c Q_c(-X_i)) + \mathcal{O} \left( e^{-2 \alpha X_m} \right) \right]
 \end{align*}
 
 Finally, since $\partial_c Q(\pm X_i)$ is of order $e^{-\alpha X_i}$, this becomes
 
 \begin{align*}
 D_i d &= ( Q'(X_i) + Q'(-X_i) )(d_{i+1} e^{-\eta X_i} - d_i e^{\eta X_i})
-+ \mathcal{O} \left( e^{-(\alpha - \eta) X_m}\left( |\lambda| +  e^{-\alpha X_m} \right) |d| \right),
++ \mathcal{O} \left( e^{-(\alpha - \eta) X_m}\left( |\lambda| +  e^{-\alpha X_m} \right) |d| \right)
 \end{align*}
 
 which is estimate (iii).
 
 \end{proof}
+\end{lemma}
+
+We are now in position to use Lin's method, following \cite{Sandstede1998}. The only differences between what we have and the situation in \cite{Sandstede1998} is that the term $\lambda \tilde{H}$ is replaced by $\lambda^2 \tilde{H}$, and the estimate for $D_i d$ takes a slightly different form. Thus we can adapt Lemma 3.6 in \cite{Sandstede1998}. Recalling that $e^{-\eta x}\Psi(x)$ is the unique bounded solution to the adjoint variational equation, we can use Lin's method to obtain a unique, piecewise smooth solution $(W_i^\pm, d_i)$ with $n$ jumps which are given by
+
+\begin{align*}
+
+\end{align*}
+
+The remainder term has bound
+
+\begin{align*}
+|(R&(\lambda)d)_i| \leq C \left( (e^{-\alpha X_m} + |G| + |\lambda|)^2 |D| + (e^{-\alpha X_m} + |G| + ||\tilde{H}_i - H|| + |\lambda| )|\lambda^2| \right)|d|
+\end{align*}
+
+\subsection{The Substitution}
+
+Finally, we substitute our expressions for $D_i$, $\Psi_\eta$, $\tilde{H}$, and $H$ into the jump equations. The Melnikov integral term is given by
+
+\begin{align*}
+M &= \int_{-\infty}^{\infty} \langle \Psi_\eta(y), H(y) \rangle dy \\
+&= \int_{-\infty}^{\infty} \langle e^{-\eta y} \Psi(y), e^{-\eta y} B \partial_c q(y) \rangle dy \\
+&= \int_{-\infty}^{\infty} e^{-\eta y} q(y), e^{-\eta y} \partial_c q(y) dy \\
+&= \int_{-\infty}^{\infty} q(y) \partial_c q(y) dy \\
+&= \int_{-\infty}^{\infty} \partial_c \left( \frac{1}{2} q(y)^2 \right) dy
+\end{align*}
+
+For the terms involving $d_i$, we use the estimate from Lemma \ref{estimates}.
+
+\begin{align*}
+\langle \Psi_\eta(X_i), &P_0^u D_i d \rangle
+= \langle e^{-\eta X_i} \Psi(X_i), P_0^u( Q'(X_i) + Q'(-X_i) )(d_{i+1} e^{-\eta X_i} - d_i e^{\eta X_i}) + \mathcal{O} \left( e^{-(\alpha - \eta) X_m}\left( |\lambda| +  e^{-\alpha X_m} \right) |d| \right) \rangle \\
+&= \langle \Psi(X_i), Q'(-X_i) \rangle ( e^{-2 \eta X_i}d_{i+1} - d_i ) + \mathcal{O} \left( e^{-(\alpha - \eta) X_m}\left( |\lambda| +  e^{-\alpha X_m} \right) |d| \right)
+\end{align*}
+
+where we used the fact that $\Psi(-X_i) \perp Q'(-X_i)$. The other term is similar.
+
+\begin{align*}
+\langle \Psi_\eta(-X_{i-1}), P_0^s D_{i-1} d \rangle 
+&= \langle \Psi(-X_{i-1}), Q'(X_{i-1}) \rangle (d_i - e^{2 \eta X_{i-1}} d_{i-1} ) + \mathcal{O} \left( e^{-(\alpha - \eta) X_m}\left( |\lambda| +  e^{-\alpha X_m} \right) |d| \right)
+\end{align*}
+
+For the remainder bound, using Lemma \ref{estimates} and the fact that $|D| = \mathcal{O}(e^{-(\alpha - \eta)X_m}|d|)$, we have
+
+\begin{align*}
+|(R&(\lambda)d)_i| \leq C 
+\left( (e^{-\alpha X_m} + |\lambda|)^2 e^{-(\alpha - \eta)X_m}  
++ (e^{-\alpha X_m} + |\lambda| )|\lambda^2| \right)|d|
+\end{align*}
+
+Finally, using the expressions for $Q'(x)$ and $\Psi(x)$ and the fact that $q(x)$ is an even function, we have
+
+\[
+\langle \Psi(-X), Q'(X) \rangle = -\langle \Psi(X), Q'(-X) \rangle
+\]
+
+Using this relation with the jump expression and combining the various remainder terms into a single remainder term $\tilde{R}(\lambda)_i$ gives us our final jump expressions
+
+\begin{align*}
+\xi_i & = \langle \Psi(X_i), Q'(-X_i) \rangle ( e^{-2 \eta X_i}d_{i+1} - d_i ) 
+- \langle \Psi(X_{i-1}), Q'(-X_{i-1}) \rangle (d_i - e^{2 \eta X_{i-1}} d_{i-1} ) - \lambda^2 d_i M  + (\tilde{R}(\lambda)d)_i \\
+|(\tilde{R}(\lambda)d)_i| &\leq C 
+\left( (e^{-\alpha X_m} + |\lambda|)^2 e^{-(\alpha - \eta)X_m}  
++ (e^{-\alpha X_m} + |\lambda| )|\lambda^2| \right)|d|
+\end{align*}
+
+Let 
+
+\[
+a_i = \langle \Psi(X_i), Q'(-X_i) \rangle
+\]
+
+Then we can write the jump equations as
+
+\[
+\xi_i = a_i ( e^{-2 \eta X_i}d_{i+1} - d_i ) 
+- a_{i-1} (d_i - e^{2 \eta X_{i-1}} d_{i-1} ) - \lambda^2 d_i M  + (\tilde{R}(\lambda)d)_i \\
+\]
+
+We have a smooth solution to the eigenvalue problem when all $n$ jumps are 0. We can write the $n$ jump conditions in matrix form as
+
+\[
+S_\eta(\lambda)d = (A_\eta - \lambda^2 M I + \tilde{R}(\lambda))d = 0
+\]
+
+where $A_\eta$ is the tri-diagonal matrix
+
+\[
+A_\eta = \begin{pmatrix}
+-a_1 & e^{-2 \eta X_1} a_1 \\
+e^{2 \eta X_1} a_1 & -a_2 - a_1 & e^{-2 \eta X_2} a_2 \\
+& e^{2 \eta X_2} a_2 & -a_3 - a_2 & e^{-2 \eta X_3} a_3 \\
+\vdots & & & \vdots \\
+& & & e^{2 \eta X_{n-1}} a_{n-1} & -a_{n-1} 
+\end{pmatrix}
+\]
+
+Thus we have a nontrivial solution if and only if $\det S_\eta(\lambda) = 0$.\\
+
+However, we are not finished, since we would like (and we expect) the jump conditions to be independent of the choice of weight $\eta$. We prove that this is the case in the next lemma.
+
+% Lemma : jump conditions
+
+\begin{lemma}
+We have a nontrivial solution if and only if $\det S(\lambda) = 0$, where
+
+\[
+S(\lambda) = A - \lambda^2 M I + R(\lambda)
+\]
+
+the matrix $A$ is given by
+
+\begin{equation}\label{defA}
+A = \begin{pmatrix}
+-a_1 & a_1 \\
+a_1 & -a_2 - a_1 & a_2 \\
+& a_2 & -a_3 - a_2 & a_3 \\
+\vdots & & & \vdots \\
+& & & a_{n-1} & -a_{n-1} 
+\end{pmatrix}
+\end{equation}
+
+and we have bound
+
+\begin{equation}
+||R(\lambda)|| &\leq C 
+\left( (e^{-\alpha X_m} + |\lambda|)^2 e^{-(\alpha - \eta)X_m}  
++ (e^{-\alpha X_m} + |\lambda| )|\lambda^2| \right)
+\end{equation}
+
+\begin{proof}
+There is probably a much more elegant way to show this, but this one should work. For any nonsingular matrix $T$, $\det S_\eta(\lambda) = \det T^{-1} S_\eta(\lambda) T$. All we need to do is choose the appropriate matrix $T$. Let $T &= U_1 U_2 \dots U_{n-1}$, where the $U_i$ are the elementary matrices
+
+\begin{align*}
+U_1 &= \text{diag}(1, e^{2 \eta X_1}, 1, \dots, 1) \\
+U_2 &= \text{diag}(1, 1, e^{2 \eta (X_1 + X_2)}, \dots, 1) \\
+&\vdots \\
+U_{n-1} &= \text{diag}(1, 1, \dots, e^{2 \eta (X_1 + X_2 + \dots + X_{n-1})}) \\
+\end{align*}
+
+First, we look at $T^-1 A_\eta T = U_{n-1}^{-1} \dots U_2^{-1} U_1^{-1} A_\eta U_1 U_2 \dots U_{n-1}$. We perform the multiplication from inside to outside. For the innermost multiplication,
+
+\begin{align*}
+U_1^{-1} A_\eta U_1 &= \begin{pmatrix}
+-a_1 & e^{2 \eta X_1} e^{-2 \eta X_1} a_1 \\
+e^{-2 \eta X_1} e^{2 \eta X_1} a_1 & e^{2 \eta X_1} e^{-2 \eta X_1}(-a_2 - a_1) & e^{-2 \eta X_1}e^{-2 \eta X_2} a_2 \\
+& e^{2 \eta X_1} e^{2 \eta X_2} a_2 & -a_3 - a_2 & e^{-2 \eta X_3} a_3 \\
+\vdots & & & \vdots \\
+& & & e^{2 \eta X_{n-1}} a_{n-1} & -a_{n-1} 
+\end{pmatrix}\\
+&= \begin{pmatrix}
+-a_1 & a_1 \\
+a_1 & -a_2 - a_1 & e^{-2 \eta (X_1+X_2)} a_2 \\
+& e^{2 \eta (X_1+X_2)} a_2 & -a_3 - a_2 & e^{-2 \eta X_3} a_3 \\
+\vdots & & & \vdots \\
+& & & e^{2 \eta X_{n-1}} a_{n-1} & -a_{n-1} 
+\end{pmatrix}
+\end{align*}
+
+Repeat this $n-2$ more times to get $T^{-1} A_\eta T = A$. Since $M I$ is diagonal, we can see that $T^{-1} MI T = MI$. Finally, for the remainder term, let $R(\lambda) = T^{-1} \tilde{R}(\lambda)T$. Then we have 
+
+\begin{align*}
+||T^{-1} \tilde{R}(\lambda)T|| \leq ||T^{-1} ||\:|| \tilde{R}(\lambda)||\:||T|| = || \tilde{R}(\lambda)||
+\end{align*}
+
+Thus $R(\lambda)$ has the same bound as $\tilde{R}(\lambda)$. Combining all of these gives us the result.
+
+\end{proof}
+
 \end{lemma}
 
 
