@@ -455,7 +455,10 @@ which is estimate (iii).
 We are now in position to use Lin's method, following \cite{Sandstede1998}. The only differences between what we have and the situation in \cite{Sandstede1998} is that the term $\lambda \tilde{H}$ is replaced by $\lambda^2 \tilde{H}$, and the estimate for $D_i d$ takes a slightly different form. Thus we can adapt Lemma 3.6 in \cite{Sandstede1998}. Recalling that $e^{-\eta x}\Psi(x)$ is the unique bounded solution to the adjoint variational equation, we can use Lin's method to obtain a unique, piecewise smooth solution $(W_i^\pm, d_i)$ with $n$ jumps which are given by
 
 \begin{align*}
-
+\xi_i &= \langle \Psi_\eta(X_i), P_0^u D_i d \rangle
++ \langle \Psi_\eta(-X_{i-1}), P_0^u D_{i-1} d \rangle
+- \lambda^2 d_i \int_{-\infty}^\infty \langle \Psi_\eta(y), H(y) \rangle dy
++ (R(\lambda)d)_i
 \end{align*}
 
 The remainder term has bound
@@ -574,13 +577,13 @@ a_1 & -a_2 - a_1 & a_2 \\
 and we have bound
 
 \begin{equation}
-||R(\lambda)|| &\leq C 
+||R(\lambda)|| \leq C 
 \left( (e^{-\alpha X_m} + |\lambda|)^2 e^{-(\alpha - \eta)X_m}  
 + (e^{-\alpha X_m} + |\lambda| )|\lambda^2| \right)
 \end{equation}
 
 \begin{proof}
-There is probably a much more elegant way to show this, but this one should work. For any nonsingular matrix $T$, $\det S_\eta(\lambda) = \det T^{-1} S_\eta(\lambda) T$. All we need to do is choose the appropriate matrix $T$. Let $T &= U_1 U_2 \dots U_{n-1}$, where the $U_i$ are the elementary matrices
+There is probably a much more elegant way to show this, but this one should work. For any nonsingular matrix $T$, $\det S_\eta(\lambda) = \det T^{-1} S_\eta(\lambda) T$. All we need to do is choose the appropriate matrix $T$. Let $T = U_1 U_2 \dots U_{n-1}$, where the $U_i$ are the elementary matrices
 
 \begin{align*}
 U_1 &= \text{diag}(1, e^{2 \eta X_1}, 1, \dots, 1) \\
@@ -617,7 +620,6 @@ Repeat this $n-2$ more times to get $T^{-1} A_\eta T = A$. Since $M I$ is diagon
 Thus $R(\lambda)$ has the same bound as $\tilde{R}(\lambda)$. Combining all of these gives us the result.
 
 \end{proof}
-
 \end{lemma}
 
 
