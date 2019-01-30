@@ -175,7 +175,7 @@ For $c > 0$, by the Weyl essential spectrum theorem \cite[Theorem 2.2.6]{Kapitul
 
 Unfortunately, the linearization of \eqref{KdV5c} about the trivial solution $u = 0$ is not hyperbolic since $L(0)$ has an eigenvalue of 0. Thus we cannot directly apply the results of \cite{Sandstede1998}. To get around this problem, we will use an exponentially weighted space.
 
-\subsection{Exponentially Weighted Spaces}\label{sec:background}
+\subsection{Exponentially Weighted Spaces}\label{sec:expwt}
 
 We will pose our eigenvalue problem in the exponentially weighted space $H_\eta^k(\R)$, where $\eta$ is the exponential weight, and the norm of the space is given by
 
@@ -247,21 +247,128 @@ In the weighted space, these become
 (-e^{\eta x} \partial_c Q_n)' &= (A(q_n(x)) + \eta I) (-e^{\eta x} \partial_c Q_n) + B e^{\eta x} Q_n'
 \end{align*}
 
-Returning to the weighted eigenvalue problem, we make the piecewise ansatz (on the same pieces as in \cite{Sandstede1998})
+\subsection{Piecewise Ansatz}
+
+Let the multi-pulse $q_n(x; c)$ be constructed as in Theorem \ref{multiexist} with peak distances $2 X_1, \dots, 2 X_{n-1}$. Let $X_0 = X_n = \infty$. Following \cite{Sandstede1998}, we will construct our ansatz piecewise on the $2n$ intervals
+
+\[
+(-X_0, 0], [0, X_1], [-X_1, 0], \dots, [0, X_{n-1}], [-X_{n-1}, 0], [0, X_n) 
+\]
+
+On these intervals, we can then write the multi-pulse $q_n$ piecewise as
+
+\[
+q_n(x) = q(x) + r_i^\pm(x)
+\]
+
+where for the remainder term, we have the uniform bound from Theorem \ref{multiexist}
+
+\begin{equation}\label{ripmbound}
+|r_i^\pm(x)| &= e^{-\alpha X_m} 
+\end{equation}
+
+which holds for all derivatives of $r_i^\pm(x)$. Returning to the first-order system, we make the piecewise ansatz 
 
 \[
 V_i^\pm = d_i (e^{\eta x} Q' + \lambda e^{\eta x} \partial_c Q) + W_i^\pm
 \]
 
-where the $d_i$ are constants which we will solve for.
-
-Plugging this into the eigenvalue problem, we have
+where the $d_i$ are constants which we will solve for. Plugging this into the eigenvalue problem and simplifying using the relations above, $(W_i^\pm, d_i)$ solves
 
 \begin{align*}
-(W^\pm)' &= A(q, \eta)W^\pm + \lambda B (e^{\eta x} Q') + \lambda B W^\pm \\
+(W_i^\pm)' &= A(q_n(x); \eta) W_i^\pm + \lambda B W_i^\pm + \lambda^2 e^{\eta x} \partial_c Q_n \\
 W^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
-W^+(0) - W^-(0) &\in \C \psi(0) 
+W^+(0) - W^-(0) &\in \C \psi(0) \\
+W_i^+(X_i) - W_{i+1}^-(-X_i) &= D_i(\eta) d
 \end{align*}
+
+where
+
+\begin{equation}\label{Did}
+A(u(x); \eta) &= A(u(x)) + \eta I
+D_i(\eta) d &= d_{i+1} e^{-\eta X_i}[ Q_n'(-X_i) + \lambda \partial_c Q_n(-X_i)] 
+- d_i e^{\eta X_i}[ Q_n'(X_i) + \lambda \partial_c Q_n(X_i)] 
+\end{equation}
+
+Finally, let 
+
+\begin{align*}
+G_i^\pm(x; \eta) &= A(q_n(x); \eta) - A(q(x); \eta) \\
+\tilde{H}_i^\pm(x) &= e^{\eta x} \partial_c Q_n(x) \\
+H(x) &= e^{\eta x} \partial_c Q(x)
+\end{align*}
+
+Then the system we will investigate is
+
+\begin{align*}
+(W_i^\pm)' &= A(q_n(x); \eta) W_i^\pm + \lambda B W_i^\pm + \lambda^2  \tilde{H} \\
+W^\pm(x) &\in \C \psi(0) \oplus Y^+ \oplus Y^- \\
+W^+(0) - W^-(0) &\in \C \psi(0) \\
+W_i^+(X_i) - W_{i+1}^-(-X_i) &= D_i(\eta) d
+\end{align*}
+
+In the next lemma, we show some estimates similar to that in Lemma 3.1 in Sandstede (1998).
+
+% estimates lemma
+
+\begin{lemma}\label{estimates}
+We have the estimates
+\begin{align*}
+|G_i^\pm(x; \eta)| &\leq C|R_i^\pm(x)| \leq C e^{-\alpha X_m} \\
+| \tilde{H}_i^\pm(x)  - H(x) | & \leq C | e^{\eta x} R_i^\pm(x)| \leq C e^{-(\alpha - \eta) X_m}  \\
+D_i d &= ( Q'(X_i) + Q'(-X_i) )(d_2 e^{-\eta X_i} - d_1 e^{\eta X_i}) + \mathcal{O} \left( e^{-(\alpha - \eta) X_m}\left( |\lambda| +  e^{-\alpha X_m} \right) |d| \right) \\
+\end{align*}
+where $X_m = \min\{X_1, \dots, X_n\}$.
+
+\begin{proof}
+Since 
+
+\begin{align*}
+G_i^\pm(x; \eta) = A(q_n(x); \eta) - A(q(x); \eta) &= (A(q_n(x)) + \eta I) - (A(q(x)) + \eta I) \\
+&= A(q_n(x)) - A(q(x)) \\
+&= A(r_i^\pm(x))
+\end{align*}
+
+$G_i^\pm(x) = \mathcal{O}(r_i^\pm(x)|)$, for which we have the bound \eqref{ripmbound}. The estimate (ii),
+
+\[
+\tilde{H}_i^\pm(x)  - H(x) = e^{\eta x} \partial_c R_i^\pm(x),
+\]
+and the bound follows \eqref{ripmbound}. For estimate (iii), we first write $D_i d$ as
+
+\begin{align*}
+D_i d &= d_{i+1} e^{-\eta X_i}[ Q_n'(-X_i) + \lambda \partial_c Q_n(-X_i)] 
+- d_i e^{\eta X_i}[ Q_n'(X_i) + \lambda \partial_c Q_n(X_i)]  \\
+&= d_{i+1} e^{-\eta X_i} [ Q'(-X_i) + \lambda \partial_c Q(-X_i) + (R_{i+1}^-)'(-X_i) + \lambda  \partial_c R_{i+1}^-(-X_i)] \\
+&- d_i e^{\eta X_i} [ Q'(X_i) + \lambda \partial_c Q(X_i) + (R_i^+)'(X_i) + \lambda \partial_c R_i^+(X_i)] 
+\end{align*}
+
+Adapting Lemma 2.6 in \cite{Sandstede1998}, we have
+
+\begin{align*}
+|R_{i+1}^-(-X_i) - Q(X_i)| \leq C e^{-2 \alpha X_m} \\
+|R_{i}^+(X_i) - Q(-X_i)| \leeq C e^{-2 \alpha X_m}
+\end{align*}
+
+which hold as well for derivatives with respect to $x$ and $c$. Substituting these into the expression for $D_i d$
+
+\begin{align*}
+D_i d &= d_{i+1} e^{-\eta X_i} \left[ Q'(X_i) + Q'(-X_i) + \lambda( \partial_c Q(X_i) + \partial_c Q_c(-X_i)) + \mathcal{O} \left( e^{-2 \alpha X_m} \right) ] \\
+&- d_i e^{\eta X_i} \left[ Q'(X_i) + Q'(-X_i) + \lambda( \partial_c Q(X_i) + \partial_c Q_c(-X_i)) + \mathcal{O} \left( e^{-2 \alpha X_m} \right) ]
+\end{align*}
+
+Finally, since $\partial_c Q(\pm X_i)$ is of order $e^{-\alpha X_i}$, this becomes
+
+\begin{align*}
+D_i d &= ( Q'(X_i) + Q'(-X_i) )(d_{i+1} e^{-\eta X_i} - d_i e^{\eta X_i})
++ \mathcal{O} \left( e^{-(\alpha - \eta) X_m}\left( |\lambda| +  e^{-\alpha X_m} \right) |d| \right),
+\end{align*}
+
+which is estimate (iii).
+
+\end{proof}
+\end{lemma}
+
 
 \bibliography{suspension.bib}
 
