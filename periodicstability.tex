@@ -451,14 +451,14 @@ Next, we will construct solutions to the eigenvalue problem and its adjoint prob
 
 This is the version from Zum2018.
 
-\begin{lemma}\label{gaplemma}
-Let $W \in \C^N$, and consider the family of ODEs on $R^-$
+\begin{lemma}[Gap Lemma]\label{gaplemma}
+Let $W \in \C^N$, and consider the family of ODEs on $\R$
 
 \begin{equation}\label{LambdaEVP}
 W(x)' = A(x; \Lambda) W
 \end{equation}
 
-where $\Lambda \in \Omega \subset C^m$. Assume that
+where $\Lambda \in \Omega \subset C^m$ is a parameter vector. Assume that
 
 \begin{enumerate}
 	\item The map $\Lambda \mapsto A(\cdot; \Lambda)$ is analytic in $\Lambda$.
@@ -483,7 +483,7 @@ V(x; \Lambda) = V^-(\Lambda) + \mathcal{O}(e^{-\tilde{\theta}|x|}|V^-(\Lambda)|)
 \end{align}
 
 \begin{proof}
-This is identical to Zum2018, and is only here for my own edification.\\
+This is identical to Zum2018, and is only put here for my own edification.\\
 
 Let $W(x; \Lambda) = V(x; \Lambda) e^{\mu(\Lambda) x}$. Substituting this into \eqref{LambdaEVP} and simplifying, we obtain the equivalent ODE
 
@@ -532,7 +532,7 @@ Since $e^{-(\theta - \theta_1)M} \rightarrow 0$ as $m \rightarrow \infty$, for s
 |TV_1(x; \Lambda) - TV_2(x; \Lambda)|_{L^\infty(-\infty, -M]} &\leq \frac{1}{2} ||V_1(x; \Lambda) - V_2(x; \Lambda)||_{L^\infty(-\infty, -M]} 
 \end{align*}
 
-Thus the map $T$ is a contaction. Since $L^\infty(-\infty, -M]$ is a Banach space, by the Banach fixed point theorem, the map $T$ has a unique fixed point $V = TV$, i.e. we have a function $V \in L^\infty(-\infty, -M]$ such that 
+Thus the map $T$ is a contraction. Since $L^\infty(-\infty, -M]$ is a Banach space, by the Banach fixed point theorem, the map $T$ has a unique fixed point $V = TV$, i.e. we have a function $V \in L^\infty(-\infty, -M]$ such that 
 
 \begin{align*}
 V(x; \lambda) &= V^-(\Lambda) 
@@ -592,11 +592,150 @@ At the moment, $V(x; \Lambda)$ is only defined for $x < -M$. We extend $V(x; \La
 \end{proof}
 \end{lemma}
 
+% Conjugation Lemma
+
+We will probably also need the Conjugation Lemma, which allows us to make a change of coordinates to make our lives easier.
+
+\begin{lemma}[Conjugation Lemma]
+Let $W \in \C^N$, and consider the family of ODEs on $\R$
+
+\begin{equation}\label{EVPconj}
+W(x)' = A(x; \Lambda) W
+\end{equation}
+
+where $\Lambda \in \Omega \subset C^m$ is a parameter vector. Take the same assumptions as in the Gap Lemma, i.e. 
+
+\begin{enumerate}
+	\item The map $\Lambda \mapsto A(\cdot; \Lambda)$ is analytic in $\Lambda$.
+	\item $A(x; \Lambda) \rightarrow A_\pm(\lambda)$ (independent of $\Lambda$) as $x \rightarrow \pm \infty$, and for $|\Lambda| < \delta$ we have the uniform exponential decay estimates 
+	\begin{align}
+	\left| \frac{\partial^k}{\partial x^k} A(x; \Lambda) - A_\pm(\Lambda) \right| 
+	&\leq C e^{-\theta |x|} && 0 \leq k \leq K
+	\end{align}
+	where $\alpha > 0$, $C > 0$, and $K$ is a nonnegative integer,.
+\end{enumerate}
+
+Then in a neighborhood of any $\Lambda_0 \in \Omega$ there exist invertible linear transformations
+\begin{align*}
+P_+(x, \Lambda) &= I + \Theta_+(x, \Lambda) \\
+P_-(x, \Lambda) &= I + \Theta_-(x, \Lambda) 
+\end{align*}
+defined on $\R^+$ and $\R^-$, respectively, such that
+\begin{enumerate}[(i)]
+\item The change of coordinates $W = P_\pm Z$ reduces \eqref{EVPconj} to the constant-coefficient equations
+\begin{align}\label{conjZ}
+Z' &= A^\pm Z && x \in \R^\pm
+\end{align}
+\item For any fixed $0 < \tilde{\theta} < \theta$, $0 \leq k \leq K+1$., and $j \geq 0$ we have the decay rates
+\begin{align*}
+\left| \partial_\Lambda^j \partial_x^k \Theta^\pm \right| \leq C(j, k)e^{-\tilde{\theta}|x|}
+\end{align*}
+\end{enumerate}
+\begin{proof}
+We will do the case on $\R^-$. The other case is similar. 
+Let $W = P_-(x, \Lambda) Z$, where we will figure out what $P_-(x, \Lambda)$ is later. Suppose that \eqref{conjZ} holds, and substitute these into \eqref{EVPconj}.
+
+\begin{align*}
+[P_-(x, \Lambda) Z(x)]' &= A(x; \Lambda)(P_-(x, \Lambda) Z(x)) \\
+P_-'(x, \Lambda) Z(x) + P_-(x, \Lambda) Z'(x)
+&= A(x; \Lambda)P_-(x, \Lambda) Z(x) \\
+P_-'(x, \Lambda) Z(x) + P_-(x, \Lambda) A_- Z(x)
+&= A(x; \Lambda)P_-(x, \Lambda) Z(x)
+\end{align*}
+
+Rearranging this, we obtain
+
+\begin{equation}
+P_-'(x, \Lambda) Z(x)
+&= [A(x; \Lambda)P_-(x, \Lambda) - P_-(x, \Lambda) A_-]Z(x)
+\end{equation}
+
+Suppose now that
+\[
+P_-'(x, \Lambda) = A(x; \Lambda)P_-(x, \Lambda) - P_-(x, \Lambda) A_-
+\]
+
+Then, upon making the substitution $W = P_-(x, \Lambda) Z$, \eqref{EVPconj} reduces to
+
+\begin{align*}
+[P_-(x, \Lambda) Z(x)]' &= A(x; \Lambda)(P_-(x, \Lambda) Z(x)) \\
+P_-'(x, \Lambda) Z(x) + P_-(x, \Lambda) Z'(x)
+&= A(x; \Lambda)P_-(x, \Lambda) Z(x) \\
+(A(x; \Lambda)P_-(x, \Lambda) - P_-(x, \Lambda) A_-)Z(x) + P_-(x, \Lambda) Z'(x)
+&= A(x; \Lambda)P_-(x, \Lambda) Z(x) \\
+A(x; \Lambda)P_-(x, \Lambda)Z(x) - P_-(x, \Lambda) A_- Z(x) + P_-(x, \Lambda) Z'(x)
+&= A(x; \Lambda)P_-(x, \Lambda) Z(x) \\
+P_-(x, \Lambda) Z'(x) &= P_-(x, \Lambda) A_- Z(x) \\
+Z'(x) &= A_- Z(x)
+\end{align*}
+
+which is what we want. In the last line, we used the fact that $P_-(x, \Lambda)$ is inverible, so we should make sure that is the case. Thus, we wish to find $P_-(x, \Lambda)$ such that
+
+\[
+P_-'(x, \Lambda) = A(x; \Lambda)P_-(x, \Lambda) - P_-(x, \Lambda) A_-
+\]
+
+We note that the this equation has the form 
+
+\begin{equation}\label{solvePminus}
+P_-'(x, \Lambda) = \mathcal{A}(x; \Lambda) P_-(x, \Lambda)
+\end{equation}
+
+where $\mathcal{A}(x; \Lambda)$ is the linear operator
+
+\[
+\mathcal{A}(x; \Lambda) P = A(x; \Lambda) P - P A_-
+\]
+
+By our assumptions on $A(x; \Lambda)$, $\mathcal{A} \rightarrow \mathcal{A}_-$ as $x \rightarrow -\infty$, where the limiting linear operator $\mathcal{A}_-$ is defined by
+
+\[
+\mathcal{A}_- P = A_- P - P A_-
+\]
+
+The limiting operator has analytic eigenvalue/eigenvector pair $0, I$ for all $\Lambda$, thus by the Gap Lemma, there exists a solution of \eqref{solvePminus} of the form 
+
+\begin{equation}
+P_-(x, \Lambda) = I + \mathcal{O}(e^{-\tilde{\theta}|x|})
+\end{equation}
+
+In other words, 
+
+\begin{equation}
+P_-(x, \Lambda) = I + \Theta_-(x, \Lambda)
+\end{equation}
+
+where 
+
+\begin{equation}\label{Thetabound}
+|\Theta_-(x, \Lambda)| \leq C e^{-\tilde{\theta}|x|}
+\end{equation}
+
+The $x$-derivative bound follow from the derivative bounds in the Gap Lemma, and the $\Lambda$-derivative bounds follow from standard analytic function theory.\\
+
+Finally, we need to show invertibility of $P_-(x, \Lambda)$ for all $x \in \R^-$. Using \eqref{Thetabound}, we can find $M$ sufficiently large and negative such that for all $x \leq M$,
+
+\[
+|\Theta_-(x, \Lambda)| < 1/2
+\]
+
+It follows that $P_-(x, \Lambda)$ is invertible for $X \leq M$. To extend invertibility to all $x \in \R^-$, suppose that $P_-(x, \Lambda)^{-1}$ exists for all $x \in R^-$. Then, differentiating $P_-(x, \Lambda)^{-1} P_-(x, \Lambda) = I$ and solving for $[P_-(x, \Lambda)^{-1}]'$ (as in the proof of the inverse function theorem), we have (suppressing the dependence on $\Lambda$ for convenience)
+
+\begin{align*}
+(P_-^{-1})'(x) &= -P_-^{-1}(x)P_-'(x)P_-^{-1}(x) \\
+&= -P_-^{-1}(x)( A(x)P_-(x) - P_-(x) A_-)P_-^{-1}(x) \\
+&= A_- P_-^{-1}(x) - A(x) P_-^{-1}(x)
+\end{align*}
+
+We have a solution to this ODE for $x \leq M$, and by variation of constants, this ODE has a unique solution for all $x \in \R^-$. Thus $P_-(x, \Lambda)^{-1}$ is obtained for all $x \in \R^-$ by evolving this ODE forward from an initial condition at some $x \leq M$. In this manner, we have shown that $P_-(x, \Lambda)^{-1}$ exists for all $x \in \R^-$.
+
+\end{lemma}
+
 % Lemma : Gap Lemma
 
 This is the version we use.
 
-\begin{lemma}\label{gaplemma}
+\begin{lemma}\label{gaplemma2}
 Let $V \in \C^N$, and consider the family of ODEs on $R^-$
 
 \begin{equation}\label{paramEVP}

@@ -57,7 +57,7 @@
 
 \subsection{Background}\label{sec:background}
 
-The fifth-order Korteweg-de Vries equation (KdV5) is a nonlinear, dispersive partial differential equation which is used to model physical phenomena such as capillary-gravity water waves and plasma waves. There are many versions of this equation. The one we will study is
+The fifth-order Korteweg-de Vries equation (KdV5) is a nonlinear, dispersive partial differential equation which is used to model physical phenomena such as capillary-gravity water waves and plasma waves. There are many versions of this equation. The one we will study is from \cite{Pelinovsky2007}.
 
 \begin{equation}\label{KdV5}
 u_t = u_{xxxxx} - u_{xxx} - 2 u u_x
@@ -81,15 +81,15 @@ Equation \eqref{KdV5c} is Hamiltonian, with energy given by
 E(u) = -\int_{-\infty}^{\infty} \left( \frac{1}{2}u_{xx}^2 + \frac{1}{2}u_x^2 + \frac{1}{2}cu^2 - \frac{1}{3}u^3 \right) dx
 \end{equation}
 
-and \eqref{KdV5c} can be written in standard Hamiltonian form as
+and can be written in standard Hamiltonian form as
 
 \[
-u_t = \partial_x E'(u)
+u_t = \partial_x E'(u),
 \]
 
 where the operator $\partial_x$ is skew-symmetric. It is not hard to show that the energy $E(u)$ is conserved (in time).\\
 
-An equilibrium solution to \eqref{suspc} satisfies the 5th order nonlinear ODE
+An equilibrium solution to \eqref{KdV5c} satisfies the 5th order nonlinear ODE
 
 \begin{equation}\label{eqODE}
 u_{xxxxx} - u_{xxx} + c u_x - 2 u u_x = 0
@@ -109,7 +109,7 @@ H(u, u', u'', u''') = u'u''' - \frac{1}{2}(u'^2) - \frac{1}{2}(u'')^2 + \frac{c}
 
 It is not hard to show that $H$ is conserved (in $x$).\\
 
-The linearization of \eqref{eqODE4} about a given solution $u_*$ of \eqref{eqODE4} is given by the operator
+The linearization of the 4th order ODE \eqref{eqODE4} about a given solution $u_*$ of \eqref{eqODE4} is given by the operator
 
 \begin{equation}\label{defA0}
 A_0(u^*) = \partial_x^4 - \partial_x^2 + c - 2 u^* 
@@ -123,9 +123,13 @@ For the linearization about the trivial solution $u^* = 0$, the eigenvalues are 
 
 Since two eigenvalues have positive real part and two have negative real part, the equibrium at 0 is hyperbolic with a two-dimensional stable manifold and a two-dimensional unstable manifold. For $0 < c < 1/4$, all four eigenvalues are real. A bifurcation takes place at $c = 1/4$, and for $c > 1/4$, there is a quartet of eigenvalues of the form $\pm \alpha \pm \beta i$, where $\alpha, \beta > 0$.\\
 
+\subsection{Existence of Multi-Pulse Solutions}
+
 A primary pulse solution connects the stable and unstable manifolds. Its existence is given in the following theorem. The proof involves the mountain pass technique.
 
-\begin{theorem}[Groves98, Chug07]\label{singleexist}
+% theorem : existence of single pulse
+
+\begin{theorem}[\cite{Groves1998},\cite{Pelinovsky2007}]\label{singleexist}
 \[\]
 \begin{enumerate}[(i)]
 \item For $c>0$, a primary pulse solution $q(x; c)$ exists to \eqref{eqODE4}. This solution is smooth, even, and decays exponentially to 0 as $x \rightarrow \pm \infty$.
@@ -133,9 +137,11 @@ A primary pulse solution connects the stable and unstable manifolds. Its existen
 \end{enumerate}
 \end{theorem}
 
-We are interested in the existence and stability of multi-pulse equilibrium solutions to \eqref{KdV5}. A multi-pulse is a localized, multi-modal solution $q_n(x; c) $to \eqref{eqODE4} which resembles multiple, well-separated copies of the primary pulse $q(x; c)$. The existence of multi-pulse solutions is given in the following theorem, which is adapted from SanStrut
+We are interested in the existence and stability of multi-pulse equilibrium solutions to \eqref{KdV5}. A multi-pulse is a localized, multi-modal solution $q_n(x; c)$ to \eqref{eqODE4} which resembles multiple, well-separated copies of the primary pulse $q(x; c)$. The existence of multi-pulse solutions is given in the following theorem, which is adapted from \cite{Sandstede1997}.
 
-\begin{theorem}\label{multiexist}[SanStrut]
+% theorem : existence of multi-pulses
+
+\begin{theorem}[\cite{Sandstede1997}]\label{multiexist}
 Let $q(x; c)$ be a localized solution to \eqref{eqODE4}, with $c > 1/4$. Recall that the spectrum of $A_0(0)$ is given by $\nu = \pm \alpha \pm \beta i$, where $\alpha, \beta > 0$. Then for any $n \geq 2$ and any sequence of nonnegative integers $k_1, \dots, k_{n-1}$ with at least one of the $k_j \in \{0, 1 \}$, there exists a nonnegative integer $m_0$ and $\delta > 0$ such that
 \begin{enumerate}[(i)]
 	\item For any integer $m$ with $m \geq m_0$, there exists a unique $n-$modal solution $q_n(x, c)$ to \eqref{eqODE4} which is of the form
@@ -165,7 +171,7 @@ By Theorem \ref{singleexist}, $q(x; c)$ is a transversely-constructed, localized
 \end{proof}
 \end{theorem}
 
-To determine linear PDE stability of the multi-pulse solutions constructed in Theorem \ref{multiexist}, we look at the linearization of the PDE \eqref{KdV5c} about $q_n(x; c)$. Substituting the usual lineariazation ansatz $u(x, t) = e^{\lambda t} v(x)$ into \eqref{KdV5c} and simplifying, we obtain the PDE eigenvalue problem $L(q_n(x)) v = \lambda v$, where
+To determine linear PDE stability of the multi-pulse solutions constructed in Theorem \ref{multiexist}, we look at the linearization of the PDE \eqref{KdV5c} about the multi-pulse $q_n(x; c)$. Substituting the usual lineariazation ansatz $u(x, t) = e^{\lambda t} v(x)$ into \eqref{KdV5c} and simplifying, we obtain the PDE eigenvalue problem $L(q_n(x)) v = \lambda v$, where
 
 \begin{equation}\label{PDEeig}
 L(q_n(x)) = \partial_x A_0(q_n(x)) = \partial_x^5 - \partial_x^5 + c \partial_x - 2 q_n \partial_x - 2 \partial_x q_n  
@@ -210,13 +216,13 @@ e^{-\eta x} U' - \eta e^{-\eta x}U &= A(q_n(x))e^{-\eta x}U + \lambda B e^{-\eta
 U' &= (A(q_n(x)) + \eta I) U + \lambda B U
 \end{align*}
 
-Renaming $U$ back to $V$, the weighted eigenvalue problem is
+Renaming $U$ back to $V$, the weighted eigenvalue problem, as a first-order system, is
 
 \begin{equation}\label{weightedeig}
 V' = (A(q_n(x)) + \eta I)V + \lambda B V
 \end{equation}
 
-We see that each row of $V$ is $(\partial_x - \eta)$ operated on the previous row, which is consistent with how we have defined our exponentially weighted space. We also note that the weight $\eta$ shifts the (spatial) eigenvalues by $\eta$ (in the direction given by the sign of $\eta$). 
+We note that each row of $V$ is $(\partial_x - \eta)$ operated on the previous row, which is consistent with how we have defined our exponentially weighted space. We also note that the weight $\eta$ shifts the (spatial) eigenvalues by $\eta$ (in the direction given by the sign of $\eta$).\\
 
 Before we go too much further, we need to choose $\eta$. For the linearization about the zero-solution, recall that the nonzero eigenvalues of $A(0)$ are given by
 
@@ -224,7 +230,7 @@ Before we go too much further, we need to choose $\eta$. For the linearization a
 \nu = \pm \sqrt{ \frac{1 \pm \sqrt{1 - 4c} }{2}}
 \]
 
-Two have positive real part and two have negative real part, and these are negatives of each other. Let $\alpha > 0$ be the smallest real part of the unstable eigenvalues, so $-\alpha$ is the largest real part of the stable eigenvalues. Since the primary pulse (and all its derivatives) decays asymptotally exponentially with rate equal to or faster than $\alpha$ (i.e. $|e^{-\alpha |x|} q(x)|$ is bounded), we need to choose $\eta$ with either $0 < \eta < \alpha$ or $-\alpha < \eta < 0$ so that $q(x)$ (and its derivatives) still decays in the exponentially weighted space. Since it does not matter which one we choose, we will take $0 < \eta < \alpha$. Thus the eigenvalues of $A(0) + \eta I$ lie outside the open interval $(-\alpha + \eta, \eta)$.\\
+Two have positive real part and two have negative real part, and these are negatives of each other. Let $\alpha > 0$ be the smallest real part of the unstable eigenvalues, so $-\alpha$ is the largest real part of the stable eigenvalues. Since the primary pulse (and all its derivatives) decays asymptotally exponentially with rate equal to or faster than $\alpha$ (i.e. $|e^{-\alpha |x|} q(x)|$ is bounded), we need to choose $\eta$ with either $0 < \eta < \alpha$ or $-\alpha < \eta < 0$ so that $q(x)$ (and its derivatives) still decays in the exponentially weighted space. Since it does not matter which one we choose, we will choose any $\eta$ with $0 < \eta < \alpha$. Thus the eigenvalues of $A(0) + \eta I$ lie outside the open interval $(-\alpha + \eta, \eta)$, and so $A(0) + \eta I$ is hyperbolic.\\
 
 Recall that in the unweighted space, $L(q_n)$ has a kernel with algebraic multiplicy 2 and geometric multiplicity 1. The eigenfunction and generalized eigenfunction are given by
 
@@ -233,7 +239,7 @@ L(q_n) q_n' &= 0 \\
 L(q_n) (-\partial_c q_n) &= q_n'
 \end{align*}
 
-In the first-order system, these become
+Written in a first-order system, these become
 
 \begin{align*}
 (Q_n')' &= A(q_n) Q_n' \\
@@ -253,15 +259,112 @@ Finally, consider the variational equation and adjoint variational equation
 V' &= (A(q(x)) + \eta I)V \label{vareq} \\
 W' &= -(A(q(x)) + \eta I)^* W \label{adjvareq}
 \end{align}
-  
-Let $\Phi(x, y; \eta)$ be the evolution operator for the variational equation. 
 
-Then we decompose $\Phi(x, y; \eta)$ in an exponential dichotomy according to the following lemma, which is the same as Lemma 3.2 in \cite{Sandstede1998}.
+We make the following hypothesis.
+
+\begin{hypothesis}\label{uniquevar}
+There exists a unique bounded solution $V_\eta(x)$ to the weighted variational equation \eqref{vareq}.
+\end{hypothesis}
+
+This unique bounded solution must be given by $V_\eta(x) = e^{\eta x} Q'(x)$, since the unweighted variational equation has solution $Q'(x)$, given by
+
+\begin{equation}
+Q'(x) = (q'(x), q''(x), q'''(x), q''''(x), q'''''(x))^T.
+\end{equation}
+
+It follows that the weighted adjoint variational equation \eqref{adjvareq} has a unique bounded solution $\Psi_\eta(x)$. Since we have a solution $\Psi(x)$ to the unweighted adjoint variational equation given by
+
+\begin{equation}\label{Psi}
+\Psi(x) = \begin{pmatrix}
+q''''(x) - q''(x) + (-2q(x) + c)q(x)\\
+-q'''(x) + q'(x) \\
+q''(x) - q(x) \\
+-q'(x) \\
+q(x)
+\end{pmatrix}
+\end{equation}
+
+the unique bounded solution to \eqref{adjvareq} must be given by $\Psi_\eta(x) = e^{-\eta x}\Psi(x)$.\\
+
+At this point, we can state the stability result, which is the main result of this section.
+
+\subsection{Location of Interaction Eigenvalues}
+
+The following theorem gives the location of the small eigenvalues for the PDE eigenvalue problem posed in an exponentially weighted space. The result is almost identical to Theorem 2 in \cite{Sandstede1998}. The proof will be presented in a later section. Before we present the theorem, we require one more hypothesis.
+
+\begin{hypothesis}\label{Melnikovnonzero}
+The following higher-order Melnikov integral is nonzero.
+\begin{equation}\label{Melnikov2}
+M = \int_{-\infty}^{\infty} q(y) \partial_c q(y) dy \neq 0
+\end{equation}
+\end{hypothesis}
+
+\begin{theorem}\label{multistab}
+Assume Hypotheses \ref{uniquevar} and \ref{Melnikovnonzero}, and let $c > 1/4$. Let $q_n(x; c)$ be an $n$-pulse solution as characterized in Theorem \ref{multiexist} with associated lengths $X_1, \dots, X_{n-1}$. Then there exists a bounded, nonzero solution $V$ of the weighted eigenvalue problem \eqref{weightedeig} with weight $0 < \eta < \alpha$ for $\lambda$ close to 0 if and only if $\det S(\lambda) = 0$, where
+
+\[
+S(\lambda) = A - \lambda^2 M I + R(\lambda).
+\]
+
+The matrix $A$ is given by
+
+\begin{equation}\label{defA}
+A = \begin{pmatrix}
+-a_1 & a_1 \\
+a_1 & -a_2 - a_1 & a_2 \\
+& a_2 & -a_3 - a_2 & a_3 \\
+\vdots & & & \vdots \\
+& & & a_{n-1} & -a_{n-1} 
+\end{pmatrix}
+\end{equation}
+
+where $a_i = \langle \Psi(X_i), Q'(-X_i) \rangle$. The remainder term $R(\lambda)$ is analytic in $\lambda$ and has bound
+
+\begin{equation}
+||R(\lambda)|| \leq C 
+\left( (e^{-\alpha X_m} + |\lambda|)^2 e^{-(\alpha - \eta)X_m}  
++ (e^{-\alpha X_m} + |\lambda| )|\lambda^2| \right)
+\end{equation}
+
+where $X_m = \min\{X_1, \dots, X_{n-1}\}$.
+
+\end{theorem}
+
+We will look in detail at the 2-pulse. Suppose $q_2(x; c)$ is a 2-pulse with distance $2 X_1$ between the two peaks. Then, to leading order, the matrix $S(\lambda)$ is given by
+
+\[
+S(\lambda) = \begin{pmatrix}
+-a_1 - M \lambda^2 & a_1  \\
+a_1 & -a_1 - M \lambda^2
+\end{pmatrix} + h.o.t.
+\]
+
+Thus we have, to leading order,
+
+\[
+\det S(\lambda) = M \lambda^2 (2 a_1 + M \lambda^2)
+\]
+
+There are two roots at $\lambda = 0$, which we know must always be there from the kernel eigenfunction $Q_2'(x)$. Thus the interaction eigenvalues are, to leading order, given by
+
+\[
+\lambda = \pm \sqrt{ -\frac{ 2 a_1 }{M} }
+\] 
+
+If $2 a_1/M < 0$, then we have two real roots (to leading order), one of which is positive. The remainder term can only move them a little bit, so we will always have one eigenvalue with positive real part, and so the 2-pulse will be spectrally unstable.\\
+
+If $2 a_1/M > 0$, then we have two purely imaginary roots, to leading order. However, in this case, these may move off the imaginary axis as a result of the small remainder term. Since we do not have Hamiltonian symmetry in the weighted problem, we cannot use that to conclude that these interaction eigenvalues must be on the imaginary axis.
+
+\subsection{Proof of Theorem \ref{multistab}}
+
+\subsubsection{Exponential Dichotomy}
+
+First, we look at the exponential dichotomy for the variational equation \eqref{vareq}. Let $\Phi(x, y; \eta)$ be the evolution operator for the variational equation. Then we decompose $\Phi(x, y; \eta)$ in an exponential dichotomy according to the following lemma, which is the same as Lemma 3.2 in \cite{Sandstede1998}.
 
 % lemma : exponential dichotomy 
 
 \begin{lemma}\label{dichotomy}
-The evolution $\Phi(x, y; \eta)$ can be decomposed in exponential dichotomies on $\R^+$ and $R^-$ as
+Let $\eta > 0$. Then the evolution $\Phi(x, y; \eta)$ of the variational equation \eqref{vareq} can be decomposed in exponential dichotomies on $\R^+$ and $\R^-$ as
 
 \begin{align*}
 \Phi(x, y; \eta) &= \Phi^s_+(x, y; \eta) + \Phi^u_+(x, y; \eta) && x, y \geq 0 \\
@@ -276,6 +379,8 @@ for which we have estimates
 |\Phi^s_-(y,x; \eta)| &\leq Ce^{-\alpha^s(y-x)} && x \leq y \leq 0 \\
 |\Phi^u_-(y,x; \eta)| &\leq Ce^{\alpha^u(y-x)}  && y \leq x \leq 0 \\
 \end{align*}
+
+where $\alpha^u = \eta$ and $\alpha^s = \alpha - \eta$
 
 The projection operators at $x$ are given by
 
@@ -297,33 +402,7 @@ where $P_0^s(\eta)$ and $P_0^u(\eta)$ are the eigenprojections for the equilibri
 
 \end{lemma}
 
-We make the following hypothesis.
-
-\begin{hypothesis}
-There exists a unique bounded solution $V_\eta(x)$ to the weighted variational equation \eqref{vareq}.
-\end{hypothesis}
-
-This unique bounded solution must be given by $V_\eta(x) = e^{\eta x} Q'(x)$, since the unweighted  variational equation has solution $Q'(x)$, given by
-
-\begin{equation}
-Q'(x) = (q'(x), q''(x), q'''(x), q''''(x), q'''''(x))^T.
-\end{equation}
-
-It follows that the weighted adjoint variational equation \eqref{adjvareq} has a unique bounded solution $\Psi_\eta(x)$. Since we have a solution $\Psi(x)$ to the unweighted adjoint variational equation given by
-
-\begin{equation}\label{Psi}
-\Psi(x) = \begin{pmatrix}
-q''''(x) - q''(x) + (-2q(x) + c)q(x)\\
--q'''(x) + q'(x) \\
-q''(x) - q(x) \\
--q'(x) \\
-q(x)
-\end{pmatrix}
-\end{equation}
-
-the unique bounded solution to \eqref{adjvareq} must be given by $\Psi_\eta(x) = e^{-\eta x}\Psi(x)$.
-
-\subsection{Piecewise Ansatz}
+\subsubsection{Piecewise Ansatz}
 
 Let the multi-pulse $q_n(x; c)$ be constructed as in Theorem \ref{multiexist} with peak distances $2 X_1, \dots, 2 X_{n-1}$. Let $X_0 = X_n = \infty$. Following \cite{Sandstede1998}, we will construct our ansatz piecewise on the $2n$ intervals
 
@@ -345,11 +424,13 @@ where for the remainder term, we have the uniform bound from Theorem \ref{multie
 
 which holds for all derivatives of $r_i^\pm(x)$. Returning to the first-order system, we make the piecewise ansatz 
 
-\[
+\begin{equation}\label{piecewiseansatz}
 V_i^\pm = d_i (e^{\eta x} Q' + \lambda e^{\eta x} \partial_c Q) + W_i^\pm
-\]
+\end{equation}
 
-where the $d_i$ are constants which we will solve for. Plugging this into the eigenvalue problem and simplifying using the relations above, $(W_i^\pm, d_i)$ solves
+where the $d_i$ are constants which we will solve for. We note that the simpler ansatz $V_i^\pm = d_i e^{\eta x} Q' + W_i^\pm$ which is used in \cite{Sandstede1998}will not work in this case since that leads to the Melnikov integral $\int_{-\infty}^\infty q(x) q'(x) dx$, which is zero.\\
+
+Plugging \eqref{piecewiseansatz} into the eigenvalue problem and simplifying using the relations above, $(W_i^\pm, d_i)$ solves
 
 \begin{align*}
 (W_i^\pm)' &= A(q_n(x); \eta) W_i^\pm + \lambda B W_i^\pm + \lambda^2 e^{\eta x} \partial_c Q_n \\
@@ -417,6 +498,7 @@ $G_i^\pm(x) = \mathcal{O}(r_i^\pm(x)|)$, for which we have the bound \eqref{ripm
 \[
 \tilde{H}_i^\pm(x)  - H(x) = e^{\eta x} \partial_c R_i^\pm(x),
 \]
+
 and the bound follows \eqref{ripmbound}. For estimate (iii), we first write $D_i d$ as
 
 \begin{align*}
@@ -452,7 +534,7 @@ which is estimate (iii).
 \end{proof}
 \end{lemma}
 
-We are now in position to use Lin's method, following \cite{Sandstede1998}. The only differences between what we have and the situation in \cite{Sandstede1998} is that the term $\lambda \tilde{H}$ is replaced by $\lambda^2 \tilde{H}$, and the estimate for $D_i d$ takes a slightly different form. Thus we can adapt Lemma 3.6 in \cite{Sandstede1998}. Recalling that $e^{-\eta x}\Psi(x)$ is the unique bounded solution to the adjoint variational equation, we can use Lin's method to obtain a unique, piecewise smooth solution $(W_i^\pm, d_i)$ with $n$ jumps which are given by
+We are now in position to use Lin's method, following \cite{Sandstede1998}. The only differences between what we have and the situation in \cite{Sandstede1998} is that the term $\lambda \tilde{H}$ is replaced by $\lambda^2 \tilde{H}$, and the estimate for $D_i d$ takes a slightly different form. Thus we can adapt Lemma 3.6 in \cite{Sandstede1998}. Recalling that $\Psi_\eta(x) = e^{-\eta x}\Psi(x)$ is the unique bounded solution to the adjoint variational equation, we can use Lin's method to obtain a unique, piecewise smooth solution $(W_i^\pm, d_i)$ with $n$ jumps which are given by
 
 \begin{align*}
 \xi_i &= \langle \Psi_\eta(X_i), P_0^u D_i d \rangle
@@ -623,7 +705,7 @@ Thus $R(\lambda)$ has the same bound as $\tilde{R}(\lambda)$. Combining all of t
 \end{lemma}
 
 
-\bibliography{suspension.bib}
+\bibliography{thesis.bib}
 
 
 \end{document}
