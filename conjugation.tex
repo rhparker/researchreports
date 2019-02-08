@@ -192,10 +192,13 @@ We then define the following.
 		\item The real part of any other eigenvalue of $A(0; \lambda)$ lies outside the interval $[-\alpha, \alpha]$.
 	\end{enumerate}
 
+	\item Let $\tilde{\alpha} = \alpha - 2 \rho > 0$.
+
 	\item Choose $X_m$ sufficiently large so that
 	\begin{equation}
 	e^{-\alpha X_m}, |\lambda|, ||\Delta H|| < \delta
 	\end{equation}
+
 \end{enumerate}
 
 Let $P^{u/s/c}_0(\lambda)$ be the eigenprojections for the unstable/stable/center subspaces of $A(0; \lambda)$, where the center subspace is a legit center subspace only when $\nu(\lambda)$ has no real part, e.g. when $\lambda = 0$. Let $\Phi(x, y; \lambda) = e^{A(0; \lambda)(x-y)}$ be the evolution of the constant-coefficient ODE
@@ -306,9 +309,9 @@ and
 \left|
 P_i^+(X_i; \lambda) \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \right| 
 &\leq C \int_0^{X_i} e^{-\alpha(X_i - y)}e^{-\alpha y} dy \\
-&\leq C \int_0^{X_i} e^{-\tilde{\alpha}(X_i - y)}e^{-\alpha y} dy \\
-&= C e^{-\tilde{\alpha} X_i} \int_0^{X_i} e^{-(\alpha - \tilde{\alpha}) y} dy \\ 
-&\leq C e^{-\tilde{\alpha} X_i} 
+&\leq C \int_0^{X_i} e^{-(\alpha - \rho)(X_i - y)}e^{-\alpha y} dy \\
+&= C e^{-(\alpha - \rho) X_i} \int_0^{X_i} e^{-\rho y} dy \\ 
+&\leq C e^{-(\alpha - \rho) X_i} 
 \end{align*}
 
 The ``negative'' terms are similar. Thus we have
@@ -320,14 +323,14 @@ D_i d &= a_i^+ - a_i^- + c_i^+ - c_i^- + L_1(\lambda)_i(b, d)
 where
 
 \[
-|L_1(\lambda)_i(b, c^-, d)| \leq C \Big( e^{-\alpha X_i} |a_i| + e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\tilde{\alpha} X_i} |\lambda^2| |d| \Big)
+|L_1(\lambda)_i(b, c^-, d)| \leq C \Big( e^{-\alpha X_i} |a_i| + e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-(\alpha - \rho) X_i} |\lambda^2| |d| \Big)
 \]
 
 Following San98 (and leaving out some steps), we can solve this for $(a, c^+)$ to get $(a_i, c_i^+) = A_1(\lambda)_i(b, c_i^-, d)$, with bound
 
 \begin{align*}
 |A_1&(\lambda)_i(b, c^-, d)|
-\leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + |c_i^-| + (e^{-\tilde{\alpha} X_i} |\lambda^2| + |D_i|)|d| \Big)
+\leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + |c_i^-| + (e^{-(\alpha - \rho) X_i} |\lambda^2| + |D_i|)|d| \Big)
 \end{align*} 
 
 As in San98, we hit this with projections on the various eigenspaces. The remainder term $A_2(\lambda)_i^c(b, d)$ is found by substituting the bound for $A_1$ into $L_1$ and simplifying. The only extra term we get by doing this is $e^{-\alpha X_i} |D_i|$. Thus we have
@@ -342,8 +345,20 @@ where we have bound
 
 \begin{align*}
 |A_2&(\lambda)_i(b, d)|
-\leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\tilde{\alpha} X_i} (|\lambda^2| + |D_i|)|d| \Big)
+\leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-(\alpha - \rho) X_i} (|\lambda^2| + |D_i|)|d| \Big)
 \end{align*} 
+
+For the third one, we would like to evaluate and get an estimate for $P_0^c(\lambda D_i d$. To do that, recall that we have the following expression for $D_i d$.
+
+\[
+D_i d = ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
+\]
+
+The only terms we have to deal with here are $Q'(X_i)$ and $Q'(-X_i)$. Since $Q'(X_i)$ lies in the tangent space of the stable manifold at $X_i$ and $X_i$ is large, it lies ``mostly'' in $E^s(0)$. Thus the component of $Q'(X_i)$ which doers not lie in $E^s(\lambda)$ should be $\mathcal{O}(|\lambda| + e^{-\alpha X_i}$. Since the same holds for $Q'(-X_i)$ and $E^u(0)$, and we have an estimate on $Q'(\pm X_i)$, we should have
+
+\[
+|P^0_c(\lambda) D_i d| \leq C \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
+\]
 
 \subsubsection*{Matching at 0}
 
@@ -425,7 +440,72 @@ Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + x_i^+ + y_i^+ + (\Phi^s(0, 0; \lambd
 + \lambda^2 d_i \int_{X_i}^0 \Phi^c(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
 \end{align*}
 
-etc.
+Now we hit these (and their difference) with the appropriate projections. All the projections will eliminate the $P^c(0) c_{i-1}^-$ and $P^c(0) c_i^+$ terms. Thus we are left with 
+
+\[
+\begin{pmatrix}x_i^- \\ x_i^+ \\ 
+y_i^+ - y_i^- \end{pmatrix} + L_4(\lambda)_i(b, c, d) = 0
+\]
+
+To get a bound on $L_4$, we need to bound the individual terms above. The bound on the integral terms is determined by the bound on the center subspace, since there is potential growth in that subspace.
+
+\begin{align*}
+\left| \lambda^2 d \int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \right| &\leq C |\lambda|^2 |d| \int_{-X_{i-1}}^0 e^{\rho y} e^{-\alpha y} dy \\
+&\leq C |\lambda|^2 |d|
+\end{align*}
+
+For the $a_i$ terms, we substitute the bound for $A_1(\lambda)$ to get
+
+\begin{align*}
+|\Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^-|
+&\leq C \Big( e^{-2 \alpha X_{i-1}} (|b_{i-1}^+| + |b_i^-|) + e^{-\alpha X_{i-1}}|c_{i-1}^-| + e^{-\alpha X_{i-1}}(e^{-\tilde{\alpha} X_{i-1}} |\lambda^2| + |D_{i-1}|)|d| \Big) \\
+|\Phi^u(0, X_i; \lambda) a_i^+|
+&\leq C \Big( e^{-2 \alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\alpha X_i} |c_i^-| + e^{-\alpha X_i} (e^{-\tilde{\alpha} X_i} |\lambda^2| + |D_i|)|d| \Big)
+\end{align*}
+
+We use the $A_2$ expression to eliminate $c_i^+$ to get
+
+\begin{align*}
+e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^- 
++ e^{-\nu(\lambda)X_i} P_0^c(\lambda) D_i d + e^{-\nu(\lambda)X_i} A_2(\lambda)_i^c(b, d)\\
+&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{\rho X_i} e^{-\alpha X_i} ( |\lambda| + e^{-\alpha X_i} ) |d|) + e^{-\tilde{\alpha} X_i}( |b_i^+| + |b_{i+1}^-| + |\lambda^2||d| + |D_i||d|) \Big) \\
+&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-\tilde{\alpha} X_i} ( |\lambda||d| + e^{-\alpha X_i} |d| + |b_i^+| + |b_{i+1}^-| + |\lambda^2||d| + |D_i||d|) \Big) \\
+&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-\tilde{\alpha} X_i} ( |b_i^+| + |b_{i+1}^-| + (|\lambda| + e^{-\alpha X_i} + |D_i| ) |d|) \Big) \\
+&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-\tilde{\alpha} X_i} ( |b_i^+| + |b_{i+1}^-| + (|\lambda| + |D_i| ) |d|) \Big) \\
+\end{align*}
+
+where we used the fact that $D_i = \mathcal{O}(e^{-\alpha X_i})$. Thus we have bound
+
+\begin{align*}
+L_2(\lambda)_i(b, \tilde{c}, d) \leq 
+C\Big( (|\lambda| + e^{-\tilde{\alpha}X_m})|b| 
++ (|\lambda| + e^{-\tilde{\alpha}X_{i-1}})|\tilde{c}_{i-1}|
++ (|\lambda| + e^{-\tilde{\alpha}X_i})|\tilde{c}_i|
++ (e^{-\tilde{\alpha}X_{i-1}}|D_{i-1}| + e^{-\tilde{\alpha}X_i}|D_i| 
++ |\lambda|^2)|d| \Big)
+\end{align*}
+
+where
+
+\[
+\tilde{c}_i^\pm = e^{\pm \nu(\lambda) X_i} c_i^-
+\]
+
+Peforming the inversion, we solve for $b$ to get $B_1(\lambda)(\tilde{c}, d)$, which has bound
+
+\begin{align*}
+|B_1(\lambda)_i(\tilde{c}, d)| \leq C \Big(
+(|\lambda| + e^{-\tilde{\alpha}X_{i-1}})|\tilde{c}_{i-1}|
++ (|\lambda| + e^{-\tilde{\alpha}X_i})|\tilde{c}_i|
++ (e^{-\tilde{\alpha}X_{i-1}}|D_{i-1}| + e^{-\tilde{\alpha}X_i}|D_i| 
++ |\lambda|^2)|d|
+\Big)
+\end{align*}
+
+Now that we have solved (uniquely) for everything except for the $c_i^-$ and $d$, we are ready to compute the jump conditions in the two directions.
+
+\subsubsection*{Jump in Y0 direction}
+
 
 \subsubsection*{Jump in Adjoint Direction, Bounded Adjoint}
 
