@@ -1,0 +1,645 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\ran}{ran}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\newtheorem{notation}{Notation}
+
+\graphicspath{ {discrete/} }
+
+\begin{document}
+
+\section*{Discrete NLS}
+
+We want to look at Lin's method for multipulses in the discrete case. The model equation here is discrete NLS, but we want something more general since the result for dNLS is already known (Pelinovsky and Kevrekidis, 2005). The idea is that if we can find an appropriate generalization and setup for Lin's method, we can check it on dNLS.\\
+
+Normalized form of dNLS is
+
+\begin{equation}
+i\dot{u}_n + \epsilon(u_{n+1} - 2 u_n + u_{n-1}) + |u_n|^2 u_n = 0
+\end{equation}
+
+the parameter $\epsilon$ represents the coupling between nodes, where the anticontinuum limit is given by $\epsilon = 0$. For this equation, we want to look for stationary solutions in a ``rotating'' frame, i.e. solutions of the form $\phi_n e^{i \omega t}$. To that end, we take $u_n \mapsto u_n e^{i \omega t}$ and simplify to get
+
+\begin{equation}
+i\dot{u}_n + \epsilon(u_{n+1} - 2 u_n + u_{n-1}) - \omega u_n + |u_n|^2 u_n = 0
+\end{equation}
+
+Stationary solutions then satisfy
+
+\begin{equation}
+\epsilon(u_{n+1} - 2 u_n + u_{n-1}) - \omega u_n + |u_n|^2 u_n = 0
+\end{equation}
+
+Before we continue, we let $u = v + i w$ and write dNLS as a two-dimensional system of equations by equating real and imaginary parts. For convenience, let $\Delta_2 u_n = (u_{n+1} - 2 u_n + u_{n-1})$. Then we have
+
+\begin{align*}
+\dot{v}_n &+ \epsilon \Delta_2 w_n - \omega w_n + v_n^2 w_n + w_n^3 = 0 \\
+-\dot{w}_n &+ \epsilon \Delta_2 v_n - \omega v_n + v_n w_n^2 + v_n^3 = 0 \\
+\end{align*}
+
+$u_n = 0$ (i.e. $v_n = w_n = 0$) clearly satisfies this. For now, suppose we have a (real-valued) pulse solution $(q_n, 0)$. Taking the standard linearization ansatz
+
+\[
+\begin{pmatrix}v \\ w\end{pmatrix}_n = 
+\begin{pmatrix}q \\ 0\end{pmatrix}_n + 
+\eta \begin{pmatrix}a \\ b\end{pmatrix}_n e^{\lambda t}
+\]
+
+we obtain, upon substitution and simplification, the eigenvalue problem
+
+\begin{align*}
+L^+ a_n &= \omega a_n - \epsilon \Delta_2 a_n - 3 q_n^2 a_n = -\lambda b_n \\
+L^- b_n &= \omega b_n - \epsilon \Delta_2 b_n - q_n^2 b_n = \lambda a_n
+\end{align*}
+
+We want to write this all as a difference equation. For that, we will need to expand to a fourth order system. Let $\tilde{a}_n = a_{n-1}$ and $\tilde{b}_n - b_{n-1}$. Substituting for $\Delta_2$, isolating the terms involving $n+1$, and dividing by $\epsilon$, we get
+
+\begin{align*}
+a_{n+1} &= \frac{1}{\epsilon}( \omega a_n - \epsilon (- 2 a_n + \tilde{a}_n) - 3 q_n^2 a_n + \lambda b_n ) \\
+b_{n+1} &= \frac{1}{\epsilon}( \omega b_n - \epsilon (b_{n+1} - 2 b_n + \tilde{b}_n) - q_n^2 b_n - \lambda a_n )
+\end{align*}
+
+In matrix form, this is
+
+\[
+\begin{pmatrix}
+a \\ \tilde{a} \\ b \\ \tilde{b}
+\end{pmatrix}_{n+1} =
+\frac{1}{\epsilon}
+\begin{pmatrix}
+\omega + 2 \epsilon - 3 q_n^2 & -\epsilon & \lambda & 0 \\
+\epsilon & 0 & 0 & 0 \\
+-\lambda & 0 & \omega + 2 \epsilon - q_n^2 & -\epsilon \\
+0 & 0 & \epsilon & 0
+\end{pmatrix}
+\begin{pmatrix}
+a \\ \tilde{a} \\ b \\ \tilde{b}
+\end{pmatrix}_{n}
+\]
+
+which is of the form $V(n+1) = A(n; \omega, \lambda) V_n$, where $V = (a, \tilde{a}, b, \tilde{b})$. Since $q_n$ decays to 0 (exponentially) at both ends, $A(n; \omega, \lambda)$ decays (exponentially) to the asymptotic matrix $A_\infty(\omega, \lambda)$ at both ends.
+
+\[
+A_\infty(\omega, \lambda) = 
+\frac{1}{\epsilon}
+\begin{pmatrix}
+\omega + 2 \epsilon & -\epsilon & \lambda & 0 \\
+\epsilon & 0 & 0 & 0 \\
+-\lambda & 0 & \omega + 2 \epsilon & -\epsilon \\
+0 & 0 & \epsilon & 0
+\end{pmatrix}
+\]
+
+For $\lambda = 0$, this becomes
+
+\[
+A_\infty(\omega, 0) = 
+\begin{pmatrix}
+\omega/\epsilon + 2 & -1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 0 & \omega/\epsilon + 2 & -1\\
+0 & 0 & 1 & 0
+\end{pmatrix}
+\]
+
+Since this is block diagonal with idential blocks, the eigenvalues of this are 
+
+\begin{align*}
+\nu_{1,2} &= 1 + \frac{\omega}{2 \epsilon} \pm \frac{1}{2 \epsilon} \sqrt{\omega(4 \epsilon + \omega)} \\
+&= 1 + \frac{\omega}{2 \epsilon} \left( 1 \pm \sqrt{1 + \frac{4 \epsilon}{\omega}} \right)
+\end{align*}
+each with algebraic multiplicity 2. For $\omega > 0$, since $\epsilon > 0$, we have $0 < \nu_1 < 1 < \nu_2$, i.e. $A_\infty(\omega, 0)$ is hyperbolic.\\
+
+As in San98, we separate out the $\lambda$ stuff and write the eigenvalue problem as
+
+\[
+V_{n+1} = A(n; \omega, 0) V_n + \lambda B V_n
+\]
+
+where
+
+\[
+B = 
+\begin{pmatrix}
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 \\
+-1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix}
+\]
+
+This looks good for Lin's method. Before we can do that, we need to know what is in the kernel of this. It is straightforward to see that $L^- q_n = 0$. By differentiating dNLS with respect to $\omega$, we also can see that $L^+ (-\partial_\omega q_n) = q_n$. Thus we should have an eigenvalue $\lambda = 0$ with algebraic multiplity 2 and geometric multiplicity 1. In other words, if we take $S = (0, 0, q, \tilde{q})^T$ and $T = (-\partial_\omega q, -\partial_\omega \tilde{q}, 0, 0)$, we have
+
+\begin{align*}
+S(n+1) &= A(n; \omega, 0) S(n) \\
+T(n+1) &= A(n; \omega, 0) T(n) + B S(n)
+\end{align*}
+
+\section*{AL-dNLS}
+
+Here we look at Ablowitz-Ladik dNLS. The version we use is from Kapitula (2001).
+
+\begin{equation}
+i\dot{u}_n + \epsilon(u_{n+1} - 2 u_n + u_{n-1}) - \omega u_n + |u_n|^2 (u_{n+1} + u_{n-1}) = 0
+\end{equation}
+
+Except for the last term, this is the same as dNLS. As with regular dNLS, let $u = v + i w$ and write this as a system of equations by equating real and imaginary parts. For convenience, let $\Delta_2 u_n = (u_{n+1} - 2 u_n + u_{n-1})$. Then this becomes
+
+\begin{align*}
+\dot{v}_n &+ \epsilon \Delta_2 w_n - \omega w_n + (v_n^2 + w_n^2)(w_{n+1} + w_{n-1}) = 0 \\
+-\dot{w}_n &+ \epsilon \Delta_2 v_n - \omega v_n + (v_n^2 + w_n^2)(v_{n+1} + v_{n-1}) = 0 \\
+\end{align*}
+
+Again, suppose we have a (real-valued) pulse solution $(q_n, 0)$. Taking the standard linearization ansatz
+
+\[
+\begin{pmatrix}v \\ w\end{pmatrix}_n = 
+\begin{pmatrix}q \\ 0\end{pmatrix}_n + 
+\eta \begin{pmatrix}a \\ b\end{pmatrix}_n e^{\lambda t}
+\]
+
+we obtain (after simplification)
+
+\begin{align*}
+L^+ a_n &= \epsilon \Delta_2 a_n - \omega a_n 
++ 2q_n(q_{n+1} + q_{n-1})a_n + q_n^2 (a_{n+1} + a_{n-1}) = \lambda b_n \\
+L^- b_n &= \epsilon \Delta_2 b_n - \omega b_n + q_n^2 (b_{n+1} + b_{n-1}) = -\lambda a_n
+\end{align*}
+
+As in regular dNLS, we have
+
+\begin{align*}
+L^- q_n &= 0 \\
+L^+(-\partial_\omega q_n) &= q_n 
+\end{align*}
+
+In the case of AL-dNLS, we also have kernel/generalized kernel eigenfunctions
+
+\begin{align*}
+L^+ \partial_\xi q_n &= 0 \\
+L^- (-q^*_n) &= \partial_\xi q_n
+\end{align*}
+
+where $\partial_\xi q_n$ is the derivative with respect to the translational variable $\xi$ (AL-dNLS is translation invariant, which I don't really understand, but it is in Kap2001 and the numerics confirm it), and $q^*$ is the generalized eigenfunction. Thus, if we take
+
+\begin{align*}
+S_1 &= (0, 0, q, \tilde{q})^T \\
+T_1 &= (-\partial_\omega q, -\partial_\omega \tilde{q}, 0, 0)^T \\
+S_2 &= (\partial_\xi q, \partial_\xi \tilde{q}, 0, 0)^T \\
+T_2 &= (0, 0, -q^*, -\tilde{q}^*)^T \\
+\end{align*}
+
+we have
+
+
+\section*{Generalization}
+
+Consider the lattice PDE on $\R^d$
+
+\[
+\dot{U}_n = F(U)
+\]
+
+where $F$ involves a finite number (greater than 1) of indices near $n$. We will write this more precisely later, though it does not matter for now.\\
+
+Consider the eigenvalue problem coming from the linearization about an $m-$pulse solution $q_m(n)$. This will be a difference equation in $\R^{d_2}$, which may a higher dimensional space than $\R^d$.
+
+\begin{align*}
+V(n+1) = A(q_m(n); \mu) V(n) + \lambda B V(n)
+\end{align*}
+
+where $\mu$ is some parameter, $B$ is a bounded matrix, and $A(q_m(n); \mu) \rightarrow A_\infty(\mu)$ exponentially at both ends. Take the following hypotheses
+
+\begin{hypothesis}\[\]
+\begin{enumerate}
+	\item $A_\infty(\mu)$ is hyperbolic for some $\mu$. Since we are in the discrete case, this means no eigenvalues on the unit circle.
+	\item $A(q_1(n); \mu)$ is invertible for all $n$. We need this so we can run the system backwards as well.
+	\item The variational equation $V(n+1) = A(q_1(n); \mu) V(n)$ has a unique bounded solution $S(n)$.
+\end{enumerate}
+\end{hypothesis}
+
+For now, we assume an $m-$pulse stationary solution $q_m$ to the discrete system exists which resembles $m$ copies of the primary pulse $q_1$ spliced together, but we allow for flips and stuff so we have a linear combination
+
+\[
+q_m(n) = \sum_{j = 1}^m c_j q_1(n - n_j) + \tilde{q}(n)
+\]
+
+where for now we assume the remainder is as small as we need. For dNLS, the $c_j$ must be $\pm 1$. For other equations, who knows? \\
+
+We want to write this piecewise following San98 and Knob00. To do that, let $N_i$ ($i = 1, \dots, m-1$) be the distances (in lattice points) between the $m$ pulses, and let
+
+\begin{align*}
+N_i^+ &= \lfloor \frac{N_i}{2} \rfloor \\
+N_i^- &= N_i - N_i^+
+\end{align*}
+
+In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. Then we can write the $m-$pulse piecewise as
+
+\begin{align*}
+&c_i q(n) + \tilde{q}_i^-(n) && n = (-N_{i-1}^-, 0] \\
+&c_i q(n) + \tilde{q}_i^+(n) && n = [0, N_i^+] \\
+\end{align*}
+
+for $i = 1, \dots, m$, where the pieces are spliced together end-to-end. We might eventually allow for $q(n)$ to be broken into $q^+, q^-$ as in San98 and Knob00, but we keep it simple for now. We also assume sufficient bounds on the remainder terms.\\
+
+Now consider the variational and adjoint variational equations
+
+\begin{align*}
+V(n+1) &= A(q_1(n); \mu) V(n) \\
+Z(n+1) &= [A(q_1(n); \mu)^*]^{-1} Z(n)
+\end{align*}
+
+We will assume that there are unique bounded solutions $S_1(n)$ and $Z(n)$ to these. We will also assume that one of the following holds.
+
+\begin{enumerate}[(i)]
+\item $S_m(n+1) = A(q_m(n); \mu) S_m(n)$, where $S_m$ is a perturbation of $S_1$ and can be written piecewise similarly to $Q_m$ and
+\[
+M_1 = \sum Z(n+1) S_1(n) \neq 0
+\]
+\item $S_m(n+1) = A(q_m(n); \mu) S_m(n)$ and $T_m(n+1) = A(q_m(n); \mu) T_m(n) + B S_m(n)$, where where $S_m$ and $T_m$ are perturbations of $S_1$ and $T_1$, and can be written piecewise similarly to $Q_m$ and
+\begin{align*}
+M_1 &= \sum Z(n+1) S_1(n) = 0 \\
+M_2 &= \sum Z(n+1) T_1(n) \neq 0 
+\end{align*}
+\end{enumerate}
+
+In case (i), we make the piecewise ansatz
+
+\[
+V_i^\pm(n) = d_i ( c_i S_1(n) + \tilde{S}_i^\pm(n) ) + W_i^\pm(n)
+\]
+
+Substituting this in, after simplification, we get
+
+\[
+W_i^\pm(n) = A(q_m) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda d_i c_i B S_1(n) + \lambda d_i B \tilde{S}_i^\pm(n)
+\]
+
+In case (ii), we make the piecewise ansats
+
+\[
+V_i^\pm(n) = d_i [ c_i S_1(n) + \tilde{S}_i^\pm(n) + \lambda(c_i T_1(n) + \tilde{T}_i^\pm(n))] + W_i^\pm(n)
+\]
+
+Substituting this in, after simplification, we get
+
+\[
+W_i^\pm(n) = A(q_m) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda^2 d_i c_i B T_1(n) + \lambda^2 d_i B \tilde{T}_i^\pm(n)
+\]
+
+These are almost identical, except for the one from (ii) involves $\lambda^2$ instead of $\lambda$. Thus we can look at (i), and (ii) will be similar.\\
+
+Adding and subtracting $A(a_i q_1)$, we have
+
+\[
+W_i^\pm(n) = A(a_i q_1) W_i^\pm(n) + (A(q_m) - A(c_i q_1)) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda d_i c_i B S_1(n) + \lambda d_i B \tilde{S}_i^\pm(n)
+\]
+
+Let
+
+\begin{align*}
+G_i^\pm &= A(q_n) - A(c_i q_1) \\
+\tilde{H}_i^\pm &= B( c_i S_1 + \tilde{S}_i^\pm ) \\
+H_i &= B c_i S_1
+\end{align*}
+
+Then our eigenvalue problem becomes
+
+\[
+W_i^\pm(n) = A(c_i q_1) W_i^\pm(n) + (G_i^\pm + \lambda B) W_i^\pm(n) + \lambda d_i B \tilde{H}_i^\pm(n)
+\]
+
+The system we want to solve is then 
+
+\begin{align*}
+W_i^\pm(n) &= A(c_i q_1) W_i^\pm(n) + (G_i^\pm + \lambda B) W_i^\pm(n) + \lambda d_i B \tilde{H}_i^\pm(n) \\
+W_i^\pm(0) &\in \C Z(0) \oplus Y^+ \oplus Y^- \\
+W_i^\pm(0) - W_i^- &\in \C Z(0) \\
+W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= D_i d
+\end{align*}
+
+where
+
+\[
+D_i d = [ c_{i+1} S_1(-N_i^-) + \tilde{S}_{i+1}^-(-N_i^-)] d_{i+1}
+- [ c_i S_1(N_i^+) + \tilde{S}_i^+(N_i^+)] d_i 
+\]
+
+(there will be higher order terms if $T$ is involved). At this point, we use Lin's method to get the jump equations. We (of course) have to go through all the rigamarole, but Knob2000 should guarantee we can do it.\\
+
+We follow the procedure in San98. Of course, there are important differences between this and the continuous-space version in San98, but for now we assume we have the results and estimates we need to make this work. Exponential dichotomy results will be key, and we should be able to cite a reference for these.\\
+
+We will need a version of variation of constants for the discrete setting. I'm sure there is a nice reference for this, but it's not hard to show. First, we define the discrete evolution operator in the linear case.
+
+% discrete evolution operator
+
+\begin{definition}
+For the linear difference equation
+\[
+V(n+1) = A(n) V(n)
+\]
+where $A(n)$ is invertible for all $n$, the discrete evolution operator is given by
+\[
+\Phi(m, n) = 
+\begin{cases}
+I & m = n \\
+A(m-1) \dots A(n+1) A(n) & m > n \\
+A^{-1}(m) \dots A^{-1}(n-2) A^{-1}(n-1) & m < n
+\end{cases}
+\]
+\end{definition}
+
+Since for a difference equation we are just iterating a map, this definition makes sense. We can easily check that this defines a flow. Let $\Psi(m, n)$ be the evolultion operator for the adjoint variational equation. Then since $Z(n) = A(q_1(n); \mu)^* Z(n+1)$, we can show 
+
+\[
+\Phi(m, n)^* = \Psi(n, m)
+\]
+
+Now we derive the variation of constants formula for this setting.
+
+\begin{lemma}
+Consider the IVP for the difference equation
+\begin{align*}
+V(n+1) &= A(n) V(n) + G(V(n), n) \\
+V(n_0) &= V_{n_0}
+\end{align*}
+Then the solution is given by
+\[
+V(n) = 
+\begin{cases}
+V_{n_0} & n = n_0 \\
+\Phi(n, n_0) V_{n_0} + \sum_{j = n_0}^{n-1} \Phi(n, j+1) G(V(j), j)) & n > n_0 \\
+\Phi(n, n_0) V_{n_0} - \sum_{j = n}^{n_0-1} \Phi(n, j+1) G(V(j), j)) & n < n_0 
+
+\end{cases}
+\]
+\begin{proof}
+For $n = n_0 + 1$,
+\[
+V(n_0 + 1) = A(n_0) V(n_0) + G(V(v_0), n_0) = \Phi(n_0+1, n_0) V_{n_0} + \Phi(n_0, n_0) G(V(v_0), n_0)
+\]
+keep repeating this to get the result for $n > n_0$. The case for $n < n_0$ is similar.
+\end{proof}
+\end{lemma}
+
+As in San98, we write this as a fixed point problem. We assume for now that we have an exponential dichotomy with appropriate projections $P_\pm^{s/u}(n)$, and $\Phi(m, n; c_i)^{s/u}_\pm$ is the appropriate evolution.
+
+\begin{align*}
+W_i^-(n) &= 
+\Phi_s^-(n, -N_{i-1}^-; c_i) a_{i-1}^- + \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; c_i)
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda d_i B \tilde{H}_i^-(j)]
+ \\
+&+ \Phi_u^-(n, 0; c_i) b_i^- - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) 
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda d_i B \tilde{H}_i^-(j)] \\
+W_i^+(n) &= \Phi_s^+(n, 0; c_i) b_i^+ + \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda d_i B \tilde{H}_i^+(j)] \\
+&+ \Phi_u^+(n, N_i^+; c_i) a_i^+ - \sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+where the sums are defined to be $0$ if the upper index is smaller than the lower index. Based on San98, we will guess the form of the jump equations. Of course, there is no guarantee this is right, but let's do it anyway. We will not include a remainder term, since that actually requires going through the estimates. For the jump equations, we evaluate
+
+\[
+\langle Z(0), W_i^-(0) - W_i^+(0) \rangle
+\]
+
+The leading order terms will be $a_i^\pm$ terms and the Melnikov sum, which comes from the integral terms involving $\tilde{H}$, which is approximately $H$. For the Melnikov sum, we have
+
+\begin{align*}
+\langle Z(0), &\sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) B \tilde{H}_i^-(j) + \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) B \tilde{H}_i^+(j) \rangle \\
+&\approx \sum_{j = -\infty}^\infty \langle Z(0), \Phi(0, j+1; c_i) c_i B H(j) \rangle \\
+&= \sum_{j = -\infty}^\infty \langle c_i Z(0), \Phi(0, j+1; c_i) B H(j) \rangle \\
+&= \sum_{j = -\infty}^\infty \langle c_i Z(j+1), B H(j) \rangle \\
+&= c_i M_1
+\end{align*}
+
+For the $a_i^\pm$ terms, we will first assume that an equivalent to Lemma 3.1 in San98 holds. The only difference is that the $c_i$ will come into play here. (This makes sense if you draw a picture.) Thus to leading order, we will take
+
+\[
+D_i d = [ c_{i+1} S_1(-N_i^-) + c_i S_1(N_i^+) ] d_{i+1}
+- [ c_i S_1(N_i^+) + c_{i+1} S_1(-N_i^-) ] d_i 
+\]
+
+Based on (3.49) in San98,
+
+\begin{align*}
+\langle Z(0), &\Phi_u^+(0, N_i^+; c_i) a_i^+ \rangle - \langle Z(0), \Phi_s^-(0, -N_{i-1}^-; c_i) a_{i-1}^- \rangle \\ 
+&\approx \frac{1}{c_i} \langle c_i Z(N_i^+), \Phi_u^+(0, N_i^+; c_i) a_i^+ \rangle - \frac{1}{c_i} \langle c_i Z(N_{i-1}^-), \Phi_s^-(0, -N_{i-1}^-; c_i) a_{i-1}^- \rangle \\
+&\approx \langle Z(N_i^+), a_i^+ \rangle - \langle Z(N_{i-1}^-), a_{i-1}^- \rangle \\
+&\approx \langle Z(N_i^+), P_0^u D_i d \rangle + \langle Z(N_{i-1}^-), P_0^s D_{i-1} d\rangle 
+\end{align*}
+
+Plugging in the estimate above, this becomes
+
+\[
+\langle Z(N_i^+), a_i^+ \rangle - \langle Z(N_{i-1}^-), a_{i-1}^- \rangle
+\approx c_{i+1} \langle Z(N_i^+), S_1(-N_i^-) \rangle (d_{i+1} - d_i)
++ c_i \langle Z(N_{i-1}^-), S_1(N_{i-1}^+) \rangle (d_i - d_{i-1})
+\]
+
+Thus we have the jump expressions
+
+\[
+\xi_i \approx c_{i+1} \langle Z(N_i^+), S_1(-N_i^-) \rangle (d_{i+1} - d_i)
++ c_{i-1} \langle Z(N_{i-1}^-), S_1(N_{i-1}^+) \rangle (d_i - d_{i-1}) - c_i \lambda M_1
+\]
+
+We can put this in matrix form as $(A - \lambda M_1 \text{diag}(c_i))d = 0$.\\
+
+For now, let's do the 2x2 case. Let
+
+\begin{align*}
+a_i &= \langle Z(N_i^+), S_1(-N_i^-) \rangle \\
+\tilde{a}_i &= \langle Z(-N_i^-), S_1(N_i^+) \rangle
+\end{align*}
+
+We will hope that (in the specific cases we will consider) there is a relationship between these. Then we have 
+
+\[
+A = \begin{pmatrix}
+-c_2 a_1 & c_2 a_1 \\
+-c_1 \tilde{a}_1 & c_1 \tilde{a}_1 \\
+\end{pmatrix}
+\]
+
+We want to the the determinant of $A - \lambda M_1 \text{diag}(c_i)$.
+
+\begin{align*}
+\det( A - \lambda M_1 \text{diag}(c_i)) &= \det \begin{pmatrix}
+-c_2 a_1 - c_1 M_1 \lambda & c_2 a_1 \\
+-c_1 \tilde{a}_1 & c_1 \tilde{a}_1 - c_2 M \lambda \\
+\end{pmatrix} \\
+&= M_1 \lambda ( c_1^2 a_1 - c_2^2 \tilde{a}_1 + c_1 c_2 M_1 \lambda )
+\end{align*}
+
+We will look at specific examples now.
+
+
+\section*{Lin for dNLS}
+
+For this problem, $M_1 = 0$ (unsurprisingly), so we will use the version with $M_2$ and $\lambda^2$.
+
+We can show that
+
+\begin{align*}
+Z &= (0, 0, -\tilde{q}, q) \\
+S_1 &= (0, 0, q, \tilde{q}) \\
+T_1 &= (q_\omega, \tilde{q}_\omega)
+\end{align*}
+
+The (second order) Melnikov sum is
+
+\[
+M_2 = \sum_j \langle Z(j+1), B T_1(j) \rangle = \sum_j q(j) q_\omega(j)
+\]
+
+Numerics suggests this is positive and not close to 0. There is probably no way to prove that, so we might need to assume this. Now we evaluate $a_i$ and $\tilde{a}_i$. Using what we have above and the fact that the primary pulse is even,
+
+\begin{align*}
+a_i &= \langle Z(N_i^+), S_1(-N_i^-) \rangle \\
+&= -\tilde{q}(N_i^+)q(-N_i^-) + q(N_i^+)\tilde{q}(-N_i^-) \\
+&= -q(N_i^+ - 1)q(-N_i^-) + q(N_i^+)(-N_i^- - 1) \\
+&= q(N_i^+)(N_i^- + 1) - q(N_i^+ - 1)q(N_i^-)\\
+\end{align*}
+
+and
+
+\begin{align*}
+\tilde{a}_i &= \langle Z(-N_i^-), S_1(N_i^+) \rangle \\
+&= -\tilde{q}(-N_i^-)q(N_i^+) + q(-N_i^-)\tilde{q}(N_i^+) \\
+&= -q(-N_i^- - 1)q(N_i^+) + q(-N_i^-)q(N_i^+ - 1) \\
+&= -q(N_i^- + 1)q(N_i^+) + q(N_i^-)q(N_i^+ - 1) \\
+&= -q(N_i^+)q(N_i^- + 1) + q(N_i^+ - 1)q(N_i^-) \\
+&= -a_i
+\end{align*}
+
+Since for dNLS we always have $c_i = \pm 1$, $c_i^2 = 1$. Thus the determinant is
+
+\begin{align*}
+\det( A - \lambda^2 M_2 \text{diag}(c_i)) &= 
+M_2 \lambda^2 ( c_1^2 a_1 + c_2^2 a_1 + c_1 c_2 M_2 \lambda^2 ) \\
+&= M_2 \lambda^2 ( 2 a_1 + c_1 c_2 M_2 \lambda^2 )
+\end{align*}
+
+Since we want the determinant to be 0, solving for $\lambda$, we get (other than $\lambda = 0$)
+
+\[
+\lambda = \pm \sqrt{ -c_1 c_2 \frac{2 a_1}{M_2}}
+\]
+
+We can easily determine the sign of $a_1$. For $N_i$ even, $N_i^+ = N_i^-$, so
+
+\begin{align*}
+a_i &= q(N_i^+)(N_i^+ + 1) - q(N_i^+ - 1)q(N_i^+)\\
+&= q(N_i^+)( q(N_i^+ + 1) - q(N_i^+ - 1))
+\end{align*} 
+
+This is negative, since the $q(n)$ decreases as $n$ increases from 0. For $N_i$ odd, $N_i^- = N_i^+ +1$, so
+
+\begin{align*}
+a_i &= q(N_i^+)q(N_i^+ + 2) - q(N_i^+ - 1)q(N_i^+ + 1)\\
+\end{align*}
+
+This is also negative for the same reason. Assuming that $M_2 > 0$ (suggested by numerics), then $\lambda$ is real if $c_1 = c_2$ (both pulses in the same direction) and purely imaginary if $c_1 = -c_2$ (pulses in opposite directions). This agrees with prior results and with numerics.\\
+
+We should be able to easily extend this to multi-pulses to get the known result.\\
+
+The stability result matches the numerics. The final check is to look at the decay rate of the magnitude of the interaction eigenvalues. For the numerics, we look at $\omega = 1$ and $\epsilon = 1$.\\
+
+Looking at our expression for $\lambda$, we see that the magnitude of $\lambda$ is proportional to $\sqrt{\alpha}$. Recall that the eigenvalues of the asymptotic matrix are given by
+
+\begin{align*}
+\nu_{1,2} &= 1 + \frac{\omega}{2 \epsilon} \left( 1 \pm \sqrt{1 + \frac{4 \epsilon}{\omega}} \right)
+\end{align*}
+
+It is straightforward to show that $\nu_1 \nu_2 = 1$. Thus, let $\nu$ be the one that is less than 1. For $N_i$ even, we have
+
+\[
+a_i \approx q(N_i^+)^2 \approx C \nu^{N_i^+}
+\] 
+
+Thus if we plot $\log \lambda$ vs $N^+$, we should get a slope of $\log \nu$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm]{dnlslog.eps}
+\label{fig:essspec1}
+\caption{Stable double pulse}
+\end{figure}
+
+Slope of best-fit line is $-0.9660$, $\log \nu = -0.9206$, error is about $0.05$, which is great!
+
+
+\section*{Lin for AL-dNLS}
+
+Since we have two kernel eigenfunctions, we make the piecewise ansatz
+
+\[
+V_i^\pm(n) = d_i [ c_i S_1(n) + \tilde{S}_i^\pm(n) + \lambda(c_i T_1(n) + \tilde{T}_i^\pm(n))] + \tilde{d}_i [ c_i S_2(n) + \tilde{S}_i^\pm(n) + \lambda(c_i T_2(n) + \tilde{T}_i^\pm(n))]+ W_i^\pm(n)
+\]
+
+where we need better notation for the remainder terms, but you get the idea. Then for the jumps, we need to solve the jump equations in two directions, given by the two solutions to the adjoint problem.
+
+\begin{align*}
+Z_1 &= (0, 0, -\tilde{q}, q) \\
+Z_2 &= (-\partial_\xi \tilde{q}, \partial_\xi q, 0, 0)
+\end{align*}
+
+The two Melnikov sums should be
+
+\begin{align*}
+M_1 &= \sum_j \langle Z_1(j+1), B T_1(j) \rangle = \sum_j q(j) q_\omega(j) \\
+M_2 &= \sum_j \langle Z_2(j+1), B T_2(j) \rangle = \sum_j q(j) q_\omega(j) \\
+\end{align*}
+
+I think what happens is that, due to the structure (symplectic?) of AL-dNLS, the $Z_1$ and $Z_2$ jumps are, to leading order, independent from each other, so the jump equations become
+
+\begin{align*}
+\xi_i \approx c_{i+1} \langle Z_1(N_i^+), S_1(-N_i^-) \rangle (d_{i+1} - d_i)
++ c_{i-1} \langle Z_1(N_{i-1}^-), S_1(N_{i-1}^+) \rangle (d_i - d_{i-1}) - c_i \lambda M_1 \\
+\tilde{\xi}_i \approx c_{i+1} \langle Z_2(N_i^+), S_2(-N_i^-) \rangle (\tilde{d}_{i+1} - \tilde{d}_i)
++ c_{i-1} \langle Z_2(N_{i-1}^-), S_2(N_{i-1}^+) \rangle (\tilde{d}_i - \tilde{d}_{i-1}) - c_i \lambda M_2
+\end{align*}
+
+\end{document}

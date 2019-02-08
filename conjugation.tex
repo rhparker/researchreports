@@ -1,0 +1,449 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\ran}{ran}
+
+\graphicspath{ {periodic/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\newtheorem{notation}{Notation}
+
+\begin{document}
+
+\subsection*{Conjugation Lemma}
+
+I am curious if we can use the Conjugation Lemma to simplify things. Here is a version of the Conjugation Lemma, which is adapted and cleaned up from Zum2018.
+
+\begin{lemma}[Conjugation Lemma]
+Let $W \in \C^N$, and consider the family of ODEs on $\R$
+
+\begin{equation}\label{LambdaEVPconj}
+W(x)' = A(x; \Lambda) W(x) + F(x) 
+\end{equation}
+
+where $\Lambda \in \Omega \subset C^m$ is a parameter vector. Take the same assumptions as in the Gap Lemma, i.e. 
+
+\begin{enumerate}
+	\item The map $\Lambda \mapsto A(\cdot; \Lambda)$ is analytic in $\Lambda$.
+	\item $A(x; \Lambda) \rightarrow A_\pm(\lambda)$ (independent of $\Lambda$) as $x \rightarrow \pm \infty$, and for $|\Lambda| < \delta$ we have the uniform exponential decay estimates 
+	\begin{align}
+	\left| \frac{\partial^k}{\partial x^k} A(x; \Lambda) - A_\pm(\Lambda) \right| 
+	&\leq C e^{-\theta |x|} && 0 \leq k \leq K
+	\end{align}
+	where $\alpha > 0$, $C > 0$, and $K$ is a nonnegative integer.
+\end{enumerate}
+
+Then in a neighborhood of any $\Lambda_0 \in \Omega$ there exist invertible linear transformations
+
+\begin{align*}
+P_+(x, \Lambda) &= I + \Theta_+(x, \Lambda) \\
+P_-(x, \Lambda) &= I + \Theta_-(x, \Lambda) 
+\end{align*}
+
+defined on $\R^+$ and $\R^-$, respectively, such that
+
+\begin{enumerate}[(i)]
+\item The change of coordinates $W = P_\pm Z$ reduces \eqref{LambdaEVPconj} to the equations on $\R^\pm$
+
+\begin{align}
+Z' = A^\pm(\Lambda) Z + G(x; \Lambda)
+\end{align}
+
+where
+
+\[
+G(x; \Lambda) = P_\pm (x, \Lambda)^{-1} F(x)
+\]
+
+\item For any fixed $0 < \tilde{\theta} < \theta$, $0 \leq k \leq K+1$, and $j \geq 0$ we have the decay rates
+\begin{align*}
+\left| \partial_\Lambda^j \partial_x^k \Theta_\pm \right| \leq C(j, k)e^{-\tilde{\theta}|x|}
+\end{align*}
+\end{enumerate}
+\begin{proof}
+I have written out the proof somewhere else for the case where $F(x) = 0$, which essentially follows Zum2018 but fills in more details. Only a small modification is necessary for $F(x) \neq 0$.
+\end{proof}
+\end{lemma}
+
+\subsection*{The Problem}
+
+We want to do Lin's method on the eigenvalue problem for KdV5 with periodic BCs. (Eventually, we may try this for the case on the real line). Recall that from the existence problem, we write the $n-$pulse piecewise as
+
+\[
+(q_n)_i^\pm(x) = q^\pm(x; \beta_i^\pm) + u_i^\pm(x)
+\]
+
+The piecewise eigenvalue problem is
+
+\begin{align*}
+&(W_i^\pm)' = A( (q_n)_i^\pm; \lambda ) W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm \\
+&W_i^-(0) = W_i^+(0) \\
+&W_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^- \\
+&W_i^+(X_i) - W_{i+1}^-(-X_i) = D_i d
+\end{align*}
+
+where
+
+\begin{align*}
+A((q_n)_i^\pm(x); \lambda) &=  \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
+2 \partial_x (q_n)_i^\pm(x) + \lambda & 2 (q_n)_i^\pm(x) - c & 0 & 1 & 0 \end{pmatrix}
+\end{align*}
+
+and we have nice estimates/bounds
+
+\begin{align*}
+|H(x)|, |\tilde{H}_i^\pm(x)| &\leq C e^{-\alpha |x|} \\
+|\Delta H_i^\pm| &= |\tilde{H}_i^\pm - H| \leq C(e^{-\alpha X_i} + e^{-\alpha X_{i-1}} ) \\
+D_i d &= ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right) \\
+\end{align*}
+
+The way we approach this (as in San98) is to look at the (piecewise) variational equation
+
+\[
+(W_i^\pm)' = A(q^\pm(x; \beta_i^\pm); \lambda) W_i^\pm
+\]
+
+and use the variation of constants formula together with an exponential dichotomy (or trichotomy).\\
+
+What we really want is to use the Conjugation Lemma so that the evolution of the variational equation does not depend on $\lambda$ (or on the $\beta_i^\pm$, but those are less important and should be taken care of automatically since the exponential decay to the asymptotic operator does not depend on them). We take $\Lambda = (\lambda)$ in the conjugation lemma. $A(q^\pm(x; \beta_i^\pm); \lambda)$ is linear, thus analytic, in $\lambda$, so we should be all set.
+
+Using the Conjugation Lemma, make the substitution $W_i^\pm = P_i^\pm Z_i^\pm$, where $P_i^\pm$ conjugates $A(q^\pm(x; \beta_i^\pm); \lambda)$. Then the problem should look like
+
+\begin{align*}
+&(Z_i^\pm(x))' = A(0; \lambda) Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \\
+&P_i^-(0; \lambda) Z_i^-(0) = P_i^+(0; \lambda) Z_i^+(0) \\
+&P_i^\pm(0; \lambda) Z_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^-\\
+&P_i^+(X_i; \lambda) Z_i^+(X_i)\ - P_i^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) = D_i d
+\end{align*}
+
+Note that the asymptotic matrix $A(0; \lambda)$ is the same for $\R^\pm$, so that is good.\\
+
+Advantage: The first equation is way simpler, i.e. reduced to the constant coefficient case. I think this is worth it, and I hope it reduces the nightmarish estimates.\\
+
+Disadvantage: We have $P_i^\pm$ in all the matching conditions. For the matching conditions at $\pm X_i$, these are approximately the identity, so this should not be a big deal. For the matching conditions at 0, they could cause trouble.\\
+
+Since $A(0; \lambda)$ is constant coefficient (and we know what it is), we don't have to bother with the exponential trichotomy stuff, since everything evolves in the eigenspaces of $A(0; \lambda)$, which do not depend on $x$. Before we proceed, make the following hypothesis.
+
+\begin{hypothesis}\label{Aspectrumhyp}
+\begin{enumerate}
+	\item The spectrum of $A(0; 0)$ has isolated, simple eigenvalues at $\{ 0, \pm \alpha_0 \pm \beta_0 \}$, where $\alpha_0, \beta_0 > 0$. The real part of any other eigenvalue of $A(0; 0)$ lies outside the interval $[-\alpha_0, \alpha_0]$.
+\end{enumerate}
+\end{hypothesis}
+
+We then define the following.
+
+\begin{enumerate}
+	\item Let
+
+	\begin{align*}
+	X_m &= \min(X_0, \dots, X_{n-1}) \\
+	X_M &= \max(X_0, \dots, X_{n-1}) \\
+	\end{align*}
+
+	\item Let $n_-$ be the number of eigenvalues of $A(0; 0)$ with negative real part, and $n_+$ be the number of eigenvalues of $A(0; 0)$ with positive real part. Then, by Hypothesis \ref{Aspectrumhyp}, $n_-, n_+ \geq 2$, and $n_- + n_+ + 1 = m$.
+
+	\item Let $\nu(\lambda)$ be the simple, small eigenvalue of $A(0; \lambda)$. By Hypothesis \ref{Aspectrumhyp}, $\nu(0) = 0$, and $\nu(\lambda) = \mathcal{O}(\lambda)$. 
+
+	\item Let $\rho > 0$, $\delta > 0$ be a small. How small will be determined later. We will take $|\lambda| < \delta$.
+
+	\item Let $\alpha = \alpha_0 - \rho$. We choose $\delta$ sufficiently small so that for all $|\lambda| < \delta$,
+
+	\begin{enumerate}
+		\item $|\nu(\lambda)| < \rho$
+		\item The real part of any other eigenvalue of $A(0; \lambda)$ lies outside the interval $[-\alpha, \alpha]$.
+	\end{enumerate}
+
+	\item Choose $X_m$ sufficiently large so that
+	\begin{equation}
+	e^{-\alpha X_m}, |\lambda|, ||\Delta H|| < \delta
+	\end{equation}
+\end{enumerate}
+
+Let $P^{u/s/c}_0(\lambda)$ be the eigenprojections for the unstable/stable/center subspaces of $A(0; \lambda)$, where the center subspace is a legit center subspace only when $\nu(\lambda)$ has no real part, e.g. when $\lambda = 0$. Let $\Phi(x, y; \lambda) = e^{A(0; \lambda)(x-y)}$ be the evolution of the constant-coefficient ODE
+
+\[
+Z' = A(0; \lambda) Z
+\]
+
+Letting $\Phi^{u/s/c}(x, y; \lambda)$ be the evolutions on the respective eigenspaces, we have the bounds
+
+\begin{align*}
+|\Phi^s(x, y; \lambda)| &\leq C e^{-\alpha(x - y)} \\
+|\Phi^u(x, y; \lambda)| &\leq C e^{-\alpha(y - x)} \\
+|\Phi^c(x, y; \lambda)| &\leq C e^{-\rho|x - y|} 
+\end{align*}
+
+We are going to want to relate things to the variational/adjoint variational problem for the nontransformed system. These are
+
+\begin{align*}
+V' &= A(q(x); 0) V \\
+W' &= -A(q(x); 0)^* W
+\end{align*}
+
+$Q'(x)$ solves the variational problem, and we have solutions $\Psi(x)$ and $1$ to the adjoint variational problem. Using the conjugation lemma, let $P_1^\pm(\lambda)$ conjugate $A(q(x); \lambda)$. Let $\Theta(y, x)$ be the evolution for the untransformed variational equation. We would like to relate this to the evolution of the transformed variational equation. We should have for appropriate values of $x, y$
+
+\[
+\Theta(y, x; \lambda) = P_1^\pm(y; \lambda) \Phi(y, x; \lambda) P_1^\pm(x; \lambda)^{-1}
+\]
+
+We can also go the other way by multiplying by the appropriate stuff.\\
+
+Define the spaces
+
+\begin{align*}
+V_a &= \bigoplus_{i=0}^{n-1} E^u(\lambda) \oplus E^s(\lambda) \\
+V_b &= \bigoplus_{i=0}^{n-1} E^u(0) \oplus E^s(0) \\
+V_c^+ &= \bigoplus_{i=0}^{n-1} E^c(\lambda) \\
+V_c^- &= \bigoplus_{i=0}^{n-1} E^c(\lambda) \\
+V_c &= V_c^+ \oplus V_c^- \\
+V_\lambda &= B_\delta(0) \subset \C
+\end{align*}
+
+where the subscripts are all $\mod n$, as in the existence problem. We use the $\lambda-$dependent eigenspaces, which should be fine. All the product spaces are endowed with the maximum norm, e.g. for $V_c$, $|c| = \max(|c_0^-|, \dots, |c_{n-1}^-|, |c_0^+|, \dots, |c_{n-1}^+|)$. In addition, we take the following convention: if we eliminate either a subscript or a superscript (or both) in the norm, we are taking the maximum over the eliminated thing. For example,
+\begin{enumerate}
+	\item $|c_i| = \max(|c_i^+|, |c_i^-|)$ 
+	\item $|c^+| = \max(|c_0^+|, \dots, |c_{n-1}^+|)$
+\end{enumerate}
+
+\subsection*{The Inversion}
+
+At this point, we can write down the fixed point equations for the problem. For $i = 0, \dots, n-1$, the fixed point equations are
+
+\begin{align*}
+Z_i^-(x) &= \Phi^s(x, -X_{i-1}; \lambda) a_{i-1}^- + \Phi^u(x, 0; \lambda) b_i^- + \Phi^c(x, -X_{i-1}; \lambda) c_{i-1}^- \\
+&+ \lambda^2 d_i \int_0^x \Phi^u(x, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy
++ \lambda^2 d_i \int_{-X_{i-1}}^x \Phi^s(x, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \\
+&+ \lambda^2 d_i \int_{-X_{i-1}}^x \Phi^c(x, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy  \\ 
+Z_i^+(x) &= \Phi^u(x, X_i; \lambda) a_i^+ + \Phi^s(x, 0; \lambda) b_i^+ + \Phi^c(x, X_i; \lambda) c_i^+ \\
+&+ \lambda^2 d_i \int_0^x \Phi^s(x, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy
++ \lambda^2 d_i \int_{X_i}^x \Phi^u(x, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
+&+ \lambda^2 d_i \int_{X_i}^x \Phi^c(x, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
+\end{align*}
+
+Note that $W_i^\pm$ only appears on the LHS, so we don't need to do the first inversion step as in San98. We can start with the matching conditions at $\pm X_i$.
+
+\subsubsection*{Matching at ends}
+
+Here, we solve the condition
+
+\[
+P_i^+(X_i; \lambda) Z_i^+(X_i) - P_i^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) = D_i d
+\]
+
+At $\pm X_i$, the fixed point equations become
+
+\begin{align*}
+Z_{i+1}^-(-X_i) &= a_i^- + \Phi^u(-X_i, 0; \lambda) b_{i+1}^- + c_i^- 
++ \lambda^2 d_i \int_0^{-X_i} \Phi^u(-X_i, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \\ 
+Z_i^+(X_i) &= a_i^+ + \Phi^s(X_i, 0; \lambda) b_i^+ + c_i^+ 
++ \lambda^2 d_i \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy
+\end{align*}
+
+Thus we need to solve
+
+\begin{align*}
+D_i d &= P_i^+(X_i; \lambda) Z_i^+(X_i) - P_i^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) \\
+&= P_i^+(X_i; \lambda) a_i^+ + P_i^+(X_i; \lambda) \Phi^s(X_i, 0; \lambda) b_i^+ + P_i^+(X_i; \lambda) c_i^+ \\
+&+ \lambda^2 d_i P_i^+(X_i; \lambda) \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
+&- P_i^+(X_i; \lambda) a_i^- - P_i^+(X_i; \lambda) \Phi^u(-X_i, 0; \lambda) b_{i+1}^- - P_i^+(X_i; \lambda) c_i^- \\
+&- \lambda^2 d_i P_i^+(X_i; \lambda) \int_0^{-X_i} \Phi^u(-X_i, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
+\end{align*}
+
+From the Conjugation Lemma, we have
+
+\[
+P_i^\pm(\pm X_i; \lambda) = I + \mathcal{O}(e^{-\alpha X_i})
+\]
+
+For bounds on the other terms we have
+
+\[
+|P_i^+(X_i; \lambda) \Phi^s(X_i, 0; \lambda)b_i| \leq C e^{-\alpha X_i} |b_i|
+\]
+
+and
+
+\begin{align*}
+\left|
+P_i^+(X_i; \lambda) \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \right| 
+&\leq C \int_0^{X_i} e^{-\alpha(X_i - y)}e^{-\alpha y} dy \\
+&\leq C \int_0^{X_i} e^{-\tilde{\alpha}(X_i - y)}e^{-\alpha y} dy \\
+&= C e^{-\tilde{\alpha} X_i} \int_0^{X_i} e^{-(\alpha - \tilde{\alpha}) y} dy \\ 
+&\leq C e^{-\tilde{\alpha} X_i} 
+\end{align*}
+
+The ``negative'' terms are similar. Thus we have
+
+\begin{align*}
+D_i d &= a_i^+ - a_i^- + c_i^+ - c_i^- + L_1(\lambda)_i(b, d)
+\end{align*}
+
+where
+
+\[
+|L_1(\lambda)_i(b, c^-, d)| \leq C \Big( e^{-\alpha X_i} |a_i| + e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\tilde{\alpha} X_i} |\lambda^2| |d| \Big)
+\]
+
+Following San98 (and leaving out some steps), we can solve this for $(a, c^+)$ to get $(a_i, c_i^+) = A_1(\lambda)_i(b, c_i^-, d)$, with bound
+
+\begin{align*}
+|A_1&(\lambda)_i(b, c^-, d)|
+\leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + |c_i^-| + (e^{-\tilde{\alpha} X_i} |\lambda^2| + |D_i|)|d| \Big)
+\end{align*} 
+
+As in San98, we hit this with projections on the various eigenspaces. The remainder term $A_2(\lambda)_i^c(b, d)$ is found by substituting the bound for $A_1$ into $L_1$ and simplifying. The only extra term we get by doing this is $e^{-\alpha X_i} |D_i|$. Thus we have
+
+\begin{align*}
+a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, d) \\
+a_i^- &= -P_0^s(\lambda) D_i d + A_2(\lambda)_i^-(b, d) \\
+c_i^+ &= c_i^- + P_0^c(\lambda) D_i d + A_2(\lambda)_i^c(b, d) )
+\end{align*}
+
+where we have bound
+
+\begin{align*}
+|A_2&(\lambda)_i(b, d)|
+\leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\tilde{\alpha} X_i} (|\lambda^2| + |D_i|)|d| \Big)
+\end{align*} 
+
+\subsubsection*{Matching at 0}
+
+The next is to satisfy the conditions
+
+\begin{align*}
+P_i^\pm(0; \lambda) Z_i^\pm(0) &\in \C \Psi(0) \oplus Y^0 \oplus Y^+ \oplus Y^- \\
+P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) &\in \C \Psi(0) \oplus Y_0
+\end{align*}
+
+Recall that
+
+\[
+\C^m = \C \Psi(0) \oplus \C Q'(0) \oplus Y^0 \oplus Y^+ \oplus Y^- 
+\]
+
+This condition is equivalent to the three projections
+
+\begin{align*}
+P(\C Q'(0)) P_i^-(0; \lambda) Z_i^-(0) &= 0 \\
+P(\C Q'(0)) P_i^+(0; \lambda) Z_i^+(0) &= 0 \\
+P(Y^+ \oplus Y^-) ( P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) ) &= 0
+\end{align*}
+
+where the kernel of each projection is the remaining spaces in the direct sum. We can ignore $\C Q'(0)$ in the third equation since we ditched any component in it in the first two equations.\\
+
+This is all fine, but we would really like to write this in terms of projections involving $Z$ directly without those pesky $P_i^\pm(0; \lambda)$ getting in the way.\\
+
+To do this, recall that the tangent space to the stable manifold at $x = 0$ is spanned by $Y^+$ and $Q'(0)$, and the tangent space to the unstable manifold at $x = 0$ is spanned by $Y^-$ and $Q'(0)$. Thus
+
+\begin{align*}
+P_i^-(0; \lambda) Q'(0) &= v^- \in E^u(0) \\
+P_i^-(0; \lambda) Y^- &\in E^-(0) \subset E^u(0) \\
+P_i^+(0; \lambda) Q'(0) &= v^+ \in E^s(0) \\
+P_i^+(0; \lambda) Y^+ &\in E^+(0) \subset E^s(0) \\
+\end{align*}
+
+We can then rewrite the conditions as
+
+\begin{align*}
+P(\R v^- ) Z_i^-(0) &= 0 \\
+P(\R v^+ ) Z_i^+(0) &= 0 \\
+P( E^-(0) \oplus E^+(0) ) ( Z_i^+(0) - Z_i^-(0) ) &= 0
+\end{align*}
+
+Not sure that last one is right, but let's keep going. We can decompose $b^\pm$ uniquely as $b^\pm = x^\pm + y^\pm$, where $x^\pm \in \C v^\pm(0)$ and $y^\pm \in E^\pm(0)$.\\
+
+At $x = 0$, the fixed point equations become
+
+\begin{align*}
+Z_i^-(0) &= \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- + \Phi^u(0, 0; \lambda) b_i^- + \Phi^c(0, -X_{i-1}; \lambda) c_{i-1}^- \\
+&+ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
++ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy  \\ 
+Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + \Phi^s(0, 0; \lambda) b_i^+ + \Phi^c(0, X_i; \lambda) c_i^+ \\
+&+ \lambda^2 d_i \int_{X_i}^0 \Phi^u(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy 
++ \lambda^2 d_i \int_{X_i}^0 \Phi^c(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
+\end{align*}
+
+Doing a little manipulation, and using the known form of the evolution $\Phi^c$ (since it's a 1d subspace, we know this)
+
+\begin{align*}
+Z_i^-(0) &= \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- + x_i^- + y_i^- + (\Phi^u(0, 0; \lambda) - I)b_i^- + e^{\nu(\lambda) X_{i-1}} c_{i-1}^- \\
+&+ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
++ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy  \\ 
+Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + x_i^+ + y_i^+ + (\Phi^s(0, 0; \lambda) - I) b_i^+ + e^{-\nu(\lambda)X_i} c_i^+ \\
+&+ \lambda^2 d_i \int_{X_i}^0 \Phi^u(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy 
++ \lambda^2 d_i \int_{X_i}^0 \Phi^c(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
+\end{align*}
+
+The projections we will use all involve the eigenspaces when $\lambda = 0$. Recall that $c_i^\pm$ are in the eigenspaces for $\lambda$. Thus we need to account for this. Adding and subtracting stuff, we get
+
+\begin{align*}
+Z_i^-(0) &= \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- + x_i^- + y_i^- + (\Phi^u(0, 0; \lambda) - I)b_i^- 
++ e^{\nu(\lambda) X_{i-1}} [P^c(0) c_{i-1}^- + (P^c(\lambda) - P^c(0))c_{i-1}^-] \\
+&+ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
++ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy  \\ 
+Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + x_i^+ + y_i^+ + (\Phi^s(0, 0; \lambda) - I) b_i^+ + e^{-\nu(\lambda)X_i} [P^c(0) c_i^+ + (P^c(\lambda) - P^c(0))c_i^+] \\
+&+ \lambda^2 d_i \int_{X_i}^0 \Phi^u(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy 
++ \lambda^2 d_i \int_{X_i}^0 \Phi^c(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
+\end{align*}
+
+etc.
+
+\subsubsection*{Jump in Adjoint Direction, Bounded Adjoint}
+
+Of course, we are not here yet, but let's at least check to make sure this is likely to work. The Melnikov integral will come from terms like
+
+\begin{align*}
+&\langle \Psi(0), P_i^-(0; \lambda) \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \rangle \\
+&\approx \langle \Psi(0), P_i^-(0; \lambda) \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} H(y) dy \rangle \\
+&=^? \langle \Psi(0), \int_{-X_{i-1}}^0 P_i^-(0; \lambda) \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} H(y) dy \rangle \\
+&\approx \int_{-X_{i-1}}^0 \langle \Psi(0), P_1^-(0; \lambda) \Phi^s(0, y; \lambda) P_1^-(y; \lambda)^{-1} H(y) \rangle dy \\
+&= \int_{-X_{i-1}}^0 \langle \Psi(0), \Theta^s(0, y; \lambda) H(y) \rangle dy \\
+&\approx \int_{-X_{i-1}}^0 \langle \Psi(0), \Theta^s(0, y; 0) H(y) \rangle dy\\
+&= \int_{-X_{i-1}}^0 \langle \Theta^u(y, 0; 0)^* \Psi(0), H(y) \rangle dy \\
+&\approx \int_{-\infty}^0 \langle \Psi(y), H(y) \rangle dy
+\end{align*}
+
+where the last line holds since we know where $\Psi(y)$ evolves. In any case, this is (half of) our Melnikov integral, so we should be good. We just need to make the estimates precise.
+
+\subsubsection*{Jump in Adjoint Direction, Other Adjoint}
+
+\end{document}
