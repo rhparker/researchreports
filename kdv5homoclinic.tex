@@ -95,13 +95,13 @@ An equilibrium solution to \eqref{KdV5c} satisfies the 5th order nonlinear ODE
 u_{xxxxx} - u_{xxx} + c u_x - 2 u u_x = 0
 \end{equation}
 
-It is clear that the trivial solution $u = 0$ is a solution to \eqref{eqODE}. A primary pulse solution is a homoclinic orbit which connects the trivial solution $u = 0$ to itself. Since such a solution decays (exponentially) to 0 at both ends, a primary pulse solution must also satisfy the 4th order ODE
+It is clear that $u = 0$ is a solution to \eqref{eqODE}. A primary pulse solution is a homoclinic orbit which connects the equilbrium state $u = 0$ to itself. Since such a solution decays (exponentially) to 0 at both ends, a primary pulse solution must also satisfy the 4th order ODE
 
 \begin{equation}\label{eqODE4}
 u_{xxxx} - u_{xx} + c u - u^2 = 0,
 \end{equation}
 
-which is obtained from \eqref{eqODE} by integrating once and taking the constant of integration to be 0, since we are assuming the solution decays to 0 at both ends. Equation \eqref{eqODE4} is also Hamiltonian (in $x$), with energy given by
+which is obtained from \eqref{eqODE} by integrating once; we take the constant of integration to be 0, since we are seeking a solution which decays to 0 at both ends. Equation \eqref{eqODE4} is also Hamiltonian (in $x$), with energy given by
 
 \begin{equation}\label{Hamiltonian}
 H(u, u', u'', u''') = u'u''' - \frac{1}{2}(u'^2) - \frac{1}{2}(u'')^2 + \frac{c}{2}u^2 - \frac{1}{3}u^3 
@@ -109,13 +109,13 @@ H(u, u', u'', u''') = u'u''' - \frac{1}{2}(u'^2) - \frac{1}{2}(u'')^2 + \frac{c}
 
 It is not hard to show that $H$ is conserved (in $x$).\\
 
-The linearization of the 4th order ODE \eqref{eqODE4} about a given solution $u_*$ of \eqref{eqODE4} is given by the operator
+The linearization of the 4th order ODE \eqref{eqODE4} about a solution $u_*$ of \eqref{eqODE4} is given by the linear operator
 
 \begin{equation}\label{defA0}
 A_0(u^*) = \partial_x^4 - \partial_x^2 + c - 2 u^* 
 \end{equation}
 
-For the linearization about the trivial solution $u^* = 0$, the eigenvalues are given by the solutions to the fourth-order polynomial equation $\nu^4 - \nu^2 + c = 0$, which are
+For the linearization about the rest state $u^* = 0$, the eigenvalues are given by the solutions to the fourth-order polynomial equation $\nu^4 - \nu^2 + c = 0$, which are
 
 \begin{align}\label{specA0}
 \nu = \pm \sqrt{ \frac{1 \pm \sqrt{1 - 4c} }{2}}
@@ -134,6 +134,7 @@ A primary pulse solution connects the stable and unstable manifolds. Its existen
 \begin{enumerate}[(i)]
 \item For $c>0$, a primary pulse solution $q(x; c)$ exists to \eqref{eqODE4}. This solution is smooth, even, and decays exponentially to 0 as $x \rightarrow \pm \infty$.
 \item The linearization $A_0(q(x; c))$ about this primary pulse soution has exactly one negative eigenvalue with an even eigenfunction and a simple kernel with the odd eigenfunction $q'(x; c)$.
+\item Under some assumptions (which are in \cite{Pelinovsky2007}, and which we will deal with later), the linear operator $L(q_n) = \partial)x A_0(q(x; c))$ has a two-dimensional algebraic kernel in $\L^2(\R)$.
 \end{enumerate}
 \end{theorem}
 
@@ -179,7 +180,7 @@ L(q_n(x)) = \partial_x A_0(q_n(x)) = \partial_x^5 - \partial_x^5 + c \partial_x 
 
 For $c > 0$, by the Weyl essential spectrum theorem \cite[Theorem 2.2.6]{Kapitula2013}, the essential spectrum of \eqref{PDEeig} is independent of $q_n$ and consists of the entire imaginarly axis. Linear PDE stability thus depends on the point spectrum. \\
 
-Unfortunately, the linearization of \eqref{KdV5c} about the trivial solution $u = 0$ is not hyperbolic since $L(0)$ has an eigenvalue of 0. Thus we cannot directly apply the results of \cite{Sandstede1998}. To get around this problem, we will use an exponentially weighted space.
+Unfortunately, the linearization of \eqref{KdV5c} about the rest state $u = 0$ is not hyperbolic since $L(0)$ has an eigenvalue at 0. Thus we cannot directly apply the results of \cite{Sandstede1998}. To get around this problem, we will use an exponentially weighted space.
 
 \subsection{Exponentially Weighted Spaces}\label{sec:expwt}
 
@@ -230,7 +231,7 @@ Before we go too much further, we need to choose $\eta$. For the linearization a
 \nu = \pm \sqrt{ \frac{1 \pm \sqrt{1 - 4c} }{2}}
 \]
 
-Two have positive real part and two have negative real part, and these are negatives of each other. Let $\alpha > 0$ be the smallest real part of the unstable eigenvalues, so $-\alpha$ is the largest real part of the stable eigenvalues. Since the primary pulse (and all its derivatives) decays asymptotally exponentially with rate equal to or faster than $\alpha$ (i.e. $|e^{-\alpha |x|} q(x)|$ is bounded), we need to choose $\eta$ with either $0 < \eta < \alpha$ or $-\alpha < \eta < 0$ so that $q(x)$ (and its derivatives) still decays in the exponentially weighted space. Since it does not matter which one we choose, we will choose any $\eta$ with $0 < \eta < \alpha$. Thus the eigenvalues of $A(0) + \eta I$ lie outside the open interval $(-\alpha + \eta, \eta)$, and so $A(0) + \eta I$ is hyperbolic.\\
+Two have positive real part and two have negative real part, and these are negatives of each other. Let $\alpha > 0$ be the smallest real part of the unstable eigenvalues, so $-\alpha$ is the largest real part of the stable eigenvalues. Since the primary pulse (and all its derivatives) decays asymptotally exponentially with rate equal to or faster than $\alpha$ (i.e. $|e^{-\alpha |x|} q(x)|$ is bounded), we need to choose $\eta$ with either $0 < \eta < \alpha$ or $-\alpha < \eta < 0$ so that $q(x)$ (and its derivatives) still decays in the exponentially weighted space. Since it does not matter which one we choose, we will choose any $\eta$ with $0 < \eta < \alpha$. Thus the eigenvalues of $A(0) + \eta I$ lie outside the open interval $(-\alpha + \eta, \eta)$, and so the operator $A(0) + \eta I$ is hyperbolic.\\
 
 Recall that in the unweighted space, $L(q_n)$ has a kernel with algebraic multiplicy 2 and geometric multiplicity 1. The eigenfunction and generalized eigenfunction are given by
 
@@ -286,11 +287,11 @@ q(x)
 
 the unique bounded solution to \eqref{adjvareq} must be given by $\Psi_\eta(x) = e^{-\eta x}\Psi(x)$.\\
 
-At this point, we can state the stability result, which is the main result of this section.
+At this point, we can locate the interaction eigenvalues, which is the main result of this chapter.
 
 \subsection{Location of Interaction Eigenvalues}
 
-The following theorem gives the location of the small eigenvalues for the PDE eigenvalue problem posed in an exponentially weighted space. The result is almost identical to Theorem 2 in \cite{Sandstede1998}. The proof will be presented in a later section. Before we present the theorem, we require one more hypothesis.
+The following theorem gives the location of the small interaction eigenvalues for the PDE eigenvalue problem posed in an exponentially weighted space. The result is almost identical to that in Theorem 2 in \cite{Sandstede1998}. The proof will be presented in a later section. Before we present the theorem, we require one more hypothesis.
 
 \begin{hypothesis}\label{Melnikovnonzero}
 The following higher-order Melnikov integral is nonzero.
@@ -428,7 +429,7 @@ which holds for all derivatives of $r_i^\pm(x)$. Returning to the first-order sy
 V_i^\pm = d_i (e^{\eta x} Q' + \lambda e^{\eta x} \partial_c Q) + W_i^\pm
 \end{equation}
 
-where the $d_i$ are constants which we will solve for. We note that the simpler ansatz $V_i^\pm = d_i e^{\eta x} Q' + W_i^\pm$ which is used in \cite{Sandstede1998}will not work in this case since that leads to the Melnikov integral $\int_{-\infty}^\infty q(x) q'(x) dx$, which is zero.\\
+where the $d_i$ are constants which we will solve for. We note that the simpler ansatz $V_i^\pm = d_i e^{\eta x} Q' + W_i^\pm$ which is used in \cite{Sandstede1998} will not work in this case since that leads to the Melnikov integral $\int_{-\infty}^\infty q(x) q'(x) dx$, which is zero.\\
 
 Plugging \eqref{piecewiseansatz} into the eigenvalue problem and simplifying using the relations above, $(W_i^\pm, d_i)$ solves
 
