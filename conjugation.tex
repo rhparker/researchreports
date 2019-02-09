@@ -281,7 +281,7 @@ Z_i^+(X_i) &= a_i^+ + \Phi^s(X_i, 0; \lambda) b_i^+ + c_i^+
 + \lambda^2 d_i \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy
 \end{align*}
 
-Thus we need to solve
+We use here the fact that, for example, $a_i^- \in E^s(\lambda)$ and $\Phi^s(-X_{i-1}, -X_{i-1}; \lambda)$ is the identity on $E^s(\lambda)$. Thus we need to solve
 
 \begin{align*}
 D_i d &= P_i^+(X_i; \lambda) Z_i^+(X_i) - P_i^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) \\
@@ -293,9 +293,9 @@ D_i d &= P_i^+(X_i; \lambda) Z_i^+(X_i) - P_i^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \
 
 From the Conjugation Lemma, we have
 
-\[
+\begin{equation}\label{conjest}
 P_i^\pm(\pm X_i; \lambda) = I + \mathcal{O}(e^{-\alpha X_i})
-\]
+\end{equation}
 
 which we will use on the $a_i^\pm$ and $c_i^\pm$ terms. For bounds on the other terms we have
 
@@ -333,7 +333,7 @@ Following San98 (and leaving out some steps), we can solve this for $(a, c^+)$ t
 \leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + |c_i^-| + (e^{-(\alpha - \rho) X_i} |\lambda^2| + |D_i|)|d| \Big)
 \end{align*} 
 
-As in San98, we hit \eqref{Dideq1} with projections on the various eigenspaces. The remainder term $A_2(\lambda)_i^c(b, d)$ is found by substituting the bound for $A_1$ into $L_1$ and simplifying.
+As in San98, we hit \eqref{Dideq1} with projections on the various eigenspaces $E^{s/u/c}(\lambda)$. The remainder term $A_2(\lambda)_i^c(b, d)$ is found by substituting the bound for $A_1$ into $L_1$ and simplifying.
 
 \begin{align*}
 a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
@@ -347,6 +347,35 @@ where we have bound
 |A_2&(\lambda)_i(b, d)|
 \leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\alpha X_i} |c_i^-| + e^{-(\alpha - \rho) X_i} (|\lambda^2| + |D_i|)|d| \Big)
 \end{align*} 
+
+For the first two, this is not quite what we want. To get that, we do the following.
+
+\begin{align*}
+P_i^+(X_i; \lambda)a_i^+ + (I - P_i^+(X_i; \lambda))a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
+P_i^+(X_i; \lambda)a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) - (I - P_i^+(X_i; \lambda))a_i^+ \\
+&= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) + \mathcal{O}\Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-| + |c_i^-| + (|\lambda^2| + |D_i|)|d|)\Big)
+\end{align*}
+
+where we used the bound $A_1$ and the estimate \eqref{conjest}. The last term on the RHS is the same (or higher) order as $A_2$, so we incorporate that into $A_2(\lambda)_i^+(b, c^-, d)$ to get
+
+\begin{align*}
+P_i^+(X_i; \lambda)a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
+\end{align*}
+
+Finally, we multiply both sides on the left by $P_i^+(X_i; \lambda)^{-1}$ to solve for $a_i^+$. This is a bounded operator, so we will also incorporate this into $A_2(\lambda)_i^+(b, c^-, d)$ (with the same bound). Thus we have
+
+\begin{align*}
+a_i^+ &= P_i^+(X_i; \lambda)^{-1} P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
+\end{align*}
+
+The same thing works for $a_i^-$, giving us
+
+\begin{align*}
+a_i^+ &= P_i^+(X_i; \lambda)^{-1} P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
+a_i^- &= -P_i^-(-X_i; \lambda)^{-1} P_0^s(\lambda) D_i d + A_2(\lambda)_i^-(b, c^-, d) \\
+c_i^+ &= c_i^- + P_0^c(\lambda) D_i d + A_2(\lambda)_i^c(b, c^-, d) )
+\end{align*}
+
 
 For the third one, we would like to evaluate and get an estimate for $P_0^c(\lambda D_i d$. To do that, recall that we have the following expression for $D_i d$.
 
@@ -630,7 +659,15 @@ and the remainder term $R^c(\tilde{c}, d)$ has bound
 \leq C \Big( (e^{-\tilde{\alpha}X_m} + |\lambda|)|\tilde{c}| + e^{-\tilde{\alpha}X_m}(|\lambda| + |D|)|d| \Big)
 \end{align*}
 
-\subsubsection*{Jump in Adjoint Direction, Bounded Adjoint}
+Since $|D| = \mathcal{O}(e^{-\alpha X_m})$, this becomes
+
+\begin{align*}
+|R^c(\lambda)(\tilde{c}, d)| 
+\leq C \Big( (|\lambda| + e^{-\tilde{\alpha}X_m})|\tilde{c}| + e^{-\tilde{\alpha}X_m}(|\lambda| + e^{-\alpha X_m})|d| \Big)
+\end{align*}
+
+
+\subsubsection*{Jump in Adjoint Direction, Decaying Adjoint}
 
 This is very similar to the the jump in the $Y_0$ direction, except different terms will be eliminated. For this jump, we project on $\Psi(0)$.
 
@@ -665,13 +702,12 @@ This time, the noncenter integral will give us the Melnikov integral, so we do t
 The terms involving $a$ will also contribute. For these, we plug in $A_4$.
 
 \begin{align*}
-\langle &\Psi(0), P_i^-(0; \lambda) \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- \rangle = 
-\langle \Psi(0), \Phi^s(0, -X_{i-1}; \lambda) (-P_0^s(\lambda) D_i d + A_4(\lambda)_i^-(\tilde{c}, d)) \rangle \\
-&= -\langle \Psi(0), \Phi^s(0, -X_{i-1}; \lambda) P_0^s(\lambda) D_i d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda|^2 + |D|)|d|) \\
-&= -\langle \Psi(0), \Phi^s(0, -X_{i-1}; \lambda) P_0^s(\lambda) D_i d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda|^2 + |D|)|d|) \\
-&= -\langle \Psi(0), \Phi^s(0, -X_{i-1}; 0) P_0^s(0) D_i d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda| + |D|)|d|) \\
-&= -\langle \Phi^s(-X_{i-1}, 0; 0)^* \Psi(0), P_0^s(0) D_i d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda| + |D|)|d|) \\
-&= -\langle \Psi(-X_{i-1}), P_0^s(0) D_i d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda| + |D|)|d|) \\
+\langle &\Psi(0), P_i^-(0; \lambda) \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- \rangle \\
+&= \langle \Psi(0), P_i^-(0; \lambda) \Phi^s(0, -X_{i-1}; \lambda) (- P_i^-(-X_{i-1}; \lambda)^{-1} P_0^s(\lambda) D_{i-1} d + A_4(\lambda)_i^-(\tilde{c}, d)) \rangle \\
+&= -\langle \Psi(0), \Theta^s(0, -X_{i-1}; \lambda) P_0^s(\lambda) D_{i-1} d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda|^2 + |D|)|d|) \\
+&= -\langle \Psi(0), \Theta^s(0, -X_{i-1}; 0) P_0^s(0) D_{i-1} d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda| + |D|)|d|) \\
+&= -\langle \Theta^s(-X_{i-1}, 0; 0)^* \Psi(0), P_0^s(0) D_{i-1} d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda| + |D|)|d|) \\
+&= -\langle \Psi(-X_{i-1}), P_0^s(0) D_{i-1} d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda| + |D|)|d|) \\
 \end{align*}
 
 The remaining terms will be higher order. Doing these in order, we have
@@ -700,6 +736,19 @@ where we substituted in $B_1$.
 &= \mathcal{O}(|\lambda|) \tilde{c}_{i-1}^+
 \end{align*}
 
+We also have to do the same substitution as above to convert $c_i^+$ to $c_i^+$, as we did above. As above, we have
+
+\begin{align*}
+e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-\tilde{\alpha} X_m} |\tilde{c}| + e^{-\tilde{\alpha} X_m}(|\lambda| + |D| ) |d| \Big) \\
+\end{align*}
+
+which gives us
+
+\begin{align*}
+\langle \Psi(0), P_i^+(0; \lambda)e^{-\nu(\lambda) X_i} P^c(\lambda) c_i^+ \rangle 
+&= \mathcal{O}(|\lambda|) \tilde{c}_i^- + \mathcal{O}\Big( |\lambda|( e^{-\tilde{\alpha} X_m} |\tilde{c}| + e^{-\tilde{\alpha} X_m}(|\lambda| + |D| ) |d| ) \Big)
+\end{align*}
+
 \item For the center integral term, we have
 
 \begin{align*}
@@ -712,5 +761,36 @@ where we substituted in $B_1$.
 \end{align*}
 
 \end{enumerate}
+
+Putting this all together, we have
+
+\begin{align*}
+\xi_i = \langle \Psi(X_i), P_0^u(0) D_i d \rangle
++ \langle \Psi(-X_{i-1}), P_0^s(0) D_{i-1} d \rangle 
++ \lambda_2 d_i M + R(\lambda)(\tilde{c}, d)
+\end{align*}
+
+where $M$ is the higher order Melnikov integral
+
+\[
+\int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy 
+\]
+
+and the remainder term has bound
+
+\begin{align*}
+|R(\lambda)(\tilde{c}, d)| \leq C \Big(
+|\lambda||\tilde{c}| + |\lambda|(|\lambda|^2 + e^{-\alpha X_m}|\lambda| + e^{-(\alpha + \tilde{\alpha}) X_m})|d| + (e^{-\alpha X_m} |\lambda| + e^{-(\alpha + \tilde{\alpha}) X_m})|D||d|
+ \Big)
+\end{align*}
+
+Using the fact that $|D| = \mathcal{O}(e^{-\alpha X_m})$, this becomes
+
+\begin{align*}
+|R(\lambda)(\tilde{c}, d)| \leq C \Big(
+|\lambda||\tilde{c}| + (|\lambda|^3 + e^{-\alpha X_m}|\lambda|^2 + e^{-(\alpha + \tilde{\alpha}) X_m}|\lambda| + e^{-(2 \alpha + \tilde{\alpha}) X_m})|d|
+ \Big)
+\end{align*}
+
 
 \end{document}
