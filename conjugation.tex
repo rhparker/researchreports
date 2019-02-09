@@ -515,14 +515,14 @@ A uniform bound is
 We can plug this into the bounds for $A_1$ and $A_2$ to get $A_3$ and $A_4$ with bounds
 
 \begin{align*}
-|A_3&(\lambda)_i(c^-, d)|
+|A_3&(\lambda)_i(\tilde{c}, c^-, d)|
 \leq C \Big( e^{-\alpha X_i} (|\lambda| + e^{-\alpha X_m})|\tilde{c}| + |c_i^-| + (e^{-(\alpha - \rho) X_i} |\lambda^2| + |D_i|)|d| \Big)
 \end{align*}
 
 and
 
 \begin{align*}
-|A_4&(\lambda)_i(b, d)|
+|A_4&(\lambda)_i(\tilde{c}, b, d)|
 \leq C \Big( e^{-\tilde{\alpha} X_m} |\tilde{c}| + e^{-(\alpha - \rho) X_i} |\lambda|^2|d| + e^{-\alpha X_m}|D||d| \Big)
 \end{align*} 
 
@@ -632,21 +632,85 @@ and the remainder term $R^c(\tilde{c}, d)$ has bound
 
 \subsubsection*{Jump in Adjoint Direction, Bounded Adjoint}
 
-Of course, we are not here yet, but let's at least check to make sure this is likely to work. The Melnikov integral will come from terms like
+This is very similar to the the jump in the $Y_0$ direction, except different terms will be eliminated. For this jump, we project on $\Psi(0)$.
+
+\[
+\xi_i = \langle \Psi(0), P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) \rangle
+\]
+
+Recall that $Z_i^\pm(0)$ are given by
+
+\begin{align*}
+Z_i^-(0) &= \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- + \Phi^u(0, 0; \lambda) b_i^- 
++ e^{\nu(\lambda) X_{i-1}} P^c(\lambda) c_{i-1}^- \\
+&+ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
++ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy  \\ 
+Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + \Phi^s(0, 0; \lambda) b_i^+ + e^{-\nu(\lambda)X_i} P^c(\lambda) c_i^+ \\
+&+ \lambda^2 d_i \int_{X_i}^0 \Phi^u(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy 
++ \lambda^2 d_i \int_{X_i}^0 \Phi^c(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
+\end{align*}
+
+This time, the noncenter integral will give us the Melnikov integral, so we do that one first.
 
 \begin{align*}
 &\langle \Psi(0), P_i^-(0; \lambda) \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \rangle \\
-&\approx \langle \Psi(0), P_i^-(0; \lambda) \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} H(y) dy \rangle \\
-&=^? \langle \Psi(0), \int_{-X_{i-1}}^0 P_i^-(0; \lambda) \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} H(y) dy \rangle \\
-&\approx \int_{-X_{i-1}}^0 \langle \Psi(0), P_1^-(0; \lambda) \Phi^s(0, y; \lambda) P_1^-(y; \lambda)^{-1} H(y) \rangle dy \\
-&= \int_{-X_{i-1}}^0 \langle \Psi(0), \Theta^s(0, y; \lambda) H(y) \rangle dy \\
-&\approx \int_{-X_{i-1}}^0 \langle \Psi(0), \Theta^s(0, y; 0) H(y) \rangle dy\\
-&= \int_{-X_{i-1}}^0 \langle \Theta^u(y, 0; 0)^* \Psi(0), H(y) \rangle dy \\
-&\approx \int_{-\infty}^0 \langle \Psi(y), H(y) \rangle dy
+&= \int_{-X_{i-1}}^0 \langle \Psi(0), P_i^-(0; \lambda), \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}(y) \rangle dy \\
+&= \int_{-X_{i-1}}^0 \langle \Psi(0), P_i^-(0; \lambda), \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} H(y) \rangle dy + \mathcal{O}({e^{-\alpha X_m}})\\
+&= \int_{-X_{i-1}}^0 \langle \Psi(0), \Theta^s(0, y; \lambda) H(y) \rangle dy + \mathcal{O}({e^{-\alpha X_m}})\\
+&= \int_{-X_{i-1}}^0 \langle \Psi(0), \Theta^s(0, y; 0) H(y) \rangle dy + \mathcal{O}(|\lambda| + {e^{-\alpha X_m}})\\
+&= \int_{-\infty}^0 \langle \Theta^s(y, 0; 0)^* \Psi(0), H(y) \rangle dy + \mathcal{O}(|\lambda| + {e^{-\alpha X_m}})\\
+&= \int_{-\infty}^0 \langle \Psi(y), H(y) \rangle dy + \mathcal{O}(|\lambda| + {e^{-\alpha X_m}})\\
 \end{align*}
 
-where the last line holds since we know where $\Psi(y)$ evolves. In any case, this is (half of) our Melnikov integral, so we should be good. We just need to make the estimates precise.
+The terms involving $a$ will also contribute. For these, we plug in $A_4$.
 
-\subsubsection*{Jump in Adjoint Direction, Other Adjoint}
+\begin{align*}
+\langle &\Psi(0), P_i^-(0; \lambda) \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- \rangle = 
+\langle \Psi(0), \Phi^s(0, -X_{i-1}; \lambda) (-P_0^s(\lambda) D_i d + A_4(\lambda)_i^-(\tilde{c}, d)) \rangle \\
+&= -\langle \Psi(0), \Phi^s(0, -X_{i-1}; \lambda) P_0^s(\lambda) D_i d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda|^2 + |D|)|d|) \\
+&= -\langle \Psi(0), \Phi^s(0, -X_{i-1}; \lambda) P_0^s(\lambda) D_i d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda|^2 + |D|)|d|) \\
+&= -\langle \Psi(0), \Phi^s(0, -X_{i-1}; 0) P_0^s(0) D_i d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda| + |D|)|d|) \\
+&= -\langle \Phi^s(-X_{i-1}, 0; 0)^* \Psi(0), P_0^s(0) D_i d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda| + |D|)|d|) \\
+&= -\langle \Psi(-X_{i-1}), P_0^s(0) D_i d \rangle + \mathcal{O}( e^{-(\alpha + \tilde{\alpha})X_m}(|\tilde{c}| + (|\lambda| + |D|)|d|) \\
+\end{align*}
+
+The remaining terms will be higher order. Doing these in order, we have
+
+\begin{enumerate}
+\item For the terms involving $b$,
+
+\begin{align*}
+\langle \Psi(0), P_i^-(0; \lambda) \Phi^u(0, 0; \lambda) b_i^- \rangle
+&= \langle \Psi(0), (P_i^-(0; 0) + \mathcal{O}(|\lambda|))(I + \mathcal{O}(|\lambda|)) b_i^- \rangle \\
+&= \langle \Psi(0), P_i^-(0; 0) b_i^- \rangle + \mathcal{O}(|\lambda||b_i^-|) \\
+&= |\lambda| \Big(
+(|\lambda| + e^{-\tilde{\alpha}X_m})|\tilde{c}|
++ (e^{-\tilde{\alpha}X_m}|D| 
++ |\lambda|^2)|d|
+\Big)
+\end{align*}
+
+where we substituted in $B_1$.
+
+\item For the terms involving $\tilde{c}$, we have
+
+\begin{align*}
+\langle \Psi(0), P_i^-(0; \lambda)e^{\nu(\lambda) X_{i-1}} P^c(\lambda) c_{i-1}^-\rangle &= 
+\langle \Psi(0), (P_i^-(0; 0) + \mathcal{O}(\lambda))(I + \mathcal{O}(\lambda)) \tilde{c}_{i-1}^+ \rangle \\
+&= \mathcal{O}(|\lambda|) \tilde{c}_{i-1}^+
+\end{align*}
+
+\item For the center integral term, we have
+
+\begin{align*}
+&\langle \Psi(0), P_i^-(0; \lambda)
+\int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \rangle \\
+&= \int_{-X_{i-1}}^0 \langle \Psi(0), P_i^-(0; \lambda) \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) \rangle dy \\
+&= \int_{-X_{i-1}}^0 \langle \Psi(0), \Theta^c(0, y; \lambda) \tilde{H}_i^-(y) \rangle dy \\
+&= \int_{-X_{i-1}}^0 \langle \Psi(0), \Theta^c(0, y; 0) \tilde{H}_i^-(y) \rangle dy + \mathcal{O}(|\lambda|) \\
+&= \mathcal{O}(|\lambda|)
+\end{align*}
+
+\end{enumerate}
 
 \end{document}
