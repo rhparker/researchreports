@@ -396,167 +396,213 @@ P_0^c(\lambda) D_i d = \mathcal{O}(e^{-\alpha X_i}(|\lambda| + e^{-\alpha X_i})|
 The next is to satisfy the conditions
 
 \begin{align*}
-P_i^\pm(0; \lambda) Z_i^\pm(0) &\in \C \Psi(0) \oplus Y^0 \oplus Y^+ \oplus Y^- \\
-P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) &\in \C \Psi(0) \oplus Y_0
+P_i^\pm(0; \lambda) Z_i^\pm(0) &\in \C \Psi_i(0) \oplus Y_i^0 \oplus Y_i^+ \oplus Y_i^- \\
+P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) &\in \C \Psi_i(0) \oplus Y_i^0
 \end{align*}
 
-Recall that
+Note that these conditions do depend on $i$. Recall that for each $i$ we have
 
 \[
-\C^m = \C \Psi(0) \oplus \C Q'(0) \oplus Y^0 \oplus Y^+ \oplus Y^- 
+\C^m = \C \Psi_i(0) \oplus \C (Q_n)_i'(0) \oplus Y_i^0 \oplus Y_i^+ \oplus Y_i^- 
 \]
 
 This condition is equivalent to the three projections
 
 \begin{align*}
-P(\C Q'(0)) P_i^-(0; \lambda) Z_i^-(0) &= 0 \\
-P(\C Q'(0)) P_i^+(0; \lambda) Z_i^+(0) &= 0 \\
-P(Y^+ \oplus Y^-) ( P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) ) &= 0
+P(\C (Q_n)_i'(0) ) P_i^-(0; \lambda) Z_i^-(0) &= 0 \\
+P(\C (Q_n)_i'(0) ) P_i^+(0; \lambda) Z_i^+(0) &= 0 \\
+P(Y_i^+ \oplus Y_i^-) ( P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) ) &= 0
 \end{align*}
 
-where the kernel of each projection is the remaining spaces in the direct sum. We can ignore $\C Q'(0)$ in the third equation since we ditched any component in it in the first two equations.\\
+where the kernel of each projection is the remaining spaces in the direct sum. We don't need $\C (Q_n)_i'(0)$ in the third equation since we eliminated any component in it in the first two equations.\\
 
-This is all fine, but we would really like to write this in terms of projections involving $Z$ directly without those pesky $P_i^\pm(0; \lambda)$ getting in the way.\\
-
-To do this, recall that the tangent space to the stable manifold at $x = 0$ is spanned by $Y^+$ and $Q'(0)$, and the tangent space to the unstable manifold at $x = 0$ is spanned by $Y^-$ and $Q'(0)$. Thus
+Recall that for $\lambda = 0$, the tangent space to the stable manifold at $x = 0$ is spanned by $Y_i^+$ and $(Q_n)_i'(0)$, and the tangent space to the unstable manifold at $x = 0$ is spanned by $Y_i^-$ and $(Q_n)_i'(0)$. Thus we have
 
 \begin{align*}
-P_i^-(0; \lambda) Q'(0) &= v^- \in E^u(0) \\
-P_i^-(0; \lambda) Y^- &\in E^-(0) \subset E^u(0) \\
-P_i^+(0; \lambda) Q'(0) &= v^+ \in E^s(0) \\
-P_i^+(0; \lambda) Y^+ &\in E^+(0) \subset E^s(0) \\
+P_i^-(0; 0)^{-1} (Q_n)_i'(0) &= v^- \in E^u(0) \\
+P_i^+(0; 0)^{-1} (Q_n)_i'(0) &= v^+ \in E^s(0)
 \end{align*}
 
-We can then rewrite the conditions as
+Let
 
 \begin{align*}
-P(\R v^- ) Z_i^-(0) &= 0 \\
-P(\R v^+ ) Z_i^+(0) &= 0 \\
-P( E^-(0) \oplus E^+(0) ) ( Z_i^+(0) - Z_i^-(0) ) &= 0
+E^u(0) &= \C v^- \oplus E^- \\
+E^s(0) &= \C v^+ \oplus E^+ \\
 \end{align*}
 
-Not sure that last one is right, but let's keep going. We can decompose $b^\pm$ uniquely as $b^\pm = x^\pm + y^\pm$, where $x^\pm \in \C v^\pm$ and $y^\pm \in E^\pm(0)$.\\
+Then we have
+
+\begin{align*}
+P_i^-(0; 0)^{-1} Y^- = E^- \\
+P_i^+(0; 0)^{-1} Y^+ = E^+ \\
+\end{align*}
+
+Next, following San98, we decompose $b_i^\pm$ uniquely as $b_i^\pm = x_i^\pm + y_i^\pm$, where $x_i^\pm \in \C v^\pm$ and $y_i^\pm \in E^\pm$.\\
 
 At $x = 0$, the fixed point equations become
 
 \begin{align*}
-Z_i^-(0) &= \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- + \Phi^u(0, 0; \lambda) b_i^- + \Phi^c(0, -X_{i-1}; \lambda) c_{i-1}^- \\
+Z_i^-(0) &= \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- + P_0^u(\lambda) b_i^- + \Phi^c(0, -X_{i-1}; \lambda) c_{i-1}^- \\
 &+ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
 + \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy  \\ 
-Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + \Phi^s(0, 0; \lambda) b_i^+ + \Phi^c(0, X_i; \lambda) c_i^+ \\
+Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + P_0^s(\lambda) b_i^+ + \Phi^c(0, X_i; \lambda) c_i^+ \\
 &+ \lambda^2 d_i \int_{X_i}^0 \Phi^u(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy 
 + \lambda^2 d_i \int_{X_i}^0 \Phi^c(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
 \end{align*}
 
-Doing a little manipulation, and using the known form of the evolution $\Phi^c$ (since it's a 1d subspace)
+Doing a little manipulation, and using the known form of the evolution $\Phi^c$, we have
 
 \begin{align*}
-Z_i^-(0) &= \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- + x_i^- + y_i^- + (\Phi^u(0, 0; \lambda) - \Phi^u(0, 0; 0))b_i^- + e^{\nu(\lambda) X_{i-1}} c_{i-1}^- \\
+Z_i^-(0) &= \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- + x_i^- + y_i^- + (P_0^u(\lambda) - P_0^u(0))b_i^- + e^{\nu(\lambda) X_{i-1}} c_{i-1}^- \\
 &+ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
 + \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy  \\ 
-Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + x_i^+ + y_i^+ + (\Phi^s(0, 0; \lambda) - \Phi^s(0, 0; 0)) b_i^+ + e^{-\nu(\lambda)X_i} c_i^+ \\
+Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + x_i^+ + y_i^+ + (P_0^s(\lambda) - P_0^s(0)) b_i^+ + e^{-\nu(\lambda)X_i} c_i^+ \\
 &+ \lambda^2 d_i \int_{X_i}^0 \Phi^u(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy 
 + \lambda^2 d_i \int_{X_i}^0 \Phi^c(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
 \end{align*}
 
-The projections we will use all involve the eigenspaces $E^{s/u}(0)$ when $\lambda = 0$. Recall that $c_i^\pm$ are in the eigenspaces for $\lambda$. Thus we need to account for this. Adding and subtracting stuff, we get
+Since $c_i^\pm$ are in the eigenspaces $E^c(\lambda)$, we do some further manipulation to separate out a component in $E^c(0)$.
 
 \begin{align*}
-Z_i^-(0) &= \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- + x_i^- + y_i^- + (\Phi^u(0, 0; \lambda) - \Phi^u(0, 0; 0))b_i^- \\
-&+ e^{\nu(\lambda) X_{i-1}} \Phi^c(0, 0; 0) c_{i-1}^- + e^{\nu(\lambda) X_{i-1}} (\Phi^c(0, 0; 
-\lambda) - \Phi^c(0, 0; 0))c_{i-1}^- \\
+Z_i^-(0) &= \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- + x_i^- + y_i^- + (P_0^u(\lambda) - P_0^u(0))b_i^- \\
+&+ e^{\nu(\lambda) X_{i-1}} P_0^c(0) c_{i-1}^- + e^{\nu(\lambda) X_{i-1}} (P_0^c(\lambda) - P_0^c(0))c_{i-1}^- \\
 &+ \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
 + \lambda^2 d_i \int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy  \\ 
-Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + x_i^+ + y_i^+ + (\Phi^s(0, 0; \lambda) - \Phi^s(0, 0; 0)) b_i^+ \\
-&+ e^{-\nu(\lambda)X_i} \Phi^c(0, 0; 0) c_i^+ + e^{-\nu(\lambda)X_i} (\Phi^c(0, 0; \lambda) - \Phi^c(0, 0; 0))c_i^+ \\
+Z_i^+(0) &= \Phi^u(0, X_i; \lambda) a_i^+ + x_i^+ + y_i^+ + (P_0^s(\lambda) - P_0^s(0)) b_i^+ \\
+&+ e^{-\nu(\lambda)X_i} P_0^c(0) c_i^+ + e^{-\nu(\lambda)X_i} (P_0^c(\lambda) - P_0^c(0))c_i^+ \\
 &+ \lambda^2 d_i \int_{X_i}^0 \Phi^u(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy 
 + \lambda^2 d_i \int_{X_i}^0 \Phi^c(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
 \end{align*}
-
-Now we hit these (and their difference) with the appropriate projections. All the projections will eliminate the $\Phi^c(0, 0; 0) c_{i-1}^-$ and $\Phi^c(0, 0; 0) c_i^+$ terms. Thus we are left with 
+ 
+Before we take projections, we operate on these with the conjugation operators $P_i^\pm(0; \lambda)$. Where needed, we will use $P_i^\pm(0; \lambda) = P_i^\pm(0; 0) + \mathcal{O}(|\lambda|)$ (from the Taylor expansion). If we do that, then take the projections, we eventually wind up with a equation of the form
 
 \[
 \begin{pmatrix}x_i^- \\ x_i^+ \\ 
-y_i^+ - y_i^- \end{pmatrix} + L_4(\lambda)_i(b, c, d) = 0
+y_i^+ - y_i^- \end{pmatrix} + L_2(\lambda)_i(b, \tilde{c}, d) = 0
 \]
 
-To get a bound on $L_4$, we need to bound the individual terms above. The bound on the integral terms is determined by the bound on the center subspace, since there is potential growth in that subspace.
+where we define
+
+\begin{equation}\label{tildec}
+\tilde{c}_i^\pm = e^{\pm \nu(\lambda) X_i} c_i^-
+\end{equation}
+
+To get a bound on $L_2$, we need to bound the individual terms above.
+
+\begin{enumerate}
+
+\item For the $a_i$ terms, we substitute the bound for $A_1(\lambda)$ to get
 
 \begin{align*}
-\left| \lambda^2 d \int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \right| &\leq C |\lambda|^2 |d| \int_{-X_{i-1}}^0 e^{\rho y} e^{-\alpha y} dy \\
-&\leq C |\lambda|^2 |d|
-\end{align*}
-
-For the $a_i$ terms, we substitute the bound for $A_1(\lambda)$ to get
-
-\begin{align*}
-|\Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^-|
+|P_i^-(0; \lambda) \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^-|
 &\leq C \Big( e^{-2 \alpha X_{i-1}} (|b_{i-1}^+| + |b_i^-|) + e^{-\alpha X_{i-1}}|c_{i-1}^-| + e^{-\alpha X_{i-1}}(e^{-\tilde{\alpha} X_{i-1}} |\lambda^2| + |D_{i-1}|)|d| \Big) \\
-|\Phi^u(0, X_i; \lambda) a_i^+|
+|P_i^+(0; \lambda) \Phi^u(0, X_i; \lambda) a_i^+|
 &\leq C \Big( e^{-2 \alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\alpha X_i} |c_i^-| + e^{-\alpha X_i} (e^{-\tilde{\alpha} X_i} |\lambda^2| + |D_i|)|d| \Big)
 \end{align*}
 
-We use the $A_2$ expression to eliminate $c_i^+$ to get
+Substituting the $\tilde{c}$, these become
+
+\begin{align*}
+|P_i^-(0; \lambda) \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^-|
+&\leq C \Big( e^{-2 \alpha X_{i-1}} (|b_{i-1}^+| + |b_i^-|) + e^{-\tilde{\alpha} X_{i-1}}|\tilde{c}_{i-1}^+| + e^{-\alpha X_{i-1}}(e^{-\tilde{\alpha} X_{i-1}} |\lambda^2| + |D_{i-1}|)|d| \Big) \\
+|P_i^+(0; \lambda) \Phi^u(0, X_i; \lambda) a_i^+|
+&\leq C \Big( e^{-2 \alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\tilde{\alpha} X_i} |\tilde{c}_i^-| + e^{-\alpha X_i} (e^{-\tilde{\alpha} X_i} |\lambda^2| + |D_i|)|d| \Big)
+\end{align*}
+
+\item For the $b_i$ terms, we have
+
+\[
+|P_i^-(0; \lambda)(P_0^u(\lambda) - P_0^u(0))b_i^-| \leq C |\lambda||b_i^-| 
+\]
+
+We also have from the projection
+
+\begin{align*}
+P_i^-(0; \lambda)( x_i^- + y_i^- ) = P_i^-(0; 0)( x_i^- + y_i^- ) + \mathcal{O}(|\lambda||b_i^-|)
+\end{align*}
+
+\item For the $c_i^-$ terms, we have
+
+\begin{align*}
+P_i^-(0; \lambda)&[ e^{\nu(\lambda) X_{i-1}} P_0^c(0) c_{i-1}^- + e^{\nu(\lambda) X_{i-1}} (P_0^c(\lambda) - P_0^c(0))c_{i-1}^-] \\
+&= P_i^-(0; 0) P_0^c(0) \tilde{c}_{i-1}^+ + (P_i^-(0; \lambda) - P_i^-(0; 0)) P_0^c(0) \tilde{c}_{i-1}^+ + P_i^-(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) \tilde{c}_{i-1}^+ \\
+&= P_i^-(0; 0) P_0^c(0) \tilde{c}_{i-1}^+ + \mathcal{O}(|\lambda||\tilde{c}_{i-1}^+|)
+\end{align*}
+
+Note that the leading order term here is eliminated by all the projections.
+
+\item The $c_i^+$ terms are the same, except we have to use $A_2$ to write $c_i^+$ in terms of $c_i^+$. Using the bound for $A_2$ and the estimate for $P_0^c(\lambda) D_i d$, we obtain
 
 \begin{align*}
 e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^- 
 + e^{-\nu(\lambda)X_i} P_0^c(\lambda) D_i d + e^{-\nu(\lambda)X_i} A_2(\lambda)_i^c(b, d)\\
-&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{\rho X_i} e^{-\alpha X_i} ( |\lambda| + e^{-\alpha X_i} ) |d|) + e^{-\tilde{\alpha} X_i}( |b_i^+| + |b_{i+1}^-| + |c_i^-| + |\lambda^2||d| + |D_i||d|) \Big) \\
-&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-\tilde{\alpha} X_i} ( |\lambda||d| + e^{-\alpha X_i} |d| + |b_i^+| + |b_{i+1}^-| + |c_i^-| + |\lambda^2||d| + |D_i||d|) \Big) \\
-&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-\tilde{\alpha} X_i} ( |b_i^+| + |b_{i+1}^-| + |c_i^-| + (|\lambda| + e^{-\alpha X_i} + |D_i| ) |d|) \Big) \\
-&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-\tilde{\alpha} X_i} ( |b_i^+| + |b_{i+1}^-| + |c_i^-| + (|\lambda| + |D_i| ) |d|) \Big) \\
+&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{\rho X_i} e^{-\alpha X_i} ( |\lambda| + e^{-\alpha X_i} ) |d|) + e^{-(\alpha - \rho) X_i}( |b_i^+| + |b_{i+1}^-| + |c_i^-| + e^{\rho X_i}|\lambda^2||d| + |D_i||d|) \Big) \\
+&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-\tilde{\alpha} X_i} ( |\lambda||d| + e^{-\alpha X_i} |d| + |b_i^+| + |b_{i+1}^-| + |\tilde{c}_i^+| + |\lambda^2||d| + |D_i||d|) \Big) \\
+&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-\tilde{\alpha} X_i} ( |b_i^+| + |b_{i+1}^-| + |\tilde{c}_i^+| + (|\lambda| + e^{-\alpha X_i} + |D_i| ) |d|) \Big) \\
+&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-\tilde{\alpha} X_i} ( |b_i^+| + |b_{i+1}^-| + |\tilde{c}_i^+| + (|\lambda| + |D_i| ) |d|) \Big) \\
 \end{align*}
 
-where we used the fact that $D_i = \mathcal{O}(e^{-\alpha X_i})$. Thus we have bound
+Thus we have
+
+\begin{align*}
+P_i^+(0; \lambda)&[ e^{-\nu(\lambda) X_i} P_0^c(0) c_i^+ + e^{-\nu(\lambda) X_{i-1}} (P_0^c(\lambda) - P_0^c(0))c_i^+] \\
+&= P_i^-(0; 0) P_0^c(0) \tilde{c}_i^- + \mathcal{O}(|\lambda||\tilde{c}_i^-|)
++ \mathcal{O}\Big( e^{-\tilde{\alpha} X_i} ( |b_i^+| + |b_{i+1}^-| + |\tilde{c}_i^+| + (|\lambda| + |D_i| ) |d|) \Big)
+\end{align*}
+
+Again, the leading order term is eliminated by all the projections.
+
+\item The bound on the integral terms is determined by the bound on the center subspace, since there is potential growth in that subspace.
+
+\begin{align*}
+\left| \lambda^2 d P_i^-(0; \lambda) \int_{-X_{i-1}}^0 \Phi^c(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \right| &\leq C |\lambda|^2 |d| \int_{-X_{i-1}}^0 e^{\rho y} e^{-\alpha y} dy \\
+&\leq C |\lambda|^2 |d|
+\end{align*}
+
+\end{enumerate}
+
+Putting all these together, we obtain the bound for $L_2(\lambda)_i(b, \tilde{c}, d)$.
 
 \begin{align*}
 L_2(\lambda)_i(b, \tilde{c}, d) &\leq 
 C\Big( (|\lambda| + e^{-\tilde{\alpha}X_m})|b| 
-+ (|\lambda| + e^{-\tilde{\alpha}X_{i-1}})|\tilde{c}_{i-1}|
-+ (|\lambda| + e^{-\tilde{\alpha}X_i})|\tilde{c}_i| \\
++ (|\lambda| + e^{-\tilde{\alpha}X_{i-1}})|\tilde{c}_{i-1}^+|
++ (|\lambda| + e^{-\tilde{\alpha}X_i})|\tilde{c}_i^-| \\
 &+ (e^{-\tilde{\alpha}X_{i-1}}|D_{i-1}| + e^{-\tilde{\alpha}X_i}|D_i| 
 + |\lambda|^2)|d| \Big)
 \end{align*}
-
-where
-
-\[
-\tilde{c}_i^\pm = e^{\pm \nu(\lambda) X_i} c_i^-
-\]
 
 Peforming the inversion, we solve for $b$ to get $B_1(\lambda)(\tilde{c}, d)$, which has bound
 
 \begin{align*}
 |B_1(\lambda)_i(\tilde{c}, d)| \leq C \Big(
-(|\lambda| + e^{-\tilde{\alpha}X_{i-1}})|\tilde{c}_{i-1}|
-+ (|\lambda| + e^{-\tilde{\alpha}X_i})|\tilde{c}_i|
+(|\lambda| + e^{-\tilde{\alpha}X_{i-1}})|\tilde{c}_{i-1}^+|
++ (|\lambda| + e^{-\tilde{\alpha}X_i})|\tilde{c}_i^-|
 + (e^{-\tilde{\alpha}X_{i-1}}|D_{i-1}| + e^{-\tilde{\alpha}X_i}|D_i| 
 + |\lambda|^2)|d|
 \Big)
 \end{align*}
 
-A uniform bound is
+A more uniform bound is
 
 \begin{align*}
 |B_1(\lambda)(\tilde{c}, d)| \leq C \Big(
-(|\lambda| + e^{-\tilde{\alpha}X_m})|\tilde{c}|
+(|\lambda| + e^{-\tilde{\alpha}X_{i-1}})|\tilde{c}_{i-1}^+|
++ (|\lambda| + e^{-\tilde{\alpha}X_i})|\tilde{c}_i^-|
 + (e^{-\tilde{\alpha}X_m}|D| 
 + |\lambda|^2)|d|
 \Big)
 \end{align*}
 
-We can plug this into the bounds for $A_1$ and $A_2$ to get $A_3$ and $A_4$ with bounds
-
-\begin{align*}
-|A_3&(\lambda)_i(\tilde{c}, c^-, d)|
-\leq C \Big( e^{-\alpha X_i} (|\lambda| + e^{-\alpha X_m})|\tilde{c}| + |c_i^-| + (e^{-(\alpha - \rho) X_i} |\lambda^2| + |D_i|)|d| \Big)
-\end{align*}
-
-and
+We keep the $\tilde{c}^\pm$ terms separate, since that might end up mattering. We can plug this into the bounds for $A_2$ to get $A_4$ with bound
 
 \begin{align*}
 |A_4&(\lambda)_i(\tilde{c}, d)|
-\leq C \Big( e^{-\tilde{\alpha} X_m} |\tilde{c}| + e^{-(\alpha - \rho) X_i} |\lambda|^2|d| + e^{-\alpha X_m}|D||d| \Big)
+\leq C \Big( 
+e^{-\alpha X_i} (|\lambda| + e^{-\tilde{\alpha}X_{i-1}})|\tilde{c}_{i-1}^+|
++ e^{-\alpha X_i}(|\lambda| + e^{-\tilde{\alpha}X_i})(|\tilde{c}_i^+| + |\tilde{c}_i^-|)
++ e^{-\alpha X_i}(|\lambda| + e^{-\tilde{\alpha}X_{i+1}})|\tilde{c}_{i+1}^-| \\
+&+ e^{-\tilde{\alpha} X_m}  + e^{-(\alpha - \rho) X_i} |\lambda|^2|d| + e^{-\alpha X_m}|D||d| \Big)
 \end{align*} 
 
 Now that we have solved (uniquely) for everything except for the $c_i^-$ and $d$, we are ready to compute the jump conditions in the two directions.
