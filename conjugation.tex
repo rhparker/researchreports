@@ -146,7 +146,7 @@ and use the variation of constants formula together with an exponential dichotom
 
 What we really want is to use the Conjugation Lemma so that the evolution of the variational equation does not depend on $\lambda$ (or on the $\beta_i^\pm$, but those are less important and should be taken care of automatically since the exponential decay to the asymptotic operator does not depend on them). We take $\Lambda = (\lambda)$ in the conjugation lemma. $A((q_n)_i^\pm; \lambda)$ is linear, thus analytic, in $\lambda$, so we should be all set.\\
 
-Using the Conjugation Lemma, make the substitution $W_i^\pm = P_i^\pm Z_i^\pm$, where $P_i^\pm$ conjugates $A((q_n)_i^\pm; \lambda)$. Then the problem becomes
+Using the Conjugation Lemma, make the substitution $W_i^\pm = P_i^\pm Z_i^\pm$, where $P_i^\pm$ conjugates $A((q_n)_i^\pm; \lambda)$. Then the problem should look like
 
 \begin{align*}
 &(Z_i^\pm(x))' = A(0; \lambda) Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \\
@@ -161,38 +161,13 @@ Advantage: The first equation is way simpler, i.e. reduced to the constant coeff
 
 Disadvantage: We have $P_i^\pm$ in all the matching conditions. For the matching conditions at $\pm X_i$, these are approximately the identity, so this should not be a big deal. For the matching conditions at 0, they could cause trouble.\\
 
-Since $A(0; \lambda)$ is constant coefficient (and we know what it is), we don't have to bother with the exponential trichotomy stuff, since everything evolves in the eigenspaces of $A(0; \lambda)$, which do not depend on $x$.
-
-Before we proceed, make the following hypothesis.
+Since $A(0; \lambda)$ is constant coefficient (and we know what it is), we don't have to bother with the exponential trichotomy stuff, since everything evolves in the eigenspaces of $A(0; \lambda)$, which do not depend on $x$. Before we proceed, make the following hypothesis.
 
 \begin{hypothesis}\label{Aspectrumhyp}
 \begin{enumerate}
 	\item The spectrum of $A(0; 0)$ has isolated, simple eigenvalues at $\{ 0, \pm \alpha_0 \pm \beta_0 \}$, where $\alpha_0, \beta_0 > 0$. The real part of any other eigenvalue of $A(0; 0)$ lies outside the interval $[-\alpha_0, \alpha_0]$.
 \end{enumerate}
 \end{hypothesis}
-
-In our case, $A(0; 0)$ has five simple eigenvalues at $\{ 0, \pm \alpha_0 \pm \beta_0 \}$. Since these are all distinct, and will remain so for sufficiently small $\lambda$, $A(0; \lambda)$ is diagonalizable for sufficiently small $\lambda$. Since I can see no reason not to do it, we will diagonalize $A(0; \lambda)$. Let $S(\lambda)$ be the appropriate matrix such that
-
-\[
-B(\lambda) = S(\lambda)^{-1} A(0; \lambda)S(\lambda)
-\]
-
-is diagonal. The nice thing here is that the eigenspaces of $B(\lambda)$ are just the standard basis vectors, and thus do not depend on $\lambda$. The eigenvalues of $B(\lambda)$ are its diagonal entries, and they (of course) do depend on $\lambda$. For the final substitution, we write the first equation as
-
-\begin{align*}
-(Z_i^\pm(x))' &= S(\lambda) S(\lambda)^{-1} A(0; \lambda) S(\lambda) S(\lambda)^{-1} Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \\
-(Z_i^\pm(x))' &= S(\lambda) B(\lambda) S(\lambda)^{-1} Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \\
-(S(\lambda)^{-1} Z_i^\pm(x))' &=  B(\lambda) S(\lambda)^{-1} Z_i^\pm(x) + \lambda^2 d_i S(\lambda)^{-1} P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \\
-\end{align*}
-
-Let $T_i^\pm(x) = S(\lambda)^{-1} Z_i^\pm(x)$, so that $Z_i^\pm(x) = S(\lambda) T_i^\pm$. Then our system of equations to solve becomes
-
-\begin{align*}
-&(T_i^\pm(x))' =  B(\lambda) T_i^\pm(x) + \lambda^2 d_i S(\lambda)^{-1} P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \\
-&P_i^-(0; \lambda) S(\lambda) T_i^-(0) = P_i^+(0; \lambda) S(\lambda) T_i^+(0) \\
-&P_i^\pm(0; \lambda) S(\lambda) T_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^-\\
-&P_i^+(X_i; \lambda) S(\lambda) T_i^+(X_i) - P_{i+1}^-(-X_i; \lambda) S(\lambda) T_{i+1}^-(-X_i; \lambda) = D_i d
-\end{align*}
 
 We then define the following.
 
@@ -226,25 +201,19 @@ We then define the following.
 
 \end{enumerate}
 
-Let $P^{u/s/c}_0$ be the eigenprojections for the unstable/stable/center subspaces $E^{u/s/c}$ of $B(\lambda)$. Note that the center subspace is a legit center subspace only when $\nu(\lambda)$ has no real part, e.g. when $\lambda = 0$, but we will still call it a center subspace for convenience. Note that these projections do not depend on $\lambda$, since $B(\lambda)$ is diagonal. Let $\Phi(x, y; \lambda) = e^{B(\lambda)(x-y)}$ be the evolution of the constant-coefficient ODE
+Let $P^{u/s/c}_0(\lambda)$ be the eigenprojections for the unstable/stable/center subspaces of $A(0; \lambda)$, where the center subspace is a legit center subspace only when $\nu(\lambda)$ has no real part, e.g. when $\lambda = 0$. Let $\Phi(x, y; \lambda) = e^{A(0; \lambda)(x-y)}$ be the evolution of the constant-coefficient ODE
 
 \[
-Z' = B(\lambda) Z
+Z' = A(0; \lambda) Z
 \]
 
-This, of course, does depend on $\lambda$ since it depends on the eigenvalues of $B(\lambda)$. Letting $\Phi^{u/s/c}(x, y; \lambda)$ be the evolutions on the respective eigenspaces, we have the bounds for all $|\lambda| < \delta$
+Letting $\Phi^{u/s/c}(x, y; \lambda)$ be the evolutions on the respective eigenspaces, we have the bounds
 
 \begin{align*}
 |\Phi^s(x, y; \lambda)| &\leq C e^{-\alpha(x - y)} \\
 |\Phi^u(x, y; \lambda)| &\leq C e^{-\alpha(y - x)} \\
 |\Phi^c(x, y; \lambda)| &\leq C e^{-\rho|x - y|} 
 \end{align*}
-
-In particular, we also have for all $v \in E^c$
-
-\[
-\Phi^c(x, y; \lambda) v = e^{\nu(\lambda)(x - y)} v
-\]
 
 We are going to want to relate things to the variational/adjoint variational problem for the nontransformed system. These are
 
@@ -253,10 +222,10 @@ V' &= A(q(x); \lambda) V \\
 W' &= -A(q(x); \lambda)^* W
 \end{align*}
 
-$Q'(x)$ solves the variational problem, and we have solutions $\Psi(x)$ and $1$ to the adjoint variational problem. Using the conjugation lemma, let $P_q^\pm(\lambda)$ conjugate $A(q(x); \lambda)$, i.e. the variational problem for the single pulse. Let $\Theta(y, x; \lambda)$ be the evolution for the untransformed variational equation. We would like to relate this to the evolution of the transformed variational equation. We should have for appropriate values of $x, y$
+$Q'(x)$ solves the variational problem, and we have solutions $\Psi(x)$ and $1$ to the adjoint variational problem. Using the conjugation lemma, let $P_1^\pm(\lambda)$ conjugate $A(q(x); \lambda)$, i.e. the variational problem for the single pulse. Let $\Theta(y, x; \lambda)$ be the evolution for the untransformed variational equation. We would like to relate this to the evolution of the transformed variational equation. We should have for appropriate values of $x, y$
 
 \[
-\Theta(y, x; \lambda) = P_q^\pm(y; \lambda) S(\lambda) \Phi(y, x; \lambda) S(\lambda)^{-1} P_q^\pm(x; \lambda)^{-1}
+\Theta(y, x; \lambda) = P_1^\pm(y; \lambda) \Phi(y, x; \lambda) P_1^\pm(x; \lambda)^{-1}
 \]
 
 We can also go the other way if we like.\\
@@ -264,15 +233,15 @@ We can also go the other way if we like.\\
 Define the spaces
 
 \begin{align*}
-V_a &= \bigoplus_{i=0}^{n-1} E^u \oplus E^s \\
-V_b &= \bigoplus_{i=0}^{n-1} E^u \oplus E^s \\
-V_c^+ &= \bigoplus_{i=0}^{n-1} E^c \\
-V_c^- &= \bigoplus_{i=0}^{n-1} E^c \\
+V_a &= \bigoplus_{i=0}^{n-1} E^u(\lambda) \oplus E^s(\lambda) \\
+V_b &= \bigoplus_{i=0}^{n-1} E^u(0) \oplus E^s(0) \\
+V_c^+ &= \bigoplus_{i=0}^{n-1} E^c(\lambda) \\
+V_c^- &= \bigoplus_{i=0}^{n-1} E^c(\lambda) \\
 V_c &= V_c^+ \oplus V_c^- \\
 V_\lambda &= B_\delta(0) \subset \C
 \end{align*}
 
-where the subscripts are all $\mod n$, as in the existence problem. All the product spaces are endowed with the maximum norm, e.g. for $V_c$, $|c| = \max(|c_0^-|, \dots, |c_{n-1}^-|, |c_0^+|, \dots, |c_{n-1}^+|)$. In addition, we take the following convention: if we eliminate either a subscript or a superscript (or both) in the norm, we are taking the maximum over the eliminated thing. For example,
+where the subscripts are all $\mod n$, as in the existence problem. We use the $\lambda-$dependent eigenspaces for $a_i^\pm$ and $c_i^\pm$, since we will be evolving them under the $\lambda-$dependent evolution. All the product spaces are endowed with the maximum norm, e.g. for $V_c$, $|c| = \max(|c_0^-|, \dots, |c_{n-1}^-|, |c_0^+|, \dots, |c_{n-1}^+|)$. In addition, we take the following convention: if we eliminate either a subscript or a superscript (or both) in the norm, we are taking the maximum over the eliminated thing. For example,
 \begin{enumerate}
 	\item $|c_i| = \max(|c_i^+|, |c_i^-|)$ 
 	\item $|c^+| = \max(|c_0^+|, \dots, |c_{n-1}^+|)$
@@ -283,131 +252,93 @@ where the subscripts are all $\mod n$, as in the existence problem. All the prod
 At this point, we can write down the fixed point equations for the problem. For $i = 0, \dots, n-1$, the fixed point equations are
 
 \begin{align*}
-T_i^-(x) &= \Phi^s(x, -X_{i-1}; \lambda) a_{i-1}^- + \Phi^u(x, 0; \lambda) b_i^- + \Phi^c(x, -X_{i-1}; \lambda) c_{i-1}^- \\
-&+ \lambda^2 d_i \int_0^x \Phi^u(x, y; \lambda) S(\lambda)^{-1} P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \\
-&+ \lambda^2 d_i \int_{-X_{i-1}}^x \Phi^s(x, y; \lambda) S(\lambda)^{-1} P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \\
-&+ \lambda^2 d_i \int_{-X_{i-1}}^x \Phi^c(x, y; \lambda) S(\lambda)^{-1} P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy  \\ 
-T_i^+(x) &= \Phi^u(x, X_i; \lambda) a_i^+ + \Phi^s(x, 0; \lambda) b_i^+ + \Phi^c(x, X_i; \lambda) c_i^+ \\
-&+ \lambda^2 d_i \int_0^x \Phi^s(x, y; \lambda) S(\lambda)^{-1} P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
-&+ \lambda^2 d_i \int_{X_i}^x \Phi^u(x, y; \lambda) S(\lambda)^{-1} P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
-&+ \lambda^2 d_i \int_{X_i}^x \Phi^c(x, y; \lambda) S(\lambda)^{-1} P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
+Z_i^-(x) &= \Phi^s(x, -X_{i-1}; \lambda) a_{i-1}^- + \Phi^u(x, 0; \lambda) b_i^- + \Phi^c(x, -X_{i-1}; \lambda) c_{i-1}^- \\
+&+ \lambda^2 d_i \int_0^x \Phi^u(x, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy
++ \lambda^2 d_i \int_{-X_{i-1}}^x \Phi^s(x, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \\
+&+ \lambda^2 d_i \int_{-X_{i-1}}^x \Phi^c(x, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy  \\ 
+Z_i^+(x) &= \Phi^u(x, X_i; \lambda) a_i^+ + \Phi^s(x, 0; \lambda) b_i^+ + \Phi^c(x, X_i; \lambda) c_i^+ \\
+&+ \lambda^2 d_i \int_0^x \Phi^s(x, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy
++ \lambda^2 d_i \int_{X_i}^x \Phi^u(x, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
+&+ \lambda^2 d_i \int_{X_i}^x \Phi^c(x, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
 \end{align*}
 
-Note that $T_i^\pm$ only appears on the LHS, so we don't need to do the first inversion step as in San98. We can start with the matching conditions at $\pm X_i$.
+Note that $W_i^\pm$ only appears on the LHS, so we don't need to do the first inversion step as in San98. We can start with the matching conditions at $\pm X_i$.
 
 \subsubsection*{Matching at ends}
 
 Here, we solve the condition
 
 \[
-P_i^+(X_i; \lambda) S(\lambda) T_i^+(X_i) - P_{i+1}^-(-X_i; \lambda) S(\lambda) T_{i+1}^-(-X_i; \lambda) = D_i d
+P_i^+(X_i; \lambda) Z_i^+(X_i) - P_{i+1}^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) = D_i d
 \]
 
 At $\pm X_i$, the fixed point equations become
 
 \begin{align*}
-T_{i+1}^-(-X_i) &= a_i^- + \Phi^u(-X_i, 0; \lambda) b_{i+1}^- + c_i^- 
-+ \lambda^2 d_i \int_0^{-X_i} \Phi^u(-X_i, y; \lambda) S(\lambda)^{-1} P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \\ 
-T_i^+(X_i) &= a_i^+ + \Phi^s(X_i, 0; \lambda) b_i^+ + c_i^+ 
-+ \lambda^2 d_i \int_0^{X_i} \Phi^s(X_i, y; \lambda) S(\lambda)^{-1} P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy
+Z_{i+1}^-(-X_i) &= a_i^- + \Phi^u(-X_i, 0; \lambda) b_{i+1}^- + c_i^- 
++ \lambda^2 d_i \int_0^{-X_i} \Phi^u(-X_i, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \\ 
+Z_i^+(X_i) &= a_i^+ + \Phi^s(X_i, 0; \lambda) b_i^+ + c_i^+ 
++ \lambda^2 d_i \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy
 \end{align*}
 
-Thus we need to solve
+We use here the fact that, for example, $a_i^- \in E^s(\lambda)$ and $\Phi^s(-X_{i-1}, -X_{i-1}; \lambda)$ is the identity on $E^s(\lambda)$. Thus we need to solve
 
 \begin{align*}
-D_i d &= P_i^+(X_i; \lambda) S(\lambda) T_i^+(X_i) - P_{i+1}^-(-X_i; \lambda) S(\lambda) T_{i+1}^-(-X_i; \lambda) \\
-&= P_i^+(X_i; \lambda) S(\lambda) a_i^+ + P_i^+(X_i; \lambda) S(\lambda) \Phi^s(X_i, 0; \lambda) b_i^+ + P_i^+(X_i; \lambda) S(\lambda) c_i^+ \\
-&+ \lambda^2 d_i P_i^+(X_i; \lambda) S(\lambda) \int_0^{X_i} \Phi^s(X_i, y; \lambda) S(\lambda)^{-1} P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
-&- P_{i+1}^-(-X_i; \lambda)S(\lambda) a_i^- - P_{i+1}^-(-X_i; \lambda) S(\lambda)\Phi^u(-X_i, 0; \lambda) b_{i+1}^- - P_{i+1}^-(-X_i; \lambda)S(\lambda) c_i^- \\
-&- \lambda^2 d_i P_{i+1}^-(-X_i; \lambda) S(\lambda) \int_0^{-X_i} \Phi^u(-X_i, y; \lambda) S(\lambda)^{-1} P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
+D_i d &= P_i^+(X_i; \lambda) Z_i^+(X_i) - P_{i+1}^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) \\
+&= P_i^+(X_i; \lambda) a_i^+ + P_i^+(X_i; \lambda) \Phi^s(X_i, 0; \lambda) b_i^+ + P_i^+(X_i; \lambda) c_i^+ \\
+&+ \lambda^2 d_i P_i^+(X_i; \lambda) \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
+&- P_{i+1}^-(X_i; \lambda) a_i^- - P_{i+1}^-(X_i; \lambda) \Phi^u(-X_i, 0; \lambda) b_{i+1}^- - P_{i+1}^-(X_i; \lambda) c_i^- \\
+&- \lambda^2 d_i P_{i+1}^-(X_i; \lambda) \int_0^{-X_i} \Phi^u(-X_i, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
 \end{align*}
 
 From the Conjugation Lemma, we have
 
 \begin{equation}\label{conjest}
-P_i^\pm(\pm X_i; \lambda) = I + \Theta_i^\pm(X_i; \lambda)
+P_i^\pm(\pm X_i; \lambda) = I + \mathcal{O}(e^{-\alpha X_i})
 \end{equation}
 
-where $|\Theta_i^\pm(X_i; \lambda)| \leq C e^{-\alpha X_i}$. Substituting this in where appropriate, we have
-
-\begin{align*}
-D_i d &= S(\lambda) a_i^+ + S(\lambda) c_i^+ + \Theta_i^+(X_i; \lambda) S(\lambda) a_i^+ + \Theta_i^+(X_i; \lambda) S(\lambda) c_i^+ \\
-&+ P_i^+(X_i; \lambda) S(\lambda) \Phi^s(X_i, 0; \lambda) b_i^+ \\
-&+ \lambda^2 d_i P_i^+(X_i; \lambda) S(\lambda) \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
-&- S(\lambda) a_i^- - S(\lambda) c_i^- - \Theta_{i+1}^-(X_i; \lambda)S(\lambda) a_i^- - \Theta_{i+1}^-(X_i; \lambda)S(\lambda) c_i^- \\
-&- P_{i+1}^-(X_i; \lambda) S(\lambda)\Phi^u(-X_i, 0; \lambda) b_{i+1}^- \\
-&- \lambda^2 d_i P_{i+1}^-(X_i; \lambda) S(\lambda) \int_0^{-X_i} \Phi^u(-X_i, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
-\end{align*}
-
-Operating on the left by $S(\lambda)^{-1}$, this becomes
-
-\begin{align*}
-S(\lambda)^{-1} D_i d &= a_i^+ - a_i^- + c_i^+ - c_i^- \\
-&+ S(\lambda)^{-1} \Theta_i^+(X_i; \lambda) S(\lambda) a_i^+ + S(\lambda)^{-1} \Theta_i^+(X_i; \lambda) S(\lambda) c_i^+ \\
-&+ S(\lambda)^{-1} P_i^+(X_i; \lambda) S(\lambda) \Phi^s(X_i, 0; \lambda) b_i^+ \\
-&+ \lambda^2 d_i S(\lambda)^{-1} P_i^+(X_i; \lambda) S(\lambda) \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
-&- - S(\lambda)^{-1} \Theta_{i+1}^-(X_i; \lambda)S(\lambda) a_i^- - S(\lambda)^{-1} \Theta_{i+1}^-(X_i; \lambda)S(\lambda) c_i^- \\
-&- S(\lambda)^{-1} P_{i+1}^-(X_i; \lambda) S(\lambda)\Phi^u(-X_i, 0; \lambda) b_{i+1}^- \\
-&- \lambda^2 d_i S(\lambda)^{-1} P_{i+1}^-(X_i; \lambda) S(\lambda) \int_0^{-X_i} \Phi^u(-X_i, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy 
-\end{align*}
-
-This is of the form 
-
-\begin{align}\label{Dideq1}
-S(\lambda)^{-1} D_i d &= a_i^+ - a_i^- + c_i^+ - c_i^- + L_1(\lambda)_i(a, b, c^+, c^-, d)
-\end{align}
-
-To get a bound for $L_1$, we look at the individual terms. We will do the ``plus'' terms. The ``minus'' terms are similar.
-
-\begin{enumerate}
-
-\item For the terms involving $a_i$ and $c_i$,
-
-\begin{align*}
-|S(\lambda)^{-1} \Theta_i^+(X_i; \lambda) S(\lambda) a_i^+|
-&\leq C e^{-\alpha X_i} |a_i^+| \\
-| S(\lambda)^{-1} \Theta_i^+(X_i; \lambda) S(\lambda) c_i^+|
-&\leq C e^{-\alpha X_i} |c_i^+| 
-\end{align*}
-
-\item For the terms involving $b_i$
+which we will use on the $a_i^\pm$ and $c_i^\pm$ terms. For bounds on the other terms we have
 
 \[
-|S(\lambda)^{-1} P_i^+(X_i; \lambda) S(\lambda) \Phi^s(X_i, 0; \lambda) b_i^+| \leq C e^{-\alpha X_i} |b_i^+|
+|P_i^+(X_i; \lambda) \Phi^s(X_i, 0; \lambda)b_i^+| \leq C e^{-\alpha X_i} |b_i^+|
 \]
 
-\item For the integral terms
+and
 
 \begin{align*}
 \left|
-S(\lambda)^{-1} P_i^+(X_i; \lambda) S(\lambda) \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \right| 
+P_i^+(X_i; \lambda) \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \right| 
 &\leq C \int_0^{X_i} e^{-\alpha(X_i - y)}e^{-\alpha y} dy \\
 &\leq C \int_0^{X_i} e^{-(\alpha - \rho)(X_i - y)}e^{-\alpha y} dy \\
 &= C e^{-(\alpha - \rho) X_i} \int_0^{X_i} e^{-\rho y} dy \\ 
 &\leq C e^{-(\alpha - \rho) X_i} 
 \end{align*}
 
-\end{enumerate}
+The ``negative'' pieces are similar. Thus we have
 
-Thus we obtain the bound for $L_1$
+\begin{align}\label{Dideq1}
+D_i d &= a_i^+ - a_i^- + c_i^+ - c_i^- + L_1(\lambda)_i(a, b, c^+, c^-, d)
+\end{align}
+
+where
 
 \[
 |L_1(\lambda)_i(a, b, c^+, c^-, d)| \leq C \Big( e^{-\alpha X_i} |a_i| + e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\alpha X_i} (|c_i^+| + |c_i^-|) + e^{-(\alpha - \rho) X_i} |\lambda^2| |d| \Big)
 \]
 
-Following San98 (and leaving out some steps), we can solve for $(a, c^+)$ to get $(a_i, c_i^+) = A_1(\lambda)_i(b, c_i^-, d)$, with bound
+Following San98 (and leaving out some steps), we can solve this for $(a, c^+)$ to get $(a_i, c_i^+) = A_1(\lambda)_i(b, c_i^-, d)$, with bound
 
 \begin{align*}
 |A_1&(\lambda)_i(b, c^-, d)|
 \leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + |c_i^-| + (e^{-(\alpha - \rho) X_i} |\lambda^2| + |D_i|)|d| \Big)
 \end{align*} 
 
-As in San98, we hit \eqref{Dideq1} with projections on the various eigenspaces $P_0^{s/u/c}$. The remainder term $A_2(\lambda)_i^c(b, d)$ is found by substituting the bound for $A_1$ into $L_1$ and simplifying. Upon doing this, we get
+As in San98, we hit \eqref{Dideq1} with projections on the various eigenspaces $E^{s/u/c}(\lambda)$. The remainder term $A_2(\lambda)_i^c(b, d)$ is found by substituting the bound for $A_1$ into $L_1$ and simplifying.
 
 \begin{align*}
-a_i^+ &= P_0^u S(\lambda)^{-1} D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
-a_i^- &= -P_0^s S(\lambda)^{-1} D_i d + A_2(\lambda)_i^-(b, c^-, d) \\
-c_i^+ &= c_i^- + P_0^c S(\lambda)^{-1} D_i d + A_2(\lambda)_i^c(b, c^-, d) )
+a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
+a_i^- &= -P_0^s(\lambda) D_i d + A_2(\lambda)_i^-(b, c^-, d) \\
+c_i^+ &= c_i^- + P_0^c(\lambda) D_i d + A_2(\lambda)_i^c(b, c^-, d) )
 \end{align*}
 
 where we have bound
@@ -417,21 +348,30 @@ where we have bound
 \leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\alpha X_i} |c_i^-| + e^{-(\alpha - \rho) X_i} |\lambda|^2|d| + e^{-\alpha X_i} |D_i||d| \Big)
 \end{align*} 
 
-This is not quite what we want. Recall that $P_i^\pm(\pm X_i; \lambda) = I + \Theta_i^\pm(X_i; \lambda)$. Operating on the left by $P_i^\pm(\pm X_i; \lambda)^{-1}$ and rearranging, we obtain
+For the first two, this is not quite what we want. To get that, we write this as
 
 \begin{align*}
-P_i^\pm(\pm X_i; \lambda)^{-1} = I - P_i^\pm(\pm X_i; \lambda)^{-1} \Theta_i^\pm(X_i; \lambda)
+a_i^+ = P_i^+(X_i; \lambda)a_i^+ + (I - P_i^+(X_i; \lambda))a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
 \end{align*}
 
-For $a_i^+$, we add and subtract $P_i^+(X_i; \lambda)^{-1} \Theta_i^+(X_i; \lambda)$ to get
+Rearranging this, we obtain
 
 \begin{align*}
-a_i^+ &= P_0^u S(\lambda)^{-1} [(I - P_i^+(X_i; \lambda)^{-1} \Theta_i^+(X_i; \lambda)) + P_i^+(X_i; \lambda)^{-1} \Theta_i^+(X_i; \lambda)] D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
-&= P_0^u S(\lambda)^{-1} P_i^+(X_i; \lambda)^{-1} D_i d + A_2(\lambda)_i^+(b, c^-, d) + P_i^+(X_i; \lambda)^{-1} \Theta_i^+(X_i; \lambda) D_i d\\
-&= P_0^u S(\lambda)^{-1} P_i^+(X_i; \lambda)^{-1} D_i d + A_2(\lambda)_i^+(b, c^-, d) + \mathcal{O}(e^{-\alpha X_i} |D_i||d|)
+P_i^+(X_i; \lambda)a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) - (I - P_i^+(X_i; \lambda))a_i^+ \\
+&= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) + \mathcal{O}\Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-| + |c_i^-| + (|\lambda^2| + |D_i|)|d|)\Big)
 \end{align*}
 
-since $P_i^+(X_i; \lambda)^{-1}$ is bounded and $\Theta_i^+(X_i; \lambda) = \mathcal{O}(e^{-\alpha X_i})$. Since $A_2(\lambda)_i^+(b, c^-, d)$ contains a term which is $\mathcal{O}(e^{-\alpha X_i} |D_i||d|)$, we incorporate this remainder term into it. We do a similar thing for $a_i^-$, using $P_i^i(-X_i; \lambda)^{-1}$ instead.
+where we used the bound $A_1$ and the estimate \eqref{conjest}. The last term on the RHS is the same (or higher) order as $A_2$, so we incorporate that into $A_2(\lambda)_i^+(b, c^-, d)$ to get
+
+\begin{align*}
+P_i^+(X_i; \lambda)a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
+\end{align*}
+
+Finally, we operate on both sides on the left by $P_i^+(X_i; \lambda)^{-1}$ to solve for $a_i^+$. This is a bounded operator, so we will also incorporate this into $A_2(\lambda)_i^+(b, c^-, d)$ (with the same bound). Thus we have
+
+\begin{align*}
+a_i^+ &= P_i^+(X_i; \lambda)^{-1} P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
+\end{align*}
 
 The same thing works for $a_i^-$, giving us
 
@@ -459,8 +399,8 @@ The only terms we have to deal with here are $Q'(X_i)$ and $Q'(-X_i)$. Since $Q'
 The next is to satisfy the conditions
 
 \begin{align*}
-P_i^\pm(0; \lambda) S(\lambda) T_i^\pm(0) &\in \C \Psi(0) \oplus Y^0 \oplus Y^+ \oplus Y^- \\
-P_i^+(0; \lambda) S(\lambda) T_i^+(0) - P_i^-(0; \lambda) S(\lambda) T_i^-(0) &\in \C \Psi(0) \oplus Y^0
+P_i^\pm(0; \lambda) Z_i^\pm(0) &\in \C \Psi(0) \oplus Y^0 \oplus Y^+ \oplus Y^- \\
+P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) &\in \C \Psi(0) \oplus Y_0
 \end{align*}
 
 Recall that
@@ -472,34 +412,22 @@ Recall that
 This condition is equivalent to the three projections
 
 \begin{align*}
-P(\C Q'(0)) P_i^-(0; \lambda) S(\lambda) T_i^-(0) &= 0 \\
-P(\C Q'(0)) P_i^+(0; \lambda) S(\lambda) T_i^+(0) &= 0 \\
-P(Y^+ \oplus Y^-) ( P_i^+(0; \lambda) S(\lambda) T_i^+(0) - P_i^-(0; \lambda) S(\lambda) T_i^-(0) ) &= 0
+P(\C Q'(0)) P_i^-(0; \lambda) Z_i^-(0) &= 0 \\
+P(\C Q'(0)) P_i^+(0; \lambda) Z_i^+(0) &= 0 \\
+P(Y^+ \oplus Y^-) ( P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) ) &= 0
 \end{align*}
 
-where the kernel of each projection is the remaining spaces in the direct sum. We can ignore $\C Q'(0)$ in the third equation since we eliminated any component in it in the first two equations.\\
+where the kernel of each projection is the remaining spaces in the direct sum. We can ignore $\C Q'(0)$ in the third equation since we ditched any component in it in the first two equations.\\
 
-This works, but we would really like to write this in terms of projections involving $T$ directly without the other operators $P_i^\pm(0; \lambda)$ and $S(\lambda)$ getting in the way.\\
+This is all fine, but we would really like to write this in terms of projections involving $Z$ directly without those pesky $P_i^\pm(0; \lambda)$ getting in the way.\\
 
-To do this, recall that when $\lambda = 0$, the tangent space to the stable manifold at $x = 0$ is spanned by $Y^+$ and $Q'(0)$, and the tangent space to the unstable manifold at $x = 0$ is spanned by $Y^-$ and $Q'(0)$. Thus for $Q'(0)$ we have
-
-\begin{align*}
-S(0)^{-1} P_q^-(0; 0)^{-1} Q'(0) &= v^- \in E^u \\
-S(0)^{-1} P_q^+(0; 0)^{-1} Q'(0) &= v^+ \in E^s \\
-\end{align*}
-
-Note that these are different, so we do in fact have to use different conjugations on $R^+$ and $R^-$. (One way to think about this is that the constant coefficient system has an exponential dichotomy on $\R$, whereas the unconjugated system does not.) We also have to use the conjugations and diagonalization matrices for $q(x)$ and $\lambda = 0$, since $Q'(0)$ is only in the stable/unstable manifold when that is the case.
+To do this, recall that the tangent space to the stable manifold at $x = 0$ is spanned by $Y^+$ and $Q'(0)$, and the tangent space to the unstable manifold at $x = 0$ is spanned by $Y^-$ and $Q'(0)$. Thus
 
 \begin{align*}
-E^u &= \C v^- \oplus E^-
-E^s &= \C v^+ \oplus E^s
-\end{align*}
-
-Then for $Y^+$ and $Y^-$ we have
-
-\begin{align*}
-P_i^-(0; \lambda) S(\lambda) Y^- &\in E^- \subset E^u \\
-P_i^+(0; \lambda) S(\lambda) Y^+ &\in E^+ \subset E^s \\
+P_i^-(0; \lambda) Q'(0) &= v^- \in E^u(0) \\
+P_i^-(0; \lambda) Y^- &\in E^-(0) \subset E^u(0) \\
+P_i^+(0; \lambda) Q'(0) &= v^+ \in E^s(0) \\
+P_i^+(0; \lambda) Y^+ &\in E^+(0) \subset E^s(0) \\
 \end{align*}
 
 We can then rewrite the conditions as
