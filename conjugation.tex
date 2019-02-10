@@ -112,12 +112,14 @@ We want to do Lin's method on the eigenvalue problem for KdV5 with periodic BCs.
 (q_n)_i^\pm(x) = q^\pm(x; \beta_i^\pm) + u_i^\pm(x)
 \]
 
+Note that by the existence problem, this is smooth, especially at $x = 0$.\\
+
 The piecewise eigenvalue problem is
 
 \begin{align*}
 &(W_i^\pm)' = A( (q_n)_i^\pm; \lambda ) W_i^\pm + \lambda^2 d_i \tilde{H}_i^\pm \\
 &W_i^-(0) = W_i^+(0) \\
-&W_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^- \\
+&W_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0 \\
 &W_i^+(X_i) - W_{i+1}^-(-X_i) = D_i d
 \end{align*}
 
@@ -125,7 +127,9 @@ where
 
 \begin{align*}
 A((q_n)_i^\pm(x); \lambda) &=  \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
-2 \partial_x (q_n)_i^\pm(x) + \lambda & 2 (q_n)_i^\pm(x) - c & 0 & 1 & 0 \end{pmatrix}
+2 \partial_x (q_n)_i^\pm(x) + \lambda & 2 (q_n)_i^\pm(x) - c & 0 & 1 & 0 \end{pmatrix} \\
+D_i d &= d_{i+1}[(Q_n)_{i+1}'(-X_i) + \lambda \partial_c (Q_n)_{i+1}(-X_i)]
+- d_i [ (Q_n)_i'(X_i) + \lambda \partial_c (Q_n)_i(-X_i) ] \\
 \end{align*}
 
 and we have nice estimates/bounds
@@ -151,7 +155,7 @@ Using the Conjugation Lemma, make the substitution $W_i^\pm = P_i^\pm Z_i^\pm$, 
 \begin{align*}
 &(Z_i^\pm(x))' = A(0; \lambda) Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \\
 &P_i^-(0; \lambda) Z_i^-(0) = P_i^+(0; \lambda) Z_i^+(0) \\
-&P_i^\pm(0; \lambda) Z_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^-\\
+&P_i^\pm(0; \lambda) Z_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0 \\
 &P_i^+(X_i; \lambda) Z_i^+(X_i)\ - P_{i+1}^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) = D_i d
 \end{align*}
 
@@ -201,13 +205,19 @@ We then define the following.
 
 \end{enumerate}
 
-Let $P^{u/s/c}_0(\lambda)$ be the eigenprojections for the unstable/stable/center subspaces of $A(0; \lambda)$, where the center subspace is a legit center subspace only when $\nu(\lambda)$ has no real part, e.g. when $\lambda = 0$. Let $\Phi(x, y; \lambda) = e^{A(0; \lambda)(x-y)}$ be the evolution of the constant-coefficient ODE
+Let $P^{u/s/c}_0(\lambda)$ be the eigenprojections for the unstable/stable/center subspaces $E^{u/s/c}(\lambda)$ of $A(0; \lambda)$. The center subspace is a legit center subspace only when $\nu(\lambda)$ has no real part, e.g. when $\lambda = 0$, but we will always call it a center subspace for convenience. Let $\Phi(x, y; \lambda) = e^{A(0; \lambda)(x-y)}$ be the evolution of the constant-coefficient ODE
 
 \[
 Z' = A(0; \lambda) Z
 \]
 
-Letting $\Phi^{u/s/c}(x, y; \lambda)$ be the evolutions on the respective eigenspaces, we have the bounds
+Let $\Phi^{u/s/c}(x, y; \lambda)$ be the evolutions on the respective eigenspaces. Since $E_c(\lambda)$ is one-dimensional, we have in particular that
+
+\begin{align*}
+\Phi^c(x, y; \lambda) v &= e^{\nu(\lambda)(x - y)} v && v \in E^c(\lambda)
+\end{align*}
+
+We have the bounds
 
 \begin{align*}
 |\Phi^s(x, y; \lambda)| &\leq C e^{-\alpha(x - y)} \\
@@ -215,20 +225,31 @@ Letting $\Phi^{u/s/c}(x, y; \lambda)$ be the evolutions on the respective eigens
 |\Phi^c(x, y; \lambda)| &\leq C e^{-\rho|x - y|} 
 \end{align*}
 
-We are going to want to relate things to the variational/adjoint variational problem for the nontransformed system. These are
+We are going to want to relate things to the variational/adjoint variational problem for the nontransformed system. We have a distinct (but only to leading order) variational equations for each of the $n$ pieces.
 
 \begin{align*}
-V' &= A(q(x); \lambda) V \\
-W' &= -A(q(x); \lambda)^* W
+V_i' &= A((q_n)_i; \lambda) V_i \\
+W_i' &= -A((q_n)_i; \lambda)^* W_i
 \end{align*}
 
-$Q'(x)$ solves the variational problem, and we have solutions $\Psi(x)$ and $1$ to the adjoint variational problem. Using the conjugation lemma, let $P_1^\pm(\lambda)$ conjugate $A(q(x); \lambda)$, i.e. the variational problem for the single pulse. Let $\Theta(y, x; \lambda)$ be the evolution for the untransformed variational equation. We would like to relate this to the evolution of the transformed variational equation. We should have for appropriate values of $x, y$
+$(Q_n)_i'(x)$ solves the variational problem, and we have solutions $\Psi_i(x)$ and $1$ to the adjoint variational problem. This is conjugated by $P_i^\pm(x; 0)$. Let $\Theta_i(y, x; \lambda)$ be the evolution for the untransformed variational equations. We would like to relate this to the evolution of the transformed equation. We should have for appropriate values of $x, y$
 
 \[
-\Theta(y, x; \lambda) = P_1^\pm(y; \lambda) \Phi(y, x; \lambda) P_1^\pm(x; \lambda)^{-1}
+\Theta_i(y, x; \lambda) = P_i^\pm(y; \lambda) \Phi(y, x; \lambda) P_i^\pm(x; \lambda)^{-1}
 \]
 
 We can also go the other way if we like.\\
+
+At this point, we will modify the projections in Lin's method slightly. This should not make any difference. Instead of using the coordinate system based on $Q'(0)$, we will use the $n$ coordinate systems based off of $(Q_n)_i'(0)$. Defining the spaces $Y_i^{+/-/0}$ in the same way, we now have the system of equations
+
+\begin{align*}
+&(Z_i^\pm(x))' = A(0; \lambda) Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \\
+&P_i^-(0; \lambda) Z_i^-(0) = P_i^+(0; \lambda) Z_i^+(0) \\
+&P_i^\pm(0; \lambda) Z_i^\pm(0) \in \C \Psi_i(0) \oplus Y_i^+ \oplus Y_i^- \oplus Y_i^0 \\
+&P_i^+(X_i; \lambda) Z_i^+(X_i)\ - P_{i+1}^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) = D_i d
+\end{align*}
+
+What we hope happens is that we get a result involiving $(Q_n)_i'$ and $\Psi_i$, and then we use the fact that these are close to $Q'$ and $\Psi$.\\
 
 Define the spaces
 
@@ -262,7 +283,7 @@ Z_i^+(x) &= \Phi^u(x, X_i; \lambda) a_i^+ + \Phi^s(x, 0; \lambda) b_i^+ + \Phi^c
 &+ \lambda^2 d_i \int_{X_i}^x \Phi^c(x, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
 \end{align*}
 
-Note that $W_i^\pm$ only appears on the LHS, so we don't need to do the first inversion step as in San98. We can start with the matching conditions at $\pm X_i$.
+Note that $Z_i^\pm$ only appears on the LHS, so we don't need to do the first inversion step as in San98. We can start with the matching conditions at $\pm X_i$.
 
 \subsubsection*{Matching at ends}
 
@@ -348,50 +369,26 @@ where we have bound
 \leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\alpha X_i} |c_i^-| + e^{-(\alpha - \rho) X_i} |\lambda|^2|d| + e^{-\alpha X_i} |D_i||d| \Big)
 \end{align*} 
 
-For the first two, this is not quite what we want. To get that, we write this as
+For the third one, we would like to evaluate and get an estimate for $P_0^c(\lambda) D_i d$. To do that, recall that the actual expression for $D_i d$ is 
 
 \begin{align*}
-a_i^+ = P_i^+(X_i; \lambda)a_i^+ + (I - P_i^+(X_i; \lambda))a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
+D_i d &= d_{i+1}[(Q_n)_{i+1}'(-X_i) + \lambda \partial_c (Q_n)_{i+1}(-X_i)]
+- d_i [ (Q_n)_i'(X_i) + \lambda \partial_c (Q_n)_i(-X_i) ] \\
+&= d_{i+1} (Q_n)_{i+1}'(-X_i) - d_i (Q_n)_i'(X_i) + \mathcal{O}(|\lambda|e^{-\alpha X_i}|d|)
 \end{align*}
 
-Rearranging this, we obtain
+For the leading order piece, we have
 
 \begin{align*}
-P_i^+(X_i; \lambda)a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) - (I - P_i^+(X_i; \lambda))a_i^+ \\
-&= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) + \mathcal{O}\Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-| + |c_i^-| + (|\lambda^2| + |D_i|)|d|)\Big)
+d_{i+1} &(Q_n)_{i+1}'(-X_i) - d_i (Q_n)_i'(X_i) \\
+&= d_{i+1} P_{i+1}^-(-X_i; 0)(Q_n)_{i+1}'(-X_i) - d_i P_i^+(X_i; 0)(Q_n)_i'(X_i) + \mathcal{O}(e^{-2 \alpha X_i}|d|) \\
+&= d_{i+1} P_{i+1}^-(-X_i; \lambda)(Q_n)_{i+1}'(-X_i) - d_i P_i^+(X_i; \lambda)(Q_n)_i'(X_i) + \mathcal{O}(e^{-\alpha X_i}(|\lambda| + e^{-\alpha X_i})|d|)\\
 \end{align*}
 
-where we used the bound $A_1$ and the estimate \eqref{conjest}. The last term on the RHS is the same (or higher) order as $A_2$, so we incorporate that into $A_2(\lambda)_i^+(b, c^-, d)$ to get
-
-\begin{align*}
-P_i^+(X_i; \lambda)a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
-\end{align*}
-
-Finally, we operate on both sides on the left by $P_i^+(X_i; \lambda)^{-1}$ to solve for $a_i^+$. This is a bounded operator, so we will also incorporate this into $A_2(\lambda)_i^+(b, c^-, d)$ (with the same bound). Thus we have
-
-\begin{align*}
-a_i^+ &= P_i^+(X_i; \lambda)^{-1} P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
-\end{align*}
-
-The same thing works for $a_i^-$, giving us
-
-\begin{align*}
-a_i^+ &= P_i^+(X_i; \lambda)^{-1} P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
-a_i^- &= -P_i^-(-X_i; \lambda)^{-1} P_0^s(\lambda) D_i d + A_2(\lambda)_i^-(b, c^-, d) \\
-c_i^+ &= c_i^- + P_0^c(\lambda) D_i d + A_2(\lambda)_i^c(b, c^-, d) )
-\end{align*}
-
-
-For the third one, we would like to evaluate and get an estimate for $P_0^c(\lambda) D_i d$. To do that, recall that we have the following expression for $D_i d$.
+The leading order terms here are in $E^{s/u}(\lambda)$, and so are eliminated by $P_0^c(\lambda)$, which leaves us with
 
 \[
-D_i d = ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right)
-\]
-
-The only terms we have to deal with here are $Q'(X_i)$ and $Q'(-X_i)$. Since $Q'(X_i)$ lies in the tangent space of the stable manifold at $X_i$ and $X_i$ is large, it lies ``mostly'' in $E^s(0)$. The component of $Q'(X_i)$ which does not lie in $E^s(\lambda)$ should be $\mathcal{O}( (|\lambda| + e^{-\alpha X_i})|Q'(X_i)|)$. Since the same holds for $Q'(-X_i)$ and $E^u(0)$, and we have an estimate on $Q'(\pm X_i)$, we should have
-
-\[
-|P^0_c(\lambda) D_i d| \leq C \Big( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \Big)
+P_0^c(\lambda) D_i d = \mathcal{O}(e^{-\alpha X_i}(|\lambda| + e^{-\alpha X_i})|d|)
 \]
 
 \subsubsection*{Matching at 0}
