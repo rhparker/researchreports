@@ -51,7 +51,7 @@
 
 \subsection*{Variational Equation}
 
-Here we look at the variational problem / adjoint variational equation for the linearization of KdV5 about an equilbrium solution $u^*$. This linearization is
+We look at the linearization of KdV5 about an equilbrium solution $u^*$. This linearization is
 
 \begin{equation}
 L(u^*) = \partial_x H(u^*) = \partial_x ( \partial_x^4 - \partial_x^2 + c - 2 u^*)
@@ -81,11 +81,11 @@ T_{Q(0)} W^u(0) \cap T_{Q(0)} W_s(0) = \R Q'(0)
 \]
 \end{hypothesis}
 
-where $Q(x)$ is the single pulse solution on $\R$, written as a vector-valued function in $R^5$ in the usual way. We cannot conclude from Hypothesis \ref{nondegen} that $Q'(x)$ is the unique bounded solution to the variational equation \eqref{vareq}.\\
+where $Q(x)$ is the single pulse solution on $\R$, written as a vector-valued function in $R^5$ in the usual way. We cannot, however, conclude from Hypothesis \ref{nondegen} that $Q'(x)$ is the unique bounded solution to the variational equation \eqref{vareq}.\\
 
-Now, we look at the adjoint variational equation. Since $L(q)^* = (\partial_x H(q))^* = -H(q) \partial_x$, we can easily see that there are two bounded solutions to this: $q(x)$ and the constant function $1$. Since we are on a periodic domain, the constant function is periodic and in $L^2$, so we have to consider it here.\\
+Next, look at the adjoint operator $L(q)^*$ Since $L(q)^* = (\partial_x H(q))^* = -H(q) \partial_x$, we can easily see that there are two bounded solutions to this: $q(x)$ and the constant function $1$. Since we are on a periodic domain, the constant function is periodic and in $L^2$, so we have to consider it here.\\
 
-Thus there are two bounded solutions $\Psi(x) = \nabla H(q(x))$ and $\Psi_c(x)$ of \eqref{adjvareq}, corresponding to $q(x)$ and 1. We computed $\Psi(x)$ previously.
+Thus there are two bounded solutions $\Psi(x) = \nabla H(q(x))$ and $\Psi^c(x)$ of \eqref{adjvareq}, corresponding to $q(x)$ and 1. We computed $\Psi(x)$ previously.
 
 \[
 \Psi(x) = \begin{pmatrix}
@@ -100,43 +100,81 @@ q(x)
 All that really matters is that the last component is $q(x)$. We know this decays exponentially to 0, which is also clear upon inspection. Similarly, we can obtain an expression for $\Psi_c(x)$, which will have 1 as the last component.
 
 \[
-\Psi_c(x) = (c - 2 q(x), 0, -1, 0, 1)
+\Psi_c(x) = (c - 2 q(x), 0, -1, 0, 1)^T
 \]
 
-\subsection{Decomposition of Tangent Space}
+As $x \rightarrow \pm \infty$, this decays to $(c, 0, -1, 0, 1)$, which is the eigenvector of $-A(0)^*$ corresponding to the eigenvalue $0$ (i.e. the center eigenvalue of $-A(0)^*$).\\
 
-Next, as in San98, we will decompose the tangent space at $Q(0)$. First, we define $Y^-$ and $Y^+$ as the ``rest of'' the tangent space of the unstable/stable manifolds.
+\subsection{Decomposition of Tangent Space at 0}
 
-\begin{align*}
-T_{Q(0)} W^u(0) &= \R Q'(0) \oplus Y^- \\
-T_{Q(0)} W^s(0) &= \R Q'(0) \oplus Y^+
-\end{align*}
+Next, as in San98, we will decompose the tangent space at $Q(0)$. 
 
-Counting dimensions and using Hypothesis \ref{nondegen}, $\R Q'(0) \oplus Y^- \oplus Y^+$ is ``missing'' two dimensions needed to fill out $\R^5$, so we want to find those.\\
+Counting dimensions and using Hypothesis \ref{nondegen}, $\R Q'(0) \oplus Y^- \oplus Y^+$ is ``missing'' two dimensions needed to fill out $\R^5$.\\
 
-Before we do that, we need to look at how the variational equation works. The idea, as far as I know, is that that the variational equation evolves the tangent spaces of the stable/unstable/center manifolds $W^{s/u/c}(0)$. I have not found a good reference on this but it seems to make sense. In any case, let $\Phi(x, y)$ be the evolution operator for the variational equation \eqref{vareq} on $\R$. This, of course, means that $\Phi(x, 0)Y$ is the unique solution to \eqref{vareq} for any IC $Y$ given at $x = 0$. In this case, there are no perturbations or parameters. Then we should have the following.
+We can obtain two more useful directions from solutions to the adjoint variational equation: $\Psi(0)$ and $\Psi^c(0)$. We need to figure out how these fit into the puzzle.\\
 
-\begin{enumerate}
-	\item $Q'(x)$ is a solution to \eqref{vareq}, so we know that $Q'(x) = \Phi(x, 0)Q'(0)$.
-	\item For an IC $Y \in Y^-$ and $x \leq 0$, $|\Phi(x, 0) Y| \leq C e^{\alpha x}$. The decay rate $\alpha$ is the known decay rate of the unstable/stable manifold of the original (nonlinear) equation.
-	\item For an IC $Y \in Y^+$ and $x \geq 0$, $|\Phi(x, 0) Y| \leq C e^{-\alpha x}$. 
-\end{enumerate}
+Recall that if we have a solution $V(x)$ to \eqref{vareq} and a solution $W(x)$ to \eqref{adjvareq}, the inner product $\langle V(x), W(x) \rangle$ is constant in $x$. By the continuity of the inner product, this implies that if one of the two is bounded and the other decays exponentially at (at least) one end, their inner product must be 0.\\
 
-We showed before that
+$\Psi(0)$ and $\Psi_c(0)$ are linearly independent, but not (in general) perpendicular. In this specific case, we can compute their inner product and verify that it is nonzero. Since $\Psi(0)$ and $\Psi_c(0)$ are linearly independent and perpendicular to $\R Q'(0) \oplus Y^+ \oplus Y^-$, we have
 
-\begin{enumerate}[(i)]
-\item $\langle V(x), W(x) \rangle$ is constant in $x$ for any solutions $V(x)$ to \eqref{vareq} and $W(x)$ to \eqref{adjvareq}.
-\item $\Phi(x, y)^*$ is the evolution operator for \eqref{adjvareq}.
-\end{enumerate}
+\[
+\R^5 = \R Q'(0) \oplus Y^+ \oplus Y^- \oplus \R \Psi(0) \oplus \Psi^c(0).
+\]
 
-Since the inner product is continuous in both components, it follows that if as $x \rightarrow \infty$ (or $-\infty$), if either $V(x)$ or $W(x)$ decays exponentially and the other one is bounded (it could decay too of course), then $\langle V(0), W(0) \rangle = 0$, i.e. $V(0) \perp W(0)$. Choosing the appropriate things for $V(x)$ and either $\Psi(x)$ or $\Psi_c(x)$ for $W(x)$ we conclude that
+% Using the Gap Lemma, we can find solutions $w^\pm(x)$ on $\R\pm$ to the adjoint variational equation \eqref{adjvareq} such that
 
-\begin{align*}
-\Psi(0) &\perp Q'(0) \oplus Y^- \oplus Y^+ \\
-\Psi_c(0) &\perp Q'(0) \oplus Y^- \oplus Y^+
-\end{align*}
+% \[
+% w^\pm(x) = w_0 + \mathcal{O}(e^{-\tilde{\alpha}|x|})
+% \]
 
-$\Psi(0)$ and $\Psi_c(0)$ are linearly independent, but we do not expect them to be perpendicular. We can, if we like, compute the inner product $\langle \Psi(0), \Psi_c(0) \rangle$, and it is nonzero.\\
+% where $w_0 = (c, 0, -1, 0, 1)$ is the eigenvector of the asymptotic matrix $-A(0)^*$ corrresponding to eigenvalue 0.\\
+
+% By linearity, for any constant $c$,
+
+% \begin{align*}
+% [w^\pm(x) + c \Psi(x)]' &= (w^\pm)'(x) + c \Psi'(x) \\
+% &= -A(0)^* w^\pm(x) - A(0)^* c \Psi(x) \\
+% &= -A(0)^* ( w^\pm(x) + c \Psi(x) )
+% \end{align*}
+
+% Thus $w^\pm(x) + c \Psi(x)$ also solves \eqref{adjvareq}, and 
+
+% Since $w^\pm(x)$ are bounded solutions to \eqref{adjvareq}, we have
+
+% \begin{align*}
+% w^+(0) &\perp Q'(0), Y^+ \\
+% w^-(0) &\perp Q'(0), Y^-
+% \end{align*}
+
+% Furthermore, if we take $V^-(x)$ to be a solution to \eqref{vareq} with initial condition $V^-(0) \in Y^-$, then $|V^-(x)| \rightarrow \infty$ as $x \rightarrow \infty$ by the definition of $Y^-$. Since $\langle w^+(x), V^-(x)\rangle$ is constant in $x$, this is only possible if $\langle w^+(x), V^-(x)\rangle = 0$ for all $x$, since as $x \rightarrow \infty$, $w^+(x)$ remains bounded but $V^-(x)$ blows up. Thus $w^+(0) \perp Y^-$. Similarly, we can show that $w^-(0) \perp Y^+$. We have thus shown that
+
+% \begin{align*}
+% w^\pm(0) &\perp Q'(0), Y^+, Y^- \\
+% \end{align*}
+
+Use the Gap Lemma to find solutions $v^\pm(x)$ on $\R \pm$ to the variational equation \eqref{vareq} such that for any $0 < \tilde{\alpha} < \alpha$,
+
+\[
+v^\pm(x) = v_0 + \mathcal{O}(e^{-\tilde{\alpha}|x|})
+\]
+
+where $v_0 = (1/c, 0, 0, 0, 0)$ is the eigenvector of the asymptotic matrix $A(0)$ corrresponding to eigenvalue 0. We scaled $v_0$ so that $\langle v_0, w_0 \rangle = 1$, where $w_0 = (c, 0, -1, 0, 1)$ is the eigenvector of the asymptotic matrix $-A(0)^*$ corrresponding to eigenvalue 0.\\
+
+If the initial condition $v^+(0)$ contains any component in $\R Q'(0) \oplus Y^+$, the contribution from that component to $v^+(x)$ decays exponentially to 0 faster than $e^{-\tilde{\alpha}x}$. Thus we can subtract out any such component in $v^+(0)$ without changing anything, and so we may assume that $v^+(0)$ has no component in $\R Q'(0) \oplus Y^+$. Furthermore, if $v^+(0)$ contains a component in $Y^-$, the inner product $\langle \Psi^c(x), v^+(x) \rangle$ will blow up as $x \rightarrow \infty$, since the component in $Y^-$ causes $v^+(x)$ to blow up in magnitude, but $\Psi^c(x)$ remains bounded. We conclude that $v^+(0)$ contains no components in $\R Q'(0) \oplus Y^+ \oplus Y^-$. Similarly, $v^-(0)$ contains no components in $\R Q'(0) \oplus Y^+ \oplus Y^-$.\\
+
+Since $v^\pm(x)$ is a bounded solution to \eqref{vareq} and $\Psi(x$ is an exponentially decaying solution to \eqref{adjvareq}, we must have $v^\pm(0) \perp \Psi(0)$. Thus we have the expressions
+
+\[
+v^\pm 
+\]
+
+Taking the inner product with 
+
+Note that from what we showed above, $v^\pm(0) \perp \Psi(0)$, since $\Psi(x)$ decays exponentially at both ends and $v^\pm(x)$ remains bounded. 
+
+
+
+GARBAGE FOLLOWS.
 
 Let $Y^0 = (\Psi(0) \oplus \perp Q'(0) \oplus Y^- \oplus Y^+)^\perp$, which is 1-dimensional. Then 
 
@@ -171,7 +209,7 @@ In particular, $\langle V^\pm(0), W^\pm(0) \rangle \neq 0$. We would like to kno
 
 \subsubsection*{Adjoint Center Solution}
 
-Looking at the expression for $\Psi_c(x)$, it has the same decay properties as $W^\pm(x)$, and noth it and $W^\pm(x)$ decay (in the appropriate direction) to the constant vector $W_0$. Thus we can take $W^\pm(x) = \Psi_c(x)$, so from now on, we will do that. Thus we have
+Looking at the expression for $\Psi_c(x)$, it has the same decay properties as $W^\pm(x)$, and both it and $W^\pm(x)$ decay (in the appropriate direction) to the constant vector $W_0$. Thus we can take $W^\pm(x) = \Psi_c(x)$, so from now on, we will do that. Thus we have
 
 \[
 \langle V^\pm(0), \Psi_c(0) \rangle = \langle V_0, W_0 \rangle = c \neq 0
