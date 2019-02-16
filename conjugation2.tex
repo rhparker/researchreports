@@ -108,7 +108,7 @@ L(q)^* q &= 0
 In addition, for a finite or periodic domain, the constant functions are in the kernel of $L(q)^*$.
 
 \[
-L(q) 1 = 0
+L(q)^* 1 = 0
 \]
 
 For the primary pulse solution $q(x)$ to KdV5, we will assume that that $L(q)$ has a one-dimensional kernel which is spanned by $q_x$. If there were another generalized eigenfunction in the kernel of $L(q)$, we would be able to solve the equation $L(q) v = \partial_c q$, which is only possible if $\partial_c q \perp \ker L(q)^*$. In particular, this would require $\partial_c q \perp q$. We will assume this is not the case, i.e. we take the following hypothesis.
@@ -604,22 +604,27 @@ We have a solution to this ODE for $x \leq M$, and by variation of constants, th
 \end{proof}
 \end{lemma}
 
-We will use the Conjugation Lemma so that the evolution of the variational equation does not depend on the parameter vector $\Lambda = (\lambda, q_i^\pm)$. Note that the parameter $q_i^\pm$  is in the Banach space of continuous functions on $[X_{i-1}, 0]$ or $[0, X_i]$, so we do need to use a version of the Conjugation Lemma which allows parameters to be in an arbitraty Banach space.\\
-
-$A_i^\pm(x; \lambda)$ is linear, thus analytic, in $\lambda$ and in $q_i^\pm(x)$. It should also depend nicely on the initial conditions $\beta_i^\pm$. For all $\lambda$, $A^\pm(x; \lambda)$ decays exponentially to the constant-coefficient matrix $A(\lambda)$. 
+We will use the Conjugation Lemma to transform the linear operator $A_i^\pm(x; \lambda) = A( q_i^\pm(x) ) + \lambda B$ into a constant coefficient matrix. For all $\lambda$, $A^\pm(x; \lambda)$ decays exponentially to the constant-coefficient matrix $A(\lambda)$. 
 
 \begin{align}\label{Alambda}
-A(\lambda) &=  \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
+A(\lambda) &= \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 & 1 & 0 \\0 & 0 & 0 & 0 & 1 \\
 \lambda & -c & 0 & 1 & 0 \end{pmatrix}
 \end{align}
 
-Let
+Let $\Lambda = (\lambda, q(x))$ be the parameter vector we will use in the Conjugation Lemma, where $q(x)$ is in the Banach space of continuous functions on $[X_{i-1}, 0]$ or $[0, X_i]$. (This requires a version of the Conjugation Lemma which allows parameters to be in an arbitraty Banach space.) Since 
+$A( q(x) ) + \lambda B$ is linear, thus analytic, in $\lambda$ and in $q(x)$, let $P_i^\pm(x; \lambda, q(x)$ be the conjugation operator for $A( q(x) ) + \lambda B$. For convenience, let  
 
 \begin{equation}
-P_i^\pm(x; \lambda) = P^\pm(x; \lambda, \beta_i^\pm, u_i^\pm)
+P_i^\pm(x; \lambda) = P^\pm(x; \lambda, q_i^\pm(x) )
 \end{equation}
 
-be the conjugation operator for $A_i^\pm(x; \lambda) = A(x; q_i^\pm(x), \lambda)$.  Using the Conjugation Lemma, we make the substitution $W_i^\pm = P_i^\pm(x; \lambda) Z_i^\pm$. Then our system becomes
+and let
+
+\begin{equation}
+P^\pm(x; \lambda) = P^\pm(x; \lambda, q(x) )
+\end{equation}
+
+Using the Conjugation Lemma, we make the substitution $W_i^\pm = P_i^\pm(x; \lambda) Z_i^\pm$. Then our system becomes
 
 \begin{align*}
 &(Z_i^\pm(x))' = A(\lambda) Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \\
@@ -671,9 +676,7 @@ We define the following.
 
 \end{enumerate}
 
-I STOPPED HERE.
-
-Let $P^{u/s/c}_0(\lambda)$ be the eigenprojections for the unstable/stable/center subspaces $E^{u/s/c}(\lambda)$ of $A(\lambda)$. The center subspace is a ``true'' center subspace only when $\nu(\lambda)$ has no real part, e.g. when $\lambda = 0$, but we will always call it a center subspace for convenience. \\
+Let $E^{u/s/c}(\lambda)$ be the stable/unstable/center eigenspaces of $A(\lambda)$, where $E^c$ is the one-dimensional subspace spanned by the eigenvector corresponding to the small eigenvalue $\nu(\lambda)$. This is a ``true'' center subspace only when $\nu(\lambda)$ has no real part, but we will always call it a center subspace for convenience. Let $P^{u/s/c}_0(\lambda)$ be the corresponding eigenprojections for the eigensubspaces $E^{u/s/c}(\lambda)$.\\
 
 Let $\Phi(x, y; \lambda) = e^{A(\lambda)(x-y)}$ be the evolution of the constant-coefficient ODE
 
@@ -681,13 +684,7 @@ Let $\Phi(x, y; \lambda) = e^{A(\lambda)(x-y)}$ be the evolution of the constant
 Z' = A(\lambda) Z
 \]
 
-Let $\Phi^{u/s/c}(x, y; \lambda)$ be the evolutions on the respective eigenspaces. Since $E^c(\lambda)$ is one-dimensional, we have in particular that
-
-\begin{align*}
-\Phi^c(x, y; \lambda) v &= e^{\nu(\lambda)(x - y)} v && v \in E^c(\lambda)
-\end{align*}
-
-We also have the bounds
+Let $\Phi^{u/s/c}(x, y; \lambda) = \Phi(x, y; \lambda)P^{u/s/c}_0(\lambda)$ be the evolutions on the respective eigenspaces. For these evolutions, we have bounds
 
 \begin{align*}
 |\Phi^s(x, y; \lambda)| &\leq C e^{-\alpha(x - y)} \\
@@ -695,110 +692,71 @@ We also have the bounds
 |\Phi^c(x, y; \lambda)| &\leq C e^{\rho|x - y|} 
 \end{align*}
 
-We will want to relate things to the variational/adjoint variational problem for the nontransformed system, in particular to the variational equation for the linearization about the primary pulse.
+Since $E^c(\lambda)$ is one-dimensional, we have a formula for $\Phi^c(x, y; \lambda)$.
 
 \begin{align*}
-V_i' &= A(q(x), 0) V_i \\
-W_i' &= -A(q(x), 0)^* W_i
+\Phi^c(x, y; \lambda) v &= e^{\nu(\lambda)(x - y)} v && v \in E^c(\lambda)
 \end{align*}
 
-Recall that $Q'(x)$ solves the variational problem, and we have solutions $\Psi(x)$ and $1$ (in the periodic case) to the adjoint variational problem. Let $P^\pm(x)$ conjugate $A(q(x), 0)$.\\
+Finally, we will look at the variational and adjoint variational e
+equations for the linearization about the primary pulse. Recall that these are given by 
 
-Let $\Theta(y, x)$ be the evolution for the untransformed variational equation. We would like to relate this to the evolution of the transformed equation. For appropriate values of $x, y$, we have
+\begin{align*}
+V_i' &= A(q(x)) V_i \\
+W_i' &= -A(q(x))^* W_i
+\end{align*}
 
-\[
-\Theta(y, x) = P^\pm(y) \Phi(y, x; 0) P^\pm(x)^{-1}
-\]
+Let $\Theta(y, x)$ be the evolution operator for the variational equation. Then $\Theta(x, y)^*$ is the evolution operator for the adjoint variational equation. Then (as defined above) $P^\pm(x)$ conjugate $A(q(x))$. We have the following relationship between $\Theta(y, x)$ and $\Phi(y, x;, 0)$.
 
-Finally, we will have occasion to Taylor expand the conjugation operators. Note that 
+\begin{align*}
+\Theta(y, x) &= P^+(y) \Phi(y, x; 0) P^+(x)^{-1} && x, y \geq 0 \\
+\Theta(y, x) &= P^-(y) \Phi(y, x; 0) P^-(x)^{-1} && x, y \leq 0
+\end{align*}
 
-\[
-P^\pm(y) = P^\pm(y; 0, 0, 0)
-\]
+Finally, recalling that
 
-For $y$ large, all the conjugation operators are approximately the identity, so that will not matter. The Taylor expansion we will need is that at $x = 0$.
+\begin{align*}
+P_i^\pm(x; \lambda) = P^\pm(x; \lambda; q_i^\pm(x)) \\
+P^\pm(x; \lambda) = P^\pm(x; \lambda; q(x))
+\end{align*}
+
+we can expand $P_i^\pm(x; \lambda)$ in a Taylor series about $(0, q(x))$ at $x = 0$ to get =
 
 \begin{equation}\label{PTaylor}
 P_i^\pm(0; \lambda) = P^\pm(0) + \mathcal{O}(|\lambda| + e^{-\alpha X_m})
 \end{equation}
 
-\subsection*{Conjugation}
+We will only need the Taylor expansion at $x = 0$, since for large $x$, the conjugation operators are approximately equal to the identity.
 
-We will use the Conjugation Lemma to simplify the eigenvalue problem. Here is a version of the Conjugation Lemma, which is adapted and cleaned up from Zum2018. 
-
-\begin{lemma}[Conjugation Lemma]
-Let $W \in \C^N$, and consider the family of ODEs on $\R$
-
-\begin{equation}\label{LambdaEVPconj}
-W(x)' = A(x; \Lambda) W(x) + B(x) W(x) + F(x) 
-\end{equation}
-
-where $\Lambda \in \Omega$ is a parameter vector and $\Omega$ is a Banach space. Take the same assumptions as in the Gap Lemma, i.e. 
-
-\begin{enumerate}
-	\item The map $\Lambda \mapsto A(\cdot; \Lambda)$ is analytic in $\Lambda$.
-	\item $A(x; \Lambda) \rightarrow A_\pm(\lambda)$ (independent of $\Lambda$) as $x \rightarrow \pm \infty$, and for $|\Lambda| < \delta$ we have the uniform exponential decay estimates 
-	\begin{align}
-	\left| \frac{\partial^k}{\partial x^k} A(x; \Lambda) - A_\pm(\Lambda) \right| 
-	&\leq C e^{-\theta |x|} && 0 \leq k \leq K
-	\end{align}
-	where $\alpha > 0$, $C > 0$, and $K$ is a nonnegative integer.
-\end{enumerate}
-
-Then in a neighborhood of any $\Lambda_0 \in \Omega$ there exist invertible linear transformations
-
-\begin{align*}
-P_+(x, \Lambda) &= I + \Theta_+(x, \Lambda) \\
-P_-(x, \Lambda) &= I + \Theta_-(x, \Lambda) 
-\end{align*}
-
-defined on $\R^+$ and $\R^-$, respectively, such that
-
-\begin{enumerate}[(i)]
-\item The change of coordinates $W = P_\pm Z$ reduces \eqref{LambdaEVPconj} to the equations on $\R^\pm$
-
-\begin{align}
-Z'(x) = A^\pm(\Lambda) Z(x) + P_\pm(x, \Lambda)^{-1} B(x) P_\pm(x, \Lambda) Z(x) + P_\pm(x, \Lambda)^{-1} F(x)
-\end{align}
-
-where
-
-\[
-G(x; \Lambda) = P_\pm(x, \Lambda)^{-1} F(x)
-\]
-
-\item For any fixed $0 < \tilde{\theta} < \theta$, $0 \leq k \leq K+1$, and $j \geq 0$ we have the decay rates
-\begin{align*}
-\left| \partial_\Lambda^j \partial_x^k \Theta_\pm \right| \leq C(j, k)e^{-\tilde{\theta}|x|}
-\end{align*}
-\end{enumerate}
-\begin{proof}
-I have written out the proof somewhere else for the case where $B(x) = 0$ and $F(x) = 0$, which essentially follows Zum2018 but fills in more details. Only a small modification is necessary for the general case. It should also not be hard to modify the proof to work for a general Banach space $\Omega$ instead of a subset of $\C^n$.
-\end{proof}
-\end{lemma}
-
-
-
-\subsection*{The Inversion}
+\subsection{Inversion}
 
 Define the spaces
 
 \begin{align*}
 V_a &= \bigoplus_{i=0}^{n-1} E^u(\lambda) \oplus E^s(\lambda) \\
 V_b &= \bigoplus_{i=0}^{n-1} E^u(0) \oplus E^s(0) \\
-V_c^+ &= \bigoplus_{i=0}^{n-1} E^c(\lambda) \\
 V_c^- &= \bigoplus_{i=0}^{n-1} E^c(\lambda) \\
-V_c &= V_c^+ \oplus V_c^- \\
+V_c^+ &= \bigoplus_{i=0}^{n-1} E^c(\lambda) 
+V_c &= V_c^- \oplus V_c^+ \\
 V_\lambda &= B_\delta(0) \subset \C
 \end{align*}
 
-where the subscripts are all $\mod n$, as in the existence problem. We use the $\lambda-$dependent eigenspaces for $a_i^\pm$ and $c_i^\pm$, since we will be evolving them under the $\lambda-$dependent evolution. All the product spaces are endowed with the maximum norm, e.g. for $V_c$, $|c| = \max(|c_0^-|, \dots, |c_{n-1}^-|, |c_0^+|, \dots, |c_{n-1}^+|)$. In addition, we take the following convention: if we eliminate either a subscript or a superscript (or both) in the norm, we are taking the maximum over the eliminated thing. For example,
+where the subscripts are all $\mod n$, as in the existence problem. We use the $\lambda-$dependent eigenspaces for $a_i^\pm$ and $c_i^\pm$, since we will be evolving them under the $\lambda-$dependent evolution $\Phi(y, x; \lambda)$.\\
+
+All the product spaces are endowed with the maximum norm, e.g. for $V_c$, $|c| = \max(|c_0^-|, \dots, |c_{n-1}^-|, |c_0^+|, \dots, |c_{n-1}^+|)$. In addition, we take the following convention. Tf we eliminate either a subscript or a superscript (or both) in the norm, we are taking the maximum over the eliminated thing. For example,
+
 \begin{enumerate}
 	\item $|c_i| = \max(|c_i^+|, |c_i^-|)$ 
 	\item $|c^+| = \max(|c_0^+|, \dots, |c_{n-1}^+|)$
 \end{enumerate}
 
-Next, we write down the fixed point equations for the problem. For $i = 0, \dots, n-1$, the fixed point equations are
+In order to solve our system, we first look at the ODE
+
+\[
+(Z_i^\pm(x))' = A(\lambda) Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x)
+\]
+
+The solution this solves the following fixed point equations. For $i = 0, \dots, n-1$, the fixed point equations for $Z_i^\pm(x)$ are
 
 \begin{align*}
 Z_i^-(x) &= \Phi^s(x, -X_{i-1}; \lambda) a_{i-1}^- + \Phi^u(x, 0; \lambda) b_i^- + \Phi^c(x, -X_{i-1}; \lambda) c_{i-1}^- \\
@@ -815,11 +773,51 @@ Z_i^+(x) &= \Phi^u(x, X_i; \lambda) a_i^+ + \Phi^s(x, 0; \lambda) b_i^+ + \Phi^c
 
 \subsubsection*{Matching at ends}
 
-Here, we solve the condition
+In the first inversion lemma, we solve the matching conditions at $\pm X_i$, $i = 0, \dots, n-1$.
 
 \[
 P_i^+(X_i; \lambda) Z_i^+(X_i) - P_{i+1}^-(-X_i; \lambda) Z_{i+1}^-(-X_i) = D_i d
 \]
+
+% first inversion lemma : match at \pm X_i
+
+\begin{lemma}
+
+There exists an operator
+
+\begin{align*}
+A_1: V_\lambda \times V_b \times V_c^- \times V_d \rightarrow V_a \times V_c^+\\
+\end{align*}
+
+such that $(a, c^+) = A_1(\lambda)(b, c^-,d)$ solves our system. This operator is analytic in $\lambda$ and linear in $(b,vc^-,d)$. Piecewise bounds for $A_1$ are given by
+
+\begin{align}\label{A1bound}
+|A_1&(\lambda)_i(b, c^-, d)|
+\leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + |c_i^-| + e^{-(\alpha - \rho) X_i} |\lambda^2||d| + |D_i||d| \Big)
+\end{align} 
+
+In addition, we can write $a_i^\pm$ and $c_i^+$ as 
+
+\begin{align*}
+a_i^+ &= P_i^+(X_i; \lambda) P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
+a_i^- &= -P_i^-(-X_i; \lambda) P_0^s(\lambda) D_i d + A_2(\lambda)_i^-(b, c^-, d) \\
+c_i^+ &= c_i^- + P_0^c(\lambda) D_i d + A_2(\lambda)_i^c(b, c^-, d) )
+\end{align*}
+
+where $A_2$ is a bounded operator with piecewise estimate
+
+\begin{align*}
+|A_2&(\lambda)_i(b, c^-, d)|
+\leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-| + |c_i^-|) + e^{-(\alpha - \rho) X_i} |\lambda|^2|d| + e^{-\alpha X_i} |D_i||d| \Big)
+\end{align*}
+
+Finally, we have the estimate
+
+\begin{equation}\label{P0cDid}
+|P_0^c(\lambda) D_i d| \leq C e^{-\alpha X_i}(|\lambda| + e^{-\alpha X_i})|d|
+\end{equation}
+
+\begin{proof}
 
 At $\pm X_i$, the fixed point equations become
 
@@ -830,7 +828,7 @@ Z_i^+(X_i) &= a_i^+ + \Phi^s(X_i, 0; \lambda) b_i^+ + c_i^+
 + \lambda^2 d_i \int_0^{X_i} \Phi^s(X_i, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy
 \end{align*}
 
-To obtain these, we used the fact that, for example, $a_i^- \in E^s(\lambda)$ and $\Phi^s(-X_{i-1}, -X_{i-1}; \lambda)$ is the identity on $E^s(\lambda)$. From the Conjugation Lemma, we have
+To obtain these, we used the fact that, for example, $a_i^- \in E^s(\lambda)$ and $\Phi^s(-X_{i-1}, -X_{i-1}; \lambda)$ is the identity on $E^s(\lambda)$. From the Conjugation Lemma, we have the estimate
 
 \begin{equation}\label{conjest}
 P_i^\pm(\pm X_i; \lambda) = I + \mathcal{O}(e^{-\alpha X_i})
@@ -846,7 +844,7 @@ For a bound on $L_3$, we look at the individual terms. As usual, we will in gene
 
 \begin{enumerate}
 
-\item For the $a_i^\pm$ and $c_i^\pm$ terms, we have a term of order $\mathcal{O}(e^{-\alpha X_i}(|a_i| + |c_i^+| + |c_i^-|)$, which comes from the conjugation operators $P_i^\pm(\pm X_i; \lambda)$.
+\item For the $a_i^\pm$ and $c_i^\pm$ terms, we have a term of order $\mathcal{O}(e^{-\alpha X_i}(|a_i| + |c_i^+| + |c_i^-|)$, which comes from the estimate \eqref{conjest} for the conjugation operators $P_i^\pm(\pm X_i; \lambda)$.
 
 \item For the terms involving $b$, we have
 
@@ -869,18 +867,44 @@ P^+(X_i; \beta_i^+, \lambda) \int_0^{X_i} \Phi^s(X_i, y; \lambda) P^+(X_i; \beta
 \end{enumerate}
 
 Putting these all together, we have the following bound for $L_3$.
-\[
+
+\begin{equation}\label{L3bound}
 |L_3(\lambda)_i(a, b, c^+, c^-, d)| \leq C \Big( e^{-\alpha X_i} ( |a_i| + |b_i^+| + |b_{i+1}^-| + |c_i^+| + |c_i^-|) + e^{-(\alpha - \rho) X_i} |\lambda^2| |d| \Big)
+\end{equation}
+
+Since $e^{-\alpha X_m} < \delta$, this becomes
+
+\begin{align*}
+|L_3(\lambda)_i(a, b, c^+, c^-, d)| \leq C \delta ( |a_i| + |c_i^+| ) + C\Big( e^{-\alpha X_i} ( |b_i^+| + |b_{i+1}^-| + |c_i^-|) + e^{-(\alpha - \rho) X_i} |\lambda^2| |d| \Big)
+\end{align*}
+
+Let 
+
+\[
+J_1: \bigoplus_{j=1}^n (E^s(\lambda) \times E^u(
+\lambda) \times E^c(\lambda) ) \rightarrow \bigoplus_{j=1}^n \rightarrow \C^{2m+1}
 \]
 
-Following San98 (and leaving out some steps for now), we can solve this for $(a, c^+)$ to get $(a_i, c_i^+) = A_1(\lambda)_i(b, c_i^-, d)$, with bound
+be defined by $(J_1)_i(a_i^+, a_i^-, c_i^+) = (a_i^+ - a_i^-, c_i^+)$. The map $J_i$ is a linear isomorphism since $E^s(\lambda) \oplus E^u(\lambda) \oplus E^c(\lambda) = \C^{2m + 1}$. Consider the map
+
+\[
+S_1(a, c^+) = J_1 (a, c^+) + L_3(\lambda)(a, 0, c^+, 0, 0) = J_1( I + J_1^{-1} L_3(\lambda)(a, 0, c^+, 0, 0))
+\]
+
+For sufficiently small $\delta$, we will have the operator norm $||J_1^{-1} L_3(\lambda)(a, 0, c^+, 0, 0)|| < 1$, thus the operator $S_1(a, c^+)$ is invertible. We can solve for $(a, c^+)$ to get
+
+\[
+(a, c^+) = A_1(\lambda)(b, c^-, d) = S_i^{-1}(-D d + L_3(\lambda)(0, b, 0, c^-, d)
+\]
+
+Using the bound on $L_3$ and noting which pieces are involved, $A_1$ will have piecewise bounds
 
 \begin{align*}
 |A_1&(\lambda)_i(b, c^-, d)|
 \leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + |c_i^-| + e^{-(\alpha - \rho) X_i} |\lambda^2||d| + |D_i||d| \Big)
 \end{align*} 
 
-As in San98, we hit \eqref{Dideq1} with projections on the subspaces eigenspaces $E^{s/u/c}(\lambda)$. The remainder term $A_2(\lambda)_i(b, c^-, d)$ is found by substituting the bound for $A_1$ into $L_3$ and simplifying.
+Next, we hit \eqref{Dideq1} with the projections $P_0^{s/u/c}(\lambda)$ on the eigenspaces $E^{s/u/c}(\lambda)$ to obtain the expressions
 
 \begin{align*}
 a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
@@ -888,14 +912,14 @@ a_i^- &= -P_0^s(\lambda) D_i d + A_2(\lambda)_i^-(b, c^-, d) \\
 c_i^+ &= c_i^- + P_0^c(\lambda) D_i d + A_2(\lambda)_i^c(b, c^-, d) )
 \end{align*}
 
-where we have bound
+The bound on the remainder term $A_2(\lambda)_i(b, c^-, d)$ is found by substituting the bound for $A_1$ into the bound for $L_3$ and simplifying. 
 
 \begin{align*}
-|A_2&(\lambda)_i(b, d)|
+|A_2&(\lambda)_i(b, c^-, d)|
 \leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-| + |c_i^-|) + e^{-(\alpha - \rho) X_i} |\lambda|^2|d| + e^{-\alpha X_i} |D_i||d| \Big)
 \end{align*} 
 
-For the first two, this is not quite what we want. Anticipating what we will need later, we write $a_i^+$ as
+Anticipating what we will need at the end, we will derive slightly different expressons for $a_i^+$ and $a_i^-$. Using the conjugation operator $P_i^+(X_i; \lambda)$, we write $a_i^+$ as
 
 \begin{align*}
 a_i^+ = P_i^+(X_i; \lambda)a_i^+ + (I - P_i^+(X_i; \lambda))a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
@@ -908,26 +932,25 @@ P_i^+(X_i; \lambda) a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) 
 &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) + \mathcal{O}\Big( e^{-\alpha X_i} ( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-|) + |c_i^-| + e^{-(\alpha - \rho) X_i} |\lambda^2||d| + |D_i||d| )\Big)
 \end{align*}
 
-where we used the bound $A_1$ and the estimate \eqref{conjest}. The last term on the RHS is the same (or higher) order as $A_2$, so we incorporate that into $A_2(\lambda)_i^+(b, c^-, d)$ to get
+where we used the bound $A_1$ and the estimate \eqref{conjest}. The last term on the RHS is the same (or higher) order as $A_2$, so we incorporate that into the bound on $A_2(\lambda)_i^+(b, c^-, d)$ to get
 
 \begin{align*}
 P_i^+(X_i; \lambda)a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
 \end{align*}
 
-Finally, we operate on both sides on the left by $P_i^+(X_i; \lambda)^{-1}$ to solve for $a_i^+$. This is a bounded operator, so we will also incorporate this into $A_2(\lambda)_i^+(b, c^-, d)$ (the bound will be unchanged). Thus we have
+Finally, we operate on both sides on the left by $P_i^+(X_i; \lambda)^{-1}$ to solve for $a_i^+$. Since $P_i^+(X_i; \lambda)^{-1}$ a bounded operator, we will also incorporate this into $A_2(\lambda)_i^+(b, c^-, d)$. In doing so, the bound will be unchanged. Thus we have
 
 \begin{align*}
 a_i^+ &= P^+(X_i; \beta_i^+, \lambda) P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
 \end{align*}
 
-We do the same thing for $a_i^-$, giving us
+We do the same thing for $a_i^-$, which gives us
 
 \begin{align*}
-a_i^+ &= P_i^+(X_i; \lambda) P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d) \\
 a_i^- &= -P_i^-(-X_i; \lambda) P_0^s(\lambda) D_i d + A_2(\lambda)_i^-(b, c^-, d)
 \end{align*}
 
-For the third one, we would like to evaluate and get an estimate for $P_0^c(\lambda) D_i d$. Recall that
+Finally, we would like to obtain an estimate for $P_0^c(\lambda) D_i d$. Recall that
 
 \[
 D_i d = ( Q'(X_i) + Q'(-X_i))(d_{i+1} - d_i ) + \mathcal{O} \left( e^{-\alpha X_i} \left( |\lambda| +  e^{-\alpha X_i}  \right) |d| \right) 
@@ -946,6 +969,9 @@ Thus we have
 \[
 |P_0^c(\lambda) D_i d| \leq C e^{-\alpha X_i}(|\lambda| + e^{-\alpha X_i})|d|
 \]
+
+\end{proof}
+\end{lemma}
 
 \subsubsection*{Matching at 0}
 
