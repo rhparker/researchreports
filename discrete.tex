@@ -254,7 +254,7 @@ Suppose we have the following solutions to \eqref{latticePDE}, both of which dec
 q_m(n) = \sum_{j = 1}^m c_j q_1(n - n_j) + \tilde{q}(n)
 \end{equation}
 
-where $c_j = \pm 1$ and for now we assume the remainder is as small as we need.
+where $c_j = \pm 1$ (so we always have $c_j^2 = 1$).
 \end{enumerate}
 
 Consider the eigenvalue problem coming from the linearization of the lattice PDE \eqref{latticePDE} about $q_m(n)$. This will be a difference equation in $\R^d$, where the dimension $d$ is determined by (among other things), the structure of the difference operator on the RHS of \eqref{latticePDE}.
@@ -270,7 +270,7 @@ $B$ is a bounded matrix, and $A(q_m(n); \mu) \rightarrow A_\infty(\mu)$ exponent
 \begin{enumerate}
 	\item $A_\infty(\mu)$ is hyperbolic for some $\mu$. Since we are in the discrete case, this means no eigenvalues on the unit circle.
 	\item $A(q_1(n); \mu)$ is invertible for all $n$. We need this so we can run the system backwards as well.
-	\item For some $\mu$, the variational equation $V(n+1) = A(q_1(n); \mu) V(n)$ has a unique bounded solution $S(n)$.
+	\item For some $\mu$, the variational equation $V(n+1) = A(q_1(n); \mu) V(n)$ has a unique bounded solution $S_1(n)$.
 \end{enumerate}
 \end{hypothesis}
 
@@ -281,21 +281,23 @@ V(n+1) &= A(q_1(n); \mu) V(n) \label{vareq} \\
 Z(n+1) &= [A(q_1(n); \mu)^*]^{-1} Z(n) \label{adjvareq}
 \end{align}
 
-From Hypothesis \ref{initialhyp}, we assume that there is a unique bounded solutions $S_1(n)$ to \eqref{vareq}. This should (hopefully) imply that there is a unique bounded solution $Z(n)$ to \eqref{adjvareq}. We will also assume that one of the following holds.
+From Hypothesis \ref{initialhyp}, we assume that there is a unique bounded solutions $S_1(n)$ to \eqref{vareq}. This should (hopefully) imply that there is a unique bounded solution $Z_1(n)$ to \eqref{adjvareq}. We will also assume that one of the following holds.
 
+\begin{hypothesis}\label{melnikovhyp}
+We assume one of the following holds.
 \begin{enumerate}[(i)]
 \item For the following Melnikov sum, we have
 \[
-M_1 = \sum Z(n+1) S_1(n) \neq 0
+M_1 = \sum Z_1(n+1) S_1(n) \neq 0
 \]
 \item For some $\mu$, there exists a bounded function $T(n)$ such that 
 \[
-T(n+1) = A(q_1(n); \mu) T(n) + B S(n)
+T(n+1) = A(q_1(n); \mu) T_1(n) + B S_1(n)
 \]
 In addition, for the following Melnikov sums we have
 \begin{align*}
-M_1 &= \sum Z(n+1) S_1(n) = 0 \\
-M_2 &= \sum Z(n+1) T_1(n) \neq 0 
+M_1 &= \sum Z_1(n+1) S_1(n) = 0 \\
+M_2 &= \sum Z_1(n+1) T_1(n) \neq 0 
 \end{align*}
 \end{enumerate}
 
@@ -376,21 +378,19 @@ P_\pm^{s/u}(m) \Phi(m, n) =  \Phi(m, n) P_\pm^{s/u}(n)
 Letting $\Phi_\pm^{s/u}(m, n) = \Phi(m, n) P_\pm^{s/u}(n)$ for $m, n \geq 0$ and $m, n \leq 0$ (respectively), we have the estimates
 
 \begin{align*}
-|\Phi_+^s(m, n)| \leq C e^{-\alpha_+^s}(m - n) && 0 \leq n \leq m \\
-|\Phi_+^u(m, n)| \leq C e^{\alpha_+^u}(m - n) && 0 \leq m \leq n \\
-|\Phi_-^s(m, n)| \leq C e^{-\alpha_-^s}(m - n) && n \leq m \leq 0 \\
-|\Phi_-^u(m, n)| \leq C e^{\alpha_-^u}(m - n) && m \leq n \leq 0\\
+|\Phi_+^s(m, n)| \leq C (r_+^s)^{m - n} = C e^{-\alpha_+^s}(m - n) && 0 \leq n \leq m \\
+|\Phi_+^u(m, n)| \leq C \left( \dfrac{1}{r_+^u} \right)^{n-m} = C e^{\alpha_+^u}(m - n) && 0 \leq m \leq n \\
+|\Phi_-^s(m, n)| \leq C (r_-^s)^{m - n} = C e^{-\alpha_-^s}(m - n) && n \leq m \leq 0 \\
+|\Phi_-^u(m, n)| \leq C \left( \dfrac{1}{r_-^u} \right)^{n-m} = C e^{\alpha_-^u}(m - n) && m \leq n \leq 0\\
 \end{align*}
 
-for constants $\alpha_\pm^s, \alpha_\pm^u > 0$. In terms of the asymptotic matrices $A^\pm$, the constants $\alpha_\pm^{s/u}$ are given by
+for constants $r_\pm^s < 1$, $r_\pm^u > 1$, where $r_\pm^{s/u}$ are radii chosen so that $|\lambda_\pm| \leq r_\pm^s < 1$ or $|\lambda_\pm| \geq r_\pm^u > 1$ for all eigenvalues $\lambda_\pm$ of $A^\pm$. The constants $\alpha_\pm^s, \alpha_\pm^u > 0$ are related to the radii $r_\pm^{s/u}$ by
 
 \begin{align*}
 \alpha^s &= -\log r_+^s\\
 \alpha^u &= \log r_+^u
 \end{align*}
-
-where $r_\pm^{s/u}$ are radii chosen so that $|\lambda_\pm| \leq r_\pm^s < 1$ or $|\lambda_\pm| \geq r_\pm^u > 1$ for all eigenvalues $\lambda_\pm$ of $A^\pm$.\\
-
+ 
 Finally, letting $E_\pm^{s/u}$ be the stable and unstable eigenspaces of $A^\pm$, we have
 
 \begin{align*}
@@ -404,8 +404,8 @@ We will consider the problem on $\Z^+$. The problem on $\Z^-$ is similar. Since 
 let $E_+^{s/u}$ be the stable and unstable eigenspaces of $A^+$, and let $P_+^{s/u}$ be the corresponding eigenprojections, which commute with $A^+$. Let $\Phi_+(m, n)$ be the evolution operator for $W(n+1) = A^+ W$. Then we have
 
 \begin{align*}
-\Phi_+(m, n) P_+^s W &= (A^+)^{m-n} P_+^s W \leq C (r^+)^{m-n} W = C e^{-\alpha_+^s (m - n)} && m > n \\
-\Phi_+(m, n) P_+^u W &= [(A^+)^{-1}]^{n-m} P_+^u W \leq C \left( \dfrac{1}{r^-} \right)^{n-m} W = C e^{\alpha_+^u (m - n)} && m < n \\
+\Phi_+(m, n) P_+^s W &= (A^+)^{m-n} P_+^s W \leq C (r_+^s)^{m-n} W = C e^{-\alpha_+^s (m - n)} && m > n \\
+\Phi_+(m, n) P_+^u W &= [(A^+)^{-1}]^{n-m} P_+^u W \leq C \left( \dfrac{1}{r_+^u} \right)^{n-m} W = C e^{\alpha_+^u (m - n)} && m < n \\
 \end{align*}
 
 where 
@@ -452,44 +452,53 @@ Iterate this to get the result for $n > n_0$. The case for $n < n_0$ is similar.
 
 \subsection{Piecewise Formulation}
 
-We want to write this piecewise following San98 and Knob00. To do that, let $N_i$ ($i = 1, \dots, m-1$) be the distances (in lattice points) between the $m$ pulses, and let
+We want to write the eigenvalue problem piecewise following San98 and Knob00. With that in mind, let $N_i$ ($i = 1, \dots, m-1$) be the distances (in lattice points) between the $m$ pulses of $q_m$, and let
 
 \begin{align*}
 N_i^+ &= \lfloor \frac{N_i}{2} \rfloor \\
 N_i^- &= N_i - N_i^+
 \end{align*}
 
-In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. Then we can write the $m-$pulse piecewise as
+In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. Then we can write the $m-$pulse $q_m(n)$ piecewise on the $2m$ intervals $\{ [-N_{i-1}^-, 0], [0, N_i^+] \}_{i=1, \dots, n}$ as
+
+\begin{align}\label{qmpiecewise}
+q_m(n) =
+\begin{cases}
+c_i q_1(n) + \tilde{q}_i^-(n) & n = [-N_{i-1}^-, 0] \\
+c_i q_1(n) + \tilde{q}_i^+(n) & n = [0, N_i^+] \\
+\end{cases}
+\end{align}
+
+where $q_1(n)$ is the primary pulse solition, and the pieces are spliced together end-to-end.\\
+
+Consider the variational and adjoint variational equations
+
+\begin{align}
+V(n+1) &= A(q_1(n); \mu) V(n) \label{vareq} \\
+Z(n+1) &= [A(q_1(n); \mu)^*]^{-1} Z(n) \label{adjvareq}
+\end{align}
+
+for the same value of $\mu$ as in Hypothesis \ref{initialhyp}. Let $\Phi(m, n)$ be the evolution operator for \eqref{vareq}. By Lemma \ref{dichotomy}, equation \eqref{vareq} has expontential dichotomies on $\Z^+$ and $\Z^-$. Using the notation and constants from that lemma and noting that the asymptotic matrix $A_\infty(\mu)$ is the same at both ends, let
 
 \begin{align*}
-&c_i q(n) + \tilde{q}_i^-(n) && n = (-N_{i-1}^-, 0] \\
-&c_i q(n) + \tilde{q}_i^+(n) && n = [0, N_i^+] \\
+\alpha &= \min \{ \alpha^s, \alpha^u \} > 0 \\
+r &= \max \{ r^s, 1/r^u \} < 1 \\
+N &= \min \{ N_i^\pm \}
 \end{align*}
 
-for $i = 1, \dots, m$, where the pieces are spliced together end-to-end. We might eventually allow for $q(n)$ to be broken into $q^+, q^-$ as in San98 and Knob00, but we keep it simple for now. We also assume sufficient bounds on the remainder terms.\\
+For now, we make the following hypothesis about the remainder tems in the piecewise $m-$pulse (analagous to (2.6) in San98).
 
-Now consider the variational and adjoint variational equations
-
-\begin{align*}
-V(n+1) &= A(q_1(n); \mu) V(n) \\
-Z(n+1) &= [A(q_1(n); \mu)^*]^{-1} Z(n)
-\end{align*}
-
-We will assume that there are unique bounded solutions $S_1(n)$ and $Z(n)$ to these. We will also assume that one of the following holds.
-
+\begin{hypothesis}\label{qbounds}We assume the following bounds hold for \eqref{qmpiecewise}
 \begin{enumerate}[(i)]
-\item $S_m(n+1) = A(q_m(n); \mu) S_m(n)$, where $S_m$ is a perturbation of $S_1$ and can be written piecewise similarly to $Q_m$ and
-\[
-M_1 = \sum Z(n+1) S_1(n) \neq 0
-\]
-\item $S_m(n+1) = A(q_m(n); \mu) S_m(n)$ and $T_m(n+1) = A(q_m(n); \mu) T_m(n) + B S_m(n)$, where where $S_m$ and $T_m$ are perturbations of $S_1$ and $T_1$, and can be written piecewise similarly to $Q_m$ and
-\begin{align*}
-M_1 &= \sum Z(n+1) S_1(n) = 0 \\
-M_2 &= \sum Z(n+1) T_1(n) \neq 0 
-\end{align*}
+\item $q_1(n) = \mathcal{O}(r^n)$
+\item $||\tilde{q}|| \leq C r^N$
+\item $|\tilde{q}_{i+1}^-(-N_i^-) - q_1(N_i^+)|| \leq C r^{2N}$ 
+\item $|\tilde{q}_i^+(N_i^+) - q_1(-N_i^-)|| \leq C r^{2N}$
 \end{enumerate}
+We assume the same relationships hold for $Z_1(n)$, $S_1(n)$ and $T_1(n)$, which are defined above.
+\end{hypothesis}
 
-In case (i), we make the piecewise ansatz
+We now make a piecewise ansatz similar to that in San98. There are two different cases, depending on which assumption we use from Hypothesis \ref{melnikovhyp}. For case (i), we make the piecewise ansatz
 
 \[
 V_i^\pm(n) = d_i ( c_i S_1(n) + \tilde{S}_i^\pm(n) ) + W_i^\pm(n)
@@ -501,7 +510,7 @@ Substituting this in, after simplification, we get
 W_i^\pm(n) = A(q_m) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda d_i c_i B S_1(n) + \lambda d_i B \tilde{S}_i^\pm(n)
 \]
 
-In case (ii), we make the piecewise ansats
+For case (ii), we make the piecewise ansatz
 
 \[
 V_i^\pm(n) = d_i [ c_i S_1(n) + \tilde{S}_i^\pm(n) + \lambda(c_i T_1(n) + \tilde{T}_i^\pm(n))] + W_i^\pm(n)
@@ -513,12 +522,10 @@ Substituting this in, after simplification, we get
 W_i^\pm(n) = A(q_m) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda^2 d_i c_i B T_1(n) + \lambda^2 d_i B \tilde{T}_i^\pm(n)
 \]
 
-These are almost identical, except for the one from (ii) involves $\lambda^2$ instead of $\lambda$. Thus we can look at (i), and (ii) will be similar.\\
-
-Adding and subtracting $A(a_i q_1)$, we have
+These are almost identical, except for the version from (ii) involves $\lambda^2$ instead of $\lambda$ in the terms involving $B$ . From this point on, we will only consider (ii), since that version shows up in dNLS. The results for (i) will be similar. We want to write this in terms of $A(q_m)$. Adding and subtracting $A(c_i q_1)$, we have
 
 \[
-W_i^\pm(n) = A(a_i q_1) W_i^\pm(n) + (A(q_m) - A(c_i q_1)) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda d_i c_i B S_1(n) + \lambda d_i B \tilde{S}_i^\pm(n)
+W_i^\pm(n) = A(c_i q_1) W_i^\pm(n) + (A(q_m) - A(c_i q_1)) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda^2 d_i c_i B S_1(n) + \lambda^2 d_i B \tilde{S}_i^\pm(n)
 \]
 
 Let
@@ -529,64 +536,49 @@ G_i^\pm &= A(q_n) - A(c_i q_1) \\
 H_i &= B c_i S_1
 \end{align*}
 
-Then our eigenvalue problem becomes
+Then then eigenvalue problem becomes
 
 \[
-W_i^\pm(n) = A(c_i q_1) W_i^\pm(n) + (G_i^\pm + \lambda B) W_i^\pm(n) + \lambda d_i B \tilde{H}_i^\pm(n)
+W_i^\pm(n) = A(c_i q_1) W_i^\pm(n) + (G_i^\pm + \lambda B) W_i^\pm(n) + \lambda^2 d_i B \tilde{H}_i^\pm(n)
 \]
 
-The system we want to solve is then 
+To obtain the system we wish to study, we add appropriate matching conditions at $n = \pm N_i$ and $n = 0$
 
 \begin{align*}
-W_i^\pm(n) &= A(c_i q_1) W_i^\pm(n) + (G_i^\pm + \lambda B) W_i^\pm(n) + \lambda d_i B \tilde{H}_i^\pm(n) \\
+W_i^\pm(n) &= A(c_i q_1) W_i^\pm(n) + (G_i^\pm + \lambda B) W_i^\pm(n) + \lambda^2 d_i B \tilde{H}_i^\pm(n) \\
 W_i^\pm(0) &\in \C Z(0) \oplus Y^+ \oplus Y^- \\
-W_i^\pm(0) - W_i^- &\in \C Z(0) \\
+W_i^+(0) - W_i^-(0) &\in \C Z_1(0) \\
 W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= D_i d
 \end{align*}
 
 where
 
-\[
-D_i d = [ c_{i+1} S_1(-N_i^-) + \tilde{S}_{i+1}^-(-N_i^-)] d_{i+1}
-- [ c_i S_1(N_i^+) + \tilde{S}_i^+(N_i^+)] d_i 
-\]
-
-(there will be higher order terms if $T$ is involved). At this point, we use Lin's method to get the jump equations. We (of course) have to go through all the rigamarole, but Knob2000 should guarantee we can do it.\\
-
-We follow the procedure in San98. Of course, there are important differences between this and the continuous-space version in San98, but for now we assume we have the results and estimates we need to make this work. Exponential dichotomy results will be key, and we should be able to cite a reference for these.\\
-
-We will need a version of variation of constants for the discrete setting. I'm sure there is a nice reference for this, but it's not hard to show. First, we define the discrete evolution operator in the linear case.
-
-% discrete evolution operator
-
-
-
-\begin{lemma}
-Consider the IVP for the difference equation
 \begin{align*}
-V(n+1) &= A(n) V(n) + G(V(n), n) \\
-V(n_0) &= V_{n_0}
+D_i d &= [ c_{i+1} S_1(-N_i^-) + \tilde{S}_{i+1}^-(-N_i^-)] d_{i+1}
+- [ c_i S_1(N_i^+) + \tilde{S}_i^+(N_i^+)] d_i \\
+&+ \lambda[ c_{i+1} T_1(-N_i^-) + \tilde{T}_{i+1}^-(-N_i^-)] d_{i+1}
+- \lambda[ c_i T_1(N_i^+) + \tilde{T}_i^+(N_i^+)] d_i 
 \end{align*}
-Then the solution is given by
-\[
-V(n) = 
-\begin{cases}
-V_{n_0} & n = n_0 \\
-\Phi(n, n_0) V_{n_0} + \sum_{j = n_0}^{n-1} \Phi(n, j+1) G(V(j), j)) & n > n_0 \\
-\Phi(n, n_0) V_{n_0} - \sum_{j = n}^{n_0-1} \Phi(n, j+1) G(V(j), j)) & n < n_0 
 
-\end{cases}
-\]
-\begin{proof}
-For $n = n_0 + 1$,
-\[
-V(n_0 + 1) = A(n_0) V(n_0) + G(V(v_0), n_0) = \Phi(n_0+1, n_0) V_{n_0} + \Phi(n_0, n_0) G(V(v_0), n_0)
-\]
-keep repeating this to get the result for $n > n_0$. The case for $n < n_0$ is similar.
-\end{proof}
-\end{lemma}
+A solution to our system will generically have $n$ jumps at $n = 0$. Thus we have a soluton if and only if the $n$ jump conditions are satisfied.
 
-As in San98, we write this as a fixed point problem. We assume for now that we have an exponential dichotomy with appropriate projections $P_\pm^{s/u}(n)$, and $\Phi(m, n; c_i)^{s/u}_\pm$ is the appropriate evolution.
+\begin{equation}\label{jumpcond}
+\xi_i = \langle Z_1(0), W_i^+(0) - W_i^-(0) \rangle = 0
+\end{equation}
+
+Using the bounds from Hypothesis \ref{qbounds}, we have the estimates
+
+\begin{align*}
+|G_i^\pm| &\leq C r^N \\
+|\tilde{H}_i^\pm - H| &\leq C r^N \\
+D_i d &= [ c_{i+1} S_1(-N_i^-) + c_i S_1(N_i^+) ] d_{i+1}
+- [ c_i S_1(N_i^+) + c_{i+1} S_1(-N_i^-) ] d_i 
++\mathcal{O}(r^N( |\lambda| + r^N))
+\end{align*}
+
+\subsubsection{Fixed Point Equations}
+
+As in San98, we write this as a fixed point problem using the exponential dichotomy,
 
 \begin{align*}
 W_i^-(n) &= 
@@ -601,7 +593,13 @@ W_i^+(n) &= \Phi_s^+(n, 0; c_i) b_i^+ + \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i)
 [(G_i^+(j) + \lambda B) W_i^+(j) + \lambda d_i B \tilde{H}_i^+(j)]
 \end{align*}
 
-where the sums are defined to be $0$ if the upper index is smaller than the lower index. Based on San98, we will guess the form of the jump equations. Of course, there is no guarantee this is right, but let's do it anyway. We will not include a remainder term, since that actually requires going through the estimates. For the jump equations, we evaluate
+where the sums are defined to be $0$ if the upper index is smaller than the lower index. 
+
+
+
+GARBAGE FOLLOWS
+
+Based on San98, we will guess the form of the jump equations. Of course, there is no guarantee this is right, but let's do it anyway. We will not include a remainder term, since that actually requires going through the estimates. For the jump equations, we evaluate
 
 \[
 \langle Z(0), W_i^-(0) - W_i^+(0) \rangle
