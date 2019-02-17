@@ -234,6 +234,8 @@ T_2 &= (0, 0, -q^*, -\tilde{q}^*)^T \\
 
 \subsection{Generalization}
 
+\subsubsection{Setup}
+
 Consider the lattice PDE on $\R$
 
 \begin{equation}\label{latticePDE}
@@ -295,14 +297,14 @@ In addition, for the following Melnikov sums we have
 M_1 &= \sum Z(n+1) S_1(n) = 0 \\
 M_2 &= \sum Z(n+1) T_1(n) \neq 0 
 \end{align*}
-
 \end{enumerate}
+
+\subsubsection{Discrete Exponential Dichotomy}
 
 Before we continue, we will need a result about exponential dichotomies in the discrete case. Luckily that has already been done by someone else. Before we get to that, we define the discrete evolution operator.
 
-\begin{lemma}
+\begin{lemma}\label{evolop}
 
-\begin{definition}
 Consider the difference equation
 \begin{equation}\label{diffeq2}
 V(n+1) = A(n) V(n)
@@ -326,7 +328,7 @@ Z(n+1) = [A(n)^{-1}]^* Z(n)
 the evolution operator is given by
 
 \begin{equation}\label{adjevol}
-\Psi(m, n) = [\Phi(n, m)]^*
+\Psi(m, n) = \Phi(n, m)^*
 \end{equation}
 
 If $V(n)$ is a solution to \eqref{diffeq2} and $Z(n)$ is a solution to \eqref{adjeq2}, then the inner product $\langle V(n), Z(n) \rangle$ is constant in $n$.
@@ -356,22 +358,99 @@ Similarly, we can show that $\langle V(n+1), Z(n+1) \rangle = \langle V(n), Z(n)
 \end{proof}
 \end{lemma}
 
+In the next lemma, we give a criterion for an exponential dichotomy in the discrete case.
+
 % lemma : exp dichotomy in discrete case
 
-\begin{lemma}\label{dichotomy}
+\begin{lemma}[Exponential Dichotomy]\\label{dichotomy}
 Consider the difference equation
-\begin{equation}\label{diffeq2}
-V(n+1) &= A(n) V(n)
+\begin{equation}\label{diffeq3}
+V(n+1) = A(n) V(n)
 \end{equation}
-where $A(n) \rightarrow A^\pm$ as $n \rightarrow \pm \infty$, where $A^\pm$ are constant coefficient matrices. If $A^\pm$ are hyperbolic, then \eqref{diffeq2} has exponential dichotomies on $Z^\pm$. In other words, we can
+with evolution operator $\Phi(m, n)$ as defined in Lemma \ref{evolop}. Suppose that $A(n) \rightarrow A^\pm$ as $n \rightarrow \pm \infty$, where $A^\pm$ are constant coefficient matrices. If $A^\pm$ are hyperbolic, then \eqref{diffeq2} has exponential dichotomies on $Z^\pm$. In other words, there exist projections $P_\pm^s$ and $P_\pm^u$ defined on $\Z^\pm$ such that
 
+\begin{equation}\label{projcommute}
+P_\pm^{s/u}(m) \Phi(m, n) =  \Phi(m, n) P_\pm^{s/u}(n)
+\end{equation}
+
+Letting $\Phi_\pm^{s/u}(m, n) = \Phi(m, n) P_\pm^{s/u}(n)$ for $m, n \geq 0$ and $m, n \leq 0$ (respectively), we have the estimates
+
+\begin{align*}
+|\Phi_+^s(m, n)| \leq C e^{-\alpha_+^s}(m - n) && 0 \leq n \leq m \\
+|\Phi_+^u(m, n)| \leq C e^{\alpha_+^u}(m - n) && 0 \leq m \leq n \\
+|\Phi_-^s(m, n)| \leq C e^{-\alpha_-^s}(m - n) && n \leq m \leq 0 \\
+|\Phi_-^u(m, n)| \leq C e^{\alpha_-^u}(m - n) && m \leq n \leq 0\\
+\end{align*}
+
+for constants $\alpha_\pm^s, \alpha_\pm^u > 0$. In terms of the asymptotic matrices $A^\pm$, the constants $\alpha_\pm^{s/u}$ are given by
+
+\begin{align*}
+\alpha^s &= -\log r_+^s\\
+\alpha^u &= \log r_+^u
+\end{align*}
+
+where $r_\pm^{s/u}$ are radii chosen so that $|\lambda_\pm| \leq r_\pm^s < 1$ or $|\lambda_\pm| \geq r_\pm^u > 1$ for all eigenvalues $\lambda_\pm$ of $A^\pm$.\\
+
+Finally, letting $E_\pm^{s/u}$ be the stable and unstable eigenspaces of $A^\pm$, we have
+
+\begin{align*}
+\dim \text{range }P_\pm^s(n) &= \dim E_\pm^s \\
+\dim \text{range }P_\pm^u(n) &= \dim E_\pm^u
+\end{align*}
+
+\begin{proof}
+We will consider the problem on $\Z^+$. The problem on $\Z^-$ is similar. Since $A^+$ is constant coefficient and hyperbolic, the difference equation $W(n+1) = A^+ W$ has an exponential dichotomy on $\R^+$. Specifically, since $A^+$ is hyperbolic, we can find radii $r_+^s < 1$ and $r_+^u > 1$ such that the eigenvalues $\lambda$ of $A^+$ satisfy either $|\lambda| \leq r_+^s$ or $|\lambda| \geq r_+^u$.\\
+
+let $E_+^{s/u}$ be the stable and unstable eigenspaces of $A^+$, and let $P_+^{s/u}$ be the corresponding eigenprojections, which commute with $A^+$. Let $\Phi_+(m, n)$ be the evolution operator for $W(n+1) = A^+ W$. Then we have
+
+\begin{align*}
+\Phi_+(m, n) P_+^s W &= (A^+)^{m-n} P_+^s W \leq C (r^+)^{m-n} W = C e^{-\alpha_+^s (m - n)} && m > n \\
+\Phi_+(m, n) P_+^u W &= [(A^+)^{-1}]^{n-m} P_+^u W \leq C \left( \dfrac{1}{r^-} \right)^{n-m} W = C e^{\alpha_+^u (m - n)} && m < n \\
+\end{align*}
+
+where 
+
+\begin{align*}
+\alpha_+^s &= -\log r_+^s > 0 \\
+\alpha_+^u &= \log r_+^u > 0
+\end{align*}
+
+and we used the fact that the stable eigenspace of $(A^+)^{-1}$ is equal to the unstable eigenspace of $A^-$ and vice versa, and the eigenvalues of $(A^+)^{-1}$ and $A^-$ are reciprocals of each other.\\
+
+Since $A(n) \rightarrow A^+$ as $n \rightarrow \infty$, by Proposition 2.5 in Beyn97, \eqref{diffeq3} has an exponential dichotomy on $\Z^+$, as defined in Beyn97, with the same constants $\alpha_+^s$, $\alpha_+^u$, and $C$. Furthermore, the range of $P_+^s(n)$ has the same dimension as $E_+^s$, and the range of $P_+^u(n)$ has the same dimension as $E_+^u$. By the same argument we have a corresponding exponential dichotomy on $\Z^-$.
+
+\end{proof}
 \end{lemma}
 
+The last thing we will need is a version of the variation of constants formula for the discrete setting.
 
+\begin{lemma}[Variation of Constants Formula]\label{VOC}
+Consider the initial value for the difference equation
+\begin{align*}
+V(n+1) &= A(n) V(n) + G(V(n), n) \\
+V(n_0) &= V_{n_0}
+\end{align*}
+The solution is given by
+\begin{equation}\label{VOCformula}
+V(n) = 
+\begin{cases}
+V_{n_0} & n = n_0 \\
+\Phi(n, n_0) V_{n_0} + \sum_{j = n_0}^{n-1} \Phi(n, j+1) G(V(j), j)) & n > n_0 \\
+\Phi(n, n_0) V_{n_0} - \sum_{j = n}^{n_0-1} \Phi(n, j+1) G(V(j), j)) & n < n_0 
 
-Now we derive the variation of constants formula for this setting.
+\end{cases}
+\end{equation}
 
+\begin{proof}
+For $n = n_0 + 1$,
+\[
+V(n_0 + 1) = A(n_0) V(n_0) + G(V(v_0), n_0) = \Phi(n_0+1, n_0) V_{n_0} + \Phi(n_0, n_0) G(V(v_0), n_0)
+\]
+Iterate this to get the result for $n > n_0$. The case for $n < n_0$ is similar.
+\end{proof}
+\end{lemma}
 
+\subsection{Piecewise Formulation}
 
 We want to write this piecewise following San98 and Knob00. To do that, let $N_i$ ($i = 1, \dots, m-1$) be the distances (in lattice points) between the $m$ pulses, and let
 
