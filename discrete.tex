@@ -49,9 +49,11 @@
 
 \begin{document}
 
-\section*{Discrete NLS}
+\section{Multipulses in Discrete Systems}
 
-We want to look at Lin's method for multipulses in the discrete case. The model equation here is discrete NLS, but we want something more general since the result for dNLS is already known (Pelinovsky and Kevrekidis, 2005). The idea is that if we can find an appropriate generalization and setup for Lin's method, we can check it on dNLS.\\
+We want to look at Lin's method for multipulses in the discrete case. The model equation here is discrete NLS, but we want something more general since the result for dNLS is already known, at least if we are near the anticontinuum limit (Pelinovsky and Kevrekidis, 2005). The idea is that if we can find an appropriate generalization and setup for Lin's method, we can check it on dNLS.\\
+
+\subsection{Discrete NLS}
 
 Normalized form of dNLS is
 
@@ -176,7 +178,7 @@ S(n+1) &= A(n; \omega, 0) S(n) \\
 T(n+1) &= A(n; \omega, 0) T(n) + B S(n)
 \end{align*}
 
-\section*{AL-dNLS}
+\subsection{Ablowitz-Ladik dNLS}
 
 Here we look at Ablowitz-Ladik dNLS. The version we use is from Kapitula (2001).
 
@@ -221,7 +223,7 @@ L^+ \partial_\xi q_n &= 0 \\
 L^- (-q^*_n) &= \partial_\xi q_n
 \end{align*}
 
-where $\partial_\xi q_n$ is the derivative with respect to the translational variable $\xi$ (AL-dNLS is translation invariant, which I don't really understand, but it is in Kap2001 and the numerics confirm it), and $q^*$ is the generalized eigenfunction. Thus, if we take
+where $\partial_\xi q_n$ is the derivative with respect to the translational variable $\xi$ (AL-dNLS is ``translation invariant'' in a weird sense which I don't really understand, but it is in Kap2001 and the numerics confirm it), and $q^*$ is the generalized eigenfunction. Thus we can take
 
 \begin{align*}
 S_1 &= (0, 0, q, \tilde{q})^T \\
@@ -230,42 +232,146 @@ S_2 &= (\partial_\xi q, \partial_\xi \tilde{q}, 0, 0)^T \\
 T_2 &= (0, 0, -q^*, -\tilde{q}^*)^T \\
 \end{align*}
 
-we have
+\subsection{Generalization}
 
+Consider the lattice PDE on $\R$
 
-\section*{Generalization}
+\begin{equation}\label{latticePDE}
+\dot{u}_n = f(u_n; \mu)
+\end{equation}
 
-Consider the lattice PDE on $\R^d$
+where $f$ involves a finite number (greater than 1) of indices near $n$ and $\mu \in \R^P$ is some parameter.\\
 
-\[
-\dot{U}_n = F(U)
-\]
+Suppose we have the following solutions to \eqref{latticePDE}, both of which decay exponentially at both ends.
 
-where $F$ involves a finite number (greater than 1) of indices near $n$. We will write this more precisely later, though it does not matter for now.\\
+\begin{enumerate}
+\item A single-pulse solution $q_1(n)$
+\item An $m-$pulse solution $q_m(n)$ which resembles, to leading order, $m$ copies of $q_1(n)$ joined together, but with flips allowed. Assume we can write $q_m(n)$ as the linear combination
 
-Consider the eigenvalue problem coming from the linearization about an $m-$pulse solution $q_m(n)$. This will be a difference equation in $\R^{d_2}$, which may a higher dimensional space than $\R^d$.
+\begin{equation}\label{qm}
+q_m(n) = \sum_{j = 1}^m c_j q_1(n - n_j) + \tilde{q}(n)
+\end{equation}
+
+where $c_j = \pm 1$ and for now we assume the remainder is as small as we need.
+\end{enumerate}
+
+Consider the eigenvalue problem coming from the linearization of the lattice PDE \eqref{latticePDE} about $q_m(n)$. This will be a difference equation in $\R^d$, where the dimension $d$ is determined by (among other things), the structure of the difference operator on the RHS of \eqref{latticePDE}.
 
 \begin{align*}
 V(n+1) = A(q_m(n); \mu) V(n) + \lambda B V(n)
 \end{align*}
 
-where $\mu$ is some parameter, $B$ is a bounded matrix, and $A(q_m(n); \mu) \rightarrow A_\infty(\mu)$ exponentially at both ends. Take the following hypotheses
+$B$ is a bounded matrix, and $A(q_m(n); \mu) \rightarrow A_\infty(\mu)$ exponentially at both ends (since $q_m(n)$ does). Take the following hypotheses
 
-\begin{hypothesis}\[\]
+\begin{hypothesis}\label{initialhyp}
+\[\]
 \begin{enumerate}
 	\item $A_\infty(\mu)$ is hyperbolic for some $\mu$. Since we are in the discrete case, this means no eigenvalues on the unit circle.
 	\item $A(q_1(n); \mu)$ is invertible for all $n$. We need this so we can run the system backwards as well.
-	\item The variational equation $V(n+1) = A(q_1(n); \mu) V(n)$ has a unique bounded solution $S(n)$.
+	\item For some $\mu$, the variational equation $V(n+1) = A(q_1(n); \mu) V(n)$ has a unique bounded solution $S(n)$.
 \end{enumerate}
 \end{hypothesis}
 
-For now, we assume an $m-$pulse stationary solution $q_m$ to the discrete system exists which resembles $m$ copies of the primary pulse $q_1$ spliced together, but we allow for flips and stuff so we have a linear combination
+Consider the variational and adjoint variational equations, which come from the linearization about the primary pulse $q_1(n)$.
 
+\begin{align}
+V(n+1) &= A(q_1(n); \mu) V(n) \label{vareq} \\
+Z(n+1) &= [A(q_1(n); \mu)^*]^{-1} Z(n) \label{adjvareq}
+\end{align}
+
+From Hypothesis \ref{initialhyp}, we assume that there is a unique bounded solutions $S_1(n)$ to \eqref{vareq}. This should (hopefully) imply that there is a unique bounded solution $Z(n)$ to \eqref{adjvareq}. We will also assume that one of the following holds.
+
+\begin{enumerate}[(i)]
+\item For the following Melnikov sum, we have
 \[
-q_m(n) = \sum_{j = 1}^m c_j q_1(n - n_j) + \tilde{q}(n)
+M_1 = \sum Z(n+1) S_1(n) \neq 0
 \]
+\item For some $\mu$, there exists a bounded function $T(n)$ such that 
+\[
+T(n+1) = A(q_1(n); \mu) T(n) + B S(n)
+\]
+In addition, for the following Melnikov sums we have
+\begin{align*}
+M_1 &= \sum Z(n+1) S_1(n) = 0 \\
+M_2 &= \sum Z(n+1) T_1(n) \neq 0 
+\end{align*}
 
-where for now we assume the remainder is as small as we need. For dNLS, the $c_j$ must be $\pm 1$. For other equations, who knows? \\
+\end{enumerate}
+
+Before we continue, we will need a result about exponential dichotomies in the discrete case. Luckily that has already been done by someone else. Before we get to that, we define the discrete evolution operator.
+
+\begin{lemma}
+
+\begin{definition}
+Consider the difference equation
+\begin{equation}\label{diffeq2}
+V(n+1) = A(n) V(n)
+\end{equation}
+where $n \in \Z$, $V(n) \in R^d$, and the $d \times d$ matrix $A(n)$ is invertible for all $n$. Then the discrete evolution operator is given by
+
+\begin{equation}\label{evol}
+\Phi(m, n) = 
+\begin{cases}
+I & m = n \\
+A(m-1) \dots A(n+1) A(n) & m > n \\
+A^{-1}(m) \dots A^{-1}(n-2) A^{-1}(n-1) & m < n
+\end{cases}
+\end{equation}
+
+For the adjoint equation
+\begin{equation}\label{adjeq2}
+Z(n+1) = [A(n)^{-1}]^* Z(n)
+\end{equation}
+
+the evolution operator is given by
+
+\begin{equation}\label{adjevol}
+\Psi(m, n) = [\Phi(n, m)]^*
+\end{equation}
+
+If $V(n)$ is a solution to \eqref{diffeq2} and $Z(n)$ is a solution to \eqref{adjeq2}, then the inner product $\langle V(n), Z(n) \rangle$ is constant in $n$.
+
+\begin{proof}
+Since evolving a difference equation is just iterating a map a finite number of times, the definition makes sense. We can easily check that this defines a flow. Let $\Psi(m, n)$ be the evolultion operator for the adjoint equation \eqref{adjeq2}. Then since $Z(n) = A(n)^* Z(n+1)$, for $m < n$ we have
+
+\begin{align*}
+\Psi(m, n) &= A(m)^* \dots A(n-2)^* A(n-1)^* \\
+&= [A(n-1) A(n-2) \dots A(m)]^* \\
+&= \Phi(n, m)^*
+\end{align*}
+
+Similarly, we can show that this holds for $m > n$, and it holds trivially for $m = n$.\\
+
+For a solution $V(n)$ to \eqref{diffeq2} and a solution $Z(n)$ to \eqref{adjeq2},
+
+\begin{align*}
+\langle V(n+1), Z(n+1) \rangle &= 
+\langle A(n) V(n), [A(n)^{-1}]^* Z(n) \rangle \\
+&= \langle A(n)^{-1} A(n) V(n), Z(n) \rangle \\
+&= \langle V(n), Z(n) \rangle
+\end{align*}
+
+Similarly, we can show that $\langle V(n+1), Z(n+1) \rangle = \langle V(n), Z(n) \rangle$.
+
+\end{proof}
+\end{lemma}
+
+% lemma : exp dichotomy in discrete case
+
+\begin{lemma}\label{dichotomy}
+Consider the difference equation
+\begin{equation}\label{diffeq2}
+V(n+1) &= A(n) V(n)
+\end{equation}
+where $A(n) \rightarrow A^\pm$ as $n \rightarrow \pm \infty$, where $A^\pm$ are constant coefficient matrices. If $A^\pm$ are hyperbolic, then \eqref{diffeq2} has exponential dichotomies on $Z^\pm$. In other words, we can
+
+\end{lemma}
+
+
+
+Now we derive the variation of constants formula for this setting.
+
+
 
 We want to write this piecewise following San98 and Knob00. To do that, let $N_i$ ($i = 1, \dots, m-1$) be the distances (in lattice points) between the $m$ pulses, and let
 
@@ -374,29 +480,7 @@ We will need a version of variation of constants for the discrete setting. I'm s
 
 % discrete evolution operator
 
-\begin{definition}
-For the linear difference equation
-\[
-V(n+1) = A(n) V(n)
-\]
-where $A(n)$ is invertible for all $n$, the discrete evolution operator is given by
-\[
-\Phi(m, n) = 
-\begin{cases}
-I & m = n \\
-A(m-1) \dots A(n+1) A(n) & m > n \\
-A^{-1}(m) \dots A^{-1}(n-2) A^{-1}(n-1) & m < n
-\end{cases}
-\]
-\end{definition}
 
-Since for a difference equation we are just iterating a map, this definition makes sense. We can easily check that this defines a flow. Let $\Psi(m, n)$ be the evolultion operator for the adjoint variational equation. Then since $Z(n) = A(q_1(n); \mu)^* Z(n+1)$, we can show 
-
-\[
-\Phi(m, n)^* = \Psi(n, m)
-\]
-
-Now we derive the variation of constants formula for this setting.
 
 \begin{lemma}
 Consider the IVP for the difference equation
