@@ -190,7 +190,7 @@ For a bounded or periodic domain, we also have a solution $\Psi^c(x)$ to the adj
 
 In fact, $\Psi^c(x) \rightarrow W_0$ as $x \rightarrow \pm \infty$.
 
-We will now decompose the tangent space at $Q(0)$. First, we make the following nondegeneracy assumption.
+We will now decompose the tangent space at $Q(0)$. First, we make the following non-degeneracy assumption.
 
 \begin{hypothesis}\label{nondegen}
 \[
@@ -333,7 +333,7 @@ where $\Lambda \in \Omega$ is a parameter vector and $\Omega$ is a Banach space.
 	where $\alpha > 0$, $C > 0$, and $K$ is a nonnegative integer.
 \end{enumerate}
 
-Suppose $V^-(\Lambda)$ is an eigenvector of $A_-(\Lambda)$ with corresponding eigenvalue $\mu(\Lambda)$, both analytic in $\Lambda$. Then there exists a solution of \ref{paramEVP} of the form 
+Suppose $V^-(\Lambda)$ is an eigenvector of $A_-(\Lambda)$ with corresponding eigenvalue $\mu(\Lambda)$, both analytic in $\Lambda$. Then there exists a solution of \ref{LambdaEVP} of the form 
 
 \begin{equation}
 W(x; \Lambda) = V(x; \Lambda) e^{\mu(\Lambda)x}
@@ -423,7 +423,7 @@ where we used the fact that $TV = V$ and $(A_-(\Lambda) - \mu(\Lambda)I)V^-(\Lam
 &\leq C ||V(x; \Lambda) - 0||_{L^\infty(-\infty, -M]} e^{\theta_1 x} \\
 \end{align*}
 
-Similarly, for suffiently large $M$, we have
+Similarly, for sufficiently large $M$, we have
 
 \begin{align*}
 |V(x; \Lambda)| - |V^-(\Lambda)| &\leq | |V(x; \Lambda)| - |V^-(\Lambda)| | \\
@@ -461,7 +461,7 @@ As a corollary to this, we state and prove the Conjugation Lemma, which allows u
 Let $W \in \C^N$, and consider the family of ODEs on $\R$
 
 \begin{equation}\label{EVPconj}
-W(x)' = A(x; \Lambda) W(x) + B(x) W(x) + F(x) 
+W(x)' = A(x; \Lambda) W(x) + F(x) 
 \end{equation}
 
 where $\Lambda \in \Omega$ is a parameter vector and $\Omega$ is a Banach space. Take the same assumptions as in the Gap Lemma, i.e. 
@@ -488,15 +488,9 @@ defined on $\R^+$ and $\R^-$, respectively, such that
 \begin{enumerate}[(i)]
 \item The change of coordinates $W = P_\pm Z$ reduces \eqref{EVPconj} to the equations on $\R^\pm$
 
-\begin{align}
-Z'(x) = A^\pm(\Lambda) Z(x) + P_\pm(x, \Lambda)^{-1} B(x) P_\pm(x, \Lambda) Z(x) + P_\pm(x, \Lambda)^{-1} F(x)
+\begin{align}\label{conjZ}
+Z'(x) = A^\pm(\Lambda) Z(x) + P_\pm(x, \Lambda)^{-1} F(x)
 \end{align}
-
-where
-
-\[
-G(x; \Lambda) = P_\pm(x, \Lambda)^{-1} F(x)
-\]
 
 \item For any fixed $0 < \tilde{\theta} < \theta$, $0 \leq k \leq K+1$, and $j \geq 0$ we have the decay rates
 \begin{align*}
@@ -504,7 +498,7 @@ G(x; \Lambda) = P_\pm(x, \Lambda)^{-1} F(x)
 \end{align*}
 \end{enumerate}
 \begin{proof}
-We prove this for the case where $B(x) = 0$ and $F(x) = 0$. The form of the conjugated system easily follow for general $B$ and $F$.\\
+We prove this for the case where $B(x) = 0$ and $F(x) = 0$. The form of the conjugated system easily follow for general $F$.\\
 
 We will do the case on $\R^-$. The other case is similar. 
 Let $W = P_-(x, \Lambda) Z$, where we will figure out what $P_-(x, \Lambda)$ is later. Suppose that \eqref{conjZ} holds, and substitute these into \eqref{EVPconj}.
@@ -543,7 +537,7 @@ P_-(x, \Lambda) Z'(x) &= P_-(x, \Lambda) A_- Z(x) \\
 Z'(x) &= A_- Z(x)
 \end{align*}
 
-which is what we want. In the last line, we used the fact that $P_-(x, \Lambda)$ is inverible, so we should make sure that is the case. Thus, we wish to find $P_-(x, \Lambda)$ such that
+which is what we want. In the last line, we used the fact that $P_-(x, \Lambda)$ is invertible, so we should make sure that is the case. Thus, we wish to find $P_-(x, \Lambda)$ such that
 
 \[
 P_-'(x, \Lambda) = A(x; \Lambda)P_-(x, \Lambda) - P_-(x, \Lambda) A_-
@@ -587,7 +581,7 @@ where
 
 The $x$-derivative bound follow from the derivative bounds in the Gap Lemma, and the $\Lambda$-derivative bounds follow from standard analytic function theory.\\
 
-Finally, we need to show invertibility of $P_-(x, \Lambda)$ for all $x \in \R^-$. Using \eqref{Thetabound}, we can find $M$ sufficiently large and negative such that for all $x \leq M$,
+Finally, we need to show that $P_-(x, \Lambda)$ is invertible for all $x \in \R^-$. Using \eqref{Thetabound}, we can find $M$ sufficiently large and negative such that for all $x \leq M$,
 
 \[
 |\Theta_-(x, \Lambda)| < 1/2
@@ -613,7 +607,7 @@ A(\lambda) &= \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 &
 \lambda & -c & 0 & 1 & 0 \end{pmatrix}
 \end{align}
 
-Let $\Lambda = (\lambda, q(x))$ be the parameter vector we will use in the Conjugation Lemma, where $q(x)$ is in the Banach space of continuous functions on $[X_{i-1}, 0]$ or $[0, X_i]$. (This requires a version of the Conjugation Lemma which allows parameters to be in an arbitraty Banach space.) Since 
+Let $\Lambda = (\lambda, q(x))$ be the parameter vector we will use in the Conjugation Lemma, where $q(x)$ is in the Banach space of continuous functions on $[X_{i-1}, 0]$ or $[0, X_i]$. (This requires a version of the Conjugation Lemma which allows parameters to be in an arbitrary Banach space.) Since 
 $A( q(x) ) + \lambda B$ is linear, thus analytic, in $\lambda$ and in $q(x)$, let $P_i^\pm(x; \lambda, q(x)$ be the conjugation operator for $A( q(x) ) + \lambda B$. For convenience, let  
 
 \begin{equation}
@@ -678,7 +672,7 @@ We define the following.
 
 \end{enumerate}
 
-Let $E^{u/s/c}(\lambda)$ be the stable/unstable/center eigenspaces of $A(\lambda)$, where $E^c$ is the one-dimensional subspace spanned by the eigenvector corresponding to the small eigenvalue $\nu(\lambda)$. This is a ``true'' center subspace only when $\nu(\lambda)$ has no real part, but we will always call it a center subspace for convenience. Let $P^{u/s/c}_0(\lambda)$ be the corresponding eigenprojections for the eigensubspaces $E^{u/s/c}(\lambda)$.\\
+Let $E^{u/s/c}(\lambda)$ be the stable/unstable/center eigenspaces of $A(\lambda)$, where $E^c$ is the one-dimensional subspace spanned by the eigenvector corresponding to the small eigenvalue $\nu(\lambda)$. This is a ``true'' center subspace only when $\nu(\lambda)$ has no real part, but we will always call it a center subspace for convenience. Let $P^{u/s/c}_0(\lambda)$ be the corresponding eigenprojections for the eigenspaces $E^{u/s/c}(\lambda)$.\\
 
 Let $\Phi(x, y; \lambda) = e^{A(\lambda)(x-y)}$ be the evolution of the constant-coefficient ODE
 
@@ -745,7 +739,7 @@ V_\lambda &= B_\delta(0) \subset \C
 
 where the subscripts are all $\mod n$, as in the existence problem. We use the $\lambda-$dependent eigenspaces for $a_i^\pm$ and $c_i^\pm$, since we will be evolving them under the $\lambda-$dependent evolution $\Phi(y, x; \lambda)$.\\
 
-All the product spaces are endowed with the maximum norm, e.g. for $V_c$, $|c| = \max(|c_0^-|, \dots, |c_{n-1}^-|, |c_0^+|, \dots, |c_{n-1}^+|)$. In addition, we take the following convention. Tf we eliminate either a subscript or a superscript (or both) in the norm, we are taking the maximum over the eliminated thing. For example,
+All the product spaces are endowed with the maximum norm, e.g. for $V_c$, $|c| = \max(|c_0^-|, \dots, |c_{n-1}^-|, |c_0^+|, \dots, |c_{n-1}^+|)$. In addition, we take the following convention. If we eliminate either a subscript or a superscript (or both) in the norm, we are taking the maximum over the eliminated thing. For example,
 
 \begin{enumerate}
 	\item $|c_i| = \max(|c_i^+|, |c_i^-|)$ 
@@ -921,7 +915,7 @@ The bound on the remainder term $A_2(\lambda)_i(b, c^-, d)$ is found by substitu
 \leq C \Big( e^{-\alpha X_i} (|b_i^+| + |b_{i+1}^-| + |c_i^-|) + e^{-(\alpha - \rho) X_i} |\lambda|^2|d| + e^{-\alpha X_i} |D_i||d| \Big)
 \end{align*} 
 
-Anticipating what we will need at the end, we will derive slightly different expressons for $a_i^+$ and $a_i^-$. Using the conjugation operator $P_i^+(X_i; \lambda)$, we write $a_i^+$ as
+Anticipating what we will need at the end, we will derive slightly different expressions for $a_i^+$ and $a_i^-$. Using the conjugation operator $P_i^+(X_i; \lambda)$, we write $a_i^+$ as
 
 \begin{align*}
 a_i^+ = P_i^+(X_i; \lambda)a_i^+ + (I - P_i^+(X_i; \lambda))a_i^+ &= P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)
@@ -1528,7 +1522,7 @@ e^{-2 \alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\t
 + e^{-\tilde{\alpha} X_{i-1}} |c_{i-1}^-| + e^{-\tilde{\alpha} X_i} |c_i^-| + ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big)
 \end{align*}
 
-\item For the noncenter integral terms, we can use the simple estimate
+\item For the non-center integral terms, we can use the simple estimate
 
 \begin{align*}
 &\left| P^-(0; \beta_i^-, \lambda) 
@@ -1704,7 +1698,7 @@ P_i^+(0; \lambda) Z_i^+(0) &=  P^+(0)( b_i^+ + P_0^c(0) e^{-\nu(\lambda)X_i} c_i
 As with the first jump, we will start out by computing the significant.
 
 \begin{enumerate}
-\item The noncenter integral will give us the higher order Melnikov integral. For the ``minus'' piece, we have
+\item The non-center integral will give us the higher order Melnikov integral. For the ``minus'' piece, we have
 
 \begin{align*}
 &\langle \Psi(0), P_i^-(0; \lambda) \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) P_i^-(y; \lambda)^{-1} \tilde{H}_i^-(y) dy \rangle \\
@@ -1894,15 +1888,63 @@ D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha 
 
 \subsubsection{Main Theorem}
 
-We combine two jump expressions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj} into the following theorem.
+We will now combine two jump expressions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj} into a single theorem. Before we do that, we will need one more result about the determinant of a particular matrix.
+
+% bidiagonal determinant
+
+\begin{lemma}\label{bidiag}
+Let $A$ be the ``periodic'' bi-diagonal matrix
+\begin{equation}
+A = \begin{pmatrix}
+a_1 & & & & & & b_n \\
+b_1 & a_2 \\
+& b_2 & a_3 \\
+\vdots & & & \vdots & &&  \vdots \\
+& & & & b_{n-2} & a_{n-1} \\
+& & & & & b_{n-1} & a_n
+\end{pmatrix}
+\end{equation}
+
+Then 
+
+\begin{equation}
+\det{A} = \prod_{k = 1}^n a_k + (-1)^n \prod_{k = 1}^{n-1} b_k
+\end{equation}
+
+\begin{proof}
+Expanding by minors using the last column, we have
+\begin{align*}
+\det A &= a_n \det
+\begin{pmatrix}
+a_1 \\
+b_1 & a_2 \\
+& b_2 & a_3 \\
+\vdots & & & & \vdots \\
+& & & & b_{n-2} & a_{n-1}
+\end{pmatrix}
++ (-1)^{n-1} \det
+\begin{pmatrix}
+b_1 & a_2 \\
+& b_2 & a_3 \\
+\vdots & & & & \vdots \\
+& & & & & b_{n-2} & a_{n-1} \\
+& & & & & & b_{n-1}
+\end{pmatrix} \\
+&= \prod_{k = 1}^n a_k + (-1)^{n-1} \prod_{k = 1}^n b_k
+\end{align*}
+since both of the matrices on the RHS are triangular.
+\end{proof}
+\end{lemma}
 
 % theorem : block diagonal matrix expression
 
+We can finally state the main theorem of this section.
+
 \begin{theorem}\label{blockmatrixform}
 
-Let $q_n(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$. Then the jump conditions can be written as the block diagonal matrix equation 
+Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$. Then the jump conditions can be written as the block matrix equation 
 
-\begin{equation}\label{blockdiag}
+\begin{equation}\label{blockeq}
 \begin{pmatrix}
 K(\lambda) + C_2 & -\lambda^2 M^c I + D_1 \\
 C_3 K(\lambda) + C_4 & A - \lambda^2 MI + D_2
@@ -1930,17 +1972,17 @@ where $X_m = \min \{X_0, \dots, X_{n-1}\}$
 
 \item $M$, $M^c$ are the Melnikov integrals
 
-\begin{align}
+\begin{align*}
 M &= \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy \\
 M^c &= \int_{-\infty}^\infty \langle \Psi^c(y), H(y) \rangle dy
-\end{align}
+\end{align*}
 
 For KdV5, these are given by
 
-\begin{align}
+\begin{align*}
 M &= \int_{-\infty}^\infty q(y) q_c(y) dy \\
 M^c &= \int_{-\infty}^\infty q_c(y) dy
-\end{align}
+\end{align*}
 
 \item The matrix $K(\lambda)$ is given by
 
@@ -1984,8 +2026,9 @@ For KdV5, we have $\tilde{a}_i = a_i$.
 
 \end{enumerate}
 
-To leading order, equation \eqref{blockdiag} is
-\begin{equation}
+To leading order, equation \eqref{blockeq} is upper triangular block equation
+
+\begin{equation}\label{blocktri}
 \begin{pmatrix}
 K(\lambda) & -\lambda^2 M^c I  \\
 0 & A - \lambda^2 MI 
@@ -2002,6 +2045,43 @@ Thus, to leading order, the eigenvalue problem has a nontrivial solution if eith
 
 where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. The first condition gives us the essential spectrum, and the second condition gives us the point spectrum. Note that $M^c$ does not appear in these conditions.\\
 
+\begin{proof}
+The block matrix \eqref{blockeq} combines the jump conditions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj}. As it is a square matrix, \eqref{blockeq} has a nontrivial solution if and only if its determinant is 0.\\
+
+To leading order, the block matrix \eqref{blockeq} is the upper triangular block matrix \eqref{blocktri}, which has determinant 
+
+\begin{align*}
+\det \begin{pmatrix}
+K(\lambda) & -\lambda^2 M(\lambda) I \\
+0 & A - \lambda^2 MI
+\end{pmatrix} &= \det K(\lambda) \det(A - \lambda^2 MI)\\
+\end{align*}
+
+Using Lemma \ref{bidiag}, 
+
+\begin{align*}
+\det K(\lambda) &= \prod_{k = 0}^{n-1} e^{-\nu(\lambda)X_k} + (-1)^{n-1} \prod_{k = 0}^{n-1} (-e^{\nu(\lambda)X_k}) \\
+&= e^{-\nu(\lambda) X} - e^{\nu(\lambda) X} \\
+&= -2 \sinh( \nu(\lambda) X )
+\end{align*}
+
+where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. \\
+
+Thus we have a nontrivial solution to the jump equations if and only if 
+
+\[
+\nu(\lambda) = i \frac{n \pi}{X}, n \in \Z
+\]
+
+or 
+
+\[
+\det(A - \lambda^2 MI) = 0
+\]
+
+In the first case, $\lambda$ is in the essential spectrum, since the asymptotic matrix $A(\lambda)$ has an eigenvalue $\nu(\lambda)$ which is purely imaginary. The second case determines the point spectrum.
+
+\end{proof}
 \end{theorem}
 
 \end{document}
