@@ -623,7 +623,7 @@ V_a &= \bigoplus_{i=0}^{n-1} E^u \oplus E^s \\
 V_b &= \bigoplus_{i=0}^{n-1} 
 \text{ range } P_-^u(0; c_i) \oplus \text{ range } P_+^s(0; c_i)\\
 V_\lambda &= B_\delta(0) \subset \C \\
-V_d &= \C^m
+V_d &= \C^d
 \end{align*}
 
 The fixed point equations follow from the variation of constants formula in Lemma \ref{VOCformula} together with the projections from the exponential dichotomy.
@@ -661,7 +661,9 @@ As in San98, we will now solve the system in a series of lemmas.
 
 First, we solve for $W_i^\pm$. 
 
-\begin{lemma}
+% Lemma : solve for W
+
+\begin{lemma}\label{inv1}
 There exists an operator $W_1: V_\lambda \times V_a \times V_b \times V_d \rightarrow V_W$ such that
 \[
 W = W_1(\lambda)(a,b,d)
@@ -749,11 +751,39 @@ which is analytic in $\lambda$, linear in $(a, b, d)$, and has estimate
 In the next lemma, we solve for the condition
 
 \[
-W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= D_i d
+W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) = D_i d
 \]
 for $i = 1, \dots, m-1$. 
 
 \begin{lemma}
+There exist operators 
+
+\begin{align*}
+A_1 : V_\lambda \times V_b \times V_d \rightarrow V_a \\
+W_2 : V_\lambda \times V_b \times V_d \rightarrow V_W
+\end{align*}
+
+such that $(a, w) = (A_1(\lambda)(b,d), W_2(\lambda)(b,d)$ solves the system for any $(b, d)$ and $\lambda$. These operators are analytic in $\lambda$, linear in $(b,d)$, and have bounds 
+
+\begin{align}
+|A_1(\lambda)(b, d)| &\leq C \left( (r^N + ||G|| + |\lambda| ) |b| + (|\lambda|^2 + |D| ) |d| \right) \label{A1bound} \\
+||W_2(\lambda)(b,d)|| &\leq C \left( |b| + (|\lambda|^2 + |D|) |d| \right) \label{W2bound}
+\end{align}
+
+Furthermore, we can write
+
+\begin{align*}
+a_i^+ &= P_0^u D_i d + A_2(\lambda)_i(b,d) \\
+a_i^- &= -P_0^s D_i d + A_2(\lambda)_i(b,d)
+\end{align*}
+
+where $A_2$ is a bounded linear operator with estimate
+
+\begin{align}\label{A2bound}
+|A_2(\lambda)(b,d)| \leq 
+C\left( (r^N + ||G|| + |\lambda| )|b| + (r^N + ||G|| + |\lambda|)|D||d| + |\lambda|^2 |d|  \right)
+\end{align}
+
 \begin{proof}
 At $n = \pm \N_i^\pm$, the fixed point equations become
 
@@ -767,8 +797,111 @@ W_i^+(N_i^+) &= \Phi_u^+(N_i^+, N_i^+; c_i) a_i^+ + \Phi_s^+(N_i^+, 0; c_i) b_i^
 [(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
 \end{align*}
 
+Note that $\Phi_s^-(-N_i^-, -N_i^-; c_{i+1}) = P_-^s(-N_i^-; c_{i_1}$ and $\Phi_u^+(N_i^+, N_i^+; c_i) = P_+^u(N_i^+; c_{i_1})$. Recalling that $a_i^- \in E^s$ and $a_i^+ \in E^u$, we add and subtract $P_0^{s/u}$ to get
+
+\begin{align*}
+W_{i+1}^-(-N_i^-) &= 
+a_i^- + (P_s^-(-N_i^-; c_{i+1}) - P_0^s) a_i^- + \Phi_u^-(-N_i^-, 0; c_i) b_i^- \\
+&- \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; c_i) 
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
+W_i^+(N_i^+) &= a_i^+ + (P_u^+(N_i^+; c_i) - P_0^u) a_i^+ + \Phi_s^+(N_i^+, 0; c_i) b_i^+ \\
+&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+Thus the condition $W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) = D_i d$ can be written
+
+\begin{align}
+D_i d &= a_i^+ - a_i^- + (P_u^+(N_i^+; c_i) - P_0^u) a_i^+ - (P_s^-(-N_i^-; c_{i+1}) - P_0^s) a_i^- \\
+&+ \Phi_s^+(N_i^+, 0; c_i) b_i^+ - \Phi_u^-(-N_i^-, 0; c_i) b_i^- \nonumber \\
+&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)] \nonumber \\
+&- \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; c_i) 
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \nonumber \\
+\end{align}
+
+Substituting $W = W_1(\lambda)(a, b, d)$ from Lemma \ref{inv1}, we obtain an equation of the form 
+
+\begin{equation}\label{Dideq}
+D_i d = (a_i^+ - a_i^-) + L_3(\lambda)_i(a,b,d)
+\end{equation}
+
+Using Lemma \ref{dichotomy} and the bound for $W_1$ from Lemma \ref{inv1}, $L_3$ has uniform bound
+
+\begin{align*}
+L_3(\lambda)(a,b,d)| &\leq C\left( r^N (|a| + |b|) + \left(\sum_{j = -N_i^-}^{-1} r^{j+1+N_i^-} + \sum_{j = 0}^{N_i^+ - 1} r^{N_i^+ - j - 1} \right)((||G|| + |\lambda|)||W|| + |\lambda|^2 |d|) \right) \\
+&\leq C\left( r^N (|a| + |b|) + \left(\sum_{j = 1}^{N_i^-} r^j + \sum_{j = 1}^{N_i^+ - 1} r^j \right)((||G|| + |\lambda|)||W|| + |\lambda|^2 |d| ) \right) \\
+&\leq C\left( r^N (|a| + |b|) + (||G|| + |\lambda|)||W_1(\lambda)(a,b,d)|| + |\lambda|^2 |d| ) \sum_{j = 1}^\infty r^j \right) \\
+&\leq C\left( (r^N + ||G|| + |\lambda| ) (|a| + |b|) + |\lambda|^2 |d|  \right)
+\end{align*}
+
+Since $r^N, |\lambda| < \delta$, this becomes
+
+\begin{align*}
+L_3(\lambda)(a,b,d)| &\leq C \delta |a| + C\left( (r^N + ||G|| + |\lambda| ) |b| + |\lambda|^2 |d|  \right)
+\end{align*}
+
+Define the map
+
+\[
+J_1: V_a \rightarrow \bigoplus_{j=1}^{m-1} \C^d
+\]
+
+by $(J_1)_i(a_i^+, a_i^-) = a_i^+ - a_i^-$. Since $E^s \oplus E^u = \C^d$.  The map $J_1$ is a linear isomorphism. Consider the map
+
+\[
+S_1(a) = J_1 (a) + L_3(\lambda)(a, 0, 0) = J_1( I + J_1^{-1} L_3(\lambda)(a, 0 0) )
+\]
+
+For sufficiently small $\delta$, the operator norm $||J_1^{-1} L_3(\lambda)(a, 0, 0)|| < 1$, thus the operator $S_1(a)$ is invertible. We can solve for $a$ to get
+
+\[
+a = A_1(\lambda)(b, d) = S_i^{-1}(-D d - L_3(\lambda)(b, d))
+\]
+
+which has uniform bound
+
+\begin{equation*}
+|A_1(\lambda)(b, d)| \leq C \left( (r^N + ||G|| + |\lambda| ) |b| + (|\lambda|^2 + |D| ) |d|  \right)
+\end{equation*}
+
+We plug this estimate into $W_1$ to get $W_2(\lambda)(b,d)$ with bound
+
+\begin{equation}\label{W1bound}
+||W_2(\lambda)(b,d)|| \leq C \left( |b| + (|\lambda|^2 + |D|) |d| \right)
+\end{equation}
+
+Finally, we project \eqref{Dideq} onto $E^s$ and $E^u$ using $P_0^s$ and $P_0^u$.
+
+\begin{align*}
+a_i^+ &= P_0^u D_i d - P_0^u L_3(\lambda)_i(a,b,d) \\
+a_i^- &= -P_0^s D_i d + P_0^s L_3(\lambda)_i(a,b,d)
+\end{align*}
+
+Substituting $A_1(\lambda)(b,d)$ for $a$ we obtain the equations
+
+\begin{align*}
+a_i^+ &= P_0^u D_i d + A_2(\lambda)_i(b,d) \\
+a_i^- &= -P_0^s D_i d + A_2(\lambda)_i(b,d)
+\end{align*}
+
+Finally, we substitute the bound for $A_1$ into the bound for $L_3$ to obtain the uniform bound
+
+\begin{align*}
+|A_2(\lambda)(b,d)| \leq 
+C\left( (r^N + ||G|| + |\lambda| )|b| + (r^N + ||G|| + |\lambda|)|D||d| + |\lambda|^2 |d|  \right)
+\end{align*}
+
 \end{proof}
 \end{lemma}
+
+\begin{align*}
+|\Phi_+^s(m, n; c_i)| \leq C r^{m - n} && 0 \leq n \leq m \\
+|\Phi_+^u(m, n; c_i)| \leq C r^{n - m} && 0 \leq m \leq n \\
+|\Phi_-^s(m, n; c_i)| \leq C r^{m - n} && n \leq m \leq 0 \\
+|\Phi_-^u(m, n; c_i)| \leq C r^{n - m} && m \leq n \leq 0 \\
+|P_\pm^{s/u}(n; c_i) - P_0^{s/u}| \leq C r^{|n|}
+\end{align*}
 
 
 \subsection{GARBAGE}
