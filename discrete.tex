@@ -300,6 +300,7 @@ M_1 &= \sum Z_1(n+1) S_1(n) = 0 \\
 M_2 &= \sum Z_1(n+1) T_1(n) \neq 0 
 \end{align*}
 \end{enumerate}
+\end{hypothesis}
 
 \subsubsection{Discrete Exponential Dichotomy}
 
@@ -364,7 +365,7 @@ In the next lemma, we give a criterion for an exponential dichotomy in the discr
 
 % lemma : exp dichotomy in discrete case
 
-\begin{lemma}[Exponential Dichotomy]\\label{dichotomy}
+\begin{lemma}[Exponential Dichotomy]\label{dichotomy}
 Consider the difference equation
 \begin{equation}\label{diffeq3}
 V(n+1) = A(n) V(n)
@@ -578,22 +579,134 @@ D_i d &= [ c_{i+1} S_1(-N_i^-) + c_i S_1(N_i^+) ] d_{i+1}
 
 \subsubsection{Fixed Point Equations}
 
-As in San98, we write this as a fixed point problem using the exponential dichotomy,
+As in San98, we write this as a fixed point problem using the exponential dichotomy. Let $\delta > 0$ be small, and choose $N$ sufficiently large so that $r^N < \delta$.  
+
+Define the spaces
+
+\begin{align*}
+V_W &= l^\infty([-N_{i-1}, 0]) \oplus l^\infty([0, N_i])  \\
+V_a &= \bigoplus_{i=0}^{n-1} E^u \oplus E^s \\
+V_b &= \bigoplus_{i=0}^{n-1} 
+\text{ range } P_-^u(0) \oplus \text{ range } P_+^s(0)\\
+V_\lambda &= B_\delta(0) \subset \C \\
+V_d &= \C^m
+\end{align*}
 
 \begin{align*}
 W_i^-(n) &= 
 \Phi_s^-(n, -N_{i-1}^-; c_i) a_{i-1}^- + \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; c_i)
-[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda d_i B \tilde{H}_i^-(j)]
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)]
  \\
 &+ \Phi_u^-(n, 0; c_i) b_i^- - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) 
-[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda d_i B \tilde{H}_i^-(j)] \\
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
 W_i^+(n) &= \Phi_s^+(n, 0; c_i) b_i^+ + \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i) 
-[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda d_i B \tilde{H}_i^+(j)] \\
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)] \\
 &+ \Phi_u^+(n, N_i^+; c_i) a_i^+ - \sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; c_i) 
-[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda d_i B \tilde{H}_i^+(j)]
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
 \end{align*}
 
-where the sums are defined to be $0$ if the upper index is smaller than the lower index. 
+where the sums are defined to be $0$ if the upper index is smaller than the lower index. Since we are taking $a_0^- = a_m^+ = 0$, the corresponding equations are
+
+\begin{align*}
+W_1^-(n) &= \sum_{j = -\infty}^{n-1} \Phi_s^-(n, j+1; c_i)
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)]
+ \\
+&+ \Phi_u^-(n, 0; c_i) b_i^- - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) 
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
+W_m^+(n) &= \Phi_s^+(n, 0; c_i) b_i^+ + \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)] \\
+&- \sum_{j = n}^{\infty} \Phi_u^+(n, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+As in San98, we will now solve the system in a series of lemmas.
+
+\subsubsection{Solve for W}
+
+First, we solve for $W_i^\pm$. 
+
+\begin{lemma}
+There exists an operator $W_1: V_\lambda \times V_a \times V_b \times V_d \rightarrow V_W$ such that
+\[
+W = W_1(\lambda)(a,b,d)
+\]
+is a solution for and $(a,b,d)$ and $\lambda$. The operator $W_1$ is analytic in $\lambda$, linear in $(a,b,d)$, and has bound
+
+\begin{equation}\label{W1bound}
+||W_1(\lambda)(a,b,d)|| \leq C \left( |a| + |b| + |\lambda|^2 |d| \right)
+\end{equation}
+
+\begin{proof}
+Rewrite the fixed point equations as
+\[
+(I - L_1(\lambda))W = L_2(\lambda)(a,b,d)
+\]
+
+where $L_1(\lambda): V_W \rightarrow V_W$ is the linear operator composed of terms in the fixed point equations involving $W$
+
+\begin{align*}
+(L_1(\lambda)W)_i^-(n) &= \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; c_i)
+(G_i^-(j) + \lambda B) W_i^-(j) \\&- \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) 
+(G_i^-(j) + \lambda B) W_i^-(j)\\
+(L_1(\lambda)W)_i^+(n) &= \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i) 
+(G_i^+(j) + \lambda B) W_i^+(j) \\
+&-\sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; c_i) 
+(G_i^+(j) + \lambda B) W_i^+(j)
+\end{align*}
+
+and $L_2(\lambda): V_\lambda \times V_a \times V_b $ is the linear operator composed of terms in the fixed point equations not involving $W$.
+
+\begin{align*}
+(L_2(\lambda)(a,b,d))_i^-(n) &= 
+\Phi_s^-(n, -N_{i-1}^-; c_i) a_{i-1}^- + \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; c_i)
+\lambda d_i B \tilde{H}_i^-(j)
+ \\
+&+ \Phi_u^-(n, 0; c_i) b_i^- - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) 
+\lambda d_i B \tilde{H}_i^-(j) \\
+(L_2(\lambda)(a,b,d))_i^+(n) &= \Phi_s^+(n, 0; c_i) b_i^+ + \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i)\lambda^2 d_i B \tilde{H}_i^+(j) \\
+&+ \Phi_u^+(n, N_i^+; c_i) a_i^+ - \sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; c_i)\lambda^2 d_i B \tilde{H}_i^+(j)
+\end{align*}
+
+To find a bound for $L_1$, we look at the ``minus'' piece. Note that $n \leq 0$ on this piece
+
+\begin{align*}
+|(L_1(\lambda)W)_i^-(n)| &\leq C (||G|| + |\lambda|)\left(
+\sum_{j = -N_{i-1}^-}^{n-1} |\Phi_s^-(n, j+1; c_i)| + \sum_{j = n}^{-1} |\Phi_u^-(n, j+1; c_i)| \right) ||W|| \\
+&\leq C (||G|| + |\lambda|) ||W||
+\left( \sum_{j = -N_{i-1}^-}^{n-1} r^{n - j - 1} + \sum_{j = n}^{-1} r^{j+1-n} \right) \\
+&\leq C (||G|| + |\lambda|) ||W||
+\left( \sum_{j = 0}^{N_{i-1}^- -|n| -1} r^j + \sum_{j = 1}^{|n|} r^j \right) \\
+&\leq C (||G|| + |\lambda|) ||W||\sum_{j = 0}^\infty r^j \\
+&\leq C (||G|| + |\lambda|)||W||
+\end{align*}
+
+The ``plus'' piece is similar. To find a bound for $L_2$, we again look at the ``minus'' piece. Since the sums involve the same evolution operators as those in $L_1$, they have the same bounds as in $L_1$.
+
+\begin{align*}
+|(L_2(\lambda)(a,b,d))_i^-(n)| \leq C\left( |a| + |b| + |\lambda|^2 |d| \right)
+\end{align*}
+
+Overall, we have uniform bounds
+
+\begin{align*}
+||L_1(\lambda)W)|| &\leq C \left(||G|| + |\lambda| \right)||W|| \leq C \delta ||W|| \\
+||L_2(\lambda)(a,b,d))|| &\leq C\left( |a| + |b| + |\lambda|^2 |d| \right)
+\end{align*}
+
+For sufficiently small $\delta$, we have $||(L_1(\lambda)W)|| < 1$, thus $I - L_1(\lambda)$ is invertible on $V_W$. $(I - L_1(\lambda))^{-1}$ is analytic in $\lambda$, and we obtain the solution 
+
+\[
+W = W_1(\lambda)(a,b,d) = (I - L_1(\lambda))^{-1} L_2(\lambda(a,b,d)
+\]
+
+which is analytic in $\lambda$, linear in $(a, b, d)$, and has estimate
+
+\[
+||W_1(\lambda)(a,b,d)|| \leq C \left( |a| + |b| + |\lambda|^2 |d| \right)
+\]
+
+\end{proof}
+\end{lemma}
 
 
 
