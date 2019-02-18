@@ -370,7 +370,13 @@ Consider the difference equation
 \begin{equation}\label{diffeq3}
 V(n+1) = A(n) V(n)
 \end{equation}
-with evolution operator $\Phi(m, n)$ as defined in Lemma \ref{evolop}. Suppose that $A(n) \rightarrow A^\pm$ as $n \rightarrow \pm \infty$, where $A^\pm$ are constant coefficient matrices. If $A^\pm$ are hyperbolic, then \eqref{diffeq2} has exponential dichotomies on $Z^\pm$. In other words, there exist projections $P_\pm^s$ and $P_\pm^u$ defined on $\Z^\pm$ such that
+with evolution operator $\Phi(m, n)$ as defined in Lemma \ref{evolop}. Suppose that $A(n) \rightarrow A^\pm$ exponentially as $n \rightarrow \pm \infty$, i.e. there exist constants $r_\pm < 1$ such that
+
+\begin{align*}
+|A(n) - A^\pm| \leq C r_\pm^{|n|}
+\end{align*}
+
+where $A^\pm$ are constant coefficient matrices. If $A^\pm$ are hyperbolic, then \eqref{diffeq2} has exponential dichotomies on $Z^\pm$. In other words, there exist projections $P_\pm^s$ and $P_\pm^u$ defined on $\Z^\pm$ such that
 
 \begin{equation}\label{projcommute}
 P_\pm^{s/u}(m) \Phi(m, n) =  \Phi(m, n) P_\pm^{s/u}(n)
@@ -392,12 +398,18 @@ for constants $r_\pm^s < 1$, $r_\pm^u > 1$, where $r_\pm^{s/u}$ are radii chosen
 \alpha^u &= \log r_+^u
 \end{align*}
  
-Finally, letting $E_\pm^{s/u}$ be the stable and unstable eigenspaces of $A^\pm$, we have
+Finally, letting $E_\pm^{s/u}$ be the stable and unstable eigenspaces of $A^\pm$ and $Q_\pm^{s/u}$ the corresponding eigenprojections, we have
 
 \begin{align*}
 \dim \text{range }P_\pm^s(n) &= \dim E_\pm^s \\
 \dim \text{range }P_\pm^u(n) &= \dim E_\pm^u
 \end{align*}
+
+and
+
+\begin{align}\label{projbound}
+| P_\pm^{s/u}(n) - Q_\pm^{s/u} | \leq C r_\pm^{|n|}
+\end{align}
 
 \begin{proof}
 We will consider the problem on $\Z^+$. The problem on $\Z^-$ is similar. Since $A^+$ is constant coefficient and hyperbolic, the difference equation $W(n+1) = A^+ W$ has an exponential dichotomy on $\R^+$. Specifically, since $A^+$ is hyperbolic, we can find radii $r_+^s < 1$ and $r_+^u > 1$ such that the eigenvalues $\lambda$ of $A^+$ satisfy either $|\lambda| \leq r_+^s$ or $|\lambda| \geq r_+^u$.\\
@@ -418,7 +430,11 @@ where
 
 and we used the fact that the stable eigenspace of $(A^+)^{-1}$ is equal to the unstable eigenspace of $A^-$ and vice versa, and the eigenvalues of $(A^+)^{-1}$ and $A^-$ are reciprocals of each other.\\
 
-Since $A(n) \rightarrow A^+$ as $n \rightarrow \infty$, by Proposition 2.5 in Beyn97, \eqref{diffeq3} has an exponential dichotomy on $\Z^+$, as defined in Beyn97, with the same constants $\alpha_+^s$, $\alpha_+^u$, and $C$. Furthermore, the range of $P_+^s(n)$ has the same dimension as $E_+^s$, and the range of $P_+^u(n)$ has the same dimension as $E_+^u$. By the same argument we have a corresponding exponential dichotomy on $\Z^-$.
+Since $A(n) \rightarrow A^+$ as $n \rightarrow \infty$, by Proposition 2.5 in Beyn97, \eqref{diffeq3} has an exponential dichotomy on $\Z^+$, as defined in Beyn97, with the same constants $\alpha_+^s$, $\alpha_+^u$, and $C$. Furthermore, the range of $P_+^s(n)$ has the same dimension as $E_+^s$, and the range of $P_+^u(n)$ has the same dimension as $E_+^u$. \\
+
+The estimate \eqref{projbound} should hold since we $A(n)$ is exponentially asymptotic to $A^+$. We are essentially replacing the ordinary decay in (17) and (18) of Beyn97 with exponential decay.\\
+
+By the same argument we have a corresponding exponential dichotomy on $\Z^-$.
 
 \end{proof}
 \end{lemma}
@@ -579,7 +595,25 @@ D_i d &= [ c_{i+1} S_1(-N_i^-) + c_i S_1(N_i^+) ] d_{i+1}
 
 \subsubsection{Fixed Point Equations}
 
-As in San98, we write this as a fixed point problem using the exponential dichotomy. Let $\delta > 0$ be small, and choose $N$ sufficiently large so that $r^N < \delta$.  
+As in San98, we write this as a fixed point problem using the exponential dichotomy. Let $\delta > 0$ be small, and choose $N$ sufficiently large so that $r^N < \delta$. \\
+
+Let $\Phi(m, n; c_i)$ be the evolution operator for the variational equation
+
+\[
+V(n+1) = A(c_i q_1) V(n) 
+\]
+
+where $c_i = \pm 1$. Then by Lemma \ref{dichotomy}, we have exponential dichotomies on $\Z^\pm$ as follows.
+
+\begin{align*}
+|\Phi_+^s(m, n; c_i)| \leq C r^{m - n} && 0 \leq n \leq m \\
+|\Phi_+^u(m, n; c_i)| \leq C r^{n - m} && 0 \leq m \leq n \\
+|\Phi_-^s(m, n; c_i)| \leq C r^{m - n} && n \leq m \leq 0 \\
+|\Phi_-^u(m, n; c_i)| \leq C r^{n - m} && m \leq n \leq 0 \\
+|P_\pm^{s/u}(n; c_i) - P_0^{s/u}| \leq C r^{|n|}
+\end{align*}
+
+where $P_\pm^{s/u}(n; c_i)$ are the projections from the exponential dichotomy, and $P_0^{s/u}$ are the projections on the stable and unstable eigenspaces $E^{s/u}$ of the asymptotic matrix $A_\infty$.\\
 
 Define the spaces
 
@@ -587,10 +621,12 @@ Define the spaces
 V_W &= l^\infty([-N_{i-1}, 0]) \oplus l^\infty([0, N_i])  \\
 V_a &= \bigoplus_{i=0}^{n-1} E^u \oplus E^s \\
 V_b &= \bigoplus_{i=0}^{n-1} 
-\text{ range } P_-^u(0) \oplus \text{ range } P_+^s(0)\\
+\text{ range } P_-^u(0; c_i) \oplus \text{ range } P_+^s(0; c_i)\\
 V_\lambda &= B_\delta(0) \subset \C \\
 V_d &= \C^m
 \end{align*}
+
+The fixed point equations follow from the variation of constants formula in Lemma \ref{VOCformula} together with the projections from the exponential dichotomy.
 
 \begin{align*}
 W_i^-(n) &= 
@@ -708,8 +744,34 @@ which is analytic in $\lambda$, linear in $(a, b, d)$, and has estimate
 \end{proof}
 \end{lemma}
 
+\subsubsection{Join at Ends}
+
+In the next lemma, we solve for the condition
+
+\[
+W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= D_i d
+\]
+for $i = 1, \dots, m-1$. 
+
+\begin{lemma}
+\begin{proof}
+At $n = \pm \N_i^\pm$, the fixed point equations become
+
+\begin{align*}
+W_{i+1}^-(-N_i^-) &= 
+\Phi_s^-(-N_i^-, -N_i^-; c_{i+1}) a_i^- + \Phi_u^-(-N_i^-, 0; c_i) b_i^- \\
+&- \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; c_i) 
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
+W_i^+(N_i^+) &= \Phi_u^+(N_i^+, N_i^+; c_i) a_i^+ + \Phi_s^+(N_i^+, 0; c_i) b_i^+ \\
+&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+\end{proof}
+\end{lemma}
 
 
+\subsection{GARBAGE}
 GARBAGE FOLLOWS
 
 Based on San98, we will guess the form of the jump equations. Of course, there is no guarantee this is right, but let's do it anyway. We will not include a remainder term, since that actually requires going through the estimates. For the jump equations, we evaluate
