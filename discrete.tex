@@ -1307,11 +1307,11 @@ where the matrix $A$ is given by the tridiagonal
 
 \begin{align*}
 A &= \begin{pmatrix}
--a_1 & a_1 & & &  \\
--\tilde{a}_1 & \tilde{a}_1 - a_2 &  a_2 \\
-& -\tilde{a}_2 & \tilde{a}_2 - a_3 &  a_3 \\
+-c_2 a_1 & c_2 a_1 & & &  \\
+-c_1 \tilde{a}_1 & c_1 \tilde{a}_1 - c_3 a_2 & c_3 a_2 \\
+& -c_2 \tilde{a}_2 & c_2 \tilde{a}_2 - c_4 a_3 & c_4 a_3 \\
 & \ddots & & \ddots \\
-& & & -\tilde{a}_{m-1} & \tilde{a}_{m-1}  \\
+& & & -c_{m-1} \tilde{a}_{m-1} & c_{m-1} \tilde{a}_{m-1}  \\
 \end{pmatrix}
 \end{align*}
 
@@ -1342,7 +1342,87 @@ This follows from Lemma \ref{jumpcond2} together with the fact that the matrix e
 
 \subsection{dNLS}
 
-For dNLS we have the following
+For dNLS we compute the following terms in Theorem \ref{jumpmatrix}.
+
+\begin{enumerate}
+\item For $Z_1$, $S_1$, and $T_1$, we have
+
+\begin{align*}
+Z_1 &= (0, 0, -\tilde{q}, q) \\
+S_1 &= (0, 0, q, \tilde{q}) \\
+T_1 &= (q_\omega, \tilde{q}_\omega)
+\end{align*}
+
+\item The second order Melnikov sum is
+
+\[
+M_2 = \sum_j \langle Z(j+1), B T_1(j) \rangle = \sum_j q(j) q_\omega(j)
+\]
+
+\item For $a_i$ and $\tilde{a}_i$, we have
+
+\begin{align*}
+a_i &= \langle Z(N_i^+), S_1(-N_i^-) \rangle \\
+&= -\tilde{q}(N_i^+)q(-N_i^-) + q(N_i^+)\tilde{q}(-N_i^-) \\
+&= -q(N_i^+ - 1)q(-N_i^-) + q(N_i^+)(-N_i^- - 1) \\
+&= q(N_i^+)(N_i^- + 1) - q(N_i^+ - 1)q(N_i^-)\\
+\end{align*}
+
+and
+
+\begin{align*}
+\tilde{a}_i &= \langle Z(-N_i^-), S_1(N_i^+) \rangle \\
+&= -\tilde{q}(-N_i^-)q(N_i^+) + q(-N_i^-)\tilde{q}(N_i^+) \\
+&= -q(-N_i^- - 1)q(N_i^+) + q(-N_i^-)q(N_i^+ - 1) \\
+&= -q(N_i^- + 1)q(N_i^+) + q(N_i^-)q(N_i^+ - 1) \\
+&= -q(N_i^+)q(N_i^- + 1) + q(N_i^+ - 1)q(N_i^-) \\
+&= -a_i
+\end{align*}
+
+For $N_i$ even, we have $N_i^+ = N_i^-$, so $a_i$ becomes
+
+\[
+a_i = q(N_i^+)( q(N_i^+ + 1) - q(N_i^+ - 1) )
+\]
+
+For $N_i$ odd, we have $N_i^- = N_i^+ + 1$, so $a_i$ becomes
+
+\[
+a_i = q(N_i^+)q(N_i^+ + 2) - q(N_i^+ - 1)q(N_i^+ + 1)
+\]
+
+both of these are negative, since $q(n)$ is a decreasing function as $n$ moves away from 0.
+
+\end{enumerate}
+
+The matrix $A$ thus becomes
+
+\begin{align*}
+A &= \begin{pmatrix}
+-c_2 a_1 & c_2 a_1 & & &  \\
+c_1 a_1 & -c_1 a_1 - c_3 a_2 & c_3 a_2 \\
+& c_2 a_2 & -c_2 a_2 - c_4 a_3 & c_4 a_3 \\
+& \ddots & & \ddots \\
+& & & c_{m-1} a_{m-1} & -c_{m-1} a_{m-1}  \\
+\end{pmatrix}
+\end{align*}
+
+For the 2-pulse, this matrix is
+
+\begin{align*}
+A &= \begin{pmatrix}
+-c_2 a_1 & c_2 a_1 \\
+c_1 a_1 & -c_1 a_1  \\
+\end{pmatrix}
+\end{align*}
+
+Thus, to leading order, we have
+
+\begin{align*}
+0 &= \det(A - \lambda^2 M I \\
+&= 
+\end{align*}
+
 
 
 
