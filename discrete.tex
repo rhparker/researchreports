@@ -1098,7 +1098,7 @@ In the next lemma, we derive formulas for these jumps.
 
 \begin{lemma}\label{jumpcond}
 
-The matching condition at 0 $W_i^+(0) = W_i^-(0)$ for $i = 1, \dots, m-1$ holds if and only if the $n-1$ jump conditions
+The matching condition at 0 $W_i^+(0) = W_i^-(0)$ for $i = 1, \dots, m$ holds if and only if the $m$ jump conditions
 
 \begin{equation}\label{xicond}
 \xi_i = \langle Z_1(0), W_i^+(0) - W_i^-(0) \rangle = 0
@@ -1220,6 +1220,134 @@ where the remainder term $R(\lambda)(d)$ has bound
 \end{align*}
 
 \end{proof}
+\end{lemma}
+
+\subsubsection{Substitution}
+
+Finally, we substitute our expression for $D_i d$ into the jump conditions. 
+
+\begin{lemma}\label{jumpcond2}
+
+The jumps $\xi_i$ in the jump conditions from Lemma \ref{jumpcond} can be written as
+
+\begin{align}\label{jumps}
+\xi_i = \langle Z_1(N_i^+), &S_1(-N_i^-) \rangle c_{i+1}( d_{i+1} - d_i) 
++ \langle Z_1(-N_{i-1}^-), S_1(N_{i-1}^+) \rangle c_{i-1}( d_i - d_{i-1}) \\
+&- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle + R(\lambda)_i(d) \\
+\end{align}
+
+for $i = 1, \dots, m$, where we have remainder bound
+
+\begin{align*}
+|R(\lambda)(d)| \leq C\left( (r^N + |\lambda|)^3 \right)
+\end{align*}
+
+\begin{proof}
+Recall that we have the expression for $D_i d$
+
+\[
+D_i d = [ c_{i+1} S_1(-N_i^-) + c_i S_1(N_i^+) ] d_{i+1}
+- [ c_i S_1(N_i^+) + c_{i+1} S_1(-N_i^-) ] d_i 
++\mathcal{O}(r^N( |\lambda| + r^N))
+\]
+
+To evaluate $\langle Z_1(N_i^+), P_0^u D_i d \rangle$ from the jump $\xi$ from Lemma \ref{jumpcond}, we need to compute $\langle Z_1(N_i^+) P_0^u S_1(-N_i^-) \rangle$, $\langle Z_1(N_i^+) P_0^u S_1(N_i^+) \rangle$. We will do these in turn. Using the exponential dichotomy from Lemma \ref{dichotomy}, we have
+
+\begin{align*}
+\langle Z_1(N_i^+) P_0^u S_1(-N_i^-) \rangle
+&= \langle Z_1(N_i^+), P_-^u(-N_i^-) S_1(-N_i^-) \rangle + \mathcal{O}(r^{3N}) \\
+&= \langle Z_1(N_i^+), S_1(-N_i^-) \rangle + \mathcal{O}(r^{3N}) \\
+\end{align*}
+
+and
+
+\begin{align*}
+\langle Z_1(N_i^+) P_0^u S_1(N_i^+) \rangle
+&= \langle Z_1(N_i^+), P_+^u(N_i^+) S_1(N_i^+) \rangle + \mathcal{O}(r^{3N}) \\
+&= \langle Z_1(N_i^+), S_1(N_i^+) \rangle + \mathcal{O}(r^{3N}) \\
+&= \mathcal{O}(r^{3N}) \\
+\end{align*}
+
+since $\langle Z_1(n), S_1(n) \rangle = 0$ for all $n$. Similarly, we have
+
+\begin{align*}
+\langle Z_1(-N_{i-1}^-), P_0^s Z_1(N_{i-1}^+) \rangle 
+&= \langle Z_1(-N_{i-1}^-), P_0^s Z_1(N_{i-1}^+) \rangle + \mathcal{O}(r^{3N})\\
+\langle Z_1(-N_{i-1}^-), P_0^s Z_1(-N_{i-1}^-) \rangle 
+&= \mathcal{O}(r^{3N})
+\end{align*}
+
+Substituting these into the jump expressions from Lemma \ref{jumpcond}, we have
+
+\begin{equation*}
+\xi_i = \langle Z_1(N_i^+), S_1(-N_i^-) \rangle c_{i+1}( d_{i+1} - d_i) 
++ \langle Z_1(-N_{i-1}^-), S_1(N_{i-1}^+) \rangle c_{i-1}( d_i - d_{i-1})
+- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle + R(\lambda)_i(d) \\
+\end{equation*}
+
+For the remainder term, we substitute $|D|, ||G|| = \mathcal{O}(r^N)$. The additional remainder terms from the substitution of $D_i$ are already included in the remainder term from Lemma \ref{jumpcond}. Thus we have remainder bound
+
+\begin{align*}
+|R(\lambda)(d)| \leq C\left( (r^N + |\lambda|)^3 \right)
+\end{align*}
+\end{proof}
+
+\subsubsection{Main Theorem}
+
+For the main theorem, we write the jump conditions in matrix form.
+
+\begin{theorem}\label{jumpmatrix}
+Let $q_m(n; \mu)$ denote a discrete $m-$pulse equilibrium solution to \eqref{latticePDE}. Then there exists a bounded, nonzero solution $V$ of the eigenvalue problem for $|\lambda| < \delta$ if and only if 
+
+\begin{equation}
+\det E(\lambda) = \det(A - M_2 \lambda^2 I + R(\lambda) ) = 0
+\end{equation}
+
+where the matrix $A$ is given by the tridiagonal
+
+\begin{align*}
+A &= \begin{pmatrix}
+-a_1 & a_1 & & &  \\
+-\tilde{a}_1 & \tilde{a}_1 - a_2 &  a_2 \\
+& -\tilde{a}_2 & \tilde{a}_2 - a_3 &  a_3 \\
+& \ddots & & \ddots \\
+& & & -\tilde{a}_{m-1} & \tilde{a}_{m-1}  \\
+\end{pmatrix}
+\end{align*}
+
+where
+
+\begin{align*}
+a_i &= \langle Z_1(N_i^+), S_1(-N_i^-) \rangle \\
+\tilde{a}_i &= \langle Z_1(-N_{i-1}^-), S_1(N_{i-1}^+) \rangle
+\end{align*}
+
+$M_2$ is the higher order Melnikov sum
+
+\begin{align}\label{M2}
+\sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle
+\end{align}
+
+and the remainder term has bound
+
+\begin{align}\label{Rbound2}
+|R(\lambda)(d)| \leq C\left( (r^N + |\lambda|)^3 \right)
+\end{align}
+
+\begin{proof}
+This follows from Lemma \ref{jumpcond2} together with the fact that the matrix equation $(A - M_2 \lambda^2 I + R(\lambda) )d = 0$ has a nontrivial solution if and only if its determinant is 0.
+\end{proof}
+
+\end{theorem}
+
+\subsection{dNLS}
+
+For dNLS we have the following
+
+
+
+
+
 \end{lemma}
 
 \subsection{GARBAGE}
