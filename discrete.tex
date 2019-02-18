@@ -924,14 +924,6 @@ C\left( (r^N + ||G|| + |\lambda| )|b| + (r^N + ||G|| + |\lambda|)|D||d| + |\lamb
 \end{proof}
 \end{lemma}
 
-\begin{align*}
-|\Phi_+^s(m, n; c_i)| \leq C r^{m - n} && 0 \leq n \leq m \\
-|\Phi_+^u(m, n; c_i)| \leq C r^{n - m} && 0 \leq m \leq n \\
-|\Phi_-^s(m, n; c_i)| \leq C r^{m - n} && n \leq m \leq 0 \\
-|\Phi_-^u(m, n; c_i)| \leq C r^{n - m} && m \leq n \leq 0 \\
-|P_\pm^{s/u}(n; c_i) - P_0^{s/u}| \leq C r^{|n|}
-\end{align*}
-
 \subsubsection{Match at 0}
 
 Finally, we will satisfy the conditions
@@ -1019,14 +1011,14 @@ where use the exponential dichotomy from Lemma \ref{dichotomy} and plug in $(a, 
 &\leq C \left( r^N |A_1(\lambda)(b,d)| + \left(\sum_{j = 0}^{N_i^- -1} r^j + \sum_{j = 1}^{N_i^+} r^j \right)((||G|| + |\lambda|)||W|| + |\lambda|^2 |d|) \right) \\
 &\leq C \left( r^N |A_1(\lambda)(b,d)| + (||G|| + |\lambda|)||W_2(\lambda(b,d)|| + |\lambda|^2 |d| \right) \\ \\
 &\leq C \left( (r^{2N} + ||G|| + |\lambda|)|b| + 
-(r^{N} + ||G|| + |\lambda|)|D| |d| + |\lambda|^2 |d| \right)
+(r^{N} + ||G|| + |\lambda|)|D| |d| + |\lambda|^2 |d| )
 \right)
 \end{align*}
 
 Since $r^N, |\lambda| < \delta$, we have
 
 \begin{align*}
-|L_4(\lambda)(b,d)| &\leq C \delta(|x| + |y|) + C \left( (r^{N} + ||G|| + |\lambda|)|D| |d| + |\lambda|^2 |d| \right)
+|L_4(\lambda)(b,d)| &\leq C \delta(|x| + |y|) + C \left( (r^{N} + ||G|| + |\lambda|)|D| |d| + |\lambda|^2 |d| )
 \right)
 \end{align*}
 
@@ -1089,6 +1081,146 @@ C\left( (r^N + ||G|| + |\lambda|)|D||d| + |\lambda|^2 |d|  \right)
 
 \subsubsection{Jump Conditions}
 
+Up to this point, given $\lambda$ and $d$, we have found a unique solution to our system. which is given by
+\[
+(a, b, w) = (A_3(\lambda)(d), B_1(\lambda)(d), W_3(\lambda)(d))
+\]
+
+Such a solultion will have $n-1$ jumps in the direction of $Z_1(0)$, which are given by
+
+\[
+\xi_i = \langle Z_1(0), W_i^+(0) - W_i^-(0) \rangle
+\]
+
+In the next lemma, we derive formulas for these jumps.
+
+% lemma : jump conditions
+
+\begin{lemma}\label{jumpcond}
+
+The matching condition at 0 $W_i^+(0) = W_i^-(0)$ for $i = 1, \dots, m-1$ holds if and only if the $n-1$ jump conditions
+
+\begin{equation}\label{xicond}
+\xi_i = \langle Z_1(0), W_i^+(0) - W_i^-(0) \rangle = 0
+\end{equation}
+
+are satisfied. The jumps $\xi_i$ can be written as 
+
+\begin{equation}\label{xieq}
+\xi_i = \langle Z_1(N_i^+), P_0^u D_i d \rangle 
++ \langle Z_1(-N_{i-1}^-), P_0^s D_{i-1} d \rangle 
+- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle + R(\lambda)_i(d) \\
+\end{equation}
+
+where the remainder term $R(\lambda)(d)$ has bound
+
+\begin{align}\label{xiRbound}
+|R(\lambda)(d)| \leq C\left( (r^N + ||G|| + |\lambda|)( (r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 \right)
+\end{align}
+
+\begin{proof}
+From the previous lemma, the fixed point equations at $n = 0$ are given by 
+
+\begin{align*}
+W_i^-(0) &= b_i^- +
+\Phi_s^-(0, -N_{i-1}^-; c_i) a_{i-1}^- \\
+&+ \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i)
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
+W_i^+(0) &= b_i^+ + \Phi_u^+(0, N_i^+; c_i) a_i^+ \\
+&- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+When we take the inner product with $Z_1(0)$, the $b_i^\pm$ terms will vanish since they lie in spaces orthgonal to $Z_1(0)$. For the terms involving $a$, we substitute $A_4$ from Lemma \ref{inv3} to get
+
+\begin{align*}
+\langle Z_1(0), &\Phi_s^-(0, -N_{i-1}^-; c_{i-1}) a_{i-1}^- \rangle =
+-\langle Z_1(0), \Phi_s^-(0, -N_{i-1}^-; c_{i-1}) P_0^s D_{i-1} d \rangle + \langle Z_1(0), \Phi_s^-(0, -N_{i-1}^-; c_{i-1}) A_4(\lambda)_i(d) \rangle \\
+&=-c_{i-1}\langle c_{i-1} Z_1(0), \Phi_s^-(0, -N_{i-1}^-; c_{i-1}) P_0^s D_{i-1} d \rangle + \langle Z_1(0), \Phi_s^-(0, -N_{i-1}^-; c_{i-1}) A_4(\lambda)_i(d) \rangle \\
+&=-c_{i-1}\langle c_{i-1} Z_1(-N_{i-1}^-), P_0^s D_{i-1} d \rangle + \mathcal{O}\left(r^N( (r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \right) \\
+&= \langle Z_1(-N_{i-1}^-), P_0^s D_{i-1} d \rangle + \mathcal{O}\left(r^N( (r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \right)
+\end{align*}
+
+Similarly,
+
+\begin{align*}
+\langle Z_1(0), \Phi_u^+(0, N_i^+; c_i) a_i^+ \rangle
+&= \langle Z_1(N_i^+), P_0^u D_i d \rangle + \mathcal{O}\left(r^N( (r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \right)
+\end{align*}
+
+The sums involving $\tilde{H}$ will give us the Melnikov sum.
+
+\begin{align*}
+&\langle Z(0), \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) B \tilde{H}_i^-(j) + \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) B \tilde{H}_i^+(j) \rangle \\
+&= \langle Z(0), \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) B c_i H(j) + \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) B c_i H(j) \rangle + \mathcal{O}(r^N) \\
+&= \sum_{j = -N_{i-1}^-}^{-1} c_i \langle c_i Z(0), \Phi_s^-(0, j+1; c_i) B c_i H(j)\rangle + \sum_{j = 0}^{N_i^+-1} c_i \langle c_i Z(0), \Phi_u^+(0, j+1; c_i) B c_i H(j) \rangle + \mathcal{O}(r^N)\\
+&= \sum_{j = -N_{i-1}^-}^{-1} c_i \langle c_i Z(j+1), B c_i H(j)\rangle + \sum_{j = 0}^{N_i^+-1} c_i \langle c_i Z(j+1), B c_i H(j) \rangle + \mathcal{O}(r^N)\\
+&= c_i \sum_{j = -N_{i-1}^-}^{N_i^+-1} c_i \langle c_i Z(j+1), B H(j)\rangle + \mathcal{O}(r^N)\\
+&= c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle + \mathcal{O}(r^N)\\
+\end{align*}
+
+Finally, we need to bound the term with sum involving $W$. For the ``minus'' sum, we have
+
+\begin{align*}
+\langle Z_1(0), &\sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i)
+(G_i^-(j) + \lambda B) W_i^-(j) \rangle = 
+\sum_{j = -N_{i-1}^-}^{-1} c_i \langle c_i Z_1(0), \Phi_s^-(0, j+1; c_i)
+(G_i^-(j) + \lambda B) W_i^-(j) \rangle \\
+&= \sum_{j = -N_{i-1}^-}^{-1} \langle Z_1(j+1), 
+(G_i^-(j) + \lambda B) W_i^-(j) \rangle 
+\end{align*}
+
+We will need an improved bound for $W$ (the problem is the $|D|$ term in the $W_3$ bound). From the fixed point equations, we have piecewise bounds
+
+\begin{align*}
+|W_i^-(n)| &\leq C( r^{N_{i-1}^- + n}|a_{i-1}| + |b_i^-| + 
+(||G|| + |\lambda|)||W|| + |\lambda|^2|d|) \\
+|W_i^-(n)| &\leq C( r^{N_i^+ - n}|a_i| + |b_i^+| + 
+(||G|| + |\lambda|)||W|| + |\lambda|^2|d|) \\
+\end{align*}
+
+Plugging in the bounds for $A_3$, $W_3$, and $B_1$, these become
+
+\begin{align*}
+|W_i^-(n)| &\leq C( r^{N_{i-1}^- + n}|D| +  
+(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \\
+|W_i^-(n)| &\leq C( r^{N_i^+ - n}|D| +  
+(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d|
+\end{align*}
+
+Recall that we have the bound $Z_1(n) \leq C r^{|n|}$. Since $A_\infty$ is hyperbolic, we can find a constant $\tilde{r} < r$ such that
+
+\[
+Z_1(n) \leq C \tilde{r}^n
+\]
+
+for this new $\tilde{r}$. The price to pay is that the constant $C$ will be larger, but that is okay. Thus we have
+
+\begin{align*}
+&\left| \sum_{j = -N_{i-1}^-}^{-1} \langle Z_1(j+1), 
+(G_i^-(j) + \lambda B) W_i^-(j) \rangle \right| \\
+&\leq C (||G|| + |\lambda|) \sum_{j = -N_{i-1}^-}^{-1} \tilde{r}^{|j+1|} r^{N_{i-1}^- + j}|D||d| + C (||G|| + |\lambda|)(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \\
+&\leq C |D| r^N (||G|| + |\lambda|)|d| \sum_{j = 1}^{N_{i-1}^-} \tilde{r}^{j+1} r^{-j} + C (||G|| + |\lambda|)(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \\
+&\leq C |D| r^N (||G|| + |\lambda|)|d| \sum_{j = 1}^\infty \left( \frac{\tilde{r}}{r}\right)^j + C (||G|| + |\lambda|)(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \\
+&\leq C (||G|| + |\lambda|)(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d|
+\end{align*}
+
+where the infinite sum is convergent by the choice of $\tilde{r}$. We have a similar bound for the ``plus'' sum involving $W$. Putting this all together, we have
+
+\begin{equation*}
+\xi_i = \langle Z_1(N_i^+), P_0^u D_i d \rangle 
++ \langle Z_1(-N_{i-1}^-), P_0^s D_{i-1} d \rangle 
+- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle + R(\lambda)_i(d) \\
+\end{equation*}
+
+where the remainder term $R(\lambda)(d)$ has bound
+
+\begin{align*}
+|R(\lambda)(d)| \leq C\left( (r^N + ||G|| + |\lambda|)( (r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 \right)
+\end{align*}
+
+\end{proof}
+\end{lemma}
 
 \subsection{GARBAGE}
 GARBAGE FOLLOWS
