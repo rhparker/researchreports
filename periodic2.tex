@@ -75,7 +75,7 @@ We take the following hypotheses. The first hypothesis states that the equilibri
 The spectrum of $DF(0)$ contains a quartet of simple eigenvalues $\pm \alpha \pm \beta i$, $\alpha, \beta > 0$. For any other eigenvalue $\nu$ of $DF(0)$, $|\text{Re }|\nu| > \alpha$.
 \end{hypothesis}
 
-Let $W^s(0)$ and $W^u(0)$ be the stable and unstable manifolds of this equilibrium point. The next hypothesis states that there exists a homoclinic orbit connecting $W^s(0)$ and $W^u(0)$.
+Let $W^s(0)$ and $W^u(0)$ be the stable and unstable manifolds of this equilibrium at 0. The next hypothesis states that there exists a homoclinic orbit connecting $W^s(0)$ and $W^u(0)$.
 
 \begin{hypothesis}\label{transverseQ}
 $Q(x)$ is a transversely constructed, localized homoclinic orbit at $U = 0$ which connects $W^s(0)$ to $W^u(0)$. Furthermore, we will take the nondegeneracy condition
@@ -145,12 +145,12 @@ Let $Q(x)$ be a transversely constructed primary pulse solution to \eqref{genODE
 
 Then there exists an a nonnegative integer $M$ and $K > 0$ such that the following holds. For any 
 \begin{enumerate}[(i)]
-\item Integer $n \geq 2$ \\
-\item Integer $m \geq M$ \\
-\item Sequence of nonnegative integers $\{ m_0, \dots, m_{n-2} \}$, where at least one of them must be 0
+\item integer $n \geq 2$ \\
+\item integer $m \geq M$ \\
+\item sequence of nonnegative integers $\{ m_0, \dots, m_{n-2} \}$, where at least one of them must be 0
 \end{enumerate}
 
-there exists a 1-parameter family of $n$-periodic solutions to \eqref{genODE} associated with $m$ and the set $\{ m_j \}$. This 1-parameter family is paramaterized by the length $X_{n-1} \in $[K, \infty).\\
+there exists a 1-parameter family of $n$-periodic solutions to \eqref{genODE} associated with $m$ and the set $\{ m_j \}$. This 1-parameter family is paramaterized by the length $X_{n-1} \in [K, \infty)$.\\
 
 The lengths $X_0, \dots, X_{n-2}$ are given by
 
@@ -184,8 +184,81 @@ The remainder terms $V_i^\pm(x)$ have bounds
 |V_i^-(x)| &\leq C e^{-\alpha(X_{i-1} + x)}e^{-\alpha X_{i-1}} \\
 |V_i^+(x)| &\leq C e^{-\alpha(X_i - x)}e^{-\alpha X_i} 
 \end{align} 
-
 \end{theorem}
+
+\subsection{Stability Problem}
+
+We will now look at the stability problem, which involves the eigenvalues of \eqref{genPDE}. We rewrite the PDE in $\R^{2m+1}$ as
+
+\begin{equation}\label{PDEsystem}
+U_t = F_2(U)
+\end{equation}
+
+where $F_2: \R^{2m+1} \rightarrow \R^{2m+1}$. For an equilibrium solution $U^*$, $F_2(U^*) = 0$. In particular, we have $F_2(0) = 0$, $F_2(Q) = 0$, and $F_2(Q_{np}) = 0$, where $Q$ the primary pulse solution and $Q_{np}$ is the $n-$periodic solution from the existence problem. (Note that all of these are now functions $\R \rightarrow \R^{2m+1}$).
+\\
+
+The eigenvalue problem of interest is the linearization about an equilibrium solution $U^*$.
+
+\begin{equation}\label{PDEeig}
+V' = ( A(U^*)V + \lambda B)V 
+\end{equation}
+
+where $A(U^*) = DF_2(U^*)$ and $B$ is constant coefficient. From Hypothesis \ref{hypeq}, it follows that the spectrum of $A(0)$ contains $\{ 0, \pm \alpha \pm \beta i\}$, and for any other eigenvalue $\nu$ of $A(0)$, $|\text{Re }|\nu| > \alpha$. Since $A(0)$ is not hyperbolic, the results of San98 do not apply.\\
+
+Let $Q(x)$ be the primary pulse solution, whose existence comes from Hypothesis \ref{transverseQ}. We make the following nondegeneracy hypothesis regarding $Q(x)$, which is similar to Hypothesis \ref{transverseQ}.
+
+\begin{hypothesis}\label{nondegen}
+For the primary pulse solution $Q(x)$, we have the nondegeneracy condition
+\begin{equation}
+T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
+\end{equation}
+\end{hypothesis}
+
+Let $W^s(0)$, $W^u(0)$, and $W^c(0)$ be the stable, unstable, and center manifolds of the equilibrium at 0. Define the variational equation and adjoint variational equations by
+
+\begin{align}
+V' = A(Q) V \label{vareq2} \\
+W' = -A(Q)^* W \label{adjvareq2}
+\end{align}
+
+Then $Q'(x)$ a bounded solution to \eqref{vareq2}. Since $Q(x)$ decays to 0 exponentially at both ends, $A(Q)$ is exponentially asymptotic to the constant-coefficient matrix $A_\infty$, which has an eigenvalue of 0. We make the following additional hypothesis concerning solutions to \eqref{adjvareq2}.
+
+\begin{hypothesis}There exists exactly two bounded solution $\Psi(x)$ and $\Phi^c(x)$ to \eqref{adjvareq}. For $\Psi(x)$, $e^{\alpha |x|}\Phi(x)$ is bounded, and for $\Phi^c(x)$,
+\begin{equation}
+\Phi(x) \rightarrow W_0 \text{ as }|x| \rightarrow \infty
+\end{equation}
+where $W_0$ is the eigenvector of $A_\infty$ corresponding to the eigenvalue 0.
+\end{hypothesis}
+
+From this, it follows that we can decompose the tangent space at $Q(0)$ as 
+
+\begin{equation}
+\R^{2m+1} = S \oplus \R Q'(0) \oplus Y^+ \oplus Y^-
+\end{equation}
+
+where $S = \spn\{ \Psi(0), \Psi^c(0) \}$, and $S \perp \R Q'(0) \oplus Y^+ \oplus Y^-$.
+
+Finally, we take the following hypothesis regarding Melnikov integrals.
+
+\begin{hypothesis}\label{Melnikov2}
+We have the following Melnikov-like expressions
+\begin{enumerate}[(i)]
+\item 
+\begin{equation}
+\int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle = 0
+\end{equation}
+\item 
+\begin{equation}
+\int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle = 0
+\end{equation}
+where $T(x)$ solves 
+\begin{equation}
+T' = A(Q)T + BQ'
+\end{equation}
+We should be guaranteed such a solution $T$ by (i) and the Fredholm alternative.
+\end{hypothesis}
+
+We can now state the stability theorem, for which we use Lin's method to find the eigenvalues of \eqref{PDEeig}.
 
 
 
