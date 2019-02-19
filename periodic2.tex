@@ -140,7 +140,7 @@ M = \int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle \neq 0
 
 We can now state the existence theorem for periodic multi-pulse solutions. A$n-$periodic solution to \eqref{genODE} is a periodic orbit $Q_{np}(x)$ which resembles $n$ copies of the primary pulse solution $Q(x)$. We will describe an $n-$periodic solution by $n$ lengths $X_0, \dots, X_{n-1}$, where the $n-1$ distances between the $n$ peaks are $2X_0, \dots 2X_{n_2}$, and $X_{n-1}$ is the distance from the left- and rightmost peaks to the periodic boundary.
 
-\begin{theorem}[Existence of $n$-periodic solutions]\label{multiexist}
+\begin{theorem}[Existence of $n$-periodic solutions]\label{perexist}
 Let $Q(x)$ be a transversely constructed primary pulse solution to \eqref{genODE}, according to Hypothesis \ref{transverseQ}. Assume Hypotheses \ref{hypeq} and \ref{Hhyp}.\\
 
 Then there exists an a nonnegative integer $M$ and $K > 0$ such that the following holds. For any 
@@ -223,7 +223,8 @@ W' = -A(Q)^* W \label{adjvareq2}
 
 Then $Q'(x)$ a bounded solution to \eqref{vareq2}. Since $Q(x)$ decays to 0 exponentially at both ends, $A(Q)$ is exponentially asymptotic to the constant-coefficient matrix $A_\infty$, which has an eigenvalue of 0. We make the following additional hypothesis concerning solutions to \eqref{adjvareq2}.
 
-\begin{hypothesis}There exists exactly two bounded solution $\Psi(x)$ and $\Phi^c(x)$ to \eqref{adjvareq}. For $\Psi(x)$, $e^{\alpha |x|}\Phi(x)$ is bounded, and for $\Phi^c(x)$,
+\begin{hypothesis}\label{adjsolutions}
+There exists exactly two bounded solution $\Psi(x)$ and $\Phi^c(x)$ to \eqref{adjvareq}. For $\Psi(x)$, $e^{\alpha |x|}\Phi(x)$ is bounded, and for $\Phi^c(x)$,
 \begin{equation}
 \Phi(x) \rightarrow W_0 \text{ as }|x| \rightarrow \infty
 \end{equation}
@@ -245,24 +246,175 @@ We have the following Melnikov-like expressions
 \begin{enumerate}[(i)]
 \item 
 \begin{equation}
-\int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle = 0
+M_1 \int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle = 0
 \end{equation}
 \item 
 \begin{equation}
-\int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle = 0
+M_2 \int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle = 0
 \end{equation}
 where $T(x)$ solves 
 \begin{equation}
 T' = A(Q)T + BQ'
 \end{equation}
+\end{enumerate}
 We should be guaranteed such a solution $T$ by (i) and the Fredholm alternative.
 \end{hypothesis}
 
 We can now state the stability theorem, for which we use Lin's method to find the eigenvalues of \eqref{PDEeig}.
 
+% main stability theorem
 
+\begin{theorem}\label{PDEeigtheorem}
 
+Let $Q_{np}(x)$ be a $n-$periodic solution constructed according to Theorem \ref{perexist} with lengths $X_0, \dots, X_{n-1}$. Assume Hypotheses \ref{nondegen}, \ref{adjsolutions}, and \ref{Melnikov2}.\\
 
+Then there exists $\delta > 0$ such that a bounded, nonzero solution $V$ of the eigenvalue problem 
 
+\begin{equation}
+V' = ( A(U^*)V + \lambda B)V 
+\end{equation}
+
+exists for $|\lambda| < \delta$ if and only if $\det S(\lambda) = 0$. $S(\lambda)$ is the block matrix
+
+\begin{equation}\label{blockmatrix}
+S(\lambda) = 
+\begin{pmatrix}
+K(\lambda) + C_2 & -\lambda^2 M^c I + D_1 \\
+C_3 K(\lambda) + C_4 & A - \lambda^2 M_2 I + D_2
+\end{pmatrix}
+\end{equation}
+
+where 
+
+\begin{enumerate}
+
+\item The matrix $K(\lambda)$ is given by
+
+\begin{equation}
+K(\lambda) = 
+\begin{pmatrix}
+e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
+-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
+& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
+\vdots & & \vdots & &&  \vdots \\
+& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
+\end{pmatrix}
+\end{equation}
+
+where $\nu(\lambda)$ is the small eigenvalue of the asympotic matrix $A_\infty + B \lambda$.
+
+\item The matrix $A$ is given by
+
+\begin{align*}
+A &= \begin{pmatrix}
+-a_0 + \tilde{a}_1 & a_0 - \tilde{a}_1 \\
+-\tilde{a}_0 + a_1 & \tilde{a}_0 - a_1
+\end{pmatrix} && n = 2 \\
+A &= \begin{pmatrix}
+\tilde{a}_{n-1} - a_0 & a_0 & & & \dots & -\tilde{a}_{n-1}\\
+-\tilde{a}_0 & \tilde{a}_0 - a_1 &  a_1 \\
+& -\tilde{a}_1 & \tilde{a}_1 - a_2 &  a_2 \\
+& & \vdots & & \vdots \\
+a_{n-1} & & & & -\tilde{a}_{n-2} & \tilde{a}_{n-2} - a_{n-1} \\
+\end{pmatrix} && n > 2
+\end{align*}
+
+where
+
+\begin{align*}
+a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
+\tilde{a}_i &= \langle \Psi(-X_i), Q'(X_i) \rangle
+\end{align*}
+
+\item $M_2$ and $M^c$ are the Melnikov integrals
+
+\begin{align*}
+M_2 &= \int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle dx \\
+M^c &= \int_{-\infty}^\infty \langle \Psi^c(x), B T(x) \rangle dy
+\end{align*}
+
+\item The remainder terms have bounds
+
+\begin{align*}
+C_2 &= \mathcal{O}(e^{-\alpha X_m}) \\
+C_3 &= \mathcal{O}(|\lambda| + e^{-\alpha X_m}) I
++ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m}))\\
+C_4 &= \mathcal{O}(e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m})) \\
+D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})^2) \\
+D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2) 
+\end{align*}
+
+where $X_m = \min \{X_0, \dots, X_{n-1}\}$
+
+\end{enumerate}
+
+To leading order, equation \eqref{blockmatrix} is upper triangular block equation
+
+\begin{equation}\label{blocktri}
+\begin{pmatrix}
+K(\lambda) & -\lambda^2 M^c I  \\
+0 & A - \lambda^2 MI 
+\end{pmatrix}
+\begin{pmatrix}c \\ d \end{pmatrix} = 0
+\end{equation}
+
+Thus, to leading order, the eigenvalue problem has a nontrivial solution $V$ if either of the following conditions holds.
+
+\begin{enumerate}[(i)]
+\item $\nu(\lambda) = i \dfrac{n \pi}{X}, n \in \Z$ 
+\item $\det(A - \lambda^2 MI) = 0$
+\end{enumerate}
+
+where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. The first condition gives us the essential spectrum, and the second condition gives us the point spectrum.
+
+\end{theorem}
+
+\subsection{KdV5}
+
+For KdV5, a primary pulse solution is known to exist (Chug2007, among others), so Hypothesis \ref{transverseQ} is satisfied. For $c > 1/4$, Hypothesis \ref{hypeq} is satisfied. Finally, for KdV5, \eqref{genODE} is Hamiltonian, so Hypothesis \ref{Hhyp} is satisfied. Thus, Theorem \ref{perexist} holds, and $n-$periodic solutions exist.\\
+
+We assume Hypothesis \ref{nondegen} holds for KdV5. The adjoint variational equation has two solutions $\Psi(x)$ and $\Psi^c(x)$, which are given by
+
+\begin{equation}\label{KdV5psi}
+\Psi(x) = \begin{pmatrix}
+q^{(4)}(x) - q''(x) + (-2q(x) + c)q(x)\\
+-q^{(3)}(x) + q'(x) \\
+q''(x) - q(x) \\
+-q'(x) \\
+q(x)
+\end{pmatrix}
+\end{equation}
+
+and
+
+\begin{align}\label{KdV5psic}
+\Psi^c(x) = (c - 2 q(x), 0, -1, 0, 1)^T
+\end{align}
+
+where $q(x)$ is the primary pulse solution (as a real-valued function). These satisfy Hypothesis \ref{adjsolutions}. Finally, the Melnikov integrals are given by
+
+\begin{align*}
+M_1 &= \int_{-\infty}^\infty q(x) q'(x) dx = 0 \\
+M_2 &= \int_{-\infty}^\infty q(x) q_c(x) dx \\
+M^c &= \int_{-\infty}^\infty q_c(x) dx
+\end{align*}
+
+We assume that $M_2 \neq 0$, which is suggested by numerics. $M^c$ does not matter, although numerics suggests that it is also nonzero.\\
+
+In Theorem \ref{PDEeigtheorem}, for KdV5 we have $\tilde{a}_i = a_i$, since the primary pulse $q(x)$ is an even function. Thus the matrix $A$ in \ref{PDEeigtheorem} is given by
+
+\begin{align*}
+A &= \begin{pmatrix}
+-a_0 -a_1 & a_0 + a_1 \\
+a_0 + a_1 & -a_0 - a_1
+\end{pmatrix} && n = 2 \\
+A &= \begin{pmatrix}
+-a_{n-1} - a_0 & a_0 & & & \dots & a_{n-1}\\
+a_0 & -a_0 - a_1 &  a_1 \\
+& a_1 & -a_1 - a_2 &  a_2 \\
+& & \vdots & & \vdots \\
+a_{n-1} & & & & a_{n-2} & -a_{n-2} - a_{n-1} \\
+\end{pmatrix} && n > 2
+\end{align*}
 
 \end{document}
