@@ -1,0 +1,195 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\ran}{ran}
+
+\graphicspath{ {periodic/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\begin{document}
+
+\section{Periodic Multipulses}
+
+\subsection{Setup}
+
+We will cast the problem in general terms, for which KdV5 will be a specific case. Consider the PDE
+
+\begin{equation}\label{genPDE}
+u_t = \partial_x E'(u)
+\end{equation}
+
+where $u \in \R$, $E(u)$ is the energy of the system (which is conserved in $t$), and $E(0) = 0$. The operator $E'(u): H^{2m}(\R) \subset L^2(\R) \rightarrow L^2(\R)$ is self-adjoint in $L^2(\R)$, where $m \geq 2$.\\
+
+Equilibrium solutions which decay at $\pm \infty$ satisfy $E'(u) = 0$, which we write as the ODE in $\R^{2m}$
+
+\begin{equation}\label{genODE}
+U' = F(U)
+\end{equation}
+
+where $F: \R^{2m} \rightarrow \R^{2m}$ is smooth with $F(0) = 0$. We begin by looking at the existence problem, which involves solutions to \eqref{genODE}.
+
+\subsection{Existence of Periodic Multipulses}
+
+We take the following hypotheses. The first hypothesis states that the equilibrium of \eqref{genODE} at $U = 0$ is hyperbolic. 
+
+\begin{hypothesis}\label{hypeq}
+The spectrum of $DF(0)$ contains a quartet of simple eigenvalues $\pm \alpha \pm \beta i$, $\alpha, \beta > 0$. For any other eigenvalue $\nu$ of $DF(0)$, $|\text{Re }|\nu| > \alpha$.
+\end{hypothesis}
+
+Let $W^s(0)$ and $W^u(0)$ be the stable and unstable manifolds of this equilibrium point. The next hypothesis states that there exists a homoclinic orbit connecting $W^s(0)$ and $W^u(0)$.
+
+\begin{hypothesis}\label{transverseQ}
+$Q(x)$ is a transversely constructed, localized homoclinic orbit at $U = 0$ which connects $W^s(0)$ to $W^u(0)$. Furthermore, we will take the nondegeneracy condition
+\begin{equation}
+T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
+\end{equation}
+\end{hypothesis}
+
+Define the variational equation and adjoint variational equation by
+
+\begin{align}
+V' = DF(Q(x))V \label{vareq} \\
+W' = -DF(Q(x))^* W \label{adjvareq}
+\end{align}
+
+Then it follows from Hypothesis \ref{transverseQ} that $Q'(x)$ is the unique bounded solution to \eqref{vareq} and there exists a unique bounded solution $\Psi(x)$ to \eqref{adjvareq}. Furthermore, we may decompose the tangent space at $Q(0)$ as 
+
+\begin{equation}
+\R^{2m} = \R \Psi(0) \oplus \R Q'(0) \oplus Y^+ \oplus Y^-
+\end{equation}
+
+where
+
+\begin{align*}
+T_{Q(0)}W^s(0) &= \R Q'(0) \oplus Y^+ \\
+T_{Q(0)}W^u(0) &= \R Q'(0) \oplus Y^- \\
+\end{align*}
+
+and $\Psi(0) \perp \R Q'(0) \oplus Y^+ \oplus Y^-$.\\
+
+Finally, we will assume the system is Hamiltonian.
+
+\begin{hypothesis}\label{Hhyp}
+There exists a smooth function $H: \R^{2m} \rightarrow \R$ such that $\nabla H(Q(0)) \neq 0$ and for all $u \in \R^{2m}$,
+
+\begin{equation}
+\langle \nabla H(u), F(u) \rangle = 0
+\end{equation}
+
+Furthermore, we assume that
+\begin{equation*}
+\lim_{x \rightarrow \infty} e^{2 \alpha x}|Q(x)||Q(-x)| > 0
+\end{equation*}
+\end{hypothesis}
+
+From this it follows that $H$ is conserved along solutions $U(x)$ to \eqref{genODE}. It follows from Hypothesis \ref{transverseQ} with Hypothesis \ref{Hhyp} that $\Psi(x) = \nabla H(Q(x))$.\\
+
+For now, we have not been concerned with the eigenvalue problem associated with \eqref{genODE}, which, for a solution $U^*$ to \eqref{genODE} is
+
+\begin{equation}\label{genODEeig}
+V' = (DF(U^*) + \lambda B)V
+\end{equation}
+
+where the matrix $B$ is constant coefficient. If we wish to consider that problem, we will need an additional hypothesis concerning the Melnikov integral associated with the problem.
+
+\begin{hypothesis}\label{ODEMelnikov}
+The following Melnikov condition holds.
+\begin{equation}
+M = \int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle \neq 0
+\end{equation}
+\end{hypothesis}
+
+We can now state the existence theorem for periodic multi-pulse solutions. A$n-$periodic solution to \eqref{genODE} is a periodic orbit $Q_{np}(x)$ which resembles $n$ copies of the primary pulse solution $Q(x)$. We will describe an $n-$periodic solution by $n$ lengths $X_0, \dots, X_{n-1}$, where the $n-1$ distances between the $n$ peaks are $2X_0, \dots 2X_{n_2}$, and $X_{n-1}$ is the distance from the left- and rightmost peaks to the periodic boundary.
+
+\begin{theorem}[Existence of $n$-periodic solutions]\label{multiexist}
+Let $Q(x)$ be a transversely constructed primary pulse solution to \eqref{genODE}, according to Hypothesis \ref{transverseQ}. Assume Hypotheses \ref{hypeq} and \ref{Hhyp}.\\
+
+Then there exists an a nonnegative integer $M$ and $K > 0$ such that the following holds. For any 
+\begin{enumerate}[(i)]
+\item Integer $n \geq 2$ \\
+\item Integer $m \geq M$ \\
+\item Sequence of nonnegative integers $\{ m_0, \dots, m_{n-2} \}$, where at least one of them must be 0
+\end{enumerate}
+
+there exists a 1-parameter family of $n$-periodic solutions to \eqref{genODE} associated with $m$ and the set $\{ m_j \}$. This 1-parameter family is paramaterized by the length $X_{n-1} \in $[K, \infty).\\
+
+The lengths $X_0, \dots, X_{n-2}$ are given by
+
+\begin{equation}\label{Xi}
+X_i = \frac{\pi}{2 \beta}m 
+- \frac{1}{2 \alpha} \log(a_i(X_{n-1}, r_m)) + C
+\end{equation}
+
+where $C$ is a constant, $r_m = e^{-m \pi \alpha/\beta}$, and $a_i(X_{n-1}, r_m) \rightarrow e^{-m_i \pi \alpha/ \beta}$ as $(X_{n-1}, r_m) \rightarrow (\infty, 0)$. For large $X_{n-1}$ and $m$, the lengths $X_0, \dots, X_{n-2}$ are approximately
+
+\begin{equation}\label{Xiapprox}
+X_i = \frac{\pi}{2 \beta}(m + m_i) + C
+\end{equation}
+
+If $U(x)$ is such a solution, then $U(x)$ can be written piecewise for $i = 0, \dots, n-1$ as 
+
+\begin{align}
+U_i^-(x) &= Q^-(x; \beta_i^-) + V_i^-(x) && x \in [X_{i-1}, 0] \\
+U_i^+(x) &= Q^+(x; \beta_i^+) + V_i^+(x) && x \in [0, X_i]
+\end{align}
+
+where the subscripts $i$ are taken $\mod n$. The functions $Q^\pm(x; \beta_i^\pm)$ are solutions to \eqref{genODE} with initial conditions $\beta_i^\pm$ in the stable/unstable manifold. For these terms, we have bounds
+
+\begin{align*}
+|Q^\pm(x; \beta_i^\pm)| \leq C (e^{-2 \alpha X_{i-1}} + e^{-2 \alpha X_i})e^{-\alpha |x|}
+\end{align*} 
+
+The remainder terms $V_i^\pm(x)$ have bounds
+
+\begin{align}
+|V_i^-(x)| &\leq C e^{-\alpha(X_{i-1} + x)}e^{-\alpha X_{i-1}} \\
+|V_i^+(x)| &\leq C e^{-\alpha(X_i - x)}e^{-\alpha X_i} 
+\end{align} 
+
+\end{theorem}
+
+
+
+
+
+
+\end{document}
