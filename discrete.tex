@@ -576,8 +576,8 @@ Let
 
 \begin{align*}
 G_i^\pm &= A(q_n) - A(c_i q_1) \\
-\tilde{H}_i^\pm &= B( c_i S_1 + \tilde{S}_i^\pm ) \\
-H_i &= B c_i S_1
+\tilde{H}_i^\pm &= B( c_i T_1 + \tilde{T}_i^\pm ) \\
+H_i &= B c_i T_1 \\
 \end{align*}
 
 Then then eigenvalue problem becomes
@@ -1109,7 +1109,7 @@ are satisfied. The jumps $\xi_i$ can be written as
 \begin{equation}\label{xieq}
 \xi_i = \langle Z_1(N_i^+), P_0^u D_i d \rangle 
 + \langle Z_1(-N_{i-1}^-), P_0^s D_{i-1} d \rangle 
-- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle + R(\lambda)_i(d) \\
+- c_i \sum_{j = -\infty}^{\infty} \langle Z_1(j+1), B T_1(j)\rangle + R(\lambda)_i(d) \\
 \end{equation}
 
 where the remainder term $R(\lambda)(d)$ has bound
@@ -1151,12 +1151,12 @@ Similarly,
 The sums involving $\tilde{H}$ will give us the Melnikov sum.
 
 \begin{align*}
-&\langle Z(0), \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) B \tilde{H}_i^-(j) + \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) B \tilde{H}_i^+(j) \rangle \\
-&= \langle Z(0), \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) B c_i H(j) + \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) B c_i H(j) \rangle + \mathcal{O}(r^N) \\
-&= \sum_{j = -N_{i-1}^-}^{-1} c_i \langle c_i Z(0), \Phi_s^-(0, j+1; c_i) B c_i H(j)\rangle + \sum_{j = 0}^{N_i^+-1} c_i \langle c_i Z(0), \Phi_u^+(0, j+1; c_i) B c_i H(j) \rangle + \mathcal{O}(r^N)\\
-&= \sum_{j = -N_{i-1}^-}^{-1} c_i \langle c_i Z(j+1), B c_i H(j)\rangle + \sum_{j = 0}^{N_i^+-1} c_i \langle c_i Z(j+1), B c_i H(j) \rangle + \mathcal{O}(r^N)\\
-&= c_i \sum_{j = -N_{i-1}^-}^{N_i^+-1} c_i \langle c_i Z(j+1), B H(j)\rangle + \mathcal{O}(r^N)\\
-&= c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle + \mathcal{O}(r^N)\\
+&\langle Z_1(0), \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) B \tilde{H}_i^-(j) + \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) B \tilde{H}_i^+(j) \rangle \\
+&= \langle Z_1(0), \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) B c_i T_1(j) + \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) B c_i T_1(j) \rangle + \mathcal{O}(r^N) \\
+&= \sum_{j = -N_{i-1}^-}^{-1} c_i \langle c_i Z_1(0), \Phi_s^-(0, j+1; c_i) B c_i T_1(j)\rangle + \sum_{j = 0}^{N_i^+-1} c_i \langle c_i Z_1(0), \Phi_u^+(0, j+1; c_i) B c_i T_1(j) \rangle + \mathcal{O}(r^N)\\
+&= \sum_{j = -N_{i-1}^-}^{-1} c_i \langle c_i Z_1(j+1), B c_i T_1(j) \rangle + \sum_{j = 0}^{N_i^+-1} c_i \langle c_i Z_1(j+1), B c_i T_1(j) \rangle + \mathcal{O}(r^N)\\
+&= c_i \sum_{j = -N_{i-1}^-}^{N_i^+-1} \langle Z_1(j+1), B T_1(j) \rangle + \mathcal{O}(r^N)\\
+&= c_i \sum_{j = -\infty}^{\infty} \langle Z_1(j+1), B T_1(j)\rangle + \mathcal{O}(r^N)\\
 \end{align*}
 
 Finally, we need to bound the term with sum involving $W$. For the ``minus'' sum, we have
@@ -1210,7 +1210,7 @@ where the infinite sum is convergent by the choice of $\tilde{r}$. We have a sim
 \begin{equation*}
 \xi_i = \langle Z_1(N_i^+), P_0^u D_i d \rangle 
 + \langle Z_1(-N_{i-1}^-), P_0^s D_{i-1} d \rangle 
-- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle + R(\lambda)_i(d) \\
+- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B T_1(j)\rangle + R(\lambda)_i(d) \\
 \end{equation*}
 
 where the remainder term $R(\lambda)(d)$ has bound
@@ -1233,7 +1233,7 @@ The jumps $\xi_i$ in the jump conditions from Lemma \ref{jumpcond} can be writte
 \begin{align}\label{jumps}
 \xi_i = \langle Z_1(N_i^+), &S_1(-N_i^-) \rangle c_{i+1}( d_{i+1} - d_i) 
 + \langle Z_1(-N_{i-1}^-), S_1(N_{i-1}^+) \rangle c_{i-1}( d_i - d_{i-1}) \\
-&- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle + R(\lambda)_i(d) \\
+&- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B T_1(j)\rangle + R(\lambda)_i(d) \\
 \end{align}
 
 for $i = 1, \dots, m$, where we have remainder bound
@@ -1282,7 +1282,7 @@ Substituting these into the jump expressions from Lemma \ref{jumpcond}, we have
 \begin{equation*}
 \xi_i = \langle Z_1(N_i^+), S_1(-N_i^-) \rangle c_{i+1}( d_{i+1} - d_i) 
 + \langle Z_1(-N_{i-1}^-), S_1(N_{i-1}^+) \rangle c_{i-1}( d_i - d_{i-1})
-- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle + R(\lambda)_i(d) \\
+- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B T_1(j)\rangle + R(\lambda)_i(d) \\
 \end{equation*}
 
 For the remainder term, we substitute $|D|, ||G|| = \mathcal{O}(r^N)$. The additional remainder terms from the substitution of $D_i$ are already included in the remainder term from Lemma \ref{jumpcond}. Thus we have remainder bound
@@ -1291,6 +1291,7 @@ For the remainder term, we substitute $|D|, ||G|| = \mathcal{O}(r^N)$. The addit
 |R(\lambda)(d)| \leq C\left( (r^N + |\lambda|)^3 \right)
 \end{align*}
 \end{proof}
+\end{lemma}
 
 \subsubsection{Main Theorem}
 
@@ -1300,7 +1301,7 @@ For the main theorem, we write the jump conditions in matrix form.
 Let $q_m(n; \mu)$ denote a discrete $m-$pulse equilibrium solution to \eqref{latticePDE}. Then there exists a bounded, nonzero solution $V$ of the eigenvalue problem for $|\lambda| < \delta$ if and only if 
 
 \begin{equation}
-\det E(\lambda) = \det(A - M_2 \lambda^2 I + R(\lambda) ) = 0
+\det E(\lambda) = \det(A - M_2 \lambda^2 \text{diag}(c_1, \dots, c_m) + R(\lambda) ) = 0
 \end{equation}
 
 where the matrix $A$ is given by the tridiagonal
@@ -1325,7 +1326,7 @@ a_i &= \langle Z_1(N_i^+), S_1(-N_i^-) \rangle \\
 $M_2$ is the higher order Melnikov sum
 
 \begin{align}\label{M2}
-\sum_{j = -\infty}^{\infty} \langle Z(j+1), B H(j)\rangle
+\sum_{j = -\infty}^{\infty} \langle Z(j+1), B T_1(j)\rangle
 \end{align}
 
 and the remainder term has bound
@@ -1345,6 +1346,24 @@ This follows from Lemma \ref{jumpcond2} together with the fact that the matrix e
 For dNLS we compute the following terms in Theorem \ref{jumpmatrix}.
 
 \begin{enumerate}
+\item The asymptotic matrix $A_\infty(\omega)$ has eigenvalues
+
+\begin{align*}
+\nu_{1,2} &= 1 + \frac{\omega}{2 \epsilon} \left( 1 \pm \sqrt{1 + \frac{4 \epsilon}{\omega}} \right)
+\end{align*}
+
+each of algebraic multiplicity 2, where we showed above that $0 < \nu_1 < 1 < \nu_2$. Simple multiplication shows that
+
+\begin{align*}
+\nu_1 \nu_2 &= \left( 1 + \frac{\omega}{2 \epsilon} - \frac{\omega}{2 \epsilon} \sqrt{1 + \frac{4 \epsilon}{\omega}} \right)\left( 1 + \frac{\omega}{2 \epsilon} + \frac{\omega}{2 \epsilon} \sqrt{1 + \frac{4 \epsilon}{\omega}} \right)\\
+&= \left( 1 + \frac{\omega}{2 \epsilon} \right)^2 
+- \left( \frac{\omega}{2 \epsilon} \right)^2 \left( 1 + \frac{4 \epsilon}{\omega} \right) \\
+&= 1 + \frac{\omega}{\epsilon} + \frac{\omega^2}{4 \epsilon} -- \frac{\omega^2}{4 \epsilon} - \frac{\omega}{\epsilon} \\
+&= 1
+\end{align*}
+
+Thus for our estimates we take $r^s = \nu_1$, $r^u = \nu_2$, and $r = r^s = 1/r^u$.
+
 \item For $Z_1$, $S_1$, and $T_1$, we have
 
 \begin{align*}
@@ -1419,182 +1438,34 @@ c_1 a_1 & -c_1 a_1  \\
 Thus, to leading order, we have
 
 \begin{align*}
-0 &= \det(A - \lambda^2 M I \\
-&= 
-\end{align*}
-
-
-
-
-
-
-\end{lemma}
-
-\subsection{GARBAGE}
-GARBAGE FOLLOWS
-
-Based on San98, we will guess the form of the jump equations. Of course, there is no guarantee this is right, but let's do it anyway. We will not include a remainder term, since that actually requires going through the estimates. For the jump equations, we evaluate
-
-\[
-\langle Z(0), W_i^-(0) - W_i^+(0) \rangle
-\]
-
-The leading order terms will be $a_i^\pm$ terms and the Melnikov sum, which comes from the integral terms involving $\tilde{H}$, which is approximately $H$. For the Melnikov sum, we have
-
-\begin{align*}
-\langle Z(0), &\sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) B \tilde{H}_i^-(j) + \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) B \tilde{H}_i^+(j) \rangle \\
-&\approx \sum_{j = -\infty}^\infty \langle Z(0), \Phi(0, j+1; c_i) c_i B H(j) \rangle \\
-&= \sum_{j = -\infty}^\infty \langle c_i Z(0), \Phi(0, j+1; c_i) B H(j) \rangle \\
-&= \sum_{j = -\infty}^\infty \langle c_i Z(j+1), B H(j) \rangle \\
-&= c_i M_1
-\end{align*}
-
-For the $a_i^\pm$ terms, we will first assume that an equivalent to Lemma 3.1 in San98 holds. The only difference is that the $c_i$ will come into play here. (This makes sense if you draw a picture.) Thus to leading order, we will take
-
-\[
-D_i d = [ c_{i+1} S_1(-N_i^-) + c_i S_1(N_i^+) ] d_{i+1}
-- [ c_i S_1(N_i^+) + c_{i+1} S_1(-N_i^-) ] d_i 
-\]
-
-Based on (3.49) in San98,
-
-\begin{align*}
-\langle Z(0), &\Phi_u^+(0, N_i^+; c_i) a_i^+ \rangle - \langle Z(0), \Phi_s^-(0, -N_{i-1}^-; c_i) a_{i-1}^- \rangle \\ 
-&\approx \frac{1}{c_i} \langle c_i Z(N_i^+), \Phi_u^+(0, N_i^+; c_i) a_i^+ \rangle - \frac{1}{c_i} \langle c_i Z(N_{i-1}^-), \Phi_s^-(0, -N_{i-1}^-; c_i) a_{i-1}^- \rangle \\
-&\approx \langle Z(N_i^+), a_i^+ \rangle - \langle Z(N_{i-1}^-), a_{i-1}^- \rangle \\
-&\approx \langle Z(N_i^+), P_0^u D_i d \rangle + \langle Z(N_{i-1}^-), P_0^s D_{i-1} d\rangle 
-\end{align*}
-
-Plugging in the estimate above, this becomes
-
-\[
-\langle Z(N_i^+), a_i^+ \rangle - \langle Z(N_{i-1}^-), a_{i-1}^- \rangle
-\approx c_{i+1} \langle Z(N_i^+), S_1(-N_i^-) \rangle (d_{i+1} - d_i)
-+ c_i \langle Z(N_{i-1}^-), S_1(N_{i-1}^+) \rangle (d_i - d_{i-1})
-\]
-
-Thus we have the jump expressions
-
-\[
-\xi_i \approx c_{i+1} \langle Z(N_i^+), S_1(-N_i^-) \rangle (d_{i+1} - d_i)
-+ c_{i-1} \langle Z(N_{i-1}^-), S_1(N_{i-1}^+) \rangle (d_i - d_{i-1}) - c_i \lambda M_1
-\]
-
-We can put this in matrix form as $(A - \lambda M_1 \text{diag}(c_i))d = 0$.\\
-
-For now, let's do the 2x2 case. Let
-
-\begin{align*}
-a_i &= \langle Z(N_i^+), S_1(-N_i^-) \rangle \\
-\tilde{a}_i &= \langle Z(-N_i^-), S_1(N_i^+) \rangle
-\end{align*}
-
-We will hope that (in the specific cases we will consider) there is a relationship between these. Then we have 
-
-\[
-A = \begin{pmatrix}
--c_2 a_1 & c_2 a_1 \\
--c_1 \tilde{a}_1 & c_1 \tilde{a}_1 \\
-\end{pmatrix}
-\]
-
-We want to the the determinant of $A - \lambda M_1 \text{diag}(c_i)$.
-
-\begin{align*}
-\det( A - \lambda M_1 \text{diag}(c_i)) &= \det \begin{pmatrix}
--c_2 a_1 - c_1 M_1 \lambda & c_2 a_1 \\
--c_1 \tilde{a}_1 & c_1 \tilde{a}_1 - c_2 M \lambda \\
+0 &= \det(A - \lambda^2 M \text{diag}(c_1, c_2) ) \\
+&= \det \begin{pmatrix}
+-c_2 a_1 - c_1 \lambda^2 M & c_2 a_1 \\
+c_1 a_1 & -c_1 a_1 - c_2 \lambda^2 M \\
 \end{pmatrix} \\
-&= M_1 \lambda ( c_1^2 a_1 - c_2^2 \tilde{a}_1 + c_1 c_2 M_1 \lambda )
+&= \lambda^2 M_2 ( a_1 (c_1^2 + c_2^2) + c_1 c_2 \lambda^2 M_2) \\
+&= \lambda^2 M_2 ( 2 a_1 + c_1 c_2 \lambda^2 M_2)
 \end{align*}
 
-We will look at specific examples now.
-
-
-\section*{Lin for dNLS}
-
-For this problem, $M_1 = 0$ (unsurprisingly), so we will use the version with $M_2$ and $\lambda^2$.
-
-We can show that
-
-\begin{align*}
-Z &= (0, 0, -\tilde{q}, q) \\
-S_1 &= (0, 0, q, \tilde{q}) \\
-T_1 &= (q_\omega, \tilde{q}_\omega)
-\end{align*}
-
-The (second order) Melnikov sum is
+where we used the fact that $c_i^2 = 1$. Thus, to leading order, we have an eigenvalue $\lambda = 0$ and a pair of eigenvalues
 
 \[
-M_2 = \sum_j \langle Z(j+1), B T_1(j) \rangle = \sum_j q(j) q_\omega(j)
+\lambda = \pm \sqrt{ -c_1 c_2 \dfrac{2 a_1 }{ M_2 } }
 \]
 
-Numerics suggests this is positive and not close to 0. There is probably no way to prove that, so we might need to assume this. Now we evaluate $a_i$ and $\tilde{a}_i$. Using what we have above and the fact that the primary pulse is even,
+Numerics suggests that $M_2 > 0$ (and we probably cannot show that?) We argued above that $a_1 < 0$. Thus, to leading order, if $c_1$ and $c_2$ are the same sign, we have a pair of real eigenvalues (unstable), and if $c_1$ and $c_2$ have opposite signs, we have a pair of purely imaginary eigenvalues (neutrally stable). We can use Hamiltonian symmetry to conclude that in the neutrally stable case, the pair of purely imaginary eigenvalues must in fact lie on the imaginary axis; otherwise Lin's method would give us a quartet.\\
 
-\begin{align*}
-a_i &= \langle Z(N_i^+), S_1(-N_i^-) \rangle \\
-&= -\tilde{q}(N_i^+)q(-N_i^-) + q(N_i^+)\tilde{q}(-N_i^-) \\
-&= -q(N_i^+ - 1)q(-N_i^-) + q(N_i^+)(-N_i^- - 1) \\
-&= q(N_i^+)(N_i^- + 1) - q(N_i^+ - 1)q(N_i^-)\\
-\end{align*}
+We could probably get a similar result for $m-$pulses (we expect such a result) if we could come up with a nice way to compute the determinant.\\
 
-and
+The stability result we get matches the numerics; in particular, the eigenvalues from Matlab's \texttt{eig} are located where precicted. One last check is to look at the decay rate of the magnitude of the interaction eigenvalues. For the numerics, we look at $\omega = 1$ and $\epsilon = 1$.\\
 
-\begin{align*}
-\tilde{a}_i &= \langle Z(-N_i^-), S_1(N_i^+) \rangle \\
-&= -\tilde{q}(-N_i^-)q(N_i^+) + q(-N_i^-)\tilde{q}(N_i^+) \\
-&= -q(-N_i^- - 1)q(N_i^+) + q(-N_i^-)q(N_i^+ - 1) \\
-&= -q(N_i^- + 1)q(N_i^+) + q(N_i^-)q(N_i^+ - 1) \\
-&= -q(N_i^+)q(N_i^- + 1) + q(N_i^+ - 1)q(N_i^-) \\
-&= -a_i
-\end{align*}
-
-Since for dNLS we always have $c_i = \pm 1$, $c_i^2 = 1$. Thus the determinant is
-
-\begin{align*}
-\det( A - \lambda^2 M_2 \text{diag}(c_i)) &= 
-M_2 \lambda^2 ( c_1^2 a_1 + c_2^2 a_1 + c_1 c_2 M_2 \lambda^2 ) \\
-&= M_2 \lambda^2 ( 2 a_1 + c_1 c_2 M_2 \lambda^2 )
-\end{align*}
-
-Since we want the determinant to be 0, solving for $\lambda$, we get (other than $\lambda = 0$)
+Looking at our expression for $\lambda$, we see that the magnitude of $\lambda$ is proportional to $\sqrt{a_1}$. Recall 
 
 \[
-\lambda = \pm \sqrt{ -c_1 c_2 \frac{2 a_1}{M_2}}
-\]
-
-We can easily determine the sign of $a_1$. For $N_i$ even, $N_i^+ = N_i^-$, so
-
-\begin{align*}
-a_i &= q(N_i^+)(N_i^+ + 1) - q(N_i^+ - 1)q(N_i^+)\\
-&= q(N_i^+)( q(N_i^+ + 1) - q(N_i^+ - 1))
-\end{align*} 
-
-This is negative, since the $q(n)$ decreases as $n$ increases from 0. For $N_i$ odd, $N_i^- = N_i^+ +1$, so
-
-\begin{align*}
-a_i &= q(N_i^+)q(N_i^+ + 2) - q(N_i^+ - 1)q(N_i^+ + 1)\\
-\end{align*}
-
-This is also negative for the same reason. Assuming that $M_2 > 0$ (suggested by numerics), then $\lambda$ is real if $c_1 = c_2$ (both pulses in the same direction) and purely imaginary if $c_1 = -c_2$ (pulses in opposite directions). This agrees with prior results and with numerics.\\
-
-We should be able to easily extend this to multi-pulses to get the known result.\\
-
-The stability result matches the numerics. The final check is to look at the decay rate of the magnitude of the interaction eigenvalues. For the numerics, we look at $\omega = 1$ and $\epsilon = 1$.\\
-
-Looking at our expression for $\lambda$, we see that the magnitude of $\lambda$ is proportional to $\sqrt{\alpha}$. Recall that the eigenvalues of the asymptotic matrix are given by
-
-\begin{align*}
-\nu_{1,2} &= 1 + \frac{\omega}{2 \epsilon} \left( 1 \pm \sqrt{1 + \frac{4 \epsilon}{\omega}} \right)
-\end{align*}
-
-It is straightforward to show that $\nu_1 \nu_2 = 1$. Thus, let $\nu$ be the one that is less than 1. For $N_i$ even, we have
-
-\[
-a_i \approx q(N_i^+)^2 \approx C \nu^{N_i^+}
+a_i \approx q(N_i^+)^2 \approx C r^{N_i^+}
 \] 
 
-Thus if we plot $\log \lambda$ vs $N^+$, we should get a slope of $\log \nu$.
+Thus if we plot $\log \lambda$ vs $N^+$, we should get a slope of $\log r$.
 
 \begin{figure}[H]
 \centering
@@ -1603,8 +1474,7 @@ Thus if we plot $\log \lambda$ vs $N^+$, we should get a slope of $\log \nu$.
 \caption{Stable double pulse}
 \end{figure}
 
-Slope of best-fit line is $-0.9660$, $\log \nu = -0.9206$, error is about $0.05$, which is great!
-
+Slope of best-fit line is $-0.9660$, $\log r = -0.9206$, error is about $0.05$, which is great!
 
 \section*{Lin for AL-dNLS}
 
