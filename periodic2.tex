@@ -35,6 +35,7 @@
 
 \DeclareMathOperator{\spn}{span}
 \DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\dm}{dim}
 
 \graphicspath{ {periodic/} }
 
@@ -69,29 +70,46 @@ where $F: \R^{2m} \rightarrow \R^{2m}$ is smooth with $F(0) = 0$. We begin by lo
 
 \subsection{Existence of Periodic Multipulses}
 
-We take the following hypotheses. The first hypothesis states that the equilibrium of \eqref{genODE} at $U = 0$ is hyperbolic. 
+We take the following hypotheses. First, we assume that \eqref{genODE} is Hamiltonian.
+
+\begin{hypothesis}\label{Hhyp}
+There exists a smooth function $H: \R^{2m} \rightarrow \R$ such that $H(0) = 0$, $\nabla H(u) = 0$ if and only if $F(u) = 0$, and for all $u \in \R^{2m}$,
+\begin{equation}
+\langle \nabla H(u), F(u) \rangle = 0
+\end{equation}
+\end{hypothesis}
+
+From this it follows that $H$ is conserved along solutions $U(x)$ to \eqref{genODE}.\\
+
+The second hypothesis addresses the hyperbolicity of the equilibrium of \eqref{genODE} at $U = 0$.  
 
 \begin{hypothesis}\label{hypeq}
 The spectrum of $DF(0)$ contains a quartet of simple eigenvalues $\pm \alpha \pm \beta i$, $\alpha, \beta > 0$. For any other eigenvalue $\nu$ of $DF(0)$, $|\text{Re }|\nu| > \alpha$.
 \end{hypothesis}
 
-Let $W^s(0)$ and $W^u(0)$ be the stable and unstable manifolds of this equilibrium at 0. The next hypothesis states that there exists a homoclinic orbit connecting $W^s(0)$ and $W^u(0)$.
+We note that since we are assuming we have a Hamiltonian system, the existence of an eigenvalue $\alpha + \beta i$ implies the existence of the entire quartet.\\
+
+Let $W^s(0)$ and $W^u(0)$ be the stable and unstable manifolds of the equilibrium at 0. By Hypothesis \ref{Hhyp}, $W^s(0), W^u(0) \subset H^{-1}(0)$, where $H^{-1}(0)$ is the 0-level set of the energy $H$. Since $\dm H^{-1}(0) = m-1$, a dimensionality argument shows that $\dim W^s(0) \cap W^u(0) \geq 1$. Thus there exists a homoclinic orbit $Q(x) \subset W^s(0) \cap W^u(0)$. In the next hypothesis, we asssume that this intersection is 1-dimensional. 
+
+The next hypothesis states that there exists a homoclinic orbit connecting $W^s(0)$ and $W^u(0)$. 
 
 \begin{hypothesis}\label{transverseQ}
-$Q(x)$ is a transversely constructed, localized homoclinic orbit at $U = 0$ which connects $W^s(0)$ to $W^u(0)$. Furthermore, we will take the nondegeneracy condition
+Let $Q(x)$ be the homoclinic orbit in $W^s(0) \cap W^u(0) \subset H^{-1}(0)$. We assume the non-degeneracy condition
 \begin{equation}
 T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
 \end{equation}
 \end{hypothesis}
 
-Define the variational equation and adjoint variational equation by
+Define the variational equation and adjoint variational equation corresponding to $Q(x)$ by
 
 \begin{align}
 V' = DF(Q(x))V \label{vareq} \\
 W' = -DF(Q(x))^* W \label{adjvareq}
 \end{align}
 
-Then it follows from Hypothesis \ref{transverseQ} that $Q'(x)$ is the unique bounded solution to \eqref{vareq} and there exists a unique bounded solution $\Psi(x)$ to \eqref{adjvareq}. Furthermore, we may decompose the tangent space at $Q(0)$ as 
+It follows from Hypothesis \ref{transverseQ} that $Q'(x)$ is the unique bounded solution to \eqref{vareq} and that there exists a unique bounded solution $\Psi(x)$ to \eqref{adjvareq}. It follows from Hypotheiss \ref{Hhyp} that $\Psi(x) = \nabla H(Q(x))$. \\
+
+Furthermore, we may decompose the tangent space at $Q(0)$ as 
 
 \begin{equation}
 \R^{2m} = \R \Psi(0) \oplus \R Q'(0) \oplus Y^+ \oplus Y^-
@@ -106,37 +124,22 @@ T_{Q(0)}W^u(0) &= \R Q'(0) \oplus Y^- \\
 
 and $\Psi(0) \perp \R Q'(0) \oplus Y^+ \oplus Y^-$.\\
 
-Finally, we will assume the system is Hamiltonian.
-
-\begin{hypothesis}\label{Hhyp}
-There exists a smooth function $H: \R^{2m} \rightarrow \R$ such that $\nabla H(Q(0)) \neq 0$ and for all $u \in \R^{2m}$,
-
-\begin{equation}
-\langle \nabla H(u), F(u) \rangle = 0
-\end{equation}
-
-Furthermore, we assume that
-\begin{equation*}
-\lim_{x \rightarrow \infty} e^{2 \alpha x}|Q(x)||Q(-x)| > 0
-\end{equation*}
-\end{hypothesis}
-
-From this it follows that $H$ is conserved along solutions $U(x)$ to \eqref{genODE}. It follows from Hypothesis \ref{transverseQ} with Hypothesis \ref{Hhyp} that $\Psi(x) = \nabla H(Q(x))$.\\
-
-For now, we have not been concerned with the eigenvalue problem associated with \eqref{genODE}, which, for a solution $U^*$ to \eqref{genODE} is
+For now, we are not concerned with the eigenvalue problem associated with \eqref{genODE}. For an equilibrium solution $U^*$ to \eqref{genODE}, this eigenvalue problem is
 
 \begin{equation}\label{genODEeig}
-V' = (DF(U^*) + \lambda B)V
+V' = (DF(U^*) + \lambda \tilde{B})V
 \end{equation}
 
-where the matrix $B$ is constant coefficient. If we wish to consider that problem, we will need an additional hypothesis concerning the Melnikov integral associated with the problem.
+where the matrix $\tilde{B}$ is constant coefficient. These eigenvalues are the eigenvalues of the Hessian $E''(u^*)$, where $u^*$ is the first component of $U^*$. If we wish to consider that problem, we will need an additional hypothesis concerning a Melnikov integral related to the problem.
 
 \begin{hypothesis}\label{ODEMelnikov}
 The following Melnikov condition holds.
 \begin{equation}
-M = \int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle \neq 0
+M = \int_{-\infty}^\infty \langle \Psi(x), \tilde{B} Q'(x) \rangle \neq 0
 \end{equation}
 \end{hypothesis}
+
+For now we can ignore this, but if we wish, we should be able to relate these eigenvalues to the interaction eigenvalues of \eqref{genPDE}.\\
 
 We can now state the existence theorem for periodic multi-pulse solutions. A$n-$periodic solution to \eqref{genODE} is a periodic orbit $Q_{np}(x)$ which resembles $n$ copies of the primary pulse solution $Q(x)$. We will describe an $n-$periodic solution by $n$ lengths $X_0, \dots, X_{n-1}$, where the $n-1$ distances between the $n$ peaks are $2X_0, \dots 2X_{n_2}$, and $X_{n-1}$ is the distance from the left- and rightmost peaks to the periodic boundary.
 
@@ -150,7 +153,7 @@ Then there exists an a nonnegative integer $M$ and $K > 0$ such that the followi
 \item sequence of nonnegative integers $\{ m_0, \dots, m_{n-2} \}$, where at least one of them must be 0
 \end{enumerate}
 
-there exists a 1-parameter family of $n$-periodic solutions to \eqref{genODE} associated with $m$ and the set $\{ m_j \}$. This 1-parameter family is paramaterized by the length $X_{n-1} \in [K, \infty)$.\\
+there exists a 1-parameter family of $n$-periodic solutions to \eqref{genODE} associated with $m$ and the set $\{ m_j \}$. This 1-parameter family is parameterized by the length $X_{n-1} \in [K, \infty)$.\\
 
 The lengths $X_0, \dots, X_{n-2}$ are given by
 
@@ -186,6 +189,8 @@ The remainder terms $V_i^\pm(x)$ have bounds
 \end{align} 
 \end{theorem}
 
+For the family of $2-$periodic solutions, we actually have more information (including bifurcation structure), which we can add here.
+
 \subsection{Stability Problem}
 
 We will now look at the stability problem, which involves the eigenvalues of \eqref{genPDE}. We rewrite the PDE in $\R^{2m+1}$ as
@@ -208,7 +213,7 @@ where $A(U^*) = DF_2(U^*)$ and $B$ is constant coefficient. From Hypothesis \ref
 Let $Q(x)$ be the primary pulse solution, whose existence comes from Hypothesis \ref{transverseQ}. We make the following nondegeneracy hypothesis regarding $Q(x)$, which is similar to Hypothesis \ref{transverseQ}.
 
 \begin{hypothesis}\label{nondegen}
-For the primary pulse solution $Q(x)$, we have the nondegeneracy condition
+For the primary pulse solution $Q(x)$, we have the non-degeneracy condition
 \begin{equation}
 T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
 \end{equation}
@@ -246,11 +251,11 @@ We have the following Melnikov-like expressions
 \begin{enumerate}[(i)]
 \item 
 \begin{equation}
-M_1 \int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle = 0
+M_1 = \int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle = 0
 \end{equation}
 \item 
 \begin{equation}
-M_2 \int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle = 0
+M_2 = \int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle = 0
 \end{equation}
 where $T(x)$ solves 
 \begin{equation}
@@ -260,7 +265,7 @@ T' = A(Q)T + BQ'
 We should be guaranteed such a solution $T$ by (i) and the Fredholm alternative.
 \end{hypothesis}
 
-We can now state the stability theorem, for which we use Lin's method to find the eigenvalues of \eqref{PDEeig}.
+We can now state the stability theorem. The proof uses Lin's method to find the eigenvalues of \eqref{PDEeig}.
 
 % main stability theorem
 
@@ -373,7 +378,7 @@ where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. The first co
 
 For KdV5, a primary pulse solution is known to exist (Chug2007, among others), so Hypothesis \ref{transverseQ} is satisfied. For $c > 1/4$, Hypothesis \ref{hypeq} is satisfied. Finally, for KdV5, \eqref{genODE} is Hamiltonian, so Hypothesis \ref{Hhyp} is satisfied. Thus, Theorem \ref{perexist} holds, and $n-$periodic solutions exist.\\
 
-We assume Hypothesis \ref{nondegen} holds for KdV5. The adjoint variational equation has two solutions $\Psi(x)$ and $\Psi^c(x)$, which are given by
+We assume Hypothesis \ref{nondegen} holds for KdV5. The adjoint variational equation has two solutions, $\Psi(x)$ and $\Psi^c(x)$, which are given by
 
 \begin{equation}\label{KdV5psi}
 \Psi(x) = \begin{pmatrix}
