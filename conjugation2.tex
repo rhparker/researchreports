@@ -716,10 +716,24 @@ P_i^\pm(x; \lambda) = P^\pm(x; \lambda; q_i^\pm(x)) \\
 P^\pm(x; \lambda) = P^\pm(x; \lambda; q(x))
 \end{align*}
 
-we can expand $P_i^\pm(x; \lambda)$ in a Taylor series about $(0, q(x))$ at $x = 0$ to get =
+we can expand $P_i^\pm(x; \lambda)$ in a Taylor series about $(0, q(x))$ to get
+
+\begin{align*}
+P_i^\pm(x; \lambda) = P^\pm(0) + C_1 |\lambda| 
++ C_2| q_i^\pm(x) - q(x) | + \text{h.o.t.}
+\end{align*}
+
+Since 
+
+\begin{align*}
+| q_i^\pm(x) - q(x) | &= | q^\pm(x; \beta_i^\pm) + u_i^\pm(x) - q(x) | \\
+&\leq |q^\pm(x; \beta_i^\pm) - q(x)| + |u_i^\pm(x)|
+\end{align*}
+
+we have at $x = 0$
 
 \begin{equation}\label{PTaylor}
-P_i^\pm(0; \lambda) = P^\pm(0) + \mathcal{O}(|\lambda| + e^{-\alpha X_m})
+P_i^\pm(0; \lambda) = P^\pm(0) + \mathcal{O}(|\lambda| + e^{-2 \alpha X_m})
 \end{equation}
 
 We will only need the Taylor expansion at $x = 0$, since for large $x$, the conjugation operators are approximately equal to the identity.
@@ -1522,13 +1536,13 @@ e^{-2 \alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\t
 + e^{-\tilde{\alpha} X_{i-1}} |c_{i-1}^-| + e^{-\tilde{\alpha} X_i} |c_i^-| + ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big)
 \end{align*}
 
-\item For the non-center integral terms, we can use the simple estimate
+\item For the non-center integral terms, we have the bound
 
 \begin{align*}
-&\left| P^-(0; \beta_i^-, \lambda) 
+&\left| P_i^-(0; \lambda) 
 \int_{-X_{i-1}}^0 \Phi^s(0, y; \lambda) \lambda^2 d_i P^-(y; \beta_i^-, \lambda)^{-1} \tilde{H}_i^-(y) dy \right| \\
-&\leq C |\lambda|^2 |d| \int_{-X_{i-1}}^0 e^{\alpha y} e^{\alpha y} dy \\
-&\leq C |\lambda|^2 |d|
+&\leq C |\lambda|^2 |d_i| \int_{-X_{i-1}}^0 e^{\alpha y} e^{\alpha y} dy \\
+&\leq C |\lambda|^2 |d_i|
 \end{align*}
 
 \end{enumerate}

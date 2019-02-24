@@ -58,15 +58,22 @@ We will cast the problem in general terms, for which KdV5 will be a specific cas
 u_t = \partial_x E'(u)
 \end{equation}
 
-where $u \in \R$, $E(u)$ is the energy of the system (which is conserved in $t$), and $E(0) = 0$. The operator $E'(u): H^{2m}(\R) \subset L^2(\R) \rightarrow L^2(\R)$ is self-adjoint in $L^2(\R)$, where $m \geq 2$.\\
+where $u \in \R$, $E(u)$ is the energy of the system (which is conserved in $t$), and $E(0) = 0$. The operator $E'(u): H^{2m}(\R) \subset L^2(\R) \rightarrow L^2(\R)$ is self-adjoint in $L^2(\R)$, where $m \geq 2$ and is of the form
 
-Equilibrium solutions which decay at $\pm \infty$ satisfy $E'(u) = 0$, which we write as the ODE in $\R^{2m}$
+\[
+E'(u) = \partial_x^{2m}u + \tilde{E}(u)
+\]
+
+where $\tilde{E}(u)$ does not involve derivatives of higher degree than $2m-1$. We also assume that $E'(u)$ is reversible, i.e. $E'(u(x)) = 0 \iff E'(u(-x)) = 0$.
+\\
+
+Equilibrium solutions which decay at $\pm \infty$ satisfy the ODE $E'(u) = 0$, which we can write as a first-order system (in the standard way) in $\R^{2m}$ as
 
 \begin{equation}\label{genODE}
 U' = F(U)
 \end{equation}
 
-where $F: \R^{2m} \rightarrow \R^{2m}$ is smooth with $F(0) = 0$. We begin by looking at the existence problem, which involves solutions to \eqref{genODE}.
+where $F: \R^{2m} \rightarrow \R^{2m}$ is smooth, $F(0) = 0$. We begin by looking at the existence problem, which involves solutions to \eqref{genODE}.
 
 \subsection{Existence of Periodic Multipulses}
 
@@ -89,12 +96,12 @@ The spectrum of $DF(0)$ contains a quartet of simple eigenvalues $\pm \alpha \pm
 
 We note that since we are assuming we have a Hamiltonian system, the existence of an eigenvalue $\alpha + \beta i$ implies the existence of the entire quartet.\\
 
-Let $W^s(0)$ and $W^u(0)$ be the stable and unstable manifolds of the equilibrium at 0. By Hypothesis \ref{Hhyp}, $W^s(0), W^u(0) \subset H^{-1}(0)$, where $H^{-1}(0)$ is the 0-level set of the energy $H$. Since $\dm H^{-1}(0) = m-1$, a dimensionality argument shows that $\dim W^s(0) \cap W^u(0) \geq 1$. Thus there exists a homoclinic orbit $Q(x) \subset W^s(0) \cap W^u(0)$. In the next hypothesis, we asssume that this intersection is 1-dimensional. 
+Let $W^s(0)$ and $W^u(0)$ be the stable and unstable manifolds of the equilibrium at 0. By Hypothesis \ref{Hhyp}, $W^s(0), W^u(0) \subset H^{-1}(0)$, where $H^{-1}(0)$ is the 0-level set of the energy $H$. Since $\dm H^{-1}(0) = m-1$, a dimensionality argument shows that $\dim W^s(0) \cap W^u(0) \geq 1$. Thus there exists a homoclinic orbit solution $Q(x) \subset W^s(0) \cap W^u(0)$ to \eqref{genODE}. $Q(x)$ is of the form $Q = (q, q_x, \dots, \partial_x^{2m} q)^T$; the first component $q(x)$ satisfies $E'(q) = 0$ and is an even function by the reversibility assumption on $E'(u)$.\\
 
-The next hypothesis states that there exists a homoclinic orbit connecting $W^s(0)$ and $W^u(0)$. 
+In the next hypothesis, we asssume that this intersection is 1-dimensional. 
 
-\begin{hypothesis}\label{transverseQ}
-Let $Q(x)$ be the homoclinic orbit in $W^s(0) \cap W^u(0) \subset H^{-1}(0)$. We assume the non-degeneracy condition
+\begin{hypothesis}\label{nondegen1}
+Let $Q(x)$ be the homoclinic orbit solution in $W^s(0) \cap W^u(0) \subset H^{-1}(0)$. We take the non-degeneracy condition
 \begin{equation}
 T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
 \end{equation}
@@ -103,11 +110,26 @@ T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
 Define the variational equation and adjoint variational equation corresponding to $Q(x)$ by
 
 \begin{align}
-V' = DF(Q(x))V \label{vareq} \\
-W' = -DF(Q(x))^* W \label{adjvareq}
+\tilde{V}' = DF(Q(x))\tilde{V} \label{vareq1} \\
+\tilde{W}' = -DF(Q(x))^* \tilde{W} \label{adjvareq1}
 \end{align}
 
-It follows from Hypothesis \ref{transverseQ} that $Q'(x)$ is the unique bounded solution to \eqref{vareq} and that there exists a unique bounded solution $\Psi(x)$ to \eqref{adjvareq}. It follows from Hypotheiss \ref{Hhyp} that $\Psi(x) = \nabla H(Q(x))$. \\
+$DF(Q(x))$ is the $2m \times 2m$ matrix
+
+\begin{equation}
+DF(Q(x)) = \begin{pmatrix}
+0 & 1 & 0 & \dots & 0 & 0 \\
+0 & 0 & 1 & \dots & 0 & 0 \\
+& & \ddots & \ddots & \ddots & & \\
+0 & 0 & 0 & \dots & 0 & 1 \\
+c_0 + f_0(x) & c_1 + f_1(x) & c_2 + f_2(x) &
+ \dots & c_{n-2} + f_{n-2}(x) & c_{n-1} + f_{n-1}(x)
+\end{pmatrix}
+\end{equation}
+
+where the $c_i$ are constants, and $f_i(x)$ and all of its derivatives decay to 0 at $\pm \infty$.
+
+It follows from Hypothesis \ref{nondegen1} that $Q'(x)$ is the unique bounded solution to \eqref{vareq1} and that there exists a unique bounded solution $\Psi(x)$ to \eqref{adjvareq1}. It follows from Hypothesis \ref{Hhyp} that $\Psi(x) = \nabla H(Q(x))$. \\
 
 Furthermore, we may decompose the tangent space at $Q(0)$ as 
 
@@ -124,27 +146,10 @@ T_{Q(0)}W^u(0) &= \R Q'(0) \oplus Y^- \\
 
 and $\Psi(0) \perp \R Q'(0) \oplus Y^+ \oplus Y^-$.\\
 
-For now, we are not concerned with the eigenvalue problem associated with \eqref{genODE}. For an equilibrium solution $U^*$ to \eqref{genODE}, this eigenvalue problem is
-
-\begin{equation}\label{genODEeig}
-V' = (DF(U^*) + \lambda \tilde{B})V
-\end{equation}
-
-where the matrix $\tilde{B}$ is constant coefficient. These eigenvalues are the eigenvalues of the Hessian $E''(u^*)$, where $u^*$ is the first component of $U^*$. If we wish to consider that problem, we will need an additional hypothesis concerning a Melnikov integral related to the problem.
-
-\begin{hypothesis}\label{ODEMelnikov}
-The following Melnikov condition holds.
-\begin{equation}
-M = \int_{-\infty}^\infty \langle \Psi(x), \tilde{B} Q'(x) \rangle \neq 0
-\end{equation}
-\end{hypothesis}
-
-For now we can ignore this, but if we wish, we should be able to relate these eigenvalues to the interaction eigenvalues of \eqref{genPDE}.\\
-
 We can now state the existence theorem for periodic multi-pulse solutions. A$n-$periodic solution to \eqref{genODE} is a periodic orbit $Q_{np}(x)$ which resembles $n$ copies of the primary pulse solution $Q(x)$. We will describe an $n-$periodic solution by $n$ lengths $X_0, \dots, X_{n-1}$, where the $n-1$ distances between the $n$ peaks are $2X_0, \dots 2X_{n_2}$, and $X_{n-1}$ is the distance from the left- and rightmost peaks to the periodic boundary.
 
 \begin{theorem}[Existence of $n$-periodic solutions]\label{perexist}
-Let $Q(x)$ be a transversely constructed primary pulse solution to \eqref{genODE}, according to Hypothesis \ref{transverseQ}. Assume Hypotheses \ref{hypeq} and \ref{Hhyp}.\\
+Assume Hypotheses \ref{hypeq} and \ref{Hhyp}, and let $Q(x)$ be a transversely constructed primary pulse solution to \eqref{genODE}, according to Hypothesis \ref{nondegen1}.\\
 
 Then there exists an a nonnegative integer $M$ and $K > 0$ such that the following holds. For any 
 \begin{enumerate}[(i)]
@@ -193,13 +198,13 @@ For the family of $2-$periodic solutions, we actually have more information (inc
 
 \subsection{Stability Problem}
 
-We will now look at the stability problem, which involves the eigenvalues of \eqref{genPDE}. We rewrite the PDE in $\R^{2m+1}$ as
+We will now look at the stability problem, which involves the eigenvalues of \eqref{genPDE}. We rewrite the PDE as a system in $\R^{2m+1}$ as
 
 \begin{equation}\label{PDEsystem}
 U_t = F_2(U)
 \end{equation}
 
-where $F_2: \R^{2m+1} \rightarrow \R^{2m+1}$. For an equilibrium solution $U^*$, $F_2(U^*) = 0$. In particular, we have $F_2(0) = 0$, $F_2(Q) = 0$, and $F_2(Q_{np}) = 0$, where $Q$ the primary pulse solution and $Q_{np}$ is the $n-$periodic solution from the existence problem. (Note that all of these are now functions $\R \rightarrow \R^{2m+1}$).
+where $F_2: \R^{2m+1} \rightarrow \R^{2m+1}$. For an equilibrium solution $U^*$, $F_2(U^*) = 0$. In particular, we have $F_2(0) = 0$, $F_2(Q) = 0$, and $F_2(Q_{np}) = 0$, where $Q$ the primary pulse solution and $Q_{np}$ is the $n-$periodic solution from the existence problem. (Note that these are now functions $\R \rightarrow \R^{2m+1}$, i.e. we have added one more component to each one).
 \\
 
 The eigenvalue problem of interest is the linearization about an equilibrium solution $U^*$.
@@ -208,16 +213,34 @@ The eigenvalue problem of interest is the linearization about an equilibrium sol
 V' = ( A(U^*)V + \lambda B)V 
 \end{equation}
 
-where $A(U^*) = DF_2(U^*)$ and $B$ is constant coefficient. From Hypothesis \ref{hypeq}, it follows that the spectrum of $A(0)$ contains $\{ 0, \pm \alpha \pm \beta i\}$, and for any other eigenvalue $\nu$ of $A(0)$, $|\text{Re }|\nu| > \alpha$. Since $A(0)$ is not hyperbolic, the results of San98 do not apply.\\
+where $A(U^*) = DF_2(U^*)$, and $B$ is the constant coefficient matrix
 
-Let $Q(x)$ be the primary pulse solution, whose existence comes from Hypothesis \ref{transverseQ}. We make the following nondegeneracy hypothesis regarding $Q(x)$, which is similar to Hypothesis \ref{transverseQ}.
-
-\begin{hypothesis}\label{nondegen}
-For the primary pulse solution $Q(x)$, we have the non-degeneracy condition
-\begin{equation}
-T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
+\begin{equation}\label{DefB}
+B = \begin{pmatrix}0 & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\0  & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\1 & 0 & 0 & 0 & 0 \end{pmatrix} 
 \end{equation}
-\end{hypothesis}
+
+For $U^* = Q$, $A(Q)$ is the $(2m+1) \times (2m+1)$ matrix
+
+\begin{equation}
+A(Q) = \begin{pmatrix}
+0 & 1 & \dots & 0 & 0 \\
+0 & 0 & \dots & 0 & 0 \\
+& \ddots & \ddots & \ddots & & \\
+0 & 0 & \dots & 0 & 1 \\
+f_0'(x) & c_0 + f_0(x) + f_1'(x) & \dots & c_{n-2} + f_{n-2}(x) + f_{n-1}'(x) & c_{n-1} + f_{n-1}(x)
+\end{pmatrix}
+\end{equation}
+
+We can also write the linearization about the primarly pulse solution $q(x)$ as the eigenvalue problem on $\R$
+
+\begin{equation}\label{eigonR}
+[ \partial_x L(q) ] v(x) = \lambda v(x)
+\end{equation}
+
+where $L(q): H^{2m}(\R) \subset L^2(\R) \rightarrow L^2(\R)$ is self-adjoint. It is easy to show that $[ \partial_x L(q) ] q_x(x) = 0$.
+\\
+
+From Hypothesis \ref{hypeq}, it follows that the spectrum of $A(0)$ contains $\{ 0, \pm \alpha \pm \beta i\}$, and for any other eigenvalue $\nu$ of $A(0)$, $|\text{Re }|\nu| > \alpha$. Since $A(0)$ is not hyperbolic, the results of San98 do not apply.\\
 
 Let $W^s(0)$, $W^u(0)$, and $W^c(0)$ be the stable, unstable, and center manifolds of the equilibrium at 0. Define the variational equation and adjoint variational equations by
 
@@ -226,7 +249,17 @@ V' = A(Q) V \label{vareq2} \\
 W' = -A(Q)^* W \label{adjvareq2}
 \end{align}
 
-Then $Q'(x)$ a bounded solution to \eqref{vareq2}. Since $Q(x)$ decays to 0 exponentially at both ends, $A(Q)$ is exponentially asymptotic to the constant-coefficient matrix $A_\infty$, which has an eigenvalue of 0. We make the following additional hypothesis concerning solutions to \eqref{adjvareq2}.
+Then $Q'(x)$ a bounded solution to \eqref{vareq2}. Since $Q(x)$ decays to 0 exponentially at both ends, $A(Q)$ is exponentially asymptotic to the constant-coefficient matrix $A_\infty$, which has an eigenvalue of 0. \\
+
+For the primary pulse solution, we have the nondegeneracy condition
+
+\begin{equation}\label{nondegen2}
+T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
+\end{equation}
+
+This follows from Hypothesis \ref{nondegen1}. To see this, if the intersection were more than one-dimensional, there would exist another solution $V(x) = (v_1, \dots, v_{2m}, v_{2m+1})^T$ to \eqref{vareq2} which would decay to 0 at both ends. It follows that $\tilde{V}(x) = (v_1, \dots, v_{2m})^T$ is a solution to \eqref{vareq1} which decays at both ends, which contradicts Hypothesis \ref{nondegen1}.
+
+For now, we make the following additional hypothesis concerning solutions to \eqref{adjvareq2}.
 
 \begin{hypothesis}\label{adjsolutions}
 There exists exactly two bounded solution $\Psi(x)$ and $\Phi^c(x)$ to \eqref{adjvareq}. For $\Psi(x)$, $e^{\alpha |x|}\Phi(x)$ is bounded, and for $\Phi^c(x)$,
@@ -244,25 +277,27 @@ From this, it follows that we can decompose the tangent space at $Q(0)$ as
 
 where $S = \spn\{ \Psi(0), \Psi^c(0) \}$, and $S \perp \R Q'(0) \oplus Y^+ \oplus Y^-$.
 
-Finally, we take the following hypothesis regarding Melnikov integrals.
+Finally, we will look at the Melnikov integrals relevant to the problem. Since $[ \partial_x L(q) ]^* = -L(q) \partial_x$, it is not hard to show that the last component of $\Psi(x)$ is $q(x)$. Thus for the lowest order Melnikov integral, we have
 
-\begin{hypothesis}\label{Melnikov2}
-We have the following Melnikov-like expressions
-\begin{enumerate}[(i)]
-\item 
 \begin{equation}
-M_1 = \int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle = 0
+M_1 = \int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle =
+\int_{-\infty}^\infty q(x) \: q'(x) = 0
 \end{equation}
-\item 
-\begin{equation}
-M_2 = \int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle = 0
-\end{equation}
-where $T(x)$ solves 
-\begin{equation}
+
+since $q(x)$ is an even function. From this and the Fredholm alternative, there exists a function $t(x) \in H^{2m}(\R)$ such that $[ \partial_x L(q) ]t(x) = q'(x)$. Returning to the first order system, $T = (t, t_x, \dots, \partial_x^{2m})^T$ solves 
+
+\begin{equation}\label{eqforT}
 T' = A(Q)T + BQ'
 \end{equation}
-\end{enumerate}
-We should be guaranteed such a solution $T$ by (i) and the Fredholm alternative.
+
+We take the following hypothesis regarding the higher order Melnikov integral.
+
+\begin{hypothesis}\label{Melnikov2}
+We have the following Melnikov-like expression
+\begin{equation}
+M_2 = \int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle \neq 0
+\end{equation}
+
 \end{hypothesis}
 
 We can now state the stability theorem. The proof uses Lin's method to find the eigenvalues of \eqref{PDEeig}.
@@ -271,7 +306,7 @@ We can now state the stability theorem. The proof uses Lin's method to find the 
 
 \begin{theorem}\label{PDEeigtheorem}
 
-Let $Q_{np}(x)$ be a $n-$periodic solution constructed according to Theorem \ref{perexist} with lengths $X_0, \dots, X_{n-1}$. Assume Hypotheses \ref{nondegen}, \ref{adjsolutions}, and \ref{Melnikov2}.\\
+Let $Q_{np}(x)$ be a $n-$periodic solution constructed according to Theorem \ref{perexist} with lengths $X_0, \dots, X_{n-1}$. Assume Hypotheses \ref{nondegen1}, \ref{adjsolutions}, and \ref{Melnikov2}.\\
 
 Then there exists $\delta > 0$ such that a bounded, nonzero solution $V$ of the eigenvalue problem 
 
@@ -353,7 +388,7 @@ where $X_m = \min \{X_0, \dots, X_{n-1}\}$
 
 \end{enumerate}
 
-To leading order, equation \eqref{blockmatrix} is upper triangular block equation
+The ``leading order'' equation \eqref{blockmatrix} is the upper triangular block equation
 
 \begin{equation}\label{blocktri}
 \begin{pmatrix}
@@ -363,7 +398,7 @@ K(\lambda) & -\lambda^2 M^c I  \\
 \begin{pmatrix}c \\ d \end{pmatrix} = 0
 \end{equation}
 
-Thus, to leading order, the eigenvalue problem has a nontrivial solution $V$ if either of the following conditions holds.
+which has a nontrivial solution $V$ if either of the following conditions holds.
 
 \begin{enumerate}[(i)]
 \item $\nu(\lambda) = i \dfrac{n \pi}{X}, n \in \Z$ 
