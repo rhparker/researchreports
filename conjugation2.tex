@@ -1395,12 +1395,7 @@ R^c&(c^-, d)_i \leq C \Big(
 The jump conditions can be written as the matrix equation
 
 \begin{equation}\label{matrixjumpc}
-\begin{pmatrix}
-K(\lambda) & D_2
-\end{pmatrix}
-\begin{pmatrix}
-c \\ d
-\end{pmatrix} = 0
+K(\lambda) c + D_2 d = 0
 \end{equation}
 
 where
@@ -1606,12 +1601,7 @@ R^c&(c^-, d)_i \leq C \Big(
 Writing this in matrix form, we have
 
 \[
-\begin{pmatrix}
-C_1 K(\lambda) & -\lambda^2 M^c I + D_1
-\end{pmatrix}
-\begin{pmatrix}
-c \\ d
-\end{pmatrix} = 0
+C_1 K(\lambda) \tilde{C}_1 c + (-\lambda^2 M^c I + D_1)d = 0
 \]
 
 where
@@ -1630,39 +1620,31 @@ e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
 and
 
 \begin{align*}
-C_1 &= I + \mathcal{O}(|\lambda| + e^{-\alpha X_m}) I 
+C_1 &= I + \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m})) 
++ \mathcal{O}(e^{-\alpha X_m}( |\lambda| + e^{-\alpha X_m}))\\
+\tilde{C}_1 &= I + \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m})) 
 + \mathcal{O}(e^{-\alpha X_m}( |\lambda| + e^{-\alpha X_m}))\\
 D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m}))
 \end{align*}
 
-Since $C_1$ is a small perturbation of the identity matrix, it is invertible for sufficiently large $X_m$ (and the inverse is bounded with operator norm approximately 1). Thus we can write the matrix equation as
+where $\text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m}))$ indicates a diagonal matrix whose diagonal entries are all of order $\mathcal{O}(|\lambda| + e^{-\alpha X_m})$.\\
+
+Since $C_1, \tilde{C}_1$ are small perturbations of the identity matrix, they are invertible for sufficiently large $X_m$ (and the inverse is bounded with operator norm approximately 1). Thus we can write the matrix equation as
 
 \[
-\begin{pmatrix}
-K(\lambda) & C_1^{-1} (-\lambda^2 M^c I + D_1)
-\end{pmatrix}
-\begin{pmatrix}
-c \\ d
-\end{pmatrix} = 0
+K(\lambda) c + C_1^{-1} (-\lambda^2 M^c I + D_1) \tilde{C}_1^{-1}d = 0
 \]
 
-Let $D_2 = C_1^{-1} (-\lambda^2 M^c I + D_1)$. Then, substituting this and combining bounds, we have
+Let $D_2 = C_1^{-1} (-\lambda^2 M^c I + D_1) \tilde{C}_1^{-1}$. Substituting this and combining bounds, we have
 
 \[
-\begin{pmatrix}
-K(\lambda) & D_2
-\end{pmatrix}
-\begin{pmatrix}
-c \\ d
-\end{pmatrix} = 0
+K(\lambda) c + D_2 d = 0
 \]
-
 with
 
 \[
-D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m}))
+D_2 = \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m}))
 \]
-
 
 \end{proof}
 \end{lemma}
@@ -1699,10 +1681,7 @@ and the remainder term has bound
 We can write these conditions in matrix form as
 
 \begin{equation}
-\begin{pmatrix}
-C_3 K(\lambda) + C_4 & A -\lambda^2 M I + D_2
-\end{pmatrix}
-\begin{pmatrix}c \\ d \end{pmatrix} = 0
+(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A -\lambda^2 M I + D_3)d = 0
 \end{equation}
 
 where the matrix $K(\lambda)$ is defined in Lemma \ref{jumpcenteradj} and the matrix $A$ is given by
@@ -1731,10 +1710,11 @@ a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
 and we have bounds
 
 \begin{align*}
-C_3 &= \mathcal{O}(|\lambda| + e^{-\alpha X_m}) I
-+ \mathcal{O}(|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m})\\
-C_4 &= \mathcal{O}(e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m})) \\
-D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
+C_3 &= \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m})) 
++ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m})) \\
+\tilde{C}_3 &= \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m})) 
++ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m})) \\
+D_3 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
 \end{align*}
 
 \begin{proof}
@@ -1754,7 +1734,7 @@ P_i^+(0; \lambda) Z_i^+(0) &=  P^+(0)( b_i^+ + P_0^c(0) e^{-\nu(\lambda)X_i} c_i
 &+ \lambda^2 d_i P_i^+(0; \lambda) \int_{X_i}^0 \Phi^c(0, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
 \end{align*}
 
-As with the first jump, we will start out by computing the significant.
+As with the first jump, we will start out by computing the significant terms.
 
 \begin{enumerate}
 \item The non-center integral will give us the higher order Melnikov integral. For the ``minus'' piece, we have
@@ -1775,24 +1755,24 @@ The ``positive'' piece is similar, and gives us the other half of the Melnikov i
 
 \begin{align*}
 \langle &\Psi(0), P_i^-(0; \lambda) \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^- \rangle \\
-&= \langle \Psi_i(0), P_i^-(0; \lambda) \Phi^s(0, -X_{i-1}; \lambda) (- P_i^-(-X_{i-1}; \lambda)^{-1} P_0^s(\lambda) D_{i-1} d + A_4(\lambda)_{i-1}^-(c, \tilde{c}, d)) \rangle \\
-&= -\langle \Psi(0), \Theta^s(0, -X_{i-1}) P_0^s(0) D_{i-1} d \rangle + \mathcal{O}( |\lambda|e^{-2 \alpha X_m} + e^{-\alpha X_{i-1}} |A_4(\lambda)_{i-1}^-(c, \tilde{c}, d)|)\\
-&= -\langle \Theta^s(-X_{i-1}, 0)^* \Psi_i(0), P_0^s(0) D_{i-1} d \rangle + \mathcal{O}( |\lambda|e^{-2 \alpha X_m} + e^{-\alpha X_{i-1}} |A_4(\lambda)_{i-1}^-(c, \tilde{c}, d)|)\\
+&= \langle \Psi_i(0), P_i^-(0; \lambda) \Phi^s(0, -X_{i-1}; \lambda) (- P_i^-(-X_{i-1}; \lambda)^{-1} P_0^s(\lambda) D_{i-1} d + A_4(\lambda)_{i-1}^-(c^-, d)) \rangle \\
+&= -\langle \Psi(0), \Theta^s(0, -X_{i-1}) P_0^s(0) D_{i-1} d \rangle + \mathcal{O}( |\lambda|e^{-2 \alpha X_m} + e^{-\alpha X_{i-1}} |A_4(\lambda)_{i-1}^-(c^-, d)|)\\
+&= -\langle \Theta^s(-X_{i-1}, 0)^* \Psi_i(0), P_0^s(0) D_{i-1} d \rangle + \mathcal{O}( |\lambda|e^{-2 \alpha X_m} + e^{-\alpha X_{i-1}} |A_4(\lambda)_{i-1}^-(c^-, d)|)\\
 &= -\langle \Psi(-X_{i-1}), P_0^s(0) D_{i-1} d \rangle + \mathcal{O}\Big( |\lambda|e^{-2 \alpha X_m} + e^{-\alpha X_{i-1}} ( 
 e^{-\alpha X_{i-1}}(|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-2}^+| + |\tilde{c}_i^-|) \\
-&+ e^{-\tilde{\alpha}X_{i-2}}|c_{i-2}^-| + e^{-\tilde{\alpha}X_{i-1}}|c_{i-1}^-| + e^{-\tilde{\alpha}X_i}|c_i^-| + e^{-\tilde{\alpha} X_m} |\lambda|^2|d| + e^{-\alpha X_m}|D||d|) \Big) \\
+&+ e^{-(\alpha - \rho) X_{i-1}} |c_{i-1}^-| + e^{-\tilde{\alpha} X_m} |\lambda|^2|d| + e^{-\alpha X_m}|D||d|) \Big) \\
 &= -\langle \Psi(-X_{i-1}), P_0^s(0) D_{i-1} d \rangle 
 + \mathcal{O}\Big(  
 e^{-2 \alpha X_m}(|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-2}^+| + |\tilde{c}_i^-|) \\
-&+ e^{-\alpha X_m}( e^{-\tilde{\alpha}X_{i-2}}|c_{i-2}^-| + e^{-\tilde{\alpha}X_{i-1}}|c_{i-1}^-| + e^{-\tilde{\alpha}X_i}|c_i^-|) + e^{-(\alpha + \tilde{\alpha}) X_m} |\lambda|^2|d| + e^{-2 \alpha X_m}(|D| + |\lambda|)|d|) \Big) \\ 
+&+ e^{-\alpha X_m}e^{-(\alpha - \rho) X_{i-1}} |c_{i-1}^-| + e^{-(\alpha + \tilde{\alpha}) X_m} |\lambda|^2|d| + e^{-2 \alpha X_m}(|D| + |\lambda|)|d|) \Big) \\ 
 \end{align*}
 
-For the $a_i^+$ term, we have
+Similarly, for the $a_i^+$ term, we have
 
 \begin{align*}
 \langle &\Psi(0), P_i^+(0; \lambda) \Phi^u(0, X_i; \lambda) a_i^+ \rangle \\
 &= \langle \Psi(X_i), P_0^u(0) D_i d \rangle + \mathcal{O}\Big( e^{-2 \alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) \\
-&+ e^{-\alpha X_m}( e^{-\tilde{\alpha}X_{i-1}}|c_{i-1}^-| + e^{-\tilde{\alpha}X_i}|c_i^-| + e^{-\tilde{\alpha}X_{i+1}}|c_{i+1}^-|) e^{-(\alpha + \tilde{\alpha}) X_m} |\lambda|^2|d| + e^{-2 \alpha X_m}(|D| + |\lambda|)|d|) \Big)
+&+ e^{-\alpha X_m} e^{-(\alpha - \rho) X_i} |c_i^-| e^{-(\alpha + \tilde{\alpha}) X_m} |\lambda|^2|d| + e^{-2 \alpha X_m}(|D| + |\lambda|)|d|) \Big)
 \end{align*}
 
 \end{enumerate}
@@ -1805,8 +1785,7 @@ The remaining terms will be higher order. Doing these in turn, we have
 \begin{align*}
 &|\langle \Psi(0), (P_i^-(0; \lambda) - P^-(0))b_i^- + P_i^-(0; \lambda)(P_0^u(\lambda) - P_0^u(0))b_i^-| \\
 &\leq C (|\lambda| + e^{-\alpha X_m})\Big( 
-(|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|)\\
-&+ e^{-\tilde{\alpha} X_{i-1}} |c_{i-1}^-| + e^{-\tilde{\alpha} X_i} |c_i^-| + ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big)
+(|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|)+ ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big)
 \end{align*}
 
 \item For the terms involving $c$, we first note that by Lemma \ref{PsiIP}, the terms $P_0^c(0) e^{\nu(\lambda) X_{i-1}} c_{i-1}^-$ and $P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+$ will be eliminated by taking the inner product with $\Psi(0)$. For the remaining term involving $c_{i-1}^-$, we have
@@ -1820,9 +1799,11 @@ For the term involving $c_i^+$, we also have to use our expression from Lemma \r
 \begin{align*}
 &|(P_i^+(0; \lambda) - P^+(0))P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+ + P_i^+(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{-\nu(\lambda)X_i} c_i^+| \\
 &\leq C(|\lambda| + e^{-\alpha X_m})\Big( |\tilde{c}_i^-| + e^{-\tilde{\alpha}X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) 
-+ e^{-\tilde{\alpha}X_i}|c_i^-| \\
-&+ e^{-\tilde{\alpha}X_m}( e^{-\alpha X_{i-1}}|c_{i-1}^-| + e^{-\alpha X_{i+1}}|c_{i+1}^-| ) + e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big) 
++ e^{-(\alpha - 2 \rho) X_i}|c_i^-| +  e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big) \\
+&\leq C(|\lambda| + e^{-\alpha X_m})\Big( |\tilde{c}_i^-| + e^{-\tilde{\alpha}X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) +  e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big) 
 \end{align*}
+
+where we absorbed the $e^{-(\alpha - 2 \rho) X_i}|c_i^-|$ term into the lower order term $|\tilde{c}_i^-|$.
 
 \item For the center integral term, we have
 
@@ -1857,16 +1838,15 @@ and the remainder term has bound
 \begin{align*}
 |R(\lambda)&(\tilde{c}, d)| \leq C \Big( \\
 &(|\lambda| + e^{-\alpha X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i}^-|) + (|\lambda| + e^{-\tilde{\alpha} X_m})(e^{-\alpha X_m} + |\lambda|) ( |\tilde{c}_{i-2}^+| + |\tilde{c}_{i+1}^-|)  \\
-&+ (|\lambda| + e^{-\tilde{\alpha} X_m})( e^{-\alpha X_{i-2}} |c_{i-2}^-| + e^{-\alpha X_{i-1}} |c_{i-1}^-| + e^{-\alpha X_i} |c_i^-| + e^{-\alpha X_{i+1}} |c_{i+1}^-|) \\
+&+ e^{-\alpha X_m}( e^{-(\alpha - \rho) X_{i-1}} |c_{i-1}^-| + e^{-(\alpha - \rho) X_i} |c_i^-|) \\
 &+ (|\lambda| + e^{-\tilde{\alpha} X_m})|\lambda|^2 + e^{-2 \alpha X_m}(|\lambda| + |D|)|d| \Big)
 \end{align*}
 
-Using the fact that $|D| = \mathcal{O}(e^{-\alpha X_m})$, this becomes
+Using the fact that $|D| = \mathcal{O}(e^{-\alpha X_m})$ and absorbing the higher order $|c_{i-1}^-|$ and $|c_i^|$ terms into the lower order $|\tilde{c}_{i-1}^+|$ and $|\tilde{c}_{i}^-|$ terms, this becomes
 
 \begin{align*}
 |R(\lambda)&(\tilde{c}, d)| \leq C \Big( \\
 &(|\lambda| + e^{-\alpha X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i}^-|) + (|\lambda| + e^{-\tilde{\alpha} X_m})(e^{-\alpha X_m} + |\lambda|) ( |\tilde{c}_{i-2}^+| + |\tilde{c}_{i+1}^-|)  \\
-&+ (|\lambda| + e^{-\tilde{\alpha} X_m})( e^{-\alpha X_{i-2}} |c_{i-2}^-| + e^{-\alpha X_{i-1}} |c_{i-1}^-| + e^{-\alpha X_i} |c_i^-| + e^{-\alpha X_{i+1}} |c_{i+1}^-|) \\
 &+ (|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2 |d| \Big)
 \end{align*}
 
@@ -1901,7 +1881,7 @@ Since these remainder terms are already included in our remainder term, we obtai
 where $R_i(\lambda)(c^-, d)$ has the same remainder bound as above. We can write this in matrix form as
 
 \[
-(C_3 K(\lambda) + C_4) c_i^- + (A -\lambda^2 M I + D_2)d = 0
+(C_3 K(\lambda) + K(\lambda) \tilde{C}_3)  + (A - \lambda^2 M I + D_3)d = 0
 \]
 
 where the matrix $A$ is given by
@@ -1936,10 +1916,11 @@ M = \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy
 and we have bounds
 
 \begin{align*}
-C_3 &= \mathcal{O}(|\lambda| + e^{-\alpha X_m}) I
-+ \mathcal{O}(|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m})\\
-C_4 &= \mathcal{O}(e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m})) \\
-D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
+C_3 &= \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m})) 
++ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m})) \\
+\tilde{C}_3 &= \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m})) 
++ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m})) \\
+D_3 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
 \end{align*}
 
 \end{proof}
@@ -2005,8 +1986,8 @@ Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, 
 
 \begin{equation}\label{blockeq}
 \begin{pmatrix}
-K(\lambda) + C_2 & -\lambda^2 M^c I + D_1 \\
-C_3 K(\lambda) + C_4 & A - \lambda^2 MI + D_2
+K(\lambda) & D_2 \\
+C_3 K(\lambda) & A - \lambda^2 MI + D_3
 \end{pmatrix}
 \begin{pmatrix}c \\ d \end{pmatrix} 
 = 0
@@ -2019,28 +2000,24 @@ where
 \item The remainder terms have bounds
 
 \begin{align*}
-C_2 &= \mathcal{O}(e^{-\alpha X_m}) \\
-C_3 &= \mathcal{O}(|\lambda| + e^{-\alpha X_m}) I
-+ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m}))\\
-C_4 &= \mathcal{O}(e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m})) \\
-D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})^2) \\
-D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2) 
+C_3 &= \mathcal{O}(|\lambda| + e^{-\tilde{\alpha} X_m}) I
++ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m})) \\
+D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})) \\
+D_3 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
 \end{align*}
 
 where $X_m = \min \{X_0, \dots, X_{n-1}\}$
 
-\item $M$, $M^c$ are the Melnikov integrals
+\item $M$ is the Melnikov integrals
 
 \begin{align*}
 M &= \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy \\
-M^c &= \int_{-\infty}^\infty \langle \Psi^c(y), H(y) \rangle dy
 \end{align*}
 
-For KdV5, these are given by
+For KdV5, this is
 
 \begin{align*}
 M &= \int_{-\infty}^\infty q(y) q_c(y) dy \\
-M^c &= \int_{-\infty}^\infty q_c(y) dy
 \end{align*}
 
 \item The matrix $K(\lambda)$ is given by
@@ -2085,56 +2062,58 @@ For KdV5, we have $\tilde{a}_i = a_i$.
 
 \end{enumerate}
 
-To leading order, equation \eqref{blockeq} is upper triangular block equation
+% To leading order, equation \eqref{blockeq} is upper triangular block equation
 
-\begin{equation}\label{blocktri}
-\begin{pmatrix}
-K(\lambda) & -\lambda^2 M^c I  \\
-0 & A - \lambda^2 MI 
-\end{pmatrix}
-\begin{pmatrix}c \\ d \end{pmatrix} = 0
-\end{equation}
+% \begin{equation}\label{blocktri}
+% \begin{pmatrix}
+% K(\lambda) & D_2  \\
+% 0 & A - \lambda^2 MI 
+% \end{pmatrix}
+% \begin{pmatrix}c \\ d \end{pmatrix} = 0
+% \end{equation}
 
-The leading order equations have a nontrivial solution if either of the following conditions holds.
+% The leading order equations have a nontrivial solution if either of the following conditions holds.
 
-\begin{enumerate}[(i)]
-\item $\nu(\lambda) = i \dfrac{n \pi}{X}, n \in \Z$ 
-\item $\det(A - \lambda^2 MI) = 0$
-\end{enumerate}
+% \begin{enumerate}[(i)]
+% \item $\nu(\lambda) = i \dfrac{n \pi}{X}, n \in \Z$ 
+% \item $\det(A - \lambda^2 MI) = 0$
+% \end{enumerate}
 
-where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. 
+% where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. 
 
 \begin{proof}
-The block matrix \eqref{blockeq} combines the jump conditions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj}. As it is a square matrix, \eqref{blockeq} has a nontrivial solution if and only if its determinant is 0.\\
+The block matrix \eqref{blockeq} combines the jump conditions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj}. \\
 
-To leading order, the block matrix \eqref{blockeq} is the upper triangular block matrix \eqref{blocktri}, which has determinant 
+% As it is a square matrix, \eqref{blockeq} has a nontrivial solution if and only if its determinant is 0.\\
 
-\begin{align*}
-\det \begin{pmatrix}
-K(\lambda) & -\lambda^2 M(\lambda) I \\
-0 & A - \lambda^2 MI
-\end{pmatrix} &= \det K(\lambda) \det(A - \lambda^2 MI)\\
-\end{align*}
+% To leading order, the block matrix \eqref{blockeq} is the upper triangular block matrix \eqref{blocktri}, which has determinant 
 
-Using Lemma \ref{bidiag}, 
+% \begin{align*}
+% \det \begin{pmatrix}
+% K(\lambda) & -\lambda^2 M(\lambda) I \\
+% 0 & A - \lambda^2 MI
+% \end{pmatrix} &= \det K(\lambda) \det(A - \lambda^2 MI)\\
+% \end{align*}
 
-\begin{align*}
-\det K(\lambda) &= \prod_{k = 0}^{n-1} e^{-\nu(\lambda)X_k} + (-1)^{n-1} \prod_{k = 0}^{n-1} (-e^{\nu(\lambda)X_k}) \\
-&= e^{-\nu(\lambda) X} - e^{\nu(\lambda) X} \\
-&= -2 \sinh( \nu(\lambda) X )
-\end{align*}
+% Using Lemma \ref{bidiag}, 
 
-where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. We have a nontrivial solution to the leading order equations if and only if 
+% \begin{align*}
+% \det K(\lambda) &= \prod_{k = 0}^{n-1} e^{-\nu(\lambda)X_k} + (-1)^{n-1} \prod_{k = 0}^{n-1} (-e^{\nu(\lambda)X_k}) \\
+% &= e^{-\nu(\lambda) X} - e^{\nu(\lambda) X} \\
+% &= -2 \sinh( \nu(\lambda) X )
+% \end{align*}
 
-\[
-\nu(\lambda) = i \frac{n \pi}{X}, n \in \Z
-\]
+% where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. We have a nontrivial solution to the leading order equations if and only if 
 
-or 
+% \[
+% \nu(\lambda) = i \frac{n \pi}{X}, n \in \Z
+% \]
 
-\[
-\det(A - \lambda^2 MI) = 0
-\]
+% or 
+
+% \[
+% \det(A - \lambda^2 MI) = 0
+% \]
 
 \end{proof}
 \end{theorem}
