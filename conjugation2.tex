@@ -1021,14 +1021,11 @@ A_3: &V_\lambda \times V_c^- \times V_d \rightarrow V_a
 such that $( (a, c^+) , b ) = ( A_3(\lambda)(c^-,d), B_1(\lambda)(c^-, d) )$ solves our system. These operators are analytic in $\lambda$ and linear in $(c^-,d)$. Piecewise bounds for $B_1$ and $A_3$ are given by
 
 \begin{align}
-|B_1&(\lambda)_i(c^-, d)| \leq C\Big( 
-(|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|)
-+ e^{-\tilde{\alpha} X_{i-1}} |c_{i-1}^-| + e^{-\tilde{\alpha} X_i} |c_i^-| \\
-&+ ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big) \\
+|B_1&(\lambda)_i(\tilde{c}, d)| \leq C\Big( 
+(|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|) + ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big) \\
 |A_3&(\lambda)_i(c^-, d)|
 \leq C \Big(  
-e^{-\alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) + e^{-\tilde{\alpha}X_{i-1}}|c_{i-1}^-| + e^{-\tilde{\alpha}X_{i+1}}|c_{i+1}^-| \\
-&+|c_i^-| + e^{-(\alpha - \rho) X_i} |\lambda^2||d| + |D_i||d| \Big)
+e^{-\alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) +|c_i^-| + e^{-(\alpha - \rho) X_i} |\lambda^2||d| + |D_i||d| \Big)
 \end{align} 
 
 where
@@ -1050,17 +1047,15 @@ where $A_4(\lambda)(c^-, d)$ is analytic in $\lambda$, linear in $(c^-, d)$, and
 \begin{align}
 |A_4&(\lambda)_i(c^-, d)|
 \leq C \Big( 
-e^{-\alpha X_i} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) + e^{-\tilde{\alpha}X_{i-1}}|c_{i-1}^-| + e^{-\tilde{\alpha}X_i}|c_i^-| + e^{-\tilde{\alpha}X_{i+1}}|c_{i+1}^-| \\
-&+ e^{-\tilde{\alpha} X_m} |\lambda|^2|d| + e^{-\alpha X_m}|D||d| \Big)
+e^{-\alpha X_i} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) + e^{-(\alpha - \rho) } |c_i^-| + e^{-\tilde{\alpha} X_m} |\lambda|^2|d| + e^{-\alpha X_m}|D||d| \Big)
 \end{align}
 
 Finally, we have the following expression for $e^{-\nu(\lambda)X_i} c_i^+$.
 
-\begin{align}\label{tildecminus}
+\begin{align}\label{tildecminus2}
 e^{-\nu(\lambda)X_i} &c_i^+ = e^{-\nu(\lambda)X_i} c_i^- 
 + \mathcal{O}\Big( e^{-\tilde{\alpha}X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) 
-+ e^{-\tilde{\alpha}X_i}|c_i^-| \\
-&+ e^{-\tilde{\alpha}X_m}( e^{-\alpha X_{i-1}}|c_{i-1}^-| + e^{-\alpha X_{i+1}}|c_{i+1}^-| ) + e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big) \\
++ e^{-(\alpha - 2 \rho)X_i}|c_i^-| +  e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big)
 \end{align}
 
 \begin{proof}
@@ -1166,32 +1161,34 @@ To get a bound on $L_4$, we need to bound the individual terms from the fixed po
 
 \begin{enumerate}
 
-\item For the $a_i$ terms, we substitute the bound for $A_1(\lambda)$ to get
+\item For the $a_i$ terms, we substitute $a_i^+ = P_0^u(\lambda) D_i d + A_2(\lambda)_i^+(b, c^-, d)$ and $a_{i-1}^- = -P_0^s(\lambda) D_{i-1} d + A_2(\lambda)_{i-1}^-(b, c^-, d)$ and use the bounds for $A_2$.
 
 \begin{align*}
-|P_i^-(0; \lambda) \Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^-|
-&\leq C \Big( e^{-2 \alpha X_{i-1}} (|b_{i-1}^+| + |b_i^-|) + e^{-\alpha X_{i-1}}|c_{i-1}^-| + e^{-\alpha X_{i-1}}(e^{-(\alpha - \rho) X_{i-1}} |\lambda^2| + |D_{i-1}|)s|d| \Big) \\
-|P_i^+(0; \lambda) \Phi^u(0, X_i; \lambda) a_i^+|
-&\leq C \Big( e^{-2 \alpha X_i} (|b_i^+| + |b_{i+1}^-|) + e^{-\alpha X_i} |c_i^-| + e^{-\alpha X_i} (e^{-(\alpha - \rho) X_i} |\lambda^2| + |D_i|)|d| \Big)
+|P_i^-(0; \lambda) &\Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^-| \\
+&\leq C \Big( e^{-2 \alpha X_{i-1}} (|b_{i-1}^+| + |b_i^-| + |c_{i-1}^-|) + e^{-(2 \alpha - \rho) X_{i-1}} |\lambda^2| + e^{-\alpha X_{i-1}}|D_{i-1}|)|d| \Big) \\
+|P_i^+(0; \lambda) &\Phi^u(0, X_i; \lambda) a_i^+| \\
+&\leq C \Big( e^{-2 \alpha X_i} (|b_i^+| + |b_{i+1}^-| + |c_i^-|) + e^{-(2 \alpha - \rho) X_i} |\lambda|^2|d| + e^{-\alpha X_i} |D_i||d| \Big)
 \end{align*}
 
 \item For the $b_i$ terms, we have
 
-\[
-|(P_i^-(0; \lambda) - P^-(0))b_i^- + P_i^-(0; \lambda)(P_0^u(\lambda) - P_0^u(0))b_i^-| \leq C ( e^{-\alpha X_m} + |\lambda|)|b_i^-|
-\]
+\begin{align*}
+|(P_i^-(0; \lambda) &- P^-(0))b_i^- + P_i^-(0; \lambda)(P_0^u(\lambda) - P_0^u(0))b_i^-| \\
+&\leq C ( e^{-\alpha X_m} + |\lambda|)|b_i^-|
+\end{align*}
 
 \item For the $c_i^-$ terms, we have
 
 \begin{align*}
-|P_i^-(0; \lambda) - P^-(0)) P_0^c(0) e^{\nu(\lambda) X_{i-1}} c_{i-1}^- + P_i^-(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{\nu(\lambda) X_{i-1}} c_{i-1}^- |
-\leq C (e^{-\alpha X_m} + |\lambda|)|\tilde{c}_{i-1}^+|)
+|(P_i^-(0; \lambda) &- P^-(0)) P_0^c(0) e^{\nu(\lambda) X_{i-1}} c_{i-1}^- + P_i^-(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{\nu(\lambda) X_{i-1}} c_{i-1}^- | \\
+&\leq C (e^{-\alpha X_m} + |\lambda|)|\tilde{c}_{i-1}^+|)
 \end{align*}
 
 \item For the $c_i^+$ terms, we have
 
 \begin{align*}
-|P_i^+(0; \lambda) - P^+(0))P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+ + P_i^+(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{-\nu(\lambda)X_i} c_i^+| \leq C (e^{-\alpha X_m} + |\lambda|)|e^{-\nu(\lambda)X_i} c_i^+|
+|(P_i^+(0; \lambda) &- P^+(0))P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+ + P_i^+(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{-\nu(\lambda)X_i} c_i^+| \\
+&\leq C (e^{-\alpha X_m} + |\lambda|)|e^{-\nu(\lambda)X_i} c_i^+|
 \end{align*}
 
 To put this in terms of $c_i^-$, we use the expression
@@ -1211,16 +1208,17 @@ e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^-
 
 Thus we have the expression for $e^{-\nu(\lambda)X_i} c_i^+$
 
-\begin{align}\label{tildecminus2}
+\begin{align}\label{tildecminus}
 e^{-\nu(\lambda)X_i} c_i^+
-&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-(\alpha - 2 \rho) X_i} ( |b_i^+| + |b_{i+1}^-| + |c_i^-| + |\lambda||d| + |D_i||d|) \Big)
+&= e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( e^{-(\alpha - \rho) X_i} ( |b_i^+| + |b_{i+1}^-| + |c_i^-| + |\lambda||d| + |D_i||d|) \Big)
 \end{align}
 
 which gives us the overall estimate
 
 \begin{align*}
-&|P_i^+(0; \lambda) - P^+(0))P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+ + P_i^+(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{-\nu(\lambda)X_i} c_i^+| \\
-&\leq C \Big( (e^{-\alpha X_m} + |\lambda|)|\tilde{c}_i^-| + e^{-(\alpha - 2 \rho) X_i} ( |b_i^+| + |b_{i+1}^-| + |c_i^-| + |\lambda||d| + |D_i||d|) \Big)
+&|(P_i^+(0; \lambda) - P^+(0))P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+ + P_i^+(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{-\nu(\lambda)X_i} c_i^+| \\
+&\leq C \Big( (e^{-\alpha X_m} + |\lambda|)( e^{-\nu(\lambda)X_i} c_i^- + e^{-(\alpha - \rho) X_i} ( |b_i^+| + |b_{i+1}^-| + |c_i^-| + |\lambda||d| + |D_i||d|) \Big) \\
+&\leq C \Big( (e^{-\alpha X_m} + |\lambda|)( |\tilde{c}_i^-| + e^{-(\alpha - \rho) X_i} ( |b_i^+| + |b_{i+1}^-| + |c_i^-| + |\lambda||d| + |D_i||d|) \Big)
 \end{align*}
 
 \item The bound on the integral terms is determined by the integrals involving the center subspace, since there is potential growth in that subspace.
@@ -1237,7 +1235,7 @@ Putting all these together, we obtain the bound for $L_4(\lambda)_i(b, c, d)$.
 \begin{align}\label{L4bound}
 L_4(\lambda)_i(b, c, d) &\leq 
 C\Big( (|\lambda| + e^{-\tilde{\alpha}X_m})|b| 
-+ (|\lambda| + e^{-\tilde{\alpha}X_m}) |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|) + e^{-\tilde{\alpha} X_{i-1}} |c_{i-1}^-| + e^{-\tilde{\alpha} X_i} |c_i^-| \nonumber \\
++ (|\lambda| + e^{-\tilde{\alpha}X_m}) |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|) + (|\lambda| + e^{-\tilde{\alpha}X_m})( e^{-\alpha X_{i-1}} |c_{i-1}^-| + e^{-\alpha X_i} |c_i^-| ) \nonumber \\
 &+ ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big) 
 \end{align}
 
@@ -1245,7 +1243,7 @@ Since $|\lambda|, e^{-\alpha X_m} < \delta$, this becomes
 
 \begin{align}\label{L4bound}
 L_4(\lambda)_i(b, c, d) &\leq C \delta |b| + 
-C\Big( (|\lambda| + e^{-\tilde{\alpha}X_m}) |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|) + e^{-\tilde{\alpha} X_{i-1}} |c_{i-1}^-| + e^{-\tilde{\alpha} X_i} |c_i^-| \nonumber \\
+C\Big( (|\lambda| + e^{-\tilde{\alpha}X_m}) |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|) + (|\lambda| + e^{-\tilde{\alpha}X_m})( e^{-\alpha X_{i-1}} |c_{i-1}^-| + e^{-\alpha X_i} |c_i^-| ) \nonumber \\
 &+ ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big) 
 \end{align}
 
@@ -1294,8 +1292,15 @@ The bound on $B_1$ is given by the bound on $L_4$, where we note which piece is 
 
 \begin{align*}
 |B_1(\lambda)_i(\tilde{c}, d)| \leq C\Big( 
-(|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|)
-+ e^{-\tilde{\alpha} X_{i-1}} |c_{i-1}^-| + e^{-\tilde{\alpha} X_i} |c_i^-| + ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big)
+(|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|
++ e^{-\alpha X_{i-1}} |c_{i-1}^-| + e^{-\alpha X_i} |c_i^-|) + ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big)
+\end{align*}
+
+Since $|e^{-\alpha X_{i-1}} |c_{i-1}^-| \leq |e^{-\tilde{\alpha} X_{i-1}} |\tilde{c}_{i-1}^+|$ and $|e^{-\alpha X_i} |c_i^-| \leq |e^{-\tilde{\alpha} X_i} |\tilde{c}_i^-|$, this simplifies to
+
+\begin{align*}
+|B_1(\lambda)_i(\tilde{c}, d)| \leq C\Big( 
+(|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|) + ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big)
 \end{align*}
 
 We can plug this into the bound for $A_1$ to get $A_3$ with bound
@@ -1303,17 +1308,16 @@ We can plug this into the bound for $A_1$ to get $A_3$ with bound
 \begin{align*}
 |A_3&(\lambda)_i(c^-, d)|
 \leq C \Big(  
-e^{-\alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) + e^{-\tilde{\alpha}X_{i-1}}|c_{i-1}^-| + e^{-\tilde{\alpha}X_{i+1}}|c_{i+1}^-| \\
+e^{-\alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|)  \\
 &+|c_i^-| + e^{-(\alpha - \rho) X_i} |\lambda^2||d| + |D_i||d| \Big)
 \end{align*} 
 
 We can also plug this into the bound for $A_2$ to get $A_4$ with bound
 
 \begin{align*}
-|A_4&(\lambda)_i(\tilde{c}, d)|
+|A_4&(\lambda)_i(c^-, d)|
 \leq C \Big( 
-e^{-\alpha X_i} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) + e^{-\tilde{\alpha}X_{i-1}}|c_{i-1}^-| + e^{-\tilde{\alpha}X_i}|c_i^-| + e^{-\tilde{\alpha}X_{i+1}}|c_{i+1}^-| \\
-&+ e^{-\tilde{\alpha} X_m} |\lambda|^2|d| + e^{-\alpha X_m}|D||d| \Big)
+e^{-\alpha X_i} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) + e^{-(\alpha - \rho) } |c_i^-| + e^{-\tilde{\alpha} X_m} |\lambda|^2|d| + e^{-\alpha X_m}|D||d| \Big)
 \end{align*} 
 
 Finally, we plug $B_1$ into \eqref{tildecminus2} to obtain an expression for $e^{-\nu(\lambda)X_i} c_i^+$.
@@ -1321,8 +1325,7 @@ Finally, we plug $B_1$ into \eqref{tildecminus2} to obtain an expression for $e^
 \begin{align*}
 e^{-\nu(\lambda)X_i} &c_i^+ = e^{-\nu(\lambda)X_i} c_i^- 
 + \mathcal{O}\Big( e^{-\tilde{\alpha}X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) 
-+ e^{-\tilde{\alpha}X_i}|c_i^-| \\
-&+ e^{-\tilde{\alpha}X_m}( e^{-\alpha X_{i-1}}|c_{i-1}^-| + e^{-\alpha X_{i+1}}|c_{i+1}^-| ) + e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big)
++ e^{-(\alpha - 2 \rho) X_i}|c_i^-| +  e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big)
 \end{align*}
 
 \end{proof}
@@ -1393,7 +1396,7 @@ The jump conditions can be written as the matrix equation
 
 \begin{equation}\label{matrixjumpc}
 \begin{pmatrix}
-K(\lambda) + C_2  & -\lambda^2 M^c I + D_1
+K(\lambda) & D_2
 \end{pmatrix}
 \begin{pmatrix}
 c \\ d
@@ -1416,8 +1419,7 @@ e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
 and
 
 \begin{align*}
-C_2 &= \mathcal{O}(e^{-\alpha X_m}) \\
-D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m}))
+D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m}))
 \end{align*}
 
 \begin{proof}
@@ -1460,15 +1462,32 @@ and
 &\leq C (|\lambda| + e^{-\alpha X_m}) |e^{-\nu(\lambda)X_i} c_i^+|
 \end{align*}
 
-All that remains is to write $e^{-\nu(\lambda)X_i} c_i^+$ in terms of $e^{-\nu(\lambda)X_i} c_i^-$ using Lemma \ref{inv2}. For the term $e^{-\nu(\lambda)X_i} c_i^+$ we have, from Lemma \ref{inv2},
+All that remains is to write $e^{-\nu(\lambda)X_i} c_i^+$ in terms of $e^{-\nu(\lambda)X_i} c_i^-$ using Lemma \ref{inv2}. For the lower order term involving $c_i^+$, we have
 
+\begin{align*}
+e^{-\nu(\lambda)X_i} c_i^+ &= e^{-\nu(\lambda)X_i} c_i^- 
++ \mathcal{O}\Big( e^{-\tilde{\alpha}X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) 
++ e^{-(\alpha - 2 \rho) X_i}|c_i^-| +  e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big) \\
+&= e^{-\nu(\lambda)X_i} c_i^- 
++ \mathcal{O}\Big( e^{-\tilde{\alpha}X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) 
++ e^{-\tilde{\alpha}X_i}|\tilde{c}_i^-| + e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big)
+\end{align*}
 
-Doing that, the terms involving the $c_i$ are given by
+For the higher order term involving $c_i^+$, we have
+
+\begin{align*}
+|(P_i^+(0; \lambda) &- P^+(0))P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+ + P_i^+(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{-\nu(\lambda)X_i} c_i^+| \\
+&\leq C (|\lambda| + e^{-\alpha X_m}) |e^{-\nu(\lambda)X_i} c_i^+| \\
+&\leq C (|\lambda| + e^{-\alpha X_m}) \Big( |e^{-\nu(\lambda)X_i} c_i^-| + e^{-\tilde{\alpha}X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) \\
+&+ e^{-(\alpha - 2 \rho) X_i}|c_i^-| +  e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big) \\
+&\leq C (|\lambda| + e^{-\alpha X_m}) \Big( |\tilde{c}_i^-| + e^{-\tilde{\alpha}X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) +  e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big)
+\end{align*}
+
+Combining all of these, the terms involving $c_i$ are given by
 
 \begin{align*}
 e^{\nu(\lambda) X_{i-1} } &c_{i-1}^- - e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( (|\lambda| + e^{-\alpha X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|) + e^{-\tilde{\alpha}X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})|\tilde{c}_{i+1}^-| \\
-&+ e^{-\tilde{\alpha}X_i}|c_i^-|
-+ e^{-\tilde{\alpha}X_m}( e^{-\alpha X_{i-1}}|c_{i-1}^-| + e^{-\alpha X_{i+1}}|c_{i+1}^-| ) + e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big)  
+&+ e^{-\tilde{\alpha}X_m}(|\lambda| + |D_i|)|d| \Big)  
 \end{align*}
 
 \item The integral term involving the center subspace will give us the center Melnikov integral
@@ -1519,7 +1538,7 @@ Combining this with the bound for $A_4$, we have
 \begin{align*}
 |P_i^-(0; \lambda) &\Phi^s(0, -X_{i-1}; \lambda) a_{i-1}^-| \\
 &\leq C\Big( 
-e^{-2 \alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-2}^+| + |\tilde{c}_i^-|) + e^{-\alpha X_m}( e^{-\tilde{\alpha}X_{i-2}}|c_{i-2}^-| + e^{-\tilde{\alpha}X_{i-1}}|c_{i-1}^-| + e^{-\tilde{\alpha}X_i}|c_i^-|) \\
+e^{-2 \alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-2}^+| + |\tilde{c}_i^-|) + e^{-\alpha X_m} e^{-(\alpha - \rho)X_{i-1}}|c_{i-1}^-|\\
 &+ (e^{-(\alpha + \tilde{\alpha}) X_m} |\lambda|^2 + e^{-\alpha X_m}|D| + e^{-2 \alpha X_m}|\lambda|) |d| \Big)
 \end{align*}
 
@@ -1528,7 +1547,7 @@ Similarly, we have
 \begin{align*}
 |P_i^+(0; \lambda) &\Phi^u(0, X_i; \lambda) a_i^+| \\
 &\leq C\Big( 
-e^{-2 \alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) + e^{-\alpha X_m}( e^{-\tilde{\alpha}X_{i-1}}|c_{i-1}^-| + e^{-\tilde{\alpha}X_i}|c_i^-| + e^{-\tilde{\alpha}X_{i+1}}|c_{i+1}^-|) \\
+e^{-2 \alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i+1}^-|) + e^{-\alpha X_m} e^{-(\alpha - \rho)X_i}|c_i^-| \\
 &+ (e^{-(\alpha + \tilde{\alpha}) X_m} |\lambda|^2 + e^{-2 \alpha X_m}|D| + e^{-\alpha X_m}|\lambda|) |d| \Big)
 \end{align*}
 
@@ -1539,7 +1558,7 @@ e^{-2 \alpha X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})(|\tilde{c}_{i-1}^+| + |\t
 &\leq C(|\lambda| + e^{-\alpha X_m}) |B_1(c, \tilde{c}, d)| \\
 &\leq C(|\lambda| + e^{-\alpha X_m}) \Big( 
 (|\lambda| + e^{-\tilde{\alpha}X_m})( |\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|)
-+ e^{-\tilde{\alpha} X_{i-1}} |c_{i-1}^-| + e^{-\tilde{\alpha} X_i} |c_i^-| + ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big)
++  ( e^{-\tilde{\alpha}X_m} |D| + e^{-\tilde{\alpha}X_m}|\lambda| + |\lambda|^2)|d| \Big)
 \end{align*}
 
 \item For the non-center integral terms, we have the bound
@@ -1569,17 +1588,26 @@ The remainder term $R^c_i(c^-, d)$ has bound
 
 \begin{align*}
 R^c&(c^-, d)_i \leq C \Big(
-(|\lambda| + e^{-\alpha X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i}^-|) + e^{-\alpha X_m}(|\lambda| + e^{-\alpha X_m})( |\tilde{c}_{i-2}^+| + |\tilde{c}_{i+1}^-|)  \\
-&+ e^{-\alpha X_i} |c_i^-| + (|\lambda| + e^{-\tilde{\alpha} X_m})( e^{-\alpha X_{i-1}} |c_{i-1}^-| + e^{-\alpha X_{i-2}} |c_{i-2}^-| + e^{-\alpha X_{i+1}} |c_{i+1}^-|) \\
+(|\lambda| + e^{-\alpha X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i}^-|) + e^{-\alpha X_m}(|\lambda| + e^{-\alpha X _m})( |\tilde{c}_{i-2}^+| + |\tilde{c}_{i+1}^-|)  \\
+&+ e^{-\alpha X_m}( e^{-(\alpha - \rho) X_i}|c_i^-| + e^{-(\alpha - \rho) X_{i-1}}|c_{i-1}^-| )
++ (|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})|d|
+\Big)
+\end{align*}
+
+where we used the estimate $|D| = \mathcal{O}(e^{-\alpha X_m})$. We can absorb the remainders terms involving $|c_i^-|$ and $|c_{i-1}^-|$ into those involving $|\tilde{c}_{i-1}^+|$ and $|\tilde{c}_{i}^-|$ to get
+
+\begin{align*}
+R^c&(c^-, d)_i \leq C \Big(
+(|\lambda| + e^{-\alpha X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i}^-|) + e^{-\alpha X_m}(|\lambda| + e^{-\alpha X _m})( |\tilde{c}_{i-2}^+| + |\tilde{c}_{i+1}^-|)  \\
 &+ (|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})|d|
 \Big)
 \end{align*}
 
-where we used the estimate $|D| = \mathcal{O}(e^{-\alpha X_m})$. Writing this in matrix form, we have
+Writing this in matrix form, we have
 
 \[
 \begin{pmatrix}
-C_1 K(\lambda) + \tilde{C}_1 & -\lambda^2 M^c I + D_1
+C_1 K(\lambda) & -\lambda^2 M^c I + D_1
 \end{pmatrix}
 \begin{pmatrix}
 c \\ d
@@ -1604,26 +1632,37 @@ and
 \begin{align*}
 C_1 &= I + \mathcal{O}(|\lambda| + e^{-\alpha X_m}) I 
 + \mathcal{O}(e^{-\alpha X_m}( |\lambda| + e^{-\alpha X_m}))\\
-\tilde{C}_1 &= \mathcal{O}(e^{-\alpha X_m}) I + \mathcal{O}(e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m})) \\
 D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m}))
 \end{align*}
 
-Since $C_1$ is a small perturbation of the identity matrix, it is invertible for sufficiently large $X_m$ (and has operator norm approximately 1). Thus we can write the matrix equation as
+Since $C_1$ is a small perturbation of the identity matrix, it is invertible for sufficiently large $X_m$ (and the inverse is bounded with operator norm approximately 1). Thus we can write the matrix equation as
 
 \[
 \begin{pmatrix}
-K(\lambda) + C_2  & -\lambda^2 M^c I + D_1
+K(\lambda) & C_1^{-1} (-\lambda^2 M^c I + D_1)
 \end{pmatrix}
 \begin{pmatrix}
 c \\ d
 \end{pmatrix} = 0
 \]
 
-where
+Let $D_2 = C_1^{-1} (-\lambda^2 M^c I + D_1)$. Then, substituting this and combining bounds, we have
 
 \[
-C_2 = C_1^{-1} \tilde{C}_1 = \mathcal{O}(e^{-\alpha X_m})
+\begin{pmatrix}
+K(\lambda) & D_2
+\end{pmatrix}
+\begin{pmatrix}
+c \\ d
+\end{pmatrix} = 0
 \]
+
+with
+
+\[
+D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m}))
+\]
+
 
 \end{proof}
 \end{lemma}
