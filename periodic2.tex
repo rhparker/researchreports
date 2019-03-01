@@ -58,22 +58,36 @@ We will cast the problem in general terms, for which KdV5 will be a specific cas
 u_t = \partial_x E'(u)
 \end{equation}
 
-where $u \in \R$, $E(u)$ is the energy of the system (which is conserved in $t$), and $E(0) = 0$. The operator $E'(u): H^{2m}(\R) \subset L^2(\R) \rightarrow L^2(\R)$ is self-adjoint in $L^2(\R)$, where $m \geq 2$ and is of the form
+where $u \in \R$, $E(u)$ is the energy of the system (which is conserved in $t$), and $E(0) = 0$. The operator $E'(u): H^{2m}(\R) \subset L^2(\R) \rightarrow L^2(\R)$ is self-adjoint in $L^2(\R)$, where $m \geq 2$. We make the following additional assumptions about $E'(u)$.
+
+\begin{enumerate}
+
+\item $E'(u)$ is of the form
 
 \[
 E'(u) = \partial_x^{2m}u + \tilde{E}(u)
 \]
 
-where $\tilde{E}(u)$ does not involve derivatives of higher degree than $2m-1$. We also assume that $E'(u)$ is reversible, i.e. $E'(u(x)) = 0 \iff E'(u(-x)) = 0$.
-\\
+where $\tilde{E}(u)$ does not involve derivatives of higher degree than $2m-1$. This lets us easily write everything as a first order system.
 
-Equilibrium solutions which decay at $\pm \infty$ satisfy the ODE $E'(u) = 0$, which we can write as a first-order system (in the standard way) in $\R^{2m}$ as
+\item $E'(u)$ is reversible, i.e. $E'(u(x)) = 0 \iff E'(u(-x)) = 0$. We make this assumption so that the primary pulse solution is symmetric.
+\end{enumerate}
+
+We note that since $E'(u)$ only depends on $x$ via $u(x)$, $E'(u)$ is translation invariant, i.e. $E'(u(x+\xi)) = E'(u(x))$ for all $\xi \in \R$.\\
+
+Equilibrium solutions which decay at $\pm \infty$ satisfy the ODE 
+
+\begin{equation}\label{ODEonR}
+E'(u) = \partial_x^{2m}u + \tilde{E}(u) = 0
+\end{equation}
+
+which we can write as a first-order system (in the standard way) in $\R^{2m}$ as
 
 \begin{equation}\label{genODE}
 U' = F(U)
 \end{equation}
 
-where $F: \R^{2m} \rightarrow \R^{2m}$ is smooth, $F(0) = 0$. We begin by looking at the existence problem, which involves solutions to \eqref{genODE}.
+where $F: \R^{2m} \rightarrow \R^{2m}$ is smooth and $F(0) = 0$. We begin by looking at the existence problem, which involves solutions to \eqref{genODE}.
 
 \subsection{Existence of Periodic Multipulses}
 
@@ -107,6 +121,14 @@ T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
 \end{equation}
 \end{hypothesis}
 
+Linearization of \eqref{ODEonR} about the primary pulse solution $q(x)$ is the eigenvalue problem
+
+\[
+E''(q) v = \lambda v
+\]
+
+where $E''(q)$ is the Hessian of the energy and is self-adjoint. Since $E'(u)$ is translation invariant, it follows that $E'(q) q_x = 0$.\\
+
 Define the variational equation and adjoint variational equation corresponding to $Q(x)$ by
 
 \begin{align}
@@ -114,7 +136,7 @@ Define the variational equation and adjoint variational equation corresponding t
 \tilde{W}' = -DF(Q(x))^* \tilde{W} \label{adjvareq1}
 \end{align}
 
-$DF(Q(x))$ is the $2m \times 2m$ matrix
+The variational equation is the equation $E''(q) v = 0$ written as a first order system. $DF(Q(x))$ is a $2m \times 2m$ matrix of the form
 
 \begin{equation}
 DF(Q(x)) = \begin{pmatrix}
@@ -127,9 +149,9 @@ c_0 + f_0(x) & c_1 + f_1(x) & c_2 + f_2(x) &
 \end{pmatrix}
 \end{equation}
 
-where the $c_i$ are constants, and $f_i(x)$ and all of its derivatives decay to 0 at $\pm \infty$.
+where the $c_i$ are constants, and $f_i(x)$ and all of its derivatives decay to 0 at $\pm \infty$.\\
 
-It follows from Hypothesis \ref{nondegen1} that $Q'(x)$ is the unique bounded solution to \eqref{vareq1} and that there exists a unique bounded solution $\Psi(x)$ to \eqref{adjvareq1}. It follows from Hypothesis \ref{Hhyp} that $\Psi(x) = \nabla H(Q(x))$. \\
+It follows from Hypothesis \ref{nondegen1} that $Q'(x)$ is the unique bounded solution to \eqref{vareq1} and that there exists a unique bounded solution $\Psi(x)$ to \eqref{adjvareq1}. It follows from Hypothesis \ref{Hhyp} that $\Psi(x) = \nabla H(Q(x))$. Since $E''(q)$ is self-adjoint, it is not hard to show that the $2m$-th component of $\Psi(x)$ is $q'(x)$.\\
 
 Furthermore, we may decompose the tangent space at $Q(0)$ as 
 
@@ -231,13 +253,13 @@ f_0'(x) & c_0 + f_0(x) + f_1'(x) & \dots & c_{n-2} + f_{n-2}(x) + f_{n-1}'(x) & 
 \end{pmatrix}
 \end{equation}
 
-We can also write the linearization about the primarly pulse solution $q(x)$ as the eigenvalue problem on $\R$
+We can also write the linearization about the primary pulse solution $q(x)$ as the eigenvalue problem on $\R$
 
 \begin{equation}\label{eigonR}
-[ \partial_x L(q) ] v(x) = \lambda v(x)
+[ \partial_x E''(q) ] v(x) = \lambda v(x)
 \end{equation}
 
-where $L(q): H^{2m}(\R) \subset L^2(\R) \rightarrow L^2(\R)$ is self-adjoint. It is easy to show that $[ \partial_x L(q) ] q_x(x) = 0$.
+It follows from above that $[ \partial_x E''(q) ] q_x = 0$.
 \\
 
 From Hypothesis \ref{hypeq}, it follows that the spectrum of $A(0)$ contains $\{ 0, \pm \alpha \pm \beta i\}$, and for any other eigenvalue $\nu$ of $A(0)$, $|\text{Re }|\nu| > \alpha$. Since $A(0)$ is not hyperbolic, the results of San98 do not apply.\\
@@ -259,15 +281,37 @@ T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
 
 This follows from Hypothesis \ref{nondegen1}. To see this, if the intersection were more than one-dimensional, there would exist another solution $V(x) = (v_1, \dots, v_{2m}, v_{2m+1})^T$ to \eqref{vareq2} which would decay to 0 at both ends. It follows that $\tilde{V}(x) = (v_1, \dots, v_{2m})^T$ is a solution to \eqref{vareq1} which decays at both ends, which contradicts Hypothesis \ref{nondegen1}.
 
-For now, we make the following additional hypothesis concerning solutions to \eqref{adjvareq2}.
+We have the following lemma regarding solutions to \eqref{vareq2} and \eqref{adjvareq2}.
 
-\begin{hypothesis}\label{adjsolutions}
-There exists exactly two bounded solution $\Psi(x)$ and $\Phi^c(x)$ to \eqref{adjvareq}. For $\Psi(x)$, $e^{\alpha |x|}\Phi(x)$ is bounded, and for $\Phi^c(x)$,
+\begin{lemma}\label{adjsolutions}
+\begin{enumerate}[(i)]
+\item There exists a bounded solution $V_0(x)$ of \eqref{vareq2} such that 
+\begin{equation}
+V_0(x) \rightarrow V_0 \text{ as }|x| \rightarrow \infty
+\end{equation}
+where $V_0$ is the eigenvector of $A_\infty$ corresponding to the eigenvalue 0.
+
+\item There exists exactly two bounded solutions $\Psi(x)$ and $\Psi^c(x)$ to \eqref{adjvareq2}. For $\Psi(x)$, $e^{\alpha |x|}\Phi(x)$ is bounded, and for $\Phi^c(x)$,
 \begin{equation}
 \Phi(x) \rightarrow W_0 \text{ as }|x| \rightarrow \infty
 \end{equation}
-where $W_0$ is the eigenvector of $A_\infty$ corresponding to the eigenvalue 0.
-\end{hypothesis}
+where $W_0$ is the eigenvector of $A_\infty^*$ corresponding to the eigenvalue 0.
+\end{enumerate}
+\begin{proof}
+I believe the rough idea is as follows. Let $m^{s/u} = \dim W^{s/u}(0)$, so we have $m^s + m^u = 2m$. We know that $\dim W^c_{loc}(0) = 1$, $\dim W^{cs}(0) = m^s + 1$, and $\dim W^{cu}(0) = m^u + 1$.
+\begin{enumerate}
+\item The adjoint variational equation \eqref{adjvareq2} comes from the equation 
+\[
+[\partial_x E''(q) ]^* v(x) = -E''(q) \partial_x v(x) = 0,
+\]
+which has exponentially decaying solution $q(x)$. This gives us an exponentially decaying solution $\Psi(x)$ to \eqref{adjvareq2} whose $(m+1)$-th component is $q(x)$. (Alternatively, we should be able to get $\Psi(x)$ from the adjoint solution in the previous section.)
+\item $\Psi(0) \perp T_{Q(0)}W^{cs}(0) + T_{Q(0)}W^{cu}(0)$, so $\dim T_{Q(0)}W^{cs}(0) + T_{Q(0)}W^{cu}(0) \leq 2m$. This implies, via a dimension-counting argument, that $\dim T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0) = 2$. Since $\dim T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0) = 1$, we conclude that there exists $Y_0 \in T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0)$ but $Y^0 \notin T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0)$.
+\item Using this $Y_0$ as the initial condition for the variational equation \eqref{vareq2} gives us the bounded solution $V_0(x)$ in (i). For the decay to $V_0$, we might need the gap lemma (which gives this on $\R^\pm$ separately) and the symmetry of the problem.
+\item For the adjoint solution $\Psi^c(x)$, use gap lemma to get the solution separately on $\R^\pm$, then symmetry of the problem to get the result on $\R$.
+\end{enumerate}
+\end{proof}
+\end{lemma}
+
 
 From this, it follows that we can decompose the tangent space at $Q(0)$ as 
 

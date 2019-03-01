@@ -1448,16 +1448,22 @@ We will compute the leading order terms first.
 
 For the higher order terms involving $c$, from the previous section we have
 \begin{align*}
-|(P_i^-(0; \lambda) - P^-(0)) P_0^c(0) e^{\nu(\lambda) X_{i-1}} c_{i-1}^- + P_i^-(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{\nu(\lambda) X_{i-1}} c_{i-1}^-| \leq C (|\lambda| + e^{-\alpha X_m}) |\tilde{c}_{i-1}^+|
+|(P_i^-(0; \lambda) &- P^-(0)) P_0^c(0) e^{\nu(\lambda) X_{i-1}} c_{i-1}^- + P_i^-(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{\nu(\lambda) X_{i-1}} c_{i-1}^-| \\
+&\leq C (|\lambda| + e^{-\alpha X_m}) |e^{\nu(\lambda) X_{i-1}} c_{i-1}^-|\\
+&= C (|\lambda| + e^{-\alpha X_m}) |\tilde{c}_{i-1}^+|
 \end{align*}
 
 and
 
 \begin{align*}
-|(P_i^+(0; \lambda) - P^+(0))P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+ + P_i^+(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{-\nu(\lambda)X_i} c_i^+| \leq C (|\lambda| + e^{-\alpha X_m}) |e^{-\nu(\lambda)X_i} c_i^+|
+|(P_i^+(0; \lambda) &- P^+(0))P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+ + P_i^+(0; \lambda) (P_0^c(\lambda) - P_0^c(0)) e^{-\nu(\lambda)X_i} c_i^+| \\
+&\leq C (|\lambda| + e^{-\alpha X_m}) |e^{-\nu(\lambda)X_i} c_i^+|
 \end{align*}
 
-All that remains is to write $e^{-\nu(\lambda)X_i} c_i^+$ in terms of $e^{-\nu(\lambda)X_i} c_i^-$ using Lemma \ref{inv2}. Doing that, the terms involving the $c_i$ are given by
+All that remains is to write $e^{-\nu(\lambda)X_i} c_i^+$ in terms of $e^{-\nu(\lambda)X_i} c_i^-$ using Lemma \ref{inv2}. For the term $e^{-\nu(\lambda)X_i} c_i^+$ we have, from Lemma \ref{inv2},
+
+
+Doing that, the terms involving the $c_i$ are given by
 
 \begin{align*}
 e^{\nu(\lambda) X_{i-1} } &c_{i-1}^- - e^{-\nu(\lambda)X_i} c_i^- + \mathcal{O}\Big( (|\lambda| + e^{-\alpha X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_i^-|) + e^{-\tilde{\alpha}X_m} (|\lambda| + e^{-\tilde{\alpha}X_m})|\tilde{c}_{i+1}^-| \\
@@ -2050,14 +2056,14 @@ K(\lambda) & -\lambda^2 M^c I  \\
 \begin{pmatrix}c \\ d \end{pmatrix} = 0
 \end{equation}
 
-Thus, to leading order, the eigenvalue problem has a nontrivial solution if either of the following conditions holds.
+The leading order equations have a nontrivial solution if either of the following conditions holds.
 
 \begin{enumerate}[(i)]
 \item $\nu(\lambda) = i \dfrac{n \pi}{X}, n \in \Z$ 
 \item $\det(A - \lambda^2 MI) = 0$
 \end{enumerate}
 
-where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. The first condition gives us the essential spectrum, and the second condition gives us the point spectrum. Note that $M^c$ does not appear in these conditions.\\
+where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. 
 
 \begin{proof}
 The block matrix \eqref{blockeq} combines the jump conditions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj}. As it is a square matrix, \eqref{blockeq} has a nontrivial solution if and only if its determinant is 0.\\
@@ -2079,9 +2085,7 @@ Using Lemma \ref{bidiag},
 &= -2 \sinh( \nu(\lambda) X )
 \end{align*}
 
-where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. \\
-
-Thus we have a nontrivial solution to the jump equations if and only if 
+where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. We have a nontrivial solution to the leading order equations if and only if 
 
 \[
 \nu(\lambda) = i \frac{n \pi}{X}, n \in \Z
@@ -2093,9 +2097,301 @@ or
 \det(A - \lambda^2 MI) = 0
 \]
 
-In the first case, $\lambda$ is in the essential spectrum, since the asymptotic matrix $A(\lambda)$ has an eigenvalue $\nu(\lambda)$ which is purely imaginary. The second case determines the point spectrum.
-
 \end{proof}
 \end{theorem}
+
+\subsection{Trying to Make This Work}
+
+Unfortunately, we have higher order terms to deal with. We would like to demonstrate a one-to-one correspondence between solutions of the block matrix equation and solutions of the leading order matrix equation. This will get complicated.
+
+\subsubsection{Case where lambda = 0}
+
+We look at the case where $\lambda = 0$. In this case, the block matrix equation reduces to
+
+\begin{equation}\label{lambdazero}
+\begin{pmatrix}
+K + C_2 & D_1 \\
+C_3 K + C_4 & A + D_2
+\end{pmatrix}
+\begin{pmatrix}c \\ d \end{pmatrix} 
+= 0
+\end{equation}
+
+Where
+
+\begin{equation}\label{defK}
+K = 
+\begin{pmatrix}
+1 & & & & & -1 \\
+-1 & 1 \\
+\vdots & & \vdots & &&  \vdots \\
+& -1 & 1 \\
+& & & & -1 & 1
+\end{pmatrix}
+\end{equation}
+
+and the remainder terms have bounds
+
+\begin{align*}
+C_2 &= \mathcal{O}(e^{-\alpha X_m}) \\
+C_3 &= \mathcal{O}(e^{-\alpha X_m}) I
++ \mathcal{O} (e^{-(\tilde{\alpha} + \alpha) X_m}) \\
+C_4 &= \mathcal{O}(e^{-(\tilde{\alpha} + \alpha) X_m}) \\
+D_1 &= \mathcal{O}(e^{-2 \tilde{\alpha} X_m}) \\
+D_2 &= \mathcal{O}(e^{-(\tilde{\alpha} + 2 \alpha) X_m})
+\end{align*}
+
+Let $c^* = d^* = (1, 1, \dots, 1)^T$. It is easy to see that $K \tilde{c} = 0$ and $A c^* = 1$ (since the rows of each matrix sum to 0).\\
+
+The two solutions we know we have should be close to $(c, d) = (c^*, 0)$ and $(c, d) = (0, d^*)$, but with the remainder terms present it is hard to see how we can make this happen.
+
+\subsubsection{2-pulse with equal distances}
+
+Here we take the 2-pulse, with the special case $X_0 = X_1 = X$. We also take $\tilde{a}_i = -a_i$ in the equation for the matrix $A$ (this is true for KdV5). Thus for the matrix $A$ we have
+
+\[
+A = a \begin{pmatrix}
+-1 & 1 \\
+1 & -1
+\end{pmatrix}
+\]
+
+where $a = a_0 + a_1 = 2 \langle \Psi(X), Q'(-X) \rangle$. For the matrix $K(\lambda)$ we have
+
+\begin{equation}
+K(\lambda) = 
+\begin{pmatrix}
+e^{-\nu(\lambda)X} & -e^{\nu(\lambda)X} \\
+-e^{\nu(\lambda)X} & e^{-\nu(\lambda)X}
+\end{pmatrix}
+\end{equation}
+
+We want to rescale things, so (anticipating how the interaction eigenvalues will scale), we let
+
+\begin{align*}
+\lambda &= e^{-\alpha X} \tilde{\lambda} \\
+a &= e^{-2 \alpha X} \tilde{a}
+\end{align*}
+
+Then we can write the matrix $A$ as 
+
+\[
+A = e^{-2\alpha X} \tilde{a} \tilde{A}
+\]
+
+where
+\[
+\tilde{A} = \begin{pmatrix}
+-1 & 1 \\
+1 & -1
+\end{pmatrix}
+\]
+
+For the matrix $K(\lambda)$, we first expand $\nu(\lambda)$ in a Taylor series about $\lambda = 0$ (which we can easily do, since $\nu(\lambda)$ is a root of a polynomial). Since $\nu(0) = 0$, we have
+
+\begin{align*}
+\nu(\lambda) &= \nu'(0)\lambda + \mathcal{O}(|\lambda|^2) \\
+&= \nu'(0)\tilde{\lambda}e^{-\alpha X} + \mathcal{O}(e^{-2 \alpha X})
+\end{align*}
+
+We can use this to get a bound on $K(\lambda)$ itself.
+
+\begin{align*}
+||K(\lambda)|| &\leq C e^{-|\nu(\lambda)|X} \\
+ &= \mathcal{O} (1 + |\nu(\lambda)| + \mathcal{O}(|\nu(\lambda)|^2) \\
+&= \mathcal{O}( 1 + |\nu'(0)| |\tilde{\lambda} | e^{-\alpha X} ) \\
+&= \mathcal{O}(1)
+\end{align*}
+
+so $K(\lambda) = \mathcal{O}(1)$. We want to invert $K(\lambda)$ (when possible), so we will need its determinant.
+
+\[
+\det K(\lambda) = e^{-2 \nu(\lambda)X} - e^{2 \nu(\lambda)X} = -2 \sinh(2 \nu(\lambda) X)
+\]
+
+This is 0 if and only if $2 \nu(\lambda)X = n \pi i$, i.e. $\nu(\lambda) = n \pi i / 2X$ for $n \in \Z$. It is clear that $\det K(0) = 0$, so we have to avoid $\lambda = 0$ for now. Other than that, using the Taylor series for $\nu(\lambda)$, we have $\det K(\lambda) = 0$ whenever
+
+\begin{align*}
+\nu'(0)\tilde{\lambda}e^{-\alpha X} + \mathcal{O}(e^{-2 \alpha X}) &= \frac{n \pi i }{2X} && n \in \Z \\
+\end{align*}
+
+This is not a concern since the RHS scales like $1/X$ but the LHS scales like $e^{-\alpha X}$. So for this special case, we only need to worry about what happens near $\lambda = 0$. Expanding the determinant of $K(\lambda)$ in a Taylor series (using the Taylor series for $\sinh x$), we get
+
+\begin{align*}
+\det K(\lambda) &= -4 \nu(\lambda) X + \mathcal{O}(|\nu(\lambda)|^3) \\
+&= -4 X [ \nu'(0)\tilde{\lambda}e^{-\alpha X} + \mathcal{O}(e^{-2 \alpha X}) ] + \mathcal{O}(e^{-3 \alpha X}) \\
+&= -4 \nu'(0)\tilde{\lambda}e^{-\alpha X}X + \mathcal{O}(e^{-2 \alpha X}X) 
+\end{align*}
+
+Thus for $K(\lambda)^{-1}$ (with $\lambda$ near 0) we have
+
+\begin{equation}
+K(\lambda)^{-1} = 
+-\frac{1}{4 \nu'(0)\tilde{\lambda}e^{-\alpha X}X + \mathcal{O}(e^{-2 \alpha X}X)}
+\begin{pmatrix}
+e^{-\nu(\lambda)X} & e^{\nu(\lambda)X} \\
+e^{\nu(\lambda)X} & e^{-\nu(\lambda)X}
+\end{pmatrix}
+\end{equation}
+
+where the matrix on the RHS is $\mathcal{O}(1)$.\\
+
+Now that this is taken care of, we will solve the first equation in the block matrix for $c$. Based on what we showed above, we only have to worry about $K(\lambda)$ being singular when $\lambda = 0$. Thus as long as $\lambda \neq 0$, we can invert $K(\lambda)$. Of course, the inverse $K(\lambda)^{-1}$ will blow up in norm as $\lambda$ approaches 0, but hopefully our bounds on other things will take care of that. For the first equation, we have
+
+\begin{align*}
+(K(\lambda) + C_2)c + (-\lambda^2 M^c I + D_1)d &= 0 \\
+(I + C_2 K(\lambda)^{-1} )K(\lambda)c + (-\lambda^2 M^c I + D_1)d &= 0 \\
+\end{align*}
+
+We have the bound
+
+\begin{align*}
+|| C_2 K(\lambda)^{-1} || &\leq C \frac{ e^{-\alpha X} }{|4 \nu'(0)\tilde{\lambda}|e^{-\alpha X}X + \mathcal{O}(e^{-2 \alpha X}X)} \\
+&\leq \frac{C}{|4 \nu'(0)\tilde{\lambda}| X + \mathcal{O}(e^{-\alpha X}X) } \\
+&\leq \frac{C}{X}
+\end{align*}
+
+Thus for sufficiently large $X$ (so that the operator norm $|| C_2 K(\lambda)^{-1} ||$ is less than 1), we can also invert $I + C_2 K(\lambda)^{-1}$. Thus we can solve for $c$ to get
+
+\begin{align*}
+c = K(\lambda)^{-1} (I + K(\lambda)^{-1} C_2 )^{-1}( \lambda^2 M^c I - D_1)d 
+\end{align*}
+
+which has bound
+
+\begin{align*}
+|c| &\leq C \frac{ 1 }{|4 \nu'(0)\tilde{\lambda}|e^{-\alpha X}X + \mathcal{O}(e^{-2 \alpha X}X)} (|\lambda| + e^{-\tilde{\alpha} X})^2) \\
+&\leq C \frac{ 1 }{|4 \nu'(0)\tilde{\lambda}|e^{-\alpha X}X + \mathcal{O}(e^{-2 \alpha X}X)} (e^{-\alpha X}|\tilde{\lambda}| + e^{-\tilde{\alpha} X})^2) \\
+&\leq C \frac{ e^{-\alpha X} }{X}
+\end{align*}
+
+Now we plug this into the second equation in the block matrix to solve for $d$. We get lucky here since the $C_3$ term is actually $C_3 K(\lambda)$, which cancels the $K(\lambda)^{-1}$.
+
+\begin{align*}
+( C_3 K(\lambda) + C_4 )c + (A - \lambda^2 MI + D_2)d &= 0 \\
+( C_3 K(\lambda) + C_4 )K(\lambda)^{-1} (I + K(\lambda)^{-1} C_2 )^{-1}(\lambda^2 M^c I - D_1)d  + (A - \lambda^2 MI + D_2)d &= 0 \\
+( C_3 + C_4 K(\lambda)^{-1} ) (I + K(\lambda)^{-1} C_2 )^{-1}( \lambda^2 M^c I - D_1)d  + (A - \lambda^2 MI + D_2)d &= 0 
+\end{align*}
+
+For the first term on the RHS, we have the estimate
+
+\begin{align*}
+| ( C_3 &+ C_4 K(\lambda)^{-1} ) (I + K(\lambda)^{-1} C_2 )^{-1}( -\lambda^2 M^c I + D_1)d | \\
+&\leq C \left( (|\lambda| + e^{-\alpha X}) + \frac{e^{-\alpha X}(|\lambda| + e^{-\tilde{\alpha} X})}{4 \nu'(0)\tilde{\lambda}e^{-\alpha X}X + \mathcal{O}(e^{-2 \alpha X}X)} \right) (|\lambda| + e^{-\tilde{\alpha} X})^2 |d| \\
+&\leq C \left( (|\lambda| + e^{-\alpha X}) + \frac{|\lambda| + e^{-\tilde{\alpha} X}}{X} \right) (|\lambda| + e^{-\tilde{\alpha} X})^2 |d| \\
+&\leq C (|\lambda| + e^{-\alpha X})(|\lambda| + e^{-\tilde{\alpha} X})^2 |d| \\
+&= C (e^{-\alpha X} |\tilde{\lambda}| + e^{-\alpha X})(e^{-\alpha X} |\tilde{\lambda}| + e^{-\tilde{\alpha} X})^2 |d| \\
+&\leq C e^{-(\alpha + 2 \tilde{\alpha})X} |d|
+\end{align*}
+
+We also have the estimate for $D_2$.
+
+\[
+|D_2| \leq C e^{-(2 \alpha + \tilde{\alpha})X} |d|
+\]
+
+Putting in all the estimates, the second equation in the block matrix becomes
+
+\[
+(A - \lambda^2 MI) d + \mathcal{O}(e^{-(2 \alpha + \tilde{\alpha})X} |d|) = 0
+\]
+
+Substituting in $A = e^{-2 \alpha X} \tilde{a} \tilde{A}$ and $\lambda = e^{-\alpha X} \tilde{\lambda}$ and simplifying, this becomes
+
+\[
+(\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I) d + \mathcal{O}(e^{-\tilde{\alpha}X} |d|) = 0
+\]
+
+which we should be able to solve! If we just take the leading order portion, when $\lambda = -2 \tilde{a} / M$, we have $(\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I) (1, -1)^T = 0$.
+
+\subsubsection{2-pulse with different distances}
+
+Here we look at the 2-pulse, with $X_1 \neq X_0$. If it matters, we can WLOG take $X_1 > X_0$. We still assume that $\tilde{a}_i = -a_i$, as in KdV5. Then the matrix $A$ beecomes
+
+\[
+A = a \begin{pmatrix}
+-1 & 1 \\
+1 & -1
+\end{pmatrix}
+\]
+
+where this time
+\[
+a = a_0 + a_1 
+= \langle \Psi(X_0), Q'(-X_0) \rangle + \langle \Psi(X_1), Q'(-X_1) \rangle
+\]
+
+For the matrix $K(\lambda)$ we have
+
+\begin{equation}
+K(\lambda) = 
+\begin{pmatrix}
+e^{-\nu(\lambda)X_1} & -e^{\nu(\lambda)X_0} \\
+-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_0}
+\end{pmatrix}
+\end{equation} 
+
+For the determinant, we have
+
+\begin{align*}
+\det K(\lambda) &= e^{-\nu(\lambda)(X_0 + X_1)} - e^{\nu(\lambda)(X_0 + X_1)} \\
+&= e^{-\nu(\lambda)X} - e^{\nu(\lambda)X} \\
+&= -2 \sinh (\nu(\lambda)X)
+\end{align*}
+
+where $X = X_0 + X_1$ is half the length of the domain. We again want to rescale things, so we let 
+
+\begin{align*}
+\lambda &= (e^{-\alpha X_0} + e^{-\alpha X_1}) \tilde{\lambda} \\
+a &= (e^{-\alpha X_0} + e^{-\alpha X_1}) \tilde{a}
+\end{align*}
+
+Since we take $X_1 > X_0$, we could probably get away with just having $e^{-\alpha X_0}$ in these since the smaller $X_0$ will dominate. Then we can write the matrix $A$ as 
+
+\[
+A = (e^{-\alpha X_0} + e^{-\alpha X_1}) \tilde{a} \tilde{A}
+\]
+
+where
+\[
+\tilde{A} = \begin{pmatrix}
+-1 & 1 \\
+1 & -1
+\end{pmatrix}
+\]
+
+We should be able to do what we did in the case where $X_0 = X_1$, but with one key difference. Recall that the interaction eigenvalues look like $(e^{-\alpha X_0} + e^{-\alpha X_1}) \tilde{\lambda}$, and the essential spectrum points look like $i n \pi / (X_0 + X_1)$. As $X_1$ increases, the interaction eigenvalues approach $e^{-\alpha X_0} \tilde{\lambda}$, but the essential spectrum eigenvalues start to bunch up around 0. The idea is that we need to stay clear of these points. Either we have to take $X_1$ small enough that this is not an issue or we have to somehow bound $K(\lambda)^{-1}$ near these points.\\
+
+For now, we try the first idea, i.e. take $X_1$ small enough so that $\pi / (X_0 + X_1)$ is larger than $e^{-\alpha X_0}$. This should not be hard to do.\\
+
+For $K(\lambda)^{-1}$ we have
+
+\begin{equation}
+K(\lambda)^{-1} = 
+-\frac{1}{4 \nu'(0)\tilde{\lambda}(e^{-\alpha X_0} + e^{-\alpha X_1})(X_0 + X_1) + \mathcal{O}((e^{-\alpha X_0} + e^{-\alpha X_1})^2(X_0 + X_1))}
+\begin{pmatrix}
+e^{-\nu(\lambda)X_0} & e^{\nu(\lambda)X_0} \\
+e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_1}
+\end{pmatrix}
+\end{equation}
+
+For $X_1 > X_1$, the bound becomes
+
+\begin{equation}
+|| K(\lambda)^{-1}|| \leq C \frac{1}{e^{-\alpha X_0}(X_0 + X_1)}
+\end{equation}
+
+In order to invert $I + C_2 K(\lambda)^{-1}$, we need the bound
+
+\begin{align*}
+|| C_2 K(\lambda)^{-1} || &\leq C \frac{ e^{-\alpha X_0} }{e^{-\alpha X_0}(X_0 + X_1)} \\
+&\leq C \frac{1}{X_0 + X_1}
+\end{align*}
+
+To get this to work, we need to increase $X_1$ so that this is less than 1. The assumption is that we can do this without causing problems when $X_1$ gets too large, but this might be not be a good assumption. \\
+
+In any case, if we do that, everything should work out the way it does above. 
+
+
 
 \end{document}
