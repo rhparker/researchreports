@@ -2000,7 +2000,7 @@ where
 \item The remainder terms have bounds
 
 \begin{align*}
-C_3, \tilde{C}_3 &= \mathcal{O}(|\lambda| + e^{-\tilde{\alpha} X_m}) I
+C_3, \tilde{C}_3 &= \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m})) 
 + \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m})) \\
 D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})) \\
 D_3 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
@@ -2147,14 +2147,100 @@ The interaction eigenvalues are approximately the values of $\lambda$ for which 
 
 \[
 t\left( t^{m-1} + 2 t^{m-2} \sum_{j=0}^{m-1} a_j
-+ \dots + m \sum_{j=0}^{m=1} \prod_{k \neq j} a_k \right)
++ \dots + m \sum_{j=0}^{m=1} \prod_{k \neq j} a_k \right) = 0
 \]
 
-where the coeffient of $t^k$ is a linear combination of all possible products of $(m-k-1)$ of the $a_j$. We can probably prove an exact form for this characteristic polynomial (which will be nasty), but since it does not factor nicely, I am not sure how useful this is. It may be easier to just show that the nonzero solutions are of the form $t = \mathcal{O}(e^{-2 \alpha X_m})$. For $t = \lambda^2 M$, this means that solutions are of the form $\lambda = \mathcal{O}( e^{-\alpha X_m} )$. Thus we will use the scaling
+where the coeffient of $t^k$ is a linear combination of all possible products of $(m-k-1)$ of the $a_j$. \\
+
+We can probably prove an exact form for this characteristic polynomial (which will be nasty), but since it does not factor nicely, I do not think this is useful. We should be able to show that the nonzero roots of the characteristic polynomial have order $t = \mathcal{O}(e^{-2 \alpha X_m})$. \\
+
+There are some specific cases in which we can compute the eigenvalues of $A$. Note that because of how characteristic polynomials work, $\det( A - \lambda^2 I M ) = 0$ if and only if $\lambda^2 = \mu / M$, where $\mu$ is an eigenvalue of $A$. Thus it suffices to look at the eigenvalues of $A$.
+
+\begin{enumerate}
+\item $m = 2$, so $A$ is a $2 \times 2$ matrix. The eigenvalues can easily be computed, and are
+
+\[
+\mu = \{ 0, -2(a_0 + a_1) \}
+\]
+
+If $a_0 = a_1 = a$, these are
+
+\[
+\mu = \{ 0, -4a \}
+\]
+
+\item $m = 3$, so $A$ is a $3 \times 3$ matrix. Mathematica can find the eigenvalues here, which are
+
+\[
+\mu = \{0,  -(a_0 + a_1 + a_2) \pm 
+\sqrt{ a_0^2 + a_1^2 + a_2^2 - a_0 a_1 - a_1 a_2 - a_0 a_2 }\}
+\]
+
+If $a_0 = a_1 = a_2 = a$, these are
+
+\[
+\mu = \{0,  -3a \}
+\]
+
+where $\mu = -3a$ has algebraic multiplicity 2.
+
+
+\item All the lengths $X_i$ are identical, so $a_i = a$ for $i = 1, \dots, m$. Then we have a $m \times m$ circulant matrix which is based on the first column (or row, they are the same)
+\[
+(-2a, a, \dots, a)
+\]
+\end{enumerate}
+
+For $t = \lambda^2 M$, this means that solutions are of the form $\lambda = \mathcal{O}( e^{-\alpha X_m} )$. Thus it makes sense to use the scaling
 
 \[
 \lambda = e^{-\alpha X_m} \tilde{\lambda}
 \] 
+
+Using the Wikipedia article on circulant matrices, the eigenvalues are given by
+
+\[
+\mu_j = -2a + a( \omega_j + \omega_j^{m-1} )
+\]
+
+for $j = 0, \dots, m$
+
+where the $\omega_j = e^{2 \pi i j / m}$ are the $m-$th roots of unity. We can compute
+
+\begin{align*}
+\omega_j + \omega_j^{m-1} &= e^{2 \pi i j / m} + e^{(2 \pi i j / m)(m-1)}\\
+&= e^{2 \pi i j / m} + e^{2 \pi i j - 2 \pi i j / m)} \\
+&= e^{2 \pi i j / m} + e^{-2 \pi i j/m} \\
+&= 2 \cos( 2 \pi j/m )
+\end{align*}
+
+Thus we have
+
+\begin{align*}
+\mu_j &= 2 a( \cos( 2 \pi j/m ) - 1 ) & j = 0, \dots, m-1
+\end{align*}
+
+Since the first one is always 0, we can write
+
+\begin{align*}
+\mu = 0, \{ 2 a( \cos( 2 \pi j/m ) - 1 ) : j = 1, \dots, m-1 \}
+\end{align*}
+
+We will check this with the $m = 2, 3$ cases. For $m = 2$ we have
+
+\begin{align*}
+\mu_j &= \{ 0, 2 a( \cos \pi - 1 ) \} \\
+&= \{ 0, -4 a\}
+\end{align*}
+
+For $m = 3$, we have
+
+\begin{align*}
+\mu_j &= \{ 0, 2 a( \cos (2 \pi /3) - 1 ), 2 a( \cos (4 \pi /3) - 1 ) \} \\
+&= \{ 0, -3a \} \\
+\end{align*}
+
+where $-3a$ has algebraic multiplicity 2. These agree with what we have from before.
 
 \subsubsection{2-pulse with equal distances}
 
@@ -2177,7 +2263,7 @@ e^{-\nu(\lambda)X_0} & -e^{\nu(\lambda)X_0} \\
 \end{pmatrix}
 \end{equation}
 
-Using our scaling, we have
+We take the following scaling.
 
 \begin{align*}
 \lambda &= e^{-\alpha X_0} \tilde{\lambda} \\
@@ -2198,7 +2284,7 @@ where
 \end{pmatrix}
 \]
 
-For the matrix $K(\lambda)$, we first expand $\nu(\lambda)$ in a Taylor series about $\lambda = 0$ (which we can easily do, since $\nu(\lambda)$ is a root of a polynomial). Since $\nu(0) = 0$, the Taylor expansion is 
+For the matrix $K(\lambda)$, we first expand $\nu(\lambda)$ in a Taylor series about $\lambda = 0$ (which we can always do, since $\nu(\lambda)$ is a root of a polynomial). Since $\nu(0) = 0$, the Taylor expansion of $\nu(\lambda)$ is 
 
 \begin{align*}
 \nu(\lambda) &= \nu'(0)\lambda + \mathcal{O}(|\lambda|^2) \\
@@ -2214,13 +2300,15 @@ We can use this to get a bound on $K(\lambda)$ itself.
 &= \mathcal{O}(1)
 \end{align*}
 
-since we are taking $X_0$ sufficiently large in Lin's method to make all of this work. Thus $K(\lambda) = \mathcal{O}(1)$. We want to invert $K(\lambda)$ (when possible), so we will need its determinant.
+since we are taking $X_0$ sufficiently large in Lin's method to make all of this work. We want to invert $K(\lambda)$ (when possible), so we will need its determinant.
 
 \[
 \det K(\lambda) = e^{-2 \nu(\lambda)X_0} - e^{2 \nu(\lambda)X_0} = -2 \sinh(2 \nu(\lambda) X_0)
 \]
 
-This is 0 if and only if $2 \nu(\lambda)X_0 = n \pi i$, i.e. $\nu(\lambda) = n \pi i / 2X_0$ for $n \in \Z$. It is clear that $\det K(0) = 0$, so we have to avoid $\lambda = 0$ for now. Other than that, using the Taylor series for $\nu(\lambda)$, we have $\det K(\lambda) = 0$ whenever
+This is 0 if and only if $2 \nu(\lambda)X_0 = n \pi i$, i.e. $\nu(\lambda) = n \pi i / 2 X_0$ for $n \in \Z$. \\
+
+It is clear that $\det K(0) = 0$, so we have to avoid $\lambda = 0$ for now. Other than that, using the Taylor series for $\nu(\lambda)$, we have $\det K(\lambda) = 0$ whenever
 
 \begin{align*}
 \nu'(0)\tilde{\lambda}e^{-\alpha X_0} + \mathcal{O}(e^{-2 \alpha X_0}) &= \frac{n \pi i }{2X_0} && n \in \Z \\
@@ -2269,7 +2357,94 @@ C e^{-\alpha X_0} \frac{1}{e^{-\alpha X_0}X_0} e^{-2 \alpha X_0} \\
 &= \frac{e^{-2 \alpha X_0}}{X_0}
 \end{align*}
 
-which should be okay only because in this special case we can take $X_0$ as large as we need.
+which is okay since in this special case we can take $X_0$ as large as we need. Putting all of this together, we have 
+
+\[
+(A - \lambda^2 MI )d + \mathcal{O}\left( \frac{e^{-2 \alpha X_0}}{X_0} \right) d = 0
+\]
+
+With our scaling, this is
+
+\[
+(e^{-2\alpha X_0} \tilde{a} \tilde{A} - e^{-2 \alpha X_0} \tilde{\lambda}^2 M I )d + \mathcal{O}\left( \frac{e^{-2 \alpha X_0}}{X_0} \right) d = 0
+\]
+which simplifies to
+
+\[
+(\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I )d + \mathcal{O}\left( \frac{1}{X_0} \right) d = 0
+\]
+
+The equation $(\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I )d = 0$ has a nontrivial solution if and only if its determinant is 0, which is true if and only if $\tilde{\lambda} = \mu_0^\pm = \pm \sqrt{-2 \tilde{\alpha}/M}$. In this case, 
+
+\[
+(\tilde{a} \tilde{A} - (\mu_0^\pm)^2 M I ) = \tilde{\alpha}
+\begin{pmatrix}1 & 1 \\ 1 & 1 \end{pmatrix}
+\]
+
+from which we conclude 
+
+\[
+(\tilde{a} \tilde{A} - (\mu_0^\pm)^2 M I ) d_0 = 0
+\]
+
+where $d_0 = (-1, 1)^T$.\\
+
+Now let's look at the eigenvalues which arise near where $K(\lambda)$ is singular. We have already noted that because we chose the two distances to be equal, the only value of $\lambda$ for which both $A - \lambda^2 M I$ and $K(\lambda)$ are singular is $\lambda = 0$. So suppose now that we have chosen $\lambda$ for which $A - \lambda^2 M I$ is nonsingular. With our scaling, that means that $\tilde{\lambda} \neq 0, \mu_0^\pm$. \\
+
+Thus for any other value of $\lambda$, we can invert $A - \lambda^2 M I$. Since $\det(A - \lambda^2 M I) = \lambda^2 M(2a + \lambda^2 M)$, the inverse is
+
+\begin{align*}
+(A - \lambda^2 M I)^{-1} &=
+\frac{1}{\lambda^2 M(2a + \lambda^2 M)}
+\begin{pmatrix}
+-a - \lambda^2 M & -a \\
+-a & -a - \lambda^2 M
+\end{pmatrix} \\
+&= \frac{e^{-2 \alpha X_0}}{e^{-4 \alpha X_0} \tilde{\lambda}^2 M(2\tilde{a} + \tilde{\lambda}^2 M)}
+\begin{pmatrix}
+-\tilde{a} - \tilde{\lambda}^2 M & -\tilde{a} \\
+-\tilde{a} & -\tilde{a} - \tilde{\lambda}^2 M
+\end{pmatrix} \\
+&= \frac{e^{2 \alpha X_0}}{\tilde{\lambda}^2 M(2\tilde{a} + \tilde{\lambda}^2 M)}
+\begin{pmatrix}
+-\tilde{a} - \tilde{\lambda}^2 M & -\tilde{a} \\
+-\tilde{a} & -\tilde{a} - \tilde{\lambda}^2 M
+\end{pmatrix} \\
+\end{align*}
+
+In this particular case, we are not taking $\tilde{\lambda}$ near 0 or $\mu_0^\pm$ (we can quantify this later if this works), so we should have $||(A - \lambda^2 M I)^{-1}|| = \mathcal{O}( e^{2 \alpha X_0} )$. Thus this becomes
+
+\begin{align*}
+(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI + D_3)d &= 0 \\
+(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI)(I + (A - \lambda^2 MI)^{-1} D_3)d &= 0
+\end{align*}
+
+Since $D_3 = \mathcal{O}(e^{-3 \alpha X_0}$, $(A - \lambda^2 MI)^{-1} D_3 = \mathcal{O}(e^{-\alpha X_0})$, thus for sufficiently large $X_0$, $I + (A - \lambda^2 MI)^{-1} D_3$ is invertible. Thus we have
+
+\begin{align*}
+ d &= 
+ -(I + (A - \lambda^2 MI)^{-1} D_3)^{-1}(A - \lambda^2 MI)^{-1}(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c \\
+ &= -C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c
+\end{align*}
+
+where $C_4 = (I + (A - \lambda^2 MI)^{-1} D_3)^{-1}(A - \lambda^2 MI)^{-1} = \mathcal{O}(e^{2 \alpha X_0}$. We can now substitute this for $d$ into the first line of the block matrix equation.
+
+\begin{align*}
+K(\lambda)c + D_2 d &= 0 \\
+K(\lambda)c + D_2 C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c &= 0 \\
+K(\lambda)c + D_2 C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c &= 0 \\
+(I + D_2 C_4 C_3 ) K(\lambda)c + K(\lambda) \tilde{C}_3) c &= 0
+\end{align*}
+
+Since $D_2 C_4 C_3 = \mathcal{O}(e^{-\alpha X_0}$, for sufficiently large $X_0$, $I + D_2 C_4 C_3$ is invertible, thus this reduces to
+
+\[
+K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0
+\]
+
+where $C_5 = (I + D_2 C_4 C_3)^{-1} = \mathcal{O}(1)$. 
+
+
 
 \subsubsection{General Case}
 
