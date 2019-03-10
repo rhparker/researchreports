@@ -2281,7 +2281,7 @@ e^{\nu(\lambda)X_0} & e^{-\nu(\lambda)X_0}
 where the matrix on the RHS is $\mathcal{O}(1)$ by the same argument we used above to show that $||K(\lambda)|| = \mathcal{O}(1)$. For a bound, we have
 
 \[
-||K(\lambda)^{-1}|| \leq C \frac{ e^{-\alpha X_0} }{X_0}
+||K(\lambda)^{-1}|| \leq C \frac{ e^{\alpha X_0} }{X_0}
 \]
 
 \item To find the interaction eigenvalues, we can now solve the first block matrix equation for $c$. Since we are using our scaling, as long as $\lambda \neq 0$, we can invert $K(\lambda)$. The inverse $K(\lambda)^{-1}$ will blow up in norm as $\lambda$ approaches 0, but we hope our bounds on the other terms will take care of that for us. Solving for $c$, we have
@@ -2433,7 +2433,11 @@ Expanding $\lambda(r) $in a Taylor series about $r = 0$ and taking $r = n \pi i 
 
 \subsubsection{2-pulse with Unequal Distances}
 
-The next easiest case is the 2-pulse $X_0 < X_1$. (It doesn't matter which way we do it, but by convention $X_1$ is the ``periodic distance''). For the matrix $A$ we have
+The next easiest case is the 2-pulse $X_0 < X_1$. (It doesn't matter which way we do it, but by the convention from the existence problem, $X_1$ is the ``periodic distance''). Much of this is similar to the case with equal distances.
+
+\begin{enumerate}
+
+\item First, we write down the matrices $A$ and $K(\lambda)$. For the matrix $A$ we have
 
 \[
 A = a \begin{pmatrix}
@@ -2447,12 +2451,12 @@ where $a = a_0 + a_1 = \langle \Psi(X_0), Q'(-X_0) \rangle + \langle \Psi(X_1), 
 \begin{equation}
 K(\lambda) = 
 \begin{pmatrix}
-e^{-\nu(\lambda)X_0} & -e^{\nu(\lambda)X_0} \\
--e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_1}
+e^{-\nu(\lambda)X_1} & -e^{\nu(\lambda)X_0} \\
+-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_0}
 \end{pmatrix}
 \end{equation}
 
-Since $e^{-\alpha X_1}$ is small compared to $e^{-\alpha X_0}$, we take the scaling
+\item We will look for the interaction eigenvalues first. We expect these to occur when $\det(A - \lambda^2 M I) = 0$. Since $e^{-\alpha X_1}$ is small compared to $e^{-\alpha X_0}$, we take the scaling
 
 \begin{align*}
 \lambda &= e^{-\alpha X_0} \tilde{\lambda} \\
@@ -2473,71 +2477,96 @@ where
 \end{pmatrix}
 \]
 
-For the matrix $K(\lambda)$, we expand $\nu(\lambda)$ in a Taylor series about $\lambda = 0$. Since $\nu(0) = 0$, the Taylor expansion of $\nu(\lambda)$ is 
+So far, this is the same as the previous case.
+
+\item Next, we expand $\nu(\lambda)$ in a Taylor series about $\lambda = 0$. This is exactly the same as in the previous section.
 
 \begin{align*}
-\nu(\lambda) &= \nu'(0)\lambda + \mathcal{O}(|\lambda|^2) \\
-&= \nu'(0)\tilde{\lambda}e^{-\alpha X_0} + \mathcal{O}(e^{-2 \alpha X_0})
+\nu(\lambda) &= -\frac{1}{c_0}\tilde{\lambda}e^{-\alpha X_0} + \mathcal{O}(e^{-2 \alpha X_0})
 \end{align*}
 
-where we used our scaling for $\lambda$ in the second line. We can use this to get a bound on $K(\lambda)$ itself.
+\item We can use this to get a bound on $K(\lambda)$ itself.
 
 \begin{align*}
-||K(\lambda)|| &\leq C ( e^{|\nu(\lambda)|X_0} + e^{|\nu(\lambda)|X_1} ) \\
+||K(\lambda)|| &= \mathcal{O}( e^{|\nu(\lambda)|X_0} + e^{|\nu(\lambda)|X_1} ) \\
  &= \mathcal{O} (1 + |\nu(\lambda)X_0| + |\nu(\lambda)X_1 |+ (|\nu(\lambda)X_0|^2 + (|\nu(\lambda)X_1|^2)) \\
-&= \mathcal{O}( 1 + |\nu'(0)| |\tilde{\lambda} | e^{-\alpha X_0} X_0 + |\nu'(0)| |\tilde{\lambda} | e^{-\alpha X_0} X_1) \\ 
+&= \mathcal{O}( 1 + |1/c_0| |\tilde{\lambda} | e^{-\alpha X_0} X_0 + |1/c_0| |\tilde{\lambda} | e^{-\alpha X_0} X_1) \\ 
 &= \mathcal{O}( 1 + e^{-\alpha X_0}(X_0 + X_1) ) 
 \end{align*}
 
-We also will need the determinant of $K(\lambda)$.
+\item Next, we would like to invert $K(\lambda)$, when possible. The determinant of $K(\lambda)$ is given by
 
 \[
 \det K(\lambda) = e^{-\nu(\lambda)(X_0+X_1)} - e^{\nu(\lambda)(X_0+X_1)} = -2 \sinh(\nu(\lambda)(X_0+X_1))
 \]
 
-This is 0 if and only if $\nu(\lambda)(X_0+X_1) = n \pi i$, i.e. $\nu(\lambda) = n \pi i / X$ for $n \in \Z$, where $X = X_0 + X_1$ is half the length of the domain. \\
+This is 0 if and only if $\nu(\lambda)(X_0+X_1) = n \pi i$, i.e. $\nu(\lambda) = n \pi i / X$ for $n \in \Z$, where $X = X_0 + X_1$ is half the length of the domain. This includes $\lambda = 0$.\\
 
-It is clear that $\det K(0) = 0$, so we have to avoid $\lambda = 0$ for now. Other than that, using the Taylor series for $\nu(\lambda)$, we have $\det K(\lambda) = 0$ whenever
+Inverting this is more complicated than in the previous case since. There will potentially be many places on the imaginary axis where $K(\lambda)$ is singular, and these will ``pile up'' as $X_1$ gets larger. We need to avoid all of them. Essentially, we need to put small open balls around each point where $K(\lambda)$ is singular, and the result will only hold outside these open balls. The hope is that we can do this, i.e. there is actually space outside these balls that we can work in!\\
 
-\begin{align*}
-\nu'(0)\tilde{\lambda}e^{-\alpha X_0} + \mathcal{O}(e^{-2 \alpha X_0}) &= \frac{n \pi i }{2X_0} && n \in \Z \\
-\end{align*}
-
-This is not a concern since the RHS scales like $1/X_0$ but the LHS scales like $e^{-\alpha X_0}$. So for this special case, we only need to worry about what happens near $\lambda = 0$ and can in fact take $X_0$ as large as we want. Expanding the determinant of $K(\lambda)$ in a Taylor series (using the Taylor series for $\sinh x$), we get
+To do this, first we need to know the values of $\lambda$ (not $\nu(\lambda))$ where $K(\lambda)$ is singular. Adapting what we did above, for sufficiently large $X_1$ and sufficiently small $n$, $K(\lambda)$ is singular for $\lambda = \lambda(X_1, n)$, which is given by
 
 \begin{align*}
-\det K(\lambda) &= -4 \nu(\lambda) X_0 + \mathcal{O}(|\nu(\lambda)|^3) \\
-&= -4 X_0 [ \nu'(0)\tilde{\lambda}e^{-\alpha X_0} + \mathcal{O}(e^{-2 \alpha X_0}) ] + \mathcal{O}(e^{-3 \alpha X_0}) \\
-&= -4 \nu'(0)\tilde{\lambda}e^{-\alpha X_0}X_0 + \mathcal{O}(e^{-2 \alpha X_0}X_0) 
+\lambda(X_1, n)
+&= -c_0 \frac{n \pi i }{X_0 + X_1} + \mathcal{O}\left( \frac{n}{X_0+X_1}\right)^2 \\
 \end{align*}
 
-Thus for $K(\lambda)^{-1}$ (with $\lambda$ near 0) we have
+Note that $X_0$ is fixed here and that, near the origin, these are roughly equally spaced on the imaginary axis.
 
-\begin{equation}
-K(\lambda)^{-1} = 
--\frac{1}{4 \nu'(0)\tilde{\lambda}e^{-\alpha X_0}X_0 + \mathcal{O}(e^{-2 \alpha X_0}X_0)}
-\begin{pmatrix}
-e^{-\nu(\lambda)X_0} & e^{\nu(\lambda)X_0} \\
-e^{\nu(\lambda)X_0} & e^{-\nu(\lambda)X_0}
-\end{pmatrix}
-\end{equation}
-
-where the matrix on the RHS is $\mathcal{O}(1)$ by the same argument we used to show that $||K(\lambda)|| = \mathcal{O}(1)$.\\
-
-Now that this is taken care of, we can solve the first equation in the block matrix for $c$. Based on what we showed above, we only have to worry about $K(\lambda)$ being singular when $\lambda = 0$. Thus as long as $\lambda \neq 0$, we can invert $K(\lambda)$. Of course, the inverse $K(\lambda)^{-1}$ will blow up in norm as $\lambda$ approaches 0, but hopefully our bounds on other things will take care of that. Solving for $c$, we have
+\item Now we Taylor expand $K(\lambda)$ about each $\lambda(X_1, n)$ which is within $\mathcal{O}(e^{-\alpha X_0})$ of the origin. (We only have to worry about stuff near the interaction eigenvalues we are looking for.)
 
 \begin{align*}
-c = -K(\lambda)^{-1} D_2 d \\
+\det K( \lambda(X_1, n) + \epsilon )
+&= -2 \sinh \Big( \nu(\lambda(X_1, n) + \epsilon )(X_0 + X_1) \Big) \\
 \end{align*}
 
-Plugging this into the second block matrix equation, we get
+To keep going, we need to substitute the Taylor series for $\nu(\lambda)$. For this, we use the Taylor expansion about $\lambda = 0$ from above, since $|\lambda(X_1, n) + \epsilon|$ is close to 0 and we don't want to deal with derivatives of $\nu(\lambda)$ at $\lambda \neq 0$.
 
 \begin{align*}
-(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI + D_3)d &= 0 \\
--(C_3 K(\lambda) + K(\lambda) \tilde{C}_3)K(\lambda)^{-1} D_2 d + (A - \lambda^2 MI + D_3)d &= 0 \\
-(A - \lambda^2 MI )d + (D_3 - C_3 D_2 - K(\lambda) \tilde{C}_3 K(\lambda)^{-1} D_2) d &= 0 \\
+\nu(\lambda(X_1, n) + \epsilon ) &= 
+-\frac{1}{c_0}(\lambda(X_0, n) + \epsilon) + \mathcal{O}(\lambda(X_1, n) + \epsilon)^2 \\
+&= -\frac{1}{c_0}\left( -c_0 \frac{n \pi i }{X_0 + X_1} + \mathcal{O}\left( \frac{n}{X_0+X_1}\right)^2 + \epsilon \right) 
++ \mathcal{O}\left( \frac{n}{X_0 + X_1} + \epsilon \right)^2 \\
+&= \frac{n \pi i }{X_0 + X_1} -\frac{\epsilon}{c_0} 
++ \mathcal{O}\left( \frac{n}{X_0 + X_1} + \epsilon \right)^2
 \end{align*}
 
+Plugging this in above, we get
+
+\begin{align*}
+\det K( \lambda(X_1, n) + \epsilon )
+&= -2 \sinh \Big( \nu(\lambda(X_0, n) + \epsilon )(X_0 + X_1) \Big) \\
+&= -2 \sinh \left( n \pi i -\frac{\epsilon}{c_0}(X_0 + X_1) 
++ \mathcal{O}\left( \frac{n^2}{X_0 + X_1} + \epsilon n + \epsilon^2 (X_0 + X_1) \right) \right) \\
+&= 2 (-1)^n \frac{\epsilon}{c_0}(X_0 + X_1) 
++ \mathcal{O}\left( \frac{n^2}{X_0 + X_1} + \epsilon n + \epsilon^2 (X_0 + X_1) ) \right)
+\end{align*}
+
+Note that, to leading order, this does not depend on $n$. Thus, as long we we are further than $\epsilon$ in distance from any of the $\lambda(X_0, n)$, we have the following bound.
+
+\begin{align*}
+|| K( \lambda(X_1, n)^{-1}|| 
+&\leq C \frac{1}{\epsilon(X_0 + X_1)} ( 1 + e^{-\alpha X_0}(X_0 + X_1) ) \\
+&\leq C \left( \frac{1}{\epsilon(X_0 + X_1)} + e^{-\alpha X_0} \right)
+\end{align*}
+
+All that remains now is to choose an appropriate $\epsilon$. Recall that the spacing between the $\lambda(X_0, n)$ is order $\mathcal{O}(1/(X_0 X_1))$, so we need $\epsilon$ to be some fraction of that. Since $X_0$ is large, $e^{-\alpha X_0/2}$ is small, so choose
+
+\[
+\epsilon = \frac{e^{-\alpha X_0/2}}{X_0 + X_1}
+\]
+
+Substituting this in, we attain the bound we want.
+
+\begin{align*}
+|| K( \lambda(X_1, n)^{-1}|| 
+&\leq C e^{\alpha X_0/2}
+\end{align*}
+
+which holds outside the $\epsilon-$balls.
+
+
+\end{enumerate}
 
 \subsubsection{General Case}
 
