@@ -2359,26 +2359,28 @@ Choose $\lambda$ for which $A - \lambda^2 M I$ is nonsingular, i.e. $\lambda \ne
 -a - \lambda^2 M & -a \\
 -a & -a - \lambda^2 M
 \end{pmatrix} \\
-&= \frac{e^{-2 \alpha X_0}}{e^{-4 \alpha X_0} \tilde{\lambda}^2 M(2\tilde{a} + \tilde{\lambda}^2 M)}
-\begin{pmatrix}
--\tilde{a} - \tilde{\lambda}^2 M & -\tilde{a} \\
--\tilde{a} & -\tilde{a} - \tilde{\lambda}^2 M
-\end{pmatrix} \\
-&= \frac{e^{2 \alpha X_0}}{\tilde{\lambda}^2 M(2\tilde{a} + \tilde{\lambda}^2 M)}
-\begin{pmatrix}
--\tilde{a} - \tilde{\lambda}^2 M & -\tilde{a} \\
--\tilde{a} & -\tilde{a} - \tilde{\lambda}^2 M
-\end{pmatrix} \\
 \end{align*}
 
-In this particular case, we are not taking $\tilde{\lambda}$ near 0 or $\mu_0^\pm$ (we can quantify this later if this works), so we should have $||(A - \lambda^2 M I)^{-1}|| = \mathcal{O}( e^{2 \alpha X_0} )$. Thus this becomes
+To go further, we need to bound this. Since we are looking for eigenvalues of order $1/X_0$, and the interaction eigenvalues are order $e^{-\alpha X_0}$, this time we will take the scaling
+
+\[
+\lambda = e^{-(\alpha/2) X_0} \tilde{\lambda}
+\]
+
+where $\tilde{\lambda}$ is no smaller than $\mathcal{O}(1)$. For $\lambda$ scaled in this way, we have bound
+
+\[
+||(A - \lambda^2 M I)^{-1}||\leq C e^{\alpha X_0}
+\]
+
+\item We then use this to solve for $d$ in the second block matrix equation.
 
 \begin{align*}
 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI + D_3)d &= 0 \\
 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI)(I + (A - \lambda^2 MI)^{-1} D_3)d &= 0
 \end{align*}
 
-Since $D_3 = \mathcal{O}(e^{-3 \alpha X_0}$, $(A - \lambda^2 MI)^{-1} D_3 = \mathcal{O}(e^{-\alpha X_0})$, thus for sufficiently large $X_0$, $I + (A - \lambda^2 MI)^{-1} D_3$ is invertible. Thus we have
+Since $D_3 = \mathcal{O}(e^{-(3\alpha/2) X_0}$, $(A - \lambda^2 MI)^{-1} D_3 = \mathcal{O}(e^{-(\alpha/2) X_0})$. Thus for sufficiently large $X_0$, $I + (A - \lambda^2 MI)^{-1} D_3$ is invertible. We can now solve for $d$.
 
 \begin{align*}
  d &= 
@@ -2386,22 +2388,23 @@ Since $D_3 = \mathcal{O}(e^{-3 \alpha X_0}$, $(A - \lambda^2 MI)^{-1} D_3 = \mat
  &= -C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c
 \end{align*}
 
-where $C_4 = (I + (A - \lambda^2 MI)^{-1} D_3)^{-1}(A - \lambda^2 MI)^{-1} = \mathcal{O}(e^{2 \alpha X_0}$. We can now substitute this for $d$ into the first line of the block matrix equation.
+where $C_4 = (I + (A - \lambda^2 MI)^{-1} D_3)^{-1}(A - \lambda^2 MI)^{-1} = \mathcal{O}(e^{\alpha X_0}$. We can now substitute this for $d$ into the first line of the block matrix equation.
 
 \begin{align*}
 K(\lambda)c + D_2 d &= 0 \\
-K(\lambda)c + D_2 C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c &= 0 \\
-K(\lambda)c + D_2 C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c &= 0 \\
-(I + D_2 C_4 C_3 ) K(\lambda)c + K(\lambda) \tilde{C}_3) c &= 0
+K(\lambda)c - D_2 C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c &= 0 \\
+(I - D_2 C_4 C_3 ) K(\lambda)c - K(\lambda) \tilde{C}_3) c &= 0
 \end{align*}
 
-Since $D_2 C_4 C_3 = \mathcal{O}(e^{-\alpha X_0}$, for sufficiently large $X_0$, $I + D_2 C_4 C_3$ is invertible, thus this reduces to
+Since $D_2 C_4 C_3 = \mathcal{O}(e^{-(\alpha/2) X_0}$, for sufficiently large $X_0$, $I + D_2 C_4 C_3$ is invertible, and this reduces to
 
 \[
 K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0
 \]
 
-where $C_5 = (I + D_2 C_4 C_3)^{-1} = \mathcal{O}(1)$. We now need look at $K(\lambda)$ to figure out which values of $\lambda$ (not $\nu(\lambda)$) cause it to be singular. Recall that $K(\lambda)$ is given by
+where $C_5 = (I + D_2 C_4 C_3)^{-1} = \mathcal{O}(1)$.
+
+\item We now need look at $K(\lambda)$ to figure out which values of $\lambda$ (not $\nu(\lambda)$) cause it to be singular. Recall that $K(\lambda)$ is given by
 
 \begin{equation}
 K(\lambda) = 
@@ -2411,13 +2414,20 @@ e^{-\nu(\lambda)X_0} & -e^{\nu(\lambda)X_0} \\
 \end{pmatrix}
 \end{equation}
 
-and is singular when $\nu(\lambda) = n \pi i / 2 X_0 $. Define the function $G(\lambda, r) = \nu(\lambda) - r$. Then $G(0, 0) = 0$ and $D_\lambda G(0, 0 = \nu'(0)$, which we are assuming is nonzero (we may be able to show it). Then using the IFT, we can find a function $L(r)$ such that $L(0) = 0$ and $G(L(r), r) = 0$ for sufficiently small $r$, i.e. for sufficiently small $r$ we can find $\lambda$ such that $\nu(\lambda) = r$. Thus for suffiently large $X_0$ and sufficiently small $n$ we can find $\lambda(X_0, n)$ such that $\nu(\lambda(X_0, n)) = n \pi i / 2 X_0$, i.e. $K(\lambda(X_0, n))$ is singular. Expanding in a Taylor series (and using the IFT for the derivative of $L$ with respect to $r$), we have
+and is singular when $\nu(\lambda) = n \pi i / 2 X_0 $. Define the function $G(\lambda, r) = \nu(\lambda) - r$. Then $G(0, 0) = 0$ and $D_\lambda G(0, 0 = \nu'(0) = -1/c_0$, which we are assuming is nonzero.\\
+
+Using the IFT, we can find a function $\lambda(r)$ such that $\lambda(0) = 0$ and $G(\lambda(r), r) = 0$ for sufficiently small $r$. In other words, for sufficiently small $r$ we can find $\lambda(r)$ such that $\nu(\lambda(r)) = r$. Thus for suffiently large $X_0$ and sufficiently small integer $n$ we can find $\lambda(X_0, n)$ such that $\nu(\lambda(X_0, n)) = n \pi i / 2 X_0$, i.e. $K(\lambda(X_0, n))$ is singular. \\
+
+Expanding $\lambda(r) $in a Taylor series about $r = 0$ and taking $r = n \pi i / 2 X_0 $ we have
 
 \begin{align*}
-\lambda(X_0,n) &= L(n \pi i / 2 X_0) \\
-&= L(0) + L'(0) n \pi i / 2 X_0 + \mathcal{O}(n \pi i / 2 X_0)^2 \\
-&= \frac{1}{\nu'(0)} \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2
+\lambda(X_0,n)
+&= \lambda(0) + \lambda'(0) \frac{n \pi i }{2 X_0} + \mathcal{O}(n \pi i / 2 X_0)^2 \\
+&= \frac{1}{\nu'(0)} \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2 \\
+&= -c_0 \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2 \\
 \end{align*}
+
+\item Finally, we can solve $K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0$.
 
 \end{enumerate}
 
