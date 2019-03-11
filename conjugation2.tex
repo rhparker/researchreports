@@ -2494,6 +2494,20 @@ So far, this is the same as the previous case.
 &= \mathcal{O}( 1 + e^{-\alpha X_0}(X_0 + X_1) ) 
 \end{align*}
 
+Writing this in a different way, we have
+
+\begin{align*}
+||K(\lambda)|| 
+= \mathcal{O}\left( 1 + e^{-\alpha X_0}X_0\left( 1 + \frac{X_1}{X_0} \right) \right) 
+\end{align*}
+
+I THINK WE NEED TO DO SOMETHING LIKE THIS. Choose $X_0$ sufficiently large so that
+
+\[
+e^{-\alpha X_0}X_0\left( 1 + \frac{X_1}{X_0} \right) = \mathcal{O}(1)
+\]
+Then we have $||K(\lambda)|| = \mathcal{O}(1)$.
+
 \item Next, we would like to invert $K(\lambda)$, when possible. The determinant of $K(\lambda)$ is given by
 
 \[
@@ -2545,12 +2559,11 @@ Plugging this in above, we get
 Note that, to leading order, this does not depend on $n$. Thus, as long we we are further than $\epsilon$ in distance from any of the $\lambda(X_0, n)$, we have the following bound.
 
 \begin{align*}
-|| K( \lambda(X_1, n)^{-1}|| 
-&\leq C \frac{1}{\epsilon(X_0 + X_1)} ( 1 + e^{-\alpha X_0}(X_0 + X_1) ) \\
-&\leq C \left( \frac{1}{\epsilon(X_0 + X_1)} + e^{-\alpha X_0} \right)
+|| K( \lambda(X_1, n))^{-1}|| 
+&\leq C \left( \frac{1}{\epsilon X_0(1 + X_1/X_0)} \right)
 \end{align*}
 
-All that remains now is to choose an appropriate $\epsilon$. Recall that the spacing between the $\lambda(X_0, n)$ is order $\mathcal{O}(1/(X_0 X_1))$, so we need $\epsilon$ to be some fraction of that. Since $X_0$ is large, $e^{-\alpha X_0/2}$ is small, so choose
+All that remains now is to choose an appropriate $\epsilon$. Recall that the spacing between the $\lambda(X_0, n)$ is order $\mathcal{O}(1/(X_0 + X_1))$, so we need $\epsilon$ to be some fraction of that. Since $X_0$ is large, $e^{-\alpha X_0}$ is small, so choose
 
 \[
 \epsilon = \frac{e^{-\alpha X_0/2}}{X_0 + X_1}
@@ -2559,11 +2572,39 @@ All that remains now is to choose an appropriate $\epsilon$. Recall that the spa
 Substituting this in, we attain the bound we want.
 
 \begin{align*}
-|| K( \lambda(X_1, n)^{-1}|| 
+|| K( \lambda(X_1, n))^{-1}|| 
 &\leq C e^{\alpha X_0/2}
 \end{align*}
 
 which holds outside the $\epsilon-$balls.
+
+\item As long as $\lambda$ is outside of the $\epsilon-$balls, we can solve for $c$ in terms of $d$ using the first line of the block matrix equation. Solving for $c$, we have
+
+\begin{align*}
+c = -K(\lambda)^{-1} D_2 d \\
+\end{align*}
+
+Plugging this into the second block matrix equation, we get
+
+\begin{align*}
+(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI + D_3)d &= 0 \\
+-(C_3 K(\lambda) + K(\lambda) \tilde{C}_3)K(\lambda)^{-1} D_2 d + (A - \lambda^2 MI + D_3)d &= 0 \\
+(A - \lambda^2 MI )d + (D_3 - C_3 D_2 - K(\lambda) \tilde{C}_3 K(\lambda)^{-1} D_2) d &= 0 \\
+\end{align*}
+
+We need to check that remainder term on the LHS is really higher order. Using our scaling, $D_3, C_3 D_2 = \mathcal{O}(e^{-3 \alpha X_0})$, which will be good. That leaves the last term. For that, we have
+
+\begin{align*}
+|K(\lambda) \tilde{C}_3 K(\lambda)^{-1} D_2| &\leq
+C e^{-\alpha X_0} \frac{e^{\alpha X_0}}{X_0} e^{-2 \alpha X_0} \\
+&= \frac{e^{-2 \alpha X_0}}{X_0}
+\end{align*}
+
+Putting all of this together, we have 
+
+\[
+(A - \lambda^2 MI )d + \mathcal{O}\left( e^{-3 \alpha X_0} + \frac{e^{-2 \alpha X_0}}{X_0} \right) d = 0
+\]
 
 
 \end{enumerate}
