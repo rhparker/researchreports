@@ -2213,7 +2213,7 @@ where
 where we used our scaling for $\lambda$ in the second line. We should be able to compute $\nu'(0)$, so let's do that now. The characteristic polynomial of $A_\infty(\lambda)$ is of the form
 
 \[
-P(t; \lambda) = 
+P(\nu; \lambda) = 
 -\nu^{2m+1} + c_{2m - 1} \nu^{2m} + \dots + c_0 \nu + \lambda = 0
 \]
 
@@ -2525,7 +2525,7 @@ To do this, first we need to know the values of $\lambda$ (not $\nu(\lambda))$ w
 &= -c_0 \frac{n \pi i }{X_0 + X_1} + \mathcal{O}\left( \frac{n}{X_0+X_1}\right)^2 \\
 \end{align*}
 
-Note that $X_0$ is fixed here and that, near the origin, these are roughly equally spaced on the imaginary axis.
+We note that $\nu(\lambda(X_1, n)) = n \pi i/(X_0 + X_1)$. We also note that $X_0$ is fixed here and that, near the origin, these are roughly equally spaced on the imaginary axis.
 
 \item Now we Taylor expand $K(\lambda)$ about each $\lambda(X_1, n)$ which is within $\mathcal{O}(e^{-\alpha X_0})$ of the origin. (We only have to worry about stuff near the interaction eigenvalues we are looking for.)
 
@@ -2534,33 +2534,27 @@ Note that $X_0$ is fixed here and that, near the origin, these are roughly equal
 &= -2 \sinh \Big( \nu(\lambda(X_1, n) + \epsilon )(X_0 + X_1) \Big) \\
 \end{align*}
 
-To keep going, we need to substitute the Taylor series for $\nu(\lambda)$. For this, we use the Taylor expansion about $\lambda = 0$ from above, since $|\lambda(X_1, n) + \epsilon|$ is close to 0 and we don't want to deal with derivatives of $\nu(\lambda)$ at $\lambda \neq 0$.
+To keep going, we need to substitute the Taylor series for $\nu(\lambda)$. This time, we use the Taylor expansion about $\lambda(X_1, n)$, since we know that $\nu( \lambda(X_1, n) ) = n \pi i / (X_0 + X_1)$.
 
 \begin{align*}
 \nu(\lambda(X_1, n) + \epsilon ) &= 
--\frac{1}{c_0}(\lambda(X_0, n) + \epsilon) + \mathcal{O}(\lambda(X_1, n) + \epsilon)^2 \\
-&= -\frac{1}{c_0}\left( -c_0 \frac{n \pi i }{X_0 + X_1} + \mathcal{O}\left( \frac{n}{X_0+X_1}\right)^2 + \epsilon \right) 
-+ \mathcal{O}\left( \frac{n}{X_0 + X_1} + \epsilon \right)^2 \\
-&= \frac{n \pi i }{X_0 + X_1} -\frac{\epsilon}{c_0} 
-+ \mathcal{O}\left( \frac{n}{X_0 + X_1} + \epsilon \right)^2
+\frac{n \pi i }{X_0 + X_1} + \mathcal{O}(\epsilon)
 \end{align*}
 
-Plugging this in above, we get
+WE MIGHT WANT A BETTER TAYLOR EXPANSION, i.e. USE $\mathcal{O}(\epsilon) = \nu'(\lambda(X_1, n))\epsilon + \mathcal{O}(\epsilon^2)$. Plugging this in above, we get
 
 \begin{align*}
 \det K( \lambda(X_1, n) + \epsilon )
 &= -2 \sinh \Big( \nu(\lambda(X_0, n) + \epsilon )(X_0 + X_1) \Big) \\
-&= -2 \sinh \left( n \pi i -\frac{\epsilon}{c_0}(X_0 + X_1) 
-+ \mathcal{O}\left( \frac{n^2}{X_0 + X_1} + \epsilon n + \epsilon^2 (X_0 + X_1) \right) \right) \\
-&= 2 (-1)^n \frac{\epsilon}{c_0}(X_0 + X_1) 
-+ \mathcal{O}\left( \frac{n^2}{X_0 + X_1} + \epsilon n + \epsilon^2 (X_0 + X_1) ) \right)
+&= -2 \sinh \left( n \pi i + \mathcal{O}(\epsilon(X_0 + X_1) \right-) \\
+&= \mathcal{O}(\epsilon(X_0 + X_1))
 \end{align*}
 
-Note that, to leading order, this does not depend on $n$. Thus, as long we we are further than $\epsilon$ in distance from any of the $\lambda(X_0, n)$, we have the following bound.
+Note that, to leading order, this does not depend on $n$. As long we we are further than $\epsilon$ in distance from any of the $\lambda(X_0, n)$, we have the following bound.
 
 \begin{align*}
 || K( \lambda(X_1, n))^{-1}|| 
-&\leq C \left( \frac{1}{\epsilon X_0(1 + X_1/X_0)} \right)
+&\leq C \left( \frac{1}{\epsilon (X_0 + X_1)} \right)
 \end{align*}
 
 All that remains now is to choose an appropriate $\epsilon$. Recall that the spacing between the $\lambda(X_0, n)$ is order $\mathcal{O}(1/(X_0 + X_1))$, so we need $\epsilon$ to be some fraction of that. Since $X_0$ is large, $e^{-\alpha X_0}$ is small, so choose
@@ -2596,16 +2590,47 @@ We need to check that remainder term on the LHS is really higher order. Using ou
 
 \begin{align*}
 |K(\lambda) \tilde{C}_3 K(\lambda)^{-1} D_2| &\leq
-C e^{-\alpha X_0} \frac{e^{\alpha X_0}}{X_0} e^{-2 \alpha X_0} \\
-&= \frac{e^{-2 \alpha X_0}}{X_0}
+C e^{-\alpha X_0} e^{\alpha X_0/2} e^{-2 \alpha X_0} \\
+&= e^{-(5/2) \alpha X_0}
 \end{align*}
 
 Putting all of this together, we have 
 
 \[
-(A - \lambda^2 MI )d + \mathcal{O}\left( e^{-3 \alpha X_0} + \frac{e^{-2 \alpha X_0}}{X_0} \right) d = 0
+(A - \lambda^2 MI )d + \mathcal{O}\left( e^{-(5/2) \alpha X_0} \right) d = 0
 \]
 
+Recall that in the equal length case, we had a term which looked like $1/X_0$ and then had to take $X_0$ sufficiently large. We already took $X_0$ large enough above, so that should be taken care of.
+
+\item The rest of this works out as in the previous case where both lengths were equal. We use our scaling again to write this using $\tilde{\lambda}$ and $\tilde{a}$. After simplifying, this becomes
+
+\[
+(\tilde{a}\tilde{A} - \tilde{\lambda}^2 MI )d + \mathcal{O}\left( e^{-(1/2) \alpha X_0} \right) d = 0
+\]
+
+Because of our scaling, $\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I  = \mathcal{O}(1)$. The equation $(\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I )d = 0$ has a nontrivial solution if and only if its determinant is 0, which is true if and only if $\tilde{\lambda} = 0$ (which we already know) or $\tilde{\lambda} = \pm \sqrt{-2 \tilde{a}/M}$ (which does not depend on $X_0$). Let
+
+\[
+\tilde{\mu}_0 = \sqrt{-2 \tilde{a}/M}
+\]
+
+$\tilde{\mu}_0$ is either real or pure imaginary, depending on the signs of $\tilde{a}$ and $M$. We write the matrix equation \label{tildeaEq1} as
+
+\[
+G(\tilde{\lambda}, r_0)d = 0
+\]
+
+where $r_0 = \mathcal{O}(e^{-(1/2) \alpha X_0})$. Since $\det G(\pm \tilde{\mu}_0, r_0) = 0$, and $G(\tilde{\lambda}, r)$ is smooth in $\tilde{\lambda}$ (it is in fact a polynomial in $\tilde{\lambda}$), for sufficiently small $r$ (i.e. sufficiently large $X_0$) we can use the IFT to find unique $\tilde{\lambda}^\pm(X_0)$ near $\pm \tilde{\mu}_0$ such that $\det( \tilde{\lambda}^\pm(X_0), X_0) = 0$. \\
+
+Finally, we undo our scaling. Let
+
+\[
+\lambda^\pm(X_0) = e^{-\alpha X_0} \tilde{\lambda}^\pm(X_0)
+\]
+
+These are the interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since there are only two eigenvalues of this magnitude, we conclude that we have a pair of interaction eigenvalues at $\pm \lambda(X_0)$. This pair must be real or purely imaginary.\\
+
+$\lambda(X_0)$ is close to $\pm e^{-\alpha X_0} \tilde{\mu}_0 = \sqrt{-2a/M}$.
 
 \end{enumerate}
 
