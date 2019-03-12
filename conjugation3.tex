@@ -1,0 +1,253 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\ran}{ran}
+
+\graphicspath{ {periodic/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
+\newtheorem{hypothesis}{Hypothesis}
+
+\newtheorem{notation}{Notation}
+
+\begin{document}
+
+\section{Eigenvalues of A}
+
+Recall that in the cases we are interested in (such as KdV5), the matrix $A$ is the $n \times n$ matrix.
+
+\begin{align*}
+A &= \begin{pmatrix}
+-a_0 -a_1 & a_0 + a_1 \\
+a_0 + a_1 & -a_0 - a_1
+\end{pmatrix} && n = 2 \\
+A &= \begin{pmatrix}
+-a_{n-1} - a_0 & a_0 & & \dots & a_{n-1}\\
+a_0 & -a_0 - a_1 &  a_1 \\
+& a_1 & -a_1 - a_2 &  a_2 \\
+& & & \ddots & \\
+a_{n-1} & & & a_{n-2} & -a_{n-2} - a_{n-1} \\
+\end{pmatrix} && n > 2
+\end{align*}
+
+where $a_i = \langle \Psi(X_i), Q'(-X_i) \rangle$. This comes from Lin's method applied to the eigenvalue problem for the linearization about the periodic $n-$pulse. We expect the interaction eigenvalues satisfy $\lambda^2 \approx \mu / M$, where $\mu$ is an eigenvalue of $A$, and $M \neq 0$ is the appropriate Melnikov integral. Thus it useful to look at the eigenvalues of $A$. \\
+
+First, we do what we can with the matrix $A$.
+
+\begin{enumerate}
+
+\item For $n = 2$, it is easy to compute the eigenvalues of $A$.
+
+\[
+\mu = \{ 0, -2(a_0 + a_1) \}
+\]
+
+If $a_0 = a_1 = 1$, then
+
+\[
+\mu = \{ 0, -4 a \}
+\]
+
+\item For $n = 3$, Mathematica can do it.
+
+\[
+\mu = \left\{0,  -(a_0 + a_1 + a_2) \pm 
+\sqrt{ a_0^2 + a_1^2 + a_2^2 - a_0 a_1 - a_1 a_2 - a_0 a_2 }\right\}
+\]
+
+If $a_0 = a_1 = a_2 = a$, this becomes
+
+\[
+\mu = \{0,  -3a \}
+\]
+
+where the eigenvalue $\mu = -3a$ has algebraic multiplicity 2.
+
+\item For $n > 4$, Mathematica can no longer do it (thanks, Galois!) 
+
+\item Consider the case where all the distances $X_i$ are equal, i.e. $a_k = a$ for all $k$. In this case, $A$ is a circulant matrix. Using the Wikipedia article on circulant matrices and simplifying the result, we have eigenvalues
+
+\begin{align*}
+\mu_k &= 2 a\left( \cos \frac{2 \pi k}{n}  - 1 \right) & k = 1, \dots, n
+\end{align*}
+
+Things to notice,
+
+\begin{enumerate}
+	\item $\mu_n = 0$ always
+	\item The remaining $\mu_k$ are either all positive (if $a < 0$) or all negative (if $a > 0$)
+	\item If $n$ is odd, the collection $\mu_1, \dots, \mu_{n-1}$ will contain $(n-1)/2$ distinct eigenvalues, all of which have algebraic multiplicity 2.
+	\item If $n$ is even, we will have $\mu_{n/2} = -4a$. The collection of $\mu_k$ which are not yet accounted for contains $(n-2)/2$ distinct eigenvalues, all of which have algebraic multiplicity 2.
+\end{enumerate}
+
+\end{enumerate}
+
+The next case to consider is when the period is large. Recall that, by convention, we have taken $X_{n-1}$ to be the ``periodic length'' (although it does not matter). If $X_{n-1}$ is large, then $a_{n-1}$ is very close to 0, so it is useful to look at the eigenvalues of $A$ when this is the case. With this assumption, $A$ is now a tridiagonal matrix. 
+
+\begin{align*}
+A &= \begin{pmatrix}
+-a_0 & a_0 \\
+a_0 & -a_0 
+\end{pmatrix} && n = 2 \\
+A &= \begin{pmatrix}
+- a_0 & a_0 & & &  \\
+a_0 & -a_0 - a_1 &  a_1 \\
+& a_1 & -a_1 - a_2 &  a_2 \\
+& & & \ddots \\
+& & & a_{n-2} & -a_{n-2} \\
+\end{pmatrix} && n > 2
+\end{align*}
+
+\begin{enumerate}
+
+\item For $n = 2$, we have eigenvalues
+
+\[
+\mu = \{ 0, -2 a_0 \}
+\]
+
+\item For $n = 3$, we have eigenvalues
+
+\[
+\mu = \left\{ 0,  -(a_0 + a_1) \pm 
+\sqrt{a_0^2 + a_1^2 - a_0 a_1} \right\}
+\]
+
+If $a_0 = a_1 = a$, this becomes
+
+\[
+\mu = \{0,  -a, -3a \}
+\]
+
+\item Consider the case where all the distances $X_i$ are equal, i.e. $a_k = a$ for all $k$. Unfortunately, $A$ is not a circulant matrix. But I have proved (and verified by Mathematica!) that the eigenvalues are 
+
+\begin{align*}
+\mu_k &= 2 a\left( \cos \frac{\pi k}{n}  - 1 \right) & k = 1, \dots, n
+\end{align*}
+
+(The only difference between this and the ``periodic'' version above, is that there is not a 2 in front of the $\pi$). We note the following.
+
+\begin{enumerate}
+	\item $\mu_n = 0$ always
+	\item The remaining $\mu_k$ are either all positive (if $a < 0$) or all negative (if $a > 0$)
+	\item All the remaining $\mu_k$ are distinct. 
+\end{enumerate}
+
+\end{enumerate}
+
+I would like for the following proposition to be true. Experimenting with Mathematica leads me to believe that it is true.
+
+\begin{proposition}
+Consider the symmetric, $n \times n$ tridiagonal matrix
+\begin{equation}
+A = \begin{pmatrix}
+- a_0 & a_0 & & &  \\
+a_0 & -a_0 - a_1 &  a_1 \\
+& a_1 & -a_1 - a_2  &  a_2 \\
+& & & \ddots \\
+& & & a_{n-2} & -a_{n-2} \\
+\end{pmatrix} 
+\end{equation}
+where $a_0, \dots, a_{n-2}$ are all real and nonzero. Suppose $k_+$ of the $a_j$ are positive and $k_-$ of the $a_j$ are negative. Then $A$ has a single eigenvalue at 0, $k_+$ negative real eigenvalues, and $k_-$ positive real eigenvalues. The eigenvalues might also be distinct?
+\begin{proof}
+Since $A$ is symmetric, its eigenvalues are real. Since each row sums to 0, it is easy to see that 0 is an eigenvalue with eigenvector $(1, 1, \dots, 1)^T$. Solving the eigenvalue problem means solving $(A - \lambda I)v = 0$, which looks like
+
+\begin{equation}
+(A - \lambda I)v = \begin{pmatrix}
+- a_0 - \lambda & a_0 & & &  \\
+a_0 & -a_0 - a_1 - \lambda &  a_1 \\
+& a_1 & -a_1 - a_2 - \lambda &  a_2 \\
+& & & \ddots \\
+& & & a_{n-2} & -a_{n-2} - \lambda\\
+\end{pmatrix} 
+\begin{pmatrix}v_0 \\ v_1 \\ v_2 \\ \\ v_{n-1} \end{pmatrix} = 0
+\end{equation}
+
+The inner rows satisfy the difference equation
+
+\begin{equation}
+a_{k-1} v_{k-1} - a_{k-1} v_k - a_k v_k + a_k v_{k+1} - \lambda v_k = 0
+\end{equation}
+
+for $k = 1, \dots, n-2$. Letting $\Delta$ be the forward difference operator $\Delta u_k = u_{k+1} - u_k$, this can be written as 
+
+\begin{equation}
+\Delta( a_{k-1} \Delta v_{k-1} ) - \lambda v_k = 0
+\end{equation}
+
+To verify this, all we have to do is expand it out.
+
+\begin{align*}
+\Delta( a_{k-1} \Delta v_{k-1} ) - \lambda v_k 
+&= \Delta( a_{k-1} v_k - a_{k-1} v_{k-1}) - \lambda v_k \\
+&= a_{k} v_{k+1} - a_{k-1} v_k - a_{k} v_{k} + a_{k-1} v_{k-1} - \lambda v_k
+\end{align*}
+
+which is exactly what we have above. This is a discrete Sturm-Liouville equation with $p = a$, $q = 0$, and the weight $r = 1$. We need to specify the boundary conditions, which come from the first and last rows of $A - \lambda I$. To make the boundary conditions, we extend the difference equation to $k = 0$ and $k = n-1$, and then then put conditions on $v_{-1}$ and $v_n$ so that the first and last lines are satisfied. Doing this, we find that we must have
+
+\begin{align*}
+a_{-1} v_{-1} - a_{-1} v_0 &= 0 \\
+-a_{n-1} v_{n-1} + a_{n-1} v_n &= 0
+\end{align*}
+
+Since the constants $a_{-1}$ and $a_{n-1}$ are irrelevant, we have the following discrete Sturm-Liouville problem, together with (discrete) Neumann boundary conditions.
+
+\begin{align}
+\Delta( a_{k-1} \Delta v_{k-1} ) - \lambda v_k &= 0 && k = 0, \dots, n-1 \\
+v_{-1} - v_0 &= 0 \\
+v_{n} - v_{n-1} &= 0
+\end{align}
+
+Someone somewhere must know things about this.
+
+\end{proof}
+\end{proposition}
+
+The ``periodic'' tridiagonal matrix yields the same discrete Sturm-Liouville problem, except with periodic BCs.
+
+\begin{align}
+\Delta( a_{k-1} \Delta v_{k-1} ) - \lambda v_k &= 0 && k = 0, \dots, n-1 \\
+v_{-1} - v_{n-1} &= 0 \\
+v_{n} - v_0 &= 0
+\end{align}
+
+
+\end{document}

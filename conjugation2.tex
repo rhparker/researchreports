@@ -2182,7 +2182,7 @@ e^{-\nu(\lambda)X_0} & -e^{\nu(\lambda)X_0} \\
 \end{pmatrix}
 \end{equation}
 
-\item We will look for the interaction eigenvalues first. We expect these to occur when $\det(A - \lambda^2 M I) = 0$. Since $a = \mathcal{O}(e^{-2 \alpha X_0}$, we use the following scaling for $\lambda$ and $a$.
+\item We will look for the interaction eigenvalues first. We expect these to occur when $\det(A - \lambda^2 M I) = 0$. Since $a = \mathcal{O}(e^{-2 \alpha X_0})$, we use the following scaling for $\lambda$ and $a$.
 
 \begin{align*}
 \lambda &= e^{-\alpha X_0} \tilde{\lambda} \\
@@ -2238,28 +2238,30 @@ Numerics on KdV5 supports this result. Thus we have
 &= \mathcal{O}(1)
 \end{align*}
 
-since we are taking $X_0$ sufficiently large to make Lin's method work.
+as long as we take $X_0$ sufficiently large so that, say, $e^{-\alpha X_0} X_0 \leq 1$.
 
-\item Next, we want to invert $K(\lambda)$ (when possible). The determinant of $K(\lambda)$ is given by
+\item We want to invert $K(\lambda)$ (when possible). To do this, we look at the determinant of $K(\lambda)$, which is given by
 
 \[
 \det K(\lambda) = e^{-2 \nu(\lambda)X_0} - e^{2 \nu(\lambda)X_0} = -2 \sinh(2 \nu(\lambda) X_0)
 \]
 
-$\det K(\lambda) = 0$ if and only if $2 \nu(\lambda)X_0 = n \pi i$, i.e. $\nu(\lambda) = n \pi i / 2 X_0$ for $n \in \Z$. \\
+From this, we see that $\det K(\lambda) = 0$ if and only if $2 \nu(\lambda)X_0 = n \pi i$, i.e. $\nu(\lambda) = n \pi i / 2 X_0$ for $n \in \Z$. This tells us the values of $\nu(\lambda)$ for which $\det K(\lambda) = 0$. What we really want is the values of $\lambda$ for which $\det K(\lambda) = 0$. So let's look at that.\\
 
-It is clear that $\det K(0) = 0$, so there will be a problem at $\lambda = 0$. We will now show that using our scaling for the interaction eigenvalues, we do not have to be concerned with the other values of $\lambda$ for which $K(\lambda)$ is singular.\\
+Define the function $G(\lambda, r) = \nu(\lambda) - r$. Then $G(0, 0) = 0$ and $D_\lambda G(0, 0) = \nu'(0) = -1/c_0$, which we are assuming is nonzero. Using the IFT, we can solve for $\lambda$ in terms of $r$ for $r$ near 0. In other words, we can find a function $\lambda(r)$ such that $\lambda(0) = 0$ and $G(\lambda(r), r) = 0$ for sufficiently small $r$. Thus, for sufficiently small $r$, $\nu(\lambda(r)) = r$. For suffiently large $X_0$ and sufficiently small $n \in \Z$, $|n \pi i / 2 X_0|$ is small, so we can find $\lambda(X_0, n)$ such that $\nu(\lambda(X_0, n)) = n \pi i / 2 X_0$, and so $\det K(\lambda(X_0, n)) = 0$.\\
 
-Using the Taylor series for $\nu(\lambda)$ and our scaling for $\lambda$, $\det K(\lambda) = 0$ whenever
+To better understand $\lambda(r)$, we expand $\lambda(r)$ in a Taylor series about $r = 0$. For $r = n \pi i / 2 X_0 $, we have
 
 \begin{align*}
--\frac{1}{c_0}\tilde{\lambda}e^{-\alpha X_0} + \mathcal{O}(e^{-2 \alpha X_0}) &= \frac{n \pi i }{2X_0} && n \in \Z \\
-\tilde{\lambda} + \mathcal{O}(e^{-\alpha X_0}) &= -c_0 e^{\alpha X_0}\frac{n \pi i }{2X_0} && n \in \Z \\
-\end{align*}
+\lambda(X_0,n)
+&= \lambda(0) + \lambda'(0) \frac{n \pi i }{2 X_0} + \mathcal{O}(|n \pi i / 2 X_0|^2) \\
+&= \frac{1}{\nu'(0)} \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2 \\
+&= -c_0 \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2 \\
+\end{align*} 
 
-Since $\tilde{\lambda} = \mathcal{O}(1)$ by our scaling, this only has a solution when $n = 0$. Thus, as long as we are in this special case and use this scaling, $K(\lambda)$ is singular only at $\lambda = 0$.
+It is clear that $\det K(0) = 0$, so there will be a problem at $\lambda = 0$. Using our scaling for the interaction eigenvalues, we do not have to be concerned with the other values of $\lambda$ for which $K(\lambda)$ is singular. To see this, we want to invert $K(\lambda)$ near $\tilde{\lambda} e^{-\alpha X_0}$, which, for sufficiently large $X_0$, is significantly smaller than $\lambda(X_0,1) = \mathcal{O}(1/X_0)$. If we like, we can, say, choose $X_0$ sufficiently large so that $e^{-\alpha X_0 /2} < 1/X_0$.
 
-\item Next, we obtain an expression and a bound for $K(\lambda)^{-1}$ for $\lambda \neq 0$. First, we expand the determinant of $K(\lambda)$ in a Taylor series. Using the Taylor series for $\sinh x$, we get
+\item Next, we obtain an expression and a bound for $K(\lambda)^{-1}$ for $\lambda$ near $\tilde{\lambda} e^{-\alpha X_0}$. To do this, we expand the determinant of $K(\lambda)$ in a Taylor series at $\lambda = 0$. Using the Taylor series for $\sinh x$ and our scaling, we get
 
 \begin{align*}
 \det K(\lambda) &= -4 \nu(\lambda) X_0 + \mathcal{O}(|\nu(\lambda)|^3) \\
@@ -2267,7 +2269,7 @@ Since $\tilde{\lambda} = \mathcal{O}(1)$ by our scaling, this only has a solutio
 &= \frac{4}{c_0}\tilde{\lambda}e^{-\alpha X_0}X_0 + \mathcal{O}(e^{-2 \alpha X_0}X_0) 
 \end{align*}
 
-Thus for $K(\lambda)^{-1}$ (with our scaling) we have
+Thus for $K(\lambda)^{-1}$ (near $\lambda = \tilde{\lambda} e^{-\alpha X_0}$) we have
 
 \begin{equation}
 K(\lambda)^{-1} = 
@@ -2404,29 +2406,6 @@ K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0
 
 where $C_5 = (I + D_2 C_4 C_3)^{-1} = \mathcal{O}(1)$.
 
-\item We now need look at $K(\lambda)$ to figure out which values of $\lambda$ (not $\nu(\lambda)$) cause it to be singular. Recall that $K(\lambda)$ is given by
-
-\begin{equation}
-K(\lambda) = 
-\begin{pmatrix}
-e^{-\nu(\lambda)X_0} & -e^{\nu(\lambda)X_0} \\
--e^{\nu(\lambda)X_0} & e^{-\nu(\lambda)X_0}
-\end{pmatrix}
-\end{equation}
-
-and is singular when $\nu(\lambda) = n \pi i / 2 X_0 $. Define the function $G(\lambda, r) = \nu(\lambda) - r$. Then $G(0, 0) = 0$ and $D_\lambda G(0, 0 = \nu'(0) = -1/c_0$, which we are assuming is nonzero.\\
-
-Using the IFT, we can find a function $\lambda(r)$ such that $\lambda(0) = 0$ and $G(\lambda(r), r) = 0$ for sufficiently small $r$. In other words, for sufficiently small $r$ we can find $\lambda(r)$ such that $\nu(\lambda(r)) = r$. Thus for suffiently large $X_0$ and sufficiently small integer $n$ we can find $\lambda(X_0, n)$ such that $\nu(\lambda(X_0, n)) = n \pi i / 2 X_0$, i.e. $K(\lambda(X_0, n))$ is singular. \\
-
-Expanding $\lambda(r) $in a Taylor series about $r = 0$ and taking $r = n \pi i / 2 X_0 $ we have
-
-\begin{align*}
-\lambda(X_0,n)
-&= \lambda(0) + \lambda'(0) \frac{n \pi i }{2 X_0} + \mathcal{O}(n \pi i / 2 X_0)^2 \\
-&= \frac{1}{\nu'(0)} \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2 \\
-&= -c_0 \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2 \\
-\end{align*}
-
 \item Finally, we can solve $K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0$.
 
 \end{enumerate}
@@ -2546,8 +2525,8 @@ WE MIGHT WANT A BETTER TAYLOR EXPANSION, i.e. USE $\mathcal{O}(\epsilon) = \nu'(
 \begin{align*}
 \det K( \lambda(X_1, n) + \epsilon )
 &= -2 \sinh \Big( \nu(\lambda(X_0, n) + \epsilon )(X_0 + X_1) \Big) \\
-&= -2 \sinh \left( n \pi i + \mathcal{O}(\epsilon(X_0 + X_1) \right-) \\
-&= \mathcal{O}(\epsilon(X_0 + X_1))
+&= -2 \sinh \left( n \pi i + \mathcal{O}(\epsilon(X_0 + X_1) \right) \\
+&= \mathcal{O}(\epsilon(X_0 + X_1) )
 \end{align*}
 
 Note that, to leading order, this does not depend on $n$. As long we we are further than $\epsilon$ in distance from any of the $\lambda(X_0, n)$, we have the following bound.
