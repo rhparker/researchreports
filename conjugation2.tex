@@ -2346,9 +2346,7 @@ Finally, we undo our scaling. Let
 \lambda^\pm(X_0) = e^{-\alpha X_0} \tilde{\lambda}^\pm(X_0)
 \]
 
-These are the interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since there are only two eigenvalues of this magnitude, we conclude that we have a pair of interaction eigenvalues at $\pm \lambda(X_0)$. This pair must be real or purely imaginary.\\
-
-$\lambda(X_0)$ is close to $\pm e^{-\alpha X_0} \tilde{\mu}_0 = \sqrt{-2a/M}$.
+These are the interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since there are only two eigenvalues of this magnitude, we conclude that we have a pair of interaction eigenvalues at $\pm \lambda(X_0)$. This pair must be real or purely imaginary, and $\lambda(X_0)$ is close to $\pm e^{-\alpha X_0} \tilde{\mu}_0 = \sqrt{-2a/M}$.
 
 \item Now let's look at the eigenvalues which arise for those $\lambda$ near where $K(\lambda)$ is singular. Because we chose the two distances to be equal, the only value of $\lambda$ for which both $A - \lambda^2 M I$ and $K(\lambda)$ are singular is $\lambda = 0$.\\
 
@@ -2402,59 +2400,25 @@ K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0
 
 where $C_5 = (I + D_2 C_4 C_3)^{-1} = \mathcal{O}(1)$ and $\tilde{C}_3 = \mathcal{O}(n/X_0)$.
 
-\item Finally, we can solve $K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0$. We expect this will be possible for $\lambda$ close to $\lambda(X_0, n) = -c_0 \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2$. To show this works, we need to rewrite the equation in a form where we have a matrix which does not depend on $X_0$ and $n$ and a remainder term which does. To do that, we use our scaling on $K(\lambda)$, i.e. we write this in terms of $\tilde{\lambda}$. \\
-
-From the Taylor series expansion for $\nu(\lambda)$, we have 
-
-\begin{align*}
-\nu( \lambda ) &= \nu( \tilde{\lambda}(n/X_0) ) \\
-&= -(1/c_0)\tilde{\lambda}(n/X_0) + \mathcal{O}(n/X_0)^2
-\end{align*}
-
-Thus we have
-
-\begin{align*}
-e^{\nu(\lambda) X_0} &= \exp( { -(1/c_0)\tilde{\lambda}n + \mathcal{O}(n/X_0^2) } ) \\
-&= e^{ -(n/c_0)\tilde{\lambda} }(1 + \mathcal{O}(n/X_0^2)  )
-\end{align*}
-
-and 
-
-\begin{align*}
-e^{-\nu(\lambda) X_0}  
-&= e^{ (n/c_0)\tilde{\lambda} }(1 + \mathcal{O}(n/X_0^2)  )
-\end{align*}
-
-Combining these, we have
-
-\begin{equation}
-K(\tilde{\lambda}) = 
-\begin{pmatrix}
-e^{ (n/c_0)\tilde{\lambda} } & -e^{-(n/c_0)\tilde{\lambda} } \\
--e^{ (-n/c_0)\tilde{\lambda} } & e^{ (n/c_0)\tilde{\lambda} }
-\end{pmatrix}
-+ \mathcal{O}(n/X_0^2)
-\end{equation}
-
-This gives us an equation that looks like
+\item Finally, we can solve $K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0$. We expect this will be possible for $\lambda$ close to $\lambda(X_0, n) = -c_0 \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2$. Recall that we showed above that $K(\lambda) = \mathcal{O}(1)$. Thus we can write our equation as
 
 \[
-(K(\tilde{\lambda}) + \mathcal{O}(n^2/X_0))c = 0
+(K(\lambda)c + C_6 ) c = 0
 \]
 
-The remainder term does depend on $\tilde{\lambda}$, but its magnitude does not. We can write the determinant as 
+where $C_6 = \mathcal{O}(n/X_0)$. Let
 
 \[
-\det (K(\tilde{\lambda}) + \mathcal{O}(n^2/X_0)) = G(\tilde{\lambda}, r)
+G(\lambda, r) = \det( K(\lambda) + C_6 )
 \]
 
-If we take $\tilde{\lambda} = (X_0/n) \lambda(X_0, n)$, we have $G((X_0/n) \lambda(X_0, n), 0) = 0)$. An argument using the IFT should conclude that for sufficiently large $X_0$ and sufficiently small $n$ (and after undoing the scaling), we can find $\lambda^c(X_0, n)$ close to $\lambda(X_0, n)$ such that $\det ( K(\lambda^c(X_0, n))c + C_5 K(\lambda^c(X_0, n)) \tilde{C}_3 ) = 0$. By Hamiltonian symmetry, we conclude that $\lambda^c(X_0, n)$ is pure imaginary, and $\lambda^c(X_0, -n) = \lambda^c(X_0, n)$.
+where $r = \mathcal{O}(n/X_0)$ is small. Then since $G( \lambda(X_0, n), 0) = 0$, it follows from the IFT that for sufficiently small $r$, i.e. sufficiently small $n/X_0$, we can find $\lambda^c(X_0, n)$ close to $\lambda(X_0, n)$ such that $\det ( K(\lambda^c(X_0, n)) + C_6 ) = 0$. By Hamiltonian symmetry, we conclude that $\lambda^c(X_0, n)$ is pure imaginary, and $\lambda^c(X_0, -n) = \lambda^c(X_0, n)$.
 
 \item Let us summarize the results that we have obtained.
 
 \begin{itemize}
 	\item For $X_0$ sufficiently large, there is a pair of interaction eigenvalues at $\lambda = \pm \lambda(X_0)$, where $\lambda(X_0)$ is close to $\pm \sqrt{-2a/M}$ and is either real or purely imaginary.
-	\item For $X_0$ sufficiently large and $n$ sufficiently small (but nonzero), there is a pair of purely imaginary ``essential spectrum'' eigenvalues located at $\lambda = \pm \lambda^c(X_0, n)$, where $\lambda^c(X_0, n)$ is close to $-c_0 \frac{n \pi i }{2 X_0}$.
+	\item For $n/X_0$ sufficiently small, there is a pair of purely imaginary ``essential spectrum'' eigenvalues located at $\lambda = \pm \lambda^c(X_0, n)$, where $\lambda^c(X_0, n)$ is close to $-c_0 \frac{n \pi i }{2 X_0}$.
 	\item There is an eigenvalue at 0 (from translation invariance), where the eigenfunction is the derivative of the solution we are linearizing about. At this point, we cannot use Lin's method to conclude anything else about what happens at $\lambda = 0$.
 \end{itemize}
 I
@@ -2536,9 +2500,9 @@ I THINK WE NEED TO DO SOMETHING LIKE THIS. Choose $X_0$ sufficiently large so th
 \[
 e^{-\alpha X_0}X_0\left( 1 + \frac{X_1}{X_0} \right) = \mathcal{O}(1)
 \]
-Then we have $||K(\lambda)|| = \mathcal{O}(1)$.
+We can easily do this if we hold $X_1$ fixed and increase $X_0$. Then we have $||K(\lambda)|| = \mathcal{O}(1)$.
 
-\item Next, we would like to invert $K(\lambda)$, when possible. The determinant of $K(\lambda)$ is given by
+\item We would like to invert $K(\lambda)$, when possible. The determinant of $K(\lambda)$ is given by
 
 \[
 \det K(\lambda) = e^{-\nu(\lambda)(X_0+X_1)} - e^{\nu(\lambda)(X_0+X_1)} = -2 \sinh(\nu(\lambda)(X_0+X_1))
@@ -2546,16 +2510,18 @@ Then we have $||K(\lambda)|| = \mathcal{O}(1)$.
 
 This is 0 if and only if $\nu(\lambda)(X_0+X_1) = n \pi i$, i.e. $\nu(\lambda) = n \pi i / X$ for $n \in \Z$, where $X = X_0 + X_1$ is half the length of the domain. This includes $\lambda = 0$.\\
 
-Inverting this is more complicated than in the previous case since. There will potentially be many places on the imaginary axis where $K(\lambda)$ is singular, and these will ``pile up'' as $X_1$ gets larger. We need to avoid all of them. Essentially, we need to put small open balls around each point where $K(\lambda)$ is singular, and the result will only hold outside these open balls. The hope is that we can do this, i.e. there is actually space outside these balls that we can work in!\\
+Inverting this is more complicated than in the previous case since. There will potentially be many places on the imaginary axis where $K(\lambda)$ is singular, and these will ``pile up'' as $X_1$ gets larger. We need to avoid all of them. \\
 
-To do this, first we need to know the values of $\lambda$ (not $\nu(\lambda))$ where $K(\lambda)$ is singular. Adapting what we did above, for sufficiently large $X_1$ and sufficiently small $n$, $K(\lambda)$ is singular for $\lambda = \lambda(X_1, n)$, which is given by
+The idea is to put small open balls around each point where $K(\lambda)$ is singular, and then we will have a bound on $K(\lambda)^{-1}$ which only holds outside these open balls. The hope is that we can do this, i.e. there is actually space outside these balls that we can work in!\\
+
+To do this, first we need to know the values of $\lambda$ (not $\nu(\lambda))$ where $K(\lambda)$ is singular. Let $X_0$ be fixed. Then adapting what we did above, for sufficiently large $X_1$ and sufficiently small $n$, $K(\lambda)$ is singular for $\lambda = \lambda(X_1, n)$, which is given by
 
 \begin{align*}
 \lambda(X_1, n)
 &= -c_0 \frac{n \pi i }{X_0 + X_1} + \mathcal{O}\left( \frac{n}{X_0+X_1}\right)^2 \\
 \end{align*}
 
-We note that $\nu(\lambda(X_1, n)) = n \pi i/(X_0 + X_1)$. We also note that $X_0$ is fixed here and that, near the origin, these are roughly equally spaced on the imaginary axis.
+Note that $\nu(\lambda(X_1, n)) = n \pi i/(X_0 + X_1)$. Near the origin, the points $\lambda(X_i, n)$ are roughly equally spaced on the imaginary axis.
 
 \item Now we Taylor expand $K(\lambda)$ about each $\lambda(X_1, n)$ which is within $\mathcal{O}(e^{-\alpha X_0})$ of the origin. (We only have to worry about stuff near the interaction eigenvalues we are looking for.)
 
@@ -2571,21 +2537,35 @@ To keep going, we need to substitute the Taylor series for $\nu(\lambda)$. This 
 \frac{n \pi i }{X_0 + X_1} + \mathcal{O}(\epsilon)
 \end{align*}
 
-WE MIGHT WANT A BETTER TAYLOR EXPANSION, i.e. USE $\mathcal{O}(\epsilon) = \nu'(\lambda(X_1, n))\epsilon + \mathcal{O}(\epsilon^2)$. Plugging this in above, we get
+WE MIGHT WANT A BETTER TAYLOR EXPANSION, i.e. USE $\mathcal{O}(\epsilon) = \nu'(\lambda(X_1, n))\epsilon + \mathcal{O}(\epsilon^2)$. OF COURSE, THEN WE HAVE TO KNOW SOMETHING ABOUT $\nu'(\lambda(X_1, n))$. Plugging this in above, we get
 
 \begin{align*}
 \det K( \lambda(X_1, n) + \epsilon )
 &= -2 \sinh \Big( \nu(\lambda(X_0, n) + \epsilon )(X_0 + X_1) \Big) \\
-&= -2 \sinh \left( n \pi i + \mathcal{O}(\epsilon(X_0 + X_1) \right) \\
+&= -2 \sinh \left( n \pi i + \mathcal{O}(\epsilon(X_0 + X_1)) \right) \\
 &= \mathcal{O}(\epsilon(X_0 + X_1) )
 \end{align*}
 
-Note that, to leading order, this does not depend on $n$. As long we we are further than $\epsilon$ in distance from any of the $\lambda(X_0, n)$, we have the following bound.
+Note that, to leading order, this does not depend on $n$. As long we we are further than $\epsilon$ in distance from any of the $\lambda(X_0, n)$, the bound holds.\\
+
+For $K(\lambda)^{-1}$, we have the expression
+
+\begin{equation}
+K(\lambda)^{-1} = \frac{1}{\det K(\lambda) }
+\begin{pmatrix}
+e^{-\nu(\lambda)X_0} & e^{\nu(\lambda)X_0} \\
+e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_1}
+\end{pmatrix}
+\end{equation}
+
+Using the determinant bound and the fact that we took $e^{-\alpha X_0}X_0\left( 1 + \frac{X_1}{X_0} \right) = \mathcal{O}(1)$ above, we have the bound on $K( \lambda(X_1, n))^{-1}$.
 
 \begin{align*}
 || K( \lambda(X_1, n))^{-1}|| 
 &\leq C \left( \frac{1}{\epsilon (X_0 + X_1)} \right)
 \end{align*}
+
+which holds as long as we are outside an $\epsilon-$ball away from the points where $K(\lambda)$.\\
 
 All that remains now is to choose an appropriate $\epsilon$. Recall that the spacing between the $\lambda(X_0, n)$ is order $\mathcal{O}(1/(X_0 + X_1))$, so we need $\epsilon$ to be some fraction of that. Since $X_0$ is large, $e^{-\alpha X_0}$ is small, so choose
 
@@ -2593,7 +2573,7 @@ All that remains now is to choose an appropriate $\epsilon$. Recall that the spa
 \epsilon = \frac{e^{-\alpha X_0/2}}{X_0 + X_1}
 \]
 
-Substituting this in, we attain the bound we want.
+Substituting this in, we attain the bound
 
 \begin{align*}
 || K( \lambda(X_1, n))^{-1}|| 
@@ -2658,11 +2638,13 @@ Finally, we undo our scaling. Let
 \lambda^\pm(X_0) = e^{-\alpha X_0} \tilde{\lambda}^\pm(X_0)
 \]
 
-These are the interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since there are only two eigenvalues of this magnitude, we conclude that we have a pair of interaction eigenvalues at $\pm \lambda(X_0)$. This pair must be real or purely imaginary.\\
+These are the interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since there are only two eigenvalues of this magnitude, we conclude that we have a pair of interaction eigenvalues at $\pm \lambda(X_0)$. This pair must be real or purely imaginary, and $\lambda(X_0)$ is close to $\pm e^{-\alpha X_0} \tilde{\mu}_0 = \sqrt{-2a/M}$.
 
-$\lambda(X_0)$ is close to $\pm e^{-\alpha X_0} \tilde{\mu}_0 = \sqrt{-2a/M}$.
+\item From here, we do the same thing for the points where $K(\lambda)$ is singular...
 
 \end{enumerate}
+
+GARBAGE FOLLOWS
 
 \subsubsection{General Case}
 
