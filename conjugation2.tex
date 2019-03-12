@@ -2338,7 +2338,7 @@ $\tilde{\mu}_0$ is either real or pure imaginary, depending on the signs of $\ti
 G(\tilde{\lambda}, r_0)d = 0
 \]
 
-where $r_0 = 1/X_0$. Since $\det G(\pm \tilde{\mu}_0, r_0) = 0$, and $G(\tilde{\lambda}, r)$ is smooth in $\tilde{\lambda}$ (it is in fact a polynomial in $\tilde{\lambda}$), for sufficiently small $r$ (i.e. sufficiently large $X_0$) we can use the IFT to find unique $\tilde{\lambda}^\pm(X_0)$ near $\pm \tilde{\mu}_0$ such that $\det( \tilde{\lambda}^\pm(X_0), X_0) = 0$. \\
+where $r_0 = 1/X_0$. Since $\det G(\pm \tilde{\mu}_0, r_0) = 0$, and $G(\tilde{\lambda}, r_0)$ is smooth in $\tilde{\lambda}$ (it is in fact a polynomial in $\tilde{\lambda}$), for sufficiently small $r$ (i.e. sufficiently large $X_0$) we can use the IFT to find unique $\tilde{\lambda}^\pm(X_0)$ near $\pm \tilde{\mu}_0$ such that $\det( \tilde{\lambda}^\pm(X_0), X_0) = 0$. \\
 
 Finally, we undo our scaling. Let
 
@@ -2363,16 +2363,10 @@ Choose $\lambda$ for which $A - \lambda^2 M I$ is nonsingular, i.e. $\lambda \ne
 \end{pmatrix} \\
 \end{align*}
 
-To go further, we need to bound this. Since we are looking for eigenvalues of order $1/X_0$, and the interaction eigenvalues are order $e^{-\alpha X_0}$, this time we will take the scaling
+To go further, we need to bound this. Since we expect to find eigenvalues near $\lambda(X_0, n) = -c_0 \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2$, we take the scaling $\lambda = \tilde{\lambda}(n/X_0)$. This gives us the bound
 
 \[
-\lambda = e^{-(\alpha/2) X_0} \tilde{\lambda}
-\]
-
-where $\tilde{\lambda}$ is no smaller than $\mathcal{O}(1)$. For $\lambda$ scaled in this way, we have bound
-
-\[
-||(A - \lambda^2 M I)^{-1}||\leq C e^{\alpha X_0}
+||(A - \lambda^2 M I)^{-1}||\leq C \left( \frac{n}{X_0} \right)^{-2}
 \]
 
 \item We then use this to solve for $d$ in the second block matrix equation.
@@ -2382,7 +2376,7 @@ where $\tilde{\lambda}$ is no smaller than $\mathcal{O}(1)$. For $\lambda$ scale
 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI)(I + (A - \lambda^2 MI)^{-1} D_3)d &= 0
 \end{align*}
 
-Since $D_3 = \mathcal{O}(e^{-(3\alpha/2) X_0}$, $(A - \lambda^2 MI)^{-1} D_3 = \mathcal{O}(e^{-(\alpha/2) X_0})$. Thus for sufficiently large $X_0$, $I + (A - \lambda^2 MI)^{-1} D_3$ is invertible. We can now solve for $d$.
+With our scaling, $D_3 = \mathcal{O}(n/X_0)^3$, thus $(A - \lambda^2 MI)^{-1} D_3 = \mathcal{O}(n/X_0)$. Thus for sufficiently large $X_0$ and sufficiently small $n$, $I + (A - \lambda^2 MI)^{-1} D_3$ is invertible. We can now solve for $d$.
 
 \begin{align*}
  d &= 
@@ -2390,7 +2384,9 @@ Since $D_3 = \mathcal{O}(e^{-(3\alpha/2) X_0}$, $(A - \lambda^2 MI)^{-1} D_3 = \
  &= -C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c
 \end{align*}
 
-where $C_4 = (I + (A - \lambda^2 MI)^{-1} D_3)^{-1}(A - \lambda^2 MI)^{-1} = \mathcal{O}(e^{\alpha X_0}$. We can now substitute this for $d$ into the first line of the block matrix equation.
+where $C_4 = (I + (A - \lambda^2 MI)^{-1} D_3)^{-1}(A - \lambda^2 MI)^{-1} = \mathcal{O}(n/X_0)^{-2}$.\\
+
+Finally, we substitute this for $d$ into the first line of the block matrix equation to get
 
 \begin{align*}
 K(\lambda)c + D_2 d &= 0 \\
@@ -2398,15 +2394,70 @@ K(\lambda)c - D_2 C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c &= 0 \\
 (I - D_2 C_4 C_3 ) K(\lambda)c - K(\lambda) \tilde{C}_3) c &= 0
 \end{align*}
 
-Since $D_2 C_4 C_3 = \mathcal{O}(e^{-(\alpha/2) X_0}$, for sufficiently large $X_0$, $I + D_2 C_4 C_3$ is invertible, and this reduces to
+Since $D_2 C_4 C_3 = \mathcal{O}(n/X_0)$, for sufficiently large $X_0$ and sufficiently small $n$, $I + D_2 C_4 C_3$ is invertible, and this reduces to
 
 \[
 K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0
 \]
 
-where $C_5 = (I + D_2 C_4 C_3)^{-1} = \mathcal{O}(1)$.
+where $C_5 = (I + D_2 C_4 C_3)^{-1} = \mathcal{O}(1)$ and $\tilde{C}_3 = \mathcal{O}(n/X_0)$.
 
-\item Finally, we can solve $K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0$.
+\item Finally, we can solve $K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0$. We expect this will be possible for $\lambda$ close to $\lambda(X_0, n) = -c_0 \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2$. To show this works, we need to rewrite the equation in a form where we have a matrix which does not depend on $X_0$ and $n$ and a remainder term which does. To do that, we use our scaling on $K(\lambda)$, i.e. we write this in terms of $\tilde{\lambda}$. \\
+
+From the Taylor series expansion for $\nu(\lambda)$, we have 
+
+\begin{align*}
+\nu( \lambda ) &= \nu( \tilde{\lambda}(n/X_0) ) \\
+&= -(1/c_0)\tilde{\lambda}(n/X_0) + \mathcal{O}(n/X_0)^2
+\end{align*}
+
+Thus we have
+
+\begin{align*}
+e^{\nu(\lambda) X_0} &= \exp( { -(1/c_0)\tilde{\lambda}n + \mathcal{O}(n/X_0^2) } ) \\
+&= e^{ -(n/c_0)\tilde{\lambda} }(1 + \mathcal{O}(n/X_0^2)  )
+\end{align*}
+
+and 
+
+\begin{align*}
+e^{-\nu(\lambda) X_0}  
+&= e^{ (n/c_0)\tilde{\lambda} }(1 + \mathcal{O}(n/X_0^2)  )
+\end{align*}
+
+Combining these, we have
+
+\begin{equation}
+K(\tilde{\lambda}) = 
+\begin{pmatrix}
+e^{ (n/c_0)\tilde{\lambda} } & -e^{-(n/c_0)\tilde{\lambda} } \\
+-e^{ (-n/c_0)\tilde{\lambda} } & e^{ (n/c_0)\tilde{\lambda} }
+\end{pmatrix}
++ \mathcal{O}(n/X_0^2)
+\end{equation}
+
+This gives us an equation that looks like
+
+\[
+(K(\tilde{\lambda}) + \mathcal{O}(n^2/X_0))c = 0
+\]
+
+The remainder term does depend on $\tilde{\lambda}$, but its magnitude does not. We can write the determinant as 
+
+\[
+\det (K(\tilde{\lambda}) + \mathcal{O}(n^2/X_0)) = G(\tilde{\lambda}, r)
+\]
+
+If we take $\tilde{\lambda} = (X_0/n) \lambda(X_0, n)$, we have $G((X_0/n) \lambda(X_0, n), 0) = 0)$. An argument using the IFT should conclude that for sufficiently large $X_0$ and sufficiently small $n$ (and after undoing the scaling), we can find $\lambda^c(X_0, n)$ close to $\lambda(X_0, n)$ such that $\det ( K(\lambda^c(X_0, n))c + C_5 K(\lambda^c(X_0, n)) \tilde{C}_3 ) = 0$. By Hamiltonian symmetry, we conclude that $\lambda^c(X_0, n)$ is pure imaginary, and $\lambda^c(X_0, -n) = \lambda^c(X_0, n)$.
+
+\item Let us summarize the results that we have obtained.
+
+\begin{itemize}
+	\item For $X_0$ sufficiently large, there is a pair of interaction eigenvalues at $\lambda = \pm \lambda(X_0)$, where $\lambda(X_0)$ is close to $\pm \sqrt{-2a/M}$ and is either real or purely imaginary.
+	\item For $X_0$ sufficiently large and $n$ sufficiently small (but nonzero), there is a pair of purely imaginary ``essential spectrum'' eigenvalues located at $\lambda = \pm \lambda^c(X_0, n)$, where $\lambda^c(X_0, n)$ is close to $-c_0 \frac{n \pi i }{2 X_0}$.
+	\item There is an eigenvalue at 0 (from translation invariance), where the eigenfunction is the derivative of the solution we are linearizing about. At this point, we cannot use Lin's method to conclude anything else about what happens at $\lambda = 0$.
+\end{itemize}
+I
 
 \end{enumerate}
 
