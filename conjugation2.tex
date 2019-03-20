@@ -2154,6 +2154,68 @@ t\left( t^{m-1} + 2 t^{m-2} \sum_{j=0}^{m-1} a_j
 
 where the coeffient of $t^k$ is a linear combination of all possible products of $(m-k-1)$ of the $a_j$. \\
 
+Before we continue, we would like to deal with the eigenvalues at 0. The issue here is that both $K(\lambda)$ and $A - \lambda^2 MI$ are singular at $\lambda = 0$. The idea is to choose a radius $\delta$ so that inside $B(0, \delta)$, $A - \lambda^2 MI$ is only singular at the origin. Furthermore, we know that for $\lambda$ small, $K(\lambda)$ is singular at 
+
+\[
+\lambda^c(X, n) = -c_0 \frac{n \pi i }{X} + \mathcal{O}(n/X)^2 
+\]
+
+which, for convenience, we write
+
+\[
+\lambda^c(X, n) = C \frac{n}{X} + \mathcal{O}(n/X)^2 
+\]
+
+These are (roughly) equally spaced for small $n/X$. We want to choose $\delta$ so that it is at least $C/2X$ from any of these; this is easy to do since either $C/X$ is large enough that we do not care, or we choose $\delta$ to be half way between two of the $n C/X$, so then it is $C/2X$ away from thesed and further away from the rest of them. With that in mind, we choose $\delta > 0$ such that
+
+\begin{enumerate}
+	\item $\delta = \mathcal{O}(e^{-\alpha X_m})$. This guarantees (for sufficiently large $X_m$) that for $|\lambda| \leq \delta$, $A - \lambda^2 MI$ is only singular at $\lambda = 0$.
+	\item $|\delta - \lambda^c(X, n)| \geq C/2X$ for all $n \in Z$
+\end{enumerate}
+
+Choose any $\lambda$ with $|\lambda| = \delta$. For this $\lambda$, both $K(\lambda)$ and $A - \lambda^2 MI$ are invertible. Let
+
+\begin{equation}
+E(\lambda) = \det
+\begin{pmatrix}
+K(\lambda) & D_2 \\
+C_3 K(\lambda) + K(\lambda) \tilde{C}_3 & A - \lambda^2 MI + D_3
+\end{pmatrix}
+\end{equation}
+
+Since $K(\lambda)$ is invertible for our choice of $\delta$, we have
+
+\begin{align*}
+E(\lambda) &= \det K(\lambda) \det(A - \lambda^2 MI + D_3 - (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) K(\lambda)^{-1} D_2 ) \\
+&= \det K(\lambda) \det(A - \lambda^2 MI + D_3 - (C_3 + K(\lambda) \tilde{C}_3 K(\lambda)^{-1} ) D_2 ) \\
+&= \det K(\lambda) \det(A - \lambda^2 MI + R(\lambda) ) 
+\end{align*}
+
+where
+
+\[
+R(\lambda) = D_3 - (C_3 + K(\lambda) \tilde{C}_3 K(\lambda)^{-1} ) D_2
+\]
+
+To get bounds on this, we need bounds on $K(\lambda)$ and $K(\lambda)^{-1}$. For $K(\lambda)$, we have the bound
+
+\begin{align*}
+||K(\lambda)|| \leq C e^{|\nu(\lambda)| X} 
+\end{align*}
+
+Using the Taylor expansion for $\nu(\lambda)$ at $\lambda = 0$, we have $\nu(\lambda) = \mathcal{O}(\lambda)$, so this becomes
+
+\begin{align*}
+||K(\lambda)|| &\leq C e^{|\lambda|X} \\
+&= C e^{\delta X}  
+\end{align*}
+
+Since we are taking $|\lambda| = \delta$. The bound on the inverse involves this as well as  the determinant of $K(\lambda)$, which is
+
+\begin{align*}
+\det K(\lambda) &= -2 \sinh (\nu(\lambda) X)
+\end{align*}
+
 Since this annoying, we will do the simple 2-pulse cases first, and hopefully this will give us intuition for the general case.
 
 
@@ -2414,14 +2476,103 @@ G(\lambda, r) = \det( K(\lambda) + C_6 )
 
 where $r = \mathcal{O}(n/X_0)$ is small. Then since $G( \lambda(X_0, n), 0) = 0$, it follows from the IFT that for sufficiently small $r$, i.e. sufficiently small $n/X_0$, we can find $\lambda^c(X_0, n)$ close to $\lambda(X_0, n)$ such that $\det ( K(\lambda^c(X_0, n)) + C_6 ) = 0$. By Hamiltonian symmetry, we conclude that $\lambda^c(X_0, n)$ is pure imaginary, and $\lambda^c(X_0, -n) = \lambda^c(X_0, n)$.
 
+\item The only thing we have not dealt with is what happens at $\lambda = 0$. We will do this in the following way. We have a pair of interaction eigenvalue which are $\mathcal{O}(e^{-\alpha X_0})$ and the smallest nonzero ``essential spectrum'' eigenvalues are at $i C/X_0$, so have magnitude of $C/X_0$. Choose a radius $\delta > 0$ between these so that $\delta = C_0 e^{-\alpha X_0}$, where $C_0$ is sufficiently large so that
+
+\[
+\delta - |\sqrt{-2a/M}| \geq e^{-\alpha X_0}
+\]
+
+This implies that for $|\lambda| = \delta$,
+
+\begin{align*}
+|2a + \lambda^2 M| &= |M||\lambda^2 - (-2a/M)| \\
+&= |M|\:|\lambda + \sqrt{-2a/M}||\lambda - \sqrt{-2a/M}| \\
+&\geq C e^{-2 \alpha X_0}
+\end{align*}
+
+Let
+
+\begin{equation}
+E(\lambda) = \det
+\begin{pmatrix}
+K(\lambda) & D_2 \\
+C_3 K(\lambda) + K(\lambda) \tilde{C}_3 & A - \lambda^2 MI + D_3
+\end{pmatrix}
+\end{equation}
+
+Since $K(\lambda)$ is invertible for our choice of $\delta$, we can use a standard determinant identity (that is not hard to show) to get
+
+\begin{align*}
+E(\lambda) &= \det K(\lambda) \det(A - \lambda^2 MI + D_3 - (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) K(\lambda)^{-1} D_2 ) \\
+&= \det K(\lambda) \det(A - \lambda^2 MI + D_3 - (C_3 + K(\lambda) \tilde{C}_3 K(\lambda)^{-1} ) D_2 ) \\
+&= \det K(\lambda) \det(A - \lambda^2 MI + R(\lambda) )
+\end{align*}
+
+where
+
+\[
+R(\lambda) = D_3 - (C_3 + K(\lambda) \tilde{C}_3 K(\lambda)^{-1} ) D_2
+\]
+
+Since $A - \lambda^2 MI$ is also invertible for our choice of $\delta$,
+
+\begin{align*}
+E(\lambda) &= \det K(\lambda) \det((A - \lambda^2 MI)(I + (A - \lambda^2 MI)^{-1} R(\lambda) ))\\
+&= \det K(\lambda) \det(A - \lambda^2 MI) \det (I + (A - \lambda^2 MI)^{-1} R(\lambda) )
+\end{align*}
+
+To go any further, we need to bound the remainder term. Since we are taking $\lambda = \mathcal{O}(e^{-\alpha X_0})$, we can use the bounds from above to get
+
+\begin{align*}
+|R(\lambda)| \leq C e^{-2 \alpha X_0}\left( \frac{1}{X_0} + e^{-\alpha X_0} \right)
+\end{align*}
+
+To bound $(A - \lambda^2 MI)^{-1}$, recall that we have
+
+\begin{align*}
+(A - \lambda^2 M I)^{-1} &=
+\frac{1}{\lambda^2 M(2a + \lambda^2 M)}
+\begin{pmatrix}
+-a - \lambda^2 M & -a \\
+-a & -a - \lambda^2 M
+\end{pmatrix} \\
+\end{align*}
+
+From how we defined $\delta$, we have
+
+\[
+||(A - \lambda^2 M I)^{-1}|| \leq C e^{2 \alpha X_0}
+\]
+
+Thus we conclude
+
+\[
+||(A - \lambda^2 MI)^{-1} R(\lambda)|| \leq C \left( \frac{1}{X_0} + e^{-\alpha X_0} \right)
+\]
+
+For sufficiently large $X_0$, this is much less than 1, from the expression $\det(I + \epsilon A) = 1 + \epsilon \text{Tr }A + \mathcal{O}(\epsilon^2)$, we have
+
+\[
+\det (I + (A - \lambda^2 MI)^{-1} R(\lambda) ) 
+= 1 + \mathcal{O}\left( \frac{1}{X_0} + e^{-\alpha X_0} \right)
+\]
+
+Thus we have for $|\lambda| = \delta$,
+
+\begin{align*}
+E(\lambda) &= \det K(\lambda) \det(A - \lambda^2 MI) \left( 1 + \mathcal{O}\left( \frac{1}{X_0} + e^{-\alpha X_0} \right) \right)
+\end{align*}
+
+We are interested in the location of the zeros of $E(\lambda)$ inside $B(0, \delta) \subset \C$. From Rouche's Theorem, since the remainder portion of this is less than the rest of it on the circle of radius $\delta$ in the complex plane, $E(\lambda)$ and $\det K(\lambda) \det(A - \lambda^2 MI)$ have the same number of zeros (counting multiplicity) inside $B(0, \delta)$. In this special case, $\det K(\lambda)$ has one zero inside $B(0, \delta)$ and $\det(A - \lambda^2 MI)$ has 4 (two at 0 and two near the interaction eigenvalues), thus $E(\lambda)$ has 5 zeros inside $B(0, \delta)$. We know that these zeros include the two interaction eigenvalues and a kernel eigenvalue with algebraic multiplicity 2 (we know what their corresponding eigenfunctions are), which leaves us with exactly one more zero of $E(\lambda)$ inside $B(0, \delta)$. By the Hamiltonian symmetry, any eigenvalues must come in quartets. Thus the remaining zero of $E(\lambda)$ inside $B(0, \delta)$ corresponds to a lone eigenvalue, which must be at 0 and which corresponds to when $K(0)$ is singular.
+
 \item Let us summarize the results that we have obtained.
 
 \begin{itemize}
-	\item For $X_0$ sufficiently large, there is a pair of interaction eigenvalues at $\lambda = \pm \lambda(X_0)$, where $\lambda(X_0)$ is close to $\pm \sqrt{-2a/M}$ and is either real or purely imaginary.
+	\item For $X_0$ sufficiently large, there is a pair of interaction eigenvalues at $\lambda = \pm \lambda(X_0)$, where $\lambda(X_0) = \mathcal{O}(e^{-\alpha X_0})$ is close to $\pm \sqrt{-2a/M}$ and is either real or purely imaginary.
 	\item For $n/X_0$ sufficiently small, there is a pair of purely imaginary ``essential spectrum'' eigenvalues located at $\lambda = \pm \lambda^c(X_0, n)$, where $\lambda^c(X_0, n)$ is close to $-c_0 \frac{n \pi i }{2 X_0}$.
-	\item There is an eigenvalue at 0 (from translation invariance), where the eigenfunction is the derivative of the solution we are linearizing about. At this point, we cannot use Lin's method to conclude anything else about what happens at $\lambda = 0$.
+	\item There is an eigenvalue at 0 (from translation invariance) with algebraic multiplicity 2, where the eigenfunction is the derivative of the solution we are linearizing about and the generalized eigenfunction is the derivative with respect to the speed $c$. There is an additional eigenvalue at 0 which comes from the fact that $K(0)$ is singular.
+	\item Within a ball of radius $\delta = \mathcal{O}(e^{-\alpha X_0)}$ which is sufficiently large to enclose all of these, there are no other eigenvalues.
 \end{itemize}
-I
 
 \end{enumerate}
 
