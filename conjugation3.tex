@@ -50,9 +50,43 @@
 
 \begin{document}
 
-\section{Eigenvalues of A}
+Here we summarize what we have shown so far for the periodic multi-pulse eigenvalue problem. We assume we have the desired symmetries (as in KdV5) so that the matrix $A$ (below) takes a simpler form.
 
-Recall that in the cases we are interested in (such as KdV5), the matrix $A$ is the $n \times n$ matrix.
+\section{Block Matrix Theorem}
+
+Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$, where $X_{n-1}$ is the ``periodic length''. Then the jump conditions can be written as the block matrix equation 
+
+\begin{equation}\label{blockeq}
+\begin{pmatrix}
+K(\lambda) & D_2 \\
+C_3 K(\lambda) + K(\lambda) \tilde{C}_3 & A - \lambda^2 MI + D_3
+\end{pmatrix}
+\begin{pmatrix}c \\ d \end{pmatrix} 
+= 0
+\end{equation}
+
+$M$ is the Melnikov integral
+
+\begin{align*}
+M &= \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy \\
+\end{align*}
+
+The matrix $K(\lambda)$ is
+
+\begin{equation}
+K(\lambda) = 
+\begin{pmatrix}
+e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
+-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
+& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
+\vdots & & \vdots & &&  \vdots \\
+& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
+\end{pmatrix}
+\end{equation}
+
+where $\nu(\lambda)$ is the small eigenvalue of the asympotic matrix $A(\lambda)$. \\
+
+The matrix $A$ is 
 
 \begin{align*}
 A &= \begin{pmatrix}
@@ -60,17 +94,34 @@ A &= \begin{pmatrix}
 a_0 + a_1 & -a_0 - a_1
 \end{pmatrix} && n = 2 \\
 A &= \begin{pmatrix}
--a_{n-1} - a_0 & a_0 & & \dots & a_{n-1}\\
+-a_{n-1} - a_0 & a_0 & & & \dots & a_{n-1}\\
 a_0 & -a_0 - a_1 &  a_1 \\
 & a_1 & -a_1 - a_2 &  a_2 \\
-& & & \ddots & \\
-a_{n-1} & & & a_{n-2} & -a_{n-2} - a_{n-1} \\
+& & \vdots & & \vdots \\
+a_{n-1} & & & & a_{n-2} & -a_{n-2} - a_{n-1} \\
 \end{pmatrix} && n > 2
 \end{align*}
 
-where $a_i = \langle \Psi(X_i), Q'(-X_i) \rangle$. This comes from Lin's method applied to the eigenvalue problem for the linearization about the periodic $n-$pulse. We expect the interaction eigenvalues satisfy $\lambda^2 \approx \mu / M$, where $\mu$ is an eigenvalue of $A$, and $M \neq 0$ is the appropriate Melnikov integral. Thus it useful to look at the eigenvalues of $A$. \\
+where
 
-First, we do what we can with the matrix $A$.
+\begin{align*}
+a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
+\end{align*}
+
+The remainder terms have bounds
+
+\begin{align*}
+C_3, \tilde{C}_3 &= \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m})) 
++ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m})) \\
+D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})) \\
+D_3 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
+\end{align*}
+
+where $X_m = \min \{X_0, \dots, X_{n-1}\}$
+
+\section{Eigenvalues of A}
+
+The interaction eigenvalues should satisfy $\lambda^2 \approx \mu / M$, where $\mu$ is an eigenvalue of $A$, and $M \neq 0$ is the Melnikov integral. Thus it useful to look at the eigenvalues of $A$. We note that $A$ is a real, symmetric matrix, so its eigenvalues will be real. We start with simplest cases.
 
 \begin{enumerate}
 
@@ -99,7 +150,7 @@ If $a_0 = a_1 = a_2 = a$, this becomes
 \mu = \{0,  -3a \}
 \]
 
-where the eigenvalue $\mu = -3a$ has algebraic multiplicity 2.
+where the eigenvalue $\mu = -3a$ has algebraic multiplicity 2. 
 
 \item For $n > 4$, Mathematica can no longer do it (thanks, Galois!) 
 
@@ -120,7 +171,7 @@ Things to notice,
 
 \end{enumerate}
 
-The next case to consider is when the period is large. Recall that, by convention, we have taken $X_{n-1}$ to be the ``periodic length'' (although it does not matter). If $X_{n-1}$ is large, then $a_{n-1}$ is very close to 0, so it is useful to look at the eigenvalues of $A$ when this is the case. With this assumption, $A$ is now a tridiagonal matrix. 
+The next case to consider is when the ``periodic length'' is large. If $X_{n-1}$ is large, then $a_{n-1}$ is very close to 0, so it is useful to look at the eigenvalues of $A$ when this is the case. With this assumption, $A$ is now a tridiagonal matrix. 
 
 \begin{align*}
 A &= \begin{pmatrix}
@@ -157,6 +208,8 @@ If $a_0 = a_1 = a$, this becomes
 \mu = \{0,  -a, -3a \}
 \]
 
+and this time these are distinct.
+
 \item Consider the case where all the distances $X_i$ are equal, i.e. $a_k = a$ for all $k$. Unfortunately, $A$ is not a circulant matrix. But I have proved (and verified by Mathematica!) that the eigenvalues are 
 
 \begin{align*}
@@ -169,6 +222,13 @@ If $a_0 = a_1 = a$, this becomes
 	\item $\mu_n = 0$ always
 	\item The remaining $\mu_k$ are either all positive (if $a < 0$) or all negative (if $a > 0$)
 	\item All the remaining $\mu_k$ are distinct. 
+\end{enumerate}
+
+\item Now consider the general case. Although we cannot find the eigenvalues themselves, we do know their signs. Note that none of the $a_i$ are 0, and that since each row sums to 0, 0 is an eigenvalue with eigenvector $(1, 1, \dots, 1)^T$. Using Lemma 5.4 in San98 (and noting that that matrix there is $-A$), we have
+
+\begin{enumerate}
+	\item $A$ has $k_+$ negative real eigenvalues (counting multiplicty), where $k_+$ is the number of positive $a_i$.
+	\item $A$ has $k_-$ positive real eigenvalues (counting multiplicty), where $k_-$ is the number of negative $a_i$.
 \end{enumerate}
 
 \end{enumerate}
