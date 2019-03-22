@@ -84,7 +84,7 @@ e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
 \end{pmatrix}
 \end{equation}
 
-where $\nu(\lambda)$ is the small eigenvalue of the asympotic matrix $A(\lambda)$. \\
+where $\nu(\lambda)$ is the small eigenvalue of the asymptotic matrix $A(\lambda)$. \\
 
 The matrix $A$ is 
 
@@ -227,87 +227,93 @@ and this time these are distinct.
 \item Now consider the general case. Although we cannot find the eigenvalues themselves, we do know their signs. Note that none of the $a_i$ are 0, and that since each row sums to 0, 0 is an eigenvalue with eigenvector $(1, 1, \dots, 1)^T$. Using Lemma 5.4 in San98 (and noting that that matrix there is $-A$), we have
 
 \begin{enumerate}
-	\item $A$ has $k_+$ negative real eigenvalues (counting multiplicty), where $k_+$ is the number of positive $a_i$.
-	\item $A$ has $k_-$ positive real eigenvalues (counting multiplicty), where $k_-$ is the number of negative $a_i$.
+	\item $A$ has $k_+$ negative real eigenvalues (counting multiplicity), where $k_+$ is the number of positive $a_i$.
+	\item $A$ has $k_-$ positive real eigenvalues (counting multiplicity), where $k_-$ is the number of negative $a_i$.
 \end{enumerate}
 
 \end{enumerate}
 
-I would like for the following proposition to be true. Experimenting with Mathematica leads me to believe that it is true.
+\section{2-periodic pulses}
 
-\begin{proposition}
-Consider the symmetric, $n \times n$ tridiagonal matrix
-\begin{equation}
-A = \begin{pmatrix}
-- a_0 & a_0 & & &  \\
-a_0 & -a_0 - a_1 &  a_1 \\
-& a_1 & -a_1 - a_2  &  a_2 \\
-& & & \ddots \\
-& & & a_{n-2} & -a_{n-2} \\
-\end{pmatrix} 
-\end{equation}
-where $a_0, \dots, a_{n-2}$ are all real and nonzero. Suppose $k_+$ of the $a_j$ are positive and $k_-$ of the $a_j$ are negative. Then $A$ has a single eigenvalue at 0, $k_+$ negative real eigenvalues, and $k_-$ positive real eigenvalues. The eigenvalues might also be distinct?
-\begin{proof}
-Since $A$ is symmetric, its eigenvalues are real. Since each row sums to 0, it is easy to see that 0 is an eigenvalue with eigenvector $(1, 1, \dots, 1)^T$. Solving the eigenvalue problem means solving $(A - \lambda I)v = 0$, which looks like
+We consider 2-periodic pulses first, since they are the simplest. Recall that we have proved that for sufficiently large $X_0$ and any $X_1 \geq X_0$, these 2-periodic pulses exist. Let $X = X_0 + X_1$.
 
-\begin{equation}
-(A - \lambda I)v = \begin{pmatrix}
-- a_0 - \lambda & a_0 & & &  \\
-a_0 & -a_0 - a_1 - \lambda &  a_1 \\
-& a_1 & -a_1 - a_2 - \lambda &  a_2 \\
-& & & \ddots \\
-& & & a_{n-2} & -a_{n-2} - \lambda\\
-\end{pmatrix} 
-\begin{pmatrix}v_0 \\ v_1 \\ v_2 \\ \\ v_{n-1} \end{pmatrix} = 0
-\end{equation}
+\subsection{2-periodic pulse with equal distances}
 
-The inner rows satisfy the difference equation
+For the 2-periodic pulse with lengths $X_0 = X_1$,
 
-\begin{equation}
-a_{k-1} v_{k-1} - a_{k-1} v_k - a_k v_k + a_k v_{k+1} - \lambda v_k = 0
-\end{equation}
+\begin{itemize}
+	\item For $X_0$ sufficiently large, there is a pair of interaction eigenvalues at $\lambda = \pm \lambda(X_0)$, where $\lambda(X_0) = \mathcal{O}(e^{-\alpha X_0})$ is either real or purely imaginary and is close to $\pm \sqrt{-2a/M}$, where
+	\[
+	a = 2 a_0 = 2 \langle \Psi(X_0), Q'(-X_0) \rangle
+	\]
+	\item For $n/X_0$ sufficiently small, where $n$ is a nonzero integer, there is a pair of purely imaginary ``essential spectrum'' eigenvalues located at $\lambda = \pm \lambda^c(X_0, n)$, where $\lambda^c(X_0, n)$ is close to $-c_0 \frac{n \pi i }{2 X_0}$.
+	\item There is an eigenvalue at 0 (from translation invariance) with algebraic multiplicity 2, for which the eigenfunction and generalized eigenfunction are known. There is an additional eigenvalue at 0 which comes from the fact that $K(0)$ is singular.
+	\item Within a ball of radius $\delta = C_0 e^{-\alpha X_0}$, with $C_0$ chosen so that  the ball is sufficiently large to enclose the interaction eigenvalues, there are no other eigenvalues.
+\end{itemize}
 
-for $k = 1, \dots, n-2$. Letting $\Delta$ be the forward difference operator $\Delta u_k = u_{k+1} - u_k$, this can be written as 
+\subsection{2-periodic pulse with unequal distances (and one restriction)}
 
-\begin{equation}
-\Delta( a_{k-1} \Delta v_{k-1} ) - \lambda v_k = 0
-\end{equation}
+For the 2-periodic solution with lengths $X_0 < X_1$, first assume that
 
-To verify this, all we have to do is expand it out.
+\[
+e^{-\alpha X_0}X = 
+e^{-\alpha X_0}X_0\left( 1 + \frac{X_1}{X_0} \right) = \mathcal{O}(1)
+\]
 
-\begin{align*}
-\Delta( a_{k-1} \Delta v_{k-1} ) - \lambda v_k 
-&= \Delta( a_{k-1} v_k - a_{k-1} v_{k-1}) - \lambda v_k \\
-&= a_{k} v_{k+1} - a_{k-1} v_k - a_{k} v_{k} + a_{k-1} v_{k-1} - \lambda v_k
-\end{align*}
+Recall that 
 
-which is exactly what we have above. This is a discrete Sturm-Liouville equation with $p = a$, $q = 0$, and the weight $r = 1$. We need to specify the boundary conditions, which come from the first and last rows of $A - \lambda I$. To make the boundary conditions, we extend the difference equation to $k = 0$ and $k = n-1$, and then then put conditions on $v_{-1}$ and $v_n$ so that the first and last lines are satisfied. Doing this, we find that we must have
+\begin{enumerate}
+\item $K(\lambda)$ is singular at
 
-\begin{align*}
-a_{-1} v_{-1} - a_{-1} v_0 &= 0 \\
--a_{n-1} v_{n-1} + a_{n-1} v_n &= 0
-\end{align*}
+\[
+\mu(X, n) = -c_0 \frac{n \pi i}{X} + \mathcal{O}(n/X)^2
+\]
 
-Since the constants $a_{-1}$ and $a_{n-1}$ are irrelevant, we have the following discrete Sturm-Liouville problem, together with (discrete) Neumann boundary conditions.
+\item $A - \lambda^2 M I$ is singular at $\lambda = 0$ and $\lambda = \pm \mu_0 = \pm \sqrt{-2a/M}$. 
 
-\begin{align}
-\Delta( a_{k-1} \Delta v_{k-1} ) - \lambda v_k &= 0 && k = 0, \dots, n-1 \\
-v_{-1} - v_0 &= 0 \\
-v_{n} - v_{n-1} &= 0
-\end{align}
+\end{enumerate}
 
-Someone somewhere must know things about this.
+Let 
 
-\end{proof}
-\end{proposition}
+\[
+\epsilon = \frac{e^{-\alpha X_0/4}}{X}
+\]
 
-The ``periodic'' tridiagonal matrix yields the same discrete Sturm-Liouville problem, except with periodic BCs.
+and assume that $| \pm \mu_0 - \mu(X, n)| \geq \epsilon$ for all $n$. In other words, the nonzero points where $A - \lambda^2 M I$ is singular are located at least a distance $\epsilon$ from the points where $K(\lambda)$ is singular. Then we have the following.
 
-\begin{align}
-\Delta( a_{k-1} \Delta v_{k-1} ) - \lambda v_k &= 0 && k = 0, \dots, n-1 \\
-v_{-1} - v_{n-1} &= 0 \\
-v_{n} - v_0 &= 0
-\end{align}
+\begin{itemize}
+	\item For $X_0$ sufficiently large, there is a pair of interaction eigenvalues at $\lambda = \pm \lambda(X_0)$, where $\lambda(X_0) = \mathcal{O}(e^{-\alpha X_0})$ is either real or purely imaginary and is close to $\pm \sqrt{-2a/M}$, where 
+	\[
+	a = a_0 + a_1 = \langle \Psi(X_0), Q'(-X_0) \rangle + \langle \Psi(X_1), Q'(-X_1) \rangle
+	\]
+	For $X_1$ much greater than $X_0$, $a \approx a_0$.
+	\item For $n/X_0$ sufficiently small, where $n$ is a nonzero integer, there is a pair of purely imaginary ``essential spectrum'' eigenvalues located at $\lambda = \pm \lambda^c(X, n)$, where $\lambda^c(X_0, n)$ is close to $\mu(X, n) = -c_0 \frac{n \pi i }{X}$.
+	\item There is an eigenvalue at 0 (from translation invariance) with algebraic multiplicity 2, for which the eigenfunction and generalized eigenfunction are known. There is an additional eigenvalue at 0 which comes from the fact that $K(0)$ is singular.
+	\item Within a ball of radius $\delta = C_0 e^{-\alpha X_0}$, with $C_0$ chosen so that  the ball is sufficiently large to enclose the interaction eigenvalues, there are no other eigenvalues.
+\end{itemize}
 
+\subsection{2-periodic pulse with unequal distances, no restrictions}
+
+In general, $K(\lambda) = \mathcal{O}(e^{|\text{Re } \nu(\lambda)|X})$. If $\nu(\lambda)$ has a nonzero real part, this grows exponentially as $X = X_0 + X_1$ increases, and as of now we have no way to control this other than making an additional assumption that $X$ cannot get too large. The key thing we need to control is $K(\lambda) \tilde{C}_3 K(\lambda)^{-1}$. It is possible that if we could better characterize $\tilde{C}_3$, we could get a better bound that would allow us to get this to work for all $X$. Thus it makes sense to revisit the Lin's method estimates to see if we can do this.    
+
+\section{Higher order multi-pulses}
+
+The interaction eigenvalues should all be $\mathcal{O}(e^{-\alpha X_m})$, where $X_m = \min \{X_i\}$. The singular points of $K(\lambda)$ depend only on $X$. Thus this should work exactly the same as the 2-periodic cases, except we have to make more $\epsilon-$balls where needed to isolate the singular points of $K(\lambda)$ and $A - \lambda^2 M I$.\\
+
+The additional complications are the following.
+
+\begin{enumerate}
+
+\item For now, we will need a similar assumption to what we did in the 2-periodic pulse case with unequal distances, i.e. 
+
+\[
+e^{-\alpha X_m}X = \mathcal{O}(1)
+\]
+
+to get this to work.
+
+\item Suppose we take all the $X_i$ to be the same. As noted above, for $n \geq 3$ we will always have eigenvalues of $A$ with algebraic multiplicity 2, which allows for the possibility of interaction eigenvalue quartets. I don't see any way of showing this cannot happen, so we probably need to exclude this case. Interestingly, we also only have proven the existence result for $X_{n-1} > \max\{ X_0, \dots, X_{n-2} \}$.
+
+\end{enumerate}
 
 \end{document}
