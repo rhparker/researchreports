@@ -1928,10 +1928,23 @@ b_{i,i+1} &= \mathcal{O}(e^{-(\alpha - \rho) X_i}(|\lambda| + e^{-\alpha X_m}))
 We claim we can write these the $T_i(\lambda)$ in matrix form as
 
 \[
-T(\lambda) = C_3 K(\lambda) + K(\lambda) \tilde{C}_3
+T(\lambda) = C_3 K(\lambda) + \tilde{K}(\lambda)
 \]
 
-where $K(\lambda)$ is defined in Lemma \ref{jumpcenteradj} and 
+where $\tilde{K}(\lambda)$ is the following small perturbation of $K(\lambda)$
+
+\begin{align*}
+\tilde{K}(\lambda) =  
+\begin{pmatrix}
+e^{-\nu(\lambda)X_1}(1 + \epsilon_{1,1}) & & & & & -e^{\nu(\lambda)X_0}(1 + \epsilon_{1,0}) \\
+-e^{\nu(\lambda)X_1}(1 + \epsilon_{2,1}) & e^{-\nu(\lambda)X_2}(1 + \epsilon_{2,2}) \\
+& -e^{\nu(\lambda)X_2}(1 + \epsilon_{3,2}) & e^{-\nu(\lambda)X_3}(1 + \epsilon_{3,3}) \\
+\vdots & & \vdots & &&  \vdots \\
+& & & & -e^{\nu(\lambda)X_{n-1}}(1 + \epsilon_{0,n-1}) & e^{-\nu(\lambda)X_0}(1 + \epsilon_{0,0}) 
+\end{pmatrix}
+\end{align*}
+
+with $\epsilon_{i,j} = \mathcal{O}(|\lambda| + e^{-\alpha X_m})$ and $C_3$ is a matrix of the form
 
 \begin{align*}
 C_3 &= \begin{pmatrix}
@@ -1965,9 +1978,6 @@ Comparing coefficients with $T_i$, we see that $\gamma_{i,i-1} = -b_{i,i-2}$ and
 \end{align*}
 
 for $i = 0, \dots, n-1$ where we recall that the coeffients are all $\mod n$. In matrix form, this is
-
-\begin 
-
 
 \begin{align*}
 T_i(\lambda) &= b_{i,i-1} \tilde{c}_{i-1}^+ + b_{i,i} \tilde{c}_{i}^- + b_{i,i-2} ( \tilde{c}_{i-2}^+ - \tilde{c}_{i-1}^-) + b_{i,i+1} (\tilde{c}_{i+1}^- - \tilde{c}_i^+)
