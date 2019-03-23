@@ -1394,7 +1394,7 @@ R^c&(c^-, d)_i \leq C \Big(
 The jump conditions can be written as the matrix equation
 
 \begin{equation}\label{matrixjumpc}
-(K(\lambda) + C_1 K(\lambda) + K_\gamma(\lambda)) c + D_1 d = 0
+(K(\lambda) + C_1 K(\lambda) + K_1(\lambda)) c + D_1 d = 0
 \end{equation}
 
 where
@@ -1417,7 +1417,7 @@ C_1 &= \mathcal{O}(e^{-\tilde{\alpha} X_m}(|\lambda| + e^{-\alpha X_m})) \\
 D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m}))
 \end{align*}
 
-The specific forms of $K_\gamma(\lambda)$ and $D_1$ are given in the proof.
+$K_1(\lambda)$ is a small perturbation of $K(\lambda)$. The specific forms of $K_1(\lambda)$ and $C_1$ are given in the proof.
 
 \begin{proof}
 
@@ -1660,13 +1660,13 @@ T_i(\lambda) &= \gamma_{i,i-1} \tilde{c}_{i-1}^+ + \gamma_{i,i} \tilde{c}_{i}^- 
 where we have the same bounds on the coefficients $b_{i,j}$. We have what we need to write the center jump expressions in matrix form.
 
 \[
-(K(\lambda) + C_1 K(\lambda) + K_\gamma(\lambda)) c + D_1 d = 0
+(K(\lambda) + C_1 K(\lambda) + K_1(\lambda)) c + D_1 d = 0
 \]
 
-where $K_\gamma(\lambda)$ is the following ``$\gamma-$perturbation'' of $K(\lambda)$ 
+where $K_1(\lambda)$ is the following ``$\gamma-$perturbation'' of $K(\lambda)$ 
 
 \begin{align*}
-K_\gamma(\lambda) =  
+K_1(\lambda) =  
 \begin{pmatrix}
 e^{-\nu(\lambda)X_1} \gamma_{1,1} & & & & & e^{\nu(\lambda)X_0}\gamma_{1,0} \\
 e^{\nu(\lambda)X_1}\gamma_{2,1} & e^{-\nu(\lambda)X_2}\gamma_{2,2} \\
@@ -1733,7 +1733,7 @@ and the remainder term has bound
 We can write these conditions in matrix form as
 
 \begin{equation}
-C_3 K(\lambda) \tilde{C}_3 c + (A -\lambda^2 M I + D_3)d = 0
+C_2 K(\lambda) + K_2(\lambda) + (A - \lambda^2 M I + D_2)d = 0
 \end{equation}
 
 where the matrix $K(\lambda)$ is defined in Lemma \ref{jumpcenteradj} and the matrix $A$ is given by
@@ -1759,13 +1759,14 @@ a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
 \tilde{a}_i &= \langle \Psi(-X_i), Q'(X_i) \rangle
 \end{align*}
 
-and we have bounds
+and the remainder matrices have uniform bounds
 
 \begin{align*}
-C_3 &= \mathcal{O}(|\lambda| + e^{-\alpha X_m}) \\
-\tilde{C}_3 &= \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m}))\\
-D_3 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
+C_2 &= \mathcal{O}(e^{-\tilde{\alpha}X_m})(|\lambda| + e^{-\alpha X_m})) \\
+D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
 \end{align*}
+
+$K_2(\lambda)$ is a small perturbation of $K(\lambda)$. The specific forms of $K_2(\lambda)$ and $C_2$ are given in the proof.
 
 \begin{proof}
 
@@ -1895,7 +1896,7 @@ and the remainder term has piecewise bound
 Using the fact that $|D| = \mathcal{O}(e^{-\alpha X_m})$ and absorbing the higher order $|c_{i-1}^-|$ and $|c_i^|$ terms into the lower order $|\tilde{c}_{i-1}^+|$ and $|\tilde{c}_{i}^-|$ terms, this becomes
 
 \begin{align*}
-|R(\lambda)_i&(\tilde{c}, d)| \leq C \Big( \\
+|R(\lambda)_i&(c_i^-, d)| \leq C \Big( \\
 &(|\lambda| + e^{-\alpha X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i}^-|) + (|\lambda| + e^{-\tilde{\alpha} X_m})( e^{-(\alpha - \rho) X_{i-1}}|\tilde{c}_{i-2}^+| + e^{-(\alpha - \rho) X_i}|\tilde{c}_{i+1}^-|) \\
 &+ (|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2 |d| \Big)
 \end{align*}
@@ -1928,121 +1929,10 @@ Since these remainder terms are already included in our remainder term, we obtai
 - \lambda_2 d_i M + R_i(\lambda)(c^-, d)
 \end{align*}
 
-where $R_i(\lambda)(c^-, d)$ has the same remainder bound as above. As in Lemma \ref{jumpcenteradj}, we will write these jump expressions in matrix form. The remainder terms involving the $\tilde{c}$ are a little more complicated this time. Let $T_i(\lambda)(c^-)$ be terms involving $\tilde{c}$ in $R_i(\lambda)(c^-, d)$. We can write this as
+where $R_i(\lambda)(c^-, d)$ has the same remainder bound as above. As in Lemma \ref{jumpcenteradj}, we will write these jump expressions in matrix form. The remainder terms involving the $\tilde{c}$ work out exactly the same as in Lemma \ref{jumpcenteradj}, except the remainder coefficients are different and we do not have the $\tilde{c}$ terms by themselves. Thus, in matrix form, we have
 
 \[
-T_i(\lambda) = b_{i,i-1} \tilde{c}_{i-1}^+ + b_{i,i} \tilde{c}_{i}^- + b_{i,i-2} \tilde{c}_{i-2}^+ + b_{i,i+1} \tilde{c}_{i+1}^-
-\] 
-
-where
-
-\begin{align*}
-b_{i,i-1}, b_{i,i} &= \mathcal{O}(|\lambda| + e^{-\alpha X_m}) \\
-b_{i,i-2} &= \mathcal{O}(e^{-(\alpha - \rho) X_{i-1}}(|\lambda| + e^{-\alpha X_m})) \\
-b_{i,i+1} &= \mathcal{O}(e^{-(\alpha - \rho) X_i}(|\lambda| + e^{-\alpha X_m}))
-\end{align*}
-
-Anticipating what we want to do, we add and subtract $\tilde{c}_i^+$ and $\tilde{c}_{i-1}^-$.
-
-\begin{align*}
-T_i(\lambda) &= b_{i,i-1} \tilde{c}_{i-1}^+ + b_{i,i} \tilde{c}_{i}^- + b_{i,i-2} ( \tilde{c}_{i-2}^+ - \tilde{c}_{i-1}^-) + b_{i,i-2} \tilde{c}_{i-1}^- \\
-& + b_{i,i+1} (\tilde{c}_{i+1}^- - \tilde{c}_i^+) + b_{i,i+1} \tilde{c}_i^+
-\end{align*}
-
-Next, note that
-
-\begin{align*}
-b_{i,i-2} \tilde{c}_{i-1}^- &= \mathcal{O}(e^{-(\alpha - \rho) X_{i-1}}(|\lambda| + e^{-\alpha X_m})|e^{-\nu(\lambda)}c_{i-1}^-|) \\
-&= \mathcal{O}(e^{-(\alpha - 3 \rho) X_{i-1}}(|\lambda| + e^{-\alpha X_m})|e^{\nu(\lambda)}c_{i-1}^-|) \\
-&= \mathcal{O}(e^{-\tilde{\alpha} X_{i-1}}(|\lambda| + e^{-\alpha X_m})|\tilde{c}_{i-1}^+|) \\
-\end{align*}
-
-Similarly,
-
-\begin{align*}
-b_{i,i+1} \tilde{c}_i^+ &= \mathcal{O}(e^{-\tilde{\alpha} X_i}(|\lambda| + e^{-\alpha X_m})|\tilde{c}_i^-|)
-\end{align*}
-
-Both of these are higher order than $b_{i,i-1}$ and $b_{i,i}$. Substituting these in, collecting terms, and keeping the notation $b_{i,j}$ for the resulting constants
-
-\begin{align*}
-T_i(\lambda) &= b_{i,i-1} \tilde{c}_{i-1}^+ + b_{i,i} \tilde{c}_{i}^- + b_{i,i-2} ( \tilde{c}_{i-2}^+ - \tilde{c}_{i-1}^-) + b_{i,i+1} (\tilde{c}_{i+1}^- - \tilde{c}_i^+)
-\end{align*}
-
-where we still have
-
-\begin{align*}
-b_{i,i-1}, b_{i,i} &= \mathcal{O}(|\lambda| + e^{-\alpha X_m}) \\
-b_{i,i-2} &= \mathcal{O}(e^{-(\alpha - \rho) X_{i-1}}(|\lambda| + e^{-\alpha X_m})) \\
-b_{i,i+1} &= \mathcal{O}(e^{-(\alpha - \rho) X_i}(|\lambda| + e^{-\alpha X_m}))
-\end{align*}
-
-We claim we can write these the $T_i(\lambda)$ in matrix form as
-
-\[
-T(\lambda) = C_3 K(\lambda) + \tilde{K}(\lambda)
-\]
-
-where $\tilde{K}(\lambda)$ is the following small perturbation of $K(\lambda)$
-
-\begin{align*}
-\tilde{K}(\lambda) =  
-\begin{pmatrix}
-e^{-\nu(\lambda)X_1}(1 + \epsilon_{1,1}) & & & & & -e^{\nu(\lambda)X_0}(1 + \epsilon_{1,0}) \\
--e^{\nu(\lambda)X_1}(1 + \epsilon_{2,1}) & e^{-\nu(\lambda)X_2}(1 + \epsilon_{2,2}) \\
-& -e^{\nu(\lambda)X_2}(1 + \epsilon_{3,2}) & e^{-\nu(\lambda)X_3}(1 + \epsilon_{3,3}) \\
-\vdots & & \vdots & &&  \vdots \\
-& & & & -e^{\nu(\lambda)X_{n-1}}(1 + \epsilon_{0,n-1}) & e^{-\nu(\lambda)X_0}(1 + \epsilon_{0,0}) 
-\end{pmatrix}
-\end{align*}
-
-with $\epsilon_{i,j} = \mathcal{O}(|\lambda| + e^{-\alpha X_m})$ and $C_3$ is a matrix of the form
-
-\begin{align*}
-C_3 &= \begin{pmatrix}
-\gamma_{1,1} & \gamma_{1,2} & 0 & 0 & \dots & 0 & \gamma_{1,0} \\
-\gamma_{2,1} & \gamma_{2,2} & \gamma_{2,3} & 0 & \dots & 0 & 0 \\
-&  & \ddots \\
-\gamma_{0,1} & 0 & 0 & 0 & \dots & \gamma_{0, n-1} &\gamma_{0,0}
-\end{pmatrix}, 
-&&\tilde{C}_3 = \begin{pmatrix}
-\tilde{\gamma}_{1,1} \\
-& \tilde{\gamma}_{2,2} \\
-&&\ddots \\
-&&& \tilde{\gamma}_{0,0}
-\end{pmatrix}
-\end{align*}
-
-To prove this all we have to do is make the ansatz and show we can solve uniquely for the constants in $C_3$ and $\tilde{C}^3$. If we do this, the $i$-th row of $C_3 K(\lambda) c + K(\lambda) \tilde{C}_3 c$ is 
-
-\begin{align*}
-\gamma_{i,i}(\tilde{c}_i^- - \tilde{c}_{i-1}^+) 
-+ \gamma_{i,i+1}(\tilde{c}_{i+1}^- - \tilde{c}_i^+)
-+ \gamma_{i,i-1}(\tilde{c}_{i-1}^- - \tilde{c}_{i-2}^+)
-+ \tilde{\gamma}_{i,i} \tilde{c}_i^- - \tilde{\gamma}_{i-1,i-1} \tilde{c}_{i-1}^+
-\end{align*}
-
-Comparing coefficients with $T_i$, we see that $\gamma_{i,i-1} = -b_{i,i-2}$ and $\gamma_{i,i+1} = b_{i,i+1}$. That leaves us the $\gamma_{i,i}$ and $\tilde{\gamma}_{i,i}$. To solve for them, we need to solve the $2n$ linear equations
-
-\begin{align*}
-\gamma_{i,i} - \tilde{\gamma}_{i,i} &= b_{i,i-1}\\
-\gamma_{i,i} - \tilde{\gamma}_{i-1,i-1} &= b_{i,i} 
-\end{align*}
-
-for $i = 0, \dots, n-1$ where we recall that the coeffients are all $\mod n$. In matrix form, this is
-
-\begin{align*}
-T_i(\lambda) &= b_{i,i-1} \tilde{c}_{i-1}^+ + b_{i,i} \tilde{c}_{i}^- + b_{i,i-2} ( \tilde{c}_{i-2}^+ - \tilde{c}_{i-1}^-) + b_{i,i+1} (\tilde{c}_{i+1}^- - \tilde{c}_i^+)
-\end{align*}
-
-
-
-
-
-, but after looking at which jumps involves which $\tilde{c}$, we wind up with
-
-\[
-C_3 K(\lambda) \tilde{C}_3 + (A - \lambda^2 M I + D_3)d = 0
+C_2 K(\lambda) + K_2(\lambda) + (A - \lambda^2 M I + D_2)d = 0
 \]
 
 where the matrix $A$ is given by
@@ -2074,41 +1964,50 @@ $M$ is the higher order Melnikov integral
 M = \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy
 \]
 
-The remainder matrices $C_3$ and $\tilde{C}_3$ are of the form
+$K_2(\lambda)$ is the following ``$\tilde{\gamma}-$perturbation'' of $K(\lambda)$ 
 
 \begin{align*}
-C_3 &= \begin{pmatrix}
-\gamma_{1,1} & \delta_{1,2} & 0 & 0 & \dots & 0 & \delta_{1,0} \\
-\delta_{2,1} & \gamma_{2,2} & \delta_{2,3} & 0 & \dots & 0 & 0 \\
-&  & \ddots \\
-\delta_{0,1} & 0 & 0 & 0 & \dots & \delta_{0, n-1} & \gamma_{0,0}
-\end{pmatrix} \\
-\tilde{C}_3 &= \begin{pmatrix}
-\tilde{\gamma}_{1,1} \\
-& \tilde{\gamma}_{2,2} \\
-&&\ddots \\
-&&& \tilde{\gamma}_{0,0}
+K_1(\lambda) =  
+\begin{pmatrix}
+e^{-\nu(\lambda)X_1} \tilde{\gamma}_{1,1} & & & & & e^{\nu(\lambda)X_0}\tilde{\gamma}_{1,0} \\
+e^{\nu(\lambda)X_1}\tilde{\gamma}_{2,1} & e^{-\nu(\lambda)X_2}\tilde{\gamma}_{2,2} \\
+& e^{\nu(\lambda)X_2}\tilde{\gamma}_{3,2} & e^{-\nu(\lambda)X_3}\tilde{\gamma}_{3,3} \\
+\vdots & & \vdots & &&  \vdots \\
+& & & & e^{\nu(\lambda)X_{n-1}}\tilde{\gamma}_{0,n-1} & e^{-\nu(\lambda)X_0}\tilde{\gamma}_{0,0} 
+\end{pmatrix}
+\end{align*}
+
+where 
+
+\begin{align*}
+\tilde{\gamma}_{i,i-1}, \tilde{\gamma}_{i,i} &= \mathcal{O}(|\lambda| + e^{-\alpha X_m}) \\
+\end{align*}
+
+$C_2$ is the periodic, banded matrix
+
+\begin{align*}
+C_2 &= \begin{pmatrix}
+0 & \tilde{\gamma}_{1,2} & 0 & 0 & \dots & 0 & -\tilde{\gamma}_{n-1,0} & 0 \\
+0 & 0 & \gamma_{2,3} & 0 & \dots & 0 & 0 & -\tilde{\gamma}_{2,1} \\
+-\tilde{\gamma}_{3,1} & 0 & 0 & \tilde{\gamma}_{3,4} & \dots & 0 & 0 & 0 \\
+&  & & \ddots  \\
+0 & 0 & 0 & 0 & \dots & 0 & 0 & \tilde{\gamma}_{n-1,0} \\
+\tilde{\gamma}_{0,1} & 0 & 0 & 0 & \dots & -\tilde{\gamma}_{0, n-2} & 0 & 0 
 \end{pmatrix}
 \end{align*}
 
 where
 
 \begin{align*}
-\gamma_{j,j}, \tilde{\gamma}_{j,j} &= \mathcal{O}(e^{-\alpha X_m} + |\lambda|) \\
-\delta_{j,k} &= \mathcal{O}(e^{-\tilde{\alpha X_m}}(e^{-\alpha X_m} + |\lambda|))
+\tilde{\gamma}_{i,i-2} &= \mathcal{O}(e^{-(\alpha - \rho) X_{i-1}}(|\lambda| + e^{-\alpha X_m})) \\
+\tilde{\gamma}_{i,i+1} &= \mathcal{O}(e^{-(\alpha - \rho) X_i}(|\lambda| + e^{-\alpha X_m}))
 \end{align*}
 
-For our purposes, we can write
+For the matrices $C_2$ and $D_2$, we have uniform bounds
 
 \begin{align*}
-C_3 &= \mathcal{O}(|\lambda| + e^{-\alpha X_m}) \\
-\tilde{C}_3 &= \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m}))
-\end{align*}
-
-For the remainder matrix $D_3$, we have the bound
-
-\begin{align*}
-D_3 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
+C_2 &= \mathcal{O}(e^{-\tilde{\alpha}X_m})(|\lambda| + e^{-\alpha X_m})) \\
+D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
 \end{align*}
 
 \end{proof}
