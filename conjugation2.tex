@@ -2519,7 +2519,7 @@ Choose a radius $\delta > 0$ with $\delta = C_0 e^{-\alpha X_0}$, where $C_0$ is
 For this second condition, since the $\lambda(X, n)$ are, to leading order, equally spaced, this is just saying that we choose $\delta$ so that the $\delta-$circle cuts half way between two of these.
 \end{enumerate}
 
-This gives us the following bounds when $|\lambda| = \delta$. From the first section, we have $||K(\lambda)^{-1}|| &\leq C$. For $(A - \lambda^2 M I)^{-1}$, since $\lambda$ is more than $e^{-\alpha X_m}$ from every interaction eigenvalue, $\det(A - \lambda^2 M I) \geq e^{-n \alpha X_m}$, thus we have
+This gives us the following bounds when $|\lambda| = \delta$. From the first section, we have $||K(\lambda)^{-1}|| \leq C$. For $(A - \lambda^2 M I)^{-1}$, since $\lambda$ is more than $e^{-\alpha X_m}$ from every interaction eigenvalue, $\det(A - \lambda^2 M I) \geq e^{-n \alpha X_m}$, thus we have
 
 \begin{align*}
 ||(A - \lambda^2 M I)^{-1}|| &\leq C e^{2 \alpha X_m} \\
@@ -2535,10 +2535,10 @@ C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
 \end{pmatrix}
 \end{equation}
 
-In the first section, we showed that for sufficiently large $X_m$, $(I + C_1 + K_1(\lambda)K(\lambda))$ is invertible. Letting $C_3 = (I + C_1 + K_1(\lambda)K(\lambda)^{-1})$, this is equivalent to finding the zeros of
+In the first section, we showed that for sufficiently large $X_m$, $(I + C_1 + K_1(\lambda)K(\lambda))$ is invertible. Letting $C_3 = (I + C_1 + K_1(\lambda)K(\lambda)^{-1})$, finding the zeros of $E(\lambda)$ is equivalent to finding the zeros of
 
 \begin{equation}
-E(\lambda) = \det 
+\tilde{E}(\lambda) = \det 
 \begin{pmatrix}
 K(\lambda) & C_3 D_1 \\
 C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
@@ -2548,7 +2548,7 @@ C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
 Using a standard determinant identity, since $K(\lambda)$ is invertible, this becomes
 
 \begin{align*}
-E(\lambda) &= \det(K(\lambda))
+\tilde{E}(\lambda) &= \det(K(\lambda))
 \det ( A - \lambda^2 MI + D_2 - (C_2 K(\lambda) + K_2(\lambda))K(\lambda)^{-1}C_3 D_1 ) \\
 &= \det(K(\lambda))\det(A - \lambda^2 MI)
 \det ( I + (A - \lambda^2 MI)^{-1}(D_2 - (C_2 + K_2(\lambda)K(\lambda)^{-1})C_3 D_1 ) \\
@@ -2562,37 +2562,37 @@ R(\lambda) =
 (A - \lambda^2 MI)^{-1}(D_2 - (C_2 + K_2(\lambda)K(\lambda)^{-1})C_3 D_1 
 \]
 
-Combining the bounds we have already obtained with those from Theorem \ref{blockmatrixform}, and using $|\lambda| = \delta = C_0 e^{-\alpha X_m}$, we have 
+We combining the bounds we have already obtained with those from Theorem \ref{blockmatrixform}. The only difference this time is that $||K_2(\lambda)K(\lambda)^{-1}|| \leq C$ here, since our choice of $\delta$ is equivalent to choosing $\epsilon = 1/3X$ in the first part. Thus, for $|\lambda| = \delta = C_0 e^{-\alpha X_m}$, we have 
 
 \begin{align*}
-|R(\lambda)| &\leq C e^{2 \alpha X_m} (e^{-3 \alpha X_m} + (e^{-\alpha X_m} + e^{-3 \alpha X_m/4}) e^{-2 \alpha X_m}) \\
-&\leq C e^{-3 \alpha X_m/4}
+|R(\lambda)| &\leq C e^{2 \alpha X_m} (e^{-3 \alpha X_m} + e^{-\alpha X_m} e^{-2 \alpha X_m}) \\
+&\leq C e^{-\alpha X_m}
 \end{align*}
 
-Scaling $e^{-3 \alpha X_m/4}$ out from $R(\lambda)$, we have
+Scaling $e^{-\alpha X_m}$ out from $R(\lambda)$, we have
 
 \begin{equation*}
-R(\lambda) = e^{-3 \alpha X_m/4}\tilde{R}(\lambda)
+R(\lambda) = e^{-\alpha X_m}\tilde{R}(\lambda)
 \end{equation*}
 
 where $\tilde{R}(\lambda) = \mathcal{O}(1)$. From a standard expansion of the determinant, 
 
 \begin{align*}
-\det(I + R(\lambda)) &= 1 + e^{-3 \alpha X_m/4} \: \text{Tr}(\tilde{R}(\lambda)) + \mathcal{O}(e^{-3 \alpha X_m/2}) \\
-&= 1 + \mathcal{O}(e^{-3 \alpha X_m/4})
+\det(I + R(\lambda)) &= 1 + e^{-\alpha X_m} \: \text{Tr}(\tilde{R}(\lambda)) + \mathcal{O}(e^{-2 \alpha X_m}) \\
+&= 1 + \mathcal{O}(e^{-\alpha X_m})
 \end{align*}
 
 Thus, for sufficinely large $X_m$, $\det(I + R(\lambda)) = 1 + \eta$, where $\eta < 1$. We then have 
 
 \begin{equation}
-E(\lambda) = \det(K(\lambda))\det(A - \lambda^2 MI) + \eta \det(K(\lambda))\det(A - \lambda^2 MI)
+\tilde{E}(\lambda) = \det(K(\lambda))\det(A - \lambda^2 MI) + \eta \det(K(\lambda))\det(A - \lambda^2 MI)
 \end{equation}
 
 Since $\eta < 1$ and $\lambda = \delta$, by Rouche's Theorem, $E(\lambda)$ and $\det(K(\lambda))\det(A - \lambda^2 MI)$ have the same number of zeros (counting multiplicty) inside $B(0, \delta)$. By our choice of $\delta$, $\det(A - \lambda^2 MI)$ has $2n$ zeros inside $B(0, \delta)$, which are close to the interaction eigenvalues. Recall that $\det(K(\lambda)) = 0$ whenever $\lambda = \lambda(X,n)$. SHOW SYMMETRY OF THESE AND/OR MAKE ASSUMPTION.
 
 
 
-
+\end{enumerate}
 
 
 
