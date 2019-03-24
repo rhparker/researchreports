@@ -2434,13 +2434,161 @@ Undoing our scaling, let
 
 If we do this for all possible $\lambda_0$, then we have found the $2n - 2$ interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since we are assuming the eigenvalues of $A$ are distinct, there are only two eigenvalues $\lambda(X_m; \lambda_0)$ of similar magnitude. Thus we conclude that for each eigenvalue $\mu$ of $A$ there is a pair of interaction eigenvalues $\pm \lambda^i(X_m; \mu)$. This pair must be real or purely imaginary, and $\lambda^i(X_m; \mu)$ is close to $\sqrt{\mu / M}$.
 
+\item Next, we look for the ``essential spectrum'' eigenvalues. We do this by solving for $d$ in the second line of the block matrix equation. Once again, we are looking for eigenvalues $\lambda$ with $|\lambda| \leq \mathcal{O}(e^{-\alpha X_m})$.
+\\
+
+Similar to what we did above, we place $\epsilon-$balls around the values of $\lambda$ for which $A - \lambda^2 M I$ is singular. We use the same value of $\epsilon$ as in the previous section, i.e.
+
+\[
+\epsilon = \frac{e^{-\alpha X_m/4}}{X}
+\]
+
+Then, outside of the $\epsilon-$balls, $A - \lambda^2 M I$ is invertible. We would like to get a bound on $(A - \lambda^2 M I)^{-1}$ outside these $\epsilon-$balls. Recall that $(A - \lambda^2 M I)^{-1}$ is given by the formula
+
+\[
+(A - \lambda^2 M I)^{-1} = \frac{1}{\det(A - \lambda^2 M I)}\text{Adj}(A - \lambda^2 M I)
+\]
+
+where $\text{Adj}(A - \lambda^2 M I)$ is the adjugate matrix (transpose of the cofactor matrix) corresponding to $A - \lambda^2 M I$. Since $A$ is $n \times n$, each entry in $\text{Adj}(A - \lambda^2 M I)$ involves sums of products of $n-1$ entries of $A - \lambda^2 M I$, which are at most $\mathcal{O}(e^{-2 \alpha X_m}$. Since $|\lambda| \leq C e^{-\alpha X_m}$, we have 
+
+\[
+||\text{Adj}(A - \lambda^2 M I)|| \leq C e^{-(2n-2)\alpha X_m}
+\]
+
+Next we have to bound the determinant outside the $\epsilon-$balls. Since we are assuming that the eigenvalues $\mu$ of $A$ are distinct and we know that 0 is an eigenvalue of $A$ with multiplicity 1, the characteristic polynomial of $A$ is
+
+\[
+p(t) = \det(A - t I) = t(t - \mu_1)\dots(t - \mu_{n-1})
+\] 
+
+where $\mu_1, \dots, \mu_{n-1}$ are the distinct, nonzero eigenvalues of $A$. Of course, we have no idea what they are, but that is okay. Then for $\det(A - \lambda^2 M I)$ we have
+
+\begin{align*}
+\det(A &- \lambda^2 M I) = p(\lambda^2 M) \\
+&= \lambda^2 M(\lambda^2 M - \mu_1)\dots(\lambda^2 M - \mu_{n-1}) \\
+&= M^n \lambda^2 (\lambda^2 - \mu_1/M )\dots(\lambda^2 - \mu_{n-1}/M) \\
+&= M^n \lambda^2 (\lambda - \sqrt{\mu_1/M} )(\lambda + \sqrt{\mu_1/M} )
+\dots(\lambda - \sqrt{\mu_{n-1}/M} )(\lambda + \sqrt{\mu_{n-1}/M} )
+\end{align*}
+
+which gives us
+
+\begin{align*}
+|\det(A &- \lambda^2 M I)| &= M^n |\lambda|^2 |\lambda - \sqrt{\mu_1/M}||\lambda + \sqrt{\mu_1/M} |
+\dots|\lambda - \sqrt{\mu_{n-1}/M} || \lambda + \sqrt{\mu_{n-1}/M} |
+\end{align*}
 
 
 
+Assume that $\lambda$ is further than $\epsilon$ away from any of the zeros of this, which are $\{ 0, \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}\}$. Then we have the lower bound
+
+\[
+|\det(A - \lambda^2 M I)| \geq 
+\]
+
+ETC.
 
 
+\item Finally, we show there is an additional eigenvalue at 0 (other than the one of algebraic multiplicity 2 from translation invariance), and that there are no other eigenvalues near the origin besides those we have already found. \\
+
+Let $E(\lambda)$ be the determinant of the block matrix. 
+
+\begin{equation}
+E(\lambda) = \det 
+\begin{pmatrix}
+K(\lambda) + C_1 K(\lambda) + K_1(\lambda) & D_1 \\
+C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
+\end{pmatrix}
+\end{equation}
+
+Choose a radius $\delta > 0$ with $\delta = C_0 e^{-\alpha X_0}$, where $C_0$ is sufficiently large so that
+
+\begin{enumerate}[(i)]
+\item For all nonzero eigenvalues $\mu$ of $A$, the interaction eigenvalues are contained sufficiently inside $B(0,\delta)$. In particular, we take
+
+\[
+|\lambda^i(X_m; \mu)| < \delta - e^{-\alpha X_m}
+\] 
+
+\item For all $n$ with $|\lambda(X, n)| \leq C_0 e^{-\alpha X_0}$, where $\lambda(X, n)$ are the points where $K(\lambda)$ is singular, 
+
+\[
+| \: |\lambda(X, n)| - \delta | \geq C \frac{1}{3X}
+\]
+
+For this second condition, since the $\lambda(X, n)$ are, to leading order, equally spaced, this is just saying that we choose $\delta$ so that the $\delta-$circle cuts half way between two of these.
 \end{enumerate}
 
+This gives us the following bounds when $|\lambda| = \delta$. From the first section, we have $||K(\lambda)^{-1}|| &\leq C$. For $(A - \lambda^2 M I)^{-1}$, since $\lambda$ is more than $e^{-\alpha X_m}$ from every interaction eigenvalue, $\det(A - \lambda^2 M I) \geq e^{-n \alpha X_m}$, thus we have
+
+\begin{align*}
+||(A - \lambda^2 M I)^{-1}|| &\leq C e^{2 \alpha X_m} \\
+\end{align*}
+
+For $|\lambda| = \delta$, $K(\lambda)$ is invertible. Write $E(\lambda)$ as
+
+\begin{equation}
+E(\lambda) = \det 
+\begin{pmatrix}
+(I + C_1 K(\lambda) + K_1(\lambda)K(\lambda)^{-1})K(\lambda) & D_1 \\
+C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
+\end{pmatrix}
+\end{equation}
+
+In the first section, we showed that for sufficiently large $X_m$, $(I + C_1 + K_1(\lambda)K(\lambda))$ is invertible. Letting $C_3 = (I + C_1 + K_1(\lambda)K(\lambda)^{-1})$, this is equivalent to finding the zeros of
+
+\begin{equation}
+E(\lambda) = \det 
+\begin{pmatrix}
+K(\lambda) & C_3 D_1 \\
+C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
+\end{pmatrix}
+\end{equation}
+
+Using a standard determinant identity, since $K(\lambda)$ is invertible, this becomes
+
+\begin{align*}
+E(\lambda) &= \det(K(\lambda))
+\det ( A - \lambda^2 MI + D_2 - (C_2 K(\lambda) + K_2(\lambda))K(\lambda)^{-1}C_3 D_1 ) \\
+&= \det(K(\lambda))\det(A - \lambda^2 MI)
+\det ( I + (A - \lambda^2 MI)^{-1}(D_2 - (C_2 + K_2(\lambda)K(\lambda)^{-1})C_3 D_1 ) \\
+&= \det(K(\lambda))\det(A - \lambda^2 MI)\det(I + R(\lambda))
+\end{align*}
+
+where
+
+\[
+R(\lambda) = 
+(A - \lambda^2 MI)^{-1}(D_2 - (C_2 + K_2(\lambda)K(\lambda)^{-1})C_3 D_1 
+\]
+
+Combining the bounds we have already obtained with those from Theorem \ref{blockmatrixform}, and using $|\lambda| = \delta = C_0 e^{-\alpha X_m}$, we have 
+
+\begin{align*}
+|R(\lambda)| &\leq C e^{2 \alpha X_m} (e^{-3 \alpha X_m} + (e^{-\alpha X_m} + e^{-3 \alpha X_m/4}) e^{-2 \alpha X_m}) \\
+&\leq C e^{-3 \alpha X_m/4}
+\end{align*}
+
+Scaling $e^{-3 \alpha X_m/4}$ out from $R(\lambda)$, we have
+
+\begin{equation*}
+R(\lambda) = e^{-3 \alpha X_m/4}\tilde{R}(\lambda)
+\end{equation*}
+
+where $\tilde{R}(\lambda) = \mathcal{O}(1)$. From a standard expansion of the determinant, 
+
+\begin{align*}
+\det(I + R(\lambda)) &= 1 + e^{-3 \alpha X_m/4} \: \text{Tr}(\tilde{R}(\lambda)) + \mathcal{O}(e^{-3 \alpha X_m/2}) \\
+&= 1 + \mathcal{O}(e^{-3 \alpha X_m/4})
+\end{align*}
+
+Thus, for sufficinely large $X_m$, $\det(I + R(\lambda)) = 1 + \eta$, where $\eta < 1$. We then have 
+
+\begin{equation}
+E(\lambda) = \det(K(\lambda))\det(A - \lambda^2 MI) + \eta \det(K(\lambda))\det(A - \lambda^2 MI)
+\end{equation}
+
+Since $\eta < 1$ and $\lambda = \delta$, by Rouche's Theorem, $E(\lambda)$ and $\det(K(\lambda))\det(A - \lambda^2 MI)$ have the same number of zeros (counting multiplicty) inside $B(0, \delta)$. By our choice of $\delta$, $\det(A - \lambda^2 MI)$ has $2n$ zeros inside $B(0, \delta)$, which are close to the interaction eigenvalues. Recall that $\det(K(\lambda)) = 0$ whenever $\lambda = \lambda(X,n)$. SHOW SYMMETRY OF THESE AND/OR MAKE ASSUMPTION.
 
 
 
