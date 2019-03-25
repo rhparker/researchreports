@@ -2609,49 +2609,72 @@ Now we plug this in for $c$ in the first block matrix equation and hope it all w
 \begin{align*}
 (K(\lambda) + C_1 K(\lambda) + K_1(\lambda))c + D_1 d &= 0 \\
 (K(\lambda) + C_1 K(\lambda) + K_1(\lambda))c - D_1 D_3 (C_2 K(\lambda) + K_2(\lambda))c &= 0 \\
-(K(\lambda) + C_1 K(\lambda) + K_1(\lambda))c - D_1 D_3 (C_2 K(\lambda) + K_2(\lambda))c &= 0 \\ 
-(I + C_1 + K_1(\lambda)K(\lambda)^{-1} - D_1 D_3 C_2 - D_1 D_3 K_2(\lambda) K(\lambda)^{-1}) K(\lambda)c &= 0 \\
-(I + R(\lambda)) K(\lambda)c &= 0 
+(K(\lambda) + C_1 K(\lambda) + K_1(\lambda) - D_1 D_3 C_2 K(\lambda) - D_1 D_3 K_2(\lambda))c &= 0
 \end{align*}
 
-where $R(\lambda)$ is the nasty remainder term
+For $D_1 D_3$ we have
 
 \[
-R(\lambda) =
-C_1 + K_1(\lambda)K(\lambda)^{-1} - D_1 D_3 C_2 - D_1 D_3 K_2(\lambda) K(\lambda)^{-1}
+||D_1 D_3|| &\leq C e^{-2 \alpha X_m} e^{\frac{n-1}{n+1}\alpha X_m} e^{2 \alpha X_m}
+= C e^{\frac{n-1}{n+1}\alpha X_m}
 \]
 
-Now we just have to hope the nasty remainder term is all higher order. The bounds on the $K_j(\lambda) K(\lambda)^{-1}$ are as in the previous section, except we adjusted $\epsilon$, so we have instead
+This is nasty, but it is what we have to deal with. Unfortunately, we are interested in $\lambda$ near where $K(\lambda)$ is not invertible, so we cannot make use of $K(\lambda)^{-1}$ as we did in the previous section.\\
+
+Let
 
 \[
-||K_j(\lambda) K(\lambda)^{-1}|| \leq C e^{-(n/n+1)\alpha X_m}
+R(\lambda) = C_1 K(\lambda) + K_1(\lambda) - D_1 D_3 C_2 K(\lambda) - D_1 D_3 K_2(\lambda)
 \]
 
-Bounds for each part of the remainder are given by 
+Recall that for $K(\lambda)$ we have bound
+
+\[
+||K(\lambda)|| \leq  C e^{|\text{Re }\nu(\lambda)|X_{n-1}} \leq C e^{|\text{Re }\nu(\lambda)|X}
+\]
+
+Since we are looking for $\lambda$ on the imaginary axis, we will take $|\text{Re }\nu(\lambda)| < 1/X$, in which case we have $||K(\lambda)|| \leq C$, and $||K_j(\lambda)|| \leq e^{-\alpha X_m}$. In that case, we have
+
+\[
+||R(\lambda)|| \leq C e^{-2 \alpha X_m/(n+1)}
+\]
+
+Write $R(\lambda) = e^{-2 \alpha X_m/(n+1)} \tilde{R}(\lambda)$, where $\tilde{R}(\lambda)$ is as most $\mathcal{O}(1)$. Since we are looking for $\lambda$ near $\lambda(n, X)$, we take the scaling
+
+\[
+\lambda = \tilde{\lambda}\frac{n}{X}
+\]
+
+where $\tilde{\lambda} = \mathcal{O}(1)$. Then 
 
 \begin{align*}
-||C_1|| &\leq C e^{-2 \alpha X_m} \\
-||K_j(\lambda) K(\lambda)^{-1}|| &\leq e^{-(n/n+1)\alpha X_m} \\
-||D_1 D_3 C_2|| &\leq C e^{-2 \alpha X_m} e^{\frac{n-1}{n+1}\alpha X_m}  e^{2 \alpha X_m}e^{-2 \alpha X_m} = C e^{-\alpha X_m} \\
-|| D_1 D_3 K_2(\lambda) K(\lambda)^{-1} || 
-&\leq C e^{-2 \alpha X_m} e^{\frac{n-1}{n+1}\alpha X_m}  e^{2 \alpha X_m} e^{-(n/n+1)\alpha X_m} = C e^{-\alpha X_m/(n+1)}
+\det(K(\lambda)) &= -2 \sinh \nu(\lambda) X \\
+&= -2 \sinh\left( \left( \tilde{\lambda}\frac{n}{X} + \mathcal{O}(\tilde{\lambda}n/X)^2 \right)X\right) \\
+&= -2 \sinh\left( \tilde{\lambda}n + \mathcal{O}((\tilde{\lambda}n)^2/X) \right)
 \end{align*}
 
-Thus we have the bound
+where we note that the leading order term does not depend on $X$. For a nontrivial solution, we need to have $E_1(\tilde{\lambda}) = 0$, where
 
 \[
-||R(\lambda)|| \leq C e^{-\alpha X_m/(n+1)}
+E_1(\tilde{\lambda}) = \det( K(\tilde{\lambda}) + R(\tilde{\lambda}) )
+= \det( K(\tilde{\lambda}) + e^{-2 \alpha X_m/(n+1)} \tilde{R}(\lambda)  )
 \]
 
-which is less than 1 for sufficiently large $X_m$. Thus, for sufficenly large $X_m$, $I + R(\lambda)$ is invertible, which finally gives us
+For sufficiently large $X_m$, we should have
 
-\[
-K(\lambda)c = 0 
-\]
+\begin{align*}
+E_1(\tilde{\lambda}) &= -2 \sinh\left( \tilde{\lambda}n + \mathcal{O}((\tilde{\lambda}n)^2/X) \right) + \mathcal{O}( e^{-2 \alpha X_m/(n+1)} )
+\end{align*}
 
-If this is correct, this is amazing! This is actually the result we want, since the ``essential spectrum'' eigenvalues should only depend on the domain length $X$ and not on the individual lengths $X_i$.
+As $X_m \rightarrow \infty$, since $X_m$ is contained in the sum $X = X_0 + \dots + X_{n-1}$, this becomes $E_1(\tilde{\lambda}) = -2 \sinh\left( \tilde{\lambda}n )$, which is 0 at $\tilde{\lambda}n = i \pi$. As $X_m \rightarrow \infty$, $d E_1(n \tilde{\lambda}) / d \tilde{n \lambda}$ approaches $-2 \cosh\left( \tilde{\lambda}n )$, which is 2 at $\tilde{\lambda}n = i \pi$. Thus, by the IFT, for sufficiently large $X_m$ we can solve for $n \tilde{\lambda}$ near $\pi$ as a function of $X_m$. 
 
-\item Finally, we show there is an additional eigenvalue at 0 (other than the one of algebraic multiplicity 2 from translation invariance), and that there are no other eigenvalues near the origin besides those we have already found. \\
+
+
+
+
+
+
+\item Finally, we show there is an additional eigenvalue at 0 (other than the one of algebraic multiplicity 2 from translation invariance), and that there are no other eigenvalues near the origin besides those we have already found.\\
 
 Let $E(\lambda)$ be the determinant of the block matrix. 
 
