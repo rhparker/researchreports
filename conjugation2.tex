@@ -2307,13 +2307,13 @@ Choose any $\lambda$ which is outside an $\epsilon-$ball of $\nu(\lambda(X, n))$
 \lambda(X,n) = -c_0 \frac{n \pi i }{X} + \mathcal{O}(n/X)^2 \\
 \]
 
-thus the spacing between them is $\mathcal{O}(1/X)$. To that end, choose 
+thus the spacing between them is $\mathcal{O}(1/X)$. To that end, for now we choose 
 
 \[
-\epsilon = e^{-\alpha X_m/4} \frac{1}{X}
+\epsilon = e^{-\alpha X_m/2} \frac{1}{X}
 \]
 
-where for sufficiently large $X_m$, $e^{-\alpha X_m/4}$ will be much less than 1.\\
+where for sufficiently large $X_m$, $e^{-\alpha X_m/2}$ will be much less than 1. We may need to choose a larger $\epsilon$ later, but this will do for now.\\
 
 From the first line of the block matrix equation,
 
@@ -2345,10 +2345,10 @@ To complete this, all we need to do is bound $e^{\text{Re} \nu(\lambda) X} / |\d
 
 \begin{align*}
 \frac{1}{|\det K(\lambda)|}e^{|\text{Re }\nu(\lambda)|X} &\leq C \frac{1}{\epsilon X} \\
-&\leq C e^{\alpha X_m/4}
+&\leq C e^{\alpha X_m/2}
 \end{align*}
 
-where the second line follows from our choice of $\epsilon$. If $|\text{Re }\nu(\lambda)| \leq 1/X$, then we are automatically outside all of the $\epsilon-$balls. In that case we need to get a lower bound for the determinant. For convenience, let $\nu(\lambda)X = a + bi$. Then
+where the second line follows from our choice of $\epsilon$. If $|\text{Re }\nu(\lambda)| \geq 1/X$, then we are automatically outside all of the $\epsilon-$balls. In that case we need to get a lower bound for the determinant. For convenience, let $\nu(\lambda)X = a + bi$. Then
 
 \begin{align*}
 |\det K(\lambda)|^2 &= C |2 \sinh(\nu(\lambda))X|^2 \\
@@ -2371,11 +2371,11 @@ Thus $|\det K(\lambda)| \geq C e^{|\text{Re } \nu(\lambda)| X }$, and so we have
 Combining these, and recalling that for the interaction eigenvalues we have $|\lambda| = \mathcal{O}(e^{-\alpha X_m})$, we conclude that
 
 \begin{align*}
-||K_1(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + e^{-\alpha X_m}) e^{\alpha X_m/4} \\
-&\leq C e^{-3 \alpha X_m/4}
+||K_1(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + e^{-\alpha X_m}) e^{\alpha X_m/2} \\
+&\leq C e^{-\alpha X_m/2}
 \end{align*}
 
-Since $C_1 + K_1(\lambda)K(\lambda)^{-1} = e^{-3 \alpha X_m/4}$, for sufficiently large $X_m$, $(I + C_1 + K_1(\lambda)K(\lambda)^{-1})$ is invertible. Thus, for $\lambda$ outside the $\epsilon$-balls, we can solve for $c$ to get
+Since $C_1 + K_1(\lambda)K(\lambda)^{-1} = e^{-\alpha X_m/2}$, for sufficiently large $X_m$, $(I + C_1 + K_1(\lambda)K(\lambda)^{-1})$ is invertible. Thus, for $\lambda$ outside the $\epsilon$-balls, we can solve for $c$ to get
 
 \begin{align*}
 c &= -K(\lambda)^{-1} C_3 D_1 d
@@ -2396,10 +2396,10 @@ Next, we substitute this into the second block matrix equation to get
 (A - \lambda^2 MI)d + (D_2 - C_2 C_3 D_1 - K_2(\lambda) K(\lambda)^{-1} C_3 D_1) d &= 0
 \end{align*}
 
-Since $K_2(\lambda)$ has the same form and bounds as $K_1(\lambda)$, we also have $K_2(\lambda)K(\lambda)^{-1} = \mathcal{O}(e^{-3 \alpha X_m/4})$. Thus for the remainder terms we have
+Since $K_2(\lambda)$ has the same form and bounds as $K_1(\lambda)$, we also have $K_2(\lambda)K(\lambda)^{-1} = \mathcal{O}(e^{-\alpha X_m/2})$. Thus for the remainder terms we have
 
 \[
-||D_2 - C_2 C_3 D_1 - K_2(\lambda) K(\lambda)^{-1} C_3 D_1|| \leq C e^{-11 \alpha X_m/4}
+||D_2 - C_2 C_3 D_1 - K_2(\lambda) K(\lambda)^{-1} C_3 D_1|| \leq C e^{-5 \alpha X_m/2}
 \]
 
 which is of sufficiently high order compared to the first term, which is $\mathcal{O}(e^{-2 \alpha X_m}$. \\
@@ -2415,7 +2415,7 @@ Now we scale out $e^{-2 \alpha X_m}$ from this, so that we have
 where 
 \begin{align*}
 \lambda &= e^{-2\alpha X_m} \tilde{\lambda} \\
-R(\tilde{\lambda}, X_m) &= \mathcal{O}(e^{-3\alpha X_m/4})
+R(\tilde{\lambda}, X_m) &= \mathcal{O}(e^{-\alpha X_m/2})
 \end{align*}
 
 Write the scaled equation \eqref{tildelambdaeq} as
@@ -2434,16 +2434,11 @@ Undoing our scaling, let
 
 If we do this for all possible $\lambda_0$, then we have found the $2n - 2$ interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since we are assuming the eigenvalues of $A$ are distinct, there are only two eigenvalues $\lambda(X_m; \lambda_0)$ of similar magnitude. Thus we conclude that for each eigenvalue $\mu$ of $A$ there is a pair of interaction eigenvalues $\pm \lambda^i(X_m; \mu)$. This pair must be real or purely imaginary, and $\lambda^i(X_m; \mu)$ is close to $\sqrt{\mu / M}$.
 
+
 \item Next, we look for the ``essential spectrum'' eigenvalues. We do this by solving for $d$ in the second line of the block matrix equation. Once again, we are looking for eigenvalues $\lambda$ with $|\lambda| \leq \mathcal{O}(e^{-\alpha X_m})$.
 \\
 
-Similar to what we did above, we place $\epsilon-$balls around the values of $\lambda$ for which $A - \lambda^2 M I$ is singular. We use the same value of $\epsilon$ as in the previous section, i.e.
-
-\[
-\epsilon = \frac{e^{-\alpha X_m/4}}{X}
-\]
-
-Then, outside of the $\epsilon-$balls, $A - \lambda^2 M I$ is invertible. We would like to get a bound on $(A - \lambda^2 M I)^{-1}$ outside these $\epsilon-$balls. Recall that $(A - \lambda^2 M I)^{-1}$ is given by the formula
+Similar to what we did above, we place $\epsilon-$balls around the values of $\lambda$ for which $A - \lambda^2 M I$ is singular. We would like to use the same or similar value of $\epsilon$ as in the previous section.Then, outside of the $\epsilon-$balls, $A - \lambda^2 M I$ is invertible. We would like to get a bound on $(A - \lambda^2 M I)^{-1}$ outside these $\epsilon-$balls. Recall that $(A - \lambda^2 M I)^{-1}$ is given by the formula
 
 \[
 (A - \lambda^2 M I)^{-1} = \frac{1}{\det(A - \lambda^2 M I)}\text{Adj}(A - \lambda^2 M I)
@@ -2478,16 +2473,183 @@ which gives us
 \dots|\lambda - \sqrt{\mu_{n-1}/M} || \lambda + \sqrt{\mu_{n-1}/M} |
 \end{align*}
 
-
-
-Assume that $\lambda$ is further than $\epsilon$ away from any of the zeros of this, which are $\{ 0, \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}\}$. Then we have the lower bound
+Note that we are looking for eigenvalues on/near the imaginary axis, i.e. eigenvalues which are close to $\lambda(X,n) = -c_0 n \pi i / X + \mathcal{O}(n/X)^2$, so we can take $\lambda$ of the form
 
 \[
-|\det(A - \lambda^2 M I)| \geq 
+\lambda = \tilde{\lambda} \frac{n}{X} i
 \]
 
-ETC.
+where $\tilde{\lambda} = \mathcal{O}(1)$ and $n$ is a nonzero integer (we will deal with the $\lambda = 0$ case later.\\
 
+We would like to get a lower bound for $|\det(A - \lambda^2 M I)|$. We consider several cases. The best case scenario is if all the nonzero interaction eigenvalues are real. In that case, 
+
+\[
+|\det(A - \lambda^2 M I)| = \mathcal{O}\Big( e^{-(2n-2)\alpha X_m}) (n/X)^2 \Big)
+\]
+
+Thus we have 
+
+\begin{align*}
+||(A - \lambda^2 M I)^{-1}|| &\leq C e^{-(2n-2)\alpha X_m} e^{(2n-2)\alpha X_m}) (X/n)^2 \\
+&= C (X/n)^2
+\end{align*}
+
+In particular, for $n = 1$, this is 
+
+\[
+||(A - \lambda^2 M I)^{-1}|| \leq X^2
+\]
+
+Then we have
+
+\begin{align*}
+(A - \lambda^2 M I) + D_3 = (A - \lambda^2 M I)(I + (A - \lambda^2 M I)^{-1} D_2 )
+\end{align*}
+
+To invert $(A - \lambda^2 M I)^{-1} D_2$ we need its norm to be less than 1. To get this, we need
+
+\begin{align*}
+|| (A - \lambda^2 M I)^{-1} D_2 || \leq C X^2 e^{-3 \alpha X_m} 
+&= C e^{-\alpha X_m} (X e^{-\alpha X_m})^2
+\end{align*}
+
+From this, it is clear that we cannot keep going this way without putting a restriction on the magnitude of $X$. We take the following hypothesis.
+
+\begin{hypothesis}\label{Xrestriction}
+We have the following restriction on $X = X_0 + \dots + X_{n-1}$.
+\[
+X \leq C e^{\alpha X_m}
+\]
+where the constant $C$ is at most $\mathcal{O}(1)$.
+\end{hypothesis}
+
+With this taken care of, we can get this to work for the case where the nonzero interaction eigenvalues are all real. This becomes more complicated, however, in the case where we have purely imaginary interaction eigenvalues. Recall that in the first part we assumed that the interaction eigenvalues are more than $\epsilon$ away from the $\lambda(X,n)$, and we chose $\epsilon = e^{-\alpha X_m/2}/X$. To get this work in the general case will require adjusting $\epsilon$.\\
+
+Since whatever we do, $\epsilon$ must be a fraction of $1/X$, we choose $\epsilon = e^{-k \alpha X_m}/X$ and figure out what $k$ we need to get this to work. $k$ will almost certainly depend on $n$, and we should have $0 < k < 1$. \\
+
+Assume that $\lambda$ is further than $\epsilon$ away from any of the zeros of $\det(A - \lambda^2 M I)$, which are $\{ 0, \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}\}$. Recall that the nonzero interaction eigenvalues are all $\mathcal{O}(e^{-\alpha X_m}$ (or at least we are assuming that; we should be able to show it). The worst case scenario is when all the interaction eigenvalues are purely imaginary. Then there are effectively two scenarios we need to consider. If $\lambda$ is near 0, then it is at least $\epsilon$ away from 0 and at least $e^{-\alpha X_m}$ from the other $2n-2$ interaction eigenvalues. If $\lambda$ is near one group of these, then it at least $\epsilon$ away from a group of $n-1$ interaction eigenvalues, at least $e^{-\alpha X_m}$ away from 0, and at least $e^{-\alpha X_m}$ away from the other group of $n-1$ interaction eigenvalues.\\
+
+For $n = 2$, the worst case scenario is when $\lambda$ is near 0. In that case, we have
+
+\[
+|\det(A - \lambda^2 M I)| \geq C \epsilon^2 e^{-2 \alpha X_m}
+\]
+
+from which it follows that
+
+\begin{align*}
+||(A - \lambda^2 M I)^{-1}|| &\leq C \frac{ e^{-2 \alpha X_m} e^{2 \alpha X_m} }{\epsilon^2} \\
+&= C \frac{1}{\epsilon^2} \\
+&= C e^{2 k \alpha X_m} X^2 \\
+&\leq C e^{2 k \alpha X_m} e^{2 \alpha X_m}
+\end{align*}
+
+where we used Hypothesis \ref{Xrestriction} in the last line. Recall that we are trying to bound $(A - \lambda^2 M I)^{-1} D_2 $, and $D_2 = \mathcal{O}(e^{-3\alpha X_m})$. For this to work, we need $2k < 1$, i.e. $k < 1/2$. \\
+
+For $n \geq 3$, the worst case scenario is when we are near a group of interaction eigenvalues. In this case, we have
+
+\[
+|\det(A - \lambda^2 M I)| \geq C \epsilon^{n-1} e^{-(n+1)\alpha X_m}
+\]
+
+Thus we have 
+
+\begin{align*}
+||(A - \lambda^2 M I)^{-1}|| &\leq C \frac{ e^{-(2n-2)\alpha X_m} e^{(n+1)\alpha X_m} }{\epsilon^{n-1}} \\
+&= C \frac{ e^{(-n + 3)\alpha X_m} }{\epsilon^{n-1}} \\
+&\leq C \frac{ e^{(-n + 3)\alpha X_m} }{\frac{1}{X^{n-1}} e^{-(n-1)k\alpha X_m}} \\
+&= C e^{[-n + 3 + (n-1)k ] \alpha X_m} X^{n-1}
+\end{align*}
+
+Using Hypothesis \ref{Xrestriction}, this becomes
+
+\begin{align*}
+||(A - \lambda^2 M I)^{-1}|| &\leq C e^{[-n + 3 + (n-1)k ] \alpha X_m} e^{(n-1)\alpha X_m} \\
+&= C e^{[(n-1)k + 2]\alpha X_m} \\
+&= C e^{k (n-1)\alpha X_m} e^{2 \alpha X_m}
+\end{align*}
+
+To bound $(A - \lambda^2 M I)^{-1} D_2 $, with $D_2 = \mathcal{O}(e^{-3\alpha X_m})$, we need $k(n-1) < 1$, i.e. $k < 1/(n-1)$. \\
+
+It does not really matter what we do, since we can always take $X_m$ sufficiently large. Thus we will take $k = 1/(n+1)$ and it is guaranteed to work for all $n$. Now that we have taken care of this, we have
+
+\begin{align*}
+||(A - \lambda^2 M I)^{-1}|| &\leq C e^{\frac{n-1}{n+1}\alpha X_m} e^{2 \alpha X_m} \\
+||(A - \lambda^2 M I)^{-1} D_2|| &\leq C e^{-\frac{2}{n+1}\alpha X_m}
+\end{align*}
+
+For sufficiently large $X_m$, $||(A - \lambda^2 M I)^{-1} D_2|| < 1$ and so $I + (A - \lambda^2 M I)^{-1} D_2$ is invertible. Then we can solve the second block matrix equation for $d$ to get
+
+\begin{align*}
+(C_2 K(\lambda) + K_2(\lambda))c + (A - \lambda^2 MI + D_2)d &= 0 \\
+(C_2 K(\lambda) + K_2(\lambda))c + (A - \lambda^2 MI)(I + (A - \lambda^2 MI)^{-1}D_2)d &= 0 \\
+-(I + (A - \lambda^2 MI)^{-1}D_2)^{-1}(A - \lambda^2 MI)^{-1}(C_2 K(\lambda) + K_2(\lambda))c  &= d \\
+\end{align*}
+
+Thus we have
+
+\[
+d = -D_3 (C_2 K(\lambda) + K_2(\lambda))c 
+\]
+
+where
+
+\[
+D_3 = (I + (A - \lambda^2 MI)^{-1}D_2)^{-1}(A - \lambda^2 MI)^{-1}
+\]
+
+and we have bound
+
+\[
+||D_3|| \leq C e^{\frac{n-1}{n+1}\alpha X_m} e^{2 \alpha X_m}
+\]
+
+Now we plug this in for $c$ in the first block matrix equation and hope it all works out.
+
+\begin{align*}
+(K(\lambda) + C_1 K(\lambda) + K_1(\lambda))c + D_1 d &= 0 \\
+(K(\lambda) + C_1 K(\lambda) + K_1(\lambda))c - D_1 D_3 (C_2 K(\lambda) + K_2(\lambda))c &= 0 \\
+(K(\lambda) + C_1 K(\lambda) + K_1(\lambda))c - D_1 D_3 (C_2 K(\lambda) + K_2(\lambda))c &= 0 \\ 
+(I + C_1 + K_1(\lambda)K(\lambda)^{-1} - D_1 D_3 C_2 - D_1 D_3 K_2(\lambda) K(\lambda)^{-1}) K(\lambda)c &= 0 \\
+(I + R(\lambda)) K(\lambda)c &= 0 
+\end{align*}
+
+where $R(\lambda)$ is the nasty remainder term
+
+\[
+R(\lambda) =
+C_1 + K_1(\lambda)K(\lambda)^{-1} - D_1 D_3 C_2 - D_1 D_3 K_2(\lambda) K(\lambda)^{-1}
+\]
+
+Now we just have to hope the nasty remainder term is all higher order. The bounds on the $K_j(\lambda) K(\lambda)^{-1}$ are as in the previous section, except we adjusted $\epsilon$, so we have instead
+
+\[
+||K_j(\lambda) K(\lambda)^{-1}|| \leq C e^{-(n/n+1)\alpha X_m}
+\]
+
+Bounds for each part of the remainder are given by 
+
+\begin{align*}
+||C_1|| &\leq C e^{-2 \alpha X_m} \\
+||K_j(\lambda) K(\lambda)^{-1}|| &\leq e^{-(n/n+1)\alpha X_m} \\
+||D_1 D_3 C_2|| &\leq C e^{-2 \alpha X_m} e^{\frac{n-1}{n+1}\alpha X_m}  e^{2 \alpha X_m}e^{-2 \alpha X_m} = C e^{-\alpha X_m} \\
+|| D_1 D_3 K_2(\lambda) K(\lambda)^{-1} || 
+&\leq C e^{-2 \alpha X_m} e^{\frac{n-1}{n+1}\alpha X_m}  e^{2 \alpha X_m} e^{-(n/n+1)\alpha X_m} = C e^{-\alpha X_m/(n+1)}
+\end{align*}
+
+Thus we have the bound
+
+\[
+||R(\lambda)|| \leq C e^{-\alpha X_m/(n+1)}
+\]
+
+which is less than 1 for sufficiently large $X_m$. Thus, for sufficenly large $X_m$, $I + R(\lambda)$ is invertible, which finally gives us
+
+\[
+K(\lambda)c = 0 
+\]
+
+If this is correct, this is amazing! This is actually the result we want, since the ``essential spectrum'' eigenvalues should only depend on the domain length $X$ and not on the individual lengths $X_i$.
 
 \item Finally, we show there is an additional eigenvalue at 0 (other than the one of algebraic multiplicity 2 from translation invariance), and that there are no other eigenvalues near the origin besides those we have already found. \\
 
@@ -2582,7 +2744,7 @@ where $\tilde{R}(\lambda) = \mathcal{O}(1)$. From a standard expansion of the de
 &= 1 + \mathcal{O}(e^{-\alpha X_m})
 \end{align*}
 
-Thus, for sufficinely large $X_m$, $\det(I + R(\lambda)) = 1 + \eta$, where $\eta < 1$. We then have 
+Thus, for sufficiently large $X_m$, $\det(I + R(\lambda)) = 1 + \eta$, where $\eta < 1$. We then have 
 
 \begin{equation}
 \tilde{E}(\lambda) = \det(K(\lambda))\det(A - \lambda^2 MI) + \eta \det(K(\lambda))\det(A - \lambda^2 MI)
@@ -2594,892 +2756,6 @@ Since $\eta < 1$ and $\lambda = \delta$, by Rouche's Theorem, $E(\lambda)$ and $
 
 \end{enumerate}
 
-
-
-
-
-
-\subsubsection{2-pulse with equal distances}
-
-We do the easiest case first. Take the 2-periodic solution, with the special case $X_0 = X_1$. 
-
-\begin{enumerate}
-
-\item First, we write down the matrices $A$ and $K(\lambda)$ for this specific case. For the matrix $A$, we have
-
-\[
-A = a \begin{pmatrix}
--1 & 1 \\
-1 & -1
-\end{pmatrix}
-\]
-
-where $a = a_0 + a_1 = 2 \langle \Psi(X_0), Q'(-X_0) \rangle$. For the matrix $K(\lambda)$ we have
-
-\begin{equation}
-K(\lambda) = 
-\begin{pmatrix}
-e^{-\nu(\lambda)X_0} & -e^{\nu(\lambda)X_0} \\
--e^{\nu(\lambda)X_0} & e^{-\nu(\lambda)X_0}
-\end{pmatrix}
-\end{equation}
-
-\item We will look for the interaction eigenvalues first. We expect these to occur when $\det(A - \lambda^2 M I) = 0$. Since $a = \mathcal{O}(e^{-2 \alpha X_0})$, we use the following scaling for $\lambda$ and $a$.
-
-\begin{align*}
-\lambda &= e^{-\alpha X_0} \tilde{\lambda} \\
-a &= e^{-2 \alpha X_0} \tilde{a}
-\end{align*}
-
-With this scaling, the matrix $A$ becomes 
-
-\[
-A = e^{-2\alpha X_0} \tilde{a} \tilde{A}
-\]
-
-where
-\[
-\tilde{A} = \begin{pmatrix}
--1 & 1 \\
-1 & -1
-\end{pmatrix}
-\]
-
-\item Next, we expand $\nu(\lambda)$ in a Taylor series about $\lambda = 0$. We can always do this, since $\nu(\lambda)$ is a root of a polynomial. Since $\nu(0) = 0$, the Taylor expansion of $\nu(\lambda)$ is 
-
-\begin{align*}
-\nu(\lambda) &= \nu'(0)\lambda + \mathcal{O}(|\lambda|^2) \\
-&= \nu'(0)\tilde{\lambda}e^{-\alpha X_0} + \mathcal{O}(e^{-2 \alpha X_0})
-\end{align*}
-
-where we used our scaling for $\lambda$ in the second line. We should be able to compute $\nu'(0)$, so let's do that now. The characteristic polynomial of $A_\infty(\lambda)$ is of the form
-
-\[
-P(\nu; \lambda) = 
--\nu^{2m+1} + c_{2m - 1} \nu^{2m} + \dots + c_0 \nu + \lambda = 0
-\]
-
-where the $c_i$ are real. $P(0; 0) = 0$ and $P_\nu(0; 0) = c_0$. Thus, as long as $c_0 \neq 0$ (for KdV5, $c_0 = -c$, where $c$ is the moving frame speed; we will take $c_0 \neq 0$ as a hypothesis), we can use the IFT to solve for $\nu$ as a function of $\lambda$ near $\lambda = 0$. This is our function $\nu(\lambda)$. By the IFT again, $\nu'(\lambda) = -P_\nu(\nu(\lambda); \lambda)^{-1} P_\lambda(\nu(\lambda); \lambda)$. At $\lambda = 0$, this is
-
-\begin{align*}
-\nu'(0) &= -\frac{1}{c_0}
-\end{align*}
-
-Numerics on KdV5 supports this result. Thus we have
-
-\begin{align*}
-\nu(\lambda) &= -\frac{1}{c_0}\tilde{\lambda}e^{-\alpha X_0} + \mathcal{O}(e^{-2 \alpha X_0})
-\end{align*}
-
-\item In this special case, we can use the Taylor expansion of $\nu(\lambda)$ to show that $K(\lambda) = \mathcal{O}(1)$.
-
-\begin{align*}
-||K(\lambda)|| &\leq C e^{|\nu(\lambda)|X_0} \\
- &= \mathcal{O} (1 + |\nu(\lambda)|X_0 + \mathcal{O}(|\nu(\lambda)|^2 X_0^2) \\
-&= \mathcal{O}( 1 + |1/c_0| |\tilde{\lambda} | e^{-\alpha X_0} X_0 ) \\
-&= \mathcal{O}(1)
-\end{align*}
-
-as long as we take $X_0$ sufficiently large so that, say, $e^{-\alpha X_0} X_0 \leq 1$.
-
-\item We want to invert $K(\lambda)$ (when possible). To do this, we look at the determinant of $K(\lambda)$, which is given by
-
-\[
-\det K(\lambda) = e^{-2 \nu(\lambda)X_0} - e^{2 \nu(\lambda)X_0} = -2 \sinh(2 \nu(\lambda) X_0)
-\]
-
-From this, we see that $\det K(\lambda) = 0$ if and only if $2 \nu(\lambda)X_0 = n \pi i$, i.e. $\nu(\lambda) = n \pi i / 2 X_0$ for $n \in \Z$. This tells us the values of $\nu(\lambda)$ for which $\det K(\lambda) = 0$. What we really want is the values of $\lambda$ for which $\det K(\lambda) = 0$. So let's look at that.\\
-
-Define the function $G(\lambda, r) = \nu(\lambda) - r$. Then $G(0, 0) = 0$ and $D_\lambda G(0, 0) = \nu'(0) = -1/c_0$, which we are assuming is nonzero. Using the IFT, we can solve for $\lambda$ in terms of $r$ for $r$ near 0. In other words, we can find a function $\lambda(r)$ such that $\lambda(0) = 0$ and $G(\lambda(r), r) = 0$ for sufficiently small $r$. Thus, for sufficiently small $r$, $\nu(\lambda(r)) = r$. For suffiently large $X_0$ and sufficiently small $n \in \Z$, $|n \pi i / 2 X_0|$ is small, so we can find $\lambda(X_0, n)$ such that $\nu(\lambda(X_0, n)) = n \pi i / 2 X_0$, and so $\det K(\lambda(X_0, n)) = 0$.\\
-
-To better understand $\lambda(r)$, we expand $\lambda(r)$ in a Taylor series about $r = 0$. For $r = n \pi i / 2 X_0 $, we have
-
-\begin{align*}
-\lambda(X_0,n)
-&= \lambda(0) + \lambda'(0) \frac{n \pi i }{2 X_0} + \mathcal{O}(|n \pi i / 2 X_0|^2) \\
-&= \frac{1}{\nu'(0)} \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2 \\
-&= -c_0 \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2 \\
-\end{align*} 
-
-It is clear that $\det K(0) = 0$, so there will be a problem at $\lambda = 0$. Using our scaling for the interaction eigenvalues, we do not have to be concerned with the other values of $\lambda$ for which $K(\lambda)$ is singular. To see this, we want to invert $K(\lambda)$ near $\tilde{\lambda} e^{-\alpha X_0}$, which, for sufficiently large $X_0$, is significantly smaller than $\lambda(X_0,1) = \mathcal{O}(1/X_0)$. If we like, we can, say, choose $X_0$ sufficiently large so that $e^{-\alpha X_0 /2} < 1/X_0$.
-
-\item Next, we obtain an expression and a bound for $K(\lambda)^{-1}$ for $\lambda$ near $\tilde{\lambda} e^{-\alpha X_0}$. To do this, we expand the determinant of $K(\lambda)$ in a Taylor series at $\lambda = 0$. Using the Taylor series for $\sinh x$ and our scaling, we get
-
-\begin{align*}
-\det K(\lambda) &= -4 \nu(\lambda) X_0 + \mathcal{O}(|\nu(\lambda)|^3) \\
-&= -4 X_0 [ (-1/c_0)\tilde{\lambda}e^{-\alpha X_0} + \mathcal{O}(e^{-2 \alpha X_0}) ] + \mathcal{O}(e^{-3 \alpha X_0}) \\
-&= \frac{4}{c_0}\tilde{\lambda}e^{-\alpha X_0}X_0 + \mathcal{O}(e^{-2 \alpha X_0}X_0) 
-\end{align*}
-
-Thus for $K(\lambda)^{-1}$ (near $\lambda = \tilde{\lambda} e^{-\alpha X_0}$) we have
-
-\begin{equation}
-K(\lambda)^{-1} = 
-\frac{c_0}{4 \tilde{\lambda}e^{-\alpha X_0}X_0 + \mathcal{O}(e^{-2 \alpha X_0}X_0)}
-\begin{pmatrix}
-e^{-\nu(\lambda)X_0} & e^{\nu(\lambda)X_0} \\
-e^{\nu(\lambda)X_0} & e^{-\nu(\lambda)X_0}
-\end{pmatrix}
-\end{equation}
-
-where the matrix on the RHS is $\mathcal{O}(1)$ by the same argument we used above to show that $||K(\lambda)|| = \mathcal{O}(1)$. For a bound, we have
-
-\[
-||K(\lambda)^{-1}|| \leq C \frac{ e^{\alpha X_0} }{X_0}
-\]
-
-\item To find the interaction eigenvalues, we can now solve the first block matrix equation for $c$. Since we are using our scaling, as long as $\lambda \neq 0$, we can invert $K(\lambda)$. The inverse $K(\lambda)^{-1}$ will blow up in norm as $\lambda$ approaches 0, but we hope our bounds on the other terms will take care of that for us. Solving for $c$, we have
-
-\begin{align*}
-c = -K(\lambda)^{-1} D_2 d \\
-\end{align*}
-
-Plugging this into the second block matrix equation, we get
-
-\begin{align*}
-(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI + D_3)d &= 0 \\
--(C_3 K(\lambda) + K(\lambda) \tilde{C}_3)K(\lambda)^{-1} D_2 d + (A - \lambda^2 MI + D_3)d &= 0 \\
-(A - \lambda^2 MI )d + (D_3 - C_3 D_2 - K(\lambda) \tilde{C}_3 K(\lambda)^{-1} D_2) d &= 0 \\
-\end{align*}
-
-We need to check that remainder term on the LHS is really higher order. Using our scaling, $D_3, C_3 D_2 = \mathcal{O}(e^{-3 \alpha X_0})$, which will be good. That leaves the last term. Again, using our scaling and the bound on $||K(\lambda)||^{-1}$ we found above, this becomes
-
-\begin{align*}
-|K(\lambda) \tilde{C}_3 K(\lambda)^{-1} D_2| &\leq
-C e^{-\alpha X_0} \frac{e^{\alpha X_0}}{X_0} e^{-2 \alpha X_0} \\
-&= \frac{e^{-2 \alpha X_0}}{X_0}
-\end{align*}
-
-Putting all of this together, we have 
-
-\[
-(A - \lambda^2 MI )d + \mathcal{O}\left( e^{-3 \alpha X_0} + \frac{e^{-2 \alpha X_0}}{X_0} \right) d = 0
-\]
-
-Now we use our scaling again to write this using $\tilde{\lambda}$ and $\tilde{a}$.
-
-\[
-(e^{-2\alpha X_0} \tilde{a} \tilde{A} - e^{-2 \alpha X_0} \tilde{\lambda}^2 M I )d + \mathcal{O}\left( e^{-3 \alpha X_0} + \frac{e^{-2 \alpha X_0}}{X_0} \right) d = 0
-\]
-
-This simplifies to
-
-\begin{equation}\label{tildeaEq1}
-(\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I )d + \mathcal{O}\left( e^{-\alpha X_0} + \frac{1}{X_0} \right) d = 0
-\end{equation}
-
-where because of our scaling, $\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I  = \mathcal{O}(1)$. The equation $(\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I )d = 0$ has a nontrivial solution if and only if its determinant is 0, which is true if and only if $\tilde{\lambda} = 0$ (which we already know) or $\tilde{\lambda} = \pm \sqrt{-2 \tilde{a}/M}$ (which does not depend on $X_0$). Let
-
-\[
-\tilde{\mu}_0 = \sqrt{-2 \tilde{a}/M}
-\]
-
-$\tilde{\mu}_0$ is either real or pure imaginary, depending on the signs of $\tilde{a}$ and $M$. We write the matrix equation \label{tildeaEq1} as
-
-\[
-G(\tilde{\lambda}, r_0)d = 0
-\]
-
-where $r_0 = 1/X_0$. Since $\det G(\pm \tilde{\mu}_0, r_0) = 0$, and $G(\tilde{\lambda}, r_0)$ is smooth in $\tilde{\lambda}$ (	it is in fact a polynomial in $\tilde{\lambda}$), for sufficiently small $r$ (i.e. sufficiently large $X_0$) we can use the IFT to find unique $\tilde{\lambda}^\pm(X_0)$ near $\pm \tilde{\mu}_0$ such that $\det( \tilde{\lambda}^\pm(X_0), X_0) = 0$. \\
-
-Finally, we undo our scaling. Let
-
-\[
-\lambda^\pm(X_0) = e^{-\alpha X_0} \tilde{\lambda}^\pm(X_0)
-\]
-
-These are the interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since there are only two eigenvalues of this magnitude, we conclude that we have a pair of interaction eigenvalues at $\pm \lambda(X_0)$. This pair must be real or purely imaginary, and $\lambda(X_0)$ is close to $\pm e^{-\alpha X_0} \tilde{\mu}_0 = \sqrt{-2a/M}$.
-
-\item Now let's look at the eigenvalues which arise for those $\lambda$ near where $K(\lambda)$ is singular. Because we chose the two distances to be equal, the only value of $\lambda$ for which both $A - \lambda^2 M I$ and $K(\lambda)$ are singular is $\lambda = 0$.\\
-
-Choose $\lambda$ for which $A - \lambda^2 M I$ is nonsingular, i.e. $\lambda \neq 0$ and $\lambda \neq \pm \lambda(X_0)$. Then for our chosen $\lambda$, we can invert $A - \lambda^2 M I$. Since $\det(A - \lambda^2 M I) = \lambda^2 M(2 a + \lambda^2 M)$, the inverse of $A - \lambda^2 M I$ is
-
-\begin{align*}
-(A - \lambda^2 M I)^{-1} &=
-\frac{1}{\lambda^2 M(2a + \lambda^2 M)}
-\begin{pmatrix}
--a - \lambda^2 M & -a \\
--a & -a - \lambda^2 M
-\end{pmatrix} \\
-\end{align*}
-
-To go further, we need to bound this. Since we expect to find eigenvalues near $\lambda(X_0, n) = -c_0 \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2$, we take the scaling $\lambda = \tilde{\lambda}(n/X_0)$. This gives us the bound
-
-\[
-||(A - \lambda^2 M I)^{-1}||\leq C \left( \frac{n}{X_0} \right)^{-2}
-\]
-
-\item We then use this to solve for $d$ in the second block matrix equation.
-
-\begin{align*}
-(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI + D_3)d &= 0 \\
-(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI)(I + (A - \lambda^2 MI)^{-1} D_3)d &= 0
-\end{align*}
-
-With our scaling, $D_3 = \mathcal{O}(n/X_0)^3$, thus $(A - \lambda^2 MI)^{-1} D_3 = \mathcal{O}(n/X_0)$. Thus for sufficiently large $X_0$ and sufficiently small $n$, $I + (A - \lambda^2 MI)^{-1} D_3$ is invertible. We can now solve for $d$.
-
-\begin{align*}
- d &= 
- -(I + (A - \lambda^2 MI)^{-1} D_3)^{-1}(A - \lambda^2 MI)^{-1}(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c \\
- &= -C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c
-\end{align*}
-
-where $C_4 = (I + (A - \lambda^2 MI)^{-1} D_3)^{-1}(A - \lambda^2 MI)^{-1} = \mathcal{O}(n/X_0)^{-2}$.\\
-
-Finally, we substitute this for $d$ into the first line of the block matrix equation to get
-
-\begin{align*}
-K(\lambda)c + D_2 d &= 0 \\
-K(\lambda)c - D_2 C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c &= 0 \\
-(I - D_2 C_4 C_3 ) K(\lambda)c - K(\lambda) \tilde{C}_3) c &= 0
-\end{align*}
-
-Since $D_2 C_4 C_3 = \mathcal{O}(n/X_0)$, for sufficiently large $X_0$ and sufficiently small $n$, $I + D_2 C_4 C_3$ is invertible, and this reduces to
-
-\[
-K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0
-\]
-
-where $C_5 = (I + D_2 C_4 C_3)^{-1} = \mathcal{O}(1)$ and $\tilde{C}_3 = \mathcal{O}(n/X_0)$.
-
-\item Finally, we can solve $K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0$. We expect this will be possible for $\lambda$ close to $\lambda(X_0, n) = -c_0 \frac{n \pi i }{2 X_0} + \mathcal{O}(n/X_0)^2$. Recall that we showed above that $K(\lambda) = \mathcal{O}(1)$. Thus we can write our equation as
-
-\[
-(K(\lambda)c + C_6 ) c = 0
-\]
-
-where $C_6 = \mathcal{O}(n/X_0)$. Let
-
-\[
-G(\lambda, r) = \det( K(\lambda) + C_6 )
-\]
-
-where $r = \mathcal{O}(n/X_0)$ is small. Then since $G( \lambda(X_0, n), 0) = 0$, it follows from the IFT that for sufficiently small $r$, i.e. sufficiently small $n/X_0$, we can find $\lambda^c(X_0, n)$ close to $\lambda(X_0, n)$ such that $\det ( K(\lambda^c(X_0, n)) + C_6 ) = 0$. By Hamiltonian symmetry, we conclude that $\lambda^c(X_0, n)$ is pure imaginary, and $\lambda^c(X_0, -n) = \lambda^c(X_0, n)$.
-
-\item The only thing we have not dealt with is what happens at $\lambda = 0$. We will do this in the following way. We have a pair of interaction eigenvalue which are $\mathcal{O}(e^{-\alpha X_0})$ and the smallest nonzero ``essential spectrum'' eigenvalues are at $i C/X_0$, so have magnitude of $C/X_0$. Choose a radius $\delta > 0$ between these so that $\delta = C_0 e^{-\alpha X_0}$, where $C_0$ is sufficiently large so that
-
-\[
-\delta - |\sqrt{-2a/M}| \geq e^{-\alpha X_0}
-\]
-
-This implies that for $|\lambda| = \delta$,
-
-\begin{align*}
-|2a + \lambda^2 M| &= |M||\lambda^2 - (-2a/M)| \\
-&= |M|\:|\lambda + \sqrt{-2a/M}||\lambda - \sqrt{-2a/M}| \\
-&\geq C e^{-2 \alpha X_0}
-\end{align*}
-
-Let
-
-\begin{equation}
-E(\lambda) = \det
-\begin{pmatrix}
-K(\lambda) & D_2 \\
-C_3 K(\lambda) + K(\lambda) \tilde{C}_3 & A - \lambda^2 MI + D_3
-\end{pmatrix}
-\end{equation}
-
-Since $K(\lambda)$ is invertible for our choice of $\delta$, we can use a standard determinant identity (that is not hard to show) to get
-
-\begin{align*}
-E(\lambda) &= \det K(\lambda) \det(A - \lambda^2 MI + D_3 - (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) K(\lambda)^{-1} D_2 ) \\
-&= \det K(\lambda) \det(A - \lambda^2 MI + D_3 - (C_3 + K(\lambda) \tilde{C}_3 K(\lambda)^{-1} ) D_2 ) \\
-&= \det K(\lambda) \det(A - \lambda^2 MI + R(\lambda) )
-\end{align*}
-
-where
-
-\[
-R(\lambda) = D_3 - (C_3 + K(\lambda) \tilde{C}_3 K(\lambda)^{-1} ) D_2
-\]
-
-Since $A - \lambda^2 MI$ is also invertible for our choice of $\delta$,
-
-\begin{align*}
-E(\lambda) &= \det K(\lambda) \det((A - \lambda^2 MI)(I + (A - \lambda^2 MI)^{-1} R(\lambda) ))\\
-&= \det K(\lambda) \det(A - \lambda^2 MI) \det (I + (A - \lambda^2 MI)^{-1} R(\lambda) )
-\end{align*}
-
-To go any further, we need to bound the remainder term. Since we are taking $\lambda = \mathcal{O}(e^{-\alpha X_0})$, we can use the bounds from above to get
-
-\begin{align*}
-|R(\lambda)| \leq C e^{-2 \alpha X_0}\left( \frac{1}{X_0} + e^{-\alpha X_0} \right)
-\end{align*}
-
-To bound $(A - \lambda^2 MI)^{-1}$, recall that we have
-
-\begin{align*}
-(A - \lambda^2 M I)^{-1} &=
-\frac{1}{\lambda^2 M(2a + \lambda^2 M)}
-\begin{pmatrix}
--a - \lambda^2 M & -a \\
--a & -a - \lambda^2 M
-\end{pmatrix} \\
-\end{align*}
-
-From how we defined $\delta$, we have
-
-\[
-||(A - \lambda^2 M I)^{-1}|| \leq C e^{2 \alpha X_0}
-\]
-
-Thus we conclude
-
-\[
-||(A - \lambda^2 MI)^{-1} R(\lambda)|| \leq C \left( \frac{1}{X_0} + e^{-\alpha X_0} \right)
-\]
-
-For sufficiently large $X_0$, this is much less than 1, from the expression $\det(I + \epsilon A) = 1 + \epsilon \text{Tr }A + \mathcal{O}(\epsilon^2)$, we have
-
-\[
-\det (I + (A - \lambda^2 MI)^{-1} R(\lambda) ) 
-= 1 + \mathcal{O}\left( \frac{1}{X_0} + e^{-\alpha X_0} \right)
-\]
-
-Thus we have for $|\lambda| = \delta$,
-
-\begin{align*}
-E(\lambda) &= \det K(\lambda) \det(A - \lambda^2 MI) \left( 1 + \mathcal{O}\left( \frac{1}{X_0} + e^{-\alpha X_0} \right) \right)
-\end{align*}
-
-We are interested in the location of the zeros of $E(\lambda)$ inside $B(0, \delta) \subset \C$. From Rouche's Theorem, since the remainder portion of this is less than the rest of it on the circle of radius $\delta$ in the complex plane, $E(\lambda)$ and $\det K(\lambda) \det(A - \lambda^2 MI)$ have the same number of zeros (counting multiplicity) inside $B(0, \delta)$. In this special case, $\det K(\lambda)$ has one zero inside $B(0, \delta)$ and $\det(A - \lambda^2 MI)$ has 4 (two at 0 and two near the interaction eigenvalues), thus $E(\lambda)$ has 5 zeros inside $B(0, \delta)$. We know that these zeros include the two interaction eigenvalues and a kernel eigenvalue with algebraic multiplicity 2 (we know what their corresponding eigenfunctions are), which leaves us with exactly one more zero of $E(\lambda)$ inside $B(0, \delta)$. By the Hamiltonian symmetry, any eigenvalues must come in quartets. Thus the remaining zero of $E(\lambda)$ inside $B(0, \delta)$ corresponds to a lone eigenvalue, which must be at 0 and which corresponds to when $K(0)$ is singular.
-
-\item Let us summarize the results that we have obtained. For the 2-periodic solution with lengths $X_0 = X_1$,
-
-\begin{itemize}
-	\item For $X_0$ sufficiently large, there is a pair of interaction eigenvalues at $\lambda = \pm \lambda(X_0)$, where $\lambda(X_0) = \mathcal{O}(e^{-\alpha X_0})$ is close to $\pm \sqrt{-2a/M}$ and is either real or purely imaginary.
-	\item For $n/X_0$ sufficiently small, there is a pair of purely imaginary ``essential spectrum'' eigenvalues located at $\lambda = \pm \lambda^c(X_0, n)$, where $\lambda^c(X_0, n)$ is close to $-c_0 \frac{n \pi i }{2 X_0}$.
-	\item There is an eigenvalue at 0 (from translation invariance) with algebraic multiplicity 2 (and for which the eigenfunction and generalized eigenfunction are known). There is an additional eigenvalue at 0 which comes from the fact that $K(0)$ is singular.
-	\item Within a ball of radius $\delta = C_0 e^{-\alpha X_0)}$ which is sufficiently large to enclose all of these, there are no other eigenvalues.
-\end{itemize}
-
-\end{enumerate}
-
-\subsubsection{2-pulse with Unequal Distances (with one restriction)}
-
-The next easiest case is the 2-pulse $X_0 < X_1$. (It doesn't matter which way we do it, but by the convention from the existence problem, $X_1$ is the ``periodic distance''). Much of this is similar to the case with equal distances. We will also need to make a small restriction on the distances, which we will get to when we need it.
-
-\begin{enumerate}
-
-\item First, we write down the matrices $A$ and $K(\lambda)$. For the matrix $A$ we have
-
-\[
-A = a \begin{pmatrix}
--1 & 1 \\
-1 & -1
-\end{pmatrix}
-\]
-
-where $a = a_0 + a_1 = \langle \Psi(X_0), Q'(-X_0) \rangle + \langle \Psi(X_1), Q'(-X_1) \rangle$. For the matrix $K(\lambda)$ we have
-
-\begin{equation}
-K(\lambda) = 
-\begin{pmatrix}
-e^{-\nu(\lambda)X_1} & -e^{\nu(\lambda)X_0} \\
--e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_0}
-\end{pmatrix}
-\end{equation}
-
-\item We will look for the interaction eigenvalues first. We expect these to occur when $\det(A - \lambda^2 M I) = 0$. Since $e^{-\alpha X_1}$ is small compared to $e^{-\alpha X_0}$, we take the scaling
-
-\begin{align*}
-\lambda &= e^{-\alpha X_0} \tilde{\lambda} \\
-a &= e^{-2 \alpha X_0} \tilde{a}
-\end{align*}
-
-Then we can write the matrix $A$ as 
-
-\[
-A = e^{-2 \alpha X_0} \tilde{a} \tilde{A}
-\]
-
-where
-\[
-\tilde{A} = \begin{pmatrix}
--1 & 1 \\
-1 & -1
-\end{pmatrix}
-\]
-
-So far, this is the same as the previous case.
-
-\item Next, we expand $\nu(\lambda)$ in a Taylor series about $\lambda = 0$. This is exactly the same as in the previous section.
-
-\begin{align*}
-\nu(\lambda) &= -\frac{1}{c_0}\tilde{\lambda}e^{-\alpha X_0} + \mathcal{O}(e^{-2 \alpha X_0})
-\end{align*}
-
-\item We can use this to get a bound on $K(\lambda)$ itself.
-
-\begin{align*}
-||K(\lambda)|| &= \mathcal{O}( e^{|\nu(\lambda)|X_0} + e^{|\nu(\lambda)|X_1} ) \\
- &= \mathcal{O} (1 + |\nu(\lambda)X_0| + |\nu(\lambda)X_1 |+ (|\nu(\lambda)X_0|^2 + (|\nu(\lambda)X_1|^2)) \\
-&= \mathcal{O}( 1 + |1/c_0| |\tilde{\lambda} | e^{-\alpha X_0} X_0 + |1/c_0| |\tilde{\lambda} | e^{-\alpha X_0} X_1) \\ 
-&= \mathcal{O}( 1 + e^{-\alpha X_0}(X_0 + X_1) ) \\
-&= \mathcal{O}\left( 1 + e^{-\alpha X_0}X_0\left( 1 + \frac{X_1}{X_0} \right) \right)  
-\end{align*}
-
-For now, we take the following hypothesis regarding the lengths $X_0$ and $X_1$.
-
-\begin{hypothesis}\label{X0X1} $X_0$ is sufficiently large so that
-\[
-e^{-\alpha X_0}X_0\left( 1 + \frac{X_1}{X_0} \right) = \mathcal{O}(1)
-\]
-\end{hypothesis}
-
-With this hypothesis, $||K(\lambda)|| = \mathcal{O}(1)$.
-
-\item We would like to invert $K(\lambda)$, when possible. The determinant of $K(\lambda)$ is given by
-
-\[
-\det K(\lambda) = e^{-\nu(\lambda)(X_0+X_1)} - e^{\nu(\lambda)(X_0+X_1)} = -2 \sinh(\nu(\lambda)(X_0+X_1)) = -2 \sinh(\nu(\lambda)X)
-\]
-
-This is 0 if and only if $\nu(\lambda)(X_0+X_1) = n \pi i$, i.e. $\nu(\lambda) = n \pi i / X$ for $n \in \Z$, where $X = X_0 + X_1$ is half the length of the domain. This includes $\lambda = 0$.\\
-
-Inverting this is more complicated than in the previous case since. There will potentially be many places on the imaginary axis where $K(\lambda)$ is singular, and these will ``pile up'' as $X_1$ gets larger. We need to avoid all of them. \\
-
-The idea is to put small open balls around each point where $K(\lambda)$ is singular, and then we will have a bound on $K(\lambda)^{-1}$ which only holds outside these open balls. The hope is that we can do this, i.e. we can make the balls large enough to get a good bound, but small enough that they do not overlap.\\
-
-To do this, first we need to know the values of $\lambda$ (not $\nu(\lambda))$ where $K(\lambda)$ is singular. These values will only depend on $X = X_0 + X_1$. Adapting what we did above, for sufficiently large $X$ and sufficiently small $n$, $K(\lambda)$ is singular for $\lambda = \lambda(X, n)$, which is given by
-
-\begin{align*}
-\lambda(X, n)
-&= -c_0 \frac{n \pi i }{X} + \mathcal{O}\left( \frac{n}{X}\right)^2 \\
-\end{align*}
-
-Note that $\nu(\lambda(X, n)) = n \pi i/X$. In addition, near the origin, the points $\lambda(X, n)$ are, to leading order, equally spaced on the imaginary axis.
-
-\item Now we Taylor expand $K(\lambda)$ about each $\lambda(X, n)$ which is within $\mathcal{O}(e^{-\alpha X_0})$ of the origin. (We only have to worry about stuff near the interaction eigenvalues we are looking for.)
-
-\begin{align*}
-\det K( \lambda(X, n) + \epsilon )
-&= -2 \sinh \Big( \nu(\lambda(X, n) + \epsilon )X \Big) \\
-\end{align*}
-
-To keep going, we need to substitute the Taylor series for $\nu(\lambda)$. This time, we use the Taylor expansion about $\lambda(X, n)$, since we know that $\nu( \lambda(X, n) ) = n \pi i / X$.
-
-\begin{align*}
-\nu(\lambda(X, n) + \epsilon ) &= 
-\frac{n \pi i }{X} + \mathcal{O}(\epsilon)
-\end{align*}
-
-Plugging this in above, we get
-
-\begin{align*}
-\det K( \lambda(X, n) + \epsilon )
-&= -2 \sinh \Big( \nu(\lambda(X, n) + \epsilon )X \Big) \\
-&= -2 \sinh \left( n \pi i + \mathcal{O}(\epsilon X) \right) \\
-&= \mathcal{O}(\epsilon X )
-\end{align*}
-
-Note that, to leading order, this does not depend on $n$. As long we we are further than $\epsilon$ in distance from any of the $\lambda(X_0, n)$, the bound holds.\\
-
-For $K(\lambda)^{-1}$, we have the expression
-
-\begin{equation}
-K(\lambda)^{-1} = \frac{1}{\det K(\lambda) }
-\begin{pmatrix}
-e^{-\nu(\lambda)X_0} & e^{\nu(\lambda)X_0} \\
-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_1}
-\end{pmatrix}
-\end{equation}
-
-Using the determinant bound and Hypothesis \ref{X0X1} (in which we took $e^{-\alpha X_0}X_0\left( 1 + \frac{X_1}{X_0} \right) = \mathcal{O}(1)$), we have a bound on $K( \lambda )^{-1}$.
-
-\begin{align*}
-|| K( \lambda )^{-1}|| 
-&\leq C \left( \frac{1}{\epsilon X} \right)
-\end{align*}
-
-which holds as long as we are outside an $\epsilon-$ball around the points $\lambda(X,n)$ where $K(\lambda)$ is singular.\\
-
-All that remains now is to choose an appropriate $\epsilon$. Recall that the spacing between the points $\lambda(X, n)$ is order $\mathcal{O}(1/X)$, so we need $\epsilon$ to be some fraction of that. Since $X_0$ is large, $e^{-\alpha X_0}$ is small (way less than 1), so choose
-
-\[
-\epsilon = \frac{e^{-\alpha X_0/2}}{X}
-\]
-
-Substituting this in, we attain the bound
-
-\begin{align*}
-|| K( \lambda(X_1, n))^{-1}|| 
-&\leq C e^{\alpha X_0/2}
-\end{align*}
-
-which holds outside the chosen $\epsilon-$balls.
-
-\item As long as $\lambda$ is outside of the $\epsilon-$balls, we can solve for $c$ in terms of $d$ using the first line of the block matrix equation. Solving for $c$, we have
-
-\begin{align*}
-c = -K(\lambda)^{-1} D_2 d \\
-\end{align*}
-
-Plugging this into the second block matrix equation, we get
-
-\begin{align*}
-(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI + D_3)d &= 0 \\
--(C_3 K(\lambda) + K(\lambda) \tilde{C}_3)K(\lambda)^{-1} D_2 d + (A - \lambda^2 MI + D_3)d &= 0 \\
-(A - \lambda^2 MI )d + (D_3 - C_3 D_2 - K(\lambda) \tilde{C}_3 K(\lambda)^{-1} D_2) d &= 0 \\
-\end{align*}
-
-We need to check that remainder term on the LHS is really higher order. Using our scaling, $D_3, C_3 D_2 = \mathcal{O}(e^{-3 \alpha X_0})$, which will be good. That leaves the last term. For that, we have
-
-\begin{align*}
-|K(\lambda) \tilde{C}_3 K(\lambda)^{-1} D_2| &\leq
-C e^{-\alpha X_0} e^{\alpha X_0/2} e^{-2 \alpha X_0} \\
-&= e^{-(5/2) \alpha X_0}
-\end{align*}
-
-Putting all of this together, we have 
-
-\[
-(A - \lambda^2 MI )d + \mathcal{O}\left( e^{-(5/2) \alpha X_0} \right) d = 0
-\]
-
-Recall that in the equal length case, we had a term which looked like $1/X_0$ and then had to take $X_0$ sufficiently large. We already took $X_0$ large enough above, so that should be taken care of.
-
-\item The rest of this works out as in the previous case where both lengths were equal. We use our scaling again to write this using $\tilde{\lambda}$ and $\tilde{a}$. After simplifying, this becomes
-
-\[
-(\tilde{a}\tilde{A} - \tilde{\lambda}^2 MI )d + \mathcal{O}\left( e^{-\alpha X_0/2} \right) d = 0
-\]
-
-Because of our scaling, $\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I  = \mathcal{O}(1)$. The equation $(\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I )d = 0$ has a nontrivial solution if and only if its determinant is 0, which is true if and only if $\tilde{\lambda} = 0$ (which we already know, since we know what these eigenfunctions are) or $\tilde{\lambda} = \pm \sqrt{-2 \tilde{a}/M}$ (which does not depend on $X_0$). Let
-
-\[
-\tilde{\mu}_0 = \sqrt{-2 \tilde{a}/M}
-\]
-
-$\tilde{\mu}_0$ is either real or pure imaginary, depending on the signs of $\tilde{a}$ and $M$. We write this matrix equation as
-
-\[
-G(\tilde{\lambda}, r_0)d = 0
-\]
-
-where $r_0 = \mathcal{O}(e^{-\alpha X_0/2})$. Since $\det G(\pm \tilde{\mu}_0, r_0) = 0$, and $G(\tilde{\lambda}, r)$ is smooth in $\tilde{\lambda}$ (it is in fact a polynomial in $\tilde{\lambda}$), for sufficiently small $r_0$ (i.e. sufficiently large $X_0$) we can use the IFT to find unique $\tilde{\lambda}^\pm(X_0)$ near $\pm \tilde{\mu}_0$ such that $\det( \tilde{\lambda}^\pm(X_0), X_0) = 0$. \\
-
-Finally, we undo our scaling. Let
-
-\[
-\lambda^\pm(X_0) = e^{-\alpha X_0} \tilde{\lambda}^\pm(X_0)
-\]
-
-These are the interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this somewhere), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since there are only two eigenvalues of this magnitude, we conclude that we have a pair of interaction eigenvalues at $\pm \lambda(X_0)$. This pair must be real or purely imaginary, and $\lambda(X_0)$ is close to $e^{-\alpha X_0} \tilde{\mu}_0 = \sqrt{-2a/M}$.
-
-\item From here, we do the same thing for the points where $K(\lambda)$ is singular. This is basically the same idea, except here we need to make an $\epsilon-$ball around 0 and the interaction eigenvalues so we can invert $A - \lambda^2 M I$. For $\lambda \neq 0, \pm \sqrt{-2a/M}$, we have
-
-\begin{align*}
-(A - \lambda^2 M I)^{-1} &=
-\frac{1}{\lambda^2 M(2a + \lambda^2 M)}
-\begin{pmatrix}
--a - \lambda^2 M & -a \\
--a & -a - \lambda^2 M
-\end{pmatrix} \\
-\end{align*}
-
-Outside these $\epsilon-$balls, we have $|\lambda|^2 \geq \epsilon^2$ (for $\lambda$ near 0) and for $\lambda$ near the interaction eigenvalues,
-
-\begin{align*}
-|2a + \lambda^2 M| &= |M||\lambda^2 - (-2a/M)| \\
-&= |M||\lambda - \sqrt{-2a/M}||\lambda + \sqrt{-2a/M}| \\
-&\geq |M| \epsilon^2
-\end{align*}
-
-Thus, outside the $\epsilon-$balls, we have
-
-\[
-||(A - \lambda^2 M I)^{-1}|| \leq C \frac{1}{\epsilon^2} 
-\]
-
-We choose a similar $\epsilon$ as we did before, i.e. 
-
-\[
-\epsilon = \frac{e^{-\alpha X_0/4}}{X}
-\]
-
-(the only difference is the fraction 1/4 instead of 1/2, which we want here since we are squaring $\epsilon$), which gives us
-
-
-\[
-||(A - \lambda^2 M I)^{-1}|| \leq C e^{\alpha X_0/2} X^2
-\]
-
-
-We expect to find eigenvalues near $\lambda(X, n) = -c_0 \frac{n \pi i }{X} + \mathcal{O}(n/X)^2$. If we are outside of the $\epsilon$-balls, we can solve for $d$ in the second block matrix equation. As above, we have
-
-\begin{align*}
-(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c + (A - \lambda^2 MI)(I + (A - \lambda^2 MI)^{-1} D_3)d &= 0
-\end{align*}
-
-Using our bound for $||(A - \lambda^2 M I)^{-1}||$, we have
-
-\begin{align*}
-||(A - \lambda^2 MI)^{-1} D_3)|| &= \mathcal{O}(e^{\alpha X_0/2} X^2(e^{-3 \alpha X_0} + |\lambda|^3)) \\
-&= \mathcal{O}(e^{-\alpha X_0/2} e^{-2 \alpha X_0} X^2 + e^{\alpha X_0/2} X^2 |\lambda|^3)
-\end{align*}
-
-We want to find eigenvalues within a ball of radius $C_0 e^{-\alpha X_0}$ of the origin, so, with that in mind, this bound becomes
-
-\begin{align*}
-||(A - \lambda^2 MI)^{-1} D_3)|| 
-&= \mathcal{O}(e^{-\alpha X_0/2} e^{-2 \alpha X_0} X^2 )
-\end{align*}
-
-Unfortunately, this could blow up. But we have Hypothesis \ref{X0X1} to fall back on, which tells us that
-
-\begin{align*}
-e^{-\alpha X_0} X = \mathcal{O}(1)
-\end{align*}
-
-Thus we have
-
-\begin{align*}
-||(A - \lambda^2 MI)^{-1} D_3)|| 
-&= \mathcal{O}(e^{-\alpha X_0/2})
-\end{align*}
-
-For sufficiently large $X_0$, $(I + (A - \lambda^2 MI)^{-1} D_3)$ is invertible, so we can solve for $D$ to get
-
-\begin{align*}
- d &= 
- -(I + (A - \lambda^2 MI)^{-1} D_3)^{-1}(A - \lambda^2 MI)^{-1}(C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c \\
- &= -C_4 (C_3 K(\lambda) + K(\lambda) \tilde{C}_3) c
-\end{align*}
-
-where $C_4 = (I + (A - \lambda^2 MI)^{-1} D_3)^{-1}(A - \lambda^2 MI)^{-1} = \mathcal{O}(e^{\alpha X_0/2} X^2)$.\\
-
-Finally, we substitute this for $d$ into the first line of the block matrix equation to get (as above)
-
-\begin{align*}
-(I - D_2 C_4 C_3 ) K(\lambda)c - K(\lambda) \tilde{C}_3 c &= 0
-\end{align*}
-
-We would like to invert $I - D_2 C_4 C_3$. For a bound on $D_2 C_4 C_3$, we have
-
-\begin{align*}
-D_2 C_4 C_3 &= \mathcal{O}\Big( (e^{-2 \alpha X_0} + |\lambda|^2)( e^{\alpha X_0/2} X^2)(e^{-\alpha X_0} + |\lambda|) \Big) \\
-&= \mathcal{O}\Big( e^{-\alpha X_0/2} e^{- 2 \alpha X_0} X^2 \Big) \\
-&= \mathcal{O}( e^{-\alpha X_0/2})
-\end{align*}
-
-where we used Hypothesis \ref{X0X1} again. Thus, for sufficiently large $X_0$, we can invert $I - D_2 C_4 C_3$ to get
-
-\[
-K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0
-\]
-
-where $C_5 = (I + D_2 C_4 C_3)^{-1} = \mathcal{O}(1)$ and $\tilde{C}_3 = \mathcal{O}(e^{-\alpha X_0})$.
-
-\item Finally, we can solve $K(\lambda)c + C_5 K(\lambda) \tilde{C}_3 c = 0$. We expect this will be possible for $\lambda$ close to $\lambda(X, n) = -c_0 \frac{n \pi i }{X} + \mathcal{O}(n/X)^2$. Using Hypothesis \ref{X0X1}, we have $K(\lambda) = \mathcal{O}(1)$. Thus we can write our equation as
-
-\[
-(K(\lambda)c + C_6 ) c = 0
-\]
-
-where $C_6 = \mathcal{O}(e^{-\alpha X_0})$. Let
-
-\[
-G(\lambda, r) = \det( K(\lambda) + C_6 )
-\]
-
-where $r = \mathcal{O}(e^{-\alpha X_0})$ is small. Choose $n$ such that $|\lambda(X,n)| \leq C_0 e^{-\alpha X_0}$. Then since $G( \lambda(X, n), 0) = 0$, it follows from the IFT that for sufficiently small $r$, i.e. sufficiently large $X_0$, we can find $\lambda^c(X, n)$ close to $\lambda(X, n)$ such that $\det ( K(\lambda^c(X, n)) + C_6 ) = 0$. By Hamiltonian symmetry, we conclude that $\lambda^c(X, n)$ is pure imaginary, and $\lambda^c(X, -n) = \lambda^c(X, n)$.
-
-\item Finally, we deal with what happens at $\lambda = 0$. This will be similar to what we did above. We have a pair of interaction eigenvalue which are $\mathcal{O}(e^{-\alpha X_0})$ and ``essential spectrum'' eigenvalues at $i C n /X$, but for large $X$, the ``essential spectrum'' eigenvalues may be smaller than the interaction eigenvalues.\\
-
- Choose a radius $\delta > 0$ so that $\delta = C_0 e^{-\alpha X_0}$, where $C_0$ is sufficiently large so that
-
-\[
-\delta - |\sqrt{-2a/M}| \geq e^{-\alpha X_0}
-\]
-
-and for all $n$ with $|\lambda^c(X, n)| \leq C_0 e^{-\alpha X_0}$,
-
-\[
-|\delta - |\lambda^c(X, n)| | \geq C \frac{1}{3X}
-\]
-
-For this second condition, since the $\lambda^c(X, n)$ are, to leading order, equally spaced, this is just saying that we choose $\delta$ so that the $\delta-$circle cuts half way between two of these. Based on what we have already done, this implies the following bounds
-
-\begin{align*}
-||(A - \lambda^2 M I)^{-1}|| &\leq C e^{2 \alpha X_0} \\
-||K(\lambda)^{-1}|| &\leq C 
-\end{align*}
-
-Let
-
-\begin{equation}
-E(\lambda) = \det
-\begin{pmatrix}
-K(\lambda) & D_2 \\
-C_3 K(\lambda) + K(\lambda) \tilde{C}_3 & A - \lambda^2 MI + D_3
-\end{pmatrix}
-\end{equation}
-
-Since $K(\lambda)$ is invertible for our choice of $\delta$, as we did above, we have
-
-\begin{align*}
-E(\lambda) &= \det K(\lambda) \det(A - \lambda^2 MI + R(\lambda) )
-\end{align*}
-
-where, using Hypothesis \ref{X0X1} to bound $K(\lambda) \tilde{C}_3 K(\lambda)^{-1}$, we have
-
-\begin{align*}
-R(\lambda) &= D_3 - (C_3 + K(\lambda) \tilde{C}_3 K(\lambda)^{-1} ) D_2 \\
-&= \mathcal{O}(e^{-3 \alpha X_0})
-\end{align*}
-
-Since $A - \lambda^2 MI$ is also invertible for our choice of $\delta$, we have
-
-\begin{align*}
-E(\lambda) &= \det K(\lambda) \det(A - \lambda^2 MI) \det (I + (A - \lambda^2 MI)^{-1} R(\lambda) )
-\end{align*}
-
-For a bound on $(A - \lambda^2 MI)^{-1} R(\lambda)$, we have
-
-\[
-||(A - \lambda^2 MI)^{-1} R(\lambda)|| \leq C e^{2 \alpha X_0} e^{-3 \alpha X_0} = C e^{-\alpha X_0}
-\]
-
-For sufficiently large $X_0$, this is much less than 1. Thus from the expression $\det(I + \epsilon A) = 1 + \epsilon \text{Tr }A + \mathcal{O}(\epsilon^2)$, we have
-
-\[
-\det (I + (A - \lambda^2 MI)^{-1} R(\lambda) ) 
-= 1 + \mathcal{O}\left( e^{-\alpha X_0} \right)
-\]
-
-We conclude that for $|\lambda| = \delta$,
-
-\begin{align*}
-E(\lambda) &= \det K(\lambda) \det(A - \lambda^2 MI) \left( 1 + \mathcal{O}(e^{-\alpha X_0}) \right)
-\end{align*}
-
-From Rouche's Theorem, since the remainder portion of this is less than the rest of it on the circle of radius $\delta$ in the complex plane, $E(\lambda)$ and $\det K(\lambda) \det(A - \lambda^2 MI)$ have the same number of zeros (counting multiplicity) inside $B(0, \delta) \subset \C$. We have the following
-\begin{enumerate}
-\item $\det K(\lambda)$ has $2k_0 + 1$ zeros inside $B(0, \delta)$ for some integer $k_0$. These come from $\lambda = 0$ and $\lambda = \pm \lambda^c(X, k)$ for $k = 1, \dots, k_0$.
-\item $\det(A - \lambda^2 MI)$ has 4 zeros inside $B(0, \delta)$ (two at 0 and two near the interaction eigenvalues).
-\end{enumerate}
-
-Thus $E(\lambda)$ has $2k_0 + 5$ zeros inside $B(0, \delta)$. We know that these zeros include the two interaction eigenvalues, a kernel eigenvalue with algebraic multiplicity 2; and $k_0$ pairs of interaction eigenvalues at $\pm \lambda^c(X, k)$ for $k = 1, \dots, k_0$. This leaves us with exactly one more zero of $E(\lambda)$ inside $B(0, \delta)$. By the Hamiltonian symmetry, any eigenvalues must come in quartets. Thus the remaining zero of $E(\lambda)$ inside $B(0, \delta)$ corresponds to a lone eigenvalue, which must be at 0. This corresponds to the case when $K(0)$ is singular.
-
-\item Let us summarize the results that we have obtained. For the 2-periodic solution with lengths $X_0 < X_1$, assume that
-
-\[
-e^{-\alpha X_0}X_0\left( 1 + \frac{X_1}{X_0} \right) = \mathcal{O}(1)
-\]
-
-Recall that $K(\lambda)$ is singular at
-
-\[
-\lambda(X, n) = -c_0 \frac{n \pi i}{X} + \mathcal{O}(n/X)^2
-\]
-
-and $A - \lambda^M I$ is singular at $\lambda = 0$ and $\pm \mu_0 = \pm \sqrt{-2a/M}$. Let 
-
-\[
-\epsilon = \frac{e^{-\alpha X_0/4}}{X}
-\]
-
-and assume that $| \pm\mu_0 - \lambda(X, n)| \geq \epsilon$ for all $n$. Then the following is true.
-
-\begin{itemize}
-	\item For $X_0$ sufficiently large, there is a pair of interaction eigenvalues at $\lambda = \pm \lambda(X_0)$, where $\lambda(X_0) = \mathcal{O}(e^{-\alpha X_0})$ is close to $\pm \sqrt{-2a/M}$ and is either real or purely imaginary.
-	\item For each $n/X_0$ sufficiently small, there is a pair of purely imaginary ``essential spectrum'' eigenvalues located at $\lambda = \pm \lambda^c(X_0, n)$, where $\lambda^c(X_0, n)$ is close to $\lambda(X, n)$.
-	\item There is an eigenvalue at 0 (from translation invariance) with algebraic multiplicity 2 (and for which the eigenfunction and generalized eigenfunction are known). There is an additional eigenvalue at 0 which comes from the fact that $K(0)$ is singular.
-	\item Within a ball of radius $\delta = C_0 e^{-\alpha X_0)}$ which is sufficiently large to enclose all of these, there are no other eigenvalues.
-\end{itemize}
-
-
-\end{enumerate}
-
-\subsubsection{2-pulse with Unequal Distances}
-
-Now we try to get this to work without Hypothesis \ref{X0X1}. It helps to recall what we are trying to accomplish. To find the interaction eigenvalues, we solve for $c$ near where we expect the interaction eigenvalues to be, then we plug that in to get an equation for $d$.\\
-
-The interaction eigenvalues are near $\pm \sqrt{-a/2M} = \mathcal{O}(e^{-\alpha X_0})$, which is either real or pure imaginary. We consider the two cases separately.
-
-\begin{enumerate}
-
-\item Suppose $\sqrt{-a/2M}$ is purely imaginary, and recall that $\nu(\lambda) = -\frac{1}{c_0}\lambda + \mathcal{O}(|\lambda|^2)$. Choose $\lambda$ such that 
-
-
-\[
-|\text{Re }\lambda| \leq 1/X
-\]
-
-Then for these $\lambda$ we have $||K(\lambda)|| = \mathcal{O}(1)$. As long as we choose $\lambda$ so that $K(\lambda)$ is invertible, we have $||K(\lambda)^{-1}|| = \mathcal{O}(1/\det K(\lambda))$. As before, recall that $K(\lambda)$ is singular for $\lambda = \lambda(X, n)$, $n \in \Z$, given by
-
-\begin{align*}
-\lambda(X, n)
-&= -c_0 \frac{n \pi i }{X} + \mathcal{O}\left( \frac{n}{X}\right)^2 \\
-\end{align*}
-
-As long as we are at least $\epsilon$ away from these points, then $\det K(\lambda) = \mathcal{O}(\epsilon X)$. Choosing $\epsilon = e^{-\alpha X_0/2}/X$ and combining what we have so far, we conclude that, outside the $\epsilon$ balls and within $1/X$ of the imaginary axis, we have
-
-\[
-||K(\lambda)^{-1}|| = \mathcal{O}(e^{\alpha X_0/2})
-\]
-
-We solve for $c$ using the first line of the block matrix equation to get
-
-\begin{align*}
-c = -K(\lambda)^{-1} D_2 d
-\end{align*}
-
-Plugging this into the second block matrix equation, we get
-
-\begin{align*}
-(A - \lambda^2 MI )d + (D_3 - C_3 D_2 - K(\lambda) \tilde{C}_3 K(\lambda)^{-1} D_2) d &= 0 \\
-\end{align*}
-
-We need to check the order of the remainder term on the RHS. The terms $D_3, C_3 D_2 = \mathcal{O}(e^{-3 \alpha X_0})$. For the final term, we have
-
-\begin{align*}
-|K(\lambda) \tilde{C}_3 K(\lambda)^{-1} D_2| &\leq
-C e^{-\alpha X_0} e^{\alpha X_0/2} e^{-2 \alpha X_0} \\
-&= e^{-(5/2) \alpha X_0}
-\end{align*}
-
-Putting all of this together, we have 
-
-\[
-(A - \lambda^2 MI )d + \mathcal{O}\left( e^{-(5/2) \alpha X_0} \right) d = 0
-\]
-
-Using our scaling and simplifying, this becomes
-
-\[
-(\tilde{a}\tilde{A} - \tilde{\lambda}^2 MI )d + \mathcal{O}\left( e^{-\alpha X_0/2} \right) d = 0
-\]
-
-Because of our scaling, $\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I  = \mathcal{O}(1)$. The equation $(\tilde{a} \tilde{A} - \tilde{\lambda}^2 M I )d = 0$ has a nontrivial solution if and only if its determinant is 0, which is true if and only if $\tilde{\lambda} = 0$ (which we already know, since we know what these eigenfunctions are) or $\tilde{\lambda} = \pm \sqrt{-2 \tilde{a}/M}$ (which does not depend on $X_0$). Let
-
-\[
-\tilde{\mu}_0 = \sqrt{-2 \tilde{a}/M}
-\]
-
-$\tilde{\mu}_0$ is either real or pure imaginary, depending on the signs of $\tilde{a}$ and $M$. We write this matrix equation as
-
-\[
-G(\tilde{\lambda}, r_0)d = 0
-\]
-
-where $r_0 = \mathcal{O}(e^{-\alpha X_0/2})$. Since $\det G(\pm \tilde{\mu}_0, r_0) = 0$, and $G(\tilde{\lambda}, r)$ is smooth in $\tilde{\lambda}$ (it is in fact a polynomial in $\tilde{\lambda}$), for sufficiently small $r_0$ (i.e. sufficiently large $X_0$) we can use the IFT to find unique $\tilde{\lambda}^\pm(X_0)$ near $\pm \tilde{\mu}_0$ such that $\det( \tilde{\lambda}^\pm(X_0), X_0) = 0$. \\
-
-Finally, we undo our scaling. Let
-
-\[
-\lambda^\pm(X_0) = e^{-\alpha X_0} \tilde{\lambda}^\pm(X_0)
-\]
-
-These are the interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this somewhere), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since there are only two eigenvalues of this magnitude, we conclude that we have a pair of interaction eigenvalues at $\pm \lambda(X_0)$. This pair must be real or purely imaginary, and $\lambda(X_0)$ is close to $e^{-\alpha X_0} \tilde{\mu}_0 = \sqrt{-2a/M}$.
-
-
-
-
-
-\end{enumerate}
 
 
 
