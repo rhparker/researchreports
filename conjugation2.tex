@@ -2240,6 +2240,21 @@ In specific cases, we may be able to say more about $\nu(\lambda)$. For KdV5, al
 \nu(-\lambda) = -\nu(\lambda)
 \]
 
+Another thing to consider is when $\lambda = i \gamma$ is pure imaginary. In that case, we can show that $\nu(\lambda)$ must also be pure imaginary. To see this, take the ansatz $t = i s$ in the characteristic polynomial equation $p(i \gamma) = 0$.
+
+\begin{align*}
+(-1)^{m+1} i s^{2m+1} + \dots - c_2 i s^3 + c_0 i s + i \gamma &= 0 \\
+(-1)^{m+1} s^{2m+1} + \dots - c_2 s^3 + c_0 s + \gamma &= 0
+\end{align*}
+
+Let
+
+\[
+p(s, \gamma) = (-1)^{m+1} s^{2m+1} + \dots - c_2 s^3 + c_0 s + \gamma
+\]
+
+Then since $p(0,0) = 0$ and $p_s(0, 0) = c_0 \neq 0$, we can use the IFT again to solve for $s$ in terms of $\gamma$ for $\gamma$ small, and $s$ will be real this time. By uniqueness of the IFT solution $\nu(\lambda)$, we must have $\nu(\lambda) = i s(\gamma) = i s(-i \lambda)$, which is pure imaginary.\\
+
 Next, we look at $K(\lambda)$, which we recall is given by 
 
 \begin{equation*}
@@ -2315,6 +2330,9 @@ Taking $r = n \pi i / X$, we have for $n/X$ small,
 &= \frac{1}{\nu'(0)} \frac{n \pi i }{X} + \mathcal{O}(n/X)^2 \\
 &= -c_0 \frac{n \pi i }{X} + \mathcal{O}(n/X)^2 \\
 \end{align*} 
+
+Recall that with the additional assumption on the characteristic polynomial of $K(\lambda)$, we showed that $\nu(-\lambda) = -\nu(\lambda)$ and that for $\lambda$ pure imaginary, $\nu(\lambda)$ is also pure imaginary. Thus in this case we can conclude that $\lambda(X,n)$ is pure imaginary and $\lambda(X,-n) = -\lambda(X,n)$.\\
+
 
 For $\lambda \neq \lambda(X,n)$, $K(\lambda)$ is invertible. If $K(\lambda)^{-1}$ exists, we have the following bound, which we get from our expression for $K(\lambda)^{-1}$
 
@@ -2686,7 +2704,7 @@ Now we plug this in for $c$ in the first block matrix equation and hope it all w
 For $D_1 D_3$ we have
 
 \[
-||D_1 D_3|| &\leq C e^{-2 \alpha X_m} e^{\frac{n-1}{n+1}\alpha X_m} e^{2 \alpha X_m}
+||D_1 D_3|| \leq C e^{-2 \alpha X_m} e^{\frac{n-1}{n+1}\alpha X_m} e^{2 \alpha X_m}
 = C e^{\frac{n-1}{n+1}\alpha X_m}
 \]
 
@@ -2698,17 +2716,25 @@ Let
 R(\lambda) = C_1 K(\lambda) + K_1(\lambda) - D_1 D_3 C_2 K(\lambda) - D_1 D_3 K_2(\lambda)
 \]
 
+Then we need to find a nontrivial solution to
+
+\[
+(K(\lambda) + R(\lambda))c = 0 
+\]
+
 Recall that for $K(\lambda)$ we have bound
 
 \[
 ||K(\lambda)|| \leq  C e^{|\text{Re }\nu(\lambda)|X_{n-1}} \leq C e^{|\text{Re }\nu(\lambda)|X}
 \]
 
-Since we are looking for $\lambda$ on the imaginary axis, we will take $|\text{Re }\nu(\lambda)| < 1/X$, in which case we have $||K(\lambda)|| \leq C$, and $||K_j(\lambda)|| \leq e^{-\alpha X_m}$. In that case, we have
+Since we are looking for $\lambda$ close to $\lambda(X,n)$, which is on the imaginary axis, we will take $|\text{Re }\nu(\lambda)| < 1/X$, in which case we have $||K(\lambda)|| \leq C$, and $||K_j(\lambda)|| \leq e^{-\alpha X_m}$. In that case, we have
 
 \[
 ||R(\lambda)|| \leq C e^{-2 \alpha X_m/(n+1)}
 \]
+
+To solve this, we again use a scaling argument to write this in terms of a perturbation of something we can handle. 
 
 Write $R(\lambda) = e^{-2 \alpha X_m/(n+1)} \tilde{R}(\lambda)$, where $\tilde{R}(\lambda)$ is as most $\mathcal{O}(1)$. Since we are looking for $\lambda$ near $\lambda(n, X)$, we take the scaling
 
@@ -2716,34 +2742,67 @@ Write $R(\lambda) = e^{-2 \alpha X_m/(n+1)} \tilde{R}(\lambda)$, where $\tilde{R
 \lambda = \tilde{\lambda}\frac{n}{X}
 \]
 
-where $\tilde{\lambda} = \mathcal{O}(1)$. Then 
-
-\begin{align*}
-\det(K(\lambda)) &= -2 \sinh \nu(\lambda) X \\
-&= -2 \sinh\left( \left( \tilde{\lambda}\frac{n}{X} + \mathcal{O}(\tilde{\lambda}n/X)^2 \right)X\right) \\
-&= -2 \sinh\left( \tilde{\lambda}n + \mathcal{O}((\tilde{\lambda}n)^2/X) \right)
-\end{align*}
-
-where we note that the leading order term does not depend on $X$. For a nontrivial solution, we need to have $E_1(\tilde{\lambda}) = 0$, where
+where $\tilde{\lambda} = \mathcal{O}(1)$. Then our equation becomes
 
 \[
-E_1(\tilde{\lambda}) = \det( K(\tilde{\lambda}) + R(\tilde{\lambda}) )
-= \det( K(\tilde{\lambda}) + e^{-2 \alpha X_m/(n+1)} \tilde{R}(\lambda)  )
+(K(\tilde{\lambda}n/X) + e^{-2 \alpha X_m/(n+1)} \tilde{R}(\tilde{\lambda}n/X))c = 0 
 \]
 
-For sufficiently large $X_m$, we should have
+To have a nontrivial solution, we need $E_1(\tilde{\lambda}, X_m) = 0$, where
+
+\begin{equation}\label{E1tildelambda}
+E_1(\tilde{\lambda}, X_m) = \det(K(\tilde{\lambda}n/X) + e^{-2 \alpha X_m/(n+1)} \tilde{R}(\tilde{\lambda}n/X))
+\end{equation}
+
+Looking at the first term, we have
 
 \begin{align*}
-E_1(\tilde{\lambda}) &= -2 \sinh\left( \tilde{\lambda}n + \mathcal{O}((\tilde{\lambda}n)^2/X) \right) + \mathcal{O}( e^{-2 \alpha X_m/(n+1)} )
+\det(K(\tilde{\lambda}n/X)) &= -2 \sinh \nu(\tilde{\lambda}n/X) X \\
+&= -2 \sinh\left( \left( \tilde{\lambda}\frac{n}{X} + \mathcal{O}(n \tilde{\lambda}/X)^2 \right)X\right) \\
+&= -2 \sinh\left( n \tilde{\lambda} + \mathcal{O}((n \tilde{\lambda})^2/X) \right)
 \end{align*}
 
-As $X_m \rightarrow \infty$, since $X_m$ is contained in the sum $X = X_0 + \dots + X_{n-1}$, this becomes $E_1(\tilde{\lambda}) = -2 \sinh\left( \tilde{\lambda}n )$, which is 0 at $\tilde{\lambda}n = i \pi$. As $X_m \rightarrow \infty$, $d E_1(n \tilde{\lambda}) / d \tilde{n \lambda}$ approaches $-2 \cosh\left( \tilde{\lambda}n )$, which is 2 at $\tilde{\lambda}n = i \pi$. Thus, by the IFT, for sufficiently large $X_m$ we can solve for $n \tilde{\lambda}$ near $\pi$ as a function of $X_m$. 
+Note that the leading order term of this does not depend on $X$. As we send $X_m \rightarrow \infty$ in \eqref{E1tildelambda}, all the higher order terms vanish (since $X_m$ is contained in the sum $X = X_0 + \dots + X_{n-1}$), and we have
 
+\begin{align*}
+E_1(\tilde{\lambda}, X_m) \rightarrow -2 \sinh n \tilde{\lambda}
+\end{align*}
 
+For $\tilde{\lambda} = i \pi$, $\sinh n \tilde{\lambda} = 0$. As $X_m \rightarrow \infty$, 
 
+\[
+\frac{d}{\tilde{\lambda}} E_1(\lambda_*, X_m) \rightarrow -2 \cosh n \tilde{\lambda}
+\]
 
+For $\tilde{\lambda} = i \pi$, $\cosh n \tilde{\lambda} = (-1)^n \neq 0$. Thus, by the IFT, for sufficiently large $X_m$ we can solve for $\tilde{\lambda}$ as a function of $X_m$ near $i \pi$, i.e. we can find a function $\tilde{\lambda}(X_m)$ such that for sufficiently large $X_m$,
 
+\[
+E_1(\tilde{\lambda}, X_m) = 0
+\]
 
+and $\tilde{\lambda} \rightarrow i \pi$ as $X_m \rightarrow \infty$. Expanding $\tilde{\lambda}(X_m)$ in a Taylor series (about $r = 0$, where $r = 1/X_m$), this becomes
+
+\[
+\tilde{\lambda}(X_m) = i \pi + \mathcal{O}(1/X_m)
+\]
+
+Undoing our scaling gives us
+
+\[
+\lambda(X_m) = \frac{n \pi i}{X} + \mathcal{O}\left( \frac{1}{X_m} \frac{n}{X} \right)
+\]
+
+We can do this for all nonzero integers $n$ with $n/X$ sufficiently small. Let $\lambda^c(X_m; X, n)$ be these ``essential spectrum'' eigenvalues, so we have
+
+\[
+\lambda^c(X_m; X, n) = \frac{n \pi i}{X} + \mathcal{O}\left( \frac{1}{X_m} \frac{n}{X} \right)
+\]
+
+By Hamiltonian symmetry, as in the case with the interaction eigenvalues, these must be purely imaginary since they cannot come in quartets. Furthermore, we have the symmetry
+
+\[
+\lambda^c(X_m; X, -n) = -\lambda^c(X_m; X, n)
+\]
 
 \item Finally, we show there is an additional eigenvalue at 0 (other than the one of algebraic multiplicity 2 from translation invariance), and that there are no other eigenvalues near the origin besides those we have already found.\\
 
@@ -2844,8 +2903,11 @@ Thus, for sufficiently large $X_m$, $\det(I + R(\lambda)) = 1 + \eta$, where $\e
 \tilde{E}(\lambda) = \det(K(\lambda))\det(A - \lambda^2 MI) + \eta \det(K(\lambda))\det(A - \lambda^2 MI)
 \end{equation}
 
-Since $\eta < 1$ and $\lambda = \delta$, by Rouche's Theorem, $E(\lambda)$ and $\det(K(\lambda))\det(A - \lambda^2 MI)$ have the same number of zeros (counting multiplicty) inside $B(0, \delta)$. By our choice of $\delta$, $\det(A - \lambda^2 MI)$ has $2n$ zeros inside $B(0, \delta)$, which are close to the interaction eigenvalues. Recall that $\det(K(\lambda)) = 0$ whenever $\lambda = \lambda(X,n)$. SHOW SYMMETRY OF THESE AND/OR MAKE ASSUMPTION.
+Since $\eta < 1$ and $\lambda = \delta$, by Rouche's Theorem, $\tilde{E}(\lambda)$ and $\det(K(\lambda))\det(A - \lambda^2 MI)$ have the same number of zeros (counting multiplicty) inside $B(0, \delta)$. By our choice of $\delta$, $\det(A - \lambda^2 MI)$ has exactly $2n$ zeros inside $B(0, \delta)$, which are close to the interaction eigenvalues. Recall that $\det(K(\lambda)) = 0$ whenever $\lambda = \lambda(X,n)$.\\begin{equation}
 
+Using the additional assumption on the characteristic polynomial of $K(\lambda)$, we recall that $K(\lambda)$ is singular for $\lambda = 0$ and $\lambda = \pm \lambda(X,n)$, where $n$ is a nonzero integer and $\lambda(X,n)$ is pure imaginary and close to $n \pi i / X$. \\
+
+In any case, $K(\lambda)$ is singular at $2m+1$ points inside $B(0, \delta)$, where $m$ is some integer. Thus, since $\det(K(\lambda))\det(A - \lambda^2 MI)$ has $2(m+n)+1$ zeros inside $B(0, \delta)$, $\tilde{E}(\lambda)$ does as well. $2n$ of these come from the interaction eigenvalues, all of which are inside $B(0, \delta)$. Another $2m$ of these come from the ``essential spectrum'' eigenvalues, which come in pairs $\pm \lambda^c(X_m; X, n)$. That leaves us with one eigenvalue which has not been accounted for. By Hamiltonian symmetry, this last, lone eigenvalue must be at $\lambda = 0$. This eigenvalue comes from the fact that $K(\lambda)$ is singular at $\lambda = 0$, which we have not accounted for until now.
 
 
 \end{enumerate}
