@@ -2189,7 +2189,54 @@ Before we continue, we will derive a bunch of stuff which will apply for all the
 X_{n-1} = X_M = \max\{X_0, \dots, X_{n-1}\}
 \]
 
-First, we look at $K(\lambda)$, which we recall is given by 
+First, we look at $\nu(\lambda)$, which is the small eigenvalue of the asymptotic matrix $A_\infty(\lambda)$, which is the $2m+1 \times 2m+1$ matrix
+
+\begin{equation}
+A_\infty = \begin{pmatrix}
+0 & 1 & 0 & \dots & 0 & 0 \\
+0 & 0 & 1 & \dots & 0 & 0 \\
+& & & \ddots & & \\
+0 & 0 & 0 & \dots & 0 & 1 \\
+\lambda & c_0 & c_1 & \dots & c_{2m-2} & c_{2m-1}
+\end{pmatrix}
+\end{equation}
+
+The characteristic polynomial of $A_\infty(\lambda)$ is
+
+\[
+p(t; \lambda) = -t^{2m+1} + c_{2m-1} t^{2m} + \dots + c_1 t^2 + c_0 t + \lambda
+\]
+
+We can easily see that when $\lambda = 0$, $A_\infty(0)$ has an eigenvalue of 0, thus $\nu(0) = 0$. We make the assumption that $A_\infty$ has a quartet of eigenvalues $\pm \alpha \pm \beta i$ (thus we must have $m \geq 2$), and the real part of any other eigenvalue of $A_\infty(0)$ is greater than $\alpha$ in magnitude. \\
+
+We note that $p'(0; \lambda) = c_0$. When we put the original PDE into a moving frame with speed $c$, we get a additional term of $-c \partial_x$, so in the cases we consider we have $c_0 =-c$. Since everything we are doing comes from a moving frame, we can safely assume that $c_0 \neq 0$.\\
+
+We would like an expression for $\nu(\lambda)$ for $\lambda$ near 0. To do this, we note that $p(0; 0) = 0$ and $p_t(0; 0) = c_0 \neq 0$. Thus by the IFT we can solve for $t$ in terms of $\lambda$ near $\lambda = 0$. This is the function $\nu(\lambda)$, i.e. $p(\nu(\lambda); \lambda) = 0$ is the unique solution to $p(t; \lambda) = 0$ for $\lambda$ small, and $\nu(0) = 0$. By the IFT again, we can differentiate $\nu(\lambda)$ to get
+
+\begin{align*}
+\nu'(\lambda) &= -\frac{1}{p_t(\nu(\lambda),\lambda) } p_\lambda( \nu(\lambda); \lambda ) \\
+&= -\frac{1}{p_t(\nu(\lambda),\lambda) } 
+\end{align*}
+
+At $\lambda = 0$, this is
+
+\begin{align*}
+\nu'(0) = -\frac{1}{c_0}
+\end{align*}
+
+$\nu(\lambda)$ is the root of a polynomial which is smooth in $\lambda$. Thus, we can expand $\nu(\lambda)$ in a Taylor series to get
+
+\[
+\nu(\lambda) = -\frac{1}{c_0} \lambda + \mathcal{O}(|\lambda|^2)
+\]
+
+In specific cases, we may be able to say more about $\nu(\lambda)$. For KdV5, all the derivatives involved in the linear part are odd, so the coefficients $c_k$ in the characteristic polynomial are 0 for $k$ odd (using the notation above). In this case, $p(t; \lambda) = 0$ implies $p(-t; -\lambda) = 0$, thus $\nu(\lambda)$ is an odd function, i.e. 
+
+\[
+\nu(-\lambda) = -\nu(\lambda)
+\]
+
+Next, we look at $K(\lambda)$, which we recall is given by 
 
 \begin{equation*}
 K(\lambda) = 
