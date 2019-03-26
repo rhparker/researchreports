@@ -2181,7 +2181,11 @@ a_{n-1} & & & & a_{n-2} & -a_{n-2} - a_{n-1} \\
 \end{pmatrix} && n > 2
 \end{align*}
 
-Note that this is a real symmetric matrix, so its eigenvalues are all real.\\
+Note that this is a real symmetric matrix, so its eigenvalues are all real. Since all the rows sum to 1, $(1, 1, \dots, 1)^T$ is an eigenvector with eigenvalue 0. We make the following additional assumption, which is true in certain specific cases.\\
+
+\begin{hypothesis}\label{Adistincteigs}
+The eigenvalues of $A$ are distinct.
+\end{hypothesis}
 
 Before we continue, we will derive a bunch of stuff which will apply for all the following cases. In all cases, $X_{n-1}$ is the ``periodic length'', and we have
 
@@ -2340,6 +2344,8 @@ Note that, to leading order, this does not depend on $n$. PERHAPS CHOOSE EPSILON
 |\det K(\lambda)| \geq C \epsilon X
 \end{align*}
 
+% solve for Lambda
+
 We will now solve the block matrix equation for $\lambda$ in three steps. First, we find the interaction eigenvalues, which come from the second line of the block matrix equation. Then we find the nonzero ``essential spectrum'' eigenvalues, which come from the first line of the block matrix equation. Finally, we determine the number of eigenvalues in a ball around the origin to show both that there are 3 eigenvalues (counting multiplicity) at 0 and that we have found all the eigenvalues in the ball.
 
 \begin{enumerate}
@@ -2453,7 +2459,7 @@ which is of sufficiently high order compared to the first term, which is $\mathc
 
 Choose any nonzero $\lambda_0$ for which $\det (A - \lambda^2 MI) = 0$. These will all be of the form $\lambda_0 = \pm \sqrt{\mu_0 / M}$, where $\mu_0$ is an eigenvalue of $A$. Note that besides $\lambda_0 = 0$, which we are not considering yet, these $\lambda_0$ come in pairs $\pm \lambda_0$. Since $A$ is a $n \times n$ matrix, there will be exactly $2n - 2$ of these $\lambda_0$. \\
 
-Now we scale out $e^{-2 \alpha X_m}$ from this, so that we have
+Next, we scale out $e^{-2 \alpha X_m}$ from our equation to get
 
 \begin{equation}\label{tildelambdaeq}
 (\tilde{A} - \tilde{\lambda}^2 MI)d + R(\tilde{\lambda}, X_m)d = 0
@@ -2465,21 +2471,39 @@ where
 R(\tilde{\lambda}, X_m) &= \mathcal{O}(e^{-\alpha X_m/2})
 \end{align*}
 
-Write the scaled equation \eqref{tildelambdaeq} as
+Let $\lambda_0 = e^{-2\alpha X_m} \tilde{\lambda}_0$. The scaled equation \eqref{tildelambdaeq} has a nontrivial solution if and only if 
 
-\[
-G(\tilde{\lambda}, r)d = 0
-\]
+\begin{equation}\label{tildelambdaeq2}
+G(\tilde{\lambda}, r) = \det( (\tilde{A} - \tilde{\lambda}^2 MI) + R(\tilde{\lambda}, r) ) = 0
+\end{equation}
 
-where $r = 1/X_m$. Since $\det G(\tilde{\lambda}_0, 0) = 0$, $G(\tilde{\lambda}, r)$ is smooth in $\tilde{\lambda}$ (it is in fact a polynomial in $\tilde{\lambda}$), and $D_{\tilde{\lambda}}G(\lambda_0, 0) \neq 0$ (this follows from the assumption that the eigenvalues of $A$ are distinct), for sufficiently small $r$ (i.e. sufficiently large $X_m$) we can use the IFT to find a unique $\tilde{\lambda}(X_m; \lambda_0)$ near $\tilde{\lambda}_0$ such that $G( \tilde{\lambda}(X_m; \lambda_0), X_m) = 0$. In other words, $\tilde{\lambda}(X_m; \lambda_0)$ solves \eqref{tildelambdaeq}.\\
+where $r = e^{-\alpha X_m/2}$. $G(\tilde{\lambda}_0, 0) = 0$, $G(\tilde{\lambda}, r)$ is smooth in $\tilde{\lambda}$, and $D_{\tilde{\lambda}}G(\lambda_0, 0) \neq 0$ (this follows from the assumption that the eigenvalues of $A$ are distinct). Thus for sufficiently small $r$ (i.e. sufficiently large $X_m$) we can use the IFT to find a unique $\tilde{\lambda}(X_m; \tilde{\lambda}_0)$ near $\tilde{\lambda}_0$ such that $G( \tilde{\lambda}(X_m; \tilde{\lambda}_0), X_m) = 0$. In other words, $\tilde{\lambda}(X_m; \tilde{\lambda}_0)$ solves \eqref{tildelambdaeq2}.\\
+
+Expanding $\tilde{\lambda}(0; \tilde{\lambda}_0)$ in a Taylor series about $r = 0$ gives us for sufficiently small $r$
+
+\begin{equation*}
+\tilde{\lambda}(r; \tilde{\lambda}_0) = \tilde{\lambda}_0 + \mathcal{O}(|r|)
+\end{equation*}
 
 Undoing our scaling, let
 
 \[
-\lambda(X_m; \lambda_0) = e^{-\alpha X_m} \tilde{\lambda}(X_m; \lambda_0)
+\lambda(X_m; \lambda_0) = e^{-\alpha X_m} \tilde{\lambda}(X_m; \tilde{\lambda}_0)
 \]
 
-If we do this for all possible $\lambda_0$, then we have found the $2n - 2$ interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since we are assuming the eigenvalues of $A$ are distinct, there are only two eigenvalues $\lambda(X_m; \lambda_0)$ of similar magnitude. Thus we conclude that for each eigenvalue $\mu$ of $A$ there is a pair of interaction eigenvalues $\pm \lambda^i(X_m; \mu)$. This pair must be real or purely imaginary, and $\lambda^i(X_m; \mu)$ is close to $\sqrt{\mu / M}$.
+Then we have
+
+\begin{equation}
+\lambda(X_m; \lambda_0) = \lambda_0 + \mathcal{O}(e^{-3 \alpha X_m/2})
+\end{equation}
+
+If we do this for all possible $\lambda_0$, then we have found the $2n - 2$ interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since we are assuming the eigenvalues of $A$ are distinct, there are only two eigenvalues $\lambda(X_m; \lambda_0)$ of similar magnitude. Thus we conclude that for each eigenvalue $\mu$ of $A$ there is a pair of interaction eigenvalues $\pm \lambda^i(X_m; \mu)$. This pair must be real or purely imaginary, and $\lambda^i(X_m; \mu)$ is close to $\sqrt{\mu / M}$. From above, we have
+
+\[
+\lambda^i(X_m; \mu) = \sqrt{\mu / M} + \mathcal{O}(e^{-3 \alpha X_m/2})
+\]
+
+where the remainder term cannot move this off of the real or imaginary axis.
 
 
 \item Next, we look for the ``essential spectrum'' eigenvalues. We do this by solving for $d$ in the second line of the block matrix equation. Once again, we are looking for eigenvalues $\lambda$ with $|\lambda| \leq \mathcal{O}(e^{-\alpha X_m})$.
