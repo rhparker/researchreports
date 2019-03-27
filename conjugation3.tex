@@ -50,45 +50,110 @@
 
 \begin{document}
 
-Here we summarize what we have shown so far for the periodic multi-pulse eigenvalue problem. We assume we have the desired symmetries (as in KdV5) so that the matrix $A$ (below) takes a simpler form.
+Here we summarize what we have shown so far for the stability problem for periodic multi-pulses to equations such as KdV5. Unless otherwise stated, everything here has been proved.
+
+\section{Necessary Background}
+
+The background information and hypotheses here are only what is absolutely necessary to make the stability results make sense. This is far from complete.\\
+
+Consider the PDE
+
+\begin{equation}\label{PDE}
+u_t = F_2(u) = \partial_x E'(u)
+\end{equation}
+
+$E'$ is a self-adjoint operator of the form
+
+\[
+E'(u) = \partial_x^{2m}u + \tilde{E}(u)
+\]
+
+where any derivatives in $\tilde{E}(u)$ are of degree than $2m$. This is motivated by KdV5, which, when written in a moving frame with speed $c$, is
+
+\begin{equation}\label{KdV5}
+u_t = \partial_x(u_{xxxx} - u_{xx} - u^2 + c)
+\end{equation}
+
+Note that for the linear part of KdV5, all derivatives are odd degree, and the coefficient of the first derivative operator is the speed $c$.\\
+
+A solution $u^*$ satisfying $L(u^*) = 0$ is an equilibrium solution. In particular, we have the following equilibrium solutions.
+
+\begin{enumerate}
+	\item The trivial solution 0
+	\item A primary pulse solution $q$, which is an even function (uses mountain pass argument)
+	\item A periodic $n-$pulse solution $q_{np}$ (uses Lin's method)
+\end{enumerate}
+
+Let $D F_2(0)$ be the linearization about the equilibrium solution. $D F_2(0$ has a single eigenvalue at 0. We make the following hypothesis, which is necessary for multi-pulse equilibrium solutions to exist. For KdV5, it is satisfied for speeds $c > 1/4$.
+
+\begin{hypothesis}\label{quartet}
+$D F_2(0)$ has a quartet of simple eigenvalues at $\pm \alpha + \beta i$, $\alpha, \beta > 0$. The real part of any other nonzero eigenvalue of $D F_2(0)$ is greater than $\alpha$ in magnitude.
+\end{hypothesis}
+
+For a given equilibrium solution $u^*$, we can write the PDE eigenvalue problem as the first-order ODE in $\R^{2m+1}$
+
+\begin{equation}
+V' = A(u^*; \lambda)
+\end{equation}
+
+The equilibrium solutions we care about are localized solutions such as $q(x)$ and $q_{np}(x)$which are exponentially asymptotic to 0. Thus $A(u^*; \lambda)$ is exponentially asymptotic to $A(0; \lambda)$, and we note that $A(0; 0) = D F_2(0)$. The asymptotic matrix $A(0; \lambda)$ is a $2m + 1 \times 2m + 1$ matrix of the form
+
+\begin{equation}
+A(0; \lambda) = \begin{pmatrix}
+0 & 1 & 0 & \dots & 0 & 0 \\
+0 & 0 & 1 & \dots & 0 & 0 \\
+& & & \ddots & & \\
+0 & 0 & 0 & \dots & 0 & 1 \\
+\lambda & c_0 & c_1 & \dots & c_{2m-2} & c_{2m-1}
+\end{pmatrix}
+\end{equation}
+
+where the $c_i$ are constants. Motivated by KdV5, we make the following hypothesis regarding the coefficients of $A(0; \lambda)$.
+
+\begin{hypothesis}\label{A0coeffs}
+For the coefficients $c_i$ in $A(0; \lambda)$,
+\begin{enumerate}[(i)]
+\item $c_0 \neq 0$. For KdV5, $c_0 = -c$.
+\item $c_k = 0$ for $k$ odd. This is true for KdV5, and comes from the fact that the linear part of $\partial_x E'(u)$ only involves odd derivatives. 
+\end{enumerate}
+\end{hypothesis}
+
+$A(0; 0)$ has a eigenvalue at 0. By Hypothesis \ref{quartet}, this eigenvalue at 0 is simple and is a distance $\sqrt{\alpha^2 + \beta^2}$ from the nearest other eigenvalues. Using the IFT and hypothesis \ref{A0coeffs}(i), for sufficiently small $\lambda$, $A(0; \lambda)$ has a simple eigenvalue $\nu(\lambda)$ near 0, given by
+
+\begin{equation}\label{nulambda}
+\nu(\lambda) = -\frac{1}{c_0} \lambda + \mathcal{O}(|\lambda|^2)
+\end{equation}
+
+Using Hypothesis \ref{A0coeffs}(ii), we also have
+
+\begin{enumerate}
+\item $\nu(-\lambda) = -\nu(\lambda)$, i.e. $\nu(\lambda)$ is an odd function 
+\item If $\lambda$ is pure imaginary, $\nu(\lambda)$ is also pure imaginary
+\end{enumerate}
+
+We have now defined everything that shows up in the stability theorem.
 
 \section{Block Matrix Theorem}
+\begin{theorem}\label{blockmatrixform}
 
-Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$, where $X_{n-1}$ is the ``periodic length''. Then the jump conditions can be written as the block matrix equation 
+Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$from a symmetric primary pulse $q(x)$. The $\lambda$ is an eigenvalue of the PDE eigenvalue problem if and only if the following block matrix equation has a nontrivial solution.
 
 \begin{equation}\label{blockeq}
 \begin{pmatrix}
-K(\lambda) & D_2 \\
-C_3 K(\lambda) + K(\lambda) \tilde{C}_3 & A - \lambda^2 MI + D_3
+K(\lambda) + C_1 K(\lambda) + K_1(\lambda) & D_1 \\
+C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
 \end{pmatrix}
 \begin{pmatrix}c \\ d \end{pmatrix} 
 = 0
 \end{equation}
 
-$M$ is the Melnikov integral
+where 
 
-\begin{align*}
-M &= \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy \\
-\end{align*}
+\begin{enumerate}
 
-The matrix $K(\lambda)$ is
+\item $A$ is the $n \times n$ matrix
 
-\begin{equation}
-K(\lambda) = 
-\begin{pmatrix}
-e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
--e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
-& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
-\vdots & & \vdots & &&  \vdots \\
-& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
-\end{pmatrix}
-\end{equation}
-
-where $\nu(\lambda)$ is the small eigenvalue of the asymptotic matrix $A(\lambda)$. \\
-
-The matrix $A$ is 
-
-\begin{align*}
+\begin{align}\label{defA}
 A &= \begin{pmatrix}
 -a_0 -a_1 & a_0 + a_1 \\
 a_0 + a_1 & -a_0 - a_1
@@ -99,8 +164,8 @@ a_0 & -a_0 - a_1 &  a_1 \\
 & a_1 & -a_1 - a_2 &  a_2 \\
 & & \vdots & & \vdots \\
 a_{n-1} & & & & a_{n-2} & -a_{n-2} - a_{n-1} \\
-\end{pmatrix} && n > 2
-\end{align*}
+\end{pmatrix} && n > 2 \nonumber
+\end{align}
 
 where
 
@@ -108,20 +173,53 @@ where
 a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
 \end{align*}
 
-The remainder terms have bounds
+\item $K(\lambda)$ is the $n \times n$ matrix
+
+\begin{equation}\label{defKlambda}
+K(\lambda) = 
+\begin{pmatrix}
+e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
+-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
+& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
+\vdots & & \vdots & &&  \vdots \\
+& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
+\end{pmatrix}
+\end{equation}
+
+where $\nu(\lambda)$ is the small eigenvalue of the asymptotic matrix $A(0; \lambda)$ as defined above.
+
+\item $M$ is the Melnikov integral
 
 \begin{align*}
-C_3, \tilde{C}_3 &= \text{diag}(\mathcal{O}(|\lambda| + e^{-\alpha X_m})) 
-+ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m})) \\
-D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})) \\
-D_3 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
+M &= \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy \\
+\end{align*}
+
+For KdV5, this is
+
+\begin{align*}
+M &= \int_{-\infty}^\infty q(y) q_c(y) dy \\
+\end{align*}
+
+\item The remainder matrices $C_1, C_2, D_2, D_2$ have uniform bounds
+
+\begin{align*}
+C_1, C_2 &= \mathcal{O}(e^{-\tilde{\alpha}X_m})(|\lambda| + e^{-\alpha X_m})) \\
+D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})) \\
+D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
 \end{align*}
 
 where $X_m = \min \{X_0, \dots, X_{n-1}\}$
 
+\item $K_1(\lambda)$ and $K_2(\lambda)$ are small perturbations of $K(\lambda)$ in which each of the nonzero terms of $K(\lambda)$ are perturbed by $\mathcal{O}(|\lambda| + e^{-\alpha X_m})$.
+
+\end{enumerate}
+\end{theorem}
+
 \section{Eigenvalues of A}
 
-The interaction eigenvalues should satisfy $\lambda^2 \approx \mu / M$, where $\mu$ is an eigenvalue of $A$, and $M \neq 0$ is the Melnikov integral. Thus it useful to look at the eigenvalues of $A$. We note that $A$ is a real, symmetric matrix, so its eigenvalues will be real. We start with simplest cases.
+Before we look at nontrivial solutions to the block matrix equation, we need to look at the eigenvalues of $A$. The interaction eigenvalues should satisfy $\lambda^2 \approx \mu / M$, where $\mu$ is an eigenvalue of $A$, and $M \neq 0$ is the Melnikov integral.\\
+
+We note that $A$ is a real, symmetric matrix, so its eigenvalues will be real. We also note that since all the rows of $A$ sum to 0, $(1, 1, \dots, 1)^T$ is an eigenvector of $A$ with eigenvalue 0.
 
 \begin{enumerate}
 
@@ -154,16 +252,16 @@ where the eigenvalue $\mu = -3a$ has algebraic multiplicity 2.
 
 \item For $n > 4$, Mathematica can no longer do it (thanks, Galois!) 
 
-\item Consider the case where all the distances $X_i$ are equal, i.e. $a_k = a$ for all $k$. In this case, $A$ is a circulant matrix. Using the Wikipedia article on circulant matrices and simplifying the result, we have eigenvalues
+\item Consider the case where all the distances $X_i$ are equal, i.e. $a_k = a$ for all $k$. In this case, $A$ is a circulant matrix, thus we have eigenvalues
 
 \begin{align*}
 \mu_k &= 2 a\left( \cos \frac{2 \pi k}{n}  - 1 \right) & k = 1, \dots, n
 \end{align*}
 
-Things to notice,
+In this case,
 
 \begin{enumerate}
-	\item $\mu_n = 0$ always
+	\item $\mu_n = 0$
 	\item The remaining $\mu_k$ are either all positive (if $a < 0$) or all negative (if $a > 0$)
 	\item If $n$ is odd, the collection $\mu_1, \dots, \mu_{n-1}$ will contain $(n-1)/2$ distinct eigenvalues, all of which have algebraic multiplicity 2.
 	\item If $n$ is even, we will have $\mu_{n/2} = -4a$. The collection of $\mu_k$ which are not yet accounted for contains $(n-2)/2$ distinct eigenvalues, all of which have algebraic multiplicity 2.
@@ -171,9 +269,9 @@ Things to notice,
 
 \end{enumerate}
 
-The next case to consider is when the ``periodic length'' is large. If $X_{n-1}$ is large, then $a_{n-1}$ is very close to 0, so it is useful to look at the eigenvalues of $A$ when this is the case. With this assumption, $A$ is now a tridiagonal matrix. 
+We are also interested in the case when ``periodic length'' $X_{n-1}$ is large, so $a_{n-1}$ is very close to 0. It is useful to look at the eigenvalues of $A$ when this is the case, i.e. $A$ is the tridiagonal matrix. 
 
-\begin{align*}
+\begin{align}\label{Atridiag}
 A &= \begin{pmatrix}
 -a_0 & a_0 \\
 a_0 & -a_0 
@@ -184,8 +282,10 @@ a_0 & -a_0 - a_1 &  a_1 \\
 & a_1 & -a_1 - a_2 &  a_2 \\
 & & & \ddots \\
 & & & a_{n-2} & -a_{n-2} \\
-\end{pmatrix} && n > 2
-\end{align*}
+\end{pmatrix} && n > 2 \nonumber
+\end{align}
+
+As above, $(1, 1, \dots, 1)^T$ is an eigenvector of $A$ with eigenvalue 0.
 
 \begin{enumerate}
 
@@ -210,21 +310,21 @@ If $a_0 = a_1 = a$, this becomes
 
 and this time these are distinct.
 
-\item Consider the case where all the distances $X_i$ are equal, i.e. $a_k = a$ for all $k$. Unfortunately, $A$ is not a circulant matrix. But I have proved (and verified by Mathematica!) that the eigenvalues are 
+\item Consider the case where all the distances $X_i$ are equal, i.e. $a_k = a$ for all $k$. Unfortunately, $A$ is not a circulant matrix. I have proved (and verified by Mathematica!) that the eigenvalues are 
 
 \begin{align*}
 \mu_k &= 2 a\left( \cos \frac{\pi k}{n}  - 1 \right) & k = 1, \dots, n
 \end{align*}
 
-(The only difference between this and the ``periodic'' version above, is that there is not a 2 in front of the $\pi$). We note the following.
+(The only difference between this and the ``periodic'' version above, is that there is not a 2 in front of the $\pi$). We have the following
 
 \begin{enumerate}
 	\item $\mu_n = 0$ always
 	\item The remaining $\mu_k$ are either all positive (if $a < 0$) or all negative (if $a > 0$)
-	\item All the remaining $\mu_k$ are distinct. 
+	\item All the eigenvalues $\mu_k$ are distinct. 
 \end{enumerate}
 
-\item Now consider the general case. Although we cannot find the eigenvalues themselves, we do know their signs. Note that none of the $a_i$ are 0, and that since each row sums to 0, 0 is an eigenvalue with eigenvector $(1, 1, \dots, 1)^T$. Using Lemma 5.4 in San98 (and noting that that matrix there is $-A$), we have
+\item Consider the general case. Although we cannot find the eigenvalues themselves, we can determine their signs using Lemma 5.4 in San98 (and noting that that matrix there is $-A$)
 
 \begin{enumerate}
 	\item $A$ has $k_+$ negative real eigenvalues (counting multiplicity), where $k_+$ is the number of positive $a_i$.
@@ -233,87 +333,70 @@ and this time these are distinct.
 
 \end{enumerate}
 
-\section{2-periodic pulses}
+Since our stability will not hold if the eigenvalues of $A$ are not simple, we make the following hypothesis.
 
-We consider 2-periodic pulses first, since they are the simplest. Recall that we have proved that for sufficiently large $X_0$ and any $X_1 \geq X_0$, these 2-periodic pulses exist. Let $X = X_0 + X_1$.
+\begin{hypothesis}\label{Asimpleeigs}
+The eigenvalues of $A$, defined in \eqref{defA}, are simple.
+\end{hypothesis}
 
-\subsection{2-periodic pulse with equal distances}
+Using this hypothesis, let $0, \mu_1, \dots, \mu_{n-1}$ be the distinct eigenvalues of $A$.
 
-For the 2-periodic pulse with lengths $X_0 = X_1$,
+\section{Singularities of K}
 
-\begin{itemize}
-	\item For $X_0$ sufficiently large, there is a pair of interaction eigenvalues at $\lambda = \pm \lambda(X_0)$, where $\lambda(X_0) = \mathcal{O}(e^{-\alpha X_0})$ is either real or purely imaginary and is close to $\pm \sqrt{-2a/M}$, where
-	\[
-	a = 2 a_0 = 2 \langle \Psi(X_0), Q'(-X_0) \rangle
-	\]
-	\item For $n/X_0$ sufficiently small, where $n$ is a nonzero integer, there is a pair of purely imaginary ``essential spectrum'' eigenvalues located at $\lambda = \pm \lambda^c(X_0, n)$, where $\lambda^c(X_0, n)$ is close to $-c_0 \frac{n \pi i }{2 X_0}$.
-	\item There is an eigenvalue at 0 (from translation invariance) with algebraic multiplicity 2, for which the eigenfunction and generalized eigenfunction are known. There is an additional eigenvalue at 0 which comes from the fact that $K(0)$ is singular.
-	\item Within a ball of radius $\delta = C_0 e^{-\alpha X_0}$, with $C_0$ chosen so that  the ball is sufficiently large to enclose the interaction eigenvalues, there are no other eigenvalues.
-\end{itemize}
+Next, we look at when the matrix $K(\lambda)$, defined in \eqref{defKlambda}, is singular. Evaluating $\det K(\lambda)$, we have
 
-\subsection{2-periodic pulse with unequal distances (and one restriction)}
+\begin{equation}
+\det K(\lambda) = -2 \sinh( \nu(\lambda) X )
+\end{equation}
 
-For the 2-periodic solution with lengths $X_0 < X_1$, first assume that
+where $\nu(\lambda)$ is the small eigenvalue of $A(0; \lambda)$ and $X = X_0 + X_1 + \dots + X_{n-1}$ is half the length of the domain. Thus $K(\lambda)$ is singular if and only if $\nu(\lambda) = k \pi i/X$ for an integer $k$. \\
 
-\[
-e^{-\alpha X_0}X = 
-e^{-\alpha X_0}X_0\left( 1 + \frac{X_1}{X_0} \right) = \mathcal{O}(1)
-\]
+In terms of $\lambda$, for sufficiently small $k/X$, $K(\lambda)$ is singular if and only if $\lambda = \lambda(X, k)$
 
-Recall that 
+\begin{align}\label{lambdaXk}
+\lambda(X,k)
+&= -c_0 \frac{k \pi i }{X} + \mathcal{O}\left(\frac{k}{X}\right)^2 \\
+\end{align} 
 
-\begin{enumerate}
-\item $K(\lambda)$ is singular at
+\section{Stability Result}
 
-\[
-\mu(X, n) = -c_0 \frac{n \pi i}{X} + \mathcal{O}(n/X)^2
-\]
+We know that there is an eigenvalue with algebraic multiplicity 2 at the origin. This comes from translation invariance, and we know what the corresponding eigenfunctions are. We might be able to show there is a third eigenvalue at 0 from some energy argument that I don't yet understand.\\
 
-\item $A - \lambda^2 M I$ is singular at $\lambda = 0$ and $\lambda = \pm \mu_0 = \pm \sqrt{-2a/M}$. 
-
-\end{enumerate}
-
-Let 
-
-\[
-\epsilon = \frac{e^{-\alpha X_0/4}}{X}
-\]
-
-and assume that $| \pm \mu_0 - \mu(X, n)| \geq \epsilon$ for all $n$. In other words, the nonzero points where $A - \lambda^2 M I$ is singular are located at least a distance $\epsilon$ from the points where $K(\lambda)$ is singular. Then we have the following.
-
-\begin{itemize}
-	\item For $X_0$ sufficiently large, there is a pair of interaction eigenvalues at $\lambda = \pm \lambda(X_0)$, where $\lambda(X_0) = \mathcal{O}(e^{-\alpha X_0})$ is either real or purely imaginary and is close to $\pm \sqrt{-2a/M}$, where 
-	\[
-	a = a_0 + a_1 = \langle \Psi(X_0), Q'(-X_0) \rangle + \langle \Psi(X_1), Q'(-X_1) \rangle
-	\]
-	For $X_1$ much greater than $X_0$, $a \approx a_0$.
-	\item For $n/X_0$ sufficiently small, where $n$ is a nonzero integer, there is a pair of purely imaginary ``essential spectrum'' eigenvalues located at $\lambda = \pm \lambda^c(X, n)$, where $\lambda^c(X_0, n)$ is close to $\mu(X, n) = -c_0 \frac{n \pi i }{X}$.
-	\item There is an eigenvalue at 0 (from translation invariance) with algebraic multiplicity 2, for which the eigenfunction and generalized eigenfunction are known. There is an additional eigenvalue at 0 which comes from the fact that $K(0)$ is singular.
-	\item Within a ball of radius $\delta = C_0 e^{-\alpha X_0}$, with $C_0$ chosen so that  the ball is sufficiently large to enclose the interaction eigenvalues, there are no other eigenvalues.
-\end{itemize}
-
-\subsection{2-periodic pulse with unequal distances, no restrictions}
-
-In general, $K(\lambda) = \mathcal{O}(e^{|\text{Re } \nu(\lambda)|X})$. If $\nu(\lambda)$ has a nonzero real part, this grows exponentially as $X = X_0 + X_1$ increases, and as of now we have no way to control this other than making an additional assumption that $X$ cannot get too large. The key thing we need to control is $K(\lambda) \tilde{C}_3 K(\lambda)^{-1}$. It is possible that if we could better characterize $\tilde{C}_3$, we could get a better bound that would allow us to get this to work for all $X$. Thus it makes sense to revisit the Lin's method estimates to see if we can do this.    
-
-\section{Higher order multi-pulses}
-
-The interaction eigenvalues should all be $\mathcal{O}(e^{-\alpha X_m})$, where $X_m = \min \{X_i\}$. The singular points of $K(\lambda)$ depend only on $X$. Thus this should work exactly the same as the 2-periodic cases, except we have to make more $\epsilon-$balls where needed to isolate the singular points of $K(\lambda)$ and $A - \lambda^2 M I$.\\
-
-The additional complications are the following.
+The strategy is to solve the block matrix equation for $\lambda$ in three steps.
 
 \begin{enumerate}
+	\item Find the nonzero interaction eigenvalues, which come from the second line of the block matrix equation, and are close to the points where $(A - \lambda^2 M I)$ is singular.
+	\item Find the nonzero ``essential spectrum'' eigenvalues, which come from the first line of the block matrix equation, and are close to the points where $K(\lambda)$ is singular.
+	\item Determine the number of eigenvalues in a ball around the origin which is sufficiently large to enclose all the interaction eigenvalues. This will show that there is an additional eigenvalue at 0 and that we have found all the eigenvalues in the ball.
+\end{enumerate}
 
-\item For now, we will need a similar assumption to what we did in the 2-periodic pulse case with unequal distances, i.e. 
+Recall that the eigenvalues of $A$ are given by $0, \mu_1, \dots, \mu_{n-1}$. Then $A - \lambda^2 M$ is singular at the $2n$ points $\lambda = 0, \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}$. Recall that $K(\lambda)$ is singular at $\lambda = \lambda(X, k)$ for integer $k$.\\
+
+We will need to assume that the points where $A - \lambda^2 M I$ and $K(\lambda)$ are singular are not too close to each other. For KdV5, numerical simulations have shown Krein bubbles when this occurs, so it is reasonable to take this hypothesis.
+
+\begin{hypothesis}\label{epsilonballs}
+The points $\lambda(X, k)$ (for nonzero $k$) and $\sqrt{\mu_k/M}$ (for $k = 1, \dots, n-1$) are separated by at least $\epsilon$, where $\epsilon$ will be specified later. 
+\end{hypothesis}
+
+\subsection{Interaction Eigenvalues}
+
+In Hypothesis \ref{epsilonballs}, choose
 
 \[
-e^{-\alpha X_m}X = \mathcal{O}(1)
+\epsilon = e^{-\alpha X_m/2} \frac{1}{X}
 \]
 
-to get this to work.
+Note that for small $k/X$, the points $\lambda(X, k)$ are approximately evenly spaced by $c_0 \pi/X$. For sufficiently large $X_m$, $e^{-\alpha X_m/2}$ is much less than 1, so there is plenty of room for interaction eigenvalues to fall between the $\lambda(X, k)$.\\
 
-\item Suppose we take all the $X_i$ to be the same. As noted above, for $n \geq 3$ we will always have eigenvalues of $A$ with algebraic multiplicity 2, which allows for the possibility of interaction eigenvalue quartets. I don't see any way of showing this cannot happen, so we probably need to exclude this case. Interestingly, we also only have proven the existence result for $X_{n-1} > \max\{ X_0, \dots, X_{n-2} \}$.
+Then there are $2n-2$ nonzero interaction eigenvalues which come in pairs and are either real or purely imaginary. These interaction eigenvalues are given by $\lambda = \pm \lambda^i(X_m; k)$, $k = 1, \dots, n-1$, where
 
-\end{enumerate}
+\begin{equation}\label{inteigs}
+\lambda^i(X_m; k) = \sqrt{\mu_k / M} + \mathcal{O}(e^{-3 \alpha X_m/2})
+\end{equation}
+
+The remainder term cannot move this off of the real or imaginary axis.
+
+\subsection{``Essential Spectrum'' Eigenvalues}
+
 
 \end{document}
