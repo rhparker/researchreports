@@ -372,15 +372,15 @@ The strategy is to solve the block matrix equation for $\lambda$ in three steps.
 
 Recall that the eigenvalues of $A$ are given by $0, \mu_1, \dots, \mu_{n-1}$. Then $A - \lambda^2 M$ is singular at the $2n$ points $\lambda = 0, \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}$. Recall that $K(\lambda)$ is singular at $\lambda = \lambda(X, k)$ for integer $k$.\\
 
-We will need to assume that the points where $A - \lambda^2 M I$ and $K(\lambda)$ are singular are not too close to each other. For KdV5, numerical simulations have shown Krein bubbles when this occurs, so it is reasonable to take this hypothesis.
+We will need to assume that the points where $A - \lambda^2 M I$ and $K(\lambda)$ are singular (other than at $\lambda = 0$) are not too close to each other. For KdV5, numerical simulations have shown Krein bubbles when this occurs, so it is reasonable to take this hypothesis.
 
 \begin{hypothesis}\label{epsilonballs}
-The points $\lambda(X, k)$ (for nonzero $k$) and $\sqrt{\mu_k/M}$ (for $k = 1, \dots, n-1$) are separated by at least $\epsilon$, where $\epsilon$ will be specified later. 
+The points $\lambda(X, k)$ and $\sqrt{\mu_k/M}$ (for $k = 1, \dots, n-1$) are separated by at least $\epsilon$, where $\epsilon$ will be specified later. 
 \end{hypothesis}
 
 \subsection{Interaction Eigenvalues}
 
-In Hypothesis \ref{epsilonballs}, choose
+To solve for the interaction eigenvalues, we need to invert $K(\lambda)$, which we can do since $\lambda$ is more than $\epsilon$ away from the $\lambda(X,k)$. In Hypothesis \ref{epsilonballs}, choose
 
 \[
 \epsilon = e^{-\alpha X_m/2} \frac{1}{X}
@@ -394,9 +394,50 @@ Then there are $2n-2$ nonzero interaction eigenvalues which come in pairs and ar
 \lambda^i(X_m; k) = \sqrt{\mu_k / M} + \mathcal{O}(e^{-3 \alpha X_m/2})
 \end{equation}
 
-The remainder term cannot move this off of the real or imaginary axis.
+The remainder term cannot move this off of the real or imaginary axis. We should be able to show that these interaction eigenvalues are all $\mathcal{O}(e^{-\alpha X_m}$.
 
 \subsection{``Essential Spectrum'' Eigenvalues}
+
+To solve for the ``essential spectrum'', we need to invert $A - \lambda^2 M I$, which we can again do since $\lambda$ is more than $\epsilon$ away from $\sqrt{\mu_k/M}$ ($k = 1, \dots, n-1$). However, to get a sufficient bound to make this work, we need to choose a larger $\epsilon$. In Hypothesis \ref{epsilonballs}, choose
+
+\[
+\epsilon = e^{-\alpha X_m/(n+1)} \frac{1}{X}
+\]
+
+where $n$ is the number of pulses we are dealing with. We can get this sufficiently small by choosing $X_m$ sufficiently large.\\ 
+
+We also require an additional hypothesis which places a restriction on how large $X$ can be.
+
+\begin{hypothesis}\label{Xrestriction}
+We take the following restriction on $X = X_0 + \dots + X_{n-1}$.
+\[
+X \leq C e^{\alpha X_m}
+\]
+where the constant $C$ is at most $\mathcal{O}(1)$.
+\end{hypothesis}
+
+With these additional restrictions, we can find the ``essential spectrum'' eigenvalues. For any positive integer $k$ such that $k/X$ is sufficiently small, we have a pair of purely imaginary ``essential spectrum'' eigenvalues, which are given by
+
+\[
+\lambda^c(X_m; X, k) = \frac{k \pi i}{X} + \mathcal{O}\left( \frac{1}{X_m} \frac{k}{X} \right)
+\]
+
+As with the interaction eigenvalues, the remainder term cannot move these off of the imaginary axis.\\
+
+Although it would be nice to not require Hypothesis \ref{Xrestriction}, it is required to get a good enough bound when inverting $A - \lambda^2 M$. Any method of finding the ``essential spectrum'' eigenvalues which does not require Hypothesis \ref{Xrestriction} must somehow avoid inverting this. 
+
+\subsection{Rest of the Picture}
+
+All that remains to do is show that there are three eigenvalues at 0 (including multiplicity) and that there are no other eigenvalues close to 0 that we have not yet accounted for. We already know about an eigenvalue at 0 with algebraic multiplicity 2 which comes from translation invariance.\\
+
+Let $r = C_0 e^{-\alpha X_m}$, where $C_0 = \mathcal{O}(1)$, and choose $C_0$ such that the open ball $B(0, r)$ contains all the interaction eigenvalues and that its boundary is as far from the ``essential spectrum'' eigenvalues as possible. (For this second condition, just put it half way between two ``essential spectrum'' eigenvalues).\\
+
+Then, using Rouche's theorem, we can show that
+
+\begin{enumerate}
+\item There is an additional eigenvalue at 0, which comes from the fact that $K(0)$ is singular.
+\item There are no other eigenvalues inside $B(0, r)$ other than those which have already been discussed.
+\end{enumerate}
 
 
 \end{document}
