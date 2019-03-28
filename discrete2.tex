@@ -213,234 +213,282 @@ Because of where the $b_i^\pm$ live, we should be able to project this onto $Y^+
 
 \end{enumerate}
 
+\subsection{Existence, transverse intersection version}
 
-GARBAGE FOLLOWS.
-
-\subsection{Existence, more general version}
+\subsubsection{Setup}
 
 Consider the lattice PDE
 
 \begin{equation}\label{latticePDE}
-\dot{u}_n = f(u_n; \mu)
+\dot{u}(n) = f(u(n))
 \end{equation}
 
-where $f$ involves a finite number (greater than 1) of indices near $n$ and $\mu \in \R^P$ is some parameter. An equilibrium solution satisfies $f(u_n; \mu) = 0$. We can rewrite the stationary equation in system form as
+where $u(n) \in \R$ and $f$ involves a finite number (greater than 1) of indices near $n$. An equilibrium solution satisfies $f(u_n) = 0$. We can rewrite the stationary equation in system form as
 
 \begin{equation}\label{diffeq}
 U(n+1) = F(u(n))
 \end{equation}
 
-Take the following assumptions.
+where $U \in R^d$ for some $d > 1$ which depends on how many indices near $n$ are used by $f$. For this case, we take the following assumptions.
 
 \begin{hypothesis}\label{initialhyp}
 We assume the following regarding \eqref{diffeq}.
-\begin{enumerate}[(0)]
+\begin{enumerate}[(i)]
+\item $F$ is a diffeomorphism.
 \item 0 is a hyperbolic equilibrium for $F$, i.e. $F(0) = 0$ and $DF(0)$ has no eigenvalues on the unit circle. Thus we can find a radius $r > 1$ such that for all eigenvalues $\nu$ of $DF(0)$ we have $|\nu| \leq 1/r$ or $|\nu| > r$.
 \item Let $E^s, E^u$ be the stable and unstable eigenspaces of $DF(0)$. We will assume $\dim E^s, \dim E^u \geq 1$.
-\item The system is reversible. (We can consider the Hamiltonian case later.)
-\item For a parameter value $\mu_0$, there exists a symmetric homoclinic orbit $Q(n; \mu_0)$ which connects the equilibrium at 0 to itself.
-\item We may need some sort of nondegeneracy condition.
+\item There exists a symmetric homoclinic orbit (primary pulse) solution $Q(n)$ to \eqref{diffeq} which connects the equilibrium at 0 to itself.
+\item $-Q(n)$ is also a solution to $\eqref{diffeq}$.
+\item The stable and unstable manifolds $W^s(0)$ and $W^u(0)$ interesect transversely. In particular, we have $Y^+ \oplus Y^- = \R^d$, where $Y^+ = T_{Q(0)} W^s(0)$ and $Y^- = T_{Q(0)} W^u(0)$.
 \end{enumerate}
 \end{hypothesis}
 
-We wish to prove the existence of multi-pulse solutions.\\
+We wish to prove the existence of multi-pulse solutions to \eqref{diffeq}, which are solutions that resemble multiple, well-separated copies of the primary pulse $Q(n)$.\\
 
-Let $N_i$ ($i = 1, \dots, m-1$) be the distances (in lattice points) between the $m$ copies of $Q(n)$, and let
+Choose an integer $m > 1$ (the number of pulses), and let $N_i$ ($i = 1, \dots, m-1$) be the desired distances (in lattice points) between the $m$ copies of $Q(n)$. Let 
 
 \begin{align*}
 N_i^+ &= \lfloor \frac{N_i}{2} \rfloor \\
 N_i^- &= N_i - N_i^+
 \end{align*}
 
-In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. We will look for a solution which is a piecewise perturbation of $n$ copies of $Q(n)$, with flips allowed.
+and note that either $N_i^+ = N_i^-$ (if $N_i$ is even) or $N_i^+ = N_i^- - 1$ (if $N_i$ is odd). Let $N = \min\{ N_i^\pm \}$. In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. We will look for a solution which is a piecewise perturbation of $n$ copies of $Q(n)$. To that end, we take the following ansatz.
 
 \begin{align*}
-U_i^-(n) &= c_i Q^-(n; \mu) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
-U_i^+(n) &= c_i Q^+(n; \mu) + W_i^+(n) && n \in [0, N_i^+]
+U_i^-(n) &= c_i Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
+U_i^+(n) &= c_i Q(n) + W_i^+(n) && n \in [0, N_i^+]
 \end{align*}
 
-where $c_i = \pm 1$ and $Q^-(n; \mu)$ and $Q^+(n;\mu)$ are the $\mu-$dependent perturbations of $Q(n; \mu_0)$ which lie in the $\mu-$dependent unstable/stable manifolds and which do not necessary intersect except at $\mu = \mu_0$. They are, however, still solutions of the equilibrium ODE.\\
-
-We do not allow for additional paramaterizations along these manifolds, since we want this to work in $\R^2$ where they are both one-dimensional. \\
-
-The problem we want to solve is
+where $c_i = \pm 1$. The problem we want to solve is
 
 \begin{align}
 (U_i^\pm)(n+1) - F(U_i^\pm(n)) &= 0 \\
-U_i^+(N_i) - U_{i+1}^-(-N_i) &= 0 \\
+U_i^+(N_i^+) - U_{i+1}^-(-N_i^-) &= 0 \\
 U_i^+(0) - U_i^-(0) &= 0
 \end{align}
 
-for $i = 1, \dots, n$. Next, we expand $F$ in a Taylor series about $Q(n; \mu)$ to get
+for $i = 1, \dots, m$. Expand $F$ in a Taylor series about $Q(n)$ to get
 
 \begin{align*}
-F(U_i^\pm(n)) &= F(c_i Q^\pm(n; \mu) + W_i^\pm(n)) \\
-&= F(c_i Q^\pm(n; \mu)) + DF_{U}(c_i Q^\pm(n; \mu)) W_i^\pm + G(W_i^\pm(n)) \\
-&= A^\pm(n; \mu, c_i) W_i^\pm + G(W_i^\pm(n))
+F(U_i^\pm(n)) &= F(c_i Q(n) + W_i^\pm(n)) \\
+&= F(c_i Q(n)) + DF_{U}(c_i Q(n)) W_i^\pm + G(W_i^\pm(n)) \\
+&= A(n; c_i) W_i^\pm + G(W_i^\pm(n))
 \end{align*}
 
 where
 
 \begin{align*}
-A^\pm(n; \mu, c_i) &= DF_{U}(c_i Q^\pm(n; \mu))\\
+A(n; c_i) &= DF_{U}(c_i Q(n))\\
 G(W_i^\pm(n)) &= \mathcal{O}(|W_i^\pm|^2)
 \end{align*}
 
-and $G(0) = DG(0) = 0$.\\
-
-Substituting this in, we get the system
+with $G(0) = DG(0) = 0$. Substituting this in, we get the system
 
 \begin{align}
-(U_i^\pm)(n+1) - A^\pm(n; \mu, c_i) W_i^\pm - G(W_i^\pm(n)) &= 0 \\
-U_i^+(N_i) - U_{i+1}^-(-N_i) &= 0 \\
-U_i^+(0) - U_i^-(0) &= 0
+(W_i^\pm)(n+1) &= A(n; c_i) W_i^\pm + G(W_i^\pm(n)) \\
+W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= 0 \\
+W_i^+(0) - W_i^-(0) &= 0
 \end{align}
 
-Define the variational and adjoint variational equations associated with $A^\pm(n; \mu, c_i)$ by
+\subsubsection{Exponential Dichotomy}
+
+The variational equation associated with $A(n; c_i)$ is
 
 \begin{align}
-V^\pm(n+1; \mu, c_i) &= A^\pm(n; \mu, c_i) V^\pm(n; \mu, c_i) \label{vareq} \\
-Z^\pm(n+1; \mu, c_i) &= [A^\pm(n; \mu, c_i)^*]^{-1} Z^\pm(n; \mu, c_i) \label{adjvareq}
+V(n+1; c_i) &= A(n; c_i) V(n; c_i) \label{vareq} \\
 \end{align}
 
-Now take the specific variational and adjoint variational equations associated with $Q(n)$ (and $\mu_0$).
+Since we are assuming that the stable and unstable manifolds intersect transversely, this has no bounded solution, and we do not have to consider the adjoint variational equation. Note that our system is a piecewise, nonlinear perturbation of the variational equation.
 
-\begin{align}
-V(n+1) &= A^\pm(n) V(n) \label{vareqQ} \\
-Z(n+1) &= [A^\pm(n)^*]^{-1} Z(n) \label{adjvareqQ}
-\end{align}
+Let $\Phi(m, n; c_i)$ be the discrete evolution operators for the variational equation. Then (following something like Beyn97) since $A(n; c_i)$ is exponentially asymptotic to the hyperbolic matrix $DF(0)$, we can decompose $\Phi(m, n; c_i)$ in an exponential dichotomy on $\Z^-$ and $\Z^+$. In other words, we can find projections $P_\pm^s(n; c_i)$ and $P_\pm^u(n; c_i)$ defined on $\Z^\pm$ such that
 
-where $A(n) = DF_{U}(Q(n))$. From whatever nondegeneracy condition we decide to use, it will (hopefully) follow that the variational equation has a unique bounded solution $S(n)$ and the adjoint variational equation has a unique bounded solution $Z(n)$. By the properties of such things, we can decompose the tangent space at $Q(0)$ as
+\begin{equation}\label{projcommute}
+P_\pm^{s/u}(m; c_i) \Phi(m, n; c_i) =  \Phi(m, n; c_i) P_\pm^{s/u}(n; c_i)
+\end{equation}
 
-\[
-\R^m = \R Z(0) \oplus \R S(0) \oplus Y^+ \oplus Y^-
-\]
-
-where $Y^\pm$ are the other components of the unstable/stable manifolds at $Q(0)$ (either or both could not exist, as would happen in $\R^2$).\\
-
-Let $\Phi_\pm(m, n; \mu, c_i)$ be the evolution operators for the variational equation. Then for $\mu$ close to $\mu_0$, we have an exponential dichotomy (independent of $\mu$). Briefly, can decompose the evolution on $\N^-$ and $\N^+$ into unstable and stable components, and we have bounds
+and
 
 \begin{align*}
-|\Phi_+^s(m, n; \mu, c_i)| \leq C r^{m - n} && 0 \leq n \leq m \\
-|\Phi_+^u(m, n; \mu, c_i)| \leq C \left( \dfrac{1}{r} \right)^{n-m} && 0 \leq m \leq n \\
-|\Phi_-^s(m, n; \mu, c_i)| \leq C r^{m - n} && n \leq m \leq 0 \\
-|\Phi_-^u(m, n; \mu, c_i)| \leq C \left( \dfrac{1}{r} \right)^{n-m} && m \leq n \leq 0\\
+\dim \text{range }P_\pm^s(n; c_i) &= \dim E^s \\
+\dim \text{range }P_\pm^u(n; c_i) &= \dim E^u
 \end{align*}
 
-where $r$ is independent of $\mu$ and $c_i$. \\
-
-Finally, we recall that since we have some freedom in choosing complementary subspaces at $n = 0$ for exponential dichotomies, we can require
+Let $\Phi_\pm^{s/u}(m, n; c_i) = \Phi(m, n; c_i) P_\pm^{s/u}(n; c_i)$ for $m, n \geq 0$ and $m, n \leq 0$ (respectively). Then we have the estimates
 
 \begin{align*}
-W_i^+(0) &\in \R Z(0) \oplus Y^- \\
-W_i^-(0) &\in \R Z(0) \oplus Y^+
+|\Phi_+^s(m, n; c_i)| &\leq C r^{-(m - n)} && 0 \leq n \leq m \\
+|\Phi_+^u(m, n; c_i)| &\leq C r^{n-m} && 0 \leq m \leq n \\
+|\Phi_-^s(m, n; c_i)| &\leq C r^{-(m - n)} && n \leq m \leq 0 \\
+|\Phi_-^u(m, n; c_i)| &\leq C r^{n-m} && m \leq n \leq 0\\
 \end{align*}
 
-We write the equation for $(U_i^\pm)(n+1)$ in fixed-point form using the discrete variation of constants formula.
+where $r$ is independent of the $c_i$.\\
+
+Finally, let $P_0^{s/u}$ be the eigenprojections for $E^{s/u}$. Then we have
+
+\begin{align}\label{projbound}
+| P_\pm^{s/u}(n) - P_0^{s/u} | \leq C r^{-|n|}
+\end{align}
+
+\subsubsection{Fixed Point Formulation and Inversion}
+
+We write the first equation in our system in fixed-point form using the discrete variation of constants formula.
 
 \begin{align*}
 W_i^-(n) &= 
-\Phi_s^-(n, -N_{i-1}^-; \mu, c_i) a_{i-1}^- \\
-&+ \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; \mu, c_i) G_i^-(W_i^-(j)) - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; \mu, c_i) G_i^-(W_i^-(j)) \\
-W_i^+(n) &= \Phi_u^+(n, N_i^+; \mu, c_i) a_i^+ \\
-&+ \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; \mu, c_i) G_i^+(W_i^+(j)) 
-- \sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; \mu, c_i) G_i^+(W_i^+(j))
+\Phi_s^-(n, -N_{i-1}^-; c_i) a_{i-1}^- + \Phi_u^-(n, 0; c_i) b_i^-  \\
+&+ \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; c_i) G_i^-(W_i^-(j)) - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) G_i^-(W_i^-(j)) \\
+W_i^+(n) &= \Phi_u^+(n, N_i^+; c_i) a_i^+ + \Phi_s^+(n, 0) b_i^+ \\
+&+ \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i) G_i^+(W_i^+(j)) 
+- \sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; c_i) G_i^+(W_i^+(j))
 \end{align*}
 
-where we do not need a separate initial condition at 0 because of our choice of where $W_i^\pm(0)$ lives. We also take $a_0^- = a_m^+ = 0$. The $a_i^\pm$ live in $E^{s/u}(0)$. We solve in stages.\\
+where 
 
-First, we solve for $W_i^\pm$. For now, we just use $l^\infty$ as our function space.\\
+\begin{enumerate}
+\item $a_i^- \in E^s$, $a_i^+ \in E^u$ and $a_0^- = a_m^+ = 0$
+\item $b_i^+ \in Y^+ = T_{Q(0)} W^s(0)$ and $b_i^- \in Y^- = T_{Q(0)} W^u(0)$
+\end{enumerate}
 
-Define the map $H$ piecewise by
+We will take
 
 \begin{align*}
-H(W_i^-(n); \mu, a_{i-1}^-) &= 
-\Phi_s^-(n, -N_{i-1}^-; \mu, c_i) a_{i-1}^- - W_i^-(n) \\
-&+ \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; \mu, c_i) G_i^-(W_i^-(j)) - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; \mu, c_i) G_i^-(W_i^-(j)) \\
-H(W_i^-(n); \mu, a_i^+) &= \Phi_u^+(n, N_i^+; \mu, c_i) a_i^+ - W_i^+(n)  \\
-&+ \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; \mu, c_i) G_i^+(W_i^+(j)) 
-- \sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; \mu, c_i) G_i^+(W_i^+(j))
+W_i^-(n) &\in l^\infty([-N_{i-1}^-, 0]) \\
+W_i^+(n) &\in l^\infty([0, N_i^+])
 \end{align*}
 
-It it straighforward to show that if $W_i^\pm$ is bounded, then $H$ is bounded as well. $H(0, \mu_0, 0) = 0$, so (after verifying the hypotheses) we can use the IFT to solve for $W_i^\pm$ in terms of the other stuff to get
+As in San98, we will solve this in stages.\\
+
+First, we solve for $W_i^\pm$.
+
+\begin{lemma}\label{inv1}
+
+There exist unique bounded functions $W_i^\pm(n)$ such that the first equation in our system is satisfied. They depend smoothly on the initial conditions $a_i^\pm$ and $b_i\pm$, and we have the estimates.
 
 \begin{align*}
-||W_i^-||_\infty &\leq C |a_{i-1}^-| \\
-||W_i^+||_\infty &\leq C |a_i^+|
+||W_i^-|| &\leq C (|a_{i-1}^-| + |b_i^-|) \\
+||W_i^+|| &\leq C (|a_i^+| + |b_i^+| )
 \end{align*}
 
-which does not depend on $\mu$.\\
+\begin{proof}
+First, we show that the RHS of the fixed point equations defines a smooth map from $l^\infty$ (on the appropriate interval) to itself. We will verify the ``minus'' pieces; the ``plus'' pieces will be similar.
 
-The next step is to solve for the $a_i^\pm$ using the condition $U_i^+(N_i^+) - U_{i+1}^-(-N_i^-) = 0$, $i = 1, \dots, m-1$. This is
+For the terms not involving sums, we have
 
 \begin{align*}
-0 &= U_i^+(N_i^+) - U_{i+1}^-(-N_i^-) \\
-&= c_i Q^+(N_i^+; \mu) + W_i^+(N_i^+) - c_{i+1} Q^-(-N_i^-; \mu) - W_{i+1}^-(-N_i^-) \\
-W_i^+(N_i^+) - W_{i+1}^-(-N_i^+) &= c_{i+1} Q^-(-N_i^-; \mu) - c_i Q^+(N_i^+; \mu) 
+|\Phi_s^-(n, &-N_{i-1}^-; c_i) a_{i-1}^-| + |\Phi_u^-(n, 0; c_i) b_i^-| \\
+&\leq C ( r^{-(n + N_{i-1}^-)} |a_{i-1}^-| +  r^{-n}|b_i^-|) \\
+&\leq C ( |a_{i-1}^-| + |b_i^-|) 
 \end{align*}
 
-Evaluating the fixed point equations at the appropriate places, this becomes
+which is independent of $n$. For the terms involving sums, we have
 
 \begin{align*}
-W_i^+(N_i^+) &- W_i^-(-N_i^-) = P_u^+(\mu, c_i) a_i^+ - P_s^-(\mu, c_i) a_i^-\\
-&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; \mu, c_i) G_i^+(W_i^+(j)) 
-+ \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; \mu, c_i) G_i^-(W_i^-(j)) \\
-c_{i+1} Q^-(-N_i^-; \mu) &- c_i Q^+(N_i^+; \mu)  = P_u^+(\mu, c_i) a_i^+ - P_s^-(\mu, c_i) a_i^-\\
-&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; \mu, c_i) G_i^+(W_i^+(j)) 
-+ \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; \mu, c_i) G_i^-(W_i^-(j)) \\
+&\left| \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; c_i) G_i^-(W_i^-(j))\right| + \left|\sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) G_i^-(W_i^-(j))\right| \\
+&\leq C ||W_i^-||_{l^\infty([-N_{i-1}, 0])} \left( \sum_{j = -N_{i-1}^-}^{n-1} r^{-(n - j - 1)} + \sum_{j = n}^{-1} r^{-(n - j - 1)} \right) \\
+&= C ||W_i^-||_{l^\infty([-N_{i-1}, 0])}^2 \sum_{j = -N_{i-1}^-}^{-1} r^{-(n - j - 1)} \\
+&= C ||W_i^-||_{l^\infty([-N_{i-1}, 0])}^2 r^{-n} \sum_{j = 0}^{N_{i-1} - 1} r^{-j} \\
+&\leq C ||W_i^-||_{l^\infty([-N_{i-1}, 0])}^2 
 \end{align*}
 
-Adding and subtracting appropriate things to get the $a_i^\pm$ by themselves, this becomes
+which is finite and also independent of $n$. Define the map $H_i^-: l^\infty([-N_{i-1}, 0]) \times E^s \times Y^- \rightarrow l^\infty([-N_{i-1}, 0])$ by
 
 \begin{align*}
-c_{i+1} Q^-(-N_i^-; \mu) &- c_i Q^+(N_i^+; \mu) = (a_i^+ - a_i^-) + (P_u^+(\mu, c_i) - P_0^u(0)) a_i^+ - (P_s^-(\mu, c_i) - P_0^s(0)) a_i^-\\
-&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; \mu, c_i) G_i^+(W_i^+(j)) 
-+ \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; \mu, c_i) G_i^-(W_i^-(j)) \\
+H_i^-(W_i^-(n), &a_{i-1}^-, b_i^-) = W_i^-(n) - \Phi_s^-(n, -N_{i-1}^-; c_i) a_{i-1}^- - \Phi_u^-(n, 0; c_i) b_i^-  \\
+&- \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; c_i) G_i^-(W_i^-(j)) + \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) G_i^-(W_i^-(j)) 
 \end{align*}
 
-As long as the $N_i^\pm$ are large enough, we should easily be able to solve this for the $a_i^\pm$ to get
+Since 0 is an equilibrium, $H(0, 0, 0) = 0$. We can check that the Frechet derivative of $H_i^-$ with respect to $W_i^-$ at $(W_i^-(n), a_{i-1}^-, b_i^-) = (0, 0, 0)$ is a Banach space isomorphism on $l^\infty([-N_{i-1}, 0])$. Using the implicit function theorem, we can solve for $W_i^-(x)$ in terms of $(a_{i-1}^-, b_i^-)$. This dependence is smooth, since the map $H_i^-$ is smooth. \\
+
+The estimate on $W_i^-$ comes from the terms in the fixed point equations which do not involve sums, since the terms involving sums are quadratic in $W_i^-$. 
+\end{proof}
+\end{lemma}
+
+Next, we use the center matching conditions at $N_i^\pm$ to solve for the initial conditions $a_i^\pm$.
+
+\begin{lemma}\label{inv2}
+There is a unique pair of initial conditions $(a_i^+, a_i^-) \in E^u \times E^s$ such that the matching condition $W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) = 0$ is satisfied. $(a_i^+, a_i^-)$ depends smoothly on $(b_i^+, b_{i+1}^-)$, and we have the following estimate
+
+\begin{equation}
+|a_i^\pm| \leq C( r^{-N_i^-}|b_{i+1}^-| + r^{-N_i^+}|b_i^+| )
+\end{equation}
+
+\begin{proof}
+Evaluating the fixed point equations at $\pm N_i^\pm$ and subtracting, we need to solve
 
 \begin{align*}
-a_i^+ &= P^s_0(0) \left( Q^+(N_i^+; c_i, \mu) - Q^-(-N_i^-; c_{i+1}, \mu) \right) + \mathcal{O}( r^{-N_i} )\\
-a_i^- &= P^u_0(0) \left( Q^+(N_i^+; c_i, \mu) - Q^-(-N_i^-; c_{i+1}, \mu) \right) + \mathcal{O}( r^{-N_i} )
+0 &= W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) \\
+&= P_u^+(N_i^+; c_i) a_i^+ + \Phi_s^+(N_i^+, 0) b_i^+ + \sum_{j = 0}^{N_i^+-1} \Phi_s^+(n, j+1; c_i) G_i^+(W_i^+(j)) \\
+&-P_s^-(-N_i^-; c_i) a_i^- - \Phi_u^-(-N_i^-, 0; c_i) b_{i+1}^-
+- \sum_{j = -N_i^-}^{-1} \Phi_u^-(n, j+1; c_i) G_i^-(W_i^-(j))
 \end{align*}
 
-where we recall that $N_i = N_i^+ + N_i^-$.\\
-
-Up to this point, we have solved uniquely for the $W_i^\pm(n)$ and $a_i^\pm$. The resulting solution will have $m$ jumps at $n = 0$. \\
-
-WE SIMPLIFY THINGS NOW and assume we are in $\R^2$, so that the only parameter we have left to play with is $\mu$. In higher dimensions, we will need to do the $\beta_i^\pm$ thing where we also allow perturbations along the stable and unstable manifolds. In other words, we assume $Y^\pm$ are both nonexistent. Then we only have to look at the projection on $Z(0)$ for the jump conditions.
-
-Evaluating the fixed point equations at $n = 0$, we have
+Define $H_i: E^s \times E^u \times Y^+ \times Y^- \rightarrow \R^d$ by
 
 \begin{align*}
-W_i^-(0) &= \Phi_s^-(0, -N_{i-1}^-; \mu, c_i) a_{i-1}^- + \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; \mu, c_i) G_i^-(W_i^-(j)) \\
-W_i^+(0) &= \Phi_u^+(0, N_i^+; \mu, c_i) a_i^+ - \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; \mu, c_i) G_i^+(W_i^+(j))
+H_i(a_i^+, &a_i^-, b_i^+, b_{i+1}^-) \\
+&= a_i^+ - a_i^- + (P_u^+(N_i^+; c_i) - P_0^u) a_i^+ - (P_s^-(-N_i^-; c_i) - P_0^s) a_i^- + \Phi_s^+(N_i^+, 0) b_i^+  + \Phi_u^-(-N_i^-, 0; c_i) b_{i+1}^- \\
+&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(n, j+1; c_i) G_i^+(W_i^+(j; a_i^+, b_i^+)) 
++ \sum_{j = -N_i^-}^{-1} \Phi_u^-(n, j+1; c_i) G_i^-(W_{i+1}^-(j; a_i^-, b_{i+1}^-))
 \end{align*}
 
-Projecting on $Z(0)$ and evaluating these terms individually, we get
+where we plugged in $W_{i+1}^-(n; a_i^-, b_{i+1}^-)$ and $W_i^+(n; a_i^+, b_i^+)$ from the previous lemma. Note that we again have $H_i(0,0,0,0) = 0$. In order to use the IFT, we need to differentiate this with respect to $a_i^\pm$. When we do this, the derivatives of the terms involving sums with respect to $a_i^\pm$ will be 0 since $G_i^\pm$ is quadratic order in $W_i^\pm$, thus quadratic order in $a_i^\pm$ by the previous lemma.
+
+Thus the partial derivative with respect to $a_i^\pm$ at $(0, 0, 0, 0)$ is 
 
 \begin{align*}
-\langle Z(0), &\Phi_s^-(0, -N_{i-1}^-; \mu, c_i) a_{i-1}^- \rangle \\
-&= \langle Z(0), \Phi_s^-(0, -N_{i-1}^-; \mu, c_i) P^u_0(0) \left( Q^+(N_{i-1}^+; c_i, \mu) - Q^-(-N_{i-1}^-; c_{i+1}, \mu) \right) \rangle + \mathcal{O}( r^{-3 N_{i-1}/2} ) \\
-&= \langle Z(0), \Phi_s^-(0, -N_{i-1}^-; 0, c_i) P^u_0(0) \left( Q^+(N_{i-1}^+; c_i, \mu) - Q^-(-N_{i-1}^-; c_{i+1}, \mu) \right) \rangle + \mathcal{O}( r^{-3 N_{i-1}/2} + |\mu - \mu_0| r^{-N_{i-1}}) \\
-&= c_i \langle Z(-N_{i-1}^-), Q(N_{i-1}^+) \rangle + \mathcal{O}( r^{-3 N_{i-1}/2} + |\mu - \mu_0| r^{-N_{i-1}})
+\frac{\partial}{\partial a_i^-} H_i(0, 0, 0, 0) &= \pm 1 + \mathcal{O}(r^{-N_i^-}) \\
+\frac{\partial}{\partial a_i^+} H_i(0, 0, 0, 0) &= \pm 1 + \mathcal{O}(r^{-N_i^+})
 \end{align*}
 
-Similarly, 
+For sufficiently large $N = \min\{ N_i^\pm \}$, $D_{a_i^\pm} H(0, 0, 0, 0)$ is invertible in a neighborhood of $(0, 0, 0, 0)$, so we can use the IFT to solve for $a_i^\pm$ in terms of $b_i^+$ and $b_{i+1}^-$.\\
+
+Estimates on $a_i^\pm$ come from taking projections of the equation for $H$ on $E^s$ and $E^u$, using the estimates from the exponential dichotomy, and noting that the terms involving the sum are quadratic in $a_i^\pm$, $b_i^+$, and $b_{i+1}^-$.
+
+\end{proof}
+\end{lemma}
+
+Finally, we look at the match conditions at 0. These will be straightforward because of the transverse intersection of the stable and unstable manifolds.
+
+\begin{lemma}\label{inv3}
+
+\begin{proof}
+Evaluating the fixed point equations at 0 and subtracting, we have
 
 \begin{align*}
-\langle Z(0), \Phi_u^+(0, N_i^+; \mu, c_i) a_i^+ \rangle
-&= c_{i+1} \langle Z(N_i^+), Q(-N_i^-) \rangle + \mathcal{O}( r^{-3 N_i/2} + |\mu - \mu_0| r^{-N_i})
+W_i^+(0) &- W_i^-(0) = b_i^+ - b_i^- 
++ \Phi_u^+(0, N_i^+; c_i) a_i^+ - \Phi_s^-(0, -N_{i-1}^-; c_i) a_{i-1}^- \\
+&- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) G_i^+(W_i^+(j)) 
+- \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) G_i^-(W_i^-(j)) \\
 \end{align*}
 
-Putting these together, we have for the jump expressions
+Next, plug in $W_i^\pm$ and $a_i^\pm$ from the previous two lemmas, noting the dependencies on the $b_i^\pm$. Let
 
 \[
-\xi_i = c_{i+1} \langle Z(N_i^+), Q(-N_i^-) \rangle - c_i \langle Z(-N_{i-1}^-), Q(N_{i-1}^+) \rangle  + \mathcal{O}( r^{-3 N_m/2} + |\mu - \mu_0| r^{-N_m})
+Y = \bigoplus_{i=1}^m (Y^+ \oplus Y^-) = \bigoplus_{i=1}^m \R^d
 \]
 
-For now, suppose we have a 2-pulse. Then we only have to solve one of these. The question is can we do it with only $\mu$ to play with?
+and let $b = (b_1^+, b_1^-, \dots, b_m^+, b_m^-)$. Define the function $H: Y \rightarrow Y$ component-wise by
+
+\begin{align*}
+H_i(b_i^+, b_i^-) &= 
+ b_i^+ - b_i^- 
++ \Phi_u^+(0, N_i^+; c_i) a_i^+(b_i^+, b_{i+1}^-) 
+- \Phi_s^-(0, -N_{i-1}^-; c_i) a_{i-1}^-(b_{i-1}^+, b_i^-) \\
+&- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) G_i^+(W_i^+(j; b_i^+, b_{i+1}^-)) 
+- \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) G_i^-(W_i^-(j; b_{i-1}^+, b_i^-)) \\
+\end{align*}
+
+$H(0) = 0$, and for sufficiently large $N$, the matrix $DH(0)$ invertible, thus using the inverse function theorem $H$ is invertible in a neighborhood of 0, thus $b = H^{-1}(0)$ is the unique solution to the jump equations at 0. For a bound on $b$, project $H_i$ on $Y^+$ and $Y^-$. Since $H_i(b_i^+, b_i^-) = 0$, we have for $b_i^+$
+
+\begin{align*}
+b_i^+ + \mathcal{O}\left( r^{-N_i^+} ( r^{-N_i^-}|b_{i+1}^-| + r^{-N_i^+}|b_i^+| ) +
+\right)
+\end{align*}
+
+\end{proof}
+\end{lemma}
+
 
 
 
