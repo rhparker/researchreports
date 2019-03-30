@@ -94,7 +94,7 @@ U(n+1) = F(U(n))
 
 where $U \in \R^2$. Let $Q(n)$ be the primary pulse solution here. We want to construct multi-pulse solutions which are close to $Q(n)$. For now, we will only do a double pulse with both pulses in the same orientation. If we can get this to work, it should generalize easily to all the other cases. \\
 
-We have the following hypotheses, which are true for dNLS.
+We will take the following hypotheses, which are true for dNLS.
 
 \begin{hypothesis}\label{2hyp}
 We assume the following regarding dNLS.
@@ -238,7 +238,7 @@ We assume the following regarding \eqref{diffeq}.
 \item 0 is a hyperbolic equilibrium for $F$, i.e. $F(0) = 0$ and $DF(0)$ has no eigenvalues on the unit circle. Thus we can find a radius $r > 1$ such that for all eigenvalues $\nu$ of $DF(0)$ we have $|\nu| \leq 1/r$ or $|\nu| > r$.
 \item Let $E^s, E^u$ be the stable and unstable eigenspaces of $DF(0)$. We will assume $\dim E^s, \dim E^u \geq 1$.
 \item There exists a symmetric homoclinic orbit (primary pulse) solution $Q(n)$ to \eqref{diffeq} which connects the equilibrium at 0 to itself.
-\item $-Q(n)$ is also a solution to $\eqref{diffeq}$.
+\item $-Q(n)$ is also a solution to $\eqref{diffeq}$. 
 \item The stable and unstable manifolds $W^s(0)$ and $W^u(0)$ interesect transversely. In particular, we have $Y^+ \oplus Y^- = \R^d$, where $Y^+ = T_{Q(0)} W^s(0)$ and $Y^- = T_{Q(0)} W^u(0)$.
 \end{enumerate}
 \end{hypothesis}
@@ -282,12 +282,18 @@ A(n; c_i) &= DF_{U}(c_i Q(n))\\
 G(W_i^\pm(n)) &= \mathcal{O}(|W_i^\pm|^2)
 \end{align*}
 
-with $G(0) = DG(0) = 0$. Substituting this in, we get the system
+with $G(0) = DG(0) = 0$. Finally, let 
+
+\begin{equation}
+d_i = c_{i+1} Q(-N_i^-) - c_i Q(N_i^+)
+\end{equation}
+
+where $d_i \mathcal{O}(r^{-N_i/2})$. Substituting this in, we get the system
 
 \begin{align}
 (W_i^\pm)(n+1) &= A(n; c_i) W_i^\pm + G(W_i^\pm(n)) \\
+W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= d_i \\
 W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= 0 \\
-W_i^+(0) - W_i^-(0) &= 0
 \end{align}
 
 \subsubsection{Exponential Dichotomy}
@@ -295,7 +301,7 @@ W_i^+(0) - W_i^-(0) &= 0
 The variational equation associated with $A(n; c_i)$ is
 
 \begin{align}
-V(n+1; c_i) &= A(n; c_i) V(n; c_i) \label{vareq} \\
+V(n+1; c_i) &= A(n; c_i) V(n; c_in) \label{vareq} \\
 \end{align}
 
 Since we are assuming that the stable and unstable manifolds intersect transversely, this has no bounded solution, and we do not have to consider the adjoint variational equation. Note that our system is a piecewise, nonlinear perturbation of the variational equation.
@@ -361,6 +367,8 @@ As in San98, we will solve this in stages.\\
 
 First, we solve for $W_i^\pm$.
 
+% solve for W
+
 \begin{lemma}\label{inv1}
 
 There exist unique bounded functions $W_i^\pm(n)$ such that the first equation in our system is satisfied. They depend smoothly on the initial conditions $a_i^\pm$ and $b_i\pm$, and we have the estimates.
@@ -406,51 +414,129 @@ The estimate on $W_i^-$ comes from the terms in the fixed point equations which 
 
 Next, we use the center matching conditions at $N_i^\pm$ to solve for the initial conditions $a_i^\pm$.
 
-\begin{lemma}\label{inv2}
-There is a unique pair of initial conditions $(a_i^+, a_i^-) \in E^u \times E^s$ such that the matching condition $W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) = 0$ is satisfied. $(a_i^+, a_i^-)$ depends smoothly on $(b_i^+, b_{i+1}^-)$, and we have the following estimate
+% match in middles
 
-\begin{equation}
-|a_i^\pm| \leq C( r^{-N_i^-}|b_{i+1}^-| + r^{-N_i^+}|b_i^+| )
-\end{equation}
+\begin{lemma}\label{inv2}
+For $i = 1, \dots m-1$ there is a unique pair of initial conditions $(a_i^+, a_i^-) \in E^u \times E^s$ such that the matching conditions $W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) = d_i$ are satisfied. $(a_i^+, a_i^-)$ depends smoothly on $(b_i^+, b_{i+1}^-, d_i)$, and we have the following expressions for $a_i^-$ and $a_i^+$. 
+
+\begin{align}
+a_i^+ &= P_0^u d_i + \tilde{a}_i^+ \\
+a_i^- &= -P_0^s d_i + \tilde{a}_i^-
+\end{align}
+
+where 
+
+\[
+\tilde{a}_i^\pm = \mathcal{O}(r^{-N}(|b_i^+|+|b_{i+1}^-|) + |b_i^+|^2+|b_{i+1}^-|^2) 
+\]
+
+In terms of $Q(\pm N_i^\pm)$, we can write these as
+
+\begin{align*}
+a_i^- &= c_i Q(N_i^+) + \tilde{a}_i^- + \mathcal{O}(r^{-2N}) \\
+a_i^+ &= c_{i+1} Q(-N_i^-) + \tilde{a}_i^+ + \mathcal{O}(r^{-2N}) \\
+\end{align*}
+
+where $\tilde{a}_i^\pm$ is the same and has the same bound.
 
 \begin{proof}
 Evaluating the fixed point equations at $\pm N_i^\pm$ and subtracting, we need to solve
 
 \begin{align*}
-0 &= W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) \\
-&= P_u^+(N_i^+; c_i) a_i^+ + \Phi_s^+(N_i^+, 0) b_i^+ + \sum_{j = 0}^{N_i^+-1} \Phi_s^+(n, j+1; c_i) G_i^+(W_i^+(j)) \\
+d_i &= W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) \\
+&= P_u^+(N_i^+; c_i) a_i^+ + \Phi_s^+(N_i^+, 0) b_i^+ + \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; c_i) G_i^+(W_i^+(j)) \\
 &-P_s^-(-N_i^-; c_i) a_i^- - \Phi_u^-(-N_i^-, 0; c_i) b_{i+1}^-
-- \sum_{j = -N_i^-}^{-1} \Phi_u^-(n, j+1; c_i) G_i^-(W_i^-(j))
+- \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; c_i) G_i^-(W_i^-(j))
 \end{align*}
 
-Define $H_i: E^s \times E^u \times Y^+ \times Y^- \rightarrow \R^d$ by
+Define $H_i: E^s \times E^u \times Y^+ \times Y^- \times \R^d \rightarrow \R^d$ by
 
 \begin{align*}
-H_i(a_i^+, &a_i^-, b_i^+, b_{i+1}^-) \\
-&= a_i^+ - a_i^- + (P_u^+(N_i^+; c_i) - P_0^u) a_i^+ - (P_s^-(-N_i^-; c_i) - P_0^s) a_i^- + \Phi_s^+(N_i^+, 0) b_i^+  + \Phi_u^-(-N_i^-, 0; c_i) b_{i+1}^- \\
-&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(n, j+1; c_i) G_i^+(W_i^+(j; a_i^+, b_i^+)) 
-+ \sum_{j = -N_i^-}^{-1} \Phi_u^-(n, j+1; c_i) G_i^-(W_{i+1}^-(j; a_i^-, b_{i+1}^-))
+H_i(a_i^+, &a_i^-, b_i^+, b_{i+1}^-, d_i) \\
+&= a_i^+ - a_i^- - d_i + (P_u^+(N_i^+; c_i) - P_0^u) a_i^+ - (P_s^-(-N_i^-; c_i) - P_0^s) a_i^- + \Phi_s^+(N_i^+, 0; c_i) b_i^+ - \Phi_u^-(-N_i^-, 0; c_{i+1}) b_{i+1}^- \\
+&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; c_i) G_i^+(W_i^+(j; a_i^+, b_i^+)) 
++ \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; c_i) G_i^-(W_{i+1}^-(j; a_i^-, b_{i+1}^-))
 \end{align*}
 
-where we plugged in $W_{i+1}^-(n; a_i^-, b_{i+1}^-)$ and $W_i^+(n; a_i^+, b_i^+)$ from the previous lemma. Note that we again have $H_i(0,0,0,0) = 0$. In order to use the IFT, we need to differentiate this with respect to $a_i^\pm$. When we do this, the derivatives of the terms involving sums with respect to $a_i^\pm$ will be 0 since $G_i^\pm$ is quadratic order in $W_i^\pm$, thus quadratic order in $a_i^\pm$ by the previous lemma.
+where we plugged in $W_{i+1}^-(n; a_i^-, b_{i+1}^-)$ and $W_i^+(n; a_i^+, b_i^+)$ from the previous lemma. Note that $(a_i^+, a_i^-) \in E^s \oplus E^u = \R^d$, so we are set up to use the IFT. We again have $H_i(0,0,0,0,0) = 0$. In order to use the IFT, we need to differentiate $H_i$ with respect to $a_i^\pm$. When we do this, the derivatives of the terms involving sums with respect to $a_i^\pm$ will be 0 since $G_i^\pm$ is quadratic order in $W_i^\pm$, thus quadratic order in $a_i^\pm$ by the previous lemma.\\
 
-Thus the partial derivative with respect to $a_i^\pm$ at $(0, 0, 0, 0)$ is 
+Thus the partial derivative with respect to $a_i^\pm$ at $(a_i^+, a_i^-, b_i^+, b_{i+1}^-, d_i) =(0, 0, 0, 0, 0)$ is 
 
 \begin{align*}
 \frac{\partial}{\partial a_i^-} H_i(0, 0, 0, 0) &= \pm 1 + \mathcal{O}(r^{-N_i^-}) \\
 \frac{\partial}{\partial a_i^+} H_i(0, 0, 0, 0) &= \pm 1 + \mathcal{O}(r^{-N_i^+})
 \end{align*}
 
-For sufficiently large $N = \min\{ N_i^\pm \}$, $D_{a_i^\pm} H(0, 0, 0, 0)$ is invertible in a neighborhood of $(0, 0, 0, 0)$, so we can use the IFT to solve for $a_i^\pm$ in terms of $b_i^+$ and $b_{i+1}^-$.\\
+For sufficiently large $N$, $D_{a_i^\pm} H(0, 0, 0, 0, 0)$ is invertible in a neighborhood of $(0, 0, 0, 0, 0)$, so we can use the IFT to solve for $a_i^\pm$ in terms of $b_i^+$, $b_{i+1}^-$, and $d_i$ for $(b_i^+, b_{i+1}^-, d_i)$ sufficiently small. \\
 
-Estimates on $a_i^\pm$ come from taking projections of the equation for $H$ on $E^s$ and $E^u$, using the estimates from the exponential dichotomy, and noting that the terms involving the sum are quadratic in $a_i^\pm$, $b_i^+$, and $b_{i+1}^-$.
+To get estimates on and expressions for $a_i^\pm$, we note that we have obtained a solution to $H_i(a_i^+, a_i^-, b_i^+, b_{i+1}^-, d_i) = 0$, which looks like 
+
+\begin{align*}
+0 &= a_i^+ - a_i^- - d_i + \mathcal{O}(r^{-N}(|a_i^+|+|a_i^-|+|b_i^+|+|b_{i+1}^-|)\\
+&+ \mathcal{O}((|a_i^+|^2+|a_i^-|^2+|b_i^+|^2+|b_{i+1}^-|^2)
+\end{align*}
+
+Taking projections on $E^s$ and $E^u$, we have
+
+\begin{align*}
+a_i^+ &= P_0^u d_i + \mathcal{O}(r^{-N}(|b_i^+|+|b_{i+1}^-|) + |b_i^+|^2+|b_{i+1}^-|^2) \\
+a_i^- &= -P_0^s d_i + \mathcal{O}(r^{-N}(|b_i^+|+|b_{i+1}^-|) + |b_i^+|^2+|b_{i+1}^-|^2)
+\end{align*}
+
+which we can write as
+
+\begin{align*}
+a_i^+ &= P_0^u d_i + \tilde{a}_i^+ \\
+a_i^- &= -P_0^s d_i + \tilde{a}_i^-
+\end{align*}
+
+\[
+\tilde{a}_i^\pm = \mathcal{O}(r^{-N}(|b_i^+|+|b_{i+1}^-|) + |b_i^+|^2+|b_{i+1}^-|^2) 
+\]
+
+To write these expressions in terms of $Q(\pm N_i^\pm)$, we note that
+
+\begin{align*}
+P_0^s Q(N_i^+) &= (P_0^s - P_s^+(N_i^+)) Q(N_i^+) + P_s^+(N_i^+) Q(N_i^+) \\
+&= P_s^+(N_i^+) Q(N_i^+) + \mathcal{O}(r^{-2N}) \\
+&= Q(N_i^+) + \mathcal{O}(r^{-2N}) 
+\end{align*}
+
+and 
+
+\begin{align*}
+P_0^s Q(-N_i^-) &= P_0^s  Q(-N_i^-) \\
+&= P_0^s \Big( ( P_u^-(-N_i^-) - P_0^u) Q(-N_i^-) + P_0^u Q(-N_i^-) \Big) \\
+&= P_0^s ( P_u^-(-N_i^-) - P_0^u) Q(-N_i^-) + P_0^s P_0^u Q(-N_i^-) \\
+&= \mathcal{O}(r^{-2N})
+\end{align*}
+
+Thus we have
+
+\begin{align*}
+a_i^- &= c_i Q(N_i^+) + \tilde{a}_i^- + \mathcal{O}(r^{-2N})
+\end{align*}
+
+where $\tilde{a}_i^-$ is unchanged. Similarly, we have
+
+\begin{align*}
+a_i^+ &= c_{i+1} Q(-N_i^-) + \tilde{a}_i^+ + \mathcal{O}(r^{-2N}) \\
+\end{align*}
 
 \end{proof}
 \end{lemma}
 
 Finally, we look at the match conditions at 0. These will be straightforward because of the transverse intersection of the stable and unstable manifolds.
 
+% solve for b_i
+
 \begin{lemma}\label{inv3}
+
+For $i = 1, \dots m$ there is a unique pair of initial conditions $(b_i^-, b_i^+) \in Y^- \times Y^+$ such that the matching conditions $W_i^+(0) - W_i^-(0) = 0$ are satisfied. $b = (b_1^+, b_1^-, \dots, b_m^+, b_m^-)$ depends smoothly on $d = (d_1, \dots, d_{m-1})$, and we have the uniform bound
+
+\[
+b = \mathcal{O}(r^{-2N})
+\]
 
 \begin{proof}
 Evaluating the fixed point equations at 0 and subtracting, we have
@@ -464,33 +550,61 @@ W_i^+(0) &- W_i^-(0) = b_i^+ - b_i^-
 
 Next, plug in $W_i^\pm$ and $a_i^\pm$ from the previous two lemmas, noting the dependencies on the $b_i^\pm$. Let
 
-\[
-Y = \bigoplus_{i=1}^m (Y^+ \oplus Y^-) = \bigoplus_{i=1}^m \R^d
-\]
+\begin{align*}
+Y &= \bigoplus_{i=1}^m (Y^+ \oplus Y^-) = \bigoplus_{i=1}^m \R^d \\
+Z &= \bigoplus_{i=1}^{m-1} \R^d
+\end{align*}
 
-and let $b = (b_1^+, b_1^-, \dots, b_m^+, b_m^-)$. Define the function $H: Y \rightarrow Y$ component-wise by
+$b = (b_1^+, b_1^-, \dots, b_m^+, b_m^-)$, and $d = (d_1, \dots, d_{m-1})$. Define the function $H: Y \times Z \rightarrow Y$ component-wise by
 
 \begin{align*}
 H_i(b_i^+, b_i^-) &= 
- b_i^+ - b_i^- 
-+ \Phi_u^+(0, N_i^+; c_i) a_i^+(b_i^+, b_{i+1}^-) 
-- \Phi_s^-(0, -N_{i-1}^-; c_i) a_{i-1}^-(b_{i-1}^+, b_i^-) \\
+ b_i^+ - b_i^- + \Phi_u^+(0, N_i^+; c_i) P_0^u d_i + \Phi_s^-(0, -N_{i-1}^-; c_i) d_{i-1} \\
+&+ \Phi_u^+(0, N_i^+; c_i) \tilde{a}_i^+(b_i^+, b_{i+1}^-) 
+- \Phi_s^-(0, -N_{i-1}^-; c_i) \tilde{a}_{i-1}^-(b_{i-1}^+, b_i^-) \\
 &- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) G_i^+(W_i^+(j; b_i^+, b_{i+1}^-)) 
-- \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) G_i^-(W_i^-(j; b_{i-1}^+, b_i^-)) \\
+- \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) G_i^-(W_i^-(j; b_{i-1}^+, b_i^-))
 \end{align*}
 
-$H(0) = 0$, and for sufficiently large $N$, the matrix $DH(0)$ invertible, thus using the inverse function theorem $H$ is invertible in a neighborhood of 0, thus $b = H^{-1}(0)$ is the unique solution to the jump equations at 0. For a bound on $b$, project $H_i$ on $Y^+$ and $Y^-$. Since $H_i(b_i^+, b_i^-) = 0$, we have for $b_i^+$
+where $d_0 = d_m = 0$. We are again set up to use the IFT. $H(0, 0) = 0$, and for the partial derivatives with respect to the $b_i^\pm$, we have
 
 \begin{align*}
-b_i^+ + \mathcal{O}\left( r^{-N_i^+} ( r^{-N_i^-}|b_{i+1}^-| + r^{-N_i^+}|b_i^+| ) +
-\right)
+\frac{\partial}{\partial b_i^+} &= 1 + \mathcal{O}(r^{-N})  \\
+\frac{\partial}{\partial b_i^-} &= -1 + \mathcal{O}(r^{-N}) \\
+\frac{\partial}{\partial b_{i-1}^+},
+\frac{\partial}{\partial b_{i+1}^-} &= \mathcal{O}(r^{-N}) \\
 \end{align*}
+
+and 
+
+\[
+\frac{\partial}{\partial b_j^\pm} = 0
+\]
+
+for all other indices. Thus, for sufficiently large $N$, the matrix $D_b H(0,0)$ is invertible. By the IFT, we can solve for $b$ in terms of $d$ for near $(b,d) = (0, 0)$, i.e. there is a function $b: Z \rightarrow Y$ with $b(0) = 0$ such that $H(b(d),d) = 0$ for $d$ sufficiently small. Since $d = \mathcal{O}(r^{-N}$, this will be the case as long as $N$ is sufficiently large. With this, we have solve the jump expressions and have constructed our $m-$pulse.\\
+
+The only thing that remains is to find a bound for $b$. To do this, recall that we have solved $H(b(d),d) = 0$, which, componentwise, looks like
+
+\begin{align*}
+0 &= b_i^+ - b_i^- + \mathcal{O}(r^{-N_i^+} d_i + r^{-N_{i-1}^-} d_{i-1}) \\
+&+ \mathcal{O}( r^{-N}(|b_i^+| + |b_i^-| + |b_{i+1}^-| + |b_{i-1}^+|)
++ (|b_i^+|^2 + |b_i^-|^2 + |b_{i+1}^-|^2 + |b_{i-1}^+|^2)
+\end{align*}
+
+which, since $b$ is small and $d = \mathcal{O}(r^{-N})$, give us
+
+\[
+b = \mathcal{O}(r^{-2N})
+\]
 
 \end{proof}
 \end{lemma}
 
+Combining all of these, we have found a $m-$pulse solution to \eqref{diffeq}, and for the remainder term we have the uniform bound
 
-
+\[
+||W_i^\pm|| \leq C r^{-2N}
+\]
 
 
 \end{document}
