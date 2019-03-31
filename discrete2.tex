@@ -92,130 +92,11 @@ The problem we want to solve is of the form
 U(n+1) = F(U(n))
 \end{equation}
 
-where $U \in \R^2$. Let $Q(n)$ be the primary pulse solution here. We want to construct multi-pulse solutions which are close to $Q(n)$. For now, we will only do a double pulse with both pulses in the same orientation. If we can get this to work, it should generalize easily to all the other cases. \\
-
-We will take the following hypotheses, which are true for dNLS.
-
-\begin{hypothesis}\label{2hyp}
-We assume the following regarding dNLS.
-\begin{enumerate}[(0)]
-\item 0 is a hyperbolic equilibrium for $F$, i.e. $F(0) = 0$ and $DF(0)$ has no eigenvalues on the unit circle. In this case, the two eigenvalues of $DF(0)$ are $\nu = \{ r, 1/r \}$ for
-\[
-r = 1 + \frac{1}{2\epsilon}\sqrt{ \omega(4 \epsilon + \omega)}
-\]
-Thus $\dim E^s = \dim E^u = 1$.
-\item There exists a homoclinic orbit $Q(n)$ which connects the equilibrium at 0 to itself.
-\item The intersection of $T_{Q(0)} W^s(0)$ and $T_{Q(0)}W^u(0)$ is transverse, i.e. their intersection is $\R^2$. 
-\end{enumerate}
-\end{hypothesis}
-
-We will look for a 2-pulse solution of the form
-
-\begin{align*}
-U_i^-(n) &= Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
-U_i^+(n) &= Q(n) + W_i^+(n) && n \in [0, N_i^+]
-\end{align*}
-
-for $i = 1, 2$, where $N_0^- = -\infty$ and $N_m^+ = \infty$. We don't have the ``special solutions'' as in section 2 of Knob2000 since $T_{Q(0)} W^s(0)$ and $T_{Q(0)}W^u(0)$ intersect transversely.\\
-
-The problem we want to solve is
-
-\begin{align}
-(U_i^\pm)(n+1) - F(U_i^\pm(n)) &= 0 \\
-U_1^+(N_1^+) - U_2^-(-N_1^-) &= 0 \\
-U_i^+(0) - U_i^-(0) &= 0
-\end{align}
-
-Expand $F$ in a Taylor series about $Q(n)$ to get
-
-\begin{align*}
-F(U_i^\pm(n)) &= F(Q(n) + W_i^\pm(n)) \\
-&= F(Q(n)) + DF_{U}(Q(n)) W_i^\pm + G(W_i^\pm(n)) \\
-&= F(Q(n)) + A(n) W_i^\pm + G(W_i^\pm(n)) \\
-\end{align*}
-
-where
-
-\begin{align*}
-A(n) &= DF_{U}(Q(n)) \\
-G(W_i^\pm(n)) &= \mathcal{O}(|W_i^\pm|^2)
-\end{align*}
-
-and $G(0) = DG(0) = 0$. Substituting this in, we have
-
-\begin{align*}
-Q(n+1) + W_i^\pm(n+1) - F(Q(n)) - A(n) W_i^\pm - G(W_i^\pm(n)) &= 0\\
-W_i^\pm(n+1) - A(n) W_i^\pm - G(W_i^\pm(n)) &= 0
-\end{align*} 
-
-since $Q(n)$ is a known solution of the problem. Thus we have the system
-
-\begin{align}
-(W_i^\pm)(n+1) &= A(n) W_i^\pm + G(W_i^\pm(n))  \\
-W_1^+(N_1^+) - W_2^-(-N_1^-) &= Q(N_1^-) - Q(N_1^+) \\
-W_i^+(0) - W_i^-(0) &= 0
-\end{align}
-
-Note that this is a nonlinear perturbation of the variational equation $V(n+1) = A(n) V$. Let $\Phi_\pm(m, n)$ be the evolution operator for the variational equation. Then (using known results), we can decompose the evolution in an exponential dichotomy on $\Z^-$ and $\Z^+$ into unstable and stable components, and we have bounds
-
-\begin{align*}
-|\Phi_+^s(m, n)| \leq C r^{m - n} && 0 \leq n \leq m \\
-|\Phi_+^u(m, n)| \leq C \left( \dfrac{1}{r} \right)^{n-m} && 0 \leq m \leq n \\
-|\Phi_-^s(m, n)| \leq C r^{m - n} && n \leq m \leq 0 \\
-|\Phi_-^u(m, n)| \leq C \left( \dfrac{1}{r} \right)^{n-m} && m \leq n \leq 0\\
-\end{align*}
-
-We write the equation for $(W_i^\pm)(n+1)$ in fixed-point form using the discrete variation of constants formula (which we proved somewhere else).
-
-\begin{align*}
-W_i^-(n) &= 
-\Phi_s^-(n, -N_{i-1}^-) a_{i-1}^- + \Phi_u^-(n, 0) b_i^-  \\
-&+ \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1) G_i^-(W_i^-(j)) - \sum_{j = n}^{-1} \Phi_u^-(n, j+1) G_i^-(W_i^-(j)) \\
-W_i^+(n) &= \Phi_u^+(n, N_i^+) a_i^+ + \Phi_s^+(n, 0) b_i^+ \\
-&+ \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1) G_i^+(W_i^+(j)) 
-- \sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1) G_i^+(W_i^+(j))
-\end{align*}
-
-where 
-
-\begin{enumerate}
-\item $a_i^- \in E^s$, $a_i^+ \in E^u$ and $a_0^- = a_m^+ = 0$
-\item $b_i^+ \in Y^+ = T_{Q(0)} W^s(0)$ and $b_i^- \in Y^- = T_{Q(0)} W^u(0)$
-\end{enumerate}
-
-Now we assume things will work out the way we expect them to, and see if we can get the solutions we want. We solve for the various unknowns in the fixed point equations in turn.
-
-\begin{enumerate}
-\item Using the spaces of bounded sequences on the appropriate intervals, we can solve uniquely for $W_i^\pm$ in terms of the $a_i^\pm$ and $b_i^\pm$ to get
-
-\begin{align*}
-||W_i^-||_\infty &\leq C (|a_{i-1}^-| + |b_i^-|) \\
-||W_i^+||_\infty &\leq C (|a_i^+| + |b_i^+| )
-\end{align*}
-
-\item Using the match condition at $\pm N_1^\pm$, we can solve uniquely for the $a_i^\pm$ in terms of the $b_i^\pm$ to get something like
-
-\begin{align*}
-a_1^+ &= P^s_0 \left( Q(N_1^-) - Q(N_1^+) \right) 
-+ \mathcal{O}( r^{-N_1^+} |b_1^+| + r^{-N_1^-}|b_2^-| )\\
-a_1^- &= P^u_0 \left( Q(N_1^-) - Q(N_1^+) \right) 
-+ \mathcal{O}( r^{-N_1^+} |b_1^+| + r^{-N_1^-}|b_2^-| )
-\end{align*}
-
-\item Now write down the match conditions at 0
-
-\begin{align*}
-W_i^+(0) &- W_i^-(0) = b_i^+ - b_i^- + \Phi_u^+(0, N_i^+) a_i^+ - \Phi_s^-(0, -N_{i-1}^-) a_{i-1}^-  \\
-&- \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1) G_i^-(W_i^-(j)) - \sum_{j = 0}^{N_i^+-1} \Phi_u^+(n, j+1) G_i^+(W_i^+(j))
-\end{align*}
-
-Because of where the $b_i^\pm$ live, we should be able to project this onto $Y^+$ and $Y^-$ and then we can solve uniquely for the $b_i^\pm$, which then gives us our 2-pulse. The same thing should work for $n-$pulses composed of up/down pulses.
-
-\end{enumerate}
+where $U \in \R^2$. Instead of looking at this, we will look at a more general form for which this will be a specific case.
 
 \subsection{Existence, transverse intersection version}
 
-\subsubsection{Setup}
+\subsubsection{Setup and Main Theorem}
 
 Consider the lattice PDE
 
@@ -239,7 +120,7 @@ We assume the following regarding \eqref{diffeq}.
 \item Let $E^s, E^u$ be the stable and unstable eigenspaces of $DF(0)$. We will assume $\dim E^s, \dim E^u \geq 1$.
 \item There exists a symmetric homoclinic orbit (primary pulse) solution $Q(n)$ to \eqref{diffeq} which connects the equilibrium at 0 to itself.
 \item $-Q(n)$ is also a solution to $\eqref{diffeq}$. 
-\item The stable and unstable manifolds $W^s(0)$ and $W^u(0)$ interesect transversely. In particular, we have $Y^+ \oplus Y^- = \R^d$, where $Y^+ = T_{Q(0)} W^s(0)$ and $Y^- = T_{Q(0)} W^u(0)$.
+\item The stable and unstable manifolds $W^s(0)$ and $W^u(0)$ intersect transversely. In particular, we have $Y^+ \oplus Y^- = \R^d$, where $Y^+ = T_{Q(0)} W^s(0)$ and $Y^- = T_{Q(0)} W^u(0)$.
 \end{enumerate}
 \end{hypothesis}
 
@@ -252,14 +133,47 @@ N_i^+ &= \lfloor \frac{N_i}{2} \rfloor \\
 N_i^- &= N_i - N_i^+
 \end{align*}
 
-and note that either $N_i^+ = N_i^-$ (if $N_i$ is even) or $N_i^+ = N_i^- - 1$ (if $N_i$ is odd). Let $N = \min\{ N_i^\pm \}$. In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. We will look for a solution which is a piecewise perturbation of $n$ copies of $Q(n)$. To that end, we take the following ansatz.
+and note that either $N_i^+ = N_i^-$ (if $N_i$ is even) or $N_i^+ = N_i^- - 1$ (if $N_i$ is odd). Let $N = \min\{ N_i^\pm \}$. In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. We will look for a solution which is a piecewise perturbation of $n$ copies of $Q(n)$, i.e. a solution of the form
 
 \begin{align*}
 U_i^-(n) &= c_i Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
 U_i^+(n) &= c_i Q(n) + W_i^+(n) && n \in [0, N_i^+]
 \end{align*}
 
-where $c_i = \pm 1$. The problem we want to solve is
+where $c_i = \pm 1$. \\
+
+Then we have the following theorem, which shows the existence of a unique multi-pulse solution to \eqref{diffeq}. It will be proved in a series of lemmas to follow the statement of the theorem.
+
+\begin{theorem}\label{transversemulti}
+Consider the difference equation
+\begin{equation}\label{diffeq3}
+U(n+1) = F(u(n))
+\end{equation}
+where $U \in R^d$ for $d > 1$. Assume Hypothesis \ref{initialhyp}. Let $Q(n)$ be the primary pulse solution to \eqref{diffeq3}. Choose $m > 1$ and positive integers $N_1, \dots, N_{m-1}$. Let 
+
+\begin{align*}
+N_i^+ &= \lfloor \frac{N_i}{2} \rfloor \\
+N_i^- &= N_i - N_i^+
+\end{align*}
+
+and let $N = \min\{ N_i^\pm : i = 1, \dots, m-1 \}$. Then, for sufficiently large $N$, there exists a unique $m-$pulse solution $Q_m$ to \eqref{diffeq}. This solution resembles $m$ well-separated copies of the primary pulse solution and can be written piecewise as 
+
+\begin{align}
+U_i^-(n) &= c_i Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
+U_i^+(n) &= c_i Q(n) + W_i^+(n) && n \in [0, N_i^+]
+\end{align}
+
+where $N_0 = N_m = \infty$. For the remainder terms $W_i^\pm(n)$ we have the following estimates
+
+\begin{align}
+||W_i^\pm|| &\leq C r^{-N} \\
+W_i^+(N_i^+) &= c_{i+1} Q(-N_i^-) + \mathcal{O}(r^{-2N}) \\
+W_{i+1}^-(-N_i^-) &= c_i Q(N_i^+) + \mathcal{O}(r^{-2N})
+\end{align}
+
+\end{theorem}
+
+To prove the theorem, we note that the $U_i^\pm$ must satisfy
 
 \begin{align}
 (U_i^\pm)(n+1) - F(U_i^\pm(n)) &= 0 \\
@@ -591,7 +505,7 @@ The only thing that remains is to find a bound for $b$. To do this, recall that 
 + (|b_i^+|^2 + |b_i^-|^2 + |b_{i+1}^-|^2 + |b_{i-1}^+|^2)
 \end{align*}
 
-which, since $b$ is small and $d = \mathcal{O}(r^{-N})$, give us
+which, since $b$ is small and $d = \mathcal{O}(r^{-N})$, gives us
 
 \[
 b = \mathcal{O}(r^{-2N})
@@ -600,11 +514,44 @@ b = \mathcal{O}(r^{-2N})
 \end{proof}
 \end{lemma}
 
-Combining all of these, we have found a $m-$pulse solution to \eqref{diffeq}, and for the remainder term we have the uniform bound
+We combine these results into the following theorem.
 
-\[
-||W_i^\pm|| \leq C r^{-2N}
-\]
+% theorem : m-pulse existence and bounds
 
+\begin{theorem}
+For sufficiently large $N$, there exists a unique $m-$pulse solution $Q_m$ to \eqref{diffeq} which resembles $m$ well-separated copies of the primary pulse solution and can be written piecewise as 
+
+\begin{align}
+U_i^-(n) &= c_i Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
+U_i^+(n) &= c_i Q(n) + W_i^+(n) && n \in [0, N_i^+]
+\end{align}
+
+where $N_0 = N_m = \infty$. For the remainder terms $W_i^\pm(n)$, we have the following estimates
+
+\begin{align}
+||W_i^\pm|| &\leq C r^{-N} \\
+W_i^+(N_i^+) &= c_{i+1} Q(-N_i^-) + \mathcal{O}(r^{-2N}) \\
+W_{i+1}^-(-N_i^-) &= c_i Q(N_i^+) + \mathcal{O}(r^{-2N})
+\end{align}
+
+\begin{proof}
+The result comes from coming the previous three lemmas. For the uniform estimate, we plug in the estimates for $a_i^\pm$ and $b_i^\pm$ from Lemmas \ref{inv2} and \ref{inv3} to get $||W_i^\pm|| \leq C r^{-N}$. For the estimates at $\pm N_i^\pm$, we evaluate the fixed point equations at $\pm N_i^\pm$ and plug in the expressions for $a_i^\pm$ from Lemma \ref{inv2}. For $W_i^+(N_i^+)$, this is 
+
+\begin{align*}
+W_i^+(N_i^+) &= P_u^+(N_i^+; c_i) a_i^+ + \Phi_s^+(N_i^+, 0) b_i^+ + \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; c_i) G_i^+(W_i^+(j)) \\
+&= P_u^+(N_i^+; c_i) c_{i+1} Q(-N_i^-) + \Phi_s^+(N_i^+, 0) b_i^+ + \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; c_i) G_i^+(W_i^+(j)) + \mathcal{O}(r^{-2N}) \\
+&= P_0^u c_{i+1} Q(-N_i^-) + \mathcal{O}(r^{-2N}) \\
+&= P_u^-(-N_i^-; c_{i+1}) c_{i+1} Q(-N_i^-) + \mathcal{O}(r^{-2N}) \\
+&= c_{i+1} Q(-N_i^-) + \mathcal{O}(r^{-2N}) \
+\end{align*}
+
+Similarly,
+
+\begin{align*}
+W_{i+1}^-(-N_i^-) &= c_i Q(N_i^+) + \mathcal{O}(r^{-2N}) \
+\end{align*}
+
+\end{proof}
+\end{theorem}
 
 \end{document}

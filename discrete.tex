@@ -51,7 +51,7 @@
 
 \section{Multipulses in Discrete Systems}
 
-We want to look at Lin's method for multipulses in the discrete case. The model equation here is discrete NLS, but we want something more general since the result for dNLS is already known, at least if we are near the anticontinuum limit (Pelinovsky and Kevrekidis, 2005). The idea is that if we can find an appropriate generalization and setup for Lin's method, we can check it on dNLS.\\
+We want to look at Lin's method for multipulses in the discrete case. The model equation here is discrete NLS, but we want something more general since the result for dNLS is already known, at least if we are near the anti-continuum limit (Pelinovsky and Kevrekidis, 2005). The idea is that if we can find an appropriate generalization and setup for Lin's method, we can check it on dNLS.\\
 
 \subsection{Discrete NLS}
 
@@ -61,7 +61,7 @@ Normalized form of dNLS is
 i\dot{u}_n + \epsilon(u_{n+1} - 2 u_n + u_{n-1}) + |u_n|^2 u_n = 0
 \end{equation}
 
-the parameter $\epsilon$ represents the coupling between nodes, where the anticontinuum limit is given by $\epsilon = 0$. For this equation, we want to look for stationary solutions in a ``rotating'' frame, i.e. solutions of the form $\phi_n e^{i \omega t}$. To that end, we take $u_n \mapsto u_n e^{i \omega t}$ and simplify to get
+the parameter $\epsilon$ represents the coupling between nodes, where the anti-continuum limit is given by $\epsilon = 0$. For this equation, we want to look for stationary solutions in a ``rotating'' frame, i.e. solutions of the form $\phi_n e^{i \omega t}$. To that end, we take $u_n \mapsto u_n e^{i \omega t}$ and simplify to get
 
 \begin{equation}
 i\dot{u}_n + \epsilon(u_{n+1} - 2 u_n + u_{n-1}) - \omega u_n + |u_n|^2 u_n = 0
@@ -145,7 +145,7 @@ A_\infty(\omega, 0) =
 \end{pmatrix}
 \]
 
-Since this is block diagonal with idential blocks, the eigenvalues of this are 
+Since this is block diagonal with identical blocks, the eigenvalues of this are 
 
 \begin{align*}
 \nu_{1,2} &= 1 + \frac{\omega}{2 \epsilon} \pm \frac{1}{2 \epsilon} \sqrt{\omega(4 \epsilon + \omega)} \\
@@ -171,7 +171,7 @@ B =
 \end{pmatrix}
 \]
 
-This looks good for Lin's method. Before we can do that, we need to know what is in the kernel of this. It is straightforward to see that $L^- q_n = 0$. By differentiating dNLS with respect to $\omega$, we also can see that $L^+ (-\partial_\omega q_n) = q_n$. Thus we should have an eigenvalue $\lambda = 0$ with algebraic multiplity 2 and geometric multiplicity 1. In other words, if we take $S = (0, 0, q, \tilde{q})^T$ and $T = (-\partial_\omega q, -\partial_\omega \tilde{q}, 0, 0)$, we have
+This looks good for Lin's method. Before we can do that, we need to know what is in the kernel of this. It is straightforward to see that $L^- q_n = 0$. By differentiating dNLS with respect to $\omega$, we also can see that $L^+ (-\partial_\omega q_n) = q_n$. Thus we should have an eigenvalue $\lambda = 0$ with algebraic multiplicity 2 and geometric multiplicity 1. In other words, if we take $S = (0, 0, q, \tilde{q})^T$ and $T = (-\partial_\omega q, -\partial_\omega \tilde{q}, 0, 0)$, we have
 
 \begin{align*}
 S(n+1) &= A(n; \omega, 0) S(n) \\
@@ -242,57 +242,89 @@ Consider the lattice PDE on $\R$
 \dot{u}_n = f(u_n; \mu)
 \end{equation}
 
-where $f$ involves a finite number (greater than 1) of indices near $n$ and $\mu \in \R^P$ is some parameter.\\
+where $f$ involves a finite number (greater than 1) of indices near $n$ and $\mu \in \R^p$ is some parameter.\\
 
-First, we assume that primary pulse and multi-pulse solutions to \eqref{latticePDE} exist. Such solutions will decay exponentially at both ends.
+An equilibrium solution satisfies $f(u_n; \mu) = 0$. We can rewrite the stationary equation in system form as
 
-\begin{hypothesis}\label{solexist}
-The following solutions to \eqref{latticePDE} exist.
-\begin{enumerate}
-\item A primary pulse solution $q_1(n)$
-\item An $m-$pulse solution $q_m(n)$ which resembles, to leading order, $m$ copies of $q_1(n)$ joined together, but with flips allowed. Assume we can write $q_m(n)$ as the linear combination
-
-\begin{equation}\label{qm}
-q_m(n) = \sum_{j = 1}^m c_j q_1(n - n_j) + \tilde{q}(n)
+\begin{equation}\label{diffeq}
+U(n+1) = F(u(n); \mu)
 \end{equation}
 
-where $c_j = \pm 1$ (so we always have $c_j^2 = 1$). If $c_j = -1$ is allowed, then in addition we assume that $-q_1(n)$ is a solution to \eqref{latticePDE}.
+where $U \in R^d$ for some $d > 1$ which depends on how many indices near $n$ are used by $f$. We take the following hypothesis.
+
+\begin{hypothesis}\label{initialhyp}
+We assume the following regarding \eqref{diffeq}.
+\begin{enumerate}[(i)]
+\item $F$ is a diffeomorphism.
+\item 0 is a hyperbolic equilibrium for $F$, i.e. $F(0) = 0$ and $DF(0)$ has no eigenvalues on the unit circle. Thus we can find a radius $r > 1$ such that for all eigenvalues $\nu$ of $DF(0)$ we have $|\nu| \leq 1/r$ or $|\nu| > r$.
+\item Let $E^s, E^u$ be the stable and unstable eigenspaces of $DF(0)$. We will assume $\dim E^s, \dim E^u \geq 1$.
+\item There exists a symmetric homoclinic orbit (primary pulse) solution $Q_1(n)$ to \eqref{diffeq} which connects the equilibrium at 0 to itself. For this solution, we have bound
+\[
+|Q_1(n)| \leq C r^{-n}
+\]
 \end{enumerate}
 \end{hypothesis}
 
-Consider the eigenvalue problem coming from the linearization of the lattice PDE \eqref{latticePDE} about $q_m(n)$. This will be a difference equation in $\R^d$, where the dimension $d$ is determined by (among other things), the structure of the difference operator on the RHS of \eqref{latticePDE}.
+We are interested in the stability of multi-pulse equilibrium solutions to \eqref{diffeq}. These multi-pulse solutions resemble multiple, well-separated copies of the primary pulse solution $Q_1(n)$. We take the following hypothesis regarding the existence of such multi-pulse solutions. Under certain circumstances, we can verify that these solutions exist.
+
+\begin{hypothesis}\label{multiexist}
+Assume that $-Q_1(n)$ is also a solution to \eqref{diffeq}. Choose $m > 1$ and positive integers $N_1, \dots, N_{m-1}$. Let 
 
 \begin{align*}
-V(n+1) = A(q_m(n); \mu) V(n) + \lambda B V(n)
+N_i^+ &= \lfloor \frac{N_i}{2} \rfloor \\
+N_i^- &= N_i - N_i^+
 \end{align*}
 
-$B$ is a bounded matrix, and $A(q_m(n); \mu) \rightarrow A_\infty(\mu)$ exponentially at both ends (since $q_m(n)$ does). Take the following hypotheses
+and let $N = \min\{ N_i^\pm : i = 1, \dots, m-1 \}$. Then, for sufficiently large $N$, there exists a unique $m-$pulse solution $Q_m$ to \eqref{diffeq}. This solution resembles $m$ well-separated copies of the primary pulse solution and can be written piecewise as 
+
+\begin{align}
+U_i^-(n) &= c_i Q(n) + \tilde{Q}_i^-(n) && n \in [-N_{i-1}^-, 0] \\
+U_i^+(n) &= c_i Q(n) + \tilde{Q}_i^+(n) && n \in [0, N_i^+]
+\end{align}
+
+where $N_0 = N_m = \infty$. For the remainder terms $\tilde{Q}_i^\pm(n)$ we have the following estimates
+
+\begin{align}
+||\tilde{Q}_i^\pm|| &\leq C r^{-N} \\
+\tilde{Q}_i^+(N_i^+) &= c_{i+1} Q(-N_i^-) + \mathcal{O}(r^{-2N}) \\
+\tilde{Q}_{i+1}^-(-N_i^-) &= c_i Q(N_i^+) + \mathcal{O}(r^{-2N})
+\end{align}
+\end{hypothesis}
+
+\subsubsection{Eigenvalue Problem}
+
+Consider the eigenvalue problem coming from the linearization of the lattice PDE \eqref{latticePDE} about $Q_m(n)$. This will be a difference equation in $\R^d$, where the dimension $d$ is determined by (among other things), the structure of the difference operator on the RHS of \eqref{latticePDE}.
+
+\begin{align*}
+V(n+1) = A(Q_m(n); \mu) V(n) + \lambda B V(n)
+\end{align*}
+
+$B$ is a bounded, constant-coefficient matrix, and $A(Q_m(n); \mu) \rightarrow A_\infty(\mu)$ exponentially at both ends (since $Q_m(n)$ does). Take the following hypotheses
 
 \begin{hypothesis}\label{initialhyp}
 \[\]
 \begin{enumerate}
 	\item $A_\infty(\mu)$ is hyperbolic for some $\mu$. Since we are in the discrete case, this means no eigenvalues on the unit circle.
-	\item $A(q_1(n); \mu)$ is invertible for all $n$. We need this so we can run the system backwards as well.
-	\item For some $\mu$, the variational equation $V(n+1) = A(q_1(n; \mu) V(n)$ has a unique bounded solution $S_1(n)$.
-	\item This implies (I think) that primary pulse solution $q_1$ is nondegenerate, i.e. 
+	\item $A(Q_1(n); \mu)$ is invertible for all $n$. We need this so we can run the system backwards as well.
+	\item For some $\mu$, the variational equation $V(n+1) = A(q_1(n; \mu) V(n)$ has a unique bounded solution $S_1(n)$. This implies (I think) that primary pulse solution $q_1$ is nondegenerate, i.e. 
 	\[
 	T_{Q_1(0)}W^s(0, \mu) \cap T_{Q_1(0)}W^u(0, \mu) = \text{span }\{ S_1(0) \}
 	\]
 \end{enumerate}
 \end{hypothesis}
 
-Consider the variational and adjoint variational equations, which come from the linearization about the primary pulse $q_1(n)$.
+Consider the variational and adjoint variational equations, which come from the linearization about the primary pulse $Q_1(n)$.
 
 \begin{align}
-V(n+1) &= A(q_1(n); \mu) V(n) \label{vareq} \\
-Z(n+1) &= [A(q_1(n); \mu)^*]^{-1} Z(n) \label{adjvareq}
+V(n+1) &= A(Q_1(n); \mu) V(n) \label{vareq} \\
+Z(n+1) &= [A(Q_1(n); \mu)^*]^{-1} Z(n) \label{adjvareq}
 \end{align}
 
-From Hypothesis \ref{initialhyp}, we assume that there is a unique bounded solutions $S_1(n)$ to \eqref{vareq}. This should (hopefully) imply that there is a unique bounded solution $Z_1(n)$ to \eqref{adjvareq}. If $-q_1(n)$ is a solution to \eqref{latticePDE}, we will also assume that $-S_1(n)$ and $-Z_1(n)$ are the unique bounded solutions to 
+From Hypothesis \ref{initialhyp}, we assume that there is a unique bounded solutions $S_1(n)$ to \eqref{vareq}. This should (hopefully) imply that there is a unique bounded solution $Z_1(n)$ to \eqref{adjvareq}. If $-q_1(n)$ is also an equilibrium solution to \eqref{latticePDE}, we will also assume that $-S_1(n)$ and $-Z_1(n)$ are the unique bounded solutions to 
 
 \begin{align}
-V(n+1) &= A(-q_1(n); \mu) V(n) \label{minusvareq} \\
-Z(n+1) &= [A(-q_1(n); \mu)^*]^{-1} Z(n) \label{minusadjvareq}
+V(n+1) &= A(-Q_1(n); \mu) V(n) \label{minusvareq} \\
+Z(n+1) &= [A(-Q_1(n); \mu)^*]^{-1} Z(n) \label{minusadjvareq}
 \end{align}
 
 Thus, we can decompose the tangent space at $\pm Q_1(0)$ according to
@@ -364,7 +396,7 @@ the evolution operator is given by
 If $V(n)$ is a solution to \eqref{diffeq2} and $Z(n)$ is a solution to \eqref{adjeq2}, then the inner product $\langle V(n), Z(n) \rangle$ is constant in $n$.
 
 \begin{proof}
-Since evolving a difference equation is just iterating a map a finite number of times, the definition makes sense. We can easily check that this defines a flow. Let $\Psi(m, n)$ be the evolultion operator for the adjoint equation \eqref{adjeq2}. Then since $Z(n) = A(n)^* Z(n+1)$, for $m < n$ we have
+Since evolving a difference equation is just iterating a map a finite number of times, the definition makes sense. We can easily check that this defines a flow. Let $\Psi(m, n)$ be the evolution operator for the adjoint equation \eqref{adjeq2}. Then since $Z(n) = A(n)^* Z(n+1)$, for $m < n$ we have
 
 \begin{align*}
 \Psi(m, n) &= A(m)^* \dots A(n-2)^* A(n-1)^* \\
@@ -503,26 +535,26 @@ N_i^+ &= \lfloor \frac{N_i}{2} \rfloor \\
 N_i^- &= N_i - N_i^+
 \end{align*}
 
-In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. Then we can write the $m-$pulse $q_m(n)$ piecewise on the $2m$ intervals $\{ [-N_{i-1}^-, 0], [0, N_i^+] \}_{i=1, \dots, n}$ as
+In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. Then we can write the $m-$pulse $Q_m(n)$ piecewise on the $2m$ intervals $\{ [-N_{i-1}^-, 0], [0, N_i^+] \}_{i=1, \dots, n}$ as
 
 \begin{align}\label{qmpiecewise}
-q_m(n) =
+Q_m(n) =
 \begin{cases}
-c_i q_1(n) + \tilde{q}_i^-(n) & n = [-N_{i-1}^-, 0] \\
-c_i q_1(n) + \tilde{q}_i^+(n) & n = [0, N_i^+] \\
+c_i Q_1(n) + \tilde{Q}_i^-(n) & n = [-N_{i-1}^-, 0] \\
+c_i Q_1(n) + \tilde{Q}_i^+(n) & n = [0, N_i^+] \\
 \end{cases}
 \end{align}
 
-where $q_1(n)$ is the primary pulse solition, and the pieces are spliced together end-to-end.\\
+where $Q_1(n)$ is the primary pulse solution, and the pieces are spliced together end-to-end.\\
 
 Consider the variational and adjoint variational equations
 
 \begin{align}
-V(n+1) &= A(q_1(n); \mu) V(n) \label{vareq} \\
-Z(n+1) &= [A(q_1(n); \mu)^*]^{-1} Z(n) \label{adjvareq}
+V(n+1) &= A(Q_1(n); \mu) V(n) \label{vareq} \\
+Z(n+1) &= [A(Q_1(n); \mu)^*]^{-1} Z(n) \label{adjvareq}
 \end{align}
 
-for the same value of $\mu$ as in Hypothesis \ref{initialhyp}. Let $\Phi(m, n)$ be the evolution operator for \eqref{vareq}. By Lemma \ref{dichotomy}, equation \eqref{vareq} has expontential dichotomies on $\Z^+$ and $\Z^-$. Using the notation and constants from that lemma and noting that the asymptotic matrix $A_\infty(\mu)$ is the same at both ends, let
+for the same value of $\mu$ as in Hypothesis \ref{initialhyp}. Let $\Phi(m, n)$ be the evolution operator for \eqref{vareq}. By Lemma \ref{dichotomy}, equation \eqref{vareq} has exponential dichotomies on $\Z^+$ and $\Z^-$. Using the notation and constants from that lemma and noting that the asymptotic matrix $A_\infty(\mu)$ is the same at both ends, let
 
 \begin{align*}
 \alpha &= \min \{ \alpha^s, \alpha^u \} > 0 \\
@@ -530,17 +562,16 @@ r &= \max \{ r^s, 1/r^u \} < 1 \\
 N &= \min \{ N_i^\pm \}
 \end{align*}
 
-For now, we make the following hypothesis about the remainder tems in the piecewise $m-$pulse (analagous to (2.6) in San98).
+Recall that from Hypothesis \ref{multiexist}, we have the following bounds on the remainder terms in the piecewise $m-$pulse $Q_m(n)$.
 
-\begin{hypothesis}\label{qbounds}We assume the following bounds hold for \eqref{qmpiecewise}
 \begin{enumerate}[(i)]
 \item $q_1(n) = \mathcal{O}(r^n)$
-\item $||\tilde{q}|| \leq C r^N$
-\item $|\tilde{q}_{i+1}^-(-N_i^-) - q_1(N_i^+)|| \leq C r^{2N}$ 
-\item $|\tilde{q}_i^+(N_i^+) - q_1(-N_i^-)|| \leq C r^{2N}$
+\item $||\tilde{Q}|| \leq C r^N$
+\item $|\tilde{Q}_{i+1}^-(-N_i^-) - c_i Q_1(N_i^+)|| \leq C r^{2N}$ 
+\item $|\tilde{Q}_i^+(N_i^+) - c_{i+1} Q_1(-N_i^-)|| \leq C r^{2N}$
 \end{enumerate}
-We assume the same relationships hold for $Z_1(n)$, $S_1(n)$ and $T_1(n)$, which are defined above.
-\end{hypothesis}
+
+We assume the same relationships hold for $Z_1(n)$, $S_1(n)$ and $T_1(n)$, which are defined above.\\
 
 We now make a piecewise ansatz similar to that in San98. There are two different cases, depending on which assumption we use from Hypothesis \ref{melnikovhyp}. For case (i), we make the piecewise ansatz
 
@@ -604,7 +635,7 @@ D_i d &= [ c_{i+1} S_1(-N_i^-) + \tilde{S}_{i+1}^-(-N_i^-)] d_{i+1}
 - \lambda[ c_i T_1(N_i^+) + \tilde{T}_i^+(N_i^+)] d_i 
 \end{align*}
 
-A solution to our system will generically have $n$ jumps at $n = 0$. Thus we have a soluton if and only if the $n$ jump conditions are satisfied.
+A solution to our system will generically have $n$ jumps at $n = 0$. Thus we have a solution if and only if the $n$ jump conditions are satisfied.
 
 \begin{equation}\label{jumpcond}
 \xi_i = \langle Z_1(0), W_i^+(0) - W_i^-(0) \rangle = 0
@@ -1457,7 +1488,7 @@ Numerics suggests that $M_2 > 0$ (and we probably cannot show that?) We argued a
 
 We could probably get a similar result for $m-$pulses (we expect such a result) if we could come up with a nice way to compute the determinant.\\
 
-The stability result we get matches the numerics; in particular, the eigenvalues from Matlab's \texttt{eig} are located where precicted. One last check is to look at the decay rate of the magnitude of the interaction eigenvalues. For the numerics, we look at $\omega = 1$ and $\epsilon = 1$.\\
+The stability result we get matches the numerics; in particular, the eigenvalues from Matlab's \texttt{eig} are located where predicted. One last check is to look at the decay rate of the magnitude of the interaction eigenvalues. For the numerics, we look at $\omega = 1$ and $\epsilon = 1$.\\
 
 Looking at our expression for $\lambda$, we see that the magnitude of $\lambda$ is proportional to $\sqrt{a_1}$. Recall 
 
