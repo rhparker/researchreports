@@ -1507,6 +1507,80 @@ Thus if we plot $\log \lambda$ vs $N^+$, we should get a slope of $\log r$.
 
 Slope of best-fit line is $-0.9660$, $\log r = -0.9206$, error is about $0.05$, which is great!
 
+\subsection*{Discrete S-L problem}
+
+To leading order, we need to solve
+
+\begin{align*}
+A &= \begin{pmatrix}
+-c_2 a_1 - c_1 \mu & c_2 a_1 & & &  \\
+c_1 a_1 & -c_1 a_1 - c_3 a_2 - c_2 \mu & c_3 a_2 \\
+& c_2 a_2 & -c_2 a_2 - c_4 a_3 - c_3 \mu & c_4 a_3 \\
+& \ddots & & \ddots \\
+& & & c_{m-1} a_{m-1} & -c_{m-1} a_{m-1} - c_m \mu \\
+\end{pmatrix}
+\begin{pmatrix}d_1 \\ d_2 \\ d_3 \\ \vdots \\ d_m \end{pmatrix} 
+ = 0
+\end{align*}
+
+The inner rows of this (i.e. all except for the first and last) satisfy the difference equation
+
+\[
+c_{j-1} a_{j-1} d_{j-1} - (c_{j-1}a_{j-1} + c_{j+1}a_j + c_j \mu) d_j
++ c_{j+1} a_j d_{j+1} = 0
+\]
+
+Multiplying this by $c_j$ and noting that $c_j^2 = 1$, we have
+
+\[
+c_{j-1} c_j a_{j-1} d_{j-1} - c_{j-1} c_j a_{j-1} d_j - c_j c_{j+1} a_j d_j
++ c_j c_{j+1} a_j d_{j+1} = \mu d_j
+\]
+
+Let $p_j = c_j c_{j+1} a_j$. Then we can write this as
+
+\[
+p_{j-1} d_{j-1} - p_{j-1} d_j - p_j d_j
++ p_j d_{j+1} = \mu d_j
+\]
+
+which is of the form
+
+\[
+\nabla( p_j \Delta d_j ) = \mu d_j
+\]
+
+where $\Delta$ is the forward difference operator $\Delta f(j) = f(j+1) - f(j)$ and $\nabla$ is the backward difference operator $\nabla f(j) = f(j) - f(j-1)$. This is in the form of a Sturm-Liouville difference equation $\nabla( p_j \Delta d_j ) + q_j d_j = \mu w_j d_j$ with $q_j = 0$ and $w_j = 0$. To complete the S-L problem, we need boundary conditions, which we get from the first and last lines of the matrix equation above. To do this, we extend the difference equation to $j = 1$ and $j = m$, which will give us terms involving $d_0$ and $d_{m+1}$. We then impose conditions so that these are equivalent to the first and last lines. For the first line, the matrix equation gives us
+
+\[
+-p_1 d_1 + p_1 d_2 = \mu d_1
+\]
+
+Since the difference equation evaluated at $j = 1$ is
+
+\[
+p_0 d_0 - p_0 d_1 - p_1 d_1 + p_1 d_2 = \mu d_1
+\]
+
+we take the Dirichlet boundary condition $d_0 = 0$. Similarly, we take $d_{m+1} = 0$. Thus we have the S-L problem
+
+\begin{align*}
+\nabla( p_j \Delta d_j ) &= \mu d_j && j = 1, \dots, m \\
+d_0 &= 0 \\
+d_{m+1} &= 0
+\end{align*}
+
+where $p_j = c_j c_{j+1} a_j$.
+
+
+
+
+
+
+
+
+
+
 \section*{Lin for AL-dNLS}
 
 Since we have two kernel eigenfunctions, we make the piecewise ansatz
@@ -1535,7 +1609,7 @@ I think what happens is that, due to the structure (symplectic?) of AL-dNLS, the
 \xi_i \approx c_{i+1} \langle Z_1(N_i^+), S_1(-N_i^-) \rangle (d_{i+1} - d_i)
 + c_{i-1} \langle Z_1(N_{i-1}^-), S_1(N_{i-1}^+) \rangle (d_i - d_{i-1}) - c_i \lambda M_1 \\
 \tilde{\xi}_i \approx c_{i+1} \langle Z_2(N_i^+), S_2(-N_i^-) \rangle (\tilde{d}_{i+1} - \tilde{d}_i)
-+ c_{i-1} \langle Z_2(N_{i-1}^-), S_2(N_{i-1}^+) \rangle (\tilde{d}_i - \tilde{d}_{i-1}) - c_i \lambda Melnikov
++ c_{i-1} \langle Z_2(N_{i-1}^-), S_2(N_{i-1}^+) \rangle (\tilde{d}_i - \tilde{d}_{i-1}) - c_i \lambda M_1
 \end{align*}
 
 \end{document}
