@@ -1117,7 +1117,7 @@ Up to this point, given $\lambda$ and $d$, we have found a unique solution to ou
 (a, b, w) = (A_3(\lambda)(d), B_1(\lambda)(d), W_3(\lambda)(d))
 \]
 
-Such a solultion will have $n-1$ jumps in the direction of $Z_1(0)$, which are given by
+Such a solution will have $n-1$ jumps in the direction of $Z_1(0)$, which are given by
 
 \[
 \xi_i = \langle Z_1(0), W_i^+(0) - W_i^-(0) \rangle
@@ -1162,7 +1162,7 @@ W_i^+(0) &= b_i^+ + \Phi_u^+(0, N_i^+; c_i) a_i^+ \\
 [(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
 \end{align*}
 
-When we take the inner product with $Z_1(0)$, the $b_i^\pm$ terms will vanish since they lie in spaces orthgonal to $Z_1(0)$. For the terms involving $a$, we substitute $A_4$ from Lemma \ref{inv3} to get
+When we take the inner product with $Z_1(0)$, the $b_i^\pm$ terms will vanish since they lie in spaces orthogonal to $Z_1(0)$. For the terms involving $a$, we substitute $A_4$ from Lemma \ref{inv3} to get
 
 \begin{align*}
 \langle Z_1(0), &\Phi_s^-(0, -N_{i-1}^-; c_{i-1}) a_{i-1}^- \rangle =
@@ -1367,7 +1367,7 @@ and the remainder term has bound
 \end{align}
 
 \begin{proof}
-This follows from Lemma \ref{jumpcond2} together with the fact that the matrix equation $(A - M_2 \lambda^2 I + R(\lambda) )d = 0$ has a nontrivial solution if and only if its determinant is 0.
+This follows from Lemma \ref{jumpcond2} together with the fact that the matrix equation $(A - M_2 \lambda^2 \text{diag}(c_1, \dots, c_m) + R(\lambda) ) = 0$ has a nontrivial solution if and only if its determinant is 0.
 \end{proof}
 
 \end{theorem}
@@ -1507,12 +1507,12 @@ Thus if we plot $\log \lambda$ vs $N^+$, we should get a slope of $\log r$.
 
 Slope of best-fit line is $-0.9660$, $\log r = -0.9206$, error is about $0.05$, which is great!
 
-\subsection*{Discrete S-L problem}
+\subsection*{Multipulses}
 
 To leading order, we need to solve
 
 \begin{align*}
-A &= \begin{pmatrix}
+\begin{pmatrix}
 -c_2 a_1 - c_1 \mu & c_2 a_1 & & &  \\
 c_1 a_1 & -c_1 a_1 - c_3 a_2 - c_2 \mu & c_3 a_2 \\
 & c_2 a_2 & -c_2 a_2 - c_4 a_3 - c_3 \mu & c_4 a_3 \\
@@ -1570,15 +1570,138 @@ d_0 &= 0 \\
 d_{m+1} &= 0
 \end{align*}
 
-where $p_j = c_j c_{j+1} a_j$.
+where $p_j = c_j c_{j+1} a_j$.\\
 
+We might be able to get away without using discrete S-L theory. In our matrix equation, multiply row $j$ by $c_j$ to get
 
+\begin{align*}
+\begin{pmatrix}
+-c_1 c_2 a_1 - \mu & c_1 c_2 a_1 & & &  \\
+c_1 c_2 a_1 & -c_1 c_2 a_1 - c_2 c_3 a_2 - \mu & c_2 c_3 a_2 \\
+& c_2 c_3 a_2 & -c_2 c_3 a_2 - c_3 c_4 a_3 - \mu & c_3 c_4 a_3 \\
+& \ddots & & \ddots \\
+& & & c_{m-1} c_m a_{m-1} & -c_{m-1} c_m a_{m-1} - \mu \\
+\end{pmatrix}
+\begin{pmatrix}d_1 \\ d_2 \\ d_3 \\ \vdots \\ d_m \end{pmatrix} 
+ = 0
+\end{align*}
 
+Let $p_j = c_j c_{j+1} a_j$. Then we need to solve $(A_1 - \mu I)d = 0$, where
 
+\begin{align*}
+A_0 = 
+\begin{pmatrix}
+-p_1 & p_1 & & &  \\
+p_1 & -p_1 - p_2 & p_2 \\
+& p_2 & -p_2 - p_3  & p_3 \\
+& \ddots & & \ddots \\
+& & & p_{m-1} & -p_{m-1} \\
+\end{pmatrix}
+\end{align*}
 
+This matrix is symmetric and is the same matrix as we find in San98. $A_0$ has an eigenvalue at 0 with corresponding eigenvector $(1, 1, \dots, 1)^T$. For the remaining $m-1$eigenvalues, we use Lemma 5.4 in San98 (noting that the matrix $A_0$ there is $-A_0$ here) to conclude that  
 
+\begin{enumerate}
+	\item $A_0$ has $k_+$ negative real eigenvalues (counting multiplicity), where $k_+$ is the number of positive $p_j$.
+	\item $A_0$ has $k_-$ positive real eigenvalues (counting multiplicity), where $k_-$ is the number of negative $p_j$.
+\end{enumerate}
 
+We argued above that the $a_j$ are all negative. Thus we have
 
+\begin{align*}
+p_j > 0 &\text{ if }c_j c_{j+1} = -1 \\
+p_j < 0 &\text{ if }c_j c_{j+1} = 1
+\end{align*}
+
+which implies that $c_j c_{j+1} = -1$ corresponds to a negative real eigenvalue of $A_0$ and $c_j c_{j+1} = 1$ corresponds to a positive real eigenvalue. We conclude that $A_0$ has one eigenvalue at 0; $k$ negative eigenvalues, where $k$ is the number of sign changes in the $m-$component vector $(c_1, c_2, \dots, c_m)$ with $c_j = \pm 1$; and $m - k - 1$ negative eigenvalues. Let $0, \mu_1, \dots, \mu_{m-1}$ be the eigenvalues of $A_0$. We will need the fact that these eigenvalues are distinct, so we take that as a hypothesis. We might be able show that using discrete S-L theory.
+
+\begin{hypothesis}\label{A0distincteigs}
+The eigenvalues $0, \mu_1, \dots, \mu_{m-1}$ of $A_0$ are distinct.
+\end{hypothesis}
+
+Since what we have is $(A_0 - \lambda^2 M_2 I)$ instead of $(A_0 - \mu I)$,  
+$(A_0 - \lambda^2 M_2 I) = 0$ if and only if $\lambda = 0$ or $\lambda = \lambda_j^\pm$, where 
+
+\begin{align*}
+\lambda_j^\pm &= \pm \sqrt{\mu_j / M_2} && j = 1, \dots, m-1
+\end{align*}
+
+Finally, we show that the actual eigenvalues are close to $\lambda_j^\pm$. To do that, recall that by Theorem \ref{jumpmatrix}, $\lambda$ is an eigenvalue if and only if $E(\lambda) = 0$, where
+
+\[
+E(\lambda) = \det(A - M_2 \lambda^2 \text{diag}(c_1, \dots, c_m) + R(\lambda) )
+\]
+
+and 
+
+\begin{align*}
+|R(\lambda)(d)| \leq C\left( (r^N + |\lambda|)^3 \right)
+\end{align*}
+
+Multiply row $j$ of $A - M_2 \lambda^2 \text{diag}(c_1, \dots, c_m) + R(\lambda)$ by $c_j$ to get the equivalent problem
+
+\[
+(A_0 - M_2 \lambda^2 I + R_0(\lambda))d = 0
+\]
+
+where $R_0(\lambda)$ has the same order as $R(\lambda)$. Thus it suffices to show $E_0(\lambda) = 0$, where
+
+\[
+E_0(\lambda) = \det (A_0 - M_2 \lambda^2 I + R_0(\lambda))
+\]
+
+We know from above that $\det (A_0 - M_2 \lambda^2 I) = 0$ for $\lambda = \lambda_j^\pm$ and $\lambda = 0$. Next, we rescale our equation. Let
+
+\begin{align*}
+A_0 = r^{-2N} \tilde{A} \\
+\lambda = r^{-N} \tilde{\lambda} \\
+R_0(\lambda) = r^{-3N} \tilde{R}(\lambda)
+\end{align*}
+
+Dividing by $r^{-2N}$, we get the equivalent problem
+
+\[
+(\tilde{A} - M_2 \tilde{\lambda}^2 I + r^{-N} \tilde{R}(\lambda))d = 0
+\]
+
+Let $\epsilon = r^{-N}$. Then it suffices to show $\tilde{E}(\lambda; \epsilon) = 0$, where
+
+\[
+\tilde{E}(\lambda; \epsilon) = \det(\tilde{A} - M_2 \tilde{\lambda}^2 I + r^{-N} \tilde{R}(\lambda))
+\]
+
+For $j = 1, \dots, m-1$, let 
+
+\[
+\lambda_j^\pm = r^{-N} \tilde{\lambda}_j^\pm
+\]
+
+Then $\tilde{E}(\tilde{\lambda}_j^\pm; 0) = 0$. By Hypothesis \ref{A0distincteigs}, we are assuming the eigenvalues of $A_0$ are distinct, thus 
+
+\[
+\frac{\partial}{\partial \tilde{\lambda}} \tilde{E}(\tilde{\lambda}_j^\pm; 0) \neq 0
+\]
+
+Thus, by the IFT, we can solve for $\tilde{\lambda}$ as a function of $\epsilon$ near $(\tilde{\lambda}, \epsilon) = (\tilde{\lambda}_j^\pm; 0)$. Expanding $\tilde{\lambda}(\epsilon)$ in a Taylor series about $\epsilon = 0$ and taking $\epsilon = r^{-N}$ gives us
+
+\begin{equation*}
+\tilde{\lambda}_j^\pm(N) = \tilde{\lambda}_j^\pm + \mathcal{O}(r^{-N})
+\end{equation*}
+
+Undoing the scaling, we have
+
+\begin{align*}
+\lambda^\pm_j(N) &= \lambda^\pm(N) + \mathcal{O}(r^{-N}) \\
+&= \pm \sqrt{\frac{\mu_j}{M_2}} + \mathcal{O}(r^{-3N}) 
+\end{align*}
+
+By Hamiltonian symmetry, eigenvalues must come in quartets $\pm a \pm i b$. Since the $\mu_j$ are distinct these only come in pairs, the eigenvalues $\lambda^\pm(N)$ must be either real or purely imaginary. We conclude that there is an eigenvalue at $\lambda = 0$ with algebraic multiplicity 2 (the eigenfunctions are known) and $2m - 2$ eigenvalues at $\lambda = \pm \lambda_j(N)$, where $j = 1, \dots, m-1$ and 
+
+\begin{align*}
+\lambda_j(N) &= \sqrt{\frac{\mu_j}{M_2}} + \mathcal{O}(r^{-3N}) 
+\end{align*}
+
+where $\mu_j$ is an eigenvalue of $A_0$. These are either real or purely imaginary, and remainder term cannot move these off of the real or imaginary axis. Let $k$ be the number of sign changes in the $m-$component vector $(c_1, c_2, \dots, c_m)$, with $c_j = \pm 1$. Then $k$ of these pairs are purely imaginary, and $m - k - 1$ of these pairs are real.
 
 
 \section*{Lin for AL-dNLS}
