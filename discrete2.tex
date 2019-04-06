@@ -680,16 +680,16 @@ where $r$ is defined in Hypothesis \ref{initialhyp2}. Finally, let $P_0^{s/u}$ b
 | P_\pm^{s/u}(n) - P_0^{s/u} | \leq C r^{-|n|}
 \end{align}
 
-Since $V(n)$ is a solution to the variational equation with $\theta = 0$ if and only if $T(\theta_i) V(n)$ is a solution to the variational equation with $\theta = \theta_i$, the evolution operator for the variational equation with $\theta = \theta_i$ is
+Using the expression for $A(n; \theta_i)$ above, the evolution operator for the variational equation with $\theta = \theta_i$ is given by 
 
 \[
-\Phi(m, n; \theta_i) = T(\theta_i) \Phi(m,n)
+\Phi(m, n; \theta_i) = T(\theta_i) \Phi(m,n) T(-\theta_i)
 \]
 
 For the projections in the exponential dichotomy, we have
 
 \[
-P_\pm^{s/u}(m; \theta_i) = T(\theta_i) P_\pm^{s/u}(m)
+P_\pm^{s/u}(m; \theta_i) = T(\theta_i) P_\pm^{s/u}(m) T(-\theta_i)
 \]
 
 \subsubsection{Fixed Point Formulation and Inversion}
@@ -793,6 +793,7 @@ In terms of $Q(\pm N_i^\pm)$, we can write these as
 a_i^- &= T(\theta_i) Q(N_i^+) + \tilde{a}_i^- + \mathcal{O}(r^{-2N}) \\
 a_i^+ &= T(\theta_{i+1}) Q(-N_i^-) + \tilde{a}_i^+ + \mathcal{O}(r^{-2N}) \\
 \end{align*}
+CHECK THE SIGN ON THESE
 
 where $\tilde{a}_i^\pm$ is the same and has the same bound.
 
@@ -884,6 +885,18 @@ a_i^+ &= T(\theta_{i+1}) Q(-N_i^-) + \tilde{a}_i^+ + \mathcal{O}(r^{-2N}) \\
 
 \end{proof}
 \end{lemma}
+
+% jump in center
+
+Evaluating the fixed point equations at 0 and subtracting, we have
+
+\begin{align*}
+W_i^+(0) &- W_i^-(0) = P_s^+(0; \theta_i) b_i^+ - P_u^-(0; \theta_i) b_i^- 
++ \Phi_u^+(0, N_i^+; \theta_i) a_i^+ - \Phi_s^-(0, -N_{i-1}^-; \theta_i) a_{i-1}^- \\
+&- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; \theta_i) G_i^+(W_i^+(j)) 
+- \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; \theta_i) G_i^-(W_i^-(j)) \\
+\end{align*}
+
 
 
 
