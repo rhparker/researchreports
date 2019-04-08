@@ -162,7 +162,7 @@ The next hypothesis addresses the hyperbolicity of the equilibrium of \eqref{gen
 0 is a hyperbolic equilibrium of \eqref{genODE}, i.e. $DF(0)$ has no eigenvalues on the imaginary axis. Furthermore, the spectrum of $DF(0)$ contains a quartet of simple eigenvalues $\pm \alpha \pm \beta i$, $\alpha, \beta > 0$. For any other eigenvalue $\nu$ of $DF(0)$, $|\text{Re }\nu| > \alpha$.
 \end{hypothesis}
 
-We note that since we have a Hamiltonian system by Hypothesis \ref{Hhyp}, the existence of an eigenvalue $\alpha + \beta i$ implies the existence of the entire quartet.\\
+We note that since we have a Hamiltonian system by Hypothesis \ref{Hhyp}, the existence of an eigenvalue $\alpha + \beta i$ implies the existence of the entire quartet $\pm \alpha \pm \beta i$.\\
 
 Let $W^s(0)$ and $W^u(0)$ be the stable and unstable manifolds of the equilibrium at 0. By Hypothesis \ref{Hhyp}, $W^s(0), W^u(0) \subset H^{-1}(0)$, where $H^{-1}(0)$ is the 0-level set of the energy $H$. By reversibility from Hypothesis \ref{reversiblehyp}, $\dim W^s(0) = m$ and $\dim W^u(0) = m$.
 
@@ -187,7 +187,7 @@ T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
 \end{equation}
 \end{hypothesis}
 
-The linearization of \eqref{ODEonR} about a solution $u^*(x)$ to \eqref{ODEonR} is the eigenvalue problem
+Let $u^*(x)$ be a solution to \eqref{ODEonR} which exponentially decays to 0 at both ends. The linearization of \eqref{ODEonR} about $u^*(x)$ is the eigenvalue problem
 
 \begin{equation}\label{ODEeig}
 E''(u^*(x)) v = \lambda v
@@ -198,7 +198,7 @@ where $E''(u^*): H^{2m}(\R) \rightarrow H^{2m}(\R)$ is the Hessian of the energy
 We can write the eigenvalue problem as the first-order system
 
 \begin{equation}\label{ODEeig2}
-V' = ( DF(U^*)V + \lambda B)V 
+V' = ( DF(U^*)V + \lambda B) V 
 \end{equation}
 
 where $B$ is the $2m \times 2m$ constant coefficient matrix
@@ -221,7 +221,13 @@ c_0 + f_0(x) & 0 & c_2 + f_2(x) &
 \end{pmatrix}
 \end{equation}
 
-where the $c_i$ are constants, and $f_i(x)$ and all of its derivatives decay exponentially to 0 with rate $\alpha$. By the Hypothesis \ref{reversiblehyp}, no odd-order derivatives are involved, thus $c_j = 0$ and $f_j(x) = 0$ for $j$ odd.\\
+where the $c_i$ are constants, and the $f_i(x)$ decay exponentially to 0 since they involve $u^*(x)$ and its derivatives. By the Hypothesis \ref{reversiblehyp}, no odd-order derivatives are involved, thus $c_j = 0$ and $f_j(x) = 0$ for $j$ odd. $DF(U^*)$ is exponentially asymptotic to $DF(0)$, which has characteristic polynomial
+
+\begin{equation}\label{charpolyDF0}
+p_1(\nu) = \nu^{2m} - c_{2m-2} \nu^{2m-2} - \dots - c_2 \nu^2 - c_0
+\end{equation}
+
+By Hypothesis \label{hypeq}, $p_1(\nu)$ has roots at $\nu = \pm \alpha \pm i \beta$, and for all other roots $\nu$ of $p_1(\nu)$ we have $|\text{Re }\nu| > \alpha$.\\
 
 For the variational equation, we take $U^* = Q$ and $\lambda = 0$ in \eqref{ODEeig2}.
 
@@ -299,27 +305,27 @@ For the family of $2-$periodic solutions, we actually have more information (inc
 
 \subsection{Stability Problem}
 
-Now that have shown existence of periodic multi-pulse solutions, we will now look at their stability. For linear stability, this involves finding the eigenvalues of \eqref{genPDE}. Let $u^*(x)$ be an equilibrium solution to \eqref{genPDE}, so that $U^*(x) = (u^*(x), \partial_x u^*(x), \dots, \partial_x^{2m}(x))$ is a solution to \eqref{genODE}. Substituting the standard linearization ansatz $u(x, t) = u^*(x) + \epsilon e^{\lambda t}v(x)$ into \eqref{genPDE} and keeping terms of order $\epsilon$, we obtain the PDE eigenvalue problem
+Now that have shown existence of periodic multi-pulse solutions, we will now look at their stability. For linear stability, this involves finding the eigenvalues of \eqref{genPDE}. Let $u^*(x)$ be any exponantially localized equilibrium solution to \eqref{genPDE}. Substituting the standard linearization ansatz $u(x, t) = u^*(x) + \epsilon e^{\lambda t}v(x)$ into \eqref{genPDE} and keeping terms of order $\epsilon$, we obtain the PDE eigenvalue problem
 
 \begin{equation}\label{PDEeig}
 \partial_x E''(u^*(x)) v = \lambda v
 \end{equation}
 
-which is just \eqref{ODEeig} with a $\partial_x$ out front. We can write this as a first order system 
+which is just \eqref{ODEeig} with a $\partial_x$ out front. From above, we have $[\partial_x E''(u^*(x))] \partial_x u^*(x) = 0$. Letting $U^*(x) = (u^*(x), \partial_x u^*(x), \dots, \partial_x^{2m}u^*(x))$, we can write \eqref{PDEeig} as the first order system 
 
 \begin{equation}\label{PDEeig2}
-V' = ( A(u^*)V + \lambda B)V 
+V' = ( A(U^*)V + \lambda B)V 
 \end{equation}
 
-where $A(u^*)$ is the $(2m+1) \times (2m+1)$ matrix
+where $A(U^*)$ is the $(2m+1) \times (2m+1)$ matrix
 
-\begin{equation}
-A(Q) = \begin{pmatrix}
-0 & 1 & \dots & 0 & 0 \\
-0 & 0 & \dots & 0 & 0 \\
-& \ddots & \ddots & \ddots & & \\
-0 & 0 & \dots & 0 & 1 \\
-f_0'(x) & c_0 + f_0(x) + f_1'(x) & \dots & c_{n-2} + f_{n-2}(x) + f_{n-1}'(x) & c_{n-1} + f_{n-1}(x)
+\begin{equation}\label{DefA}
+A(U^*) = \begin{pmatrix}
+0 & 1 & 0 & 0 & \dots & 0 & 0 \\
+0 & 0 & 0 & 0 & \dots & 0 & 0 \\
+& \ddots & & \ddots & \ddots & & \\
+0 & 0 & 0 & 0 & \dots & 0 & 1 \\
+f_0'(x) & c_0 + f_0(x) & f_2'(x) & c_2 + f_2(x) & \dots & f_{2m-2}'(x) & c_{2m-2} + f_{2m-2}(x) & f_{2m}'(x)
 \end{pmatrix}
 \end{equation}
 
@@ -330,209 +336,132 @@ B = \begin{pmatrix}0 & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0 \\  &
 \vdots & 0 & \vdots & \\0 & 0 & 0 & 0 & 0 \\1 & 0 & 0 & 0 & 0 \end{pmatrix} 
 \end{equation}
 
-(We keep the notation $B$ for the matrix since it has exactly the same form as the matrix $B$ in the previous section.)
+(We keep the notation $B$ for the matrix since it has exactly the same form as the matrix $B$ in the previous section.) The terms $c_i$ and $f_i(x)$ in the bottom row of $A(U^*)$ are the same as in those in the bottom row of $DF(U^*)$ from the previous section. Since $u^*(x)$ is exponentially localized, $A(U^*)$ is exponentially asymptotic to $A(0)$, which has characteristic polynomial
 
-WE STOPPED HERE
-
-We can also write the linearization about the primary pulse solution $q(x)$ as the eigenvalue problem on $\R$
-
-\begin{equation}\label{eigonR}
-[ \partial_x E''(q) ] v(x) = \lambda v(x)
+\begin{equation}\label{charpolyDF0}
+p_2(\nu) = -\nu^{2m+1} + c_{2m-2} \nu^{2m-1} + \dots + c_2 \nu^3 - c_0 \nu = \nu p_1(\nu)
 \end{equation}
 
-It follows from above that $[ \partial_x E''(q) ] q_x = 0$.
-\\
+where $p_1(\nu)$ is the characteristic polynomial of $DF(0)$ from the previous section. Thus $A(0)$ has a simple eigenvalue at 0, and the rest of the eigenvalues of $A(0)$ are the same as those of $DF(0)$. Using Hypothesis \ref{hypeq}, it follows that the spectrum of $A(0)$ contains $\{ 0, \pm \alpha \pm \beta i\}$, and for any other eigenvalue $\nu$ of $A(0)$, $|\text{Re }|\nu| > \alpha$. Since $A(0)$ is not hyperbolic, the results of San98 do not apply.\\
 
-From Hypothesis \ref{hypeq}, it follows that the spectrum of $A(0)$ contains $\{ 0, \pm \alpha \pm \beta i\}$, and for any other eigenvalue $\nu$ of $A(0)$, $|\text{Re }|\nu| > \alpha$. Since $A(0)$ is not hyperbolic, the results of San98 do not apply.\\
+Let $W^s(0)$, $W^u(0)$, and $W^c(0)$ be the stable, unstable, and center manifolds of the equilibrium at 0. By reversibility from Hypothesis \ref{reversiblehyp}, $\dim W^s(0) = m$ and $\dim W^u(0) = m$. The center manifold $W^c(0)$ is one-dimensional.\\
 
-Let $W^s(0)$, $W^u(0)$, and $W^c(0)$ be the stable, unstable, and center manifolds of the equilibrium at 0. Define the variational equation and adjoint variational equations by
+Let $Q(x) = (q(x), \partial_x q(x), \dots, \partial_x^{2m} q(x))$, where $q(x)$ is the symmetric primary pulse solution from Hypothesis \ref{qexistshyp}.\\
+
+For the variational and adjoint variational equations, we take $U^* = Q$ and $\lambda = 0$ in \eqref{PDEeig2} to get
 
 \begin{align}
 V' = A(Q) V \label{vareq2} \\
 W' = -A(Q)^* W \label{adjvareq2}
 \end{align}
 
-Then $Q'(x)$ a bounded solution to \eqref{vareq2}. Since $Q(x)$ decays to 0 exponentially at both ends, $A(Q)$ is exponentially asymptotic to the constant-coefficient matrix $A_\infty$, which has an eigenvalue of 0. \\
+$Q'(x)$ is an expontially localized solution to \eqref{vareq2}. Since $Q(x)$ is exponentially localized, it cannot involve the center manifold $W^c(0)$, thus it must lie in the intersecion of the stable and unstable manifolds. In particular, this implies that $\R Q'(0) \subset T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0)$. From Hypothesis \ref{nondegen1}, these are actually equal, which we state in the following lemma.
 
-For the primary pulse solution, we have the nondegeneracy condition
+\begin{lemma}\label{nondegenlemma}
+We have the nondegeneracy condition
 
 \begin{equation}\label{nondegen2}
 T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
 \end{equation}
 
-This follows from Hypothesis \ref{nondegen1}. To see this, if the intersection were more than one-dimensional, there would exist another solution $V(x) = (v_1, \dots, v_{2m}, v_{2m+1})^T$ to \eqref{vareq2} which would decay to 0 at both ends. It follows that $\tilde{V}(x) = (v_1, \dots, v_{2m})^T$ is a solution to \eqref{vareq1} which decays at both ends, which contradicts Hypothesis \ref{nondegen1}.
+\begin{proof}
+Since $Q(x)$ is a homoclinic orbit in the intersection of $W^u(0)$ and $W^s(0)$, $\R Q'(0) \subset T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0)$. If the intersection were more than one-dimensional, there would exist another exponentially localized solution $V(x) = (v_1, \dots, v_{2m}, v_{2m+1})^T$ to \eqref{vareq2}. It follows that $\tilde{V}(x) = (v_1, \dots, v_{2m})^T$ would be an exponentially localized solution to \eqref{vareq1}, which contradicts Hypothesis \ref{nondegen1}.
+\end{proof}
+\end{lemma}
 
-We have the following lemma regarding solutions to \eqref{vareq2} and \eqref{adjvareq2}.
+Let $V_0$ and $W_0$ be the eigenvectors of $A(Q)$ and $-A^*(Q)$ corresponding to the eigenvalue 0. From \eqref{DefA}, we can see that
 
-\begin{lemma}\label{adjsolutions}
+\begin{align}
+V_0 &= (-1/c_0, 0, 0, \dots, 0)^T \label{V0} \\
+W_0 &= (-c_0, 0, -c_2, 0, -c_4, 0, \dots, 0, -c_{2m-2}, 0, 1)^T \label{W0}
+\end{align}
+
+where we have scaled $V_0$ so that $\langle V_0, W_0 \rangle = 1$. We have the following lemma regarding solutions to \eqref{vareq2} and \eqref{adjvareq2}.
+
+\begin{lemma}\label{varadjsolutions}
 \begin{enumerate}[(i)]
 \item There exists a bounded solution $V_0(x)$ of \eqref{vareq2} such that 
 \begin{equation}
 V_0(x) \rightarrow V_0 \text{ as }|x| \rightarrow \infty
 \end{equation}
-where $V_0$ is the eigenvector of $A_\infty$ corresponding to the eigenvalue 0.
 
-\item There exists exactly two bounded solutions $\Psi(x)$ and $\Psi^c(x)$ to \eqref{adjvareq2}. For $\Psi(x)$, $e^{\alpha |x|}\Phi(x)$ is bounded, and for $\Phi^c(x)$,
-\begin{equation}
-\Phi(x) \rightarrow W_0 \text{ as }|x| \rightarrow \infty
-\end{equation}
-where $W_0$ is the eigenvector of $A_\infty^*$ corresponding to the eigenvalue 0.
+\item There exists exactly two bounded solutions $\Psi(x)$ and $\Psi^c(x)$ to \eqref{adjvareq2}. $\Psi(x)$ is exponentially localised, i.e. $e^{\alpha |x|}\Psi(x)$ is bounded. For $\Psi^c(x)$,
+	\begin{equation}
+	\Psi^c(x) \rightarrow W_0 \text{ as }|x| \rightarrow \infty
+	\end{equation}
 \end{enumerate}
+
 \begin{proof}
-I believe the rough idea is as follows. Let $m^{s/u} = \dim W^{s/u}(0)$, so we have $m^s + m^u = 2m$. We know that $\dim W^c_{loc}(0) = 1$, $\dim W^{cs}(0) = m^s + 1$, and $\dim W^{cu}(0) = m^u + 1$.
+
 \begin{enumerate}
-\item The adjoint variational equation \eqref{adjvareq2} comes from the equation 
-\[
+\item The adjoint variational equation \eqref{adjvareq2} is the following equation written as a first order system
+\begin{equation}\label{adj2}
 [\partial_x E''(q) ]^* v(x) = -E''(q) \partial_x v(x) = 0,
+\end{equation}
+which has exponentially decaying solution $q(x)$. Thus we have an exponentially localized solution $\Psi(x)$ to \eqref{adjvareq2} which has $q(x)$ as its $(m+1)$-th component.
+
+\item Equation \eqref{adj2} also has the constant solution 1 as a solution. Thus \eqref{adjvareq2} has a solution $\Psi^c(x)$ which has $1$ as its $(m+1)$-th component. This solution has the form
+
+\[
+\Psi^c(x) = \begin{pmatrix}
+-c_0 + g_1(x) \\ g_2(x) \\
+-c_2 + g_3(x) \\ g_4(x) \\
+\vdots \\
+-c_{2m-2} + g_{2m-1}(x) \\ g_{2m}(x) \\ 1
+\end{pmatrix}
 \]
-which has exponentially decaying solution $q(x)$. This gives us an exponentially decaying solution $\Psi(x)$ to \eqref{adjvareq2} whose $(m+1)$-th component is $q(x)$. (Alternatively, we should be able to get $\Psi(x)$ from the adjoint solution in the previous section.)
-\item $\Psi(0) \perp T_{Q(0)}W^{cs}(0) + T_{Q(0)}W^{cu}(0)$, so $\dim T_{Q(0)}W^{cs}(0) + T_{Q(0)}W^{cu}(0) \leq 2m$. This implies, via a dimension-counting argument, that $\dim T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0) = 2$. Since $\dim T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0) = 1$, we conclude that there exists $Y_0 \in T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0)$ but $Y^0 \notin T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0)$.
-\item Using this $Y_0$ as the initial condition for the variational equation \eqref{vareq2} gives us the bounded solution $V_0(x)$ in (i). For the decay to $V_0$, we might need the gap lemma (which gives this on $\R^\pm$ separately) and the symmetry of the problem.
-\item For the adjoint solution $\Psi^c(x)$, use gap lemma to get the solution separately on $\R^\pm$, then symmetry of the problem to get the result on $\R$.
+where the functions $g_j(x)$ are linear combinations of the functions $f_j(x)$ from \eqref{DefA} and their derivatives and are thus exponentially localized. Thus we see that $\Psi^c(x) \rightarrow W_0$ as $|x| \rightarrow \infty$, where $W_0$ is given by \eqref{W0}.
+
+\item Recall that $\dim W^{s/u}(0) = m$ and $\dim W^c(0) = 1$, thus $\dim W^{cs}(0) = m + 1$, and $\dim W^{cu}(0) = m + 1$. $\Psi(0) \perp T_{Q(0)}W^{cs}(0) + T_{Q(0)}W^{cu}(0)$, so $\dim T_{Q(0)}W^{cs}(0) + T_{Q(0)}W^{cu}(0) \leq 2m$. This implies, by a dimension-counting argument, that $\dim T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0) = 2$. Since $\dim T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0) = 1$ by Lemma \ref{nondegenlemma}, we conclude that there exists $Y_0 \in T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0)$ which is linearly independent from $Q'(0)$, i.e. $Y^0 \notin T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0)$.
+
+\item Using $Y_0$ as the initial condition for the variational equation \eqref{vareq2} gives us the bounded solution $V_0(x)$ in (i). For the decay to $V_0$, we might need the gap lemma (which gives this on $\R^\pm$ separately) and the symmetry of the problem.
+
 \end{enumerate}
 \end{proof}
 \end{lemma}
 
-
-From this, it follows that we can decompose the tangent space at $Q(0)$ as 
+Using Lemma \ref{nondegenlemma} and Lemma \ref{varadjsolutions}, we can decompose the tangent space at $Q(0)$ as 
 
 \begin{equation}
-\R^{2m+1} = S \oplus \R Q'(0) \oplus Y^+ \oplus Y^-
+\R^{2m+1} = Z \oplus \R Q'(0) \oplus Y^+ \oplus Y^-
 \end{equation}
 
-where $S = \spn\{ \Psi(0), \Psi^c(0) \}$, and $S \perp \R Q'(0) \oplus Y^+ \oplus Y^-$.
+where $Z = \spn\{ \Psi(0), \Psi^c(0) \}$, and $Z \perp \R Q'(0) \oplus Y^+ \oplus Y^-$.
 
-Finally, we will look at the Melnikov integrals relevant to the problem. Since $[ \partial_x L(q) ]^* = -L(q) \partial_x$, it is not hard to show that the last component of $\Psi(x)$ is $q(x)$. Thus for the lowest order Melnikov integral, we have
+Finally, we will look at the Melnikov integrals relevant to the problem. For the lowest order Melnikov integral, we have
 
-\begin{equation}
+\begin{equation}\label{M1}
 M_1 = \int_{-\infty}^\infty \langle \Psi(x), B Q'(x) \rangle =
-\int_{-\infty}^\infty q(x) \: q'(x) = 0
+\int_{-\infty}^\infty q(x) \: \partial_x q(x) = 0
 \end{equation}
 
-since $q(x)$ is an even function. From this and the Fredholm alternative, there exists a function $t(x) \in H^{2m}(\R)$ such that $[ \partial_x L(q) ]t(x) = q'(x)$. Returning to the first order system, $T = (t, t_x, \dots, \partial_x^{2m})^T$ solves 
+since $q(x)$ is an even function and the last component of $\Psi(x)$ is $q(x)$. Recall that 
+
+\[
+\ker [\partial_x E''(q)]^* = \ker(-E''(q) \partial_x) = 
+\text{span}\{ q, 1 \}
+\]
+
+Since $\langle \partial_x q, q \rangle = 0$ (from above) and $\langle \partial_x q, 1 \rangle = 0$ (since $q$ is an even function), $q \perp \ker [\partial_x E''(q)]^*$. Thus, by the Fredholm alternative, there exists a function $t(x) \in H^{2m}(\R)$ such that $[ \partial_x E''(q) ]t(x) = \partial_x q(x)$. Let $T(x) = (t(x), \partial_x t(x), \dots, \partial_x^{2m}(x))^T$. Then $T(x)$ solves the equation
 
 \begin{equation}\label{eqforT}
-T' = A(Q)T + BQ'
+T' = A(Q)T + B Q'
 \end{equation}
 
 We take the following hypothesis regarding the higher order Melnikov integral.
 
-\begin{hypothesis}\label{Melnikov2}
+\begin{hypothesis}\label{Melnikov2hyp}
 We have the following Melnikov-like expression
-\begin{equation}
-M_2 = \int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle \neq 0
+\begin{equation}\label{M2}
+M_2 = \int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle dx =
+\int_{-\infty}^\infty q(x) t(x) dx \neq 0
 \end{equation}
-
 \end{hypothesis}
 
-We can now state the stability theorem. The proof uses Lin's method to find the eigenvalues of \eqref{PDEeig}.
+We can now state the stability theorem for periodic multi-pulse solutions. The proof uses Lin's method to find the eigenvalues of \eqref{PDEeig}.
 
 % main stability theorem
 
-\begin{theorem}\label{PDEeigtheorem}
-
-Let $Q_{np}(x)$ be a $n-$periodic solution constructed according to Theorem \ref{perexist} with lengths $X_0, \dots, X_{n-1}$. Assume Hypotheses \ref{nondegen1}, \ref{adjsolutions}, and \ref{Melnikov2}.\\
-
-Then there exists $\delta > 0$ such that a bounded, nonzero solution $V$ of the eigenvalue problem 
-
-\begin{equation}
-V' = ( A(U^*)V + \lambda B)V 
-\end{equation}
-
-exists for $|\lambda| < \delta$ if and only if $\det S(\lambda) = 0$. $S(\lambda)$ is the block matrix
-
-\begin{equation}\label{blockmatrix}
-S(\lambda) = 
-\begin{pmatrix}
-K(\lambda) + C_2 & -\lambda^2 M^c I + D_1 \\
-C_3 K(\lambda) + C_4 & A - \lambda^2 M_2 I + D_2
-\end{pmatrix}
-\end{equation}
-
-where 
-
-\begin{enumerate}
-
-\item The matrix $K(\lambda)$ is given by
-
-\begin{equation}
-K(\lambda) = 
-\begin{pmatrix}
-e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
--e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
-& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
-\vdots & & \vdots & &&  \vdots \\
-& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
-\end{pmatrix}
-\end{equation}
-
-where $\nu(\lambda)$ is the small eigenvalue of the asympotic matrix $A_\infty + B \lambda$.
-
-\item The matrix $A$ is given by
-
-\begin{align*}
-A &= \begin{pmatrix}
--a_0 + \tilde{a}_1 & a_0 - \tilde{a}_1 \\
--\tilde{a}_0 + a_1 & \tilde{a}_0 - a_1
-\end{pmatrix} && n = 2 \\
-A &= \begin{pmatrix}
-\tilde{a}_{n-1} - a_0 & a_0 & & & \dots & -\tilde{a}_{n-1}\\
--\tilde{a}_0 & \tilde{a}_0 - a_1 &  a_1 \\
-& -\tilde{a}_1 & \tilde{a}_1 - a_2 &  a_2 \\
-& & \vdots & & \vdots \\
-a_{n-1} & & & & -\tilde{a}_{n-2} & \tilde{a}_{n-2} - a_{n-1} \\
-\end{pmatrix} && n > 2
-\end{align*}
-
-where
-
-\begin{align*}
-a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
-\tilde{a}_i &= \langle \Psi(-X_i), Q'(X_i) \rangle
-\end{align*}
-
-\item $M_2$ and $M^c$ are the Melnikov integrals
-
-\begin{align*}
-M_2 &= \int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle dx \\
-M^c &= \int_{-\infty}^\infty \langle \Psi^c(x), B T(x) \rangle dy
-\end{align*}
-
-\item The remainder terms have bounds
-
-\begin{align*}
-C_2 &= \mathcal{O}(e^{-\alpha X_m}) \\
-C_3 &= \mathcal{O}(|\lambda| + e^{-\alpha X_m}) I
-+ \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})( |\lambda| + e^{-\alpha X_m}))\\
-C_4 &= \mathcal{O}(e^{-\alpha X_m}(|\lambda| + e^{-\tilde{\alpha} X_m})) \\
-D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})^2) \\
-D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2) 
-\end{align*}
-
-where $X_m = \min \{X_0, \dots, X_{n-1}\}$
-
-\end{enumerate}
-
-The ``leading order'' equation \eqref{blockmatrix} is the upper triangular block equation
-
-\begin{equation}\label{blocktri}
-\begin{pmatrix}
-K(\lambda) & -\lambda^2 M^c I  \\
-0 & A - \lambda^2 MI 
-\end{pmatrix}
-\begin{pmatrix}c \\ d \end{pmatrix} = 0
-\end{equation}
-
-which has a nontrivial solution $V$ if either of the following conditions holds.
-
-\begin{enumerate}[(i)]
-\item $\nu(\lambda) = i \dfrac{n \pi}{X}, n \in \Z$ 
-\item $\det(A - \lambda^2 MI) = 0$
-\end{enumerate}
-
-where $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. The first condition gives us the essential spectrum, and the second condition gives us the point spectrum.
-
-\end{theorem}
 
 \subsection{KdV5}
 
