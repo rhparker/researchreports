@@ -123,9 +123,9 @@ M = \langle q, \partial_c q \rangle_{L^2(\R)}
 
 Returning to the linearization about the periodic multipulse $q_{np}(x)$, let $V = (v, v_x, v_{xx}, v_{xxx}, v_{xxxx})^T$, and write the eigenvalue problem $L(q_{np}(x))v(x) = \lambda v(x)$ as the first-order system
 
-\begin{align*}
+\begin{align}\label{PDEeig}
 V'(x) = A(q_{np}(x)) V(x) + \lambda B V(x)
-\end{align*}
+\end{align}
 
 where
 
@@ -607,8 +607,7 @@ A(\lambda) &= \begin{pmatrix}0 & 1 & 0 & 0 & 0 \\0 & 0 & 1 & 0 & 0 \\0 & 0 & 0 &
 \lambda & -c & 0 & 1 & 0 \end{pmatrix}
 \end{align}
 
-Let $\Lambda = (\lambda, q(x))$ be the parameter vector we will use in the Conjugation Lemma, where $q(x)$ is in the Banach space of continuous functions on $[X_{i-1}, 0]$ or $[0, X_i]$. (This requires a version of the Conjugation Lemma which allows parameters to be in an arbitrary Banach space.) Since 
-$A( q(x) ) + \lambda B$ is linear, thus analytic, in $\lambda$ and in $q(x)$, let $P_i^\pm(x; \lambda, q(x)$ be the conjugation operator for $A( q(x) ) + \lambda B$. For convenience, let  
+Let $\Lambda = (\lambda, q(x))$ be the parameter vector we will use in the Conjugation Lemma, where $q(x)$ is in the Banach space of continuous functions on $[X_{i-1}, 0]$ or $[0, X_i]$. (This requires a version of the Conjugation Lemma which allows parameters to be in an arbitrary Banach space.) Since $A( q(x) ) + \lambda B$ is linear, thus analytic, in $\lambda$ and in $q(x)$, let $P_i^\pm(x; \lambda, q(x)$ be the conjugation operator for $A( q(x) ) + \lambda B$. For convenience, let  
 
 \begin{equation}
 P_i^\pm(x; \lambda) = P^\pm(x; \lambda, q_i^\pm(x) )
@@ -622,12 +621,14 @@ P^\pm(x; \lambda) = P^\pm(x; \lambda, q(x) )
 
 Using the Conjugation Lemma, we make the substitution $W_i^\pm = P_i^\pm(x; \lambda) Z_i^\pm$. Then our system becomes
 
-\begin{align*}
-&(Z_i^\pm(x))' = A(\lambda) Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \\
-&P_i^\pm(0; \lambda) Z_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0 \\
-&P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) \in S  \\
-&P_i^+(X_i; \lambda) Z_i^+(X_i)\ - P_{i+1}^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) = D_i d
-\end{align*}
+\begin{subequations}
+\begin{align}
+&(Z_i^\pm(x))' = A(\lambda) Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \label{systemZ} \\
+&P_i^\pm(0; \lambda) Z_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0 \label{systemcenter1} \\
+&P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) \in \C \Psi(0) \oplus Y^0 \label{systemcenter2} \\
+&P_i^+(X_i; \lambda) Z_i^+(X_i)\ - P_{i+1}^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) = D_i d \label{systemmiddle}
+\end{align}
+\end{subequations}
 
 and the jump conditions become
 
@@ -664,6 +665,7 @@ We define the following.
 		\item For the small eigenvalue of $A(\lambda)$ we have $|\nu(\lambda)| < \rho$
 		\item The real part of any other eigenvalue of $A(\lambda)$ lies outside the interval $[-\alpha, \alpha]$.
 	\end{enumerate}
+	We can always choose a smaller $\delta$ later if needed.
 
 	\item Choose $X_m$ sufficiently large so that
 	\begin{equation}
@@ -779,6 +781,8 @@ Z_i^+(x) &= \Phi^u(x, X_i; \lambda) a_i^+ + \Phi^s(x, 0; \lambda) b_i^+ + \Phi^c
 &+ \lambda^2 d_i \int_{X_i}^x \Phi^c(x, y; \lambda) P_i^+(y; \lambda)^{-1} \tilde{H}_i^+(y) dy \\
 \end{align*}
 
+Note that because of the conjugation, $Z_i^\pm$ is only on the LHS of the fixed point equations, so these formulas for $Z_i^\pm$ solve \eqref{systemZ}.
+
 % match at ends
 
 \subsubsection{Matching at ends}
@@ -799,7 +803,7 @@ There exists an operator
 A_1: V_\lambda \times V_b \times V_c^- \times V_d \rightarrow V_a \times V_c^+\\
 \end{align*}
 
-such that $(a, c^+) = A_1(\lambda)(b, c^-,d)$ solves our system. This operator is analytic in $\lambda$ and linear in $(b,vc^-,d)$. Piecewise bounds for $A_1$ are given by
+such that $(a, c^+) = A_1(\lambda)(b, c^-,d)$ solves \eqref{systemmiddle} for any $(b, c^-,d)$ and $\lambda$. This operator is analytic in $\lambda$ and linear in $(b,c^-,d)$. Piecewise bounds for $A_1$ are given by
 
 \begin{align}\label{A1bound}
 |A_1&(\lambda)_i(b, c^-, d)|
@@ -1018,7 +1022,7 @@ B_1: &V_\lambda \times V_c^- \times V_d \rightarrow V_b \\
 A_3: &V_\lambda \times V_c^- \times V_d \rightarrow V_a 
 \end{align*}
 
-such that $( (a, c^+) , b ) = ( A_3(\lambda)(c^-,d), B_1(\lambda)(c^-, d) )$ solves our system. These operators are analytic in $\lambda$ and linear in $(c^-,d)$. Piecewise bounds for $B_1$ and $A_3$ are given by
+such that $( (a, c^+) , b ) = ( A_3(\lambda)(c^-,d), B_1(\lambda)(c^-, d) )$ solves \eqref{systemmiddle}, \eqref{systemcenter1}, and \eqref{systemcenter2} for any $(c^-, d)$. These operators are analytic in $\lambda$ and linear in $(c^-,d)$. Piecewise bounds for $B_1$ and $A_3$ are given by
 
 \begin{align}
 |B_1&(\lambda)_i(\tilde{c}, d)| \leq C\Big( 
@@ -1382,7 +1386,7 @@ where $M^c$ is the center Melnikov integral
 M^c =  \int_{-\infty}^\infty \langle \Psi^c(y), H(y) \rangle dy 
 \end{equation}
 
-and the remainder term $R^c_i(c^-, d)$ has bound
+and the remainder term $R^c_i(c^-, d)$ is analytic in $\lambda$, linear in $(c^-, d)$, and has bound
 
 \begin{align}\label{Rc}
 R^c&(c^-, d)_i \leq C \Big(
@@ -1721,10 +1725,10 @@ where $M$ is the higher order Melnikov integral
 M = \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy 
 \end{equation}
 
-and the remainder term has bound
+and the remainder term $R(\lambda)(c^-, d)$ is analytic in $\lambda$, linear in $(c^-, d)$, and has bound
 
 \begin{align}\label{R}
-|R(\lambda)&(\tilde{c}, d)| \leq C \Big(
+|R(\lambda)&(c^-, d)| \leq C \Big(
 (|\lambda| + e^{-\alpha X_m})(|\tilde{c}_{i-1}^+| + |\tilde{c}_{i}^-|) + (|\lambda| + e^{-\tilde{\alpha} X_m})(e^{-\alpha X_m} + |\lambda|) ( |\tilde{c}_{i-2}^+| + |\tilde{c}_{i+1}^-|) \\
 &+ (|\lambda| + e^{-\tilde{\alpha} X_m})( e^{-\alpha X_{i-2}} |c_{i-2}^-| + e^{-\alpha X_{i-1}} |c_{i-1}^-| + e^{-\alpha X_i} |c_i^-| + e^{-\alpha X_{i+1}} |c_{i+1}^-|) \nonumber \\
 &+ (|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2 |d| \nonumber \Big)
@@ -2015,7 +2019,129 @@ D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha 
 
 \subsubsection{Main Theorem}
 
-We will now combine two jump expressions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj} into a single theorem. Before we do that, we will need one more result about the determinant of a particular matrix.
+We will now combine two jump expressions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj} into a single theorem.
+
+% theorem : block diagonal matrix expression
+
+We can finally state the main theorem of this section.
+
+\begin{theorem}\label{blockmatrixform}
+There exists a $\delta > 0$ with the following property. Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$, where $X_m = \min\{ X_0, \dots X_{n-1}\}$ and $e^{-\alpha X_m} < \delta$. Then there exists a bounded, nonzero solution $V$ of \eqref{PDEeig} for $|\lambda| < \delta$ if and only if 
+
+\begin{equation}\label{blockeq}
+\begin{pmatrix}
+K(\lambda) + C_1 K(\lambda) + K_1(\lambda) & D_1 \\
+C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
+\end{pmatrix}
+\begin{pmatrix}c \\ d \end{pmatrix} 
+= 0
+\end{equation}
+
+where 
+
+\begin{enumerate}
+
+\item The matrix $K(\lambda)$ is given by
+
+\begin{equation}
+K(\lambda) = 
+\begin{pmatrix}
+e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
+-e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
+& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
+\vdots & & \vdots & &&  \vdots \\
+& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
+\end{pmatrix}
+\end{equation}
+
+where $\nu(\lambda)$ is the small eigenvalue of the asympotic matrix $A(\lambda)$.
+
+\item The matrix $A$ is given by
+
+\begin{align*}
+A &= \begin{pmatrix}
+-a_0 + \tilde{a}_1 & a_0 - \tilde{a}_1 \\
+-\tilde{a}_0 + a_1 & \tilde{a}_0 - a_1
+\end{pmatrix} && n = 2 \\
+A &= \begin{pmatrix}
+\tilde{a}_{n-1} - a_0 & a_0 & & & \dots & -\tilde{a}_{n-1}\\
+-\tilde{a}_0 & \tilde{a}_0 - a_1 &  a_1 \\
+& -\tilde{a}_1 & \tilde{a}_1 - a_2 &  a_2 \\
+& & \vdots & & \vdots \\
+a_{n-1} & & & & -\tilde{a}_{n-2} & \tilde{a}_{n-2} - a_{n-1} \\
+\end{pmatrix} && n > 2
+\end{align*}
+
+where
+
+\begin{align*}
+a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
+\tilde{a}_i &= \langle \Psi(-X_i), Q'(X_i) \rangle
+\end{align*}
+
+\item $K_1(\lambda)$ and $K_2(\lambda)$ are small perturbations of$K(\lambda)$, where the nonzero terms of $K(\lambda)$ are perturbed by $\mathcal{O}(|\lambda| + e^{-\alpha X_m})$.
+
+\item The remainder terms are analytic in $\lambda$ and have uniform bounds
+
+\begin{align*}
+C_1, C_2 &= \mathcal{O}(e^{-\tilde{\alpha}X_m})(|\lambda| + e^{-\alpha X_m})) \\
+D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})) \\
+D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
+\end{align*}
+
+where $X_m = \min \{X_0, \dots, X_{n-1}\}$
+
+\item $M$ is the Melnikov integrals
+
+\begin{align*}
+M &= \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy \\
+\end{align*}
+
+\end{enumerate}
+
+\begin{proof}
+The block matrix \eqref{blockeq} combines the jump conditions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj}. \\
+\end{proof}
+\end{theorem}
+
+\subsection{Trying to Make This Work}
+
+In most cases, or at least the cases we care about (such as KdV5), we will have (from symmetry of the primary pulse)
+
+\[
+\tilde{a}_i = \langle \Psi(-X_i), Q'(X_i) \rangle
+= -\langle \Psi(X_i), Q'(-X_i) \rangle = a_i
+\]
+
+Thus the matrix $A$ simplifies to
+
+\begin{align*}
+A &= \begin{pmatrix}
+-a_0 -a_1 & a_0 + a_1 \\
+a_0 + a_1 & -a_0 - a_1
+\end{pmatrix} && n = 2 \\
+A &= \begin{pmatrix}
+-a_{n-1} - a_0 & a_0 & & & \dots & a_{n-1}\\
+a_0 & -a_0 - a_1 &  a_1 \\
+& a_1 & -a_1 - a_2 &  a_2 \\
+& & \vdots & & \vdots \\
+a_{n-1} & & & & a_{n-2} & -a_{n-2} - a_{n-1} \\
+\end{pmatrix} && n > 2
+\end{align*}
+
+Note that this is a real symmetric matrix, so its eigenvalues are all real. Since all the rows sum to 1, $(1, 1, \dots, 1)^T$ is an eigenvector with eigenvalue 0. We make the following additional assumption, which is true in certain specific cases.\\
+
+\begin{hypothesis}\label{Adistincteigs}
+The eigenvalues of $A$ are distinct.
+\end{hypothesis}
+
+Before we continue, we will derive a bunch of stuff which will apply for all the following cases. In all cases, $X_{n-1}$ is the ``periodic length'', and we have
+
+\[
+X_{n-1} = X_M = \max\{X_0, \dots, X_{n-1}\}
+\]
+
+Before we do that, we will need one more result about the determinant of a particular matrix.
 
 % bidiagonal determinant
 
@@ -2063,137 +2189,7 @@ since both of the matrices on the RHS are triangular.
 \end{proof}
 \end{lemma}
 
-% theorem : block diagonal matrix expression
-
-We can finally state the main theorem of this section.
-
-\begin{theorem}\label{blockmatrixform}
-
-Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$. Then the jump conditions can be written as the block matrix equation 
-
-\begin{equation}\label{blockeq}
-\begin{pmatrix}
-K(\lambda) + C_1 K(\lambda) + K_1(\lambda) & D_1 \\
-C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
-\end{pmatrix}
-\begin{pmatrix}c \\ d \end{pmatrix} 
-= 0
-\end{equation}
-
-where 
-
-\begin{enumerate}
-
-\item $K_1(\lambda)$ and $K_2(\lambda)$ are small perturbations of$K(\lambda)$, where the nonzero terms of $K(\lambda)$ are perturbed by $\mathcal{O}(|\lambda| + e^{-\alpha X_m})$.
-
-\item The remainder terms have uniform bounds
-
-\begin{align*}
-C_1, C_2 &= \mathcal{O}(e^{-\tilde{\alpha}X_m})(|\lambda| + e^{-\alpha X_m})) \\
-D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})) \\
-D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
-\end{align*}
-
-where $X_m = \min \{X_0, \dots, X_{n-1}\}$
-
-\item $M$ is the Melnikov integrals
-
-\begin{align*}
-M &= \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy \\
-\end{align*}
-
-For KdV5, this is
-
-\begin{align*}
-M &= \int_{-\infty}^\infty q(y) q_c(y) dy \\
-\end{align*}
-
-\item The matrix $K(\lambda)$ is given by
-
-\begin{equation}
-K(\lambda) = 
-\begin{pmatrix}
-e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
--e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
-& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
-\vdots & & \vdots & &&  \vdots \\
-& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
-\end{pmatrix}
-\end{equation}
-
-where $\nu(\lambda)$ is the small eigenvalue of the asympotic matrix $A(\lambda)$.
-
-\item The matrix $A$ is given by
-
-\begin{align*}
-A &= \begin{pmatrix}
--a_0 + \tilde{a}_1 & a_0 - \tilde{a}_1 \\
--\tilde{a}_0 + a_1 & \tilde{a}_0 - a_1
-\end{pmatrix} && n = 2 \\
-A &= \begin{pmatrix}
-\tilde{a}_{n-1} - a_0 & a_0 & & & \dots & -\tilde{a}_{n-1}\\
--\tilde{a}_0 & \tilde{a}_0 - a_1 &  a_1 \\
-& -\tilde{a}_1 & \tilde{a}_1 - a_2 &  a_2 \\
-& & \vdots & & \vdots \\
-a_{n-1} & & & & -\tilde{a}_{n-2} & \tilde{a}_{n-2} - a_{n-1} \\
-\end{pmatrix} && n > 2
-\end{align*}
-
-where
-
-\begin{align*}
-a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
-\tilde{a}_i &= \langle \Psi(-X_i), Q'(X_i) \rangle
-\end{align*}
-
-For KdV5, we have $\tilde{a}_i = a_i$.
-
-\end{enumerate}
-
-\begin{proof}
-The block matrix \eqref{blockeq} combines the jump conditions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj}. \\
-
-\end{proof}
-\end{theorem}
-
-\subsection{Trying to Make This Work}
-
-In most cases, or at least the cases we care about (such as KdV5), we will have (from symmetry of the primary pulse)
-
-\[
-\tilde{a}_i = \langle \Psi(-X_i), Q'(X_i) \rangle
-= -\langle \Psi(X_i), Q'(-X_i) \rangle = a_i
-\]
-
-Thus the matrix $A$ simplifies to
-
-\begin{align*}
-A &= \begin{pmatrix}
--a_0 -a_1 & a_0 + a_1 \\
-a_0 + a_1 & -a_0 - a_1
-\end{pmatrix} && n = 2 \\
-A &= \begin{pmatrix}
--a_{n-1} - a_0 & a_0 & & & \dots & a_{n-1}\\
-a_0 & -a_0 - a_1 &  a_1 \\
-& a_1 & -a_1 - a_2 &  a_2 \\
-& & \vdots & & \vdots \\
-a_{n-1} & & & & a_{n-2} & -a_{n-2} - a_{n-1} \\
-\end{pmatrix} && n > 2
-\end{align*}
-
-Note that this is a real symmetric matrix, so its eigenvalues are all real. Since all the rows sum to 1, $(1, 1, \dots, 1)^T$ is an eigenvector with eigenvalue 0. We make the following additional assumption, which is true in certain specific cases.\\
-
-\begin{hypothesis}\label{Adistincteigs}
-The eigenvalues of $A$ are distinct.
-\end{hypothesis}
-
-Before we continue, we will derive a bunch of stuff which will apply for all the following cases. In all cases, $X_{n-1}$ is the ``periodic length'', and we have
-
-\[
-X_{n-1} = X_M = \max\{X_0, \dots, X_{n-1}\}
-\]
-
-First, we look at $\nu(\lambda)$, which is the small eigenvalue of the asymptotic matrix $A_\infty(\lambda)$, which is the $2m+1 \times 2m+1$ matrix
+Next, we look at $\nu(\lambda)$, which is the small eigenvalue of the asymptotic matrix $A_\infty(\lambda)$, which is the $2m+1 \times 2m+1$ matrix
 
 \begin{equation}
 A_\infty = \begin{pmatrix}
@@ -2816,23 +2812,17 @@ C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
 \end{pmatrix}
 \end{equation}
 
-Choose a radius $\delta > 0$ with $\delta = C_0 e^{-\alpha X_0}$, where $C_0$ is sufficiently large so that
-
-\begin{enumerate}[(i)]
-\item For all nonzero eigenvalues $\mu$ of $A$, the interaction eigenvalues are contained sufficiently inside $B(0,\delta)$. In particular, we take
-
-\[
-|\lambda^i(X_m; \mu)| < \delta - e^{-\alpha X_m}
-\] 
-
-\item For all $n$ with $|\lambda(X, n)| \leq C_0 e^{-\alpha X_0}$, where $\lambda(X, n)$ are the points where $K(\lambda)$ is singular, 
+Use the radius $\delta$ from Theorem \ref{matrixjumpc}. If necessary, decrease $\delta$ so that the circle of radius $\delta$ about the origin is as far as possible from the points $\lambda(X, n)$ where $K(\lambda)$ is singular. Since for sufficiently small $n/X$ these are, to leading order, equally spaced, this amounts to ensuring that the $\delta-$circle cuts half way half way between two of these. Thus for all $n$ with $|\lambda(X, n)| \leq C_0 \delta$, we have
 
 \[
 | \: |\lambda(X, n)| - \delta | \geq C \frac{1}{3X}
 \]
 
-For this second condition, since the $\lambda(X, n)$ are, to leading order, equally spaced, this is just saying that we choose $\delta$ so that the $\delta-$circle cuts half way between two of these.
-\end{enumerate}
+Next, take $X_m$ suffiently large so that the results from the previous two sections apply and that all the interaction eigenvalues are well inside the $\delta-$circle. In particular, we take $X_m$ sufficiently large so that 
+
+\[
+|\lambda^i(X_m; \mu)| < \delta - e^{-\alpha X_m}
+\] 
 
 This gives us the following bounds when $|\lambda| = \delta$. From the first section, we have $||K(\lambda)^{-1}|| \leq C$. For $(A - \lambda^2 M I)^{-1}$, since $\lambda$ is more than $e^{-\alpha X_m}$ from every interaction eigenvalue, $\det(A - \lambda^2 M I) \geq e^{-n \alpha X_m}$, thus we have
 
@@ -2911,8 +2901,6 @@ In any case, $K(\lambda)$ is singular at $2m+1$ points inside $B(0, \delta)$, wh
 
 
 \end{enumerate}
-
-
 
 
 \end{document}
