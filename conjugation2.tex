@@ -333,7 +333,7 @@ where $\Lambda \in \Omega$ is a parameter vector and $\Omega$ is a Banach space.
 	where $\alpha > 0$, $C > 0$, and $K$ is a nonnegative integer.
 \end{enumerate}
 
-Suppose $V^-(\Lambda)$ is an eigenvector of $A_-(\Lambda)$ with corresponding eigenvalue $\mu(\Lambda)$, both analytic in $\Lambda$. Then there exists a solution of \ref{LambdaEVP} of the form 
+Suppose $V^-(\Lambda)$ is an eigenvector of $A_-(\Lambda)$ with corresponding eigenvalue $\mu(\Lambda)$, both analytic in $\Lambda$. Then there exists a unique solution of \ref{LambdaEVP} of the form 
 
 \begin{equation}
 W(x; \Lambda) = V(x; \Lambda) e^{\mu(\Lambda)x}
@@ -624,8 +624,8 @@ Using the Conjugation Lemma, we make the substitution $W_i^\pm = P_i^\pm(x; \lam
 \begin{subequations}
 \begin{align}
 &(Z_i^\pm(x))' = A(\lambda) Z_i^\pm(x) + \lambda^2 d_i P_i^\pm(x; \lambda)^{-1} \tilde{H}_i^\pm(x) \label{systemZ} \\
-&P_i^\pm(0; \lambda) Z_i^\pm(0) \in \C \Psi(0) \oplus Y^+ \oplus Y^- \oplus Y^0 \label{systemcenter1} \\
-&P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) \in \C \Psi(0) \oplus Y^0 \label{systemcenter2} \\
+&P_i^\pm(0; \lambda) Z_i^\pm(0) \in Y^+ \oplus Y^- \oplus Y^0 \oplus \C \Psi(0) \oplus \C \Psi^c(0) \label{systemcenter1} \\
+&P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) \in \C \Psi(0) \oplus \C \Psi^c(0) \label{systemcenter2} \\
 &P_i^+(X_i; \lambda) Z_i^+(X_i)\ - P_{i+1}^-(-X_i; \lambda) Z_{i+1}^-(-X_i; \lambda) = D_i d \label{systemmiddle}
 \end{align}
 \end{subequations}
@@ -992,15 +992,15 @@ Thus we have
 In the second inversion lemma, we solve the conditions at $x = 0$
 
 \begin{align*}
-P_i^\pm(0; \lambda) Z_i^\pm(0) &\in \C \Psi(0) \oplus Y^0 \oplus Y^+ \oplus Y^- \\
-P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) &\in \C \Psi(0) \oplus Y^0
+P_i^\pm(0; \lambda) Z_i^\pm(0) &\in \oplus Y^+ \oplus Y^- \oplus \C \Psi(0) \oplus \C \Psi^c(0) \\
+P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) &\in \C \Psi(0) \oplus \C \Psi^c(0)
 \end{align*}
 
 Recall that we have
 
-\[
-\C^m = \C Q'(0) \oplus Y^+ \oplus Y^- \oplus S
-\]
+\begin{equation}\label{DSdecomp}
+\C^{2m+1} = \C Q'(0) \oplus Y^+ \oplus Y^- \oplus \C \Psi(0) \oplus \C \Psi^c(0)
+\end{equation}
 
 This condition is equivalent to the three projections
 
@@ -1010,7 +1010,7 @@ P(\C Q'(0) ) P_i^+(0; \lambda) Z_i^+(0) &= 0 \\
 P(Y_i^+ \oplus Y_i^-) ( P_i^+(0; \lambda) Z_i^+(0) - P_i^-(0; \lambda) Z_i^-(0) ) &= 0
 \end{align*}
 
-where the kernel of each projection is the remaining spaces in the direct sum. We don't need to include $\C Q'(0)$ in the third equation since we eliminated any component in it in the first two equations.
+where the kernel of each projection is the remaining spaces in the direct sum decomposition \eqref{DSdecomp}. We don't need to include $\C Q'(0)$ in the third equation since we eliminated any component in it in the first two equations.
 
 % second inversion lemma
 
@@ -1446,7 +1446,7 @@ We will compute the leading order terms first.
 \item For the leading order terms involving $c$, using Lemma \ref{PsiIP}, we have
 
 \begin{align*}
-\langle \Psi(0), &P^-(0) P_0^c(0) e^{\nu(\lambda) X_{i-1}} c_{i-1}^- - P^+(0) P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+) = e^{\nu(\lambda) X_{i-1}} c_{i-1}^- - e^{-\nu(\lambda)X_i} c_i^+ 
+\langle \Psi^c(0), &P^-(0) P_0^c(0) e^{\nu(\lambda) X_{i-1}} c_{i-1}^- - P^+(0) P_0^c(0) e^{-\nu(\lambda)X_i} c_i^+) = e^{\nu(\lambda) X_{i-1}} c_{i-1}^- - e^{-\nu(\lambda)X_i} c_i^+ 
 \end{align*}
 
 For the higher order terms involving $c$, from the previous section we have
@@ -2025,7 +2025,7 @@ We will now combine two jump expressions from Lemma \ref{jumpcenteradj} and Lemm
 
 We can finally state the main theorem of this section.
 
-\begin{theorem}\label{blockmatrixform}
+\begin{theorem}\label{blockmatrixtheorem}
 There exists a $\delta > 0$ with the following property. Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$, where $X_m = \min\{ X_0, \dots X_{n-1}\}$ and $e^{-\alpha X_m} < \delta$. Then there exists a bounded, nonzero solution $V$ of \eqref{PDEeig} for $|\lambda| < \delta$ if and only if 
 
 \begin{equation}\label{blockeq}
@@ -2060,15 +2060,15 @@ where $\nu(\lambda)$ is the small eigenvalue of the asympotic matrix $A(\lambda)
 
 \begin{align*}
 A &= \begin{pmatrix}
--a_0 + \tilde{a}_1 & a_0 - \tilde{a}_1 \\
--\tilde{a}_0 + a_1 & \tilde{a}_0 - a_1
+-a_0 -a_1 & a_0 + a_1 \\
+a_0 + a_1 & -a_0 - a_1
 \end{pmatrix} && n = 2 \\
 A &= \begin{pmatrix}
-\tilde{a}_{n-1} - a_0 & a_0 & & & \dots & -\tilde{a}_{n-1}\\
--\tilde{a}_0 & \tilde{a}_0 - a_1 &  a_1 \\
-& -\tilde{a}_1 & \tilde{a}_1 - a_2 &  a_2 \\
+-a_{n-1} - a_0 & a_0 & & & \dots & a_{n-1}\\
+a_0 & -a_0 - a_1 &  a_1 \\
+& a_1 & -a_1 - a_2 &  a_2 \\
 & & \vdots & & \vdots \\
-a_{n-1} & & & & -\tilde{a}_{n-2} & \tilde{a}_{n-2} - a_{n-1} \\
+a_{n-1} & & & & a_{n-2} & -a_{n-2} - a_{n-1} \\
 \end{pmatrix} && n > 2
 \end{align*}
 
@@ -2076,7 +2076,6 @@ where
 
 \begin{align*}
 a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
-\tilde{a}_i &= \langle \Psi(-X_i), Q'(X_i) \rangle
 \end{align*}
 
 \item $K_1(\lambda)$ and $K_2(\lambda)$ are small perturbations of$K(\lambda)$, where the nonzero terms of $K(\lambda)$ are perturbed by $\mathcal{O}(|\lambda| + e^{-\alpha X_m})$.
@@ -2091,7 +2090,7 @@ D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha 
 
 where $X_m = \min \{X_0, \dots, X_{n-1}\}$
 
-\item $M$ is the Melnikov integrals
+\item $M$ is the Melnikov integral
 
 \begin{align*}
 M &= \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy \\
@@ -2100,53 +2099,39 @@ M &= \int_{-\infty}^\infty \langle \Psi(y), H(y) \rangle dy \\
 \end{enumerate}
 
 \begin{proof}
-The block matrix \eqref{blockeq} combines the jump conditions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj}. \\
+The block matrix \eqref{blockeq} combines the jump conditions from Lemma \ref{jumpcenteradj} and Lemma \ref{jumpadj}. Because of reversibility, 
+\[
+\langle \Psi(-X_i), Q'(X_i) \rangle = -\langle \Psi(X_i), Q'(-X_i) \rangle
+\]
+thus $\tilde{a}_i = -a_i$ in the matrix $A$ in Lemma \ref{jumpadj}.
 \end{proof}
 \end{theorem}
 
-\subsection{Trying to Make This Work}
+\subsection{Solving for the Eigenvalues}
 
-In most cases, or at least the cases we care about (such as KdV5), we will have (from symmetry of the primary pulse)
+We will now find the eigenvalues $\lambda$ for $|\lambda| < \delta$, where $\delta$ is given in Theorem \ref{blockmatrixtheorem}. Before we can do that, we need to make a few additional hypotheses regarding the terms in that theorem.\\
 
-\[
-\tilde{a}_i = \langle \Psi(-X_i), Q'(X_i) \rangle
-= -\langle \Psi(X_i), Q'(-X_i) \rangle = a_i
-\]
-
-Thus the matrix $A$ simplifies to
-
-\begin{align*}
-A &= \begin{pmatrix}
--a_0 -a_1 & a_0 + a_1 \\
-a_0 + a_1 & -a_0 - a_1
-\end{pmatrix} && n = 2 \\
-A &= \begin{pmatrix}
--a_{n-1} - a_0 & a_0 & & & \dots & a_{n-1}\\
-a_0 & -a_0 - a_1 &  a_1 \\
-& a_1 & -a_1 - a_2 &  a_2 \\
-& & \vdots & & \vdots \\
-a_{n-1} & & & & a_{n-2} & -a_{n-2} - a_{n-1} \\
-\end{pmatrix} && n > 2
-\end{align*}
-
-Note that this is a real symmetric matrix, so its eigenvalues are all real. Since all the rows sum to 1, $(1, 1, \dots, 1)^T$ is an eigenvector with eigenvalue 0. We make the following additional assumption, which is true in certain specific cases.\\
+First, we look at the matrix $A$. $A$ is a real symmetric matrix, so its eigenvalues are all real. Since all the rows sum to 1, $(1, 1, \dots, 1)^T$ is an eigenvector with eigenvalue 0. We make the following additional assumption.\\
 
 \begin{hypothesis}\label{Adistincteigs}
-The eigenvalues of $A$ are distinct.
+The eigenvalues of $A$ are given by $(0, \mu_1, \dots, \mu_{n-1})$, all of which are distinct.
 \end{hypothesis}
 
-Before we continue, we will derive a bunch of stuff which will apply for all the following cases. In all cases, $X_{n-1}$ is the ``periodic length'', and we have
+We will now state and prove the main theorem for this section.
 
-\[
-X_{n-1} = X_M = \max\{X_0, \dots, X_{n-1}\}
-\]
+\begin{theorem}MAIN EIGENVALUE THEOREM HERE
+\end{theorem}
 
-Before we do that, we will need one more result about the determinant of a particular matrix.
+\subsection{Preliminary Lemmas}
+
+The ``leading order'' terms in the block matrix equation \ref{blockmatrixform} are $K(\lamnbda)$ and $A - \lambda^2 M I$. In particular, we expect to find eigenvalues near where these two matrices are singular. Before we can solve the block matrix equation, we need a better understanding of these matrices, in particular $K(\lambda)$. We do that in a series of lemmas.\\
+
+First, we prove the following general result about the determinant of a periodic, bi-diagonal matrix.
 
 % bidiagonal determinant
 
 \begin{lemma}\label{bidiag}
-Let $A$ be the ``periodic'' bi-diagonal matrix
+Let $A$ be the periodic bi-diagonal matrix
 \begin{equation}
 A = \begin{pmatrix}
 a_1 & & & & & & b_n \\
@@ -2189,96 +2174,116 @@ since both of the matrices on the RHS are triangular.
 \end{proof}
 \end{lemma}
 
-Next, we look at $\nu(\lambda)$, which is the small eigenvalue of the asymptotic matrix $A_\infty(\lambda)$, which is the $2m+1 \times 2m+1$ matrix
+As a corollary, we can compute the determinant of $K(\lambda)$.
 
-\begin{equation}
-A_\infty = \begin{pmatrix}
-0 & 1 & 0 & \dots & 0 & 0 \\
-0 & 0 & 1 & \dots & 0 & 0 \\
-& & & \ddots & & \\
-0 & 0 & 0 & \dots & 0 & 1 \\
-\lambda & c_0 & c_1 & \dots & c_{2m-2} & c_{2m-1}
-\end{pmatrix}
+\begin{corollary}\label{detKcorr}
+For the matrix $K(\lambda)$ defined in Theorem \ref{blockmatrixtheorem}, we have 
+\begin{equation}\label{detK}
+\det K = e^{-\nu(\lambda)X} - e^{\nu(\lambda)X} = -2 \sinh (\nu(\lambda) X)
+\end{equation}
+where $X = X_0 + X_1 + \dots + X_{n-1}$ is half the length of the periodic domain.
+\begin{proof}
+Since $K(\lambda)$ is a periodic, bi-diagonal matrix, by Lemma \ref{bidiag} we have
+\begin{align*}
+\det K(\lambda) &= \prod_{k = 0}^{n-1} e^{-\nu(\lambda)X_k} + (-1)^{n-1} \prod_{k = 1}^n (-e^{\nu(\lambda)X_k}) \\
+&= e^{-\nu(\lambda)(X_0 + X_1 + \dots X_{n-1})} + (-1)^{n-1} (-1)^n e^{\nu(\lambda)(X_0 + X_1 + \dots X_{n-1})} \\
+&= e^{-\nu(\lambda)X} - e^{\nu(\lambda)X} \\
+&= -2 \sinh (\nu(\lambda)X)
+\end{align*}
+\end{proof}
+\end{corollary}
+
+Next, we look at $\nu(\lambda)$, which we recall is the small eigenvalue of the asymptotic matrix $A(0; \lambda)$. The following lemma gives an expansion for $\nu(\lambda)$ as well as proves a few properties about this function. For this to work, we need the following hypothesis.
+
+\begin{hypothesis}\label{c0nonzero}
+For the constant $c_0$ which appears in $A(0; \lambda)$, $c_0 \neq 0$.
+\end{hypothesis}
+
+\begin{lemma}\label{nulambdalemma}
+Assume Hypothesis \ref{c0nonzero}. For sufficiently small $\lambda$, the asymptotic matrix $A(\lambda)$ has a simple eigenvalue $\nu(\lambda)$. $\nu(0) = 0$, and for small $\lambda$,
+
+\begin{equation}\label{nulambda}
+\nu(\lambda) = -\frac{1}{c_0} \lambda + \mathcal{O}(|\lambda|^3)
 \end{equation}
 
-The characteristic polynomial of $A_\infty(\lambda)$ is
+Furthermore, $\nu(\lambda)$ has the following properties.
 
-\[
-p(t; \lambda) = -t^{2m+1} + c_{2m-1} t^{2m} + \dots + c_1 t^2 + c_0 t + \lambda
-\]
+\begin{enumerate}
+\item $\nu(-\lambda) = -\nu(\lambda)$, i.e. $\nu(\lambda)$ is an odd function 
+\item If $\lambda$ is pure imaginary, $\nu(\lambda)$ is also pure imaginary
+\end{enumerate}
 
-We can easily see that when $\lambda = 0$, $A_\infty(0)$ has an eigenvalue of 0, thus $\nu(0) = 0$. We make the assumption that $A_\infty$ has a quartet of eigenvalues $\pm \alpha \pm \beta i$ (thus we must have $m \geq 2$), and the real part of any other eigenvalue of $A_\infty(0)$ is greater than $\alpha$ in magnitude. \\
+\begin{proof}
+The characteristic polynomial of $A(0; \lambda)$ is
 
-We note that $p'(0; \lambda) = c_0$. When we put the original PDE into a moving frame with speed $c$, we get a additional term of $-c \partial_x$, so in the cases we consider we have $c_0 =-c$. Since everything we are doing comes from a moving frame, we can safely assume that $c_0 \neq 0$.\\
+\begin{equation}\label{charpolyA0lambda}
+p_2(\nu; \lambda) = -\nu^{2m+1} + c_{2m-2} \nu^{2m-1} + \dots + c_2 \nu^3 - c_0 \nu + \lambda
+\end{equation}
 
-We would like an expression for $\nu(\lambda)$ for $\lambda$ near 0. To do this, we note that $p(0; 0) = 0$ and $p_t(0; 0) = c_0 \neq 0$. Thus by the IFT we can solve for $t$ in terms of $\lambda$ near $\lambda = 0$. This is the function $\nu(\lambda)$, i.e. $p(\nu(\lambda); \lambda) = 0$ is the unique solution to $p(t; \lambda) = 0$ for $\lambda$ small, and $\nu(0) = 0$. By the IFT again, we can differentiate $\nu(\lambda)$ to get
+When $\lambda = 0$, $p_2(\nu; 0)$ has root when $\nu = 0$. From the existence problem (STATE HYPOTHESIS AND PUT REFERENCE HERE), this zero at $\nu = 0$ is simple and is a located a distance $\sqrt{\alpha^2 + \beta^2}$ from the next smallest roots. 
+
+Since $p_2(0; 0) = 0$ and $\partial_\nu p_2(0; 0) = c_0$, which we are assuming is nonzero, we can use the IFT to can solve for $\nu$ in terms of $\lambda$ near $\lambda = 0$. This is the function $\nu(\lambda)$, i.e. $p(\nu(\lambda); \lambda) = 0$ is the unique solution to $p(\nu; \lambda) = 0$ for $\lambda$ small, and $\nu(0) = 0$. From the IFT, we can differentiate $\nu(\lambda)$ to get
 
 \begin{align*}
-\nu'(\lambda) &= -\frac{1}{p_t(\nu(\lambda),\lambda) } p_\lambda( \nu(\lambda); \lambda ) \\
-&= -\frac{1}{p_t(\nu(\lambda),\lambda) } 
+\nu'(\lambda) &= -\frac{1}{\partial_\nu p_2(\nu(\lambda),\lambda) } \partial_\lambda p_2 ( \nu(\lambda); \lambda ) \\
+&= -\frac{1}{\partial_\nu p_2(\nu(\lambda),\lambda) } 
 \end{align*}
 
-At $\lambda = 0$, this is
+which, at $\lambda = 0$, is
 
 \begin{align*}
 \nu'(0) = -\frac{1}{c_0}
 \end{align*}
 
-$\nu(\lambda)$ is the root of a polynomial which is smooth in $\lambda$. Thus, we can expand $\nu(\lambda)$ in a Taylor series to get
-
-\[
-\nu(\lambda) = -\frac{1}{c_0} \lambda + \mathcal{O}(|\lambda|^2)
-\]
-
-In specific cases, we may be able to say more about $\nu(\lambda)$. For KdV5, all the derivatives involved in the linear part are odd, so the coefficients $c_k$ in the characteristic polynomial are 0 for $k$ odd (using the notation above). In this case, $p(t; \lambda) = 0$ implies $p(-t; -\lambda) = 0$, thus $\nu(\lambda)$ is an odd function, i.e. 
-
-\[
-\nu(-\lambda) = -\nu(\lambda)
-\]
-
-Another thing to consider is when $\lambda = i \gamma$ is pure imaginary. In that case, we can show that $\nu(\lambda)$ must also be pure imaginary. To see this, take the ansatz $t = i s$ in the characteristic polynomial equation $p(i \gamma) = 0$.
+Since $\nu(\lambda)$ is the root of a polynomial which is smooth in $\lambda$, we can expand $\nu(\lambda)$ in a Taylor series to get
 
 \begin{align*}
-(-1)^{m+1} i s^{2m+1} + \dots - c_2 i s^3 + c_0 i s + i \gamma &= 0 \\
-(-1)^{m+1} s^{2m+1} + \dots - c_2 s^3 + c_0 s + \gamma &= 0
+\nu(\lambda) = -\frac{1}{c_0} \lambda + \mathcal{O}(|\lambda|^2)
 \end{align*}
 
-Let
+Since $p_2(\nu; \lambda)$ only involves odd powers of $\nu$, $p(\nu; \lambda) = 0$ implies $p(-\nu; -\lambda) = 0$. By uniqueness of the solution $\nu(\lambda)$ from the IFT, we conclude that $\nu(-\lambda) = -\nu(\lambda)$, i.e. $\nu(\lambda)$ is an odd function of $\lambda$. Thus the Taylor expansion for $\nu(\lambda)$ looks like
 
-\[
-p(s, \gamma) = (-1)^{m+1} s^{2m+1} + \dots - c_2 s^3 + c_0 s + \gamma
-\]
+\begin{align*}
+\nu(\lambda) = -\frac{1}{c_0} \lambda + \mathcal{O}(|\lambda|^3)
+\end{align*}
 
-Then since $p(0,0) = 0$ and $p_s(0, 0) = c_0 \neq 0$, we can use the IFT again to solve for $s$ in terms of $\gamma$ for $\gamma$ small, and $s$ will be real this time. By uniqueness of the IFT solution $\nu(\lambda)$, we must have $\nu(\lambda) = i s(\gamma) = i s(-i \lambda)$, which is pure imaginary.\\
+Finally, we consider the case when $\lambda$ is pure imaginary. Take $\lambda = i \gamma$ and $\nu = i s$ in $p_2(\nu; \lambda)$ to get
 
-Next, we look at $K(\lambda)$, which we recall is given by 
+\begin{align*}
+p_2(i s; i \gamma) = (-1)^{m+1} i s^{2m+1} + c_{2m-2} (-1)^m i s^{2m-1} + \dots - c_2 i s^3 + c_0 i s + i \gamma
+\end{align*}
 
-\begin{equation*}
-K(\lambda) = 
-\begin{pmatrix}
-e^{-\nu(\lambda)X_1} & & & & & -e^{\nu(\lambda)X_0} \\
--e^{\nu(\lambda)X_1} & e^{-\nu(\lambda)X_2} \\
-& -e^{\nu(\lambda)X_2} & e^{-\nu(\lambda)X_3} \\
-\vdots & & \vdots & &&  \vdots \\
-& & & & -e^{\nu(\lambda)X_{n-1}} & e^{-\nu(\lambda)X_0} 
-\end{pmatrix}
-\end{equation*}
+Since we are looking to solve $p_2(i s; i \gamma) = 0$, we can divide by $i$ to get the equilvent problem
 
-For an estimate on the operator norm of this, we have
+\begin{align*}
+p(s; \gamma) = (-1)^{m+1} s^{2m+1} + c_{2m-2} (-1)^m s^{2m-1} + \dots - c_2 s^3 + c_0 s +  \gamma = 0
+\end{align*}
 
-\[
+Since $p(0; 0) = 0$ and $\partial_s p(0; 0) = c_0 \neq 0$, we can use the IFT again to solve for $s$ in terms of $\gamma$ for $\gamma$ small. Thus we can find a function $s(\gamma)$ such that $p(s; \gamma); \gamma) = 0$ is the unique solution to $p(s; \gamma) = 0$ for $\gamma$ small; $s(\gamma)$ is real, and $s(0) = 0$. Undoing our substitutions, this implies $p_2(\lambda, i s(-i \lambda) = 0$. By uniqueness of the IFT solution $\nu(\lambda)$, we must have $\nu(\lambda) = i s(-i \lambda)$, which is pure imaginary.\\ 
+
+\end{proof}
+\end{lemma}
+
+We will now look in more detail at $K(\lambda)$ and its inverse. First, we note the following estimate for the operator norm of $K(\lambda)$.
+
+\begin{equation}\label{Klambdanorm}
 ||K(\lambda)|| \leq n ||K(\lambda)||_{\text{max}} = C e^{|\text{Re }\nu(\lambda)|X_{n-1}}
-\]
+\end{equation}
 
-Next, we have an expression for the inverse of $K(\lambda)$ (when it is invertible).
+In the next lemma, we derive an expression for the inverse of $K(\lambda)$ (when it is invertible).
 
 \begin{lemma}\label{Kinv}
 
 When $\det K(\lambda) \neq 0$,
 
-\begin{align*}
-&K(\lambda)^{-1} = \frac{1}{\det K(\lambda)}\\
-&\begin{pmatrix}
+\begin{equation}\label{Klambdainv}
+K(\lambda)^{-1} = \frac{1}{\det K(\lambda)} \tilde{K}(\lambda)
+\end{equation}
+
+where
+\begin{equation}\label{tildeK}
+\tilde{K}(\lambda) = 
+\begin{pmatrix}
 e^{-\nu(\lambda)(X_2+\dots+X_{n-1}+X_0)} & e^{-\nu(\lambda)(-X_2-\dots-X_{n-1}-X_0)} &
 e^{-\nu(\lambda)(X_2-\dots-X_{n-1}-X_0)} & \dots & e^{-\nu(\lambda)(X_2+\dots+X_{n-1}-X_0)}  \\ 
 e^{-\nu(\lambda)(X_3+\dots+X_0-X_1)} & e^{-\nu(\lambda)(X_3+\dots+X_0+X_1)} &
@@ -2287,26 +2292,19 @@ e^{-\nu(\lambda)(-X_3-\dots-X_0-X_1)} & \dots & e^{-\nu(\lambda)(X_3+\dots-X_0-X
 e^{-\nu(\lambda)(-X_1-X_2 -\dots-X_{n-1})} & e^{-\nu(\lambda)(X_1-X_2 -\dots-X_{n-1})} &
 e^{-\nu(\lambda)(X_1+X_2 -\dots-X_{n-1})} & \dots & e^{-\nu(\lambda)(X_1+X_2+\dots+X_{n-1})} 
 \end{pmatrix}
-\end{align*}
-
-where
-
-\[
-\det K(\lambda) = e^{-\nu(\lambda)X} - e^{\nu(\lambda)X} = -2 \sinh(\nu(\lambda)X)
-\]
-
-and $X = X_0 + \dots + X_{n-1}$ is half the length of the domain. 
+\end{equation}
 
 \begin{proof}
-This can be verified directly. Note that each row is a cyclic permutation of the previous row, with everything shifted one place to the right and a different index omitted. For convenience, let $S(\lambda)$ be the matrix above without the $1/\det K(\lambda)$ out front. It is straighforward to see that 
+This can be verified directly. Note that each row is essentially a cyclic permutation of the previous row. Everything is shifted one place to the right, but a different index omitted in each row; row $k$ omits index $k$, which is taken $\mod n$. For row $j$, by matrix multiplication we can verify that
 \begin{align*}
-[K(\lambda)S(\lambda)]_{jj} &= e^{-\nu(\lambda)(X_0 + \dots + X_{n-1})} - e^{\nu(\lambda)(X_0 + \dots + X_{n-1})} = \det K(\lambda) \\
-[K(\lambda)S(\lambda)]_{jk} &= 0 && j \neq k
+[K(\lambda)\tilde{K}(\lambda)]_{jj} &= e^{-\nu(\lambda)(X_0 + \dots + X_{n-1})} - e^{\nu(\lambda)(X_0 + \dots + X_{n-1})} = \det K(\lambda) \\
+[K(\lambda)\tilde{K}(\lambda)]_{jk} &= 0 && j \neq k
 \end{align*}
-The same holds for $S(\lambda)K(\lambda)$.
+where $\det(K(\lambda))$ is given in Corollary \ref{detKcorr}. The same holds for the product $\tilde{K}(\lambda)K(\lambda)$.
 \end{proof}
-
 \end{lemma}
+
+STOPPED HERE.
 
 $\det K(\lambda) = 0$ if and only if $\nu(\lambda) = i n \pi/X$ for $n \in Z$. What we want is the values of $\lambda$ (not $\nu(\lambda)$) for which $K(\lambda)$ is singular. \\
 

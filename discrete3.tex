@@ -414,38 +414,41 @@ c_1 a_1 & -c_1 a_1 - c_3 a_2 & c_3 a_2 \\
 \end{pmatrix}
 \end{align*}
 
-Because of the $c_i$, this is no longer a symmetric matrix. In addition, this is not a standard eigenvalue problem, since we are looking at $\det(A - 
-\mu \text{diag}(c_1, \dots, c_m)$ instead of $\det(A - \mu I)$, where $\mu = M_2 \lambda^2$. The entries mirrored across the diagonal are either equal or negatives of each other. It is possible we can come up with an analogue of Lemma 5.4 in San98 for this case, which would be nice. This may involve a discrete Sturm-Liouville equation, about which lots of stuff should be known.
-\\
-
-For now, we look at the 2-pulse, since we can easily compute $E(\lambda)$. For the 2-pulse, we have
+Because of the $c_i$, this is no longer a symmetric matrix. However, we can multiply row $j$ by $c_j$ to get the symmetric matrix
 
 \begin{align*}
-A &= \begin{pmatrix}
--c_2 a_1 & c_2 a_1 \\
-c_1 a_1 & -c_1 a_1  \\
+A_1 = 
+\begin{pmatrix}
+-c_1 c_2 a_1 & c_1 c_2 a_1 & & &  \\
+c_1 c_2 a_1 & -c_1 c_2 a_1 - c_2 c_3 a_2 & c_2 c_3 a_2 \\
+& c_2 c_3 a_2 & -c_2 c_3 a_2 - c_3 c_4 a_3  & c_3 c_4 a_3 \\
+& \ddots & & \ddots \\
+& & & c_{m-1} c_m a_{m-1} & -c_{m-1} c_m a_{m-1} \\
 \end{pmatrix}
 \end{align*}
 
-Thus, to leading order, the equation $E(\lambda) = 0$ is 
-
-\begin{align*}
-0 &= \det(A - \lambda^2 M \text{diag}(c_1, c_2) ) \\
-&= \det \begin{pmatrix}
--c_2 a_1 - c_1 \lambda^2 M & c_2 a_1 \\
-c_1 a_1 & -c_1 a_1 - c_2 \lambda^2 M \\
-\end{pmatrix} \\
-&= \lambda^2 M_2 ( a_1 (c_1^2 + c_2^2) + c_1 c_2 \lambda^2 M_2) \\
-&= \lambda^2 M_2 ( 2 a_1 + c_1 c_2 \lambda^2 M_2)
-\end{align*}
-
-where we used the fact that $c_i^2 = 1$. Thus, to leading order, we have an eigenvalue with multiplicity 2 at $\lambda = 0$ and a pair of eigenvalues at
+Recalling that $c_j^2 = 1$, this transforms the jump conditions into
 
 \[
-\lambda = \pm \sqrt{ -c_1 c_2 \dfrac{2 a_1 }{ M_2 } }
+E(\lambda) = 
+\det(A_1 - M_2 \lambda^2 + R(\lambda) )
 \]
 
-Numerics suggests that $M_2 > 0$ (we probably cannot show that), and we argued above that $a_1 < 0$. Thus, to leading order, if $c_1$ and $c_2$ are the same sign, we have a pair of real eigenvalues (unstable), and if $c_1$ and $c_2$ have opposite signs, we have a pair of purely imaginary eigenvalues (neutrally stable). We can use Hamiltonian symmetry to conclude that in the neutrally stable case, the pair of purely imaginary eigenvalues must in fact lie on the imaginary axis; otherwise Lin's method would give us a quartet.\\
+for which we can use Lemma 5.4 in San98. We make the additional hypothesis
+
+\begin{hypothesis}\label{A0distincteigs}
+The eigenvalues $0, \mu_1, \dots, \mu_{m-1}$ of $A_1$ are distinct.
+\end{hypothesis}
+
+With this hypothesis, we can solve for the eigenvalues $\lambda$ to get a double eigenvalue at 0 and $m-1$ pairs of eigenvalues at $\lambda = \pm \lambda_j(N)$, $j = 1, \dots, m-1$. $\lambda_j(N)$ is given by
+
+\begin{align*}
+\lambda_j(N) &= \sqrt{\frac{\mu_j}{M_2}} + \mathcal{O}(r^{-3N}) 
+\end{align*}
+
+where $\mu_j$ is an eigenvalue of $A_0$. These are either real or purely imaginary, and remainder term cannot move these off of the real or imaginary axis. \\
+
+Assume that $M_2 > 0$, which is suggested by numerics. Let $k$ be the number of sign changes in the $m-$component vector $(c_1, c_2, \dots, c_m)$, with $c_j = \pm 1$. Then $k$ of these pairs are purely imaginary, and $m - k - 1$ of these pairs are real.\\
 
 This stability result we get matches the numerics and the case where we are close to the anticontinuum limit (PelKev2008, Theorem 3.6); in particular, the eigenvalues from Matlab's \texttt{eig} are located where predicted. As a check, we can look at the decay rate of the magnitude of the interaction eigenvalues. Taking $\omega = 1$ and $\epsilon = 1$, the magnitude of $\lambda$ is proportional to $\sqrt{a_1}$. Since
 
