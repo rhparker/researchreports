@@ -2395,9 +2395,9 @@ We have the following lower bounds for $\det K(\lambda)$.
 \begin{equation}\label{detKbound1}
 |\det K(\lambda)| \geq \sqrt{2} e^{|\text{Re }\nu(\lambda)X|}
 \end{equation}
-\item If $\lambda$ is at least $2 |c_0| \epsilon/X$ away from all of the points $\lambda^K(X,n)$, where $0 < \epsilon < 1/2$, then
+\item If $\lambda$ is at least $\epsilon/X$ away from all of the points $\lambda^K(X,n)$, where $0 < \epsilon < 1/2$, then
 \begin{equation}\label{detKbound2}
-|\det K(\lambda)|\geq \frac{2 \epsilon}{X}
+|\det K(\lambda)|\geq C \epsilon
 \end{equation}
 \end{enumerate}
 
@@ -2421,7 +2421,7 @@ In this case,
 \begin{align*}
 |\sinh(\nu(\lambda) X)|^2 &= |\sinh(a + b i)|^2 \\
 &\geq \sinh^2 a \\
-&= \frac{1}{4}\left( e^{2a} + e^{-2a} - 2 ) \\
+&= \frac{1}{4}\left( e^{2a} + e^{-2a} - 2 \right) \\
 &\geq \frac{1}{4}\left( e^{2|a|} - 2 \right)
 \end{align*}
 
@@ -2463,7 +2463,7 @@ from which it follows that
 |\det K(\lambda)| = 2 |\sinh(\nu(\lambda) X)| \geq 2|\sin(\text{Im }\nu(\lambda)X)|
 \end{align*}
 
-We note that $|\sin b| \geq |b|/2$ for $b \in [-\pi/2, \pi/2]$. If we choose $\lambda$ so that $\text{Im }\nu(\lambda)X$ is $\epsilon/X$ away from all of the $n \pi i/X$, where $0 < \epsilon < 1/2$, then $|\sinh(\nu(\lambda) X)| \geq \epsilon/X$, thus $|\det K(\lambda)| \geq 2 \epsilon/X$. 
+We note that $|\sin b| \geq |b|/2$ for $b \in [-\pi/2, \pi/2]$. If we choose $\lambda$ so that $\text{Im }\nu(\lambda)$ is at least $\epsilon/X$ away from all of the $n \pi i/X$, where $0 < \epsilon < 1/2$, then $|\sinh(\nu(\lambda) X)| \geq \epsilon$, thus $|\det K(\lambda)| \geq 2 \epsilon$. 
 
 What we want is to determine how far $\lambda$ must be from all of the $\lambda^K(X,n)$ for this to be the case. For $n/X$ suffienctly small, $\lambda^K(X, n)$ is defined by Lemma \ref{Ksingularlemma}. Since $\nu(\lambda)$ is smooth in $\lambda$, from Lemma \ref{nulambdalemma} we have the expansion
 \[
@@ -2479,16 +2479,67 @@ Expand $\nu(\lambda)$ in a Taylor series about $\lambda^K(X, n)$ to get
 &= \frac{n \pi i}{X} -\frac{1}{c_0} r \left( 1 + \mathcal{O} \left(\frac{n}{X}\right)^2 \right) + \mathcal{O}(r^2)
 \end{align*}
 
-Note that the largest possble $r$ is $\mathcal{O}(1/X)$ since the points $\lambda^K(X,n)$ are spaced apart on the imaginary axis by $\mathcal{O}(1/X)$. For sufficiently small $n/X$, if we choose $|r| > 2 |c_0| \epsilon/X$, then if $\lambda$ is a distance of at least $r$ from all of the $\lambda(X, n)$, $\text{Im }\nu(\lambda)X$ is at least a distance of $\epsilon/X$ away from all of the $n \pi i/X$. Thus for such $\lambda$ we have
+Note that the largest possble $r$ is $\mathcal{O}(1/X)$ since the points $\lambda^K(X,n)$ are spaced apart on the imaginary axis by $\mathcal{O}(1/X)$. For sufficiently small $n/X$, if we choose $|r| \geq \epsilon/X$, then if $\lambda$ is a distance of at least $r$ from all of the $\lambda(X, n)$, $\text{Im }\nu(\lambda)X$ is at least a distance of $C \epsilon/X$ away from all of the $n \pi i/X$. Thus for such $\lambda$ we have
 
 \[
-|\sinh(\nu(\lambda) X)| \geq \frac{2 \epsilon}{X}
+|\det K(\lambda)| \geq C \epsilon
 \]
 
 \end{proof}
 \end{lemma}
 
+For the rest of this section, we will only consider $\lambda$ which is at least $\epsilon/X$ away from all of the $\lambda^K(X,n)$. In the next lemma, we bound $K_1(\lambda)K(\lambda)^{-1}$ and $K(\lambda)^{-1}$ for such $\lambda$.
 
+% lemma : bounds on K
+
+\begin{lemma}\label{Kinvboundslemma}
+With $\lambda$ chosen as above and $0 < \epsilon < 1/2$, we have bounds
+\begin{enumerate}[(i)]
+\item 
+\begin{equation}\label{Kinvbound}
+||K(\lambda)^{-1}|| \leq C \frac{1}{\epsilon} \\
+\end{equation}
+\item 
+\begin{equation}\label{K1Kinvbound}
+||K_1(\lambda)K(\lambda)^{-1}|| \leq C (|\lambda| + e^{-\alpha X_m})\frac{1}{\epsilon}
+\end{equation}
+\end{enumerate}
+
+\begin{proof}
+For $|K(\lambda)^{-1}|$, if $\text{Re }\nu(\lambda)|X \geq 1/X$, we have from Lemma \ref{detKlemma}
+
+\begin{align*}
+||K(\lambda)^{-1}|| &\leq C \frac{e^{|\text{Re }\nu(\lambda)|X }}{| \det K(\lambda) |} \leq C \frac{e^{|\text{Re }\nu(\lambda)|X }}{e^{|\text{Re }\nu(\lambda)X|}} = C 
+\end{align*}
+
+If $\text{Re }\nu(\lambda)|X \leq 1/X$, we have from Lemma \ref{detKlemma}, we have
+
+\begin{align*}
+||K(\lambda)^{-1}|| &\leq C \frac{e^{|\text{Re }\nu(\lambda)|X }}{| \det K(\lambda) |} \leq C \frac{1}{\epsilon}
+\end{align*}
+
+Since $\epsilon$ is small, we have the overall bound
+
+\begin{align*}
+||K(\lambda)^{-1}|| &\leq C \frac{1}{\epsilon}
+\end{align*}
+
+For $K_1(\lambda)K(\lambda)^{-1}$, since we have an equation for $K(\lambda)^{-1}$ from Lemma \ref{Kinvlemma} and we know the form of $K_1(\lambda)$ from the proof of Lemma \ref{jumpcenteradj},
+
+\begin{align*}
+||K_1(\lambda)K(\lambda)^{-1}|| &\leq 
+C \frac{e^{|\text{Re }\nu(\lambda)|X}}{|\det K(\lambda)|} \max {|\gamma|_{ij}} \\
+&\leq C \frac{1}{\epsilon} \max {|\gamma|_{ij}}
+\end{align*}
+
+where we used the bound we found above and the $\gamma_{ij}$ are the coefficients of $K_1(\lambda)$ from the proof of Lemma \ref{jumpcenteradj}. Since $\gamma_{ij} = \mathcal{O}(|\lambda| + e^{-\alpha X_m})$, we conclude
+
+\begin{align*}
+||K_1(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + e^{-\alpha X_m})\frac{1}{\epsilon}
+\end{align*}
+
+\end{proof}
+\end{lemma}
 
 \begin{enumerate}
 
