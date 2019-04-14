@@ -2500,9 +2500,10 @@ With $\lambda$ chosen as above and $0 < \epsilon < 1/2$, we have bounds
 ||K(\lambda)^{-1}|| \leq C \frac{1}{\epsilon} \\
 \end{equation}
 \item 
-\begin{equation}\label{K1Kinvbound}
-||K_1(\lambda)K(\lambda)^{-1}|| \leq C (|\lambda| + e^{-\alpha X_m})\frac{1}{\epsilon}
-\end{equation}
+\begin{align}
+||K_1(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + e^{-\alpha X_m})\frac{1}{\epsilon} \label{K1Kinvbound} \\
+||K_2(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + e^{-\alpha X_m})\frac{1}{\epsilon} \label{K2Kinvbound}
+\end{align}
 \end{enumerate}
 
 \begin{proof}
@@ -2538,8 +2539,231 @@ where we used the bound we found above and the $\gamma_{ij}$ are the coefficient
 ||K_1(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + e^{-\alpha X_m})\frac{1}{\epsilon}
 \end{align*}
 
+Since $K_2(\lambda)$ is a similar perturbation of $K(\lambda)$, we have the same bound for $||K_2(\lambda)K(\lambda)^{-1}||$.
+
 \end{proof}
 \end{lemma}
+
+We can now solve for $c$ in \eqref{blockmatrix1} and plug it into the second equation in \eqref{blockeq}. Since the entries of the matrix $A$ are $\mathcal{O}(e^{-2 \alpha X_m}$ and we expect the interaction eigenvalues to be near where $A - \lambda^2 M$ is singular, we will take $\lambda = \mathcal{O}(e^{-\alpha X_m})$. The following lemma gives us an equation for $d$ which we can solve to obtain the interaction eigenvalues.
+
+% equation for d
+
+\begin{lemma}\label{deqlemma}
+Choose $\epsilon = e^{-\alpha X_m/2}$ in Lemma \ref{detKlemma}. Then, for sufficiently large $X_m$ and as long as $\lambda$ is at least $\epsilon/X$ away from all of the $\lambda^K(X,n)$, the interaction eigenvalues are the values of $\lambda$ for which
+\begin{equation}\label{eqford}
+(A - \lambda^2 MI + D_3)d = 0
+\end{equation}
+
+has a nontrivial solution. The remainder term $D_3$ has bound
+
+\begin{equation}\label{D3bound}
+||D_2 - C_2 C_3 D_1 - K_2(\lambda) K(\lambda)^{-1} C_3 D_1|| \leq C e^{-5 \alpha X_m/2}
+\end{equation}
+
+\begin{proof}
+From Theorem \ref{blockmatrixtheorem} and Lemma \ref{Kinvboundslemma} 
+
+\begin{align*}
+|C_1| &\leq (e^{-\tilde{\alpha}X_m})(|\lambda| + e^{-\alpha X_m})
+||K_1(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + e^{-\alpha X_m})\frac{1}{\epsilon}
+\end{align*}
+
+Choose $\epsilon = e^{-\alpha X_m / 2 }$. Thus for $\lambda = \mathcal{O}(e^{-\alpha X_m}$, we have the bound
+
+\[
+||C_1 + K_1(\lambda)K(\lambda)^{-1}|| \leq C e^{-\alpha X_m / 2 }
+\]
+
+For sufficiently large $X_m$, $I + C_1 + K_1(\lambda)K(\lambda)^{-1}$ is invertible. Let $C_3 = (I + C_1 + K_1(\lambda)K(\lambda)^{-1})^{-1}$. Then we can solve for $c$ to get
+
+\[
+c = - K(\lambda)^{-1} C_3 D_1 d
+\]
+
+Plugging this into the second line of \eqref{blockeq}, we get the folowing equation for $d$.
+
+\begin{align*}
+(C_2 K(\lambda) + K_2(\lambda))c + (A - \lambda^2 MI + D_2)d &= 0 \\
+(A - \lambda^2 MI + D_2)d - (C_2 K(\lambda) + K_2(\lambda))K(\lambda)^{-1} C_3 D_1 &= 0 \\
+(A - \lambda^2 MI + D_2)d - (C_2 + K_2(\lambda)K(\lambda)^{-1}) C_3 D_1 &= 0 \\
+\end{align*}
+
+Let 
+
+\[
+D_3 = D_2 - C_2 C_3 D_1 - K_2(\lambda) K(\lambda)^{-1} C_3 D_1
+\]
+
+be the remainder term, so that the equation for $d$ becomes
+
+\[
+(A - \lambda^2 MI + D_3)d = 0
+\]
+
+Then using bounds from Theorem \ref{blockmatrixtheorem} and Lemma \ref{Kinvboundslemma} and our choice of $\epsilon$, we have
+
+\[
+||D_2 - C_2 C_3 D_1 - K_2(\lambda) K(\lambda)^{-1} C_3 D_1|| \leq C e^{-5 \alpha X_m/2}
+\]
+
+\end{proof}
+\end{lemma}
+
+To obtain the interaction eigenvalues, we take the following scaling based on San98. We used a similar scaling in the existence problem. Define
+
+\begin{align}
+r &= e^{-\alpha(2 X_m + \phi/\beta)} \\
+b_j &= e^{-2 \alpha(X_j - X_m)} && j = 0, \dots, n-1
+\end{align}
+
+In terms of the $X_j$, we have
+
+\begin{align*}
+X_m &= -\frac{1}{2\alpha}\log r - \alpha \frac{\phi}{\beta} \\
+X_j &= -\frac{1}{2\alpha}\log(b_j r) - \frac{\phi}{2 \beta} 
+\end{align*}
+
+We note that $r \in (0, \delta)$, where $\delta$ is defined in Theorem \ref{blockmatrixtheorem} and $b_j \in (0, 1]$. Recall from the existence problem that given integers $m_j$, $j = 0, \dots, n-1$, the $b_j$ are a 1-parameter family paramaterized by the $b_{n-1}$, i.e. 
+
+\[
+b_j = b_j(b_{n-1}, r)
+\] 
+
+where $b_j \rightarrow e^{-\pi \alpha m_j / \beta}$ as $(b_{n-1}, r) \rightarrow (0,0)$. Thus, for the $X_j$, we have
+
+\[
+X_j = -\frac{1}{2\alpha}\log(b_j(b_{n-1}, r) r) - \alpha \frac{\phi}{2 \beta} 
+\]
+
+Since $b_{n-1}$ is a free paramater, for $b_{n-1}$ we have
+
+\begin{align*}
+b_{n-1} &= e^{-2 \alpha(X_{n-1} - X_m)} \\
+X_{n-1} &= -\frac{1}{2\alpha}\log(b_{n-1} r) - \alpha \frac{\phi}{2 \beta} 
+\end{align*}
+
+We now use this scaling for the terms in Lemma \ref{deqlemma}. For the remainder term $D_3$, we have bound
+
+\[
+D_3 \leq C r^{1 + 1/4}
+\]
+
+Next, we use this scaling for the matrix $A$. From Lemma 6.1 in San98, we have
+
+\begin{align}
+\langle \Psi(-x), Q(x) \rangle
+&= s_0 e^{-2 \alpha x} \sin(2 \beta x + \phi) + \mathcal{O}(e^{-(2 \alpha + \gamma) x}) \label{IPpsiQ} \\
+\langle \Psi(-x), Q'(x) \rangle
+&= s_0 e^{-2 \alpha x}\left( \beta \cos(2 \beta x + \phi) - \alpha \sin(2 \beta x + \phi)\right) + \mathcal{O}(e^{-(2 \alpha + \gamma) x}) \label{IPpsiQprime}
+\end{align}
+
+Substituting the expressions for $X_j$ into $a_j = \langle \Psi(-X_j), Q'(X_j) \rangle$, we have
+
+\begin{align*}
+a_j &= \langle \Psi(-X_j), Q'(X_j) \rangle \\
+&= s_0 e^{-2 \alpha X_j}\left( \beta \cos(2 \beta X_j + \phi) - \alpha \sin(2 \beta X_j + \phi)\right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_j}) \\
+&= s_0 e^{-2 \alpha X_m} e^{-2 \alpha (X_j - X_m)} \left( \beta \cos(2 \beta X_j + \phi) - \alpha \sin(2 \beta X_j + \phi)\right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_m} e^{-(2 \alpha + \gamma) (X_j - X_m) }) \\
+&= s_0 e^{\alpha \phi/\beta} r b_j \left( \beta \cos\left( -\frac{\beta}{\alpha} \log(b_j r) \right) - \alpha \sin \left( -\frac{\beta}{\alpha} \log(b_j r) \right) \right) + \mathcal{O}(r^{1+\gamma} b_j^{1 + \gamma}) \\
+&= s_0 e^{\alpha \phi/\beta} r \left( \beta b_j \cos\left( -\frac{\beta}{\alpha} \log(b_j r) \right) - \alpha b_j \sin \left( -\frac{\beta}{\alpha} \log(b_j r) \right) \right) + \mathcal{O}(r^{1+\gamma})
+\end{align*}
+
+since $b_j \in (0, 1]$.\\
+
+From the existence problem, we take $r = r_m = \exp{-\frac{2 \pi \alpha m}{\beta}}$ for a sufficiently large integer $m$. With $r$ of this form, the $r$inside the log disappears and we get
+
+\begin{align*}
+\langle \Psi(-X_j), Q'(X_j) \rangle 
+&= s_0 e^{\alpha \phi/\beta} r \left( \beta b_j \cos\left( -\frac{\beta}{\alpha} \log b_j \right) - \alpha b_j \sin \left( -\frac{\beta}{\alpha} \log b_j  \right) \right) + \mathcal{O}(r^{1+\gamma})
+\end{align*}
+
+In the existence problem, we solved
+
+\begin{equation}
+b_j(b_{n-1}, r) \sin \left( - \frac{\beta}{\alpha} \log b_j(b_{n-1}, r) \right) - b_{n-1} \sin \left( - \frac{\beta}{\alpha} \log b_{n-1} \right) + \mathcal{O}(r_m^\gamma) = 0
+\end{equation}
+
+so we have
+
+\[
+b_j(b_{n-1}, r) \sin \left( - \frac{\beta}{\alpha} \log b_j(b_{n-1}, r) \right) = b_{n-1} \sin \left( - \frac{\beta}{\alpha} \log b_{n-1} \right) + \mathcal{O}(r_m^\gamma)
+\]
+
+Substituting this into what we have above gives us 
+
+\begin{align*}
+\langle \Psi(-X_j), Q'(X_j) \rangle 
+&= s_0 e^{\alpha \phi/\beta} r \left( \beta b_j(b_{n-1}, r) \cos\left( -\frac{\beta}{\alpha} \log b_j(b_{n-1}, r) \right) - \alpha b_{n-1} \sin \left( - \frac{\beta}{\alpha} \log b_{n-1} \right) \right) + \mathcal{O}(r^{1+\gamma})
+\end{align*}
+
+for $i = 0, \dots, n-2$. For convenience, let
+
+\[
+p(b_{n-1}) = 
+b_{n-1} \sin \left( - \frac{\beta}{\alpha} \log b_{n-1} \right)
+\]
+
+As the free parameter $b_{n-1} \rightarrow 0$, $p(b_{n-1}) \rightarrow 0$. Thus we have
+
+\begin{align*}
+a_j &= \langle \Psi(-X_j), Q'(X_j) \rangle \\
+&= s_0 e^{\alpha \phi/\beta} r \left( \beta b_j(b_{n-1}, r) \cos\left( -\frac{\beta}{\alpha} \log b_j(b_{n-1}, r) \right) - \alpha p(b_{n-1}) \right) + \mathcal{O}(r^{1+\gamma}) && j = 0, \dots, n-2 \\
+a_{n-1} &= \langle \Psi(-X_{n-1}), Q'(X_j) \rangle \\
+&= s_0 e^{\alpha \phi/\beta} r \left( \beta b_{n-1} \cos\left( -\frac{\beta}{\alpha} \log b_{n-1} \right) - \alpha p(b_{n-1}) \right) + \mathcal{O}(r^{1+\gamma})
+\end{align*}
+
+We can factor $r$ out these to get $a_j = r \tilde{a}_j + \mathcal{O}(r^{1+\gamma})$, where
+
+\begin{align*}
+\tilde{a}_j &= s_0 e^{\alpha \phi/\beta} \left( \beta b_j(b_{n-1}, r) \cos\left( -\frac{\beta}{\alpha} \log b_j(b_{n-1}, r) \right) - \alpha p(b_{n-1}) \right) && j = 0, \dots, n-2 \\
+\tilde{a}_{n-1} &= s_0 e^{\alpha \phi/\beta} \left( \beta b_{n-1} \cos\left( -\frac{\beta}{\alpha} \log b_{n-1} \right) - \alpha p(b_{n-1}) \right) 
+\end{align*}
+
+Let $\tilde{A}(b_{n-1}, r)$ be the same matrix as $A$ except with $\tilde{a}_j$ in place of $a_j$. $\tilde{A}(r)$ is still symmetric, so its eigenvalues are real. It does, however, still depend on $r$ via the $\log b_j(b_{n-1}, r)$ terms. Because of the $b_{n-1}$ parameter, this will not work out quite as nicely as it would on the real line. Although it is true that $b_j(b_{n-1}, r) \rightarrow e^{-\pi \alpha m_j / \beta}$ as $(b_{n-1}, r) \rightarrow (0,0)$ and we can take $r$ as small as we wish, we cannot take $b_{n-1}$ as small as we wish, since the idea is that is a free parameter. Thus we need to figure something else out.\\
+
+Let
+
+\[
+b^*_j(b_{n-1}) = \lim_{r \rightarrow 0} b_j(b_{n-1}, r)
+\]
+
+Then $b^*_j(b_{n-1}) \rightarrow e^{-\pi \alpha m_j / \beta}$ as $b_{n-1} \rightarrow 0$. Let $\lambda = r^{1/2} \tilde{\lambda}$, so that $\lambda^2 = r \tilde{\lambda}^2$. Then we can write the problem as
+
+\[
+(r \tilde{A}(b_{n-1}, 0) + r( \tilde{A}(b_{n-1}, r) - \tilde{A}(b_{n-1}, 0)) - r \tilde{\lambda}^2 MI + \mathcal{O}(r^{1+1/4} + r^{1 +\gamma}))d = 0
+\]
+
+Divide this by $r$ to get
+
+\[
+(\tilde{A}(b_{n-1}, 0) - \tilde{\lambda}^2 MI + (\tilde{A}(b_{n-1}, r) - \tilde{A}(b_{n-1}, 0)) + \mathcal{O}(r^{1/4} + r^\gamma))d = 0
+\]
+
+where the first two terms no longer depend on $r$ and the last two terms decay to 0 as $r \rightarrow \infty$. We rewrite this as
+
+\[
+(\tilde{A}(b_{n-1}, 0) - \tilde{\lambda}^2 MI + A_3(r))d = 0
+\]
+
+where $A_3(r) \rightarrow 0$ as $r \rightarrow 0$. To have a nontrivial solution, we require 
+
+\[
+E(\tilde{\lambda}, r) = \det (\tilde{A}(b_{n-1}, 0) - \tilde{\lambda}^2 MI + A_3(r)) = 0
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \begin{enumerate}
 
