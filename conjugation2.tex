@@ -2544,7 +2544,7 @@ Since $K_2(\lambda)$ is a similar perturbation of $K(\lambda)$, we have the same
 \end{proof}
 \end{lemma}
 
-We can now solve for $c$ in \eqref{blockmatrix1} and plug it into the second equation in \eqref{blockeq}. Since the entries of the matrix $A$ are $\mathcal{O}(e^{-2 \alpha X_m}$ and we expect the interaction eigenvalues to be near where $A - \lambda^2 M$ is singular, we will take $\lambda = \mathcal{O}(e^{-\alpha X_m})$. The following lemma gives us an equation for $d$ which we can solve to obtain the interaction eigenvalues.
+We can now solve for $c$ in \eqref{blockmatrix1} and plug it into the second equation in \eqref{blockeq}. Since the entries of the matrix $A$ are $\mathcal{O}(e^{-2 \alpha X_m}$ and we expect the interaction eigenvalues to be near where $A - \lambda^2 M$ is singular, we will take $|\lambda| \leq C e^{-\alpha X_m}$. The following lemma gives us an equation for $d$ which we can solve to obtain the interaction eigenvalues.
 
 % equation for d
 
@@ -2564,7 +2564,7 @@ has a nontrivial solution. The remainder term $D_3$ has bound
 From Theorem \ref{blockmatrixtheorem} and Lemma \ref{Kinvboundslemma} 
 
 \begin{align*}
-|C_1| &\leq (e^{-\tilde{\alpha}X_m})(|\lambda| + e^{-\alpha X_m})
+|C_1| &\leq (e^{-\tilde{\alpha}X_m})(|\lambda| + e^{-\alpha X_m}) \\
 ||K_1(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + e^{-\alpha X_m})\frac{1}{\epsilon}
 \end{align*}
 
@@ -2609,7 +2609,7 @@ Then using bounds from Theorem \ref{blockmatrixtheorem} and Lemma \ref{Kinvbound
 \end{proof}
 \end{lemma}
 
-To obtain the interaction eigenvalues, we take the following scaling based on San98. We used a similar scaling in the existence problem. Define
+To obtain the interaction eigenvalues, we take the following scaling based on San98. In fact, we used the same scaling in the existence problem. Define
 
 \begin{align}
 r &= e^{-\alpha(2 X_m + \phi/\beta)} \\
@@ -2623,24 +2623,15 @@ X_m &= -\frac{1}{2\alpha}\log r - \alpha \frac{\phi}{\beta} \\
 X_j &= -\frac{1}{2\alpha}\log(b_j r) - \frac{\phi}{2 \beta} 
 \end{align*}
 
-We note that $r \in (0, \delta)$, where $\delta$ is defined in Theorem \ref{blockmatrixtheorem} and $b_j \in (0, 1]$. Recall from the existence problem that given integers $m_j$, $j = 0, \dots, n-1$, the $b_j$ are a 1-parameter family paramaterized by the $b_{n-1}$, i.e. 
+Recall that we took $e^{-\alpha X_m} < \delta$, where $\delta$ is defined in Theorem \ref{blockmatrixtheorem}. Thus $r^{1/2} \in (0, \delta)$, and $b_j \in (0, 1]$. \\
 
-\[
-b_j = b_j(b_{n-1}, r)
-\] 
-
-where $b_j \rightarrow e^{-\pi \alpha m_j / \beta}$ as $(b_{n-1}, r) \rightarrow (0,0)$. Thus, for the $X_j$, we have
-
-\[
-X_j = -\frac{1}{2\alpha}\log(b_j(b_{n-1}, r) r) - \alpha \frac{\phi}{2 \beta} 
-\]
-
-Since $b_{n-1}$ is a free paramater, for $b_{n-1}$ we have
-
-\begin{align*}
-b_{n-1} &= e^{-2 \alpha(X_{n-1} - X_m)} \\
-X_{n-1} &= -\frac{1}{2\alpha}\log(b_{n-1} r) - \alpha \frac{\phi}{2 \beta} 
-\end{align*}
+We briefly summarize the result from the existence problem. Choose $n$ (the number of pulses) and a sequence of nonnegative integers $m_0, \dots, m_{n-2}$, with the restriction that at least one of them must be 0. Let
+\begin{enumerate}
+	\item $b^* = \exp \left( -\frac{\alpha}{\beta} \arctan \frac{\beta}{\alpha} \right)$
+	\item $b_j^* = \exp \left(-\frac{m_j \pi \alpha}{\beta} \right) b^*$, $k = 1, \dots, n-2$.
+	\item $b_\text{min} = \min\{ b_0^*, \dots, b_{n-2}^* \}$
+\end{enumerate}
+Then for any $\epsilon > 0$ there exists $r_0 > 0$ such that for each $r_m < r$, where $r_m = \exp\left(-\frac{m \pi \alpha}{\beta} \right)$ for positive integer $m$, there exists a 1-paramater family of periodic $n-$pulse solutions, paramaterized by the periodic length parameter $b_{n-1} \in (0, b_\text{min} - \epsilon]$. The remaining length parameters are given by $b_j(b_{n-1}, r_m)$, where $b_j(b_{n-1}, r)$ is smooth in $b_{n-1}$ and $r$, and $b_j(b_{n-1}, r) \rightarrow \exp \left(-\frac{m_j \pi \alpha}{\beta} \right)$ as $(b_{n-1}, r) \rightarrow (0,0)$. The actual lengths $X_j$ are determined from $r_m$ and the $b_j$ using the above formulas.\\
 
 We now use this scaling for the terms in Lemma \ref{deqlemma}. For the remainder term $D_3$, we have bound
 
@@ -2718,7 +2709,7 @@ We can factor $r$ out these to get $a_j = r \tilde{a}_j + \mathcal{O}(r^{1+\gamm
 \tilde{a}_{n-1} &= s_0 e^{\alpha \phi/\beta} \left( \beta b_{n-1} \cos\left( -\frac{\beta}{\alpha} \log b_{n-1} \right) - \alpha p(b_{n-1}) \right) 
 \end{align*}
 
-Let $\tilde{A}(b_{n-1}, r)$ be the same matrix as $A$ except with $\tilde{a}_j$ in place of $a_j$. $\tilde{A}(r)$ is still symmetric, so its eigenvalues are real. It does, however, still depend on $r$ via the $\log b_j(b_{n-1}, r)$ terms. Because of the $b_{n-1}$ parameter, this will not work out quite as nicely as it would on the real line. Although it is true that $b_j(b_{n-1}, r) \rightarrow e^{-\pi \alpha m_j / \beta}$ as $(b_{n-1}, r) \rightarrow (0,0)$ and we can take $r$ as small as we wish, we cannot take $b_{n-1}$ as small as we wish, since the idea is that is a free parameter. Thus we need to figure something else out.\\
+Let $\tilde{A}(b_{n-1}, r)$ be the same matrix as $A$ except with $\tilde{a}_j$ in place of $a_j$. $\tilde{A}(r)$ is still symmetric, so its eigenvalues are real. It does, however, still depend on $r$ via the $\log b_j(b_{n-1}, r)$ terms. Because of the $b_{n-1}$ parameter, this will not work out quite as nicely as it would on the real line. Although it is true that $b_j(b_{n-1}, r) \rightarrow e^{-\pi \alpha m_j / \beta}$ as $(b_{n-1}, r) \rightarrow (0,0)$ and we can take $r$ as small as we wish, $b_{n-1}$ is a free parameter and thus is fixed. We need to figure something else out.\\
 
 Let
 
@@ -2750,9 +2741,47 @@ where $A_3(r) \rightarrow 0$ as $r \rightarrow 0$. To have a nontrivial solution
 E(\tilde{\lambda}, r) = \det (\tilde{A}(b_{n-1}, 0) - \tilde{\lambda}^2 MI + A_3(r)) = 0
 \]
 
+Since the determinant is a polynomial and $A_3$ is smooth in $r$, $E(\tilde{\lambda}, r)$ is smooth in $r$ as well. In particular, we have
 
+\[
+E(\tilde{\lambda}, 0) = \det (\tilde{A}(b_{n-1}, 0) - \tilde{\lambda}^2 MI)
+\]
 
+Since $\tilde{A}(b_{n-1}, 0)$ has the same form as $A$, 0 is an eigenvalue with eigenvector $(1, 1, \dots, 1)^T$ regardless of $b_{n-1}$. Let $0, \tilde{\mu}_1(b_{n-1}), \dots, \tilde{\mu}_{n-1}(b_{n-1})$ be the eigenvalues of $\tilde{A}(b_{n-1}, 0)$. By Hypothesis \ref{Adistincteigs}, the eigenvalues of $A$ are distinct. Since all we did to get $\tilde{A}$ was scale out an $r$ and get rid of a term of order $\mathcal{O}(r^{1/4} + r^\gamma))$, for sufficiently small $r$ the eigenvalues of $\tilde{A}(b_{n-1}, 0)$ will be distinct as well. Thus $E(\tilde{\lambda}, 0)$ takes the form of the polynomial
 
+\[
+E(\tilde{\lambda}, 0) = \tilde{\lambda}^2
+\left( \tilde{\lambda} - \sqrt{\tilde{\mu}_1(b_{n-1}) / M} \right)
+\left( \tilde{\lambda} + \sqrt{\tilde{\mu}_1(b_{n-1}) / M} \right) \dots
+\left( \tilde{\lambda} - \sqrt{\tilde{\mu}_{n-1}(b_{n-1}) / M} \right)
+\left( \tilde{\lambda} + \sqrt{\tilde{\mu}_{n-1}(b_{n-1}) / M} \right)
+\]
+
+For $j = 1, \dots, n-1$, $E(\pm \sqrt{\tilde{\mu}_j(b_{n-1}) / M}, 0) = 0$ and 
+$\partial_{\tilde{\lambda}} E(\pm \sqrt{\tilde{\mu}_j(b_{n-1}) / M}, 0) \neq 0$ (since the roots of $\tilde{A}(b_{n-1}, 0)$ are distinct). For sufficiently small $r$, we can use the IFT to solve for $\tilde{\lambda}$ in terms of $r$ near each of the $\pm \sqrt{\tilde{\mu}_j(b_{n-1}) / M}$. Letting $r_0$ be the minimum of these $2n-2$ values of $r$, for $r < r_0$ we have unique, smooth functions $\tilde{\lambda}_j^\pm(r; b_{n-1})$ such that $\tilde{\lambda}_j^\pm(0; b_{n-1}) = \sqrt{\tilde{\mu}_j(b_{n-1}) / M}$ and for $r < r_0$, $E(E(\tilde{\lambda}_j^\pm(r; b_{n-1}), r), r) = 0$. Expanding in a Taylor series, we have
+
+\[
+\tilde{\lambda}_j^\pm(r; b_{n-1})
+= \pm \sqrt{\tilde{\mu}_j(b_{n-1}) / M} + \mathcal{O}(|r|)
+\]
+
+Let $\lambda_j^\pm(r; b_{n-1}) = r^{1/2} \tilde{\lambda}_j^\pm(r; b_{n-1})$. Then the interaction eigenvalues we seek are given by
+
+\[
+\lambda_j^\pm(r; b_{n-1})
+= \pm \sqrt{r \tilde{\mu}_j(b_{n-1}) / M} + \mathcal{O}(|r|^{3/2})
+\]
+
+By Hamiltonian symmetry, eigenvalues must come in quartets $\pm a \pm b i$. Since for sufficiently small $r$ the $\tilde{\mu}_j(b_{n-1})$ are distinct, the only way we can satisfy Hamiltonian symmetry is if these eigenvalues are real or purely imaginary. Thus the interaction eigenvalues are given by $\lambda = \pm \lambda_j^{\text{int}}(r; b_{n-1})$, where
+
+\[
+\lambda_j^{\text{int}}(r; b_{n-1})
+= \sqrt{r \tilde{\mu}_j(b_{n-1}) / M} + \mathcal{O}(|r|^{3/2})
+\]
+
+where the remainder term cannot move this off of the real or imaginary axis. Since $r > 0$, the signs of $M \tilde{\mu}_j(b_{n-1})$ determine whether a given eigenvalue pair is real or pure imaginary.\\
+
+So determination of stability comes down to figuring out the eigenvalues of $\tilde{A}$. If $b_{n-1} = 0$, everything follows from San98 and we are done. If $b_{n-1}$ is close to 0, these results should persist. The problem is that we do not want $b_{n-1}$ to get too small, otherwise we might have problems finding the ``essential spectrum'' eigenvalues in the next section.
 
 
 
