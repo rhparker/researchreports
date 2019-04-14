@@ -2631,7 +2631,7 @@ We briefly summarize the result from the existence problem. Choose $n$ (the numb
 	\item $b_j^* = \exp \left(-\frac{m_j \pi \alpha}{\beta} \right) b^*$, $k = 1, \dots, n-2$.
 	\item $b_\text{min} = \min\{ b_0^*, \dots, b_{n-2}^* \}$
 \end{enumerate}
-Then for any $\epsilon > 0$ there exists $r_0 > 0$ such that for each $r_m < r$, where $r_m = \exp\left(-\frac{m \pi \alpha}{\beta} \right)$ for positive integer $m$, there exists a 1-paramater family of periodic $n-$pulse solutions, paramaterized by the periodic length parameter $b_{n-1} \in (0, b_\text{min} - \epsilon]$. The remaining length parameters are given by $b_j(b_{n-1}, r_m)$, where $b_j(b_{n-1}, r)$ is smooth in $b_{n-1}$ and $r$, and $b_j(b_{n-1}, r) \rightarrow \exp \left(-\frac{m_j \pi \alpha}{\beta} \right)$ as $(b_{n-1}, r) \rightarrow (0,0)$. The actual lengths $X_j$ are determined from $r_m$ and the $b_j$ using the above formulas.\\
+Then for any $\epsilon > 0$ there exists $r_0 > 0$ such that for each $r_m < r_0$, where $r_m = \exp\left(-\frac{m \pi \alpha}{\beta} \right)$ for positive integer $m$, there exists a 1-paramater family of periodic $n-$pulse solutions, paramaterized by the periodic length parameter $b_{n-1} \in (0, b_\text{min} - \epsilon]$. The remaining length parameters are given by $b_j(b_{n-1}, r_m)$, where $b_j(b_{n-1}, r)$ is smooth in $b_{n-1}$ and $r$, and $b_j(b_{n-1}, r) \rightarrow \exp \left(-\frac{m_j \pi \alpha}{\beta} \right)$ as $(b_{n-1}, r) \rightarrow (0,0)$. The actual lengths $X_j$ are determined from $r_m$ and the $b_j$ using the above formulas.\\
 
 We now use this scaling for the terms in Lemma \ref{deqlemma}. For the remainder term $D_3$, we have bound
 
@@ -2642,13 +2642,11 @@ D_3 \leq C r^{1 + 1/4}
 Next, we use this scaling for the matrix $A$. From Lemma 6.1 in San98, we have
 
 \begin{align}
-\langle \Psi(-x), Q(x) \rangle
-&= s_0 e^{-2 \alpha x} \sin(2 \beta x + \phi) + \mathcal{O}(e^{-(2 \alpha + \gamma) x}) \label{IPpsiQ} \\
 \langle \Psi(-x), Q'(x) \rangle
 &= s_0 e^{-2 \alpha x}\left( \beta \cos(2 \beta x + \phi) - \alpha \sin(2 \beta x + \phi)\right) + \mathcal{O}(e^{-(2 \alpha + \gamma) x}) \label{IPpsiQprime}
 \end{align}
 
-Substituting the expressions for $X_j$ into $a_j = \langle \Psi(-X_j), Q'(X_j) \rangle$, we have
+Substituting this for $a_j = \langle \Psi(-X_j), Q'(X_j) \rangle$, we have
 
 \begin{align*}
 a_j &= \langle \Psi(-X_j), Q'(X_j) \rangle \\
@@ -2658,14 +2656,27 @@ a_j &= \langle \Psi(-X_j), Q'(X_j) \rangle \\
 &= s_0 e^{\alpha \phi/\beta} r \left( \beta b_j \cos\left( -\frac{\beta}{\alpha} \log(b_j r) \right) - \alpha b_j \sin \left( -\frac{\beta}{\alpha} \log(b_j r) \right) \right) + \mathcal{O}(r^{1+\gamma})
 \end{align*}
 
-since $b_j \in (0, 1]$.\\
-
-From the existence problem, we take $r = r_m = \exp{-\frac{2 \pi \alpha m}{\beta}}$ for a sufficiently large integer $m$. With $r$ of this form, the $r$inside the log disappears and we get
+since $b_j \in (0, 1]$. From the existence problem, $r$ is of the form $r = r_m = \exp{-\frac{2 \pi \alpha m}{\beta}}$ for $r_m < r_0$. Thus the $r$inside the log disappears, leaving us with
 
 \begin{align*}
-\langle \Psi(-X_j), Q'(X_j) \rangle 
+a_j = \langle \Psi(-X_j), Q'(X_j) \rangle 
 &= s_0 e^{\alpha \phi/\beta} r \left( \beta b_j \cos\left( -\frac{\beta}{\alpha} \log b_j \right) - \alpha b_j \sin \left( -\frac{\beta}{\alpha} \log b_j  \right) \right) + \mathcal{O}(r^{1+\gamma})
 \end{align*}
+
+Let $a_j = r \tilde{a}_j$. Recalling that for $j = 0, \dots, n-2$, $b_j = b_j(b_{n-1},r)$, we have
+
+\begin{align*}
+\tilde{a}_j(b_{n-1},r) &= s_0 e^{\alpha \phi/\beta} \left( \beta b_j(b_{n-1},r) \cos\left( -\frac{\beta}{\alpha} \log b_j(b_{n-1},r) \right) - \alpha b_j(b_{n-1},r) \sin \left( -\frac{\beta}{\alpha} \log b_j(b_{n-1},r) \right) \right) + \mathcal{O}(r^{\gamma}) \\
+\tilde{a}_{n-1}(b_{n-1},r) 
+&= s_0 e^{\alpha \phi/\beta} \left( \beta b_{n-1} \cos\left( -\frac{\beta}{\alpha} \log b_{n-1} \right) - \alpha b_{n-1} \sin \left( -\frac{\beta}{\alpha} \log b_{n-1} \right) \right) + \mathcal{O}(r^\gamma)
+\end{align*}
+
+
+
+
+
+
+
 
 In the existence problem, we solved
 
