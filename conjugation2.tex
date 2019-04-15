@@ -2667,7 +2667,7 @@ Let $a_j = r \tilde{a}_j$. Recalling that for $j = 0, \dots, n-2$, $b_j = b_j(b_
 
 \begin{align*}
 \tilde{a}_j(b_{n-1},r) &= s_0 e^{\alpha \phi/\beta} \beta b_j(b_{n-1},r) \cos\left( -\frac{\beta}{\alpha} \log b_j(b_{n-1},r) \right) \\
-&- s_0 e^{\alpha \phi/\beta} \alpha b_j(b_{n-1},r) \sin \left( -\frac{\beta}{\alpha} \log b_j(b_{n-1},r) \right) \right) + \mathcal{O}(r^{\gamma}) && j = 0, \dots, n-2 \\ 
+&- s_0 e^{\alpha \phi/\beta} \alpha b_j(b_{n-1},r) \sin \left( -\frac{\beta}{\alpha} \log b_j(b_{n-1},r) \right) + \mathcal{O}(r^{\gamma}) && j = 0, \dots, n-2 \\ 
 \tilde{a}_{n-1}(b_{n-1},r) 
 &= s_0 e^{\alpha \phi/\beta} \left( \beta b_{n-1} \cos\left( -\frac{\beta}{\alpha} \log b_{n-1} \right) - \alpha b_{n-1} \sin \left( -\frac{\beta}{\alpha} \log b_{n-1} \right) \right) + \mathcal{O}(r^\gamma)
 \end{align*}
@@ -2750,177 +2750,28 @@ We conclude the following. There exist $r_2, \tilde{b}_2 > 0$ such that for $r_m
 
 These interaction eigenvalues pairs are either real or purely imaginary and are close to $\pm \sqrt{\mu_j^0 / M}$. The number of pairs which are real and purely imaginary is completely determined by the parity of the integers $m_j$; which one is which depends as well on the signs of the constants $M$ and $s_0$.
 
+\subsubsection{Find the Interaction Eigenvalues}
 
+To find the ``essential spectrum'' eigenvalues, we solve the second line of of the block matrix equation \eqref{blockeq} for $d$.
 
-
-STOPPED HERE. TIME TO FIND ESS SPEC EIGS.
-
-
-
-
-
-
-
-\begin{enumerate}
-
-\item First, we look for the interaction eigenvalues. We do this by solving for $c$ in the first line of the block matrix equation.\\
-
-First, we note that the largest element in the matrix $A$ is $\mathcal{O}(e^{-2 \alpha X_m}$, thus the nonzero eigenvalues $\lambda$ will be within $\mathcal{O}(e^{-\alpha X_m}$ of the origin. We can probably show that all the nonzero interaction eigenvalues will be $\mathcal{O}(e^{-\alpha X_m}$ since $\text{Tr }A = \mathcal{O}(e^{-2 \alpha X_m}$.\\
-
-Choose any $\lambda$ which is outside an $\epsilon-$ball of $\nu(\lambda(X, n))$. Thus for this choice of $\lambda$, $K(\lambda)$ is invertible. For this to work, we need to choose an appropriate $\epsilon$. For small $n/X$, recall that
-
-\[
-\lambda(X,n) = -c_0 \frac{n \pi i }{X} + \mathcal{O}(n/X)^2 \\
-\]
-
-thus the spacing between them is $\mathcal{O}(1/X)$. To that end, for now we choose 
-
-\[
-\epsilon = e^{-\alpha X_m/2} \frac{1}{X}
-\]
-
-where for sufficiently large $X_m$, $e^{-\alpha X_m/2}$ will be much less than 1. We may need to choose a larger $\epsilon$ later, but this will do for now.\\
-
-From the first line of the block matrix equation,
-
-\[
-(K(\lambda) + C_1 K(\lambda) + K_1(\lambda))c + D_1 d = 0
-\]
-
-which, since $K(\lambda)$ is invertible, we can write as
-
-\begin{align*}
-(I + C_1 + K_1(\lambda)K(\lambda)^{-1}) K(\lambda) c = -D_1 d
-\end{align*}
-
-We need to show that $K_1(\lambda)K(\lambda)^{-1}$ is small. Since we know the exact form of both of these, it follows that
-
-\[
-||K_1(\lambda)K(\lambda)^{-1}|| \leq 
-C \frac{1}{|\det K(\lambda)|}e^{|\text{Re }\nu(\lambda)|X} \max {|\gamma|_{ij}}
-\]
-
-where the $\gamma_{ij}$ are the coefficients of $K_1(\lambda)$ from the proof of Lemma \ref{jumpcenteradj}. Since we know the magnitude of those coefficients, we have
-
-\[
-||K_1(\lambda)K(\lambda)^{-1}|| \leq C (|\lambda| + e^{-\alpha X_m})
-\frac{1}{|\det K(\lambda)|}e^{|\text{Re }\nu(\lambda)|X}
-\]
-
-To complete this, all we need to do is bound $e^{\text{Re} \nu(\lambda) X} / |\det K(\lambda)|$. Recall that no matter what, $|\lambda|$ is outside an $\epsilon-$ball around any of the $\lambda(X, n)$. To bound this, we consider two cases. If $|\text{Re }\nu(\lambda)| \leq 1/X$, then we have
-
-\begin{align*}
-\frac{1}{|\det K(\lambda)|}e^{|\text{Re }\nu(\lambda)|X} &\leq C \frac{1}{\epsilon X} \\
-&\leq C e^{\alpha X_m/2}
-\end{align*}
-
-where the second line follows from our choice of $\epsilon$. If $|\text{Re }\nu(\lambda)| \geq 1/X$, then we are automatically outside all of the $\epsilon-$balls. In that case we need to get a lower bound for the determinant. For convenience, let $\nu(\lambda)X = a + bi$. Then
-
-\begin{align*}
-|\det K(\lambda)|^2 &= C |2 \sinh(\nu(\lambda))X|^2 \\
-&= C |e^{a+bi} - e^{-a-bi}|^2 \\
-&= C |e^a e^{bi} - e^{-a}e^{-bi}|^2 \\
-&= C (e^a e^{bi} - e^{-a}e^{-bi})(e^a e^{-bi} - e^{-a}e^{bi}) \\
-&= C (e^{2a} + e^{-2a} - e^{2bi} - e^{-2bi}) \\
-&= 2 C (\cosh 2a - \cos 2b) \\
-& \geq 2C \cosh 2 \text{Re } \nu(\lambda) X \\
-&= 2C \cosh |2 \text{Re } \nu(\lambda)| X \\
-&\geq C e^{2 |\text{Re } \nu(\lambda)| X }
-\end{align*}
-
-Thus $|\det K(\lambda)| \geq C e^{|\text{Re } \nu(\lambda)| X }$, and so we have
-
-\begin{align*}
-\frac{1}{|\det K(\lambda)|}e^{|\text{Re }\nu(\lambda)|X} &\leq C
-\end{align*}
-
-Combining these, and recalling that for the interaction eigenvalues we have $|\lambda| = \mathcal{O}(e^{-\alpha X_m})$, we conclude that
-
-\begin{align*}
-||K_1(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + e^{-\alpha X_m}) e^{\alpha X_m/2} \\
-&\leq C e^{-\alpha X_m/2}
-\end{align*}
-
-Since $C_1 + K_1(\lambda)K(\lambda)^{-1} = e^{-\alpha X_m/2}$, for sufficiently large $X_m$, $(I + C_1 + K_1(\lambda)K(\lambda)^{-1})$ is invertible. Thus, for $\lambda$ outside the $\epsilon$-balls, we can solve for $c$ to get
-
-\begin{align*}
-c &= -K(\lambda)^{-1} C_3 D_1 d
-\end{align*}
-
-where 
-
-\[
-C_3 = (I + C_1 + K_1(\lambda)K(\lambda)^{-1})^{-1} = \mathcal{O}(1)
-\]
-
-Next, we substitute this into the second block matrix equation to get
-
-\begin{align*}
-(C_2 K(\lambda) + K_2(\lambda))c + (A - \lambda^2 MI + D_2)d &= 0 \\
-(C_2 K(\lambda) + K_2(\lambda))(-K(\lambda)^{-1} C_3 D_1 d) 
-+ (A - \lambda^2 MI + D_2)d &= 0 \\
-(A - \lambda^2 MI)d + (D_2 - C_2 C_3 D_1 - K_2(\lambda) K(\lambda)^{-1} C_3 D_1) d &= 0
-\end{align*}
-
-Since $K_2(\lambda)$ has the same form and bounds as $K_1(\lambda)$, we also have $K_2(\lambda)K(\lambda)^{-1} = \mathcal{O}(e^{-\alpha X_m/2})$. Thus for the remainder terms we have
-
-\[
-||D_2 - C_2 C_3 D_1 - K_2(\lambda) K(\lambda)^{-1} C_3 D_1|| \leq C e^{-5 \alpha X_m/2}
-\]
-
-which is of sufficiently high order compared to the first term, which is $\mathcal{O}(e^{-2 \alpha X_m}$. \\
-
-Choose any nonzero $\lambda_0$ for which $\det (A - \lambda^2 MI) = 0$. These will all be of the form $\lambda_0 = \pm \sqrt{\mu_0 / M}$, where $\mu_0$ is an eigenvalue of $A$. Note that besides $\lambda_0 = 0$, which we are not considering yet, these $\lambda_0$ come in pairs $\pm \lambda_0$. Since $A$ is a $n \times n$ matrix, there will be exactly $2n - 2$ of these $\lambda_0$. \\
-
-Next, we scale out $e^{-2 \alpha X_m}$ from our equation to get
-
-\begin{equation}\label{tildelambdaeq}
-(\tilde{A} - \tilde{\lambda}^2 MI)d + R(\tilde{\lambda}, X_m)d = 0
+\begin{equation}\label{blockmatrix2}
+(C_2 K(\lambda) + K_2(\lambda))c + (A - \lambda^2 MI + D_2)d = 0
 \end{equation}
 
-where 
+Recall that the eigenvalues of $A$ are $0, \mu_1, \dots, \mu_{n-1}$, thus $A - \lambda^2 MI$ is singular at the points $0, \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}$. As long as $\lambda$ is not one of these we can invert $(A - \lambda^2 MI)$ to get 
+
 \begin{align*}
-\lambda &= e^{-2\alpha X_m} \tilde{\lambda} \\
-R(\tilde{\lambda}, X_m) &= \mathcal{O}(e^{-\alpha X_m/2})
+(C_2 K(\lambda) + K_2(\lambda))c 
++ (A - \lambda^2 MI)(I + (A - \lambda^2 MI)^{-1} D_2))d = 0
 \end{align*}
 
-Let $\lambda_0 = e^{-2\alpha X_m} \tilde{\lambda}_0$. The scaled equation \eqref{tildelambdaeq} has a nontrivial solution if and only if 
-
-\begin{equation}\label{tildelambdaeq2}
-G(\tilde{\lambda}, r) = \det( (\tilde{A} - \tilde{\lambda}^2 MI) + R(\tilde{\lambda}, r) ) = 0
-\end{equation}
-
-where $r = e^{-\alpha X_m/2}$. $G(\tilde{\lambda}_0, 0) = 0$, $G(\tilde{\lambda}, r)$ is smooth in $\tilde{\lambda}$, and $D_{\tilde{\lambda}}G(\lambda_0, 0) \neq 0$ (this follows from the assumption that the eigenvalues of $A$ are distinct). Thus for sufficiently small $r$ (i.e. sufficiently large $X_m$) we can use the IFT to find a unique $\tilde{\lambda}(X_m; \tilde{\lambda}_0)$ near $\tilde{\lambda}_0$ such that $G( \tilde{\lambda}(X_m; \tilde{\lambda}_0), X_m) = 0$. In other words, $\tilde{\lambda}(X_m; \tilde{\lambda}_0)$ solves \eqref{tildelambdaeq2}.\\
-
-Expanding $\tilde{\lambda}(0; \tilde{\lambda}_0)$ in a Taylor series about $r = 0$ gives us for sufficiently small $r$
-
-\begin{equation*}
-\tilde{\lambda}(r; \tilde{\lambda}_0) = \tilde{\lambda}_0 + \mathcal{O}(|r|)
-\end{equation*}
-
-Undoing our scaling, let
-
-\[
-\lambda(X_m; \lambda_0) = e^{-\alpha X_m} \tilde{\lambda}(X_m; \tilde{\lambda}_0)
-\]
-
-Then we have
-
-\begin{equation}
-\lambda(X_m; \lambda_0) = \lambda_0 + \mathcal{O}(e^{-3 \alpha X_m/2})
-\end{equation}
-
-If we do this for all possible $\lambda_0$, then we have found the $2n - 2$ interaction eigenvalues we seek. By Hamiltonian symmetry of the underlying system (we will have already mentioned this), eigenvalues must come in quartets, i.e. if $\alpha + \beta i$ is an eigenvalue, so are $\pm \alpha \pm \beta i$. Since we are assuming the eigenvalues of $A$ are distinct, there are only two eigenvalues $\lambda(X_m; \lambda_0)$ of similar magnitude. Thus we conclude that for each eigenvalue $\mu$ of $A$ there is a pair of interaction eigenvalues $\pm \lambda^i(X_m; \mu)$. This pair must be real or purely imaginary, and $\lambda^i(X_m; \mu)$ is close to $\sqrt{\mu / M}$. From above, we have
-
-\[
-\lambda^i(X_m; \mu) = \sqrt{\mu / M} + \mathcal{O}(e^{-3 \alpha X_m/2})
-\]
-
-where the remainder term cannot move this off of the real or imaginary axis.
+In order proceed, we need to bound $(A - \lambda^2 MI)^{-1}$. As in the previous section, we will only consider $\lambda$ which are $\epsilon/X$ away from the points where $(A - \lambda^2 MI)$ is singular.
 
 
-\item Next, we look for the ``essential spectrum'' eigenvalues. We do this by solving for $d$ in the second line of the block matrix equation. Once again, we are looking for eigenvalues $\lambda$ with $|\lambda| \leq \mathcal{O}(e^{-\alpha X_m})$.
-\\
+
+
+
+
 
 Similar to what we did above, we place $\epsilon-$balls around the values of $\lambda$ for which $A - \lambda^2 M I$ is singular. We would like to use the same or similar value of $\epsilon$ as in the previous section.Then, outside of the $\epsilon-$balls, $A - \lambda^2 M I$ is invertible. We would like to get a bound on $(A - \lambda^2 M I)^{-1}$ outside these $\epsilon-$balls. Recall that $(A - \lambda^2 M I)^{-1}$ is given by the formula
 
@@ -2966,6 +2817,19 @@ Note that we are looking for eigenvalues on/near the imaginary axis, i.e. eigenv
 where $\tilde{\lambda} = \mathcal{O}(1)$ and $n$ is a nonzero integer (we will deal with the $\lambda = 0$ case later.\\
 
 We would like to get a lower bound for $|\det(A - \lambda^2 M I)|$. We consider several cases. The best case scenario is if all the nonzero interaction eigenvalues are real. In that case, 
+
+
+
+
+
+
+
+
+\begin{enumerate}
+
+
+
+\item 
 
 \[
 |\det(A - \lambda^2 M I)| = \mathcal{O}\Big( e^{-(2n-2)\alpha X_m}) (n/X)^2 \Big)
