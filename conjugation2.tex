@@ -2636,7 +2636,7 @@ Then for any $\epsilon > 0$ there exists $r_0 > 0$ such that for each $r_m < r_0
 We now use this scaling for the terms in Lemma \ref{deqlemma}. For the remainder term $D_3$, we have bound
 
 \[
-D_3 \leq C r^{1 + 1/4}
+|D_3| \leq C r^{1 + 1/4}
 \]
 
 Next, we use this scaling for the matrix $A$. From Lemma 6.1 in San98, we have
@@ -2666,10 +2666,97 @@ a_j = \langle \Psi(-X_j), Q'(X_j) \rangle
 Let $a_j = r \tilde{a}_j$. Recalling that for $j = 0, \dots, n-2$, $b_j = b_j(b_{n-1},r)$, we have
 
 \begin{align*}
-\tilde{a}_j(b_{n-1},r) &= s_0 e^{\alpha \phi/\beta} \left( \beta b_j(b_{n-1},r) \cos\left( -\frac{\beta}{\alpha} \log b_j(b_{n-1},r) \right) - \alpha b_j(b_{n-1},r) \sin \left( -\frac{\beta}{\alpha} \log b_j(b_{n-1},r) \right) \right) + \mathcal{O}(r^{\gamma}) \\
+\tilde{a}_j(b_{n-1},r) &= s_0 e^{\alpha \phi/\beta} \beta b_j(b_{n-1},r) \cos\left( -\frac{\beta}{\alpha} \log b_j(b_{n-1},r) \right) \\
+&- s_0 e^{\alpha \phi/\beta} \alpha b_j(b_{n-1},r) \sin \left( -\frac{\beta}{\alpha} \log b_j(b_{n-1},r) \right) \right) + \mathcal{O}(r^{\gamma}) && j = 0, \dots, n-2 \\ 
 \tilde{a}_{n-1}(b_{n-1},r) 
 &= s_0 e^{\alpha \phi/\beta} \left( \beta b_{n-1} \cos\left( -\frac{\beta}{\alpha} \log b_{n-1} \right) - \alpha b_{n-1} \sin \left( -\frac{\beta}{\alpha} \log b_{n-1} \right) \right) + \mathcal{O}(r^\gamma)
 \end{align*}
+
+Since $b_j(b_{n-1}, r) \rightarrow \exp \left(-\frac{m_j \pi \alpha}{\beta} \right)$ as $(b_{n-1}, r) \rightarrow (0,0)$, 
+
+\begin{align*}
+\tilde{a}_j(b_{n-1}, r) &\rightarrow a_j^0 = (-1)^{m_j} s_0 \beta e^{\alpha \phi/\beta} e^{-m_j \pi \alpha/\beta} \\
+\tilde{a}_{n-1}(b_{n-1}, r) &\rightarrow 0
+\end{align*}
+
+as $(b_{n-1}, r) \rightarrow (0,0)$. Let $\tilde{A}(b_{n-1}, r)$ be the same matrix as $A$ with $a_j$ replaced with $\tilde{a}_j(b_{n-1}, r)$. Let $A_0$ be the tri-diagonal, symmetric matrix 
+
+\begin{align*}
+A_0 &= \begin{pmatrix}
+-a_0^0 & a_0^0 \\
+a_0^0 & -a_0^0 
+\end{pmatrix} && n = 2 \\
+A_0 &= \begin{pmatrix}
+- a_0^0 & a_0^0 \\
+a_0^0 & -a_0^0 - a_1^0 &  a_1^0 \\
+& a_1^0 & -a_1^0 - a_2^0 &  a_2^0 \\
+& & \ddots & & \ddots \\
+& & & & & a_{n-2}^0 & -a_{n-2}^0 \\
+\end{pmatrix} && n > 2
+\end{align*}
+
+We note that $(1, 1, \dots, 1)^T$ is an eigenvector of $A_0$ with eigenvalue 0. Let $0, \mu^0_1, \dots, \mu^0_{n-1}$ be the eigenvalues of $A_0$. Note that this is the matrix $-A_0$ in Lemma 5.4 of San98. We note that 
+Let $n_+$ be the number of positive $a_j^0$ and $n_i = n - n_+ - 1$ be the number of negative $a_j^0$. (The signs of the $a_j^0$ are determined by the integers $m_j$ and the constant $s_0$). Then, by Lemma 5.4 of San98,
+
+\begin{enumerate}[(i)]
+\item $A_0$ has a simple eigenvalue at 0
+\item $A_0$ has $n_+$ negative eigenvalues (counting multiplicity)
+\item $A_0$ has $n_-$ positive eigenvalues (counting multiplicity)
+\end{enumerate}
+
+We would like these eigenvalues to be distinct. Either we have to assume that, or we can cite an appropriate result from discrete Sturm-Liouville theory.\\
+
+Finally, let $\lambda = r^{1/2} \tilde{\lambda}$, so that $\lambda^2 = r \tilde{\lambda}^2$. Then we can rewrite the problem as
+
+\[
+(rA_0 + r(\tilde{A}(b_{n-1}, r) - A_0) - r \tilde{\lambda}^2 MI + \mathcal{O}(r^{1 + 1/4}))d = 0
+\]
+
+Divide this by $r$ to get
+
+\[
+(A_0 - \tilde{\lambda}^2 MI + (\tilde{A}(b_{n-1}, r) - A_0) + \mathcal{O}(r^{1/4}))d = 0
+\]
+
+Note that the first two terms in this do not depend on $r$. This has a nontrivial solution if and only if
+
+\[
+\tilde{E}(\tilde{\lambda}; b_{n-1}, r) = \det
+(A_0 - \tilde{\lambda}^2 MI + (\tilde{A}(b_{n-1}, r) - A_0) + \mathcal{O}(r^{1/4}) = 0
+\]
+
+Since the determinant a polynomial, thus is smooth in $(b_{n-1}, r)$, when $(b_{n-1}, r) = (0,0)$, $\tilde{E}(\tilde{\lambda}; 0, 0) = \det
+(A_0 - \tilde{\lambda}^2 MI)$. Since we know the eigenvalues of $A_0$, we have the expression
+
+\[
+\tilde{E}(\tilde{\lambda}; 0, 0) = \tilde{\lambda}^2
+\left( \tilde{\lambda} - \sqrt{\mu^0_1 / M} \right)
+\left( \tilde{\lambda} + \sqrt{\mu^0_1 / M} \right) \dots
+\left( \tilde{\lambda} - \sqrt{\mu^0_{n-1} / M} \right)
+\left( \tilde{\lambda} + \sqrt{\mu^0_{n-1} / M} \right)
+\]
+
+For $j = 1, \dots, n-1$, $\tilde{E}(\pm \sqrt{\mu^0_j / M}; 0, 0) = 0$ and, since the eigenvalues of $A_0$ are distinct, $\partial_{\tilde{\lambda}} \tilde{E}(\pm \sqrt{\mu^0_j / M}, 0) \neq 0$. Thus for sufficiently small $(b_{n-1}, r)$ (with $r \leq r_0$), we can use the IFT to solve for $\tilde{\lambda}$ in terms of $(b_{n-1}, r)$ near each of the $\pm \sqrt{\tilde{\mu}_j(b_{n-1}) / M}$. Let $r_1$ and $\tilde{b}_1$ be the minimum of these $2n-2$ values of $r$ and $b_{n-1}$. Then for $r < r_1$ and $b_{n-1} \leq \tilde{b}_1$, there are unique smooth functions $\tilde{\lambda}_j^\pm(b_{n-1}, r)$ such that $\tilde{\lambda}_j^\pm(0, 0) = \pm \sqrt{\mu_j^0 / M}$ and $\tilde{E}(\tilde{\lambda}_j^\pm(b_{n-1}, r); b_{n-1}, r) = 0$. \\
+
+Since the functions $\tilde{\lambda}_j^\pm(b_{n-1}, r)$ are smooth in $(b_{n-1}, r)$, we can find $r_2 \leq r_1$ and $\tilde{b}_2 \leq \tilde{b}_1$ such that for all $r < r_2$ and $b_{n-1} \leq \tilde{b}_2$, the $2n - 2$ roots $\tilde{\lambda}_j^\pm(b_{n-1}, r)$ are distinct and have the same signs as 
+
+
+Let $\lambda_j^\pm(r; b_{n-1}) = r^{1/2} \tilde{\lambda}_j^\pm(r; b_{n-1})$. Then the interaction eigenvalues we seek are given by
+
+\[
+\lambda_j^\pm(r; b_{n-1})
+= \pm \sqrt{r \tilde{\mu}_j(b_{n-1}) / M} + \mathcal{O}(|r|^{3/2})
+\]
+
+By Hamiltonian symmetry, eigenvalues must come in quartets $\pm a \pm b i$. Since for sufficiently small $r$ the $\tilde{\mu}_j(b_{n-1})$ are distinct, the only way we can satisfy Hamiltonian symmetry is if these eigenvalues are real or purely imaginary. Thus the interaction eigenvalues are given by $\lambda = \pm \lambda_j^{\text{int}}(r; b_{n-1})$, where
+
+\[
+\lambda_j^{\text{int}}(r; b_{n-1})
+= \sqrt{r \tilde{\mu}_j(b_{n-1}) / M} + \mathcal{O}(|r|^{3/2})
+\]
+
+where the remainder term cannot move this off of the real or imaginary axis. Since $r > 0$, the signs of $M \tilde{\mu}_j(b_{n-1})$ determine whether a given eigenvalue pair is real or pure imaginary.\\
+
 
 
 
