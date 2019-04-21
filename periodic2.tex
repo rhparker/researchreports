@@ -616,7 +616,7 @@ The eigenvalues of $A$ are given by $(0, \mu_1, \dots, \mu_{n-1})$, all of which
 
 This is not true in general. For example, if $n \geq 3$ and all the terms $a_i$ in $A$ are identical, $A$ is a circulant matrix and it is not hard to show that $A$ will have eigenvalues of algebraic multiplicity 2. It might be possible to impose a condition that guarantees distinct eigenvalues. If so, we will hypothesize that instead. Since the problem $(A - \lambda I)v = 0$ is a Sturm-Liouville difference equation, that's a good place to look for such a result.\\
 
-Let $X = X_0 + X_1 + \dots + X_{n-1}$, which is half the length of the domain. We note the following regarding the matrices $A - \lambda^2 I$ and $K)\lambda)$, which are the leading order terms in \eqref{blockeq}.
+Let $X = X_0 + X_1 + \dots + X_{n-1}$, which is half the length of the domain. We note the following regarding the matrices $A - \lambda^2 I$ and $K(\lambda)$, which are the leading order terms in \eqref{blockeq}.
 
 \begin{enumerate}
 	\item The matrix $A - \lambda^2 M I$ is singular at $\lambda = 0$ (algebraic multiplicity 2) and at the $2n-2$ points $\lambda = \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}$.
@@ -629,53 +629,75 @@ Let $X = X_0 + X_1 + \dots + X_{n-1}$, which is half the length of the domain. W
 	and $\lambda(X, 0) = 0$.
 \end{enumerate}  
 
-For the nonzero eigenvalues of \eqref{PDEeig}, we expect to have $2m-2$ interaction eigenvalues, which occur near $\lambda = \pm \sqrt{\mu_j/M}$ ($j = 1, \dots, m-1$), as well as pairs of ``essential spectrum'' eigenvalues, which occur near $\lambda = \pm c_0 \frac{k \pi i }{X}$. For the analysis to work, we need to ensure that these singular points do not get too close. We take the following hypothesis.
+For the nonzero eigenvalues of \eqref{PDEeig}, we expect to have $2m-2$ interaction eigenvalues, which occur near $\lambda = \pm \sqrt{\mu_j/M}$ ($j = 1, \dots, m-1$), as well as pairs of ``essential spectrum'' eigenvalues, which occur near $\lambda = \pm c_0 \frac{k \pi i }{X}$. For the analysis to work, we need to ensure that these singular points do not get too close.\\
 
-\begin{hypothesis}\label{epsilonballs}
-Each of the $2n - 2$ points $\sqrt{\mu_k/M}$ (for $k = 1, \dots, n-1$) is located at least a distance $\epsilon/X$ from all of the points $\lambda(X,k)$ (for $k \in \Z$), where $\epsilon < 1$ will be specified later.
-\end{hypothesis}
+We can now state the following theorem, in which we locate and count the eigenvalues of \eqref{PDEeig}. Before we do that, we recall how the periodic $n-$pulse $q_{np}(x)$ is constructed.
 
-We need one more hypothesis for part of the following theorem to hold. Essentially, it says that the length of the domain $2X$ cannot be exponentially large in comparison to $X_m$.
+\begin{enumerate}
+	\item Choose $n$ (the number of pulses) 
+	\item Choose a sequence of nonnegative integers $m_0, \dots, m_{n-2}$, with the restriction that at least one of them must be 0. 
+	\item Let
+		\begin{enumerate}
+			\item $b^* = \exp \left( -\frac{\alpha}{\beta} \arctan \frac{\beta}{\alpha} \right)$
+			\item $b_j^* = \exp \left(-\frac{m_j \pi \alpha}{\beta} \right) b^*$, $j = 1, \dots, n-2$.
+			\item $b_\text{min} = \min\{ b_0^*, \dots, b_{n-2}^* \}$
+		\end{enumerate}
+	\item Then for any $\epsilon > 0$ there exists $r_0 > 0$ such that
+		\begin{itemize}
+			\item For each $r_m < r_0$, where 
+				\[ r_m = \exp\left(-\frac{m \pi \alpha}{\beta} \right)  \]
+			\item There exists a unique 1-paramater family of periodic $n-$pulse solutions, paramaterized by the periodic length parameter $b_{n-1}$, where
+			     \[ b_{n-1} \in (0, b_\text{min} - \epsilon] \]
+			\item The remaining length parameters are given by $b_j(b_{n-1}, r_m)$, where $b_j(b_{n-1}, r)$ is smooth in $b_{n-1}$ and $r$
+				\[ b_j(b_{n-1}, r) \rightarrow \exp \left(-\frac{m_j \pi \alpha}{\beta} \right) \text{ as } (b_{n-1}, r) \rightarrow (0,0) \]
+			\item The actual lengths $X_j$, $j = 0, \dots, n-1$, are determined from $r_m$ and the $b_j$ using the formula
+			\begin{align*}
+				X_j &= -\frac{1}{2\alpha}\log(b_j(b_{n-1}, r) r) - \frac{\phi}{2 \beta} 
+			\end{align*}
+			where $\phi$ is a constant.
+		\end{itemize}
+\end{enumerate}
 
-\begin{hypothesis}\label{Xrestrictionhyp}
-For $X = X_0 + X_1 + \dots + X_{n-1}$, we have the following restriction.
-\begin{equation}
-X \leq C e^{\alpha X_m}
-\end{equation}
-where the constant $C$ is at most $\mathcal{O}(1)$.
-\end{hypothesis}
+We also recall that
 
-We can now state the following theorem, in which we locate and count the eigenvalues of \eqref{PDEeig}.
+\begin{itemize}
+	\item $K(\lambda)$ is singular at $\lambda = \pm \lambda^K(X,n)$, where
+	\begin{align*}
+		\lambda^K(X,n) &= -c_0 \frac{n \pi i }{X} + \mathcal{O}(n/X)^3 \\
+	\end{align*}
+	\item $A - \lambda^2 M I$ is singular at $\{ 0, \pm \sqrt{\mu_1(b_{n-1}, r_m)}, \dots \pm \sqrt{\mu_1(b_{n-1}, r_m)} \}$, where the $\mu_j(b_{n-1}, r_m)$ are smooth in $b_{n-1}$ and $r$.
+\end{itemize}
+
+With this, we can state the following theorem.
 
 \begin{theorem}
-Let $\delta > 0$ be defined as in Theorem \ref{blockmatrixtheorem}. Assume the same hypotheses as in Theorem \ref{perexist}, and let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$ according to Theorem \ref{perexist}, where $X_m = \min\{ X_0, \dots X_{n-1}\}$ and $e^{-\alpha X_m} < \delta$. Assume the same hypotheses as in Theorem \ref{blockmatrixtheorem}. Assume Hypothesis \ref{epsilonballs}, with $\epsilon$ to be chosen below. Then the following are true concerning the eigenvalues of \eqref{PDEeig}. 
+Let $\delta > 0$ be defined as in Theorem \ref{perexist} and Theorem \ref{blockmatrixtheorem} and let $q_{np}(x)$ be a periodic $n-$pulse solution constructed as described above.\\
+
+Then the following are true.
 
 \begin{enumerate}[(i)]
 
-\item There is an eigenvalue at 0 with algebraic multiplicity 2. The kernel eigenfunction is $\partial_x q_{np}(x)$, and the generalized kernel eigenfunction is $t_{np}(x)$.
+\item $\partial_x q_{np}(x)$ is an eigenfunction with eigenvalue 0, and $t_{np}(x)$ is its generalized eigenfunction with eigenvalue 0. This Jordan chain is of length 2.
 
-\item Choose $\epsilon = e^{-\alpha X_m/2}$ in Hypothesis \ref{epsilonballs}. Then, for sufficiently large $X_m$, there are $2n-2$ nonzero interaction eigenvalues which come in pairs and are either real or purely imaginary. These interaction eigenvalues are given by $\lambda = \pm \lambda^i(X_m; k)$, $k = 1, \dots, n-1$, where
+\item There exist $r_2 \leq r_0$ and $\tilde{b}_2 > 0$ such that the following is true. For any $r_m < r_2$ and $b_{n-1} < \tilde{b}_2$, as long as the points $\lambda^K(X,n)$ and $\pm \sqrt{\mu_1(b_{n-1}, r_m)}$ are more than $\epsilon/X$ apart, where $\epsilon = r_m^{1/2}$, there exist $2n - 2$ pairs of interaction eigenvalues given by
 
-\begin{equation}\label{inteigs}
-\lambda^i(X_m; k) = \sqrt{\mu_k / M} + \mathcal{O}(e^{-3 \alpha X_m/2})
-\end{equation}
+\begin{align*}
+\lambda &= \pm \lambda^{\text{int}}_j(b_{n-1}, r) && j = 1, \dots, n-1
+\end{align*}
 
-The remainder term cannot move these off of the real or imaginary axis. 
+These interaction eigenvalues pairs are at most $\mathcal{O}(r^{1/2})$, are either real or purely imaginary, and are close to $\pm \sqrt{\mu_j^0 / M} = \pm \sqrt{\mu_j(0, 0)}$. The number of pairs which are real and purely imaginary is completely determined by the parity of the integers $m_j$; which one is which depends on the sign the Melnikov integral $M$.
 
-\item For a radius $\tilde{\delta}$ which may be slightly smaller than $\delta$ and for sufficiently large $X_m$, there are exactly $2n + 2k + 1$ eigenvalues inside $B(0, \tilde{\delta}) \subset \C$ (counting multiplicity), where $n$ is the number of pulses in the multi-pulse, and $k$ is a positive integer depending on $X$. From Hamiltonian symmetry, there is an additional eigenvalue at 0. 
-
-\item In Hypothesis \ref{epsilonballs}, choose $\epsilon = e^{-\alpha X_m/(n+1)}$, where $n$ is the number of pulses in the multi-pulse. (This is a larger $\epsilon$ than in part (i)). In addition, assume Hypothesis \ref{Xrestrictionhyp}. Then for any positive integer $k$ such that $k/X$ is sufficiently small, there is a pair of purely imaginary ``essential spectrum'' eigenvalues. These are given by $\lambda = \pm \lambda^c(X_m; X, k)$, where
+\item There exist $r_3 \leq r_2$ and $\tilde{b}_3 < \tilde{b}_2$ such that the following is true. For any $r_m < r_3$ and $b_{n-1} < \tilde{b}_3$, as long as the points $\lambda^K(X,n)$ and $\sqrt{\mu_1(b_{n-1}, r_m)}$ are more than $\epsilon/X$ apart, where this time $\epsilon = r_m^{(3n-2)/6(n+3)}$, for sufficiently small $k/X$, $k \neq 0$, there exist pairs of purely imaginary ``essential spectrum'' eigenvalues, which are given by $\lambda = \pm \lambda^{ess}(X, k; r)$, where
 
 \begin{equation}\label{essspeceigs}
-\lambda^c(X_m; X, k) = -c_0 \frac{k \pi i}{X} + \mathcal{O}\left( \frac{1}{X_m} \frac{k}{X} \right)
+\lambda^{ess}(X, k; r_m) = -c_0 \frac{k \pi i}{X} + \mathcal{O}\left(r_m\right)
 \end{equation}
 
-The remainder term cannot move these off of the imaginary axis.\\
+The remainder term cannot move these off of the imaginary axis.
 
-\item Take the same assumptions as in part (iv). Then there are no eigenvalues inside $B(0, \tilde{\delta}) \subset \C$ other than those which have already been discussed, where $\tilde{\delta}$ is the same as in part (iii).
+\item For a radius $\tilde{\delta}$ which may be slightly smaller than $\delta$ and for the same values of $r_m$ and $b_{n-1}$ as above, there are exactly $2n + 2k + 1$ eigenvalues inside $B(0, \tilde{\delta}) \subset \C$ (counting multiplicity), where $n$ is the number of pulses in the multi-pulse, and $k$ is a positive integer depending on $X$. From Hamiltonian symmetry, there is an additional eigenvalue at 0, thus 0 has algebraic multiplicity 3. There are no eigenvalues inside $B(0, \tilde{\delta}) \subset \C$ other than those which have already been discussed.
 
 \end{enumerate}
-
 \end{theorem}
 
 % \subsection{KdV5}

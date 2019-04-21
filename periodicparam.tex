@@ -1,0 +1,272 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\ran}{range}
+
+\graphicspath{ {periodic/} }
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
+\newtheorem{hypothesis}{Hypothesis}
+
+\newtheorem{notation}{Notation}
+
+\begin{document}
+
+\section{Existence Problem for 2-pulse}
+
+\subsection{Bifurcation Equation}
+
+Recall that from Lin's method, the (single) jump condition is given by
+
+\begin{align}\label{jumpcond1}
+s_0 e^{-2 \alpha X_0} \sin(2 \beta X_0 + \phi) - s_0 e^{-2 \alpha X_1} \sin(2 \beta X_1 + \phi) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_m}) &= 0
+\end{align}
+
+where $s_0$ is a constant, and $X_m = \min\{X_0,X_1\}$. Next, we make the substitution
+
+\begin{align}
+r &= e^{-\alpha(2 X_m + \phi/\beta)} \\
+b_j &= e^{-2 \alpha(X_j - X_m)} && j = 0, 1
+\end{align}
+
+so that
+
+\begin{align*}
+b_j r &= e^{-2 \alpha X_j}e^{-2\alpha \phi/\beta} \\
+X_m &= -\frac{1}{2\alpha}\log r - \alpha \frac{\phi}{\beta} \\
+X_j &= -\frac{1}{2\alpha}\log(b_j r) - \frac{\phi}{2 \beta} 
+\end{align*}
+
+With this substitution,
+
+\begin{align*}
+s_0 b_0 r e^{-2\alpha \phi/\beta} \sin(-\rho \log(b_0 r)) - s_0 b_1 r e^{-2\alpha \phi/\beta} \sin(-\rho \log(b_1 r)) + \mathcal{O}(r^{1 + \gamma / 2 \alpha}) &= 0
+\end{align*}
+
+where $\rho = \beta / \alpha > 0$. Divide by $r$ and the constants out front to get
+
+\begin{align}\label{jumpcond2}
+b_0 \sin(-\rho \log(b_0 r)) - b_1 \sin(-\rho \log(b_1 r)) + \mathcal{O}(r^{\gamma / 2 \alpha}) &= 0
+\end{align}
+
+Define the space
+
+\begin{equation}\label{setR}
+\mathcal{R} = \left\{ \exp\left(-\frac{\pi \alpha}{\beta}m\right) : m \in \N_0 \right\} \cup \{ 0 \}
+\end{equation}
+
+Since $\mathcal{R}$ is closed and bounded, is is compact, thus complete. In what follows, we will take $r \in \mathcal{R}$ with $r > 0$. Thus the $r$ inside the log disappears, leaving us with the jump equation
+
+\begin{align}\label{jumpcond3}
+G(b_0, b_1,r) =
+b_0 \sin(-\rho \log b_0 ) - b_1 \sin(-\rho \log b_1 ) + \mathcal{O}(r^{\gamma / 2 \alpha}) &= 0
+\end{align}
+
+We note that the only dependence on $r$ is in the remainder term.
+
+\subsection{Parameterization}
+
+Before we solve the jump equation, we introduce the following paramaterization. Our periodic 2-pulse will be paramaterized by the following three parameters.
+
+\begin{enumerate}[(i)]
+\item A scaling parameter $r_m = \exp(-m \pi \ \rho ) \in \mathcal{R}$, where $m$ is a positive integer.
+\item Two length parameters $b_0^0$, $b_0^1$, where $b_j^0 = \exp(-m_j \pi \ \rho )$ and $m_0, m_1$ are nonnegative integers, at least one of which must be 0. 
+\item A phase parameter $\theta \in [-\theta_0,\pi - \theta_0)$, where $\theta = \arctan \rho$.
+\end{enumerate}
+
+For convenience, let $F(b_0, b_1) = G(b_0, b_1, 0)$. The idea is to show that this parameterization gives a unique solution to $F(b_0, b_1)$ for each set of parameters, and that this persists for small $r$. First, we look for solutions to $F(b_0, b_1)$. We start with the following lemma.
+
+\begin{lemma}\label{pitchforkF}
+A countable family of pitchfork bifurcations in the zero set of $F$ occurs along the diagonal at 
+
+\begin{align*}
+(b_0, b_1) &= (p_n^*, p_n^*) && n \in \Z
+\end{align*}
+
+where 
+
+\begin{equation}
+p^*_n = \exp\left(-\frac{n \pi}{\rho} \right) p^*
+\end{equation}
+
+and 
+
+\begin{equation}
+p^* = \exp \left( -\frac{1}{\rho} \arctan \rho \right)
+\end{equation}
+
+Locally, the arms of the pitchfork bifurcations open upwards along the diagonal.
+\begin{proof}
+This has been proved. Roughly, we change variables so that the proposed pitchfork occurs along the $x$-axis. We then verify the symmetry and derivative criteria for a pitchfork bifurcation.
+\end{proof}
+\end{lemma}
+
+Next, we note that by inspection, we have following two solutions for $F(b_0,b_1) = 0$. 
+\begin{enumerate}
+	\item $b_0 = b_1$. This corresponds to the center of the pitchfork.
+	\item $b_0 \neq b_1$ and $b_j = b_j^0$. Recall that one of the $b_j^0$. These are on the arms of the pitchfork.
+\end{enumerate}
+
+We will now use the phase $\theta$ to paramaterize all (relevant) solutions to $F(b_0, b_1) = 0$. To state the lemma, we do have to make a choice, so we will choose $b_0^0 = 1$. 
+
+\begin{lemma}\label{thetaparam}
+Let $b_0^0 = \exp(-m_0 \pi \ \rho )$ and $b_1^0 = \exp(-m_1 \pi \ \rho )$, where $m_1$ is a nonnegative integer and $m_0 = 0$. Then for $\theta \in [-\theta_0,\pi - \theta_0)$, where $\theta_0 = \arctan \rho$, we have a smooth family of solutions $( b_0(m_0, \theta), b_1(m_1, \theta) )$ to $F(b_0, b_1) = 0$, where $(b_0(m_0, 0), b_1(0)) = (m_1, b_1^0)$. Furthermore, these smooth families all connect up, i.e.
+\[
+( b_0(m_j, -\arctan \rho), b_1(m_j, -\arctan \rho) ) = ( b_0(m_{j+1}, \pi - \arctan \rho), b_1(m_{j+1}, \pi - \arctan \rho) )
+\]
+Finally,
+\[
+( b_0(0, -\arctan \rho), b_1(0, -\arctan \rho) ) = ( b_0(1, \pi - \arctan \rho), b_1(1, \pi - \arctan \rho) ) = (p^*, p^*)
+\] 
+\end{enumerate}
+
+\begin{proof}
+For $\theta \in [-\theta_0,\pi - \theta_0)$, let
+\begin{align*}
+b_1(\theta) &= e^{ -\frac{1}{\rho}(m_1 \pi - \theta) } \\
+\end{align*}
+We want to find an expression for $b_1(\theta)$ that gives us our dewired parameterization. Since we are paramaterizing two pieces of a pitchfork, we will have different expressions for the cases $b_1^0 = 1$ and $b_1^0 \neq 1$. 
+\begin{enumerate}
+	\item Let $b_1^0 = 1$ as well, so that $b_1(\theta) = e^{ \frac{1}{\rho}\theta }$. Then we can take $b_0(\theta) = e^{ \frac{1}{\rho}\theta }$ as well to get our solution. Thus we have have the parameterization
+	\[
+	( b_0(\theta), b_1(\theta) ) = ( e^{ \frac{1}{\rho}\theta }, e^{ \frac{1}{\rho}\theta })
+	\]
+	which parameterizes the center part of the pitchfork where $b_0 = b_1$. We see easily that $(b_0(0), b_1(0)) = (b_0^0, b_1^0) = (1,1)$. For future use, we note that
+	\[
+	(b_0(-\theta_0), b_1(-\theta_0)) = (p^*, p^*)
+	\]
+	where $p^*$ is defined in Lemma \ref{pitchforkF}. From that lemma, $(p^*, p^*)$ is the bifurcation point.
+
+	\item Now let $b_1^0 \neq 1$ so that $m_1 > 0$. Let
+	\begin{align*}
+	b_0(\theta^*) &= e^{-\frac{1}{\rho} \theta^* } \\
+	\end{align*}
+	We will solve for $\theta^*$ in terms of $\theta$. We also need to make sure we also have $\theta^* \in [-\theta_0,\pi - \theta_0)$, otherwise the value of $b_0^0$ will change. Plugging in the expressions for $b_0$ and $b_1$ into $F$, we get
+	\begin{align*}
+	F(b_0, b_1) &= e^{ -\frac{1}{\rho}\theta^* } \sin\left( -\rho \log e^{ -\frac{1}{\rho}\theta^* }\right) - e^{ -\frac{1}{\rho}(m_1 \pi - \theta) }\sin \left( -\rho \log e^{ -\frac{1}{\rho}(m_1 \pi + \theta) } \right) \\
+	&= e^{ -\frac{1}{\rho}\theta^* } \sin\left( \theta^* \right) - e^{ -\frac{1}{\rho} m_1 \pi} e^{ \frac{1}{\rho} \theta } \sin(m_1 \pi - \theta) \\
+	&= e^{ -\frac{1}{\rho}\theta^* } \sin\left( \theta^* \right) - e^{ -\frac{1}{\rho} m_1 \pi } e^{ \frac{1}{\rho} \theta } (-1)^{m_1 + 1} \sin(\theta)
+	\end{align*}
+	Thus we need to solve the following equation for $\theta^*$.
+	\begin{align}\label{thetastareq}
+	e^{ -\frac{1}{\rho}\theta^* } \sin\left( \theta^* \right) &= \left[ e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1} \right] e^{ \frac{1}{\rho} \theta } \sin(\theta)
+	\end{align}
+	for $\theta \in [-\theta_0,\pi - \theta_0)$. We proceed in the following steps.
+	\begin{enumerate}
+		\item Let $g(\theta) = e^{ \frac{1}{\rho} \theta } \sin(\theta)$. First, we show that $g(\theta)$ is increasing on $[-\theta_0,\pi - \theta_0]$. The derivative is 
+		\[
+		g'(\theta) = e^{ \frac{1}{\rho} \theta } \left( \cos(\theta) + \frac{1}{\rho} \sin(\theta)\right)
+		\]
+		At the left endpoint,
+		\begin{align*}
+		g'(-\theta_0) &= e^{ -\frac{1}{\rho} \arctan \rho } \left(\cos(-\arctan \rho) + \frac{1}{\rho} \sin(-\arctan \rho)\right) \\
+		&= e^{ -\frac{1}{\rho} \arctan \rho } \left(\cos\frac{1}{\sqrt{1 + \rho^2}} - \frac{1}{\rho} \frac{\rho}{\sqrt{1 + \rho^2}}\right) = 0
+		\end{align*}
+		The only critical point of $g'(\theta)$ on $[-\theta_0,\pi - \theta_0]$ is a local maximum at $\theta = \theta_0 < \pi/2$, thus $g'(\theta) > 0$ on $(-\theta_0,\pi - \theta_0)$ and is zero at the endpoints, from which we conclude that $g(\theta)$ is increasing on $(-\theta_0,\pi - \theta_0)$.
+		
+		\item From this, we conclude that 
+		\[
+		g(\theta) \in \left[ -\frac{\rho}{\sqrt{1+\rho^2}}e^{-\frac{1}{\rho}\arctan \rho}, \frac{\rho}{\sqrt{1+\rho^2}}e^{\frac{1}{\rho}(\pi - \arctan \rho)}\right] = [-L, e^{\frac{1}{\rho}\pi} L]
+		\]
+		where 
+		\[
+		L = \frac{\rho}{\sqrt{1+\rho^2}}e^{-\frac{1}{\rho}\arctan \rho}
+		\]
+		It follows that the RHS of \eqref{thetastareq} is contained in 
+
+		\[
+		\begin{cases}
+		[-e^{-\frac{1}{\rho}m_1 \pi} L, e^{-\frac{1}{\rho}(m_1 - 1) \pi} L] & m_1 \text{ odd}\\
+		[-e^{-\frac{1}{\rho}(m_1 - 1) \pi} L, e^{-\frac{1}{\rho}m_1 \pi} L] & m_1 \text{ even}
+		\end{cases}
+		\]
+
+		\item Let $h(\theta^*) = e^{ -\frac{1}{\rho}\theta^* }\sin{\theta^*}$ be the LHS of \eqref{thetastareq}. We can similarly show that $h(\theta^*)$ has a local minimum at $\theta^* = \arctan{\rho} - \pi$, a local maximum at $\theta^* = \arctan{\rho}$, and no critical points between these. We conclude that $h(\theta^*)$ is strictly increasing and thus invertible on $[\arctan{\rho} - \pi, \arctan{\rho}]$. Plugging the endpoints into $h$, $h^{-1}$ is defined and increasing on 
+		\[
+		\left[ -\frac{\rho}{\sqrt{1+\rho^2}}e^{\frac{1}{\rho}\pi}e^{-\frac{1}{\rho}\arctan \rho}, \frac{\rho}{\sqrt{1+\rho^2}}e^{-\frac{1}{\rho}\arctan \rho}\right] = [-e^{\frac{1}{\rho}\pi} L , L]
+		\] 
+		with $h^{-1}(-e^{\frac{1}{\rho}\pi} L) = \arctan{\rho} - \pi$ and $h^{-1}(L) = \arctan \rho$. 
+
+		\item From the previous two parts, we conclude that since $m_1 \geq 1$, we can invert $h$ to solve for $\theta^*$. Thus we have
+
+		\[
+		\theta^* = h^{-1}\left( e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1}  e^{ \frac{1}{\rho} \theta } \sin(\theta) \right)
+		\]
+		for $\theta \in [-\theta_0,\pi - \theta_0)$. We can then plug this into the equation for $b_0(\theta^*)$ to solve for $b_0$ in terms of $\theta$.\\
+
+		For a really crude bound, we have $\theta^* \in (-\theta_0, \pi - \theta_0)$. 
+
+		\item We now have a piecewise parameterization which depends on $b_1^0$. We will now show that the pieces all match up. First, we look at the matching not at the pitchfork bifurcation point. Let $m_1 \geq 1$, $b_1^0 = \exp(-m_1 \pi \ \rho )$ and $\tilde{b}_1^0 = \exp(-(m_1+1) \pi \ \rho )$. Then we have
+
+		\begin{align*}
+		b_1(-\arctan \rho) &= e^{ -\frac{1}{\rho}(m_1 \pi + \arctan \rho) } \\
+		\tilde{b}_1(\pi - \arctan \rho) 
+		&= e^{ -\frac{1}{\rho}((m_1+1) \pi - (\pi - \arctan \rho)) } \\
+		&= e^{ -\frac{1}{\rho}(m_1 \pi + \arctan \rho)) } = b_1(-\arctan \rho)
+		\end{align*}
+
+		These are the same, so the $b_1$ component matches. For the $b_0$ component, we note that we obtain $\theta^*$ and $\tilde{\theta}^*$ by solving
+
+		\begin{align*}
+		\theta^* &= h^{-1} (b_1(-\arctan \rho)) \\
+		\tilde{\theta}^* &= h^{-1} (\tilde{b}_1(\pi - \arctan \rho)) 
+		\end{align*}
+
+		Since the RHS of the two equations is the same, we conclude that $\theta^* = \tilde{\theta}^*$, thus $b_0(-\arctan \rho) = \tilde{b}_0(\pi - \arctan \rho)$, and so the $b_0$ components match.
+
+		\item Next, we show that for $m_1 = 1$, we hit the pitchfork bifurcation point at $\theta = \pi - \theta_0$. For the $b_1$ component, 
+		\begin{align*}
+		b_1(\pi -\arctan \rho) &= e^{ -\frac{1}{\rho}(\pi - (\pi - \arctan \rho)) } \\
+		&= e^{ -\frac{1}{\rho} \arctan \rho } = p^*
+		\end{align*}
+
+		For $b_0$, we note that for $\theta = \pi -\arctan \rho$, the RHS of \eqref{thetastareq} is exactly $L$, thus $\theta^* = h^{-1}(L) = \arctan \rho$, and so $b_0(\pi -\arctan \rho) = e^{ -\frac{1}{\rho} \arctan \rho } = p^*$ as well.
+
+		\item It would be nice to have bounds as well.
+	\end{enumerate}
+\end{enumerate}
+
+\end{proof}
+\end{lemma}
+
+
+
+\end{document}
