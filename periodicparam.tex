@@ -75,7 +75,7 @@ X_m &= -\frac{1}{2\alpha}\log r - \alpha \frac{\phi}{\beta} \\
 X_j &= -\frac{1}{2\alpha}\log(b_j r) - \frac{\phi}{2 \beta} 
 \end{align*}
 
-With this substitution,
+With this substitution, the jump condition becomes
 
 \begin{align*}
 s_0 b_0 r e^{-2\alpha \phi/\beta} \sin(-\rho \log(b_0 r)) - s_0 b_1 r e^{-2\alpha \phi/\beta} \sin(-\rho \log(b_1 r)) + \mathcal{O}(r^{1 + \gamma / 2 \alpha}) &= 0
@@ -90,10 +90,10 @@ b_0 \sin(-\rho \log(b_0 r)) - b_1 \sin(-\rho \log(b_1 r)) + \mathcal{O}(r^{\gamm
 Define the space
 
 \begin{equation}\label{setR}
-\mathcal{R} = \left\{ \exp\left(-\frac{\pi \alpha}{\beta}m\right) : m \in \N_0 \right\} \cup \{ 0 \}
+\mathcal{R} = \left\{ \exp\left(-\frac{m \pi}{\rho}\right) : m \in \N_0 \right\} \cup \{ 0 \}
 \end{equation}
 
-Since $\mathcal{R}$ is closed and bounded, is is compact, thus complete. In what follows, we will take $r \in \mathcal{R}$ with $r > 0$. Thus the $r$ inside the log disappears, leaving us with the jump equation
+Since $\mathcal{R}$ is closed and bounded, is is compact, thus complete. In what follows, we will take $r \in \mathcal{R}$ with $r > 0$. Thus the $r$ inside the log disappears (which is really nice!), leaving us with the jump equation
 
 \begin{align}\label{jumpcond3}
 G(b_0, b_1,r) =
@@ -104,15 +104,17 @@ We note that the only dependence on $r$ is in the remainder term.
 
 \subsection{Parameterization}
 
-Before we solve the jump equation, we introduce the following paramaterization. Our periodic 2-pulse will be paramaterized by the following three parameters.
+Before we solve the jump equation, we introduce the following parameterization. This parameterization is motivated both by geometry and by the result we eventually want to obtain. For our periodic 2-pulse, we will use the following three parameters.
 
 \begin{enumerate}[(i)]
-\item A scaling parameter $r_m = \exp(-m \pi \ \rho ) \in \mathcal{R}$, where $m$ is a positive integer.
-\item Two length parameters $b_0^0$, $b_0^1$, where $b_j^0 = \exp(-m_j \pi \ \rho )$ and $m_0, m_1$ are nonnegative integers, at least one of which must be 0. 
-\item A phase parameter $\theta \in [-\theta_0,\pi - \theta_0)$, where $\theta = \arctan \rho$.
+\item A scaling parameter $r = \exp(-m \pi / \rho ) \in \mathcal{R}$, where $m$ is a positive integer.
+\item Two length parameters $b_0^0$, $b_0^1$, where $b_j^0 = \exp(-m_j \pi / \rho )$ and $m_0, m_1$ are nonnegative integers, at least one of which must be 0. (This restriction is necessary to get uniqueness).
+\item A phase parameter $\theta \in [-\arctan \rho, \pi - \arctan \rho)$.
 \end{enumerate}
 
-For convenience, let $F(b_0, b_1) = G(b_0, b_1, 0)$. The idea is to show that this parameterization gives a unique solution to $F(b_0, b_1)$ for each set of parameters, and that this persists for small $r$. First, we look for solutions to $F(b_0, b_1)$. We start with the following lemma.
+For convenience, let $F(b_0, b_1) = G(b_0, b_1, 0)$. We first show that this parameterization gives rise to a family of unique solutions to $F(b_0, b_1) = 0$. If that is successful, we will then show that this persists for small $r$.\\
+
+First, we look for solutions to $F(b_0, b_1)$. We start with the following lemma.
 
 \begin{lemma}\label{pitchforkF}
 A countable family of pitchfork bifurcations in the zero set of $F$ occurs along the diagonal at 
@@ -139,31 +141,45 @@ This has been proved. Roughly, we change variables so that the proposed pitchfor
 \end{proof}
 \end{lemma}
 
-Next, we note that by inspection, we have following two solutions for $F(b_0,b_1) = 0$. 
+Next, we note that we have following two classes of solutions to $F(b_0,b_1) = 0$. 
+
 \begin{enumerate}
-	\item $b_0 = b_1$. This corresponds to the center of the pitchfork.
-	\item $b_0 \neq b_1$ and $b_j = b_j^0$. Recall that one of the $b_j^0$. These are on the arms of the pitchfork.
+	\item $b_0 = b_1$. This corresponds to the middle of the pitchfork.
+	\item $b_0 \neq b_1$ but $b_j = b_j^0 = \exp(-m_j \pi / \rho )$. Recall that one of the $b_j^0$ must be 1. These solutions are on the arms of the pitchfork.
 \end{enumerate}
 
-We will now use the phase $\theta$ to paramaterize all (relevant) solutions to $F(b_0, b_1) = 0$. To state the lemma, we do have to make a choice, so we will choose $b_0^0 = 1$. 
+We will now use the phase $\theta$ to parameterize all (relevant) solutions to $F(b_0, b_1) = 0$. To state the lemma, we have to make a choice as to which $b_i^0$ will be 1. We arbitrarily choose $b_0^0 = 1$ and note that we if we swap $b_0$ and $b_1$, we get the same periodic solution since we are on a periodic domain.
 
-\begin{lemma}\label{thetaparam}
-Let $b_0^0 = \exp(-m_0 \pi \ \rho )$ and $b_1^0 = \exp(-m_1 \pi \ \rho )$, where $m_1$ is a nonnegative integer and $m_0 = 0$. Then for $\theta \in [-\theta_0,\pi - \theta_0)$, where $\theta_0 = \arctan \rho$, we have a smooth family of solutions $( b_0(m_0, \theta), b_1(m_1, \theta) )$ to $F(b_0, b_1) = 0$, where $(b_0(m_0, 0), b_1(0)) = (m_1, b_1^0)$. Furthermore, these smooth families all connect up, i.e.
+\begin{lemma}\label{thetaparam}\[\]
+\begin{itemize}
+\item For $j = 0, 1$, let $b_j^0 = \exp(-m_j \pi / \rho )$, where $m_1$ is a nonnegative integer and $m_0 = 0$. 
+\item Then for $\theta \in [-\arctan \rho,\pi - \arctan \rho)$, there is a smooth family of solutions $( b_0(m_0, \theta), b_1(m_1, \theta) )$ to $F(b_0, b_1) = 0$, where $(b_0(m_0, 0), b_1(m_1, 0)) = (b_0^0, b_1^0) = (1, b_1^0)$. 
+\item Furthermore, these smooth families all ``connect up'', i.e.
 \[
-( b_0(m_j, -\arctan \rho), b_1(m_j, -\arctan \rho) ) = ( b_0(m_{j+1}, \pi - \arctan \rho), b_1(m_{j+1}, \pi - \arctan \rho) )
+\Big( b_0(0, -\arctan \rho), b_1(j, -\arctan \rho) \Big) = \Big( b_0(0, \pi - \arctan \rho), b_1(j+1, \pi - \arctan \rho) \Big)
 \]
-Finally,
+\item We also have,
 \[
-( b_0(0, -\arctan \rho), b_1(0, -\arctan \rho) ) = ( b_0(1, \pi - \arctan \rho), b_1(1, \pi - \arctan \rho) ) = (p^*, p^*)
+\Big( b_0(0, -\arctan \rho), b_1(0, -\arctan \rho) \Big) = \Big( b_0(0, \pi - \arctan \rho), b_1(1, \pi - \arctan \rho) \Big) = (p^*, p^*)
 \] 
-\end{enumerate}
+where $(p^*, p^*)$ is the pitchfork bifurcation point from Lemma \ref{pitchforkF}
+\item Finally, the parameterization is given explicitly by
+\begin{align*}
+b_1(\theta) &= e^{ -\frac{1}{\rho}(m_1 \pi - \theta) } \\
+b_0(\theta) &= e^{-\frac{1}{\rho} \theta^*(\theta) }
+\end{align*}
+where $\theta^*$ depends on $\theta$, $\theta^* \in [-\arctan \rho,\pi - \arctan \rho)$, and we have bound
+\[
+|\theta^*| &\leq C e^{ -\frac{\pi}{\rho} m_1 }
+\]
+\end{itemize}
 
 \begin{proof}
-For $\theta \in [-\theta_0,\pi - \theta_0)$, let
+For $\theta \in [-\arctan \rho,\pi - \arctan \rho)$, let
 \begin{align*}
 b_1(\theta) &= e^{ -\frac{1}{\rho}(m_1 \pi - \theta) } \\
 \end{align*}
-We want to find an expression for $b_1(\theta)$ that gives us our dewired parameterization. Since we are paramaterizing two pieces of a pitchfork, we will have different expressions for the cases $b_1^0 = 1$ and $b_1^0 \neq 1$. 
+We want to find an expression for $b_1(\theta)$ that gives us our desired parameterization. Since we are parameterizing two pieces of a pitchfork, we will have different expressions for the cases $b_1^0 = 1$ and $b_1^0 \neq 1$. 
 \begin{enumerate}
 	\item Let $b_1^0 = 1$ as well, so that $b_1(\theta) = e^{ \frac{1}{\rho}\theta }$. Then we can take $b_0(\theta) = e^{ \frac{1}{\rho}\theta }$ as well to get our solution. Thus we have have the parameterization
 	\[
@@ -171,7 +187,7 @@ We want to find an expression for $b_1(\theta)$ that gives us our dewired parame
 	\]
 	which parameterizes the center part of the pitchfork where $b_0 = b_1$. We see easily that $(b_0(0), b_1(0)) = (b_0^0, b_1^0) = (1,1)$. For future use, we note that
 	\[
-	(b_0(-\theta_0), b_1(-\theta_0)) = (p^*, p^*)
+	(b_0(-\arctan \rho), b_1(-\arctan \rho)) = (p^*, p^*)
 	\]
 	where $p^*$ is defined in Lemma \ref{pitchforkF}. From that lemma, $(p^*, p^*)$ is the bifurcation point.
 
@@ -179,7 +195,7 @@ We want to find an expression for $b_1(\theta)$ that gives us our dewired parame
 	\begin{align*}
 	b_0(\theta^*) &= e^{-\frac{1}{\rho} \theta^* } \\
 	\end{align*}
-	We will solve for $\theta^*$ in terms of $\theta$. We also need to make sure we also have $\theta^* \in [-\theta_0,\pi - \theta_0)$, otherwise the value of $b_0^0$ will change. Plugging in the expressions for $b_0$ and $b_1$ into $F$, we get
+	We will solve for $\theta^*$ in terms of $\theta$. We also need to make sure we also have $\theta^* \in [-\arctan \rho,\pi - \arctan \rho)$, otherwise the value of $b_0^0$ will change. Plugging in the expressions for $b_0$ and $b_1$ into $F$, we get
 	\begin{align*}
 	F(b_0, b_1) &= e^{ -\frac{1}{\rho}\theta^* } \sin\left( -\rho \log e^{ -\frac{1}{\rho}\theta^* }\right) - e^{ -\frac{1}{\rho}(m_1 \pi - \theta) }\sin \left( -\rho \log e^{ -\frac{1}{\rho}(m_1 \pi + \theta) } \right) \\
 	&= e^{ -\frac{1}{\rho}\theta^* } \sin\left( \theta^* \right) - e^{ -\frac{1}{\rho} m_1 \pi} e^{ \frac{1}{\rho} \theta } \sin(m_1 \pi - \theta) \\
@@ -189,50 +205,51 @@ We want to find an expression for $b_1(\theta)$ that gives us our dewired parame
 	\begin{align}\label{thetastareq}
 	e^{ -\frac{1}{\rho}\theta^* } \sin\left( \theta^* \right) &= \left[ e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1} \right] e^{ \frac{1}{\rho} \theta } \sin(\theta)
 	\end{align}
-	for $\theta \in [-\theta_0,\pi - \theta_0)$. We proceed in the following steps.
+	for $\theta \in [-\arctan \rho,\pi - \arctan \rho)$. We proceed in the following steps.
 	\begin{enumerate}
-		\item Let $g(\theta) = e^{ \frac{1}{\rho} \theta } \sin(\theta)$. First, we show that $g(\theta)$ is increasing on $[-\theta_0,\pi - \theta_0]$. The derivative is 
+		\item Let $g(\theta) = e^{ \frac{1}{\rho} \theta } \sin(\theta)$. First, we show that $g(\theta)$ is increasing on $[-\arctan \rho,\pi - \arctan \rho]$. The derivative is 
 		\[
 		g'(\theta) = e^{ \frac{1}{\rho} \theta } \left( \cos(\theta) + \frac{1}{\rho} \sin(\theta)\right)
 		\]
 		At the left endpoint,
 		\begin{align*}
-		g'(-\theta_0) &= e^{ -\frac{1}{\rho} \arctan \rho } \left(\cos(-\arctan \rho) + \frac{1}{\rho} \sin(-\arctan \rho)\right) \\
+		g'(-\arctan \rho) &= e^{ -\frac{1}{\rho} \arctan \rho } \left(\cos(-\arctan \rho) + \frac{1}{\rho} \sin(-\arctan \rho)\right) \\
 		&= e^{ -\frac{1}{\rho} \arctan \rho } \left(\cos\frac{1}{\sqrt{1 + \rho^2}} - \frac{1}{\rho} \frac{\rho}{\sqrt{1 + \rho^2}}\right) = 0
 		\end{align*}
-		The only critical point of $g'(\theta)$ on $[-\theta_0,\pi - \theta_0]$ is a local maximum at $\theta = \theta_0 < \pi/2$, thus $g'(\theta) > 0$ on $(-\theta_0,\pi - \theta_0)$ and is zero at the endpoints, from which we conclude that $g(\theta)$ is increasing on $(-\theta_0,\pi - \theta_0)$.
+		The only critical point of $g'(\theta)$ on $[-\arctan \rho,\pi - \arctan \rho]$ is a local maximum at $\theta = \arctan \rho < \pi/2$, thus $g'(\theta) > 0$ on $(-\arctan \rho,\pi - \arctan \rho)$ and is zero at the endpoints, from which we conclude that $g(\theta)$ is increasing on $(-\arctan \rho,\pi - \arctan \rho)$.
 		
 		\item From this, we conclude that 
 		\[
-		g(\theta) \in \left[ -\frac{\rho}{\sqrt{1+\rho^2}}e^{-\frac{1}{\rho}\arctan \rho}, \frac{\rho}{\sqrt{1+\rho^2}}e^{\frac{1}{\rho}(\pi - \arctan \rho)}\right] = [-L, e^{\frac{1}{\rho}\pi} L]
+		g(\theta) \in \left[ -\frac{\rho}{\sqrt{1+\rho^2}}e^{-\frac{1}{\rho}\arctan \rho}, \frac{\rho}{\sqrt{1+\rho^2}}e^{\frac{1}{\rho}(\pi - \arctan \rho)}\right] = [-T, e^{\frac{1}{\rho}\pi} T]
 		\]
 		where 
 		\[
-		L = \frac{\rho}{\sqrt{1+\rho^2}}e^{-\frac{1}{\rho}\arctan \rho}
+		T = \frac{\rho}{\sqrt{1+\rho^2}}e^{-\frac{1}{\rho}\arctan \rho}
 		\]
-		It follows that the RHS of \eqref{thetastareq} is contained in 
+		It follows that for the RHS of \eqref{thetastareq} we have
 
-		\[
+		\begin{equation}\label{RHSbounds}
+		\left( e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1} \right) e^{ \frac{1}{\rho} \theta } \sin(\theta) \in
 		\begin{cases}
-		[-e^{-\frac{1}{\rho}m_1 \pi} L, e^{-\frac{1}{\rho}(m_1 - 1) \pi} L] & m_1 \text{ odd}\\
-		[-e^{-\frac{1}{\rho}(m_1 - 1) \pi} L, e^{-\frac{1}{\rho}m_1 \pi} L] & m_1 \text{ even}
+		[-e^{-\frac{1}{\rho}m_1 \pi} T, e^{-\frac{1}{\rho}(m_1 - 1) \pi} T] & m_1 \text{ odd}\\
+		[-e^{-\frac{1}{\rho}(m_1 - 1) \pi} T, e^{-\frac{1}{\rho}m_1 \pi} T] & m_1 \text{ even}
 		\end{cases}
-		\]
+		\end{equation}
 
-		\item Let $h(\theta^*) = e^{ -\frac{1}{\rho}\theta^* }\sin{\theta^*}$ be the LHS of \eqref{thetastareq}. We can similarly show that $h(\theta^*)$ has a local minimum at $\theta^* = \arctan{\rho} - \pi$, a local maximum at $\theta^* = \arctan{\rho}$, and no critical points between these. We conclude that $h(\theta^*)$ is strictly increasing and thus invertible on $[\arctan{\rho} - \pi, \arctan{\rho}]$. Plugging the endpoints into $h$, $h^{-1}$ is defined and increasing on 
+		\item Let $h(\theta^*) = e^{ -\frac{1}{\rho}\theta^* }\sin{\theta^*}$ be the LHS of \eqref{thetastareq}. We can similarly show that $h(\theta^*)$ has a local minimum at $\theta^* = \arctan{\rho} - \pi$, a local maximum at $\theta^* = \arctan{\rho}$, and no critical points between these. We also have $h(0) = 0$. We conclude that $h(\theta^*)$ is strictly increasing and thus invertible on $[\arctan{\rho} - \pi, \arctan{\rho}]$. Plugging the endpoints into $h$, $h^{-1}$ is defined and increasing on 
 		\[
-		\left[ -\frac{\rho}{\sqrt{1+\rho^2}}e^{\frac{1}{\rho}\pi}e^{-\frac{1}{\rho}\arctan \rho}, \frac{\rho}{\sqrt{1+\rho^2}}e^{-\frac{1}{\rho}\arctan \rho}\right] = [-e^{\frac{1}{\rho}\pi} L , L]
+		\left[ -\frac{\rho}{\sqrt{1+\rho^2}}e^{\frac{1}{\rho}\pi}e^{-\frac{1}{\rho}\arctan \rho}, \frac{\rho}{\sqrt{1+\rho^2}}e^{-\frac{1}{\rho}\arctan \rho}\right] = [-e^{\frac{1}{\rho}\pi} T , T]
 		\] 
-		with $h^{-1}(-e^{\frac{1}{\rho}\pi} L) = \arctan{\rho} - \pi$ and $h^{-1}(L) = \arctan \rho$. 
+		with $h^{-1}(-e^{\frac{1}{\rho}\pi} T) = \arctan{\rho} - \pi$ and $h^{-1}(T) = \arctan \rho$. 
 
 		\item From the previous two parts, we conclude that since $m_1 \geq 1$, we can invert $h$ to solve for $\theta^*$. Thus we have
 
 		\[
 		\theta^* = h^{-1}\left( e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1}  e^{ \frac{1}{\rho} \theta } \sin(\theta) \right)
 		\]
-		for $\theta \in [-\theta_0,\pi - \theta_0)$. We can then plug this into the equation for $b_0(\theta^*)$ to solve for $b_0$ in terms of $\theta$.\\
+		for $\theta \in [-\arctan \rho,\pi - \arctan \rho)$. We can then plug this into the equation for $b_0(\theta^*)$ to solve for $b_0$ in terms of $\theta$.\\
 
-		For a really crude bound, we have $\theta^* \in (-\theta_0, \pi - \theta_0)$. 
+		From this, we have the simple bound $\theta^* \in (-\arctan \rho, \pi - \arctan \rho)$, which at least ensures that varying $\theta$ does not cause the integers $m_i$ to change.
 
 		\item We now have a piecewise parameterization which depends on $b_1^0$. We will now show that the pieces all match up. First, we look at the matching not at the pitchfork bifurcation point. Let $m_1 \geq 1$, $b_1^0 = \exp(-m_1 \pi \ \rho )$ and $\tilde{b}_1^0 = \exp(-(m_1+1) \pi \ \rho )$. Then we have
 
@@ -252,7 +269,7 @@ We want to find an expression for $b_1(\theta)$ that gives us our dewired parame
 
 		Since the RHS of the two equations is the same, we conclude that $\theta^* = \tilde{\theta}^*$, thus $b_0(-\arctan \rho) = \tilde{b}_0(\pi - \arctan \rho)$, and so the $b_0$ components match.
 
-		\item Next, we show that for $m_1 = 1$, we hit the pitchfork bifurcation point at $\theta = \pi - \theta_0$. For the $b_1$ component, 
+		\item Next, we show that for $m_1 = 1$, we hit the pitchfork bifurcation point at $\theta = \pi - \arctan \rho$. For the $b_1$ component, 
 		\begin{align*}
 		b_1(\pi -\arctan \rho) &= e^{ -\frac{1}{\rho}(\pi - (\pi - \arctan \rho)) } \\
 		&= e^{ -\frac{1}{\rho} \arctan \rho } = p^*
@@ -260,13 +277,35 @@ We want to find an expression for $b_1(\theta)$ that gives us our dewired parame
 
 		For $b_0$, we note that for $\theta = \pi -\arctan \rho$, the RHS of \eqref{thetastareq} is exactly $L$, thus $\theta^* = h^{-1}(L) = \arctan \rho$, and so $b_0(\pi -\arctan \rho) = e^{ -\frac{1}{\rho} \arctan \rho } = p^*$ as well.
 
-		\item It would be nice to have bounds as well.
+		\item Finally, we get some bounds on $\theta^*$. These will be in terms of $m_1$. From \eqref\label{RHSbounds} we have
+		\[
+		|e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1}  e^{ \frac{1}{\rho} \theta } \sin(\theta)| \leq C e^{ -\frac{1}{\rho}(m_1 - 1) \pi }
+		\]
+		Since $h(0) = 0$, we have $\theta^* \rightarrow 0$ as $m_1 \rightarrow \infty$. For a decay rate, recall that $h'(\theta^*) = 0$  $\theta^* = \arctan{\rho} - \pi$ and $\theta^* = \arctan{\rho}$, and no critical points between these. We also have $h(0) = 0$. For the derivative $h'(\theta^*$, we have
+		\[
+		h'(\theta^*) = \frac{1}{\rho}e^{\frac{1}{\rho}\theta^*}(\rho \cos \theta^* - \sin \theta^*)
+		\]
+		Since $h'(0) = 1$, we can find an interval $[-R_0,R_0]$ on which $h'(\theta^*) \geq 1/2$. Thus we can find an interval $[-R_1, R_1]$ on which $h^{-1}'(x) \leq L$ for a constant $L > 0$. For sufficiently large $m_1$, we will always have $\theta^* \in [-R_1, R_1]$, and $h^{-1}$ is Lipschitz with constant $L$ on that interval. Thus we conclude that
+		\begin{align*}
+		|\theta^*| &= | h^{-1}(e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1}  e^{ \frac{1}{\rho} \theta } \sin(\theta)) | \\
+		&\leq L |e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1}  e^{ \frac{1}{\rho} \theta } \sin(\theta)| \\
+		&\leq C e^{ -\frac{1}{\rho}(m_1 - 1) \pi } \\
+		&\leq C e^{ -\frac{\pi}{\rho} m_1 }
+		\end{align*}
+
 	\end{enumerate}
 \end{enumerate}
 
 \end{proof}
 \end{lemma}
 
+Here is an attempt to draw the parameterization.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=18cm]{param1}
+\end{center}
+\end{figure}
 
 
 \end{document}
