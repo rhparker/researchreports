@@ -104,7 +104,7 @@ We note that the only dependence on $r$ is in the remainder term.
 
 \subsection{Parameterization}
 
-Before we solve the jump equation, we introduce the following parameterization. This parameterization is motivated both by geometry and by the result we eventually want to obtain. For our periodic 2-pulse, we will use the following three parameters.
+Before we solve the jump equation, we introduce the following parameterization. This parameterization is motivated both by geometry and by the result we eventually want to obtain. For our periodic 2-pulse, we will use the following three (sets of) parameters.
 
 \begin{enumerate}[(i)]
 \item A scaling parameter $r = \exp(-m \pi / \rho ) \in \mathcal{R}$, where $m$ is a positive integer.
@@ -150,7 +150,7 @@ Next, we note that we have following two classes of solutions to $F(b_0,b_1) = 0
 
 We will now use the phase $\theta$ to parameterize all (relevant) solutions to $F(b_0, b_1) = 0$. To state the lemma, we have to make a choice as to which $b_i^0$ will be 1. We arbitrarily choose $b_0^0 = 1$ and note that we if we swap $b_0$ and $b_1$, we get the same periodic solution since we are on a periodic domain.
 
-\begin{lemma}\label{thetaparam}\[\]
+\begin{lemma}\label{thetaparam2}\[\]
 \begin{itemize}
 \item For $j = 0, 1$, let $b_j^0 = \exp(-m_j \pi / \rho )$, where $m_1$ is a nonnegative integer and $m_0 = 0$. 
 \item Then for $\theta \in [-\arctan \rho,\pi - \arctan \rho)$, there is a smooth family of solutions $( b_0(m_0, \theta), b_1(m_1, \theta) )$ to $F(b_0, b_1) = 0$, where $(b_0(m_0, 0), b_1(m_1, 0)) = (b_0^0, b_1^0) = (1, b_1^0)$. 
@@ -165,12 +165,12 @@ We will now use the phase $\theta$ to parameterize all (relevant) solutions to $
 where $(p^*, p^*)$ is the pitchfork bifurcation point from Lemma \ref{pitchforkF}
 \item Finally, the parameterization is given explicitly by
 \begin{align*}
-b_1(\theta) &= e^{ -\frac{1}{\rho}(m_1 \pi - \theta) } \\
-b_0(\theta) &= e^{-\frac{1}{\rho} \theta^*(\theta) }
+b_1(m_1, \theta) &= e^{ -\frac{1}{\rho}(m_1 \pi - \theta) } \\
+b_0(m_0, \theta) &= e^{-\frac{1}{\rho} \theta^*(\theta) }
 \end{align*}
 where $\theta^*$ depends on $\theta$, $\theta^* \in [-\arctan \rho,\pi - \arctan \rho)$, and we have bound
 \[
-|\theta^*| &\leq C e^{ -\frac{\pi}{\rho} m_1 }
+|\theta^*| \leq C e^{ -\frac{\pi}{\rho} m_1 }
 \]
 \end{itemize}
 
@@ -277,7 +277,7 @@ We want to find an expression for $b_1(\theta)$ that gives us our desired parame
 
 		For $b_0$, we note that for $\theta = \pi -\arctan \rho$, the RHS of \eqref{thetastareq} is exactly $L$, thus $\theta^* = h^{-1}(L) = \arctan \rho$, and so $b_0(\pi -\arctan \rho) = e^{ -\frac{1}{\rho} \arctan \rho } = p^*$ as well.
 
-		\item Finally, we get some bounds on $\theta^*$. These will be in terms of $m_1$. From \eqref\label{RHSbounds} we have
+		\item Finally, we get some bounds on $\theta^*$. These will be in terms of $m_1$. From \eqref{RHSbounds} we have
 		\[
 		|e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1}  e^{ \frac{1}{\rho} \theta } \sin(\theta)| \leq C e^{ -\frac{1}{\rho}(m_1 - 1) \pi }
 		\]
@@ -285,7 +285,7 @@ We want to find an expression for $b_1(\theta)$ that gives us our desired parame
 		\[
 		h'(\theta^*) = \frac{1}{\rho}e^{\frac{1}{\rho}\theta^*}(\rho \cos \theta^* - \sin \theta^*)
 		\]
-		Since $h'(0) = 1$, we can find an interval $[-R_0,R_0]$ on which $h'(\theta^*) \geq 1/2$. Thus we can find an interval $[-R_1, R_1]$ on which $h^{-1}'(x) \leq L$ for a constant $L > 0$. For sufficiently large $m_1$, we will always have $\theta^* \in [-R_1, R_1]$, and $h^{-1}$ is Lipschitz with constant $L$ on that interval. Thus we conclude that
+		Since $h'(0) = 1$, we can find an interval $[-R_0,R_0]$ on which $h'(\theta^*) \geq 1/2$. Thus we can find an interval $[-R_1, R_1]$ on which $(h^{-1})'(x) \leq L$ for a constant $L > 0$. For sufficiently large $m_1$, we will always have $\theta^* \in [-R_1, R_1]$, and $h^{-1}$ is Lipschitz with constant $L$ on that interval. Thus we conclude that
 		\begin{align*}
 		|\theta^*| &= | h^{-1}(e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1}  e^{ \frac{1}{\rho} \theta } \sin(\theta)) | \\
 		&\leq L |e^{ -\frac{1}{\rho} m_1 \pi } (-1)^{m_1 + 1}  e^{ \frac{1}{\rho} \theta } \sin(\theta)| \\
@@ -306,6 +306,58 @@ Here is an attempt to draw the parameterization.
 \includegraphics[width=18cm]{param1}
 \end{center}
 \end{figure}
+
+\section{Periodic Multi-Pulse}
+
+\subsection{Jump Conditions}
+
+From Lin's method, the $n-1$ jump conditions is given by the family of $n-1$ equations
+
+\begin{equation}\label{tildeGeq}
+G_j(b_1, \dots, b_{n-1}, r) = b_j \sin \left( -\rho \log b_j \right) - b_{n-1} \sin \left( -\rho \log b_{n-1} \right) + \mathcal{O}(r^{\gamma / 2 \alpha}) = 0
+\end{equation}
+
+All of these equations have the same form as the jump equation for the double pulse. The choice of $b_{n-1}$ as the last term on the RHS is arbitrary. For convenience, we let 
+
+\[
+F_j(b_1, \dots, b_{n-1}) = G_j(b_1, \dots, b_{n-1}, 0)
+\]
+
+\subsection{Parameterization}
+
+For our periodic $n$-pulse, we will use the following three (sets of) parameters.
+
+\begin{enumerate}[(i)]
+\item A scaling parameter $r = \exp(-m \pi / \rho ) \in \mathcal{R}$, where $m$ is a positive integer.
+\item $n$ length parameters $b_0^0, \dots, b_{n-1}^0$, where $b_j^0 = \exp(-m_j \pi / \rho )$ for nonnegative integers $m_j$, at least one of which must be 0. (This restriction is necessary to get uniqueness).
+\item A phase parameter $\theta \in [-\arctan \rho, \pi - \arctan \rho)$.
+\end{enumerate}
+
+As with the 2-pulse, the first step is to consider the case where $r = 0$, i.e. solve $F_j(b_1, \dots, b_{n-1})$ for all $j$. For this, we note that we have a solution whenever $b_j = b_j^0 = \exp(-m_j \pi / \rho )$ for all $j$. We will then use the phase $\theta$ to parameterize all (relevant) solutions. Recall that one of the $m_j$ must be 0. Recall that the $m_j$ are have already been chosen. For the $n-$pulse, we single out the largest of the $m_j$ (if this is more than one of them, choose any of them). Since we are on a periodic domain, we can ``rotate'' the system so that $m_{n-1} \geq m_j$ for all $j$. 														
+\begin{lemma}\label{thetaparam}\[\]
+\begin{itemize}
+\item For $j = 0, 1, \dots, n-1$, let $b_j^0 = \exp(-m_j \pi / \rho )$, where $m_1$ is a nonnegative integer and $m_{n-1} \geq m_j$ for all $j$. 
+\item Then for $\theta \in [-\arctan \rho,\pi - \arctan \rho)$, there is a unique smooth family of solutions 
+\[
+\Big( b_0(m_0, \theta), b_1(m_1, \theta), \dots, b_{n-1}(m_{n-1}, \theta) \Big)
+\]
+ to $F_j(b_0, b_1, \dots, b_{n-1}) = 0$, where $b_j(m_j, 0) = b_j^0$.
+
+\item These smooth families all ``connect up'', i.e.
+\[
+b_j(k, -\arctan \rho) = b_j(k+1, \pi - \arctan \rho)
+\]
+\item Finally, the parameterization is given explicitly by
+\begin{align*}
+b_{n-1}(m_{n-1}, \theta) &= e^{ -\frac{1}{\rho}(m_{n-1} \pi - \theta) } \\
+b_j(m_j, \theta) &= e^{-\frac{1}{\rho} (m_j \pi + \theta^*_j(\theta)) } && j = 0, \dots, n-2
+\end{align*}
+where $\theta^*_j$ depends on $\theta$, $\theta_j^* \in [-\arctan \rho,\pi - \arctan \rho)$, and we have bound
+\[
+|\theta^*_j| \leq C e^{ -\frac{\pi}{\rho} (m_{n-1} - m_j) }
+\]
+\end{itemize}
+\end{lemma}
 
 
 \end{document}

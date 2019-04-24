@@ -619,83 +619,112 @@ This is not true in general. For example, if $n \geq 3$ and all the terms $a_i$ 
 Let $X = X_0 + X_1 + \dots + X_{n-1}$, which is half the length of the domain. We note the following regarding the matrices $A - \lambda^2 I$ and $K(\lambda)$, which are the leading order terms in \eqref{blockeq}.
 
 \begin{enumerate}
-	\item The matrix $A - \lambda^2 M I$ is singular at $\lambda = 0$ (algebraic multiplicity 2) and at the $2n-2$ points $\lambda = \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}$.
+	\item The matrix $A - \lambda^2 M I$ is singular at $\lambda = 0$ (algebraic multiplicity 2) and at the $2n-2$ points $\lambda = \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}$, where $0, \mu_1, \dots, \mu_{n-1}$ are the eigenvalues of $A$.
 
-	\item The matrix $K(\lambda)$ is singular at $\lambda = \pm \lambda(X,k)$, where
+	\item The matrix $K(\lambda)$ is singular at $\lambda = \pm \lambda^K(X,k)$, where
 	\begin{align}\label{lambdaXk}
-	\lambda(X,k)
-		&= -c_0 \frac{k \pi i }{X} + \mathcal{O}\left(\frac{k}{X}\right)^2 
+	\lambda^K(X,k)
+		&= -c_0 \frac{k \pi i }{X} + \mathcal{O}\left(\frac{k}{X}\right)^3 
 	\end{align} 
 	and $\lambda(X, 0) = 0$.
 \end{enumerate}  
 
-For the nonzero eigenvalues of \eqref{PDEeig}, we expect to have $2m-2$ interaction eigenvalues, which occur near $\lambda = \pm \sqrt{\mu_j/M}$ ($j = 1, \dots, m-1$), as well as pairs of ``essential spectrum'' eigenvalues, which occur near $\lambda = \pm c_0 \frac{k \pi i }{X}$. For the analysis to work, we need to ensure that these singular points do not get too close.\\
+WE WILL WANT THESE IN TERMS OF $r$, etc.\\
 
-We can now state the following theorem, in which we locate and count the eigenvalues of \eqref{PDEeig}. Before we do that, we recall how the periodic $n-$pulse $q_{np}(x)$ is constructed.
+For the nonzero eigenvalues of \eqref{PDEeig}, we expect to have $2m-2$ interaction eigenvalues, which occur near $\lambda = \pm \sqrt{\mu_j/M}$ ($j = 1, \dots, m-1$), as well as pairs of ``essential spectrum'' eigenvalues, which occur near $\lambda = \pm c_0 \frac{k \pi i }{X}$. For the analysis to work, we need to ensure that these singular points do not get too close. We have observed Krein bubbles numerically, so this is necessary.\\
+
+We can now state the following theorem, in which we locate and count the eigenvalues of \eqref{PDEeig}. Before we do that, we recall how the periodic $n-$pulse $q_{np}(x)$ is constructed.\\
+
+Define the space
+
+\begin{equation}\label{setR}
+\mathcal{R} = \left\{ \exp\left(-\frac{m \pi}{\rho}\right) : m \in \N_0 \right\} \cup \{ 0 \}
+\end{equation}
+
+which is a complete metric space. Then, to construct a periodic $n-$pulse,
 
 \begin{enumerate}
-	\item Choose $n$ (the number of pulses) 
-	\item Choose a sequence of nonnegative integers $m_0, \dots, m_{n-2}$, with the restriction that at least one of them must be 0. 
-	\item Let
-		\begin{enumerate}
-			\item $b^* = \exp \left( -\frac{\alpha}{\beta} \arctan \frac{\beta}{\alpha} \right)$
-			\item $b_j^* = \exp \left(-\frac{m_j \pi \alpha}{\beta} \right) b^*$, $j = 1, \dots, n-2$.
-			\item $b_\text{min} = \min\{ b_0^*, \dots, b_{n-2}^* \}$
-		\end{enumerate}
-	\item Then for any $\epsilon > 0$ there exists $r_0 > 0$ such that
+	\item Choose an integer $n \geq 2$ (the number of pulses) 
+	\item Choose a sequence of nonnegative integers $m_0, \dots, m_{n-1}$ with the restriction that at least one of them must be 0. Use the $m_j$ to define the length parameters 
+	\[ 
+	b_j^0 = \exp(-m_j \pi / \rho )
+	\]
+	\item Choose a phase parameter $\theta \in [-\arctan \rho, \pi - \arctan \rho)$, where $\rho = \beta / \alpha$.
+	\item Then there exists $r_0 > 0$ such that 
 		\begin{itemize}
-			\item For each $r_m < r_0$, where 
-				\[ r_m = \exp\left(-\frac{m \pi \alpha}{\beta} \right)  \]
-			\item There exists a unique 1-paramater family of periodic $n-$pulse solutions, paramaterized by the periodic length parameter $b_{n-1}$, where
-			     \[ b_{n-1} \in (0, b_\text{min} - \epsilon] \]
-			\item The remaining length parameters are given by $b_j(b_{n-1}, r_m)$, where $b_j(b_{n-1}, r)$ is smooth in $b_{n-1}$ and $r$
-				\[ b_j(b_{n-1}, r) \rightarrow \exp \left(-\frac{m_j \pi \alpha}{\beta} \right) \text{ as } (b_{n-1}, r) \rightarrow (0,0) \]
-			\item The actual lengths $X_j$, $j = 0, \dots, n-1$, are determined from $r_m$ and the $b_j$ using the formula
-			\begin{align*}
-				X_j &= -\frac{1}{2\alpha}\log(b_j(b_{n-1}, r) r) - \frac{\phi}{2 \beta} 
-			\end{align*}
-			where $\phi$ is a constant.
+		\item For every scaling parameter $r \in \mathcal{R}$ with $r < r_0$, there is a unique periodic $n-$pulse solution $q_{np}(x)$ which is given by the $n$ length parameters $b_j(r; m_j, \theta)$, where
+		\begin{align*}
+		b_j(r; m_j, \theta) \rightarrow b^*_j(m_j, \theta) \text{ as }
+		r \rightarrow 0
+		\end{align*}
+		\item For the $b^*_j(m_j, \theta)$, we have
+		\[
+		b^*_j(m_j, 0) = b_j^0
+		\]
+		\item If for some index $j$, $m_j \geq m_k$ for all other $k$, then for all $\theta$ and for $k \neq j$
+		\[
+		|b^*_j(m_j, \theta) - b_j^0| \leq C e^{ -\frac{\pi}{\rho} (m_j - m_k) }
+		\]
 		\end{itemize}
-\end{enumerate}
+\end{enumerate} 
 
-We also recall that
-
-\begin{itemize}
-	\item $K(\lambda)$ is singular at $\lambda = \pm \lambda^K(X,n)$, where
-	\begin{align*}
-		\lambda^K(X,n) &= -c_0 \frac{n \pi i }{X} + \mathcal{O}(n/X)^3 \\
-	\end{align*}
-	\item $A - \lambda^2 M I$ is singular at $\{ 0, \pm \sqrt{\mu_1(b_{n-1}, r_m)}, \dots \pm \sqrt{\mu_1(b_{n-1}, r_m)} \}$, where the $\mu_j(b_{n-1}, r_m)$ are smooth in $b_{n-1}$ and $r$.
-\end{itemize}
-
-With this, we can state the following theorem.
+With this, we can state the following theorem. Here is a rough version.
 
 \begin{theorem}
-Let $\delta > 0$ be defined as in Theorem \ref{perexist} and Theorem \ref{blockmatrixtheorem} and let $q_{np}(x)$ be a periodic $n-$pulse solution constructed as described above.\\
+Let $\delta > 0$ be defined as in Theorem \ref{blockmatrixtheorem} and let $q_{np}(x)$ be a periodic $n-$pulse solution constructed as described above.\\
 
 Then the following are true.
 
 \begin{enumerate}[(i)]
 
-\item $\partial_x q_{np}(x)$ is an eigenfunction with eigenvalue 0, and $t_{np}(x)$ is its generalized eigenfunction with eigenvalue 0. This Jordan chain is of length 2.
+\item $\partial_x q_{np}(x)$ is an eigenfunction with eigenvalue 0, and $t_{np}(x)$ is its generalized eigenfunction with eigenvalue 0. We also have another eigenfunction with eigenvalue 0 (MORE DETAILS LATER).
 
-\item There exist $r_2 \leq r_0$ and $\tilde{b}_2 > 0$ such that the following is true. For any $r_m < r_2$ and $b_{n-1} < \tilde{b}_2$, as long as the points $\lambda^K(X,n)$ and $\pm \sqrt{\mu_1(b_{n-1}, r_m)}$ are more than $\epsilon/X$ apart, where $\epsilon = r_m^{1/2}$, there exist $2n - 2$ pairs of interaction eigenvalues given by
+\item Assume
+	\begin{itemize}
+		\item The eigenvalues $(0, \mu_1, \dots, \mu_{n-1})$ of $A$ are distinct.
+		\item The singular points of $K(\lambda)$ and the nonzero singular points of $A - \lambda^2 M I$ are separated by at least $\epsilon$, where
+		\[
+		\epsilon = \frac{1}{n |\log r| + C_b} r^{1/4}
+		\]
+		where $C_b$ is a constant which depends only on the $b_j^*(m_j, \theta) $, which are fixed. Note that the singular points of $K(\lambda)$ are approximately regularly spaced on the imaginary axis at intervals $\frac{\pi}{n |\log r| + C_b}$.
+	\end{itemize}
+	Then there exists $r_1 \leq r_0$ such that for $r \leq r_1$, there are $n - 1$ pairs of interaction eigenvalues given by $\lambda = \pm \lambda^{\text{int}}_j(r)$, $j = 1, \dots, n-1$, where
 
-\begin{align*}
-\lambda &= \pm \lambda^{\text{int}}_j(b_{n-1}, r) && j = 1, \dots, n-1
-\end{align*}
+	\begin{align*}
+	\lambda^{\text{int}}_j(r) = \sqrt{\mu_j / M} + \mathcal{O}(r^{1 + \gamma/2 \alpha})
+	\end{align*}
 
-These interaction eigenvalues pairs are at most $\mathcal{O}(r^{1/2})$, are either real or purely imaginary, and are close to $\pm \sqrt{\mu_j^0 / M} = \pm \sqrt{\mu_j(0, 0)}$. The number of pairs which are real and purely imaginary is completely determined by the parity of the integers $m_j$; which one is which depends on the sign the Melnikov integral $M$.
+	These interaction eigenvalues pairs are either real or purely imaginary.\\
 
-\item There exist $r_3 \leq r_2$ and $\tilde{b}_3 < \tilde{b}_2$ such that the following is true. For any $r_m < r_3$ and $b_{n-1} < \tilde{b}_3$, as long as the points $\lambda^K(X,n)$ and $\sqrt{\mu_1(b_{n-1}, r_m)}$ are more than $\epsilon/X$ apart, where this time $\epsilon = r_m^{(3n-2)/6(n+3)}$, for sufficiently small $k/X$, $k \neq 0$, there exist pairs of purely imaginary ``essential spectrum'' eigenvalues, which are given by $\lambda = \pm \lambda^{ess}(X, k; r)$, where
+	In addition, there exists a natural number $m_0$ with the following property. If for some $j$, $m_j - m_k \geq m_0$ for all $k \neq j$, then there exists $\tilde{r}_1 \leq r_1$ such that for all $r < \tilde{r}_1$, 
 
-\begin{equation}\label{essspeceigs}
-\lambda^{ess}(X, k; r_m) = -c_0 \frac{k \pi i}{X} + \mathcal{O}\left(r_m\right)
-\end{equation}
+	\begin{itemize}
+	\item For $M_2 > 0$, there are $n_{\text{even}}$ purely imaginary pairs of interaction eigenvalues.
+	\item For $M_2 > 0$, there are $n_{\text{odd}}$ real pairs of interaction eigenvalues.
+	\item It is the other way around for $M_2 < 0$
+	\end{itemize}
 
-The remainder term cannot move these off of the imaginary axis.
+	where $n_{\text{even}}$ is the number of even $m_k \neq m_j$ and $n_{\text{odd}}$ is the number of odd $m_k \neq m_j$. $M_2$ is the higher order Melkinov integral.
 
-\item For a radius $\tilde{\delta}$ which may be slightly smaller than $\delta$ and for the same values of $r_m$ and $b_{n-1}$ as above, there are exactly $2n + 2k + 1$ eigenvalues inside $B(0, \tilde{\delta}) \subset \C$ (counting multiplicity), where $n$ is the number of pulses in the multi-pulse, and $k$ is a positive integer depending on $X$. From Hamiltonian symmetry, there is an additional eigenvalue at 0, thus 0 has algebraic multiplicity 3. There are no eigenvalues inside $B(0, \tilde{\delta}) \subset \C$ other than those which have already been discussed.
+
+\item Assume
+	\begin{itemize}
+		\item The singular points of $K(\lambda)$ and the nonzero singular points of $A - \lambda^2 M I$ are separated by at least $\epsilon$, where
+		\[
+		\epsilon = \frac{1}{n |\log r| + C_b} r^{(3n-2)/6(n+3)}
+		\]
+		where $C_b$ the same constant as in the previous section. Note that for $r \geq 2$, $(3n-2)/6(n+3) > 0$.
+	\end{itemize}
+
+	Then there exists $r_2 \leq r_1$ such that for sufficiently small $k/X$, $k \neq 0$, there exist pairs of purely imaginary ``essential spectrum'' eigenvalues, which are given by $\lambda = \pm \lambda^{ess}(X, k; r)$, where
+
+	\begin{equation}\label{essspeceigs}
+	\lambda^{ess}(X, k; r_m) = -c_0 \frac{k \pi i}{X} + \mathcal{O}\left(r\right)
+	\end{equation}
+
+	The remainder term cannot move these off of the imaginary axis.
+
+\item For a radius $\tilde{\delta}$ which may be slightly smaller than $\delta$, and with the same assumptions as above, there are exactly $2n + 2k + 1$ eigenvalues inside $B(0, \tilde{\delta}) \subset \C$ (counting multiplicity), where $n$ is the number of pulses in the multi-pulse, and $k$ is a positive integer depending on $X$. Thus there are no eigenvalues inside $B(0, \tilde{\delta}) \subset \C$ other than those which have already been accounted for.
 
 \end{enumerate}
 \end{theorem}
