@@ -2208,7 +2208,7 @@ We prove the theorem below in a series of lemmas.
 
 Before we continue, we will use the same scaling and parameterization as in the existence problem. We do this in the next section.
 
-\subsubection{Rescaling}
+\subsubsection{Rescaling}
 
 Define the space
 
@@ -2287,7 +2287,7 @@ D_1 &= \mathcal{O}((|\lambda| + r^{\tilde{\gamma}/2})(|\lambda| + r^{1/2})) \\
 D_2 &= \mathcal{O}((|\lambda| + r^{\tilde{\gamma}/2})(|\lambda| + r^{1/2})^2)
 \end{align*}
 
-where $0 < \tilde{\gamma} < 1$. The matrices $K_1(\lambda)$ and $K_2(\lambda)$ are perturbations of the nonzero entries of $K(\lambda)$ by $\mathcal{O}(|\lambda| + r^{1/2})$.\\
+where $3/4 < \tilde{\gamma} < 1$ (THIS DEPENDS ON $\tilde{\alpha}$ SO CHECK THIS). The matrices $K_1(\lambda)$ and $K_2(\lambda)$ are perturbations of the nonzero entries of $K(\lambda)$ by $\mathcal{O}(|\lambda| + r^{1/2})$.\\
 
 Finally the domain half-length $X$ is given by
 
@@ -2305,7 +2305,7 @@ In terms of $r$, we have
 
 \begin{align*}
 e^{-\alpha X_m} &= C r^{1/2} \\
-e^{-\tilde{\alpha} X_m} &= C r^{(1 - \tilde{\gamma})/2}
+e^{-\tilde{\alpha} X_m} &= C r^{\tilde{\gamma}/2}
 \end{align*}
 where $0 < \tilde{\gamma} < 1$. Thus the remainder terms in Theorem \ref{blockmatrixtheorem} have the bounds given above. In addition, $K_1(\lambda)$ and $K_2(\lambda)$ are perturbations of the nonzero entries of $K(\lambda)$ by $\mathcal{O}(|\lambda| + r^{1/2})$.\\
 
@@ -2624,7 +2624,7 @@ Expand $\nu(\lambda)$ in a Taylor series about $\lambda^K(X, n)$ to get
 &= \frac{n \pi i}{X} -\frac{1}{c_0}\xi \left( 1 + \mathcal{O} \left(\frac{n}{X}\right)^2 \right) + \mathcal{O}(\xi^2)
 \end{align*}
 
-If we take $\text{Im \xi} \geq \epsilon/X$ (and small enough so that we don't get within $\epsilon/X$ of a different $\lambda^K(X, n)$, then
+If we take $\text{Im } \xi \geq \epsilon/X$ (and small enough so that we don't get within $\epsilon/X$ of a different $\lambda^K(X, n)$, then
 
 \begin{align*}
 |\text{Im } \nu\left( \lambda^K(X, n) + \xi \right)X - n \pi| \geq C \epsilon
@@ -2694,71 +2694,60 @@ We are finally ready to find the interaction eigenvalues, which come from the se
 
 \subsubsection{Interaction Eigenvalues}
 
-To find the interaction eigenvalues, we solve the first line of the block matrix equation \eqref{blockeq} for $c$.
+To find the interaction eigenvalues, we solve the first line of the block matrix equation \eqref{blockeq} for $c$ and plug it into the second line of the block matrix. Before we do that, we note that we expect the interaction eigenvalues to occur near where $A - \lambda^2 M I$ is singular. From Lemma \ref{reparam}, $A = r \tilde{A}$. Thus it makes sense to take the scaling for $\lambda$
 
-\begin{equation}\label{blockmatrix1}
-(K(\lambda) + C_1 K(\lambda) + K_1(\lambda))c + D_1 d = 0
+\[
+\lambda = r^{1/2}\tilde{\lambda}
+\]
+
+In particular, this means for the interaction eigenvalues that $\lambda = \mathcal{O}(r^{1/2})$. In the following lemma, we produce an equation we can solve to find the interaction eigenvalues. We choose $\epsilon = r^{1/4}/4$ to ensure that there is always space between the $\lambda^K(X,n)$ in which to work and that the buffer around the $\lambda^K(X,n)$ gets smaller as $r$ increases.
+
+% equation for d
+
+\begin{lemma}\label{deqlemma}
+Assume Hypothesis \ref{epsilonballs}, and choose 
+\begin{equation}\label{epsilon1}
+\epsilon = \frac{1}{4}r^{1/4}
+\end{equation}
+in that hypothesis. Then, for sufficiently small $r$, the interaction eigenvalues are given by $\lambda = r^{1/2} \tilde{\lambda}$, where the $\tilde{\lambda}$ are the values for which
+
+\begin{equation}\label{eqford}
+(\tilde{A} - \tilde{\lambda}^2 MI + \tilde{D}_3)d = 0
 \end{equation}
 
-For $\lambda \neq \lambda^K(X, n)$, $K(\lambda)$ is invertible, and we can write \eqref{blockmatrix1} as
+has a nontrivial solution. The remainder term $\tilde{D}_3$ has bound
+
+\begin{equation}\label{tildeD3bound}
+||\tilde{D}_3|| \leq C r^{1/8}
+\end{equation}
+
+\begin{proof}
+First, we solve the top line of the block matrix equation \eqref{blockeq} for $c$. For $\lambda \neq \lambda^K(X, n)$, $K(\lambda)$ is invertible, and we can write the top line of \eqref{blockeq} as
 
 \begin{align*}
 (I + C_1 + K_1(\lambda)K(\lambda)^{-1}) K(\lambda) c = -D_1 d
 \end{align*}
 
-In order proceed, we need to bound $K(\lambda)^{-1}$ and $K_1(\lambda)K(\lambda)^{-1}$. To do that, we consider only $\lambda$ which are more than $\epsilon/X$ away from all of the $\lambda^K(X, n)$. We will take
-\[
-\epsilon = e^{-k \alpha X_m}
-\]
-with $k > 0$ to be chosen later. By Lemma \ref{Ksingularlemma}, the spacing between the points $\lambda^K(X, n)$ is $\mathcal{O}(1/X)$, so this makes sense. We have the following lemma.
-
-
-
-For the rest of this section, we will only consider $\lambda$ which is at least $\epsilon/X$ away from all of the $\lambda^K(X,n)$. In the next lemma, we bound $K_1(\lambda)K(\lambda)^{-1}$ and $K(\lambda)^{-1}$ for such $\lambda$.
-
-
-We can now solve for $c$ in \eqref{blockmatrix1} and plug it into the second equation in \eqref{blockeq}. Since the entries of the matrix $A$ are $\mathcal{O}(e^{-2 \alpha X_m}$ and we expect the interaction eigenvalues to be near where $A - \lambda^2 M$ is singular, we will take $|\lambda| \leq C e^{-\alpha X_m}$. The following lemma gives us an equation for $d$ which we can solve to obtain the interaction eigenvalues.
-
-% equation for d
-
-\begin{lemma}\label{deqlemma}
-Choose $\epsilon = e^{-\alpha X_m/2}$ in Lemma \ref{detKlemma}. Then, for sufficiently large $X_m$ and as long as $\lambda$ is at least $\epsilon/X$ away from all of the $\lambda^K(X,n)$, the interaction eigenvalues are the values of $\lambda$ for which
-\begin{equation}\label{eqford}
-(A - \lambda^2 MI + D_3)d = 0
-\end{equation}
-
-has a nontrivial solution. The remainder term $D_3$ has bound
-
-\begin{equation}\label{D3bound}
-||D_3|| \leq C e^{-5 \alpha X_m/2}
-\end{equation}
-
-\begin{proof}
-From Theorem \ref{blockmatrixtheorem} and Lemma \ref{Kinvboundslemma} 
+Using $\lambda = \mathcal{O}(r^{1/2})$, the bound from Lemma \ref{Kinvboundslemma}, and the choice of $\epsilon$ in \eqref{epsilon1},
 
 \begin{align*}
-|C_1| &\leq (e^{-\tilde{\alpha}X_m})(|\lambda| + e^{-\alpha X_m}) \\
-||K_1(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + e^{-\alpha X_m})\frac{1}{\epsilon}
+||K_1(\lambda)K(\lambda)^{-1}|| &\leq C (|\lambda| + r^{1/2})\frac{1}{\epsilon} \\
+&\leq C r^{1/2} r^{-1/4} \\
+&= C r^{1/4}
 \end{align*}
 
-Choose $\epsilon = e^{-\alpha X_m / 2 }$. Thus for $\lambda = \mathcal{O}(e^{-\alpha X_m}$, we have the bound
+Using this and the bound on $C_1$ from Lemma \ref{reparam}, $||C_1 + K_1(\lambda)K(\lambda)^{-1}|| \leq C r^{1/4}$.Thus for sufficiently small $r$, $I + C_1 + K_1(\lambda)K(\lambda)^{-1}$ is invertible. Let $C_3 = (I + C_1 + K_1(\lambda)K(\lambda)^{-1})^{-1}$. Then we can solve for $c$ to get
 
 \[
-||C_1 + K_1(\lambda)K(\lambda)^{-1}|| \leq C e^{-\alpha X_m / 2 }
-\]
-
-For sufficiently large $X_m$, $I + C_1 + K_1(\lambda)K(\lambda)^{-1}$ is invertible. Let $C_3 = (I + C_1 + K_1(\lambda)K(\lambda)^{-1})^{-1}$. Then we can solve for $c$ to get
-
-\[
-c = - K(\lambda)^{-1} C_3 D_1 d
+c = -K(\lambda)^{-1} C_3 D_1 d
 \]
 
 Plugging this into the second line of \eqref{blockeq}, we get the folowing equation for $d$.
 
 \begin{align*}
-(C_2 K(\lambda) + K_2(\lambda))c + (A - \lambda^2 MI + D_2)d &= 0 \\
-(A - \lambda^2 MI + D_2)d - (C_2 K(\lambda) + K_2(\lambda))K(\lambda)^{-1} C_3 D_1 &= 0 \\
-(A - \lambda^2 MI + D_2)d - (C_2 + K_2(\lambda)K(\lambda)^{-1}) C_3 D_1 &= 0 \\
+(C_2 K(\lambda) + K_2(\lambda))c + (r\tilde{A} - r \tilde{\lambda}^2 MI + D_2)d &= 0 \\
+(r\tilde{A} - r \tilde{\lambda}^2 MI + D_2)d - (C_2 K(\lambda) + K_2(\lambda))K(\lambda)^{-1} C_3 D_1 &= 0 \\
+(r\tilde{A} - r \tilde{\lambda}^2 MI + D_2)d - (C_2 + K_2(\lambda)K(\lambda)^{-1}) C_3 D_1 &= 0 \\
 \end{align*}
 
 Let 
@@ -2770,152 +2759,38 @@ D_3 = D_2 - C_2 C_3 D_1 - K_2(\lambda) K(\lambda)^{-1} C_3 D_1
 be the remainder term, so that the equation for $d$ becomes
 
 \[
-(A - \lambda^2 MI + D_3)d = 0
+(r\tilde{A} - r \tilde{\lambda}^2 MI + D_3)d = 0
 \]
 
-Then using bounds from Theorem \ref{blockmatrixtheorem} and Lemma \ref{Kinvboundslemma} and our choice of $\epsilon$, we have
+Using bounds from Lemma \ref{reparam}, Lemma \ref{Kinvboundslemma}, and our choice of $\epsilon$, we have the bound for $D_3$
 
 \[
-||D_3|| = 
-||D_2 - C_2 C_3 D_1 - K_2(\lambda) K(\lambda)^{-1} C_3 D_1|| \leq C e^{-5 \alpha X_m/2}
+||D_3|| \leq C r^{3/4 + \tilde{\gamma}/2} \leq C r^{9/8}
+\]
+
+Dividing by $r$, we get the equation 
+
+\[
+(\tilde{A} - \tilde{\lambda}^2 MI + \tilde{D}_3)d = 0
+\]
+
+where 
+\[
+||\tilde{D}_3|| \leq C r^{1/8}
 \]
 
 \end{proof}
 \end{lemma}
 
-To obtain the interaction eigenvalues, we take the following scaling based on San98. In fact, we used the same scaling in the existence problem. Define
-
-\begin{align}
-r &= e^{-\alpha(2 X_m + \phi/\beta)} \\
-b_j &= e^{-2 \alpha(X_j - X_m)} && j = 0, \dots, n-1
-\end{align}
-
-In terms of the $X_j$, we have
-
-\begin{align*}
-X_m &= -\frac{1}{2\alpha}\log r - \alpha \frac{\phi}{\beta} \\
-X_j &= -\frac{1}{2\alpha}\log(b_j r) - \frac{\phi}{2 \beta} 
-\end{align*}
-
-Recall that we took $e^{-\alpha X_m} < \delta$, where $\delta$ is defined in Theorem \ref{blockmatrixtheorem}. Thus $r^{1/2} \in (0, \delta)$, and $b_j \in (0, 1]$. \\
-
-We briefly summarize the result from the existence problem regarding how the periodic $n-$pulse $q_{np}(x)$ is constructed. Recall that the space
-
-\begin{equation}\label{setR}
-\mathcal{R} = \left\{ \exp\left(-\frac{m \pi}{\rho}\right) : m \in \N_0 \right\} \cup \{ 0 \}
-\end{equation}
-
-is a complete metric space.
-
-\begin{enumerate}
-	\item Choose an integer $n \geq 2$ (the number of pulses) 
-	\item Choose a sequence of nonnegative integers $m_0, \dots, m_{n-1}$ with the restriction that at least one of them must be 0. Use the $m_j$ to define the length parameters $b_j^0 = \exp(-m_j \pi / \rho )$.
-	\item Choose a phase parameter $\theta \in [-\arctan \rho, \pi - \arctan \rho)$, where $\rho = \beta / \alpha$.
-	\i 
-	\item Then there exists $r_0 > 0$ such that 
-		\begin{itemize}
-		\item For every length parameter $r \in \mathcal{R}$ with $r < r_0$, there is a unique periodic $n-$pulse solution $q_{np}(x)$ which is given by the $n$ length parameters $b_j(r; m_j, \theta)$, where
-		\begin{align*}
-		b_j(r; m_j, \theta) \rightarrow b^*_j(m_j, \theta) \text{ as }
-		r \rightarrow 0
-		\end{align*}
-		\item For the $b^*_j(m_j, \theta)$, we have
-		\[
-		b^*_j(m_j, 0) = b_j^0 = \exp(-m_j \pi / \rho )
-		\]
-		\item If for some index $j$, $m_j \geq m_k$ for all other $k$, then for all $\theta$ and for $k \neq j$
-		\[
-		|b^*_j(m_j, \theta) - b_j^0| \leq C e^{ -\frac{\pi}{\rho} (m_j - m_k) }
-		\]
-		\end{itemize}
-\end{enumerate} 
-
-We now use this scaling for the terms in Lemma \ref{deqlemma}. For the remainder term $D_3$, we have bound
-
-\[
-||D_3|| \leq C r^{1 + 1/4}
-\]
-
-Next, we use this scaling for the matrix $A$. From Lemma 6.1 in San98, we have
-
-\begin{align}
-\langle \Psi(-x), Q'(x) \rangle
-&= s_0 e^{-2 \alpha x}\left( \beta \cos(2 \beta x + \phi) - \alpha \sin(2 \beta x + \phi)\right) + \mathcal{O}(e^{-(2 \alpha + \gamma) x}) \label{IPpsiQprime}
-\end{align}
-
-where $s_0 > 0$. Using this for $a_j = \langle \Psi(-X_j), Q'(X_j) \rangle$, we have
-
-\begin{align*}
-a_j &= \langle \Psi(-X_j), Q'(X_j) \rangle \\
-&= s_0 e^{-2 \alpha X_j}\left( \beta \cos(2 \beta X_j + \phi) - \alpha \sin(2 \beta X_j + \phi)\right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_j}) \\
-&= s_0 e^{-2 \alpha X_m} e^{-2 \alpha (X_j - X_m)} \left( \beta \cos(2 \beta X_j + \phi) - \alpha \sin(2 \beta X_j + \phi)\right) + \mathcal{O}(e^{-(2 \alpha + \gamma) X_m} e^{-(2 \alpha + \gamma) (X_j - X_m) }) \\
-&= s_0 e^{\alpha \phi/\beta} r b_j \left( \beta \cos\left( -\frac{\beta}{\alpha} \log(b_j r) \right) - \alpha \sin \left( -\frac{\beta}{\alpha} \log(b_j r) \right) \right) + \mathcal{O}(r^{1+\gamma/2\alpha} b_j^{1 + \gamma/2\alpha}) \\
-&= s_0 e^{\alpha \phi/\beta} r \left( \beta b_j \cos\left( -\frac{\beta}{\alpha} \log(b_j r) \right) - \alpha b_j \sin \left( -\frac{\beta}{\alpha} \log(b_j r) \right) \right) + \mathcal{O}(r^{1+\gamma/2\alpha})
-\end{align*}
-
-since $b_j \in (0, 1]$. From the existence problem, $r \in \mathcal{R}$, thus the $r$ inside the log disappears, leaving us with
-
-\begin{align*}
-a_j = \langle \Psi(-X_j), Q'(X_j) \rangle 
-&= s_0 e^{\alpha \phi/\beta} r \left( \beta b_j \cos\left( -\frac{\beta}{\alpha} \log b_j \right) - \alpha b_j \sin \left( -\frac{\beta}{\alpha} \log b_j  \right) \right) + \mathcal{O}(r^{1+\gamma/2\alpha})
-\end{align*}
-
-Next, we scale $r$ out of this. Let $a_j = r \tilde{a}_j$. Then we have
-
-\begin{align*}
-\tilde{a}_j 
-&= s_0 e^{\alpha \phi/\beta} \left( \beta b_j \cos\left( -\frac{\beta}{\alpha} \log b_j \right) - \alpha b_j \sin \left( -\frac{\beta}{\alpha} \log b_j  \right) \right) + \mathcal{O}(r^{\gamma/2\alpha})
-\end{align*}
-
-Finally, we write this in terms of our parameterization $b_j(r; m_j, \theta)$.
-
-\begin{align*}
-\tilde{a}_j(r; m_j, \theta)  
-= s_0 e^{\alpha \phi/\beta} &\Big( \beta b_j(r; m_j, \theta) \cos\left( -\frac{\beta}{\alpha} \log b_j(r; m_j, \theta) \right) \\
-&- \alpha b_j(r; m_j, \theta) \sin \left( -\frac{\beta}{\alpha} \log b_j(r; m_j, \theta) \right) \Big) + \mathcal{O}(r^{\gamma/2\alpha})
-\end{align*}
-
-Let $\tilde{A}(r; m_j, \theta)$ be the same matrix as $A$ with $a_j$ replaced with $(r; m_j, \theta)$. We note that $\tilde{A}$ and $A$ have the same symmetry properties, thus the eigenvalues of $\tilde{A}$ are real, and $(1,1,\dots,1)^T$ is an eigenvector of $\tilde{A}$ with eigenvalue 0.\\
-
-Let $\lambda = r^{1/2} \tilde{\lambda}$, so that $\lambda^2 = r \tilde{\lambda}^2$. Making these substitutions and dividing by $r$, the problem becomes
-
-\[
-(\tilde{A}(r; m_j, \theta) - \tilde{\lambda}^2 MI + \mathcal{O}(r^{\gamma/2 \alpha}))d = 0
-\]
-
-Because of our scaling, the scaling parameter $r$ only occurs in the remainder term. If we assume that the eigenvalues of $A$ are distinct (which implies that the eigenvalues of $\tilde{A}(r; m_j, \theta)$ are distinct, since all we did was scale out a constant), we can go ahead and solve this. Let $1, \tilde{\mu}_1, \dots, \tilde{\mu}_{n-1}$ be the eigenvalues of $\tilde{A}(r; m_j, \theta)$ and assume they are distinct. Then we need to solve
-
-\[
-\tilde{E}(\tilde{\lambda},r) = \det
-( \tilde{A} - \tilde{\lambda}^2 MI + \mathcal{O}(r^{\gamma/2 \alpha})) = 0
-\]
+Because of our scaling, the scaling parameter $r$ only occurs in the remainder term. If we use Hypothesis \ref{Adistincteigs}, we can go ahead and solve for the interaction eigenvalues.
 
 
-When $r = 0$, $\tilde{E}(\tilde{\lambda}, 0) = \det(\tilde{A} - \tilde{\lambda}^2 MI)$, which is given by taking $\mu = \tilde{\lambda}^2 M$ in the characteristic polynomial of $\tilde{A}$.
+which we do in the following lemma.
 
-\[
-\tilde{E}(\tilde{\lambda}, 0) = \tilde{\lambda}^2
-\left( \tilde{\lambda} - \sqrt{\tilde{\mu}_1 / M} \right)
-\left( \tilde{\lambda} + \sqrt{\tilde{\mu}_1 / M} \right) \dots
-\left( \tilde{\lambda} - \sqrt{\tilde{\mu}_{n-1} / M} \right)
-\left( \tilde{\lambda} + \sqrt{\tilde{\mu}_{n-1} / M} \right)
-\]
+% solve for int eigs
 
-For $j = 1, \dots, n-1$, $\tilde{E}(\pm \sqrt{\tilde{\mu}_j / M}, 0) = 0$. Since the eigenvalues of $A_0$ are distinct, $\partial_{\tilde{\lambda}} \tilde{E}(\pm \sqrt{\tilde{\mu}_j / M}, 0) \neq 0$. Thus there exists $r_1 < r_0$ so that for $r \leq r_1$, we can use the IFT to solve for $\tilde{\lambda}$ in terms of $r$ near the $2n-2$ zeros $\pm \sqrt{\tilde{\mu}_j / M}$. In other words, for $r \leq r_1$, there are unique smooth functions $\tilde{\lambda}_j^\pm(r)$ such that $\tilde{\lambda}_j^\pm(0) = \pm \sqrt{\tilde{\mu}_j / M}$ and $\tilde{E}(\tilde{\lambda}_j^\pm(r); r) = 0$. We should also have from the Taylor theorem or somesuch
-
-\[
-\tilde{\lambda}_j^\pm(r) = \pm \sqrt{\tilde{\mu}_j/ M} + \mathcal{O}(r^{\gamma/2 \alpha})
-\]
-
-Finally, we undo the scaling. Let 
-
-\[
-\lambda_j^\pm(r) = r^{1/2} \tilde{\lambda}_j^\pm(r)
-\]
-
-These are the interaction eigenvalues we seek. By Hamiltonian symmetry, eigenvalues must come in quartets $\pm a \pm b i$. Since we assumed that the eigenvalues $\tilde{\mu}$ of $\tilde{A}$ are distinct, the only way we can satisfy Hamiltonian symmetry is if $\lambda_j^+(r) = \lambda_j^-(r)$, in which case the pairs must be real or purely imaginary.\\
-
-We conclude the following. Assume the eigenvalues of $A$ are distinct. Then there exists $r_1 < r_0$ such that for $r < r_1$, we have $2n - 2$ pairs of interaction eigenvalues given by
+\begin{lemma}\label{inteigs}
+Assume Hypothesis \ref{Adistincteigs}, and let $0, \tilde{\mu}_1, \dots, \tilde{\mu}_{n-1}$ be the eigenvalues of $\tilde{A}$. Then there exists $r_1 < r_0$ such that for $r \in \mathcal{R}$ with $r < r_1$, we have $2n - 2$ pairs of interaction eigenvalues
 
 \begin{align*}
 \lambda &= \pm \lambda^{\text{int}}_j(r) && j = 0, \dots, n-2
@@ -2924,31 +2799,84 @@ We conclude the following. Assume the eigenvalues of $A$ are distinct. Then ther
 where
 
 \begin{align*}
-\lambda^{\text{int}}_j(r) = \sqrt{\mu_j / M} + \mathcal{O}(r^{1 + \gamma/2 \alpha})
+\lambda^{\text{int}}_j(r) = r^{1/2} \sqrt{\tilde{\mu}_j / M} + \mathcal{O}(r^{3/2})
 \end{align*}
 
-where $0, \mu_1, \dots, \mu_{n-1}$ are the eigenvalues of $A$. These interaction eigenvalues pairs are either real or purely imaginary.\\
+These interaction eigenvalue pairs are either real or purely imaginary, and the remainder term cannot move them off of the real or imaginary axis.
 
-At this point, unless we know the eigenvalues of $A$, we can conclude nothing about stability. We can compute the eigenvalues of $A$ in terms of the $a_j$ only for $n = 2$ and $n = 3$. For anything else, we will need to take one of the length parameters $m_j$ large compared to the others to that we approximate the situation on the real line. Since we can always ``circulate'' the parameters, we will take $m_{n-1}$ to be large.
-\\
 
-Let $\tilde{A}_0$ be the tri-diagonal, symmetric matrix 
+\begin{proof}
+Let $0, \mu_1, \dots, \mu_{n-1}$ be the eigenvalues of $A$, which we are assuming are distinct. Then since $A = r \tilde{A}$, the eigenvalues of $\tilde{A}$ are $0, \tilde{\mu}_1, \dots, \tilde{\mu}_{n-1}$, which are also distinct, and $\mu_j = r \tilde{\mu}_j$.\\
+
+Equation \eqref{eqford} has a nontrivial solution if and only if
+
+\[
+\tilde{E}(\tilde{\lambda},r) = \det
+( \tilde{A} - \tilde{\lambda}^2 MI + \mathcal{O}(r^{1/8})) = 0
+\]
+
+When $r = 0$, $\tilde{E}(\tilde{\lambda}, 0) = \det(\tilde{A} - \tilde{\lambda}^2 MI)$, which is found by taking $\mu = \tilde{\lambda}^2 M$ in the characteristic polynomial of $\tilde{A}$.
+
+\begin{equation}\label{tildeE1}
+\tilde{E}(\tilde{\lambda}, 0) = \tilde{\lambda}^2
+\left( \tilde{\lambda} - \sqrt{\tilde{\mu}_1 / M} \right)
+\left( \tilde{\lambda} + \sqrt{\tilde{\mu}_1 / M} \right) \dots
+\left( \tilde{\lambda} - \sqrt{\tilde{\mu}_{n-1} / M} \right)
+\left( \tilde{\lambda} + \sqrt{\tilde{\mu}_{n-1} / M} \right)
+\end{equation}
+
+For $j = 1, \dots, n-1$, $\tilde{E}(\pm \sqrt{\tilde{\mu}_j / M}, 0) = 0$. Since the eigenvalues of $A_0$ are distinct, $\partial_{\tilde{\lambda}} \tilde{E}(\pm \sqrt{\tilde{\mu}_j / M}, 0) \neq 0$. Thus there exists $r_1 < r_0$ so that for $r \leq r_1$, we can use the IFT to solve for $\tilde{\lambda}$ in terms of $r$ near the $2n-2$ roots $\pm \sqrt{\tilde{\mu}_j / M}$ of \eqref{tildeE1}. In other words, for $r \leq r_1$, there are unique smooth functions $\tilde{\lambda}_j^\pm(r)$ such that $\tilde{\lambda}_j^\pm(0) = \pm \sqrt{\tilde{\mu}_j / M}$ and $\tilde{E}(\tilde{\lambda}_j^\pm(r); r) = 0$. We should also have from the Taylor theorem or somesuch
+
+\[
+\tilde{\lambda}_j^\pm(r) = \pm \sqrt{\tilde{\mu}_j/ M} + \mathcal{O}(r)
+\]
+
+Undoing the scaling. Let 
+
+\[
+\lambda_j^\pm(r) = r^{1/2} \tilde{\lambda}_j^\pm(r)
+\]
+
+These are the interaction eigenvalues we seek. By Hamiltonian symmetry, eigenvalues must come in quartets $\pm a \pm b i$. Since we assumed that the eigenvalues $\tilde{\mu}$ of $\tilde{A}$ are distinct, the only way we can satisfy Hamiltonian symmetry is if $\lambda_j^+(r) = \lambda_j^-(r)$, in which case the pairs must be real or purely imaginary. Thus the interaction eigenvalues are given by $\lambda = \pm \lambda^{\text{int}}_j(r)$, where
 
 \begin{align*}
-\tilde{A}_0 &= \begin{pmatrix}
--\tilde{a}_0 & \tilde{a}_0 \\
-\tilde{a}_0 & -\tilde{a}_0 
-\end{pmatrix} && n = 2 \\
+\lambda^{\text{int}}_j(r) = r^{1/2} \sqrt{\tilde{\mu}_j / M} + \mathcal{O}(r^{3/2})
+\end{align*}
+
+The remainder term cannot move these off of the real or imaginary axis.
+\end{proof}
+\end{lemma}
+
+At this point, unless we actually know the eigenvalues of $A$, we can conclude nothing about stability. We should be able compute the eigenvalues of $A$ in terms of the $a_j$ for $n = 2$ and $n = 3$. MAYBE DO THAT HERE.\\
+
+For $n > 3$, we will need to take one of the length parameters $m_j$ large compared to the others to that we are ``close to'' the situation on the real line. In that case, the parity of the other $m_k$ determines the eigenvalue pattern.
+
+% lemma
+
+\begin{lemma}\label{inteigsparity}
+There exists a natural number $m_0$ such that if for some $j$, $m_j - m_k \geq m_0$ for $k \neq j$, then there exists $r_2 \leq r_1$ such that for all $r < r_2$, 
+
+\begin{itemize}
+\item For $M > 0$ ($M < 0$), there are $n_{\text{even}}$ purely imaginary (real) pairs of interaction eigenvalues.
+\item For $M > 0$ ($M < 0$), there are $n_{\text{odd}}$ real (purely imaginary) pairs of interaction eigenvalues.
+\end{itemize}
+
+where $n_{\text{even}}$ is the number of even $m_k$ (excluding $m_j$) and $n_{\text{odd}}$ is the number of odd $m_k$ (excluding $m_j$).
+
+\begin{proof}
+Since we are on a periodic domain, we can always ``circulate'' the parameters, thus we will take $m_{n-1}$ to be large (i.e. $\tilde{a}_{n-1}$ small). Let $\tilde{A}_0$ be the tri-diagonal, symmetric matrix 
+
+\begin{align*}
 \tilde{A}_0 &= \begin{pmatrix}
 -\tilde{a}_0 & \tilde{a}_0 \\
 \tilde{a}_0 & -\tilde{a}_0 - \tilde{a}_1 &  \tilde{a}_1 \\
 & \tilde{a}_1 & -\tilde{a}_1 - \tilde{a}_2 &  \tilde{a}_2 \\
 & & \ddots & & \ddots \\
 & & & & & \tilde{a}_{n-2} & -\tilde{a}_{n-2} \\
-\end{pmatrix} && n > 2
+\end{pmatrix}
 \end{align*}
 
-This is just the matrix $\tilde{A}$ with the term $\tilde{a}_{n-1}$ set to 0. Once again, $(1, 1, \dots, 1)^T$ is an eigenvector of $\tilde{A}_0$ with eigenvalue 0. Let $0, \mu^0_1, \dots, \mu^0_{n-1}$ be the eigenvalues of $\tilde{A}_0$. Note that this is the matrix $-A_0$ in Lemma 5.4 of San98. Let $n_+$ be the number of positive $\tilde{a}_j$ and $n_i = n - n_+ - 1$ be the number of negative $\tilde{a}_j$. Then, by Lemma 5.4 of San98,
+which is nothing more than the matrix $\tilde{A}$ with $\tilde{a}_{n-1} = 0$. The matrix $\tilde{A}_0$ is symmetric, so its eigenvalues are real, and $(1, 1, \dots, 1)^T$ is an eigenvector of $\tilde{A}_0$ with eigenvalue 0. Let $0, \mu^0_1, \dots, \mu^0_{n-1}$ be the eigenvalues of $\tilde{A}_0$. Let $n_+$ be the number of positive $\tilde{a}_j$ and $n_i = n - n_+ - 1$ be the number of negative $\tilde{a}_j$. By Lemma 5.4 of San98 (and noting that $\tilde{A}_0$ is the matrix $-A_0$ in that lemma),
 
 \begin{enumerate}[(i)]
 \item $\tilde{A}_0$ has a simple eigenvalue at 0
@@ -2956,73 +2884,72 @@ This is just the matrix $\tilde{A}$ with the term $\tilde{a}_{n-1}$ set to 0. On
 \item $\tilde{A}_0$ has $n_-$ positive eigenvalues (counting multiplicity)
 \end{enumerate}
 
-We would like these eigenvalues to be distinct. Either we have to assume that, or we can cite an appropriate result from discrete Sturm-Liouville theory.\\
+Since characteristic polynomials are smooth functions of matrix entries, the eigenvalues of a matrix are also smooth functions of the matrix entries. In particular, the eigenvalues of $\tilde{A}$ depend continuously on $\tilde{a}_{n-1}$, and as $\tilde{a}_{n-1}$ approaches 0, the eigenvalues of $\tilde{A}$ approach those of $\tilde{A}_0$. In particular, as $\tilde{a}_{n-1}$ is increased from 0, the eigenvalues of $\tilde{A}$ can only change sign by crossing through 0. Thus we choose $m_{n-1}$ sufficiently large (i.e. $\tilde{a}_{n-1}$ sufficiently small) so that
 
-Since characteristic polynomials are continuous functions of matrix entries, the eigenvalues of a matrix are continuous functions of the matrix entries. In particular, the eigenvalues of $\tilde{A}$ depend continuously on $\tilde{a}_{n-1}$, and as $\tilde{a}_{n-1}$ approaches 0, the eigenvalues of $\tilde{A}$ approach those of $\tilde{A}_0$. \\
-
-Choose $m_{n-1}$ sufficiently large so that
-\begin{enumerate}
+\begin{enumerate}[(i)]
 	\item The eigenvalues of $\tilde{A}$ have the same sign as those of $\tilde{A}_0$.
 	\item For $j = 0, \dots, n-2$ and for all $\theta$,
 	\[
-	b^*_j(m_j, \theta) =  e^{ -\frac{1}{\rho} ( m_j \pi + \theta^*_j ) }
+	b^*_j(m_j, \theta) = e^{ -\frac{1}{\rho} ( m_j \pi + \theta^*_j ) }
 	\]
-	where $|\theta^*_j| \leq \pi/4$. 
+	where $|\theta^*_j| \leq \pi/3$. This implies that $\cos \theta^*_j \geq 1/2$. (This uses Lemma \ref{reparam}; the idea here is that we do not want the result to depend on the phase parameter $\theta$).
 \end{enumerate}
 
-Then for $j = 0, \dots, n-2$ ($\tilde{a}_j$ is small and doesn't matter), we have for $r = 0$
+We can now determine the signs of the $\tilde{a}_j$, $j = 0, \dots, n-2$. For $r = 0$,
 
-\begin{align*}
-\tilde{a}_j(0; m_j, \theta) 
+\begin{align}\label{tildeaj1}
+\tilde{a}_j(0)
 &= s_0 e^{\alpha \phi/\beta} \left( \beta b^*_j(m_j, \theta) \cos\left( -\rho \log b^*_j(m_j, \theta) \right) - \alpha b^*_j(m_j, \theta) \sin \left(  -\rho \log b^*_j(m_j, \theta) \right) \right) 
-\end{align*}
+\end{align}
 
-From the existence problem, we have
+In the existence problem, we solved
 
 \[
 b^*_j(m_j, \theta) \sin \left( -\rho \log b^*_j(m_j, \theta) \right) = b^*_{n-1}(m_{n-1}, \theta) \sin \left( -\rho \log b^*_{n-1}(m_{n-1}, \theta) \right)
 \]
 
-Substituting this in, we have
+Substituting this into equation \eqref{tildeajat0}, we get
 
-\begin{align*}
-\tilde{a}_j(0; m_j, \theta) 
+\begin{align*}\label{tildeaj2}
+\tilde{a}_j(0) 
 &= s_0 e^{\alpha \phi/\beta} \left( \beta b^*_j(m_j, \theta) \cos\left( -\rho \log b^*_j(m_j, \theta) \right) - \alpha b^*_{n-1}(m_{n-1}, \theta) \sin \left(  -\rho \log b^*_{n-1}(m_{n-1}, \theta) \right) \right) 
 \end{align*}
 
-From the existence problem, we also have
+From the existence problem, we have an expression for $b^*_{n-1}(m_{n-1}, \theta)$.
 
 \[
 b^*_{n-1}(m_{n-1}, \theta) = e^{ -\frac{1}{\rho}(m_{n-1} \pi - \theta) } =
 e^{ -\frac{1}{\rho}m_{n-1} \pi} e^{ \frac{1}{\rho}\theta }
 \]
 
-Thus we have
+Substituting this into equation \eqref{tildeaj2} gives us
 
 \begin{align*}
-\tilde{a}_j(0; m_j, \theta) 
+\tilde{a}_j(0) 
 &= s_0 e^{\alpha \phi/\beta} \left( e^{ -\frac{1}{\rho} m_j \pi } e^{ -\frac{1}{\rho} m_j \theta^*_j } \cos\left( m_j \pi + \theta^*_j \right) - \alpha e^{ -\frac{1}{\rho} m_{n-1} \pi } e^{\frac{1}{\rho} m_j \theta } \sin \left( m_{n-1} \pi + \theta \right) \right) \\
 &= s_0 e^{\alpha \phi/\beta} e^{ -\frac{1}{\rho} m_j \pi } \left(  e^{ -\frac{1}{\rho} m_j \theta^*_j } (-1)^{m_j} \cos(\theta^*_j) - \alpha e^{ -\frac{1}{\rho} (m_{n-1} - m_j) \pi } e^{\frac{1}{\rho} m_j \theta } (-1)^{m_{n-1}}\sin(\theta ) \right)  
 \end{align*}
 
-Then for $m_{n-1}$ sufficiently large, the sign of $\tilde{a}_j(0; m_j, \theta)$ is completely determined by $(-1)^{m_j}$ and we have
+The second term on the RHS decays exponentially as $m_{n-1}$ increases. Since $\cos(\theta^*_j) \geq 1/2$, for $m_{n-1}$ sufficiently large, the sign of $\tilde{a}_j(0)$ is completely determined by the term $(-1)^{m_j}$ and we have
 
 \begin{align*}
-\tilde{a}_j(0; m_j, \theta) &> 0 && \text{if } m_j \text{ is even} \\
-\tilde{a}_j(0; m_j, \theta) &< 0 && \text{if } m_j \text{ is odd}
+\tilde{a}_j(0) &> 0 && \text{if } m_j \text{ is even} \\
+\tilde{a}_j(0) &< 0 && \text{if } m_j \text{ is odd}
 \end{align*}
 
-This is independent of $\theta$. For sufficiently small $r$, these signs will be unchanged. Thus we conclude the following.\\
+This is independent of $\theta$. For sufficiently small $r$, the signs of the $\tilde{a}_j(r)$ will be unchanged since they are smooth in $r$.\\
 
-There exists a natural number $m_0$ such that if for some $j$, $m_j - m_k \geq m_0$ for all other $k$, then there exists $r_2 \leq r_1$ such that for all $r < r_2$, 
+We conclude that there exists a natural number $m_0$ such that if for some $j$, $m_j - m_k \geq m_0$ for $k \neq j$, then there exists $r_2 \leq r_1$ such that for all $r < r_2$, 
 
 \begin{itemize}
-\item For $M > 0$, there are $n_{\text{even}}$ purely imaginary pairs of interaction eigenvalues.
-\item For $M > 0$, there are $n_{\text{odd}}$ real pairs of interaction eigenvalues.
-\item It is the other way around for $M < 0$
+\item For $M > 0$ ($M < 0$), there are $n_{\text{even}}$ purely imaginary (real) pairs of interaction eigenvalues.
+\item For $M > 0$ ($M < 0$), there are $n_{\text{odd}}$ real (purely imaginary) pairs of interaction eigenvalues.
 \end{itemize}
 
-where $n_{\text{even}}$ is the number of even $m_0, \dots, m_{n-2}$ and $n_{\text{odd}}$ is the number of odd $m_0, \dots, m_{n-2}$.
+where $n_{\text{even}}$ is the number of even $m_k$ (excluding $m_j$) and $n_{\text{odd}}$ is the number of odd $m_k$ (excluding $m_j$).
+
+\end{proof}
+\end{lemma}
 
 \subsubsection{Find the Essential Spectrum Eigenvalues}
 
