@@ -3214,7 +3214,7 @@ For $|\lambda| \leq 2 r^{1/2} \tilde{\mu}_M$,
 &\leq C (X r^{1/4})^n (X r^{(2 \tilde{\gamma} - 1)/4})
 \end{align*}
 
-If necessary, decrease $r_3$ so that $X r^{(2 \tilde{\gamma} - 1)/4} \leq 1$. Then we have $|| D_1 (A - \lambda^2 MI)^{-1} || \leq C$.\\
+If necessary, decrease $r_2$ so that $X r^{(2 \tilde{\gamma} - 1)/4} \leq 1$. Then we have $|| D_1 (A - \lambda^2 MI)^{-1} || \leq C$.\\
 
 We can now bound $C_1 - D_1 (A - \lambda^2 MI)^{-1} D_3 C_2$ to get
 
@@ -3244,9 +3244,17 @@ where
 \end{proof}
 \end{lemma}
 
-In the next lemma, we find nontrivial solutions to this.
+In the next lemma, we find the ``essential spectrum'' eigenvalues.
 
-\begin{lemma}
+\begin{lemma}\label{lambdaesslemma}
+There exists $r_2 \leq r_1$ such that for $r \in \mathcal{R}$ with $r < r_2$, the following is true. For all positive integers $k$ with $k \pi / X < \delta$, there is a pair of purely imaginary ``essential spectrum'' eigenvalues which are given by $\lambda = \pm \lambda^{ess}(X,k; r)$, where
+
+\begin{equation}\label{lambdaess}
+\lambda^{ess}(X, k; r) = c_0 \frac{k \pi i }{X} \left( 1 + \mathcal{O}\left( \frac{1}{X} \right)\right) + \mathcal{O}\left( \frac{r^{1/2}}{X} \right)
+\end{equation}
+
+The remainder terms cannot move this off of the imaginary axis.
+
 \begin{proof}
 From the previous lemma, we have a nontrivial solution to \eqref{eqford} if and only if 
 
@@ -3277,27 +3285,27 @@ where $|c_{i,j}| \leq C(|\lambda| + r^{1/2}$. Thus we need to solve
 E(\lambda) = \det(K(\lambda) + R(\lambda)) = 0
 \]
 
-Expanding out the determinant, we obtain (using something like Ips2008 or proving it ourselves directly)
+To evaluate this, we use the definition of the determinant of an $n \times n$ matrix $A$
 
 \begin{align*}
-E(\lambda) &= \det K(\lambda) + p(\lambda) \\
-&= -2 \sinh(\nu(\lambda)X) + p(\lambda)
+\det A = \sum_{\sigma \in S_n} \left( \text{sgn}(\sigma) \prod_{i=1}^n a_{i, \sigma(i)} \right)
 \end{align*}
 
-where
+where $S_n$ is the symmetric group on $n$ elements. Using this on $K(\lambda) + R(\lambda)$ and simplifying, we get
 
 \begin{align*}
-p(\lambda) = \sum_{\sigma \in S}
-\prod_{j = 0}^{n-1} c_\sigma e^{\sigma_i \nu(\lambda)X_j}
+E(\lambda)
+&= -2 \sinh(\nu(\lambda)X) + \sum_{\tau \in T_n}
+c_\tau \prod_{j = 0}^{n-1} e^{\tau(j) \nu(\lambda)X_j}
 \end{align*}
 
-and $S = \{ (\pm 1, \dots, \pm 1 \}$. Let
+where $T_n = \{ (\pm 1, \pm 1, \dots, \pm 1 \}$ and $c_\tau = \mathcal{O}(|\lambda| + r^{1/2})$. Since we know from Lemma \ref{detKlemma} that $\det K(\lambda^K(X,k)) = 0$, let
 
 \[
 \lambda = \lambda^K(X,k) + \frac{\tilde{\lambda}}{X}
 \]
 
-From the proof of Lemma \ref{detKlemma}, 
+where $k \in \Z$ with $|\lambda^K(X,k)| \approx n \pi / X < \delta$. From the proof of Lemma \ref{detKlemma}, 
 
 \begin{align*}
 \nu\left( \lambda^K(X, k) + \frac{\tilde{\lambda}}{X} \right) 
@@ -3305,41 +3313,88 @@ From the proof of Lemma \ref{detKlemma},
 &= \frac{k \pi i}{X} + C_k \frac{\tilde{\lambda}}{X} + \mathcal{O}\left( \frac{\tilde{\lambda}}{X}\right)^2 
 \end{align*}
 
-START HERE.
+where $C_k = \mathcal{O}(1)$. Substituting this into $\sinh(\nu(\lambda)X)$, we have for the leading order term of $E(\lambda)$
 
+\begin{align*}
+\sinh\left(\nu\left(\lambda^K(X, k) + \frac{\tilde{\lambda}}{X}\right)X\right)
+&= \sinh\left(\left(\frac{k \pi i}{X} + C_k \frac{\tilde{\lambda}}{X} + \mathcal{O}\left( \frac{\tilde{\lambda}}{X}\right)^2 \right) X\right) \\
+&= \sinh\left( k \pi i + C_k \tilde{\lambda} + \mathcal{O}\left( \frac{\tilde{\lambda}^2}{X}\right) \right) \\
+&= (-1)^k \left( C_k \tilde{\lambda} + \mathcal{O}\left( \frac{\tilde{\lambda}^2}{X}\right) \right) + \mathcal{O}\left( \tilde{\lambda} + \frac{\tilde{\lambda}^2}{X} \right)^3 \\
+&= (-1)^k C_k \tilde{\lambda} + \mathcal{O}\left( \frac{\tilde{\lambda}^2}{X} + \tilde{\lambda}^3 \right)
+\end{align*}
+
+For the remainder terms of $E(\lambda)$,
+
+\begin{align*}
+c_\tau \prod_{j = 0}^{n-1} &\exp\left( {\tau(j) \nu(\lambda)X_j} \right)
+= c_\tau \prod_{j = 0}^{n-1} 
+\exp\left( \tau_j \left( \frac{k \pi i}{X} + C_k \frac{\tilde{\lambda}}{X} + \mathcal{O}\left( \frac{\tilde{\lambda}}{X}\right)^2 \right) X_j\right) \\
+&= c_\tau \exp\left( \left( \sum_{j=0}^{n-1} \frac{\tau_j X_j}{X} \right)
+\left( k \pi i + C_k \tilde{\lambda} + \mathcal{O}\left( \frac{\tilde{\lambda}^2}{X} \right) \right) \right) \\
+&= c_\tau \exp\left( r_\tau
+\left( k \pi i + C_k \tilde{\lambda} + \mathcal{O}\left( \frac{\tilde{\lambda}^2}{X} \right) \right) \right) \\ 
+&= c_\tau e^{i k \pi r_\tau} \exp \left( r_\tau C_k \tilde{\lambda} + \mathcal{O}\left( \frac{\tilde{\lambda}^2}{X} \right) \right)
+\end{align*}
+
+where $r_\tau = \left( \sum_{j=0}^{n-1} \frac{\tau_j X_j}{X} \right)$ and $|r_\tau| \leq 1$ for all $\tau \in T_n$. Let $\tilde{c}_\tau = c_\tau e^{i k \pi r_\tau} = \mathcal{O}(|\lambda| + r^{1/2})$. Expanding in a Taylor series, we have
+
+\begin{align*}
+c_\tau \prod_{j = 0}^{n-1} \exp\left( {\tau(j) \nu(\lambda)X_j} \right)
+&= \tilde{c}_\tau \left( 1 + r_\tau C_k \tilde{\lambda} + \mathcal{O}\left(\tilde{\lambda}^2 \right) \right) 
+\end{align*}
+
+Since we have a finite sum of terms of this form, we have
+
+\begin{align*}
+\sum_{\tau \in T_n} c_\tau \prod_{j = 0}^{n-1} \exp\left( {\tau(j) \nu(\lambda)X_j} \right)
+&= \mathcal{O}\left( (|\lambda| + r^{1/2}) \left( 1 + r_\tau C_k \tilde{\lambda} + \mathcal{O}\left(\tilde{\lambda}^2 \right) \right)\right) \\
+&= \mathcal{O} \left( \frac{k \pi}{X} + \frac{\tilde{\lambda}}{X} + r^{1/2} \right)
+
+\end{align*}
+
+Thus we can combine everything we have to get
+
+\begin{align*}
+E(\tilde{\lambda})
+&= (-1)^k C_k \tilde{\lambda} + \mathcal{O}\left( \frac{\tilde{\lambda}^2}{X} + \tilde{\lambda}^3 \right) + \mathcal{O} \left( \frac{k \pi}{X} + \frac{\tilde{\lambda}}{X} + r^{1/2} \right) \\
+&= (-1)^k C_k \tilde{\lambda} + \mathcal{O}\left( \frac{\tilde{\lambda}}{X} + \tilde{\lambda}^3 \right) + \mathcal{O} \left( \frac{k \pi}{X} + r^{1/2} \right)
+\end{align*}
+
+We want to solve $E(\tilde{\lambda}) = 0$. Let
+\[
+F(\tilde{\lambda}) = (-1)^k C_k \tilde{\lambda} + \mathcal{O}\left( \frac{\tilde{\lambda}}{X} + \tilde{\lambda}^3 \right)
+\]
+Note that $F(0) = 0$ and 
+\[
+\frac{\partial}{\partial\tilde{\lambda}}F(\tilde{\lambda})\big|_{\tilde{\lambda = 0}}
+= (-1)^k C_k + \mathcal{O}\left( \frac{\tilde{\lambda}}{X} \right) \neq 0
+\]
+since $C_k = \mathcal{O}(1)$. Thus by the inverse function theorem, $F$ is invertible in a neighborhood of 0. Recall that  $|\frac{k \pi}{X}| < \delta$. Thus, decreasing $r_2$ and $\delta$ if needed, for $|\frac{k\pi}{X}| < \delta$ and $r < r_2$, we can solve uniquely for $\tilde{\lambda}$, i.e. $\tilde{\lambda} = F^{-1}(\mathcal{O} \left( \frac{k \pi}{X} + r^{1/2} \right))$. In particular,
+
+\[
+\tilde{\lambda} = \mathcal{O}\left( \frac{k \pi}{X} + r^{1/2} \right)
+\]
+
+Thus we have eigenvalues at
+
+\begin{align*}
+\lambda &= \lambda^K(X,k) + \frac{\tilde{\lambda}}{X} \\
+&= \lambda^K(X,k) + \mathcal{O}\left( \frac{1}{X} \left( \frac{k \pi}{X} + r^{1/2} \right) \right)\\
+&= -c_0 \frac{k \pi i }{X} \left( 1 + \mathcal{O}\left( \frac{1}{X} \right)\right) + \mathcal{O}\left( \frac{r^{1/2}}{X} \right)
+\end{align*}
+
+By Hamiltonian symmetry, as in the case with the interaction eigenvalues, these must be purely imaginary since they cannot come in quartets. Thus, the ``essential spectrum'' eigenvalues are given by $\lambda = \pm \lambda^{ess}(X, k; r)$, where $k$is a positive integer with $k \pi/X < \delta$.
+
+\[
+\lambda^{ess}(X, k; r) = c_0 \frac{k \pi i }{X} \left( 1 + \mathcal{O}\left( \frac{1}{X} \right)\right) + \mathcal{O}\left( \frac{r^{1/2}}{X} \right)
+\]
+
+The remainder terms cannot move these off of the imaginary axis.
 
 \end{proof}
 \end{lemma}
 
 
-
-\[
-E(\lambda; r) = \det (K(\lambda) + R(\lambda; r)) = 0 
-\]
-
-
-Recall that $\det K(\lambda) = -2 \sinh(\nu(\lambda)) = 0$ for $\lambda = \lambda^K(X,n)$, where
-\[
-\lambda^K(X,n)
-= -c_0 \frac{n \pi i }{X} + \mathcal{O}(n/X)^3
-\]
-
-In particular, this does not depend on the solution we are linearizing about, so it does not depend on $r$ or $b_{n-1}$. Since the determinant is a polynomial, we have
-\[
-E(\lambda; 0) = \det (K(\lambda) = -2 \sinh(\nu(\lambda))
-\]
-We note that for $n/X$ sufficiently small, $E(\lambda^K(X,n); 0) = 0$ and 
-$\partial_\lambda E(\lambda^K(X,n); 0) = -2 \cosh(n\pi i) = 2(-1)^{n+1} \neq 0$. Thus, for sufficiently small $r$, we can use the IFT to solve for $\lambda$ in terms of $r$ near $\lambda^K(X,n)$. Since we are only doing this for a finite number of $\lambda^K(X,n)$ (those which are within $\delta$ of the origin), let $r_4 \leq r_3$ be the minimum of those $r$. Then for $r \leq r_4$, there exists a function $\lambda(X,n; r)$ such $\lambda(X,n; 0) = \lambda^K(X,n)$ and for $r \leq r_4$, $E(\lambda(X,n; r); r) = 0$. Expanding $\lambda(X,n; r)$ Taylor series, we have
-
-\[
-\lambda(X,n; r) = \frac{n \pi i}{X} + \mathcal{O}\left(r \right)
-\]
-
-and from our choice of $r$ above, $r$ is much smaller than $1/X$. We can do this for all nonzero integers $n$ with $n/X$ sufficiently small. By Hamiltonian symmetry, as in the case with the interaction eigenvalues, these must be purely imaginary since they cannot come in quartets. Thus, the ``essential spectrum'' eigenvalues are given by $\lambda = \pm \lambda^{ess}(X, n; r)$, where
-
-\[
-\lambda^{ess}(X, n; r) = \frac{n \pi i}{X} + \mathcal{O}\left(r \right)
-\]
 
 \subsubsection{Count the Eigenvalues near 0}
 
