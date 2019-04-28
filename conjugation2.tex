@@ -2198,10 +2198,59 @@ The idea is that the ``leading order'' terms in the block matrix equation \ref{b
 The nonzero points where $A - \lambda^2 MI$ are at least $\epsilon/X$ away from the points where $K(\lambda)$ are singular, where $\epsilon$ will be determined later.
 \end{hypothesis}
 
-
 We will now state and prove the main theorem for this section.
 
-\begin{theorem}MAIN EIGENVALUE THEOREM HERE
+\begin{theorem}\label{locateeigtheorem}
+Let $\delta > 0$ be defined as in Theorem \ref{blockmatrixtheorem} and let $q_{np}(x)$ be a periodic $n-$pulse solution constructed as described above. Assume Hypothesis \ref{Adistincteigs}. Assume Hypothesis \ref{epsiloballs} with
+\[
+\epsilon = \frac{1}{4}r^{1/4}
+\]
+so that he singular points of $K(\lambda)$ and the nonzero singular points of $A - \lambda^2 M I$ are separated by at least
+\[
+\frac{\epsilon}{X} = \frac{1}{n |\log r| + C_b} r^{1/4}
+\]
+where $C_b$ is a constant which depends only on the $b_j^*(m_j, \theta) $, which are fixed. \\
+
+Then the following are true.
+
+\begin{enumerate}[(i)]
+
+\item There is an eigenvalue at 0 with algebraic multiplicity 3. The eigenfunctions are the kernel eigenfunction $\partial_x q_{np}(x)$ from translation invariance, its generalized kernel eigenfunction $t_{np}(x)$, and a third kernel eigenfunction $v(x)$ which is bounded but does not decay exponentially.
+
+\item There exists $r_1 \leq r_0$ such that for $r \leq r_1$, there are $n - 1$ pairs of interaction eigenvalues given by $\lambda = \pm \lambda^{\text{int}}_j(r)$, $j = 1, \dots, n-1$, where
+
+\begin{align*}
+\lambda &= \pm \lambda^{\text{int}}_j(r) && j = 0, \dots, n-2
+\end{align*}
+
+where
+
+\begin{align*}
+\lambda^{\text{int}}_j(r) = r^{1/2} \sqrt{\tilde{\mu}_j / M} + \mathcal{O}(r^{5/8})
+\end{align*}
+
+These interaction eigenvalues pairs are either real or purely imaginary, and the remainder term cannot move them off of the real or imaginary axis.\\
+
+In addition, there exists a natural number $m_0$ with the following property. If  for some $j$, $m_j - m_k \geq m_0$ for $k \neq j$, then there exists $\tilde{r}_1 \leq r_1$ such that for all $r < \tilde{r}_1$, 
+
+\begin{itemize}
+\item For $M > 0$ ($M < 0$), there are $n_{\text{even}}$ purely imaginary (real) pairs of interaction eigenvalues.
+\item For $M > 0$ ($M < 0$), there are $n_{\text{odd}}$ real (purely imaginary) pairs of interaction eigenvalues.
+\end{itemize}
+
+where $n_{\text{even}}$ is the number of even $m_k$ (excluding $m_j$) and $n_{\text{odd}}$ is the number of odd $m_k$ (excluding $m_j$).
+
+\item There exists $r_2 \leq r_1$ such that for $r \in \mathcal{R}$ with $r < r_2$, the following is true. For all positive integers $k$ with $k \pi / X < \delta$, there is a pair of purely imaginary ``essential spectrum'' eigenvalues which are given by $\lambda = \pm \lambda^{ess}(X,k; r)$, where
+
+\begin{equation}\label{lambdaess}
+\lambda^{ess}(X, k; r) = c_0 \frac{k \pi i }{X} \left( 1 + \mathcal{O}\left( \frac{1}{X} \right)\right) + \mathcal{O}\left( \frac{r^{1/2}}{X} \right)
+\end{equation}
+
+The remainder terms cannot move this off of the imaginary axis.
+
+\item For a radius $\tilde{\delta}$ which may be slightly smaller than $\delta$, There are $2n + 2 k_M + 1$ eigenvalues inside the circle $|\lambda| = \tilde{\delta}$, where $k_M$ is the largest positive integer $k$ such that $|\lambda^K(k,X) < \tilde{\delta}$. Thus there are no eigenvalues inside the circle $|\lambda| = \tilde{\delta}$ other than the ones described above.
+\end{enumerate}
+
 \end{theorem}
 
 We prove the theorem below in a series of lemmas. 
@@ -2789,7 +2838,7 @@ which we do in the following lemma.
 
 % solve for int eigs
 
-\begin{lemma}\label{inteigs}
+\begin{lemma}\label{inteigslemma}
 Assume Hypothesis \ref{Adistincteigs}, and let $0, \tilde{\mu}_1, \dots, \tilde{\mu}_{n-1}$ be the eigenvalues of $\tilde{A}$. Then there exists $r_1 < r_0$ such that for $r \in \mathcal{R}$ with $r < r_1$, we have $2n - 2$ pairs of interaction eigenvalues
 
 \begin{align*}
@@ -2799,7 +2848,7 @@ Assume Hypothesis \ref{Adistincteigs}, and let $0, \tilde{\mu}_1, \dots, \tilde{
 where
 
 \begin{align*}
-\lambda^{\text{int}}_j(r) = r^{1/2} \sqrt{\tilde{\mu}_j / M} + \mathcal{O}(r^{3/2})
+\lambda^{\text{int}}_j(r) = r^{1/2} \sqrt{\tilde{\mu}_j / M} + \mathcal{O}(r^{5/8})
 \end{align*}
 
 These interaction eigenvalue pairs are either real or purely imaginary, and the remainder term cannot move them off of the real or imaginary axis.
@@ -2825,13 +2874,13 @@ When $r = 0$, $\tilde{E}(\tilde{\lambda}, 0) = \det(\tilde{A} - \tilde{\lambda}^
 \left( \tilde{\lambda} + \sqrt{\tilde{\mu}_{n-1} / M} \right)
 \end{equation}
 
-For $j = 1, \dots, n-1$, $\tilde{E}(\pm \sqrt{\tilde{\mu}_j / M}, 0) = 0$. Since the eigenvalues of $A_0$ are distinct, $\partial_{\tilde{\lambda}} \tilde{E}(\pm \sqrt{\tilde{\mu}_j / M}, 0) \neq 0$. Thus there exists $r_1 < r_0$ so that for $r \leq r_1$, we can use the IFT to solve for $\tilde{\lambda}$ in terms of $r$ near the $2n-2$ roots $\pm \sqrt{\tilde{\mu}_j / M}$ of \eqref{tildeE1}. In other words, for $r \leq r_1$, there are unique smooth functions $\tilde{\lambda}_j^\pm(r)$ such that $\tilde{\lambda}_j^\pm(0) = \pm \sqrt{\tilde{\mu}_j / M}$ and $\tilde{E}(\tilde{\lambda}_j^\pm(r); r) = 0$. We should also have from the Taylor theorem or somesuch
+For $j = 1, \dots, n-1$, $\tilde{E}(\pm \sqrt{\tilde{\mu}_j / M}, 0) = 0$. Since the eigenvalues of $A_0$ are distinct, $\partial_{\tilde{\lambda}} \tilde{E}(\pm \sqrt{\tilde{\mu}_j / M}, 0) \neq 0$. Thus there exists $r_1 < r_0$ so that for $r \leq r_1$, we can use the IFT to solve for $\tilde{\lambda}$ in terms of $r$ near the $2n-2$ roots $\pm \sqrt{\tilde{\mu}_j / M}$ of \eqref{tildeE1}. In other words, for $r \leq r_1$, there are unique smooth functions $\tilde{\lambda}_j^\pm(r)$ such that $\tilde{\lambda}_j^\pm(0) = \pm \sqrt{\tilde{\mu}_j / M}$ and $\tilde{E}(\tilde{\lambda}_j^\pm(r); r) = 0$. We should also have
 
 \[
-\tilde{\lambda}_j^\pm(r) = \pm \sqrt{\tilde{\mu}_j/ M} + \mathcal{O}(r)
+\tilde{\lambda}_j^\pm(r) = \pm \sqrt{\tilde{\mu}_j/ M} + \mathcal{O}(r^{1/8})
 \]
 
-Undoing the scaling. Let 
+Undoing the scaling, let
 
 \[
 \lambda_j^\pm(r) = r^{1/2} \tilde{\lambda}_j^\pm(r)
@@ -2840,7 +2889,7 @@ Undoing the scaling. Let
 These are the interaction eigenvalues we seek. By Hamiltonian symmetry, eigenvalues must come in quartets $\pm a \pm b i$. Since we assumed that the eigenvalues $\tilde{\mu}$ of $\tilde{A}$ are distinct, the only way we can satisfy Hamiltonian symmetry is if $\lambda_j^+(r) = \lambda_j^-(r)$, in which case the pairs must be real or purely imaginary. Thus the interaction eigenvalues are given by $\lambda = \pm \lambda^{\text{int}}_j(r)$, where
 
 \begin{align*}
-\lambda^{\text{int}}_j(r) = r^{1/2} \sqrt{\tilde{\mu}_j / M} + \mathcal{O}(r^{3/2})
+\lambda^{\text{int}}_j(r) = r^{1/2} \sqrt{\tilde{\mu}_j / M} + \mathcal{O}(r^{5/8})
 \end{align*}
 
 The remainder term cannot move these off of the real or imaginary axis.
@@ -3246,7 +3295,7 @@ where
 
 In the next lemma, we find the ``essential spectrum'' eigenvalues.
 
-\begin{lemma}\label{lambdaesslemma}
+\begin{lemma}\label{essspeclemma}
 There exists $r_2 \leq r_1$ such that for $r \in \mathcal{R}$ with $r < r_2$, the following is true. For all positive integers $k$ with $k \pi / X < \delta$, there is a pair of purely imaginary ``essential spectrum'' eigenvalues which are given by $\lambda = \pm \lambda^{ess}(X,k; r)$, where
 
 \begin{equation}\label{lambdaess}
@@ -3349,7 +3398,6 @@ Since we have a finite sum of terms of this form, we have
 \sum_{\tau \in T_n} c_\tau \prod_{j = 0}^{n-1} \exp\left( {\tau(j) \nu(\lambda)X_j} \right)
 &= \mathcal{O}\left( (|\lambda| + r^{1/2}) \left( 1 + r_\tau C_k \tilde{\lambda} + \mathcal{O}\left(\tilde{\lambda}^2 \right) \right)\right) \\
 &= \mathcal{O} \left( \frac{k \pi}{X} + \frac{\tilde{\lambda}}{X} + r^{1/2} \right)
-
 \end{align*}
 
 Thus we can combine everything we have to get
@@ -3394,11 +3442,21 @@ The remainder terms cannot move these off of the imaginary axis.
 \end{proof}
 \end{lemma}
 
-
-
 \subsubsection{Count the Eigenvalues near 0}
 
-Finally, we will count the eigenvalues near 0.Let $E(\lambda)$ be the determinant of the block matrix. 
+Finally, we will count the eigenvalues near 0 to conclude that we have accounted for all the small eigenvalues.  
+
+\begin{lemma}\label{eigcount}
+There are $2n + 2 k_M + 1$ eigenvalues inside the circle $|\lambda| = \delta$, where $k_M$ is the largest positive integer $k$ such that $|\lambda^K(k,X) < \delta$. A complete account of the eigenvalues inside $|\lambda| = \delta$ is as follows.
+\begin{enumerate}
+	\item At $\lambda = 0$, there is an eigenvalue with algebraic multiplicity 3. The eigenfunctions are the kernel eigenfunction $\partial_x q_{np}(x)$ from translation invariance, its generalized kernel eigenfunction $\partial_c q_{np}(x)$, and a third kernel eigenfunction $v(x)$ which is bounded but does not decay exponentially.
+	\item There are $2n - 2$ interaction eigenvalues, which come in pairs.
+	\item There $2 K_M$ ``essential spectrum'' eigenvalues, which come in pairs.
+\end{enumerate}
+There are no other eigenvalues inside $|\lambda| = \delta$ besides these.
+
+\begin{proof}
+Let $E(\lambda)$ be the determinant of the block matrix equation \ref{blockeq}.
 
 \begin{equation}
 E(\lambda) = \det 
@@ -3408,35 +3466,37 @@ C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
 \end{pmatrix}
 \end{equation}
 
-Use the radius $\delta$ from Theorem \ref{matrixjumpc}. If necessary, decrease $\delta$ so that the circle of radius $\delta$ about the origin is as far as possible from the points $\lambda(X, n)$ where $K(\lambda)$ is singular. Since for sufficiently small $n/X$ these are, to leading order, equally spaced, this amounts to ensuring that the $\delta-$circle cuts half way half way between two of these. Thus for all $n$ with $|\lambda(X, n)| \leq C_0 \delta$, we have
+Use the radius $\delta$ from Theorem \ref{blockmatrixtheorem}. If necessary, decrease $\delta$ a little so that the circle of radius $\delta$ about the origin in the complex plane is as far as possible from the points $\lambda^K(X, k)$ where $K(\lambda)$ is singular. Since $|k\pi/X| < \delta$, for sufficiently small $k$ these are, to leading order, equally spaced by $\pi /X$. Thus this amounts to ensuring that the $\delta-$circle cuts half way half way between two of these. \\
+
+Now take $\lambda$ with $|\lambda| = \delta$, i.e. $\lambda$ is on the $\delta-$circle. For all $k$ such that $|\lambda^K(X, k)| \leq \delta$, we have
 
 \[
-| \: |\lambda(X, n)| - \delta | \geq C \frac{1}{3X}
+| \lambda - \lambda^K(X, k)|  \geq C \frac{1}{3X}
 \]
 
-Next, take $X_m$ suffiently large so that the results from the previous two sections apply and that all the interaction eigenvalues are well inside the $\delta-$circle. In particular, we take $X_m$ sufficiently large so that 
+Taking $\epsilon = 1/3$ in Lemma \ref{Kinvboundslemma}, we have
 
 \[
-|\lambda^i(X_m; \mu)| < \delta - e^{-\alpha X_m}
-\] 
+||K(\lambda)^{-1}|| \leq 3 C \\
+\]
 
-This gives us the following bounds when $|\lambda| = \delta$. From the first section, we have $||K(\lambda)^{-1}|| \leq C$. For $(A - \lambda^2 M I)^{-1}$, since $\lambda$ is more than $e^{-\alpha X_m}$ from every interaction eigenvalue, $\det(A - \lambda^2 M I) \geq e^{-n \alpha X_m}$, thus we have
+Next, since eigenvalues of $A$ are $\mathcal{O}(r^{1/2})$, we can find $r_3 \leq r_2$ such that for all $r < r_3$, $2 r^{1/2} \tilde{\mu}_M \leq \delta$, where $\tilde{\mu}_M = \max\{\tilde{\mu}_1, \dots, \tilde{\mu}_{n-1} \}$. Thus for $|\lambda| = \delta$, using Lemma \ref{Ainvboundlemma} we have the following bound for $A - \lambda^2 M I$
 
-\begin{align*}
-||(A - \lambda^2 M I)^{-1}|| &\leq C e^{2 \alpha X_m} \\
-\end{align*}
+\begin{equation*}
+||(A - \lambda^2 M I)^{-1}|| \leq \frac{C}{\delta^2}
+\end{equation*}
 
 For $|\lambda| = \delta$, $K(\lambda)$ is invertible. Write $E(\lambda)$ as
 
 \begin{equation}
 E(\lambda) = \det 
 \begin{pmatrix}
-(I + C_1 K(\lambda) + K_1(\lambda)K(\lambda)^{-1})K(\lambda) & D_1 \\
+(I + C_1 + K_1(\lambda)K(\lambda)^{-1})K(\lambda) & D_1 \\
 C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
 \end{pmatrix}
 \end{equation}
 
-In the first section, we showed that for sufficiently large $X_m$, $(I + C_1 + K_1(\lambda)K(\lambda))$ is invertible. Letting $C_3 = (I + C_1 + K_1(\lambda)K(\lambda)^{-1})$, finding the zeros of $E(\lambda)$ is equivalent to finding the zeros of
+From the proof of Lemma \ref{deqlemma}, $I + C_1 + K_1(\lambda)K(\lambda)^{-1}$ is invertible. As in that lemma, let $C_3 = (I + C_1 + K_1(\lambda)K(\lambda)^{-1})$. Thus finding the zeros of $E(\lambda)$ is equivalent to finding the zeros of
 
 \begin{equation}
 \tilde{E}(\lambda) = \det 
@@ -3446,7 +3506,7 @@ C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
 \end{pmatrix}
 \end{equation}
 
-Using a standard determinant identity, since $K(\lambda)$ is invertible, this becomes
+Using a standard determinant identity, since $K(\lambda)$ and $A - \lambda^2 M I$ are invertible, this becomes
 
 \begin{align*}
 \tilde{E}(\lambda) &= \det(K(\lambda))
@@ -3460,43 +3520,47 @@ where
 
 \[
 R(\lambda) = 
-(A - \lambda^2 MI)^{-1}(D_2 - (C_2 + K_2(\lambda)K(\lambda)^{-1})C_3 D_1 
+(A - \lambda^2 MI)^{-1}(D_2 - (C_2 + K_2(\lambda)K(\lambda)^{-1})C_3 D_1)
 \]
 
-We combining the bounds we have already obtained with those from Theorem \ref{blockmatrixtheorem}. The only difference this time is that $||K_2(\lambda)K(\lambda)^{-1}|| \leq C$ here, since our choice of $\delta$ is equivalent to choosing $\epsilon = 1/3X$ in the first part. Thus, for $|\lambda| = \delta = C_0 e^{-\alpha X_m}$, we have 
+Using the bounds from above together with the bounds from Lemma \ref{reparam} and recalling that $r^{1/2} < |\lambda| = \delta$, we have
 
 \begin{align*}
-|R(\lambda)| &\leq C e^{2 \alpha X_m} (e^{-3 \alpha X_m} + e^{-\alpha X_m} e^{-2 \alpha X_m}) \\
-&\leq C e^{-\alpha X_m}
+||R(\lambda)|| \leq C \frac{1}{\delta^2}
+( |\delta|^3 + (r^{\tilde{\gamma}/2}\delta + \delta)\delta^2) = C \delta
 \end{align*}
 
-Scaling $e^{-\alpha X_m}$ out from $R(\lambda)$, we have
-
-\begin{equation*}
-R(\lambda) = e^{-\alpha X_m}\tilde{R}(\lambda)
-\end{equation*}
-
-where $\tilde{R}(\lambda) = \mathcal{O}(1)$. From a standard expansion of the determinant, 
+Thus we can write $R(\lambda) = \delta \tilde{R}(\lambda)$, where $\tilde{R}(\lambda) = \mathcal{O}(1)$. From a standard expansion of the determinant, 
 
 \begin{align*}
-\det(I + R(\lambda)) &= 1 + e^{-\alpha X_m} \: \text{Tr}(\tilde{R}(\lambda)) + \mathcal{O}(e^{-2 \alpha X_m}) \\
-&= 1 + \mathcal{O}(e^{-\alpha X_m})
+\det(I + R(\lambda)) &= 1 + \delta \text{Tr}(\tilde{R}(\lambda)) + \mathcal{O}(\delta^2) \\
+&= 1 + \mathcal{O}(\delta)
 \end{align*}
 
-Thus, for sufficiently large $X_m$, $\det(I + R(\lambda)) = 1 + \eta$, where $\eta < 1$. We then have 
+Thus, for sufficiently small $\delta$, $\det(I + R(\lambda)) = 1 + \tilde{\delta}$, where $\tilde{\delta} < 1$. This gives us 
 
 \begin{equation}
-\tilde{E}(\lambda) = \det(K(\lambda))\det(A - \lambda^2 MI) + \eta \det(K(\lambda))\det(A - \lambda^2 MI)
+\tilde{E}(\lambda) = \det(K(\lambda))\det(A - \lambda^2 MI) + \tilde{\delta} \det(K(\lambda))\det(A - \lambda^2 MI)
 \end{equation}
 
-Since $\eta < 1$ and $\lambda = \delta$, by Rouche's Theorem, $\tilde{E}(\lambda)$ and $\det(K(\lambda))\det(A - \lambda^2 MI)$ have the same number of zeros (counting multiplicty) inside $B(0, \delta)$. By our choice of $\delta$, $\det(A - \lambda^2 MI)$ has exactly $2n$ zeros inside $B(0, \delta)$, which are close to the interaction eigenvalues. Recall that $\det(K(\lambda)) = 0$ whenever $\lambda = \lambda(X,n)$.\\begin{equation}
+Since $\tilde{\delta} < 1$ and we are taking $\lambda = \delta$, by Rouche's Theorem, $\tilde{E}(\lambda)$ and $\det(K(\lambda))\det(A - \lambda^2 MI)$ have the same number of zeros (counting multiplicty) inside the circle $|\lambda| = \delta$. By our choice of $\delta$, 
 
-Using the additional assumption on the characteristic polynomial of $K(\lambda)$, we recall that $K(\lambda)$ is singular for $\lambda = 0$ and $\lambda = \pm \lambda(X,n)$, where $n$ is a nonzero integer and $\lambda(X,n)$ is pure imaginary and close to $n \pi i / X$. \\
+\begin{enumerate}[(i)]
+\item $\det(A - \lambda^2 MI)$ has exactly $2n$ zeros inside the circle $|\lambda| = \delta$, which are given by $\{ 0, \pm r^{1/2} \tilde{\mu}_1, \dots, \pm r^{1/2} \tilde{\mu}_{n-1} \}$, where 0 has algebraic multiplicty 2.
 
-In any case, $K(\lambda)$ is singular at $2m+1$ points inside $B(0, \delta)$, where $m$ is some integer. Thus, since $\det(K(\lambda))\det(A - \lambda^2 MI)$ has $2(m+n)+1$ zeros inside $B(0, \delta)$, $\tilde{E}(\lambda)$ does as well. $2n$ of these come from the interaction eigenvalues, all of which are inside $B(0, \delta)$. Another $2m$ of these come from the ``essential spectrum'' eigenvalues, which come in pairs $\pm \lambda^c(X_m; X, n)$. That leaves us with one eigenvalue which has not been accounted for. By Hamiltonian symmetry, this last, lone eigenvalue must be at $\lambda = 0$. This eigenvalue comes from the fact that $K(\lambda)$ is singular at $\lambda = 0$, which we have not accounted for until now.
+\item Let $k_M$ be the largest positive integer $k$ such that $\lambda^K(k,X) < \delta$. Then $\det(K(\lambda))$ has exactly $2 K_M + 1$ zeros inside the circle $|\lambda| = \delta$, which are given by $\{0, \pm \lambda^K(1,X), \dots, \lambda^K(k_M,X)$, where 0 has algebraic multiplicity 1.
+\end{enumerate}
 
+Thus there are $2n + 2 k_M + 1$ eigenvalues inside the circle $|\lambda| = \delta$. These are as as follows.
+\begin{enumerate}
+	\item At $\lambda = 0$, we have an eigenvalue with algebraic multiplicity 3. The eigenfunctions are the kernel eigenfunction $\partial_x q_{np}(x)$ from translation invariance, its generalized kernel eigenfunction $\partial_c q_{np}(x)$, and a third kernel eigenfunction $v(x)$ which is bounded but does not decay exponentially.
+	\item $2n - 2$ interaction eigenvalues, which come in pairs.
+	\item $2 K_M$ ``essential spectrum'' eigenvalues, which come in pairs.
+\end{enumerate}
 
-
+There are no other eigenvalues which have not been accounted for.
+\end{proof}
+\end{lemma}
 
 
 
