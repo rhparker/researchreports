@@ -652,7 +652,7 @@ This hypothesis holds for KdV5, and should hold in general for linearization of 
 % lemma : characterize nu(lambda)
 
 \begin{lemma}\label{nulambdalemma}
-Assume Hypothesis \ref{c0nonzero}. Then there exists $\delta_0 > 0$ such that for $|\lambda| < \delta_0$, the asymptotic matrix $A(\lambda)$ has a simple eigenvalue $\nu(\lambda)$. $\nu(\lambda)$ is smooth in $\lambda$, $\nu(0) = 0$, and for small $|\lambda| < \delta_0$,
+Assume Hypothesis \ref{c0nonzero}. Then there exists $\delta_0 > 0$ such that for $|\lambda| < \delta_0$, the asymptotic matrix $A(\lambda)$ has a simple eigenvalue $\nu(\lambda)$. $\nu(\lambda)$ is smooth in $\lambda$, $\nu(0) = 0$, and for $|\lambda| < \delta_0$,
 
 \begin{equation}\label{nulambda}
 \nu(\lambda) = -\frac{1}{c_0} \lambda + \mathcal{O}(|\lambda|^3)
@@ -2195,7 +2195,7 @@ The eigenvalues of $A$ are given by $(0, \mu_1, \dots, \mu_{n-1})$, all of which
 The idea is that the ``leading order'' terms in the block matrix equation \ref{blockeq} are $K(\lambda)$ and $A - \lambda^2 M I$. Thus, we expect to find eigenvalues near the points where these two matrices are singular. The interaction eigenvalues should occur near the $2n$ points where $A - \lambda^2 M I$ is singular, and the ``essential spectrum'' eigenvalues should occur near where $K(\lambda)$ is singular. The only thing we need to ensure is that these singular points do not get too close. To that end, we make the following hypothesis.
 
 \begin{hypothesis}\label{epsilonballs}
-The nonzero points where $A - \lambda^2 MI$ are at least $\epsilon/X$ away from the points where $K(\lambda)$ are singular, where $\epsilon$ will be determined later.
+The nonzero points where $A - \lambda^2 MI$ is singular are at least $\epsilon/X$ away from the points where $K(\lambda)$ are singular, where $\epsilon$ will be determined later.
 \end{hypothesis}
 
 We will now state and prove the main theorem for this section.
@@ -2912,20 +2912,18 @@ For $n = 2$, the eigenvalues of $\tilde{A}$ are $\{0, \tilde{a} \}$, where
 
 It is worth considering a few special cases. For all of these, we take $r$ sufficiently small.\\
 
-If $m_0 = m_1 = 0$ (one of them must be 0), then $b_j^*(0; \theta) = e^{-\theta/\rho}$, which gives us 
+Let $m_0 = m_1 = 0$ (one of them must be 0). Then by the 2-pulse bifurcation theorem, for sufficiently small $r$ we have symmetric solutions for equal length parameters $b_0(\theta) = b_1(\theta) = e^{-\theta/\rho}$, where these do not depend on $r$. Then we have
 
 \begin{align*}
-\tilde{a}_j(0)
-&= s_0 e^{\alpha \phi/\beta} e^{-\theta/\rho} \left( \beta \cos \theta - \alpha \sin \theta \right) \\
-&= \frac{s_0 e^{\alpha \phi/\beta} }{\alpha}  e^{-\theta/\rho} \left( \rho \cos \theta - \sin \theta \right)
+\tilde{a}_j(r)
+&= s_0 e^{\alpha \phi/\beta} e^{-\theta/\rho} \left( \beta \cos \theta - \alpha \sin \theta \right) + \mathcal{O}(r^{\gamma/2\alpha})\\
+&= \frac{s_0 e^{\alpha \phi/\beta} }{\alpha}  e^{-\theta/\rho} \left( \rho \cos \theta - \sin \theta \right) + \mathcal{O}(r^{\gamma/2\alpha})
 \end{align*}
 
 Thus we have
 
 \begin{align*}
-\tilde{a}(0)
-&= \frac{2 s_0 e^{\alpha \phi/\beta} }{\alpha}  e^{-\theta/\rho} \left( \rho \cos \theta - \sin \theta \right) \\
-&= C e^{-\theta/\rho} \left( \rho \cos \theta - \sin \theta \right)
+\tilde{a}(0) &= C e^{-\theta/\rho} \left( \rho \cos \theta - \sin \theta \right) + \mathcal{O}(r^{\gamma/2\alpha})
 \end{align*}
 
 which gives us a pair of interaction eigenvalues at approximately
@@ -2934,7 +2932,7 @@ which gives us a pair of interaction eigenvalues at approximately
 \lambda^{\text{int}} = \pm C r^{1/2} e^{-\theta/2\rho} \sqrt{ \frac{1}{M} \left( \rho \cos \theta - \sin \theta \right) }
 \]
 
-There is a bifurcation at $\theta = p^*$, at which point the interaction eigenvalues are (approximately) 0. Maybe we can show they are actually 0. In any case, the eigenvalues switch from a real pair to a purely imaginary pair as we cross through the bifurcation point. Numerics confim this.\\
+There is a bifurcation at $\theta = \arctan \rho$, at which point the interaction eigenvalues are (approximately) 0. Maybe we can show they are actually 0. In any case, the eigenvalues switch from a real pair to a purely imaginary pair as we cross through the bifurcation point. Numerics confim this.\\
 
 For $n > 3$, we will need to take one of the length parameters $m_j$ large compared to the others to that we are ``close to'' the situation on the real line. In that case, the parity of the other $m_k$ determines the eigenvalue pattern.
 

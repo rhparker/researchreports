@@ -128,7 +128,7 @@ where $[\rho(u)](x) = u(-x)$.
 \end{enumerate}
 \end{hypothesis}
 
-Reversibility implies that the linear part of the operator $E'(u)$ only involves even-order derivatives of $u$ with respect to $x$. The nonlinear part can involve odd-order derivatives with respect to $x$ (e.g. the term $u_x^2$ could occur), but if we take $u(x)$ to be an even function, the nonlinear part must also be an even function in $x$.\\
+Reversibility implies that the linear part of the operator $E'(u)$ only involves even-order derivatives of $u$ with respect to $x$. The nonlinear part can involve odd-order derivatives with respect to $x$ (e.g. the term $u_x^2$ could occur), but if $u(x)$ is an even function, the nonlinear part is also an even function in $x$.\\
 
 Equilibrium solutions which decay to 0 at $\pm \infty$ satisfy the ODE 
 
@@ -145,7 +145,7 @@ U'(x) = F(U(x))
 where $U = (u, \partial_x u, \dots, \partial_x^{2m-1} u) \in \R^{2m}$, $F: \R^{2m} \rightarrow \R^{2m}$ is smooth, and $F(0) = 0$. For the system \eqref{genODE}, the reversibility hypothesis implies that
 
 \begin{equation}\label{genODErev}
-(RU)'(x) = -F(R(U(x)))
+(RU)'(-x) = F(R(U(-x)))
 \end{equation}
 
 where $R:\R^{2m} \rightarrow \R^{2m}$ is the standard reversor operator defined by
@@ -235,7 +235,7 @@ c_0 + f_0(x) & f_1(x) & c_2 + f_2(x) &
 \end{pmatrix}
 \end{equation}
 
-The $c_i$ are constants which come from the linear part of $E'(u)$ and do not depend on $u^*$; by Hypothesis \ref{Eprimehyp},no odd-order derivatives are involved in the linear part of $E'(u)$, thus $c_j = 0$ for $j$ odd. The functions $f_i(x)$ decay exponentially to 0 since they are smooth functions of $u^*(x)$ and its derivatives. In addition, if $u^*(x)$ is an even function, $f_i(x)$ is an even function for $i$ even and an odd function for $i$ odd.\\
+The $c_i$ are constants which come from the linear part of $E'(u)$ and do not depend on $u^*$. By Hypothesis \ref{Eprimehyp},no odd-order derivatives are involved in the linear part of $E'(u)$, thus $c_j = 0$ for $j$ odd. The functions $f_i(x)$ decay exponentially to 0 since they are smooth functions of $u^*(x)$ and its derivatives. In addition, if $u^*(x)$ is an even function, $f_i(x)$ is an even function for $i$ even and an odd function for $i$ odd.\\
 
 We make one additional assumption on the constant $c_0$, which we will need for the stability problem.
 
@@ -260,7 +260,13 @@ The variational and adjoint variational equations associated with \eqref{genODE}
 \tilde{W}' = -DF(Q(x))^* \tilde{W} \label{adjvareq1}
 \end{align}
 
-It follows from Hypothesis \ref{nondegenhyp} that $Q'(x)$ is the unique bounded solution to \eqref{vareq1} and that there exists a unique bounded solution $\Psi(x)$ to \eqref{adjvareq1}. It follows from Hypothesis \ref{Hhyp} that $\Psi(x) = \nabla H(Q(x))$. Since $E''(q)$ is self-adjoint, the $2m$-th component of $\Psi(x)$ is $q'(x)$.\\
+It follows from Hypothesis \ref{nondegenhyp} that $Q'(x)$ is the unique bounded solution to \eqref{vareq1} and that there exists a unique bounded solution $\Psi(x)$ to \eqref{adjvareq1}. Since we have a Hamiltonian system, we know the form of $\Psi(x)$.
+
+\begin{lemma}\label{psiform}
+Assume Hypothesis \ref{Hhyp}, i.e. we have a Hamiltonian system. Then $\Psi(x) = \nabla H(Q(x))$.
+\end{lemma}
+
+Since $E''(q)$ is self-adjoint, the $2m$-th component of $\Psi(x)$ is $q'(x)$.\\
 
 % Finally, we decompose the tangent space at $Q(0)$ as 
 
@@ -277,44 +283,105 @@ It follows from Hypothesis \ref{nondegenhyp} that $Q'(x)$ is the unique bounded 
 
 % and $\Psi(0) \perp \R Q'(0) \oplus Y^+ \oplus Y^-$.\\
 
-We can now state the existence theorem for periodic multi-pulse solutions. A$n-$periodic solution to \eqref{genODE} is a periodic orbit $Q_{np}(x)$ which resembles $n$ copies of the primary pulse solution $Q(x)$. We will describe an $n-$periodic solution by $n$ lengths $X_0, \dots, X_{n-1}$, where the $n-1$ distances between the $n$ peaks are $2X_0, \dots 2X_{n_2}$, and $X_{n-1}$ is the distance from the left- and right-most peaks to the periodic boundary.
+We can now state the existence theorem for periodic multi-pulse solutions. An $n-$periodic solution to \eqref{genODE} is a periodic orbit $Q_{np}(x)$ which resembles $n$ copies of the primary pulse solution $Q(x)$. Rather than specify such a solution in terms of the distances between the individual peaks, we will adopt a convenient parameterization with built-in scaling parameter. Define the space
 
-\begin{theorem}[Existence of $n$-periodic solutions]\label{perexist}
-Assume Hypotheses \ref{Eprimehyp}, \ref{Hhyp}, \ref{hypeqhyp}, \ref{Qexistshyp}, and \ref{nondegenhyp}. Let $Q(x)$ be a transversely constructed, symmetric primary pulse solution to \eqref{genODE}.\\
+\begin{equation}\label{setR}
+\mathcal{R} = \left\{ \exp\left(-\frac{m \pi}{\rho}\right) : m \in \N_0 \right\} \cup \{ 0 \}
+\end{equation}
 
-Then there exists an a nonnegative integer $M$ and $K > 0$ such that the following holds. For any 
+where $\rho = \beta / \alpha$. Then we will describe a periodic $n-$pulse using the following four (sets of) parameters. 
+
 \begin{enumerate}[(i)]
-\item integer $n \geq 2$ \\
-\item integer $m \geq M$ \\
-\item sequence of nonnegative integers $\{ m_0, \dots, m_{n-2} \}$, where at least one of them must be 0
+\item A integer $n \geq 2$, which is the number of pulses.
+\item A scaling parameter $r = \exp(-m \pi / \rho ) \in \mathcal{R}$, where $m$ is a positive integer.
+\item A sequence of $n$ length parameters $b_0^0, \dots, b_{n-1}^0$, where $b_j^0 = \exp(-m_j \pi / \rho )$ for nonnegative integers $m_j$, at least one of which must be 0.
+\item A phase parameter $\theta \in [-\arctan \rho, \pi - \arctan \rho)$.
 \end{enumerate}
 
-there exists a 1-parameter family of $n$-periodic solutions to \eqref{genODE} associated with $m$ and the set $\{ m_j \}$. This 1-parameter family is parameterized by the length $X_{n-1} \in [K, \infty)$.\\
+Using this parameterization, we have the following existence theorem.
 
-The lengths $X_0, \dots, X_{n-2}$ are given by
+\begin{theorem}[Existence of $n$-periodic solutions]\label{perexist}
+Assume Hypotheses \ref{Eprimehyp}, \ref{Hhyp}, \ref{hypeqhyp}, \ref{Qexistshyp}, and \ref{nondegenhyp}. Let $Q(x)$ be a transversely constructed, symmetric primary pulse solution to \eqref{genODE}. Choose
 
-\begin{equation}\label{Xi}
-X_i = \frac{\pi}{2 \beta}m 
-- \frac{1}{2 \alpha} \log(a_i(X_{n-1}, r_m)) + C
+\begin{enumerate}[(i)]
+\item An integer $n \geq 2$ 
+\item A sequence of $n$ length parameters $b_0^0, \dots, b_{n-1}^0$, where $b_j^0 = \exp(-m_j \pi / \rho )$ for nonnegative integers $m_j$, at least one of which must be 0. Without loss of generality, take $m_{n-1} \geq m_j$ for $j = 0, \dots, n-2$. 
+\item A phase parameter $\theta \in [-\arctan \rho, \pi - \arctan \rho)$.
+\end{enumerate}
+
+with the restriction that for $j = 0, \dots, n-2$, neither of the following is true.
+
+\begin{enumerate}[(i)]
+\item $m_j = m_{n-1}$ and $\theta = -\arctan \rho$
+\item $m_j = m_{n-1} - 1$ and $\theta = \pi-\arctan \rho$
+\end{enumerate}
+
+Then there exists $r_0 > 0$ such that
+
+\begin{itemize}
+\item For any $r \in \mathcal{R}$ with $r < r_0$, there exists a unique $n$-periodic solution $U(x)$ to \eqref{genODE}.
+
+\item This solution is specified by the $n$ length parameters $b_j(r; m_j, \theta)$, where
+
+\begin{align}
+b_j(r; m_j, \theta) \rightarrow b^*_j(m_j, \theta) \text{ as } r \rightarrow 0
+\end{align}
+
+and
+
+\begin{align}
+b^*_j(m_j, 0) = b_j^0
+\end{align}
+
+\item In terms of $\theta$, the parameterization at $r = 0$ is given by
+
+\begin{align}
+b_{n-1}^*(m_{n-1}, \theta) &= e^{ -\frac{1}{\rho}(m_{n-1} \pi - \theta) } \\
+b_j^*(m_j, \theta) &= e^{-\frac{1}{\rho} (m_j \pi - \theta^*_j(\theta)) } && j = 0, \dots, n-2
+\end{align}
+
+where $\theta^*_j$ depends on $\theta$, $\theta_j^* \in [-\arctan \rho,\pi - \arctan \rho)$, and we have bound
+\begin{align}
+|\theta^*_j| \leq C e^{ -\frac{\pi}{\rho} (m_{n-1} - m_j) }
+\end{align}
+
+For all $\theta$ and for $j = 0, \dots, n-2$,
+
+\begin{align}
+|b^*_j(m_j, \theta) - b_j^0| \leq C e^{ -\frac{\pi}{\rho} (m_{n-1} - m_k) }
+\end{align}
+
+\item The individual pulses are separated by distances $2 X_0, \dots, 2 X_{n-1}$, where the lengths $X_j$ are given by 
+
+\begin{equation}\label{Xj}
+X_j = -\frac{1}{2\alpha}\log(b_j(r; m_j, \theta) r) - \frac{\phi}{2 \beta} 
 \end{equation}
 
-where $C$ is a constant, $r_m = e^{-m \pi \alpha/\beta}$, and $a_i(X_{n-1}, r_m) \rightarrow e^{-m_i \pi \alpha/ \beta}$ as $(X_{n-1}, r_m) \rightarrow (\infty, 0)$. For large $X_{n-1}$ and $m$, the lengths $X_0, \dots, X_{n-2}$ are approximately
+where $\phi$ is a constant.
 
-\begin{equation}\label{Xiapprox}
-X_i = \frac{\pi}{2 \beta}(m + m_i) + C
+\item The domain has length $2X$, where $X = X_0 + \dots + X_{n-1}$ and is given by
+
+\begin{align}
+X = \frac{1}{2\alpha} (n |\log r| + |\log b| ) - \frac{n \phi}{2 \beta}
+\end{align}
+
+where 
+\begin{equation}
+b = \prod_{j=0}^{n-1} b_j(r; m_j, \theta)
 \end{equation}
 
-If $U(x)$ is such a solution, then $U(x)$ can be written piecewise for $i = 0, \dots, n-1$ as 
+\item $U(x)$ can be written piecewise as
 
 \begin{align}
 U_i^-(x) &= Q^-(x; \beta_i^-) + V_i^-(x) && x \in [X_{i-1}, 0] \\
 U_i^+(x) &= Q^+(x; \beta_i^+) + V_i^+(x) && x \in [0, X_i]
 \end{align}
 
-where the subscripts $i$ are taken $\mod n$. The functions $Q^\pm(x; \beta_i^\pm)$ are solutions to \eqref{genODE} with initial conditions $\beta_i^\pm$ in the stable/unstable manifold. For these terms, we have bounds
+where the subscripts $i = 0, \dots, n-1$ are taken $\mod n$. The functions $Q^\pm(x; \beta_i^\pm)$ are solutions to \eqref{genODE} with initial conditions $\beta_i^\pm$ in the stable/unstable manifold. For these terms, we have bounds
 
 \begin{align*}
-|Q^\pm(x; \beta_i^\pm)| \leq C (e^{-2 \alpha X_{i-1}} + e^{-2 \alpha X_i})e^{-\alpha |x|}
+|Q^-(x; \beta_i^-)| &\leq C e^{-2 \alpha X_i} e^{\alpha x} \\
+|Q^+(x; \beta_i^+)| &\leq C e^{-2 \alpha X_{i-1}} e^{-\alpha x}
 \end{align*} 
 
 The remainder terms $V_i^\pm(x)$ have bounds
@@ -323,13 +390,29 @@ The remainder terms $V_i^\pm(x)$ have bounds
 |V_i^-(x)| &\leq C e^{-\alpha(X_{i-1} + x)}e^{-\alpha X_{i-1}} \\
 |V_i^+(x)| &\leq C e^{-\alpha(X_i - x)}e^{-\alpha X_i} 
 \end{align} 
+
+\end{itemize}
 \end{theorem}
 
-For the family of $2-$periodic solutions, we have actually have found the complete bifurcation structure, which we can add as a theorem here.
+The restriction on $m_j$ and $\theta$ in the previous theorem was necessary to avoid pitchfork bifurcation points. For the $2-$periodic solutions, we can remove that restriction. The parameter $\theta$ in this case is the same, but will take a different set of values which allow us to go through the bifurcation point.
+
+\begin{theorem}\label{2pulsebifurcation}
+There exists $r_0 > 0$ with the following property. For every $r \in \mathcal{R}$ with $r < r_0$,
+\begin{enumerate}
+	\item For every $\theta \in [0, pi)$, there is a unique 2-periodic solution with equal length parameters $b_0(\theta) = b_1(\theta) = e^{-\theta/\rho}$. These do not depend on $r$.
+
+	\item There is a function $\theta^*: \mathcal{R} \cap [0, r_0) \rightarrow \R$ such that there is a nondegenerate pitchfork bifurcation at $(b_0(\theta^*(r)), b_0(\theta^*(r)) = (e^{-\theta^*(r)/\rho}, e^{-\theta^*(r)/\rho})$. Furthermore, 
+
+	\begin{equation*}
+	\theta^*(r) \rightarrow \arctan \rho \text{ as } r \rightarrow 0
+	\end{equation*}
+
+\end{enumerate}
+\end{theorem}
 
 \subsection{Stability Problem}
 
-In the previous section, we have shown existence of periodic multi-pulse solutions to \eqref{genODE}, which yield equilibrium solutions to \eqref{genPDE}. We will now look at their linear stability. This involves finding the eigenvalues of \eqref{genPDE}. Let $u^*(x)$ be any exponentially localized equilibrium solution to \eqref{genPDE}. Substituting the standard linearization ansatz $u(x, t) = u^*(x) + \epsilon e^{\lambda t}v(x)$ into \eqref{genPDE} and keeping terms of order $\epsilon$, we obtain the PDE eigenvalue problem
+In the previous section, we have shown existence of periodic multi-pulse solutions to \eqref{genODE}, which yield equilibrium solutions to \eqref{genPDE}. We will now look at their spectral stability. This involves finding the eigenvalues of \eqref{genPDE}. Let $u^*(x)$ be any exponentially localized equilibrium solution to \eqref{genPDE}. Substituting the standard linearization ansatz $u(x, t) = u^*(x) + \epsilon e^{\lambda t}v(x)$ into \eqref{genPDE} and keeping terms of order $\epsilon$, we obtain the PDE eigenvalue problem
 
 \begin{equation}\label{PDEeig}
 \partial_x E''(u^*(x)) v = \lambda v
@@ -379,7 +462,13 @@ V' = A(Q) V \label{vareq2} \\
 W' = -A(Q)^* W \label{adjvareq2}
 \end{align}
 
-$Q'(x)$ is an exponentially localized solution to \eqref{vareq2}. Since $Q(x)$ is exponentially localized, it cannot involve the center manifold $W^c(0)$, thus it must lie in the intersection of the stable and unstable manifolds. In particular, this implies that $\R Q'(0) \subset T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0)$. From Hypothesis \ref{nondegenhyp}, these are actually equal, which we state in the following lemma.
+$Q'(x)$ is an exponentially localized solution to \eqref{vareq2}. Since $q(x)$ is symmetric, the variational equation is reversible.
+
+\begin{equation}\label{genODErev}
+(RV)'(-x) = A(Q) RV(-x)
+\end{equation}
+
+Since $Q(x)$ is exponentially localized, it cannot involve the center manifold $W^c(0)$, thus it must lie in the intersection of the stable and unstable manifolds. In particular, this implies that $\R Q'(0) \subset T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0)$. From Hypothesis \ref{nondegenhyp}, these are actually equal, which we state in the following lemma.
 
 \begin{lemma}\label{nondegenlemma}
 We have the nondegeneracy condition
@@ -388,9 +477,9 @@ We have the nondegeneracy condition
 T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0) = \R Q'(0)
 \end{equation}
 
-\begin{proof}
-Since $Q(x)$ is a homoclinic orbit in the intersection of $W^u(0)$ and $W^s(0)$, $\R Q'(0) \subset T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0)$. If the intersection were more than one-dimensional, there would exist another exponentially localized solution $V(x) = (v_1, \dots, v_{2m}, v_{2m+1})^T$ to \eqref{vareq2}. It follows that $\tilde{V}(x) = (v_1, \dots, v_{2m})^T$ would be an exponentially localized solution to \eqref{vareq1}, which contradicts Hypothesis \ref{nondegenhyp}.
-\end{proof}
+% \begin{proof}
+% Since $Q(x)$ is a homoclinic orbit in the intersection of $W^u(0)$ and $W^s(0)$, $\R Q'(0) \subset T_{Q(0)}W^s(0) \cap T_{Q(0)}W^u(0)$. If the intersection were more than one-dimensional, there would exist another exponentially localized solution $V(x) = (v_1, \dots, v_{2m}, v_{2m+1})^T$ to \eqref{vareq2}. It follows that $\tilde{V}(x) = (v_1, \dots, v_{2m})^T$ would be an exponentially localized solution to \eqref{vareq1}, which contradicts Hypothesis \ref{nondegenhyp}.
+% \end{proof}
 \end{lemma}
 
 Using the nondegeneracy condition, we can decompose the tangent spaces of the stable and unstable manifolds at $Q(0)$ as
@@ -420,10 +509,11 @@ We have the following solutions to the variational equation \eqref{vareq2} and a
 	\end{equation}
 For $\Psi(x)$, we have $\Psi(-x) = R \Psi(x)$, where $R$ is the standard reversor operator. In addition, $\Psi(0), \Psi^c(0) \perp \R Q'(0) \oplus Y^+ \oplus Y^-$.
 
-\item There exists a bounded solution $V_0(x)$ of \eqref{vareq2} such that 
+\item There exists a bounded solution $V^c(x)$ of \eqref{vareq2} such that 
 \begin{equation}
-V_0(x) \rightarrow V_0 \text{ as }|x| \rightarrow \infty
+V^c(x) \rightarrow V_0 \text{ as }|x| \rightarrow \infty
 \end{equation}
+Furthermore $V^c$ is symmetric with respect to the reversor $R$, i.e. $V^c(-x) = R V^c(x)$.
 \end{enumerate}
 
 \begin{proof}
@@ -450,15 +540,25 @@ where the functions $g_j(x)$ are linear combinations of the functions $f_j(x)$ f
 
 \item For any solutions $V(x)$ and $W(x)$ to the variational equation \eqref{vareq2} and the adjoint variational equation \eqref{adjvareq2}, $\langle V(x), W(x) \rangle$ is constant in $x$. Since solutions $V(x)$ to \eqref{vareq2} with initial conditions in $\R Q'(0) \oplus Y^+ \oplus Y^-$ decay exponentially to 0 at the appropriate end, any bounded solution to \eqref{adjvareq2} must be perpendicular to $\R Q'(0) \oplus Y^+ \oplus Y^-$ at $x = 0$, thus this holds for $\Psi(0)$ and $\Psi^c(0)$. Since $\R Q'(0) \oplus Y^+ \oplus Y^-$ is a $(2m-1)-$dimensional subspace of $\R^{2m+1}$ and we have found two linearly independent, bounded solutions of \eqref{adjvareq2}, there can be no others.
 
-\item Recall that $\dim W^{s/u}(0) = m$ and $\dim W^c(0) = 1$, thus $\dim W^{cs}(0) = m + 1$, and $\dim W^{cu}(0) = m + 1$. $\Psi(0) \perp T_{Q(0)}W^{cs}(0) + T_{Q(0)}W^{cu}(0)$, so $\dim T_{Q(0)}W^{cs}(0) + T_{Q(0)}W^{cu}(0) \leq 2m$. This implies, by a dimension-counting argument, that $\dim T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0) = 2$. Since $\dim T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0) = 1$ by Lemma \ref{nondegenlemma}, we conclude that there exists $Y_0 \in T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0)$ which is linearly independent from $Q'(0)$, and $Y^0 \notin T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0)$.
-
-\item $V_0(x)$ be the unique solution to the variational equation \eqref{vareq2} with initial condition $Y_0$ at $x = 0$. Since $Y^0 \notin T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0)$, $V(0)$ cannot decay to 0 at $\pm \infty$. Thus $Y_0$ must be in the center component of $T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0)$, and so it must remain bounded. In particular, $V(x) \rightarrow V^\pm$ as $x \rightarrow \pm \infty$.
-
-\item Using the Gap Lemma, we can find solutions $V^\pm(x)$ to the variational equation \eqref{vareq2} on $\R^\pm$ such that
+\item Recall that $\dim W^{s/u}(0) = m$ and $\dim W^c(0) = 1$, thus $\dim W^{cs}(0) = m + 1$, and $\dim W^{cu}(0) = m + 1$. $\Psi(0) \perp T_{Q(0)}W^{cs}(0) + T_{Q(0)}W^{cu}(0)$, so $\dim T_{Q(0)}W^{cs}(0) + T_{Q(0)}W^{cu}(0) \leq 2m$. This implies, by a dimension-counting argument, that $\dim T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0) = 2$. Since $\dim T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0) = 1$ by Lemma \ref{nondegenlemma}, we conclude that there exists $Y_0 \in T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0)$ which is linearly independent from $Q'(0)$, and $Y^0 \notin T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0)$. We can then decompose the tangent space at $Q(0)$ as 
 \[
-V^\pm(x) = V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)|x|})
+\R^{2m + 1} = \R Q'(0) \oplus Y^0 \oplus Y^+ \oplus Y^-
 \]
-for some $\epsilon > 0$. (Note that since the eigenvalue is 0 in the Gap Lemma, there is no term involving it.) Since $V^+(-x)$ is another solution on $\R^-$ with the same property, by uniqueness from the Gap Lemma we conclude that $V^+(-x) = V^-(x)$. In particular, this implies that $V^+(0) = V^-(0)$.
+
+% \item Let $V_0(x)$ be the unique solution to the variational equation \eqref{vareq2} with initial condition $Y_0$ at $x = 0$. Since $Y^0 \notin T_{Q(0)}W^s(0) \cap T_{Q(0)}W^s(0)$, $V(0)$ cannot decay to 0 at $\pm \infty$. Thus $Y_0$ must be in the center component of $T_{Q(0)}W^{cs}(0) \cap T_{Q(0)}W^{cu}(0)$, and so it must remain bounded. In particular, $V(x) \rightarrow r^\pm V_0$ as $x \rightarrow \pm \infty$.
+
+\item Using the Gap Lemma, we can find unique solutions $V^\pm(x)$ to the variational equation \eqref{vareq2} on $\R^\pm$ such that
+\[
+V^\pm(x) = V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|V_0|)
+\]
+for some $\epsilon > 0$, so $V^\pm(x) \rightarrow V_0$ as $x \rightarrow \pm \infty$. Since $V^\pm(x)$ remains bounded but does not decay to 0, $V^\pm(0)$ must have a component in $Y^0$. What we need to somehow show is that $V^\pm(0) \in Y^0$. We assume this is the case and continue.
+
+\item By reversibility, $RV^+(-x)$ is also a solution to the variational equation on $R^-$, with 
+\begin{align*}
+R V^+(-x) &= R V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|V_0|) \\
+&= V_0 + \mathcal{O}(e^{-(\alpha - \epsilon)|x|}|V_0|)
+\end{align*}
+since all components of $V_0$ are 0 except the first. By uniqueness from the Gap Lemma, we must have $V^-(x) = RV^+(-x)$. In particular, this means that $RV^+(0) \in Y^0$. Thus both $V^+(0)$ and $RV^+(0)$ are in the one-dimensional space $Y^0$; since the odd numbered components of $V^+(0)$ and $RV^+(0)$ are the same, it follow that $V^+(0) = RV^+(0)$, which in turn implies that the even numbered components of $V^+(0)$ are 0. Let $V^c(x) = V^+(x)$. Then $V^c(x)$ is a bounded solution to the variational equation with is symmetric with respect to the reversor $R$, i.e. $V^c(-x) = RV^c(x)$. Furthermore, $V^c(x) \rightarrow V_0$ as $x \rightarrow \pm \infty$.
 
 \end{enumerate}
 \end{proof}
@@ -502,7 +602,7 @@ M_2 = \int_{-\infty}^\infty \langle \Psi(x), B T(x) \rangle dx =
 \end{equation}
 \end{hypothesis}
 
-Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$ according to Theorem \ref{perexist}. By a similar analysis, we have
+Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed according to Theorem \ref{perexist}. By a similar analysis, we have
 
 \begin{align*}
 \partial_x E''(q_{np}) (\partial_x q_{np}(x)) &= 0 \\
@@ -517,33 +617,42 @@ In order to set up the problem, we rewrite the PDE eigenvalue problem \eqref{PDE
 V' = A(U^*(x); \lambda)V 
 \end{equation} 
 
-where $A(U^*(x); \lambda) = A(U^*) + \lambda B$. For $\lambda = 0$, the asymptotic matrix $A(0; 0)$ has a eigenvalue at 0. By Hypothesis \ref{hypeqhyp}, this eigenvalue at 0 is simple and located a distance $\sqrt{\alpha^2 + \beta^2}$ from the nearest other eigenvalues. Using the IFT and Hypothesis \ref{c0nonzero}, for sufficiently small $\lambda$, $A(0; \lambda)$ has a simple eigenvalue $\nu(\lambda)$ near 0. By the IFT and the reversibility hypothesis , this eigenvalue is given by
+where $A(U^*(x); \lambda) = A(U^*) + \lambda B$. For $\lambda = 0$, the asymptotic matrix $A(0; 0)$ has a eigenvalue at 0. By Hypothesis \ref{hypeqhyp}, this eigenvalue at 0 is simple and located a distance $\sqrt{\alpha^2 + \beta^2}$ from the nearest other eigenvalues. For small $\lambda$, there is a small eigenvalue $\nu(\lambda)$ near 0.
+
+% nu(lambda) lemma
+
+\begin{lemma}\label{nulambdalemma}
+Assume Hypothesis \ref{c0nonzero}. Then there exists $\delta_0 > 0$ such that for $|\lambda| < \delta_0$, the asymptotic matrix $A(\lambda)$ has a simple eigenvalue $\nu(\lambda)$. $\nu(\lambda)$ is smooth in $\lambda$, $\nu(0) = 0$, and for $|\lambda| < \delta_0$,
 
 \begin{equation}\label{nulambda}
 \nu(\lambda) = -\frac{1}{c_0} \lambda + \mathcal{O}(|\lambda|^3)
 \end{equation}
 
-and has following properties
+Furthermore, if we assume reversibility in Hypothesis \ref{Eprimehyp},
 
 \begin{enumerate}
 \item $\nu(-\lambda) = -\nu(\lambda)$, i.e. $\nu(\lambda)$ is an odd function 
 \item If $\lambda$ is pure imaginary, $\nu(\lambda)$ is also pure imaginary
 \end{enumerate}
 
-We can now state the stability theorem for periodic multi-pulse solutions. 
+\end{lemma}
+
+The following theorem gives us a condition for $\lambda$ to be an eigenvalue.
+
+% block matrix theorem
 
 \begin{theorem}\label{blockmatrixtheorem}
-There exists a $\delta > 0$ with the following property. Assume the same hypotheses as in Theorem \ref{perexist}, and let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$ according to Theorem \ref{perexist}, where $X_m = \min\{ X_0, \dots X_{n-1}\}$ and $e^{-\alpha X_m} < \delta$. Then there exists a bounded, nonzero solution $V$ of \eqref{PDEeig} for $|\lambda| < \delta$ if and only if 
+Assume Hypotheses \ref{Eprimehyp}, \ref{Hhyp}, \ref{hypeqhyp}, \ref{Qexistshyp}, \ref{nondegenhyp}, and \ref{c0nonzero}. There exists $\delta \leq \delta_0$ with the following property. Assume the same hypotheses as in Theorem \ref{perexist}, and let $q_{np}(x)$ be a periodic $n-$pulse solution constructed with lengths $X_0, \dots, X_{n-1}$ according to Theorem \ref{perexist}, where $X_m = \min\{ X_0, \dots X_{n-1}\}$ and $e^{-\alpha X_m} < \delta$. Then there exists a bounded, nonzero solution $V$ of \eqref{PDEeig} for $|\lambda| < \delta$ if and only if 
 
 \begin{equation}\label{blockeq}
-E(\lambda) = \det
 \begin{pmatrix}
 K(\lambda) + C_1 K(\lambda) + K_1(\lambda) & D_1 \\
 C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
-\end{pmatrix} = 0
+\end{pmatrix}
+\begin{pmatrix} c \\ d \end{pmatrix} = 0
 \end{equation}
 
-where 
+has a nontrivial solution, where 
 
 \begin{enumerate}
 
@@ -586,14 +695,14 @@ a_i &= \langle \Psi(X_i), Q'(-X_i) \rangle \\
 
 $\Psi(x)$ is the exponentially localized solution to the adjoint variational equation \eqref{adjvareq2} defined in Lemma \ref{varadjsolutions}. $Q(x) = (q(x), \partial_x q(x), \dots, \partial_x^{2m}q(x))$, where $q(x)$ is the symmetric primary pulse solution from Hypothesis \ref{Qexistshyp}.\\
 
-\item $K_1(\lambda)$ and $K_2(\lambda)$ are small perturbations of $K(\lambda)$, where the nonzero terms of $K(\lambda)$ are perturbed by $\mathcal{O}(|\lambda| + e^{-\alpha X_m})$.
+\item $K_1(\lambda)$ and $K_2(\lambda)$ are small perturbations of $K(\lambda)$, where the nonzero terms of $K(\lambda)$ are perturbed by $\mathcal{O}(|\lambda| + r^{1/2})$.
 
 \item The remainder terms are analytic in $\lambda$ and have uniform bounds
 
 \begin{align*}
-C_1, C_2 &= \mathcal{O}(e^{-\tilde{\alpha}X_m})(|\lambda| + e^{-\alpha X_m})) \\
-D_1 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})) \\
-D_2 &= \mathcal{O}((|\lambda| + e^{-\tilde{\alpha} X_m})(|\lambda| + e^{-\alpha X_m})^2)
+C_1, C_2 &= \mathcal{O}(r^{\tilde{\gamma}/2})(|\lambda| + r^{1/2})) \\
+D_1 &= \mathcal{O}((|\lambda| + r^{\tilde{\gamma}/2})(|\lambda| + r^{1/2})) \\
+D_2 &= \mathcal{O}((|\lambda| + r^{\tilde{\gamma}/2})(|\lambda| + r^{1/2})^2)
 \end{align*}
 
 \item $M$ is the higher order Melnikov integral
@@ -610,124 +719,98 @@ We can use this theorem to solve for the eigenvalues $\lambda$ of \eqref{PDEeig}
 
 First, we note that the matrix $A$ from Theorem \ref{blockmatrixtheorem} is symmetric, thus its eigenvalues are real. $A$ has an eigenvalues of 0 corresponding to eigenvector $(1, 1, \dots, 1)^T$. We will hypothesize that the eigenvalues of $A$ distinct. 
 
-\begin{hypothesis}\label{eigAdistinct}
+\begin{hypothesis}\label{Adistincteigs}
 The eigenvalues of $A$ are given by $(0, \mu_1, \dots, \mu_{n-1})$, all of which are distinct.
 \end{hypothesis}
 
-This is not true in general. For example, if $n \geq 3$ and all the terms $a_i$ in $A$ are identical, $A$ is a circulant matrix and it is not hard to show that $A$ will have eigenvalues of algebraic multiplicity 2. It might be possible to impose a condition that guarantees distinct eigenvalues. If so, we will hypothesize that instead. Since the problem $(A - \lambda I)v = 0$ is a Sturm-Liouville difference equation, that's a good place to look for such a result.\\
+This is not true in general. For example, if $n \geq 3$ and all the terms $a_i$ in $A$ are identical, $A$ is a circulant matrix and it is not hard to show that $A$ will have eigenvalues of algebraic multiplicity 2.\\
 
-Let $X = X_0 + X_1 + \dots + X_{n-1}$, which is half the length of the domain. We note the following regarding the matrices $A - \lambda^2 I$ and $K(\lambda)$, which are the leading order terms in \eqref{blockeq}.
+Next, we expect to find eigenvalues near where $K(\lambda)$ and $A - \lambda^2 MI$ are singular. 
 
-\begin{enumerate}
-	\item The matrix $A - \lambda^2 M I$ is singular at $\lambda = 0$ (algebraic multiplicity 2) and at the $2n-2$ points $\lambda = \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}$, where $0, \mu_1, \dots, \mu_{n-1}$ are the eigenvalues of $A$.
+\begin{enumerate}[(i)]
+	\item The matrix $A - \lambda^2 M I$ is singular at $\lambda = 0$ (with algebraic multiplicity 2) and at the $2n-2$ points $\lambda = \pm \sqrt{\mu_1/M}, \dots, \pm \sqrt{\mu_{n-1}/M}$, where $0, \mu_1, \dots, \mu_{n-1}$ are the eigenvalues of $A$. 
 
-	\item The matrix $K(\lambda)$ is singular at $\lambda = \pm \lambda^K(X,k)$, where
+	\item The matrix $K(\lambda)$ is singular at $\lambda = \pm \lambda^K(X,k)$, where $\lambda(X, 0) = 0$ and
 	\begin{align}\label{lambdaXk}
 	\lambda^K(X,k)
 		&= -c_0 \frac{k \pi i }{X} + \mathcal{O}\left(\frac{k}{X}\right)^3 
-	\end{align} 
-	and $\lambda(X, 0) = 0$.
+	\end{align}
 \end{enumerate}  
 
-WE WILL WANT THESE IN TERMS OF $r$, etc.\\
+For the analysis to work, we need to ensure that these singular points of these two matrices do not get too close. We have observed Krein bubbles numerically when interaction eigenvalues with negative Krein signature collide with ``essential spectrum'' eigenvalues of positive Krein signature, so this is necessary. We take the following hypothesis.
 
-For the nonzero eigenvalues of \eqref{PDEeig}, we expect to have $2m-2$ interaction eigenvalues, which occur near $\lambda = \pm \sqrt{\mu_j/M}$ ($j = 1, \dots, m-1$), as well as pairs of ``essential spectrum'' eigenvalues, which occur near $\lambda = \pm c_0 \frac{k \pi i }{X}$. For the analysis to work, we need to ensure that these singular points do not get too close. We have observed Krein bubbles numerically, so this is necessary.\\
+\begin{hypothesis}\label{epsilonballs}
+The nonzero points where $A - \lambda^2 MI$ is singular are at least $\epsilon/X$ away from the points where $K(\lambda)$ are singular, where $\epsilon$ will be specified later.
+\end{hypothesis}
 
-We can now state the following theorem, in which we locate and count the eigenvalues of \eqref{PDEeig}. Before we do that, we recall how the periodic $n-$pulse $q_{np}(x)$ is constructed.\\
+In the final theorem of the section, we locate the eigenvalues of \eqref{PDEeig} near the origin.
 
-Define the space
+% eigenvalue location theorem
 
-\begin{equation}\label{setR}
-\mathcal{R} = \left\{ \exp\left(-\frac{m \pi}{\rho}\right) : m \in \N_0 \right\} \cup \{ 0 \}
-\end{equation}
-
-which is a complete metric space. Then, to construct a periodic $n-$pulse,
-
-\begin{enumerate}
-	\item Choose an integer $n \geq 2$ (the number of pulses) 
-	\item Choose a sequence of nonnegative integers $m_0, \dots, m_{n-1}$ with the restriction that at least one of them must be 0. Use the $m_j$ to define the length parameters 
-	\[ 
-	b_j^0 = \exp(-m_j \pi / \rho )
-	\]
-	\item Choose a phase parameter $\theta \in [-\arctan \rho, \pi - \arctan \rho)$, where $\rho = \beta / \alpha$.
-	\item Then there exists $r_0 > 0$ such that 
-		\begin{itemize}
-		\item For every scaling parameter $r \in \mathcal{R}$ with $r < r_0$, there is a unique periodic $n-$pulse solution $q_{np}(x)$ which is given by the $n$ length parameters $b_j(r; m_j, \theta)$, where
-		\begin{align*}
-		b_j(r; m_j, \theta) \rightarrow b^*_j(m_j, \theta) \text{ as }
-		r \rightarrow 0
-		\end{align*}
-		\item For the $b^*_j(m_j, \theta)$, we have
-		\[
-		b^*_j(m_j, 0) = b_j^0
-		\]
-		\item If for some index $j$, $m_j \geq m_k$ for all other $k$, then for all $\theta$ and for $k \neq j$
-		\[
-		|b^*_j(m_j, \theta) - b_j^0| \leq C e^{ -\frac{\pi}{\rho} (m_j - m_k) }
-		\]
-		\end{itemize}
-\end{enumerate} 
-
-With this, we can state the following theorem. Here is a rough version.
-
-\begin{theorem}
-Let $\delta > 0$ be defined as in Theorem \ref{blockmatrixtheorem} and let $q_{np}(x)$ be a periodic $n-$pulse solution constructed as described above.\\
-
-Then the following are true.
+\begin{theorem}\label{locateeigtheorem}
+Assume Hypotheses \ref{Eprimehyp}, \ref{Hhyp}, \ref{hypeqhyp}, \ref{Qexistshyp}, \ref{nondegenhyp}, and \ref{c0nonzero}. Let $q_{np}(x)$ be a periodic $n-$pulse solution constructed according to Theorem \ref{perexist}, and let $\delta > 0$ be defined as in Theorem \ref{blockmatrixtheorem}. Assume Hypothesis \ref{Adistincteigs} and Hypothesis \ref{epsilonballs} with
+\[
+\epsilon = \frac{1}{4}r^{1/4}
+\]
+so that the singular points of $K(\lambda)$ and the nonzero singular points of $A - \lambda^2 M I$ are separated by at least
+\[
+\frac{\epsilon}{X} = \frac{1}{n |\log r| + C_b} r^{1/4}
+\]
+where $C_b$ is a constant which depends only on the $b_j^*(m_j, \theta)$. Then the following are true.
 
 \begin{enumerate}[(i)]
 
-\item $\partial_x q_{np}(x)$ is an eigenfunction with eigenvalue 0, and $t_{np}(x)$ is its generalized eigenfunction with eigenvalue 0. We also have another eigenfunction with eigenvalue 0 (MORE DETAILS LATER).
+\item There is an eigenvalue at 0 with algebraic multiplicity 3. The eigenfunctions are the kernel eigenfunction $\partial_x q_{np}(x)$ from translation invariance, its generalized kernel eigenfunction $t_{np}(x)$, and a third kernel eigenfunction $v^c(x)$ which is bounded but does not decay exponentially.
 
-\item Assume
-	\begin{itemize}
-		\item The eigenvalues $(0, \mu_1, \dots, \mu_{n-1})$ of $A$ are distinct.
-		\item The singular points of $K(\lambda)$ and the nonzero singular points of $A - \lambda^2 M I$ are separated by at least $\epsilon$, where
-		\[
-		\epsilon = \frac{1}{n |\log r| + C_b} r^{1/4}
-		\]
-		where $C_b$ is a constant which depends only on the $b_j^*(m_j, \theta) $, which are fixed. Note that the singular points of $K(\lambda)$ are approximately regularly spaced on the imaginary axis at intervals $\frac{\pi}{n |\log r| + C_b}$.
-	\end{itemize}
-	Then there exists $r_1 \leq r_0$ such that for $r \leq r_1$, there are $n - 1$ pairs of interaction eigenvalues given by $\lambda = \pm \lambda^{\text{int}}_j(r)$, $j = 1, \dots, n-1$, where
+\item There exists $r_1 \leq r_0$ such that for $r \leq r_1$, there are $n - 1$ pairs of interaction eigenvalues given by
 
-	\begin{align*}
-	\lambda^{\text{int}}_j(r) = \sqrt{\mu_j / M} + \mathcal{O}(r^{1 + \gamma/2 \alpha})
-	\end{align*}
+\begin{align*}
+\lambda &= \pm \lambda^{\text{int}}_j(r) && j = 1, \dots, n-1
+\end{align*}
 
-	These interaction eigenvalues pairs are either real or purely imaginary.\\
+where
 
-	In addition, there exists a natural number $m_0$ with the following property. If for some $j$, $m_j - m_k \geq m_0$ for all $k \neq j$, then there exists $\tilde{r}_1 \leq r_1$ such that for all $r < \tilde{r}_1$, 
+\begin{align*}
+\lambda^{\text{int}}_j(r) = r^{1/2} \sqrt{\tilde{\mu}_j / M} + \mathcal{O}(r^{5/8})
+\end{align*}
 
-	\begin{itemize}
-	\item For $M_2 > 0$, there are $n_{\text{even}}$ purely imaginary pairs of interaction eigenvalues.
-	\item For $M_2 > 0$, there are $n_{\text{odd}}$ real pairs of interaction eigenvalues.
-	\item It is the other way around for $M_2 < 0$
-	\end{itemize}
+These interaction eigenvalues pairs are either real or purely imaginary, and the remainder term cannot move them off of the real or imaginary axis.\\
 
-	where $n_{\text{even}}$ is the number of even $m_k \neq m_j$ and $n_{\text{odd}}$ is the number of odd $m_k \neq m_j$. $M_2$ is the higher order Melkinov integral.
+In addition, there exists a natural number $m_0$ with the following property. If for some $j$, $m_j - m_k \geq m_0$ for $k \neq j$, then there exists $\tilde{r}_1 \leq r_1$ such that for all $r < \tilde{r}_1$, 
 
+\begin{itemize}
+\item For $M > 0$ ($M < 0$), there are $n_{\text{even}}$ purely imaginary (real) pairs of interaction eigenvalues.
+\item For $M > 0$ ($M < 0$), there are $n_{\text{odd}}$ real (purely imaginary) pairs of interaction eigenvalues.
+\end{itemize}
 
-\item Assume
-	\begin{itemize}
-		\item The singular points of $K(\lambda)$ and the nonzero singular points of $A - \lambda^2 M I$ are separated by at least $\epsilon$, where
-		\[
-		\epsilon = \frac{1}{n |\log r| + C_b} r^{(3n-2)/6(n+3)}
-		\]
-		where $C_b$ the same constant as in the previous section. Note that for $r \geq 2$, $(3n-2)/6(n+3) > 0$.
-	\end{itemize}
+where $n_{\text{even}}$ is the number of even $m_k$ (excluding $m_j$) and $n_{\text{odd}}$ is the number of odd $m_k$ (excluding $m_j$).
 
-	Then there exists $r_2 \leq r_1$ such that for sufficiently small $k/X$, $k \neq 0$, there exist pairs of purely imaginary ``essential spectrum'' eigenvalues, which are given by $\lambda = \pm \lambda^{ess}(X, k; r)$, where
+\item There exists $r_2 \leq r_1$ such that for $r \in \mathcal{R}$ with $r < r_2$, the following is true. For all positive integers $k$ with $k \pi / X < \delta$, there is a pair of purely imaginary ``essential spectrum'' eigenvalues which are given by $\lambda = \pm \lambda^{ess}(X,k; r)$, where
 
-	\begin{equation}\label{essspeceigs}
-	\lambda^{ess}(X, k; r_m) = -c_0 \frac{k \pi i}{X} + \mathcal{O}\left(r\right)
-	\end{equation}
+\begin{equation}\label{lambdaess}
+\lambda^{ess}(X, k; r) = c_0 \frac{k \pi i }{X} \left( 1 + \mathcal{O}\left( \frac{1}{X} \right)\right) + \mathcal{O}\left( \frac{r^{1/2}}{X} \right)
+\end{equation}
 
-	The remainder term cannot move these off of the imaginary axis.
+In terms of $r$, these are located at approximately
 
-\item For a radius $\tilde{\delta}$ which may be slightly smaller than $\delta$, and with the same assumptions as above, there are exactly $2n + 2k + 1$ eigenvalues inside $B(0, \tilde{\delta}) \subset \C$ (counting multiplicity), where $n$ is the number of pulses in the multi-pulse, and $k$ is a positive integer depending on $X$. Thus there are no eigenvalues inside $B(0, \tilde{\delta}) \subset \C$ other than those which have already been accounted for.
+\begin{equation}\label{lambdaessr}
+\lambda^{ess}(k; r) = c_0 \frac{k \pi i }{n |\log r| + C_b}  \left( 1 + \mathcal{O}\left( \frac{1}{n |\log r|} \right)\right) + \mathcal{O}\left( \frac{r^{1/2}}{n |\log r|} \right)
+\end{equation}
 
+The remainder terms cannot move this off of the imaginary axis.
+
+\item For a radius $\tilde{\delta}$ which may be slightly smaller than $\delta$, There are $2n + 2 k_M + 1$ eigenvalues inside the circle $|\lambda| = \tilde{\delta}$, where $k_M$ is the largest positive integer $k$ such that $|\lambda^K(k,X) < \tilde{\delta}$. Thus there are no eigenvalues inside the circle $|\lambda| = \tilde{\delta}$ other than the ones described above.
 \end{enumerate}
+
 \end{theorem}
+
+It is worth considering a few specific cases. For the symmetric 2-pulse (i.e. $b_0 = b_1$), the interaction eigenvalues are approximately
+
+\[
+\lambda^{\text{int}} = \pm C r^{1/2} e^{-\theta/2\rho} \sqrt{ \frac{1}{M} \left( \rho \cos \theta - \sin \theta \right) }
+\]
+
+which is 0 at $\theta = \arctan \rho$. At this point (or a point near there), there is a bifurcation in which a pair of real eigenvalues collides at 0 and then becomes a pair of purely imaginary eigenvalues. We can probably use a symmetry argument or something like that to show that this occurs for small $r$ at the actual pitchfork bifurcation point $\theta^*(r)$, where $\theta^*(0) = \arctan \rho$. This has been verified numerically.
 
 % \subsection{KdV5}
 
