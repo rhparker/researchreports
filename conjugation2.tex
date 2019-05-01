@@ -2192,7 +2192,9 @@ First, we look at the matrix $A$. $A$ is a real symmetric matrix, so its eigenva
 The eigenvalues of $A$ are given by $(0, \mu_1, \dots, \mu_{n-1})$, all of which are distinct.
 \end{hypothesis}
 
-The idea is that the ``leading order'' terms in the block matrix equation \ref{blockeq} are $K(\lambda)$ and $A - \lambda^2 M I$. Thus, we expect to find eigenvalues near the points where these two matrices are singular. The interaction eigenvalues should occur near the $2n$ points where $A - \lambda^2 M I$ is singular, and the ``essential spectrum'' eigenvalues should occur near where $K(\lambda)$ is singular. The only thing we need to ensure is that these singular points do not get too close. To that end, we make the following hypothesis.
+We might be able to use discrete Sturm-Liouville theory to relax this assumption.\\
+
+Since the ``leading order'' terms in the block matrix equation \ref{blockeq} are $K(\lambda)$ and $A - \lambda^2 M I$, we expect to find eigenvalues near the points where these two matrices are singular. The interaction eigenvalues should occur near the $2n$ points where $A - \lambda^2 M I$ is singular, and the ``essential spectrum'' eigenvalues should occur near where $K(\lambda)$ is singular. The only thing we need to ensure is that these singular points do not get too close. We have observed Krein bubbles numerically when this takes place, so this must factor into our analysis.
 
 \begin{hypothesis}\label{epsilonballs}
 The nonzero points where $A - \lambda^2 MI$ is singular are at least $\epsilon/X$ away from the points where $K(\lambda)$ are singular, where $\epsilon$ will be determined later.
@@ -2201,7 +2203,7 @@ The nonzero points where $A - \lambda^2 MI$ is singular are at least $\epsilon/X
 We will now state and prove the main theorem for this section.
 
 \begin{theorem}\label{locateeigtheorem}
-Let $\delta > 0$ be defined as in Theorem \ref{blockmatrixtheorem} and let $q_{np}(x)$ be a periodic $n-$pulse solution constructed as described above. Assume Hypothesis \ref{Adistincteigs}. Assume Hypothesis \ref{epsiloballs} with
+Let $\delta > 0$ be defined as in Theorem \ref{blockmatrixtheorem} and let $q_{np}(x)$ be a periodic $n-$pulse solution constructed as described above. Assume Hypothesis \ref{Adistincteigs}. Assume Hypothesis \ref{epsilonballs} with
 \[
 \epsilon = \frac{1}{4}r^{1/4}
 \]
@@ -2328,6 +2330,8 @@ $\tilde{A}$ is the same matrix as $A$ with the entries $a_j$ replaced by $\tilde
 &= s_0 e^{\alpha \phi/\beta} \left( \beta b_j \cos\left( -\rho \log b_j \right) - \alpha b_j \sin \left( -\rho \log b_j  \right) \right) + \mathcal{O}(r^{\gamma/2\alpha})
 \end{align}
 
+The eigenvalues of $\tilde{A}$ are given by $(0, \tilde{\mu}_1, \dots, \tilde{\mu}_{n-1})$, $r \tilde{\mu}_j = \mu_j$.\\
+
 The remainder terms have bounds
 
 \begin{align*}
@@ -2389,7 +2393,7 @@ Next, we scale $r$ out of this. Let $a_j = r \tilde{a}_j$. Then we have
 &= s_0 e^{\alpha \phi/\beta} \left( \beta b_j \cos\left( -\rho \log b_j \right) - \alpha b_j \sin \left( -\rho \log b_j  \right) \right) + \mathcal{O}(r^{\gamma/2\alpha})
 \end{align*}
 
-Thus $A = r \tilde{A}$, where $\tilde{A}$ is the same matrix as $A$ with $a_j$ replaced with $\tilde{a}_j$. We note that $\tilde{A}$ and $A$ have the same symmetry properties, thus the eigenvalues of $\tilde{A}$ are real, and $(1,1,\dots,1)^T$ is an eigenvector of $\tilde{A}$ with eigenvalue 0.\\
+Thus $A = r \tilde{A}$, where $\tilde{A}$ is the same matrix as $A$ with $a_j$ replaced with $\tilde{a}_j$. We note that $\tilde{A}$ and $A$ have the same symmetry properties, thus the eigenvalues of $\tilde{A}$ are real (they are found by scaling $r$ out of the eigenvalues of $A$), and $(1,1,\dots,1)^T$ is an eigenvector of $\tilde{A}$ with eigenvalue 0. \\
 
 Finally, the domain length $X$ is given by
 
@@ -2499,7 +2503,7 @@ $\lambda^K(X,n)$ is purely imaginary, $\lambda^K(X, 0) = 0$, and $\lambda^K(X, -
 \begin{proof}
 To find the values of $\lambda$ where $K(\lambda)$ is singular, we need to solve $\nu(\lambda) = n \pi i/X$ for sufficiently small $n \in \Z$. We know $\nu(0) = 0$, so we only need to do this for nonzero $n$. \\
 
-Let $G(\lambda, r) = \nu(\lambda) - r$. Then $G(0, 0) = 0$ and $D_\lambda G(0, 0) = \nu'(0) = -1/c_0$, which is nonzero by HYPOTHESIS SOMETHING. Using the IFT, we can solve for $\lambda$ in terms of $r$ for $r$ near 0. In other words, there exists a function $\lambda(r)$ such that $\lambda(0) = 0$ and $G(\lambda(r), r) = 0$ for sufficiently small $r$. Thus, for sufficiently small $r$, $\nu(\lambda(r)) = r$. By Lemma \ref{nulambdalemma}, $\nu(-\lambda(r)) = -\nu(\lambda(r)) = -r$, thus by uniqueness of the IFT solution, $\lambda(-r) = -\lambda(r)$, i.e. $\lambda(r)$ is an odd function. We also have from the IFT 
+Let $G(\lambda, r) = \nu(\lambda) - r$. Then $G(0, 0) = 0$ and $D_\lambda G(0, 0) = \nu'(0) = -1/c_0$, which is nonzero by Hypothesis \ref{c0nonzero}. Using the IFT, we can solve for $\lambda$ in terms of $r$ for $r$ near 0. In other words, there exists a function $\lambda(r)$ such that $\lambda(0) = 0$ and $G(\lambda(r), r) = 0$ for sufficiently small $r$. Thus, for sufficiently small $r$, $\nu(\lambda(r)) = r$. By Lemma \ref{nulambdalemma}, $\nu(-\lambda(r)) = -\nu(\lambda(r)) = -r$, thus by uniqueness of the IFT solution, $\lambda(-r) = -\lambda(r)$, i.e. $\lambda(r)$ is an odd function. We also have from the IFT 
 
 \begin{align*}
 \lambda'(r) &= -\frac{1}{\partial_\lambda G(\lambda(r), r) } \partial_r G(\lambda(r), r) \\
@@ -2578,6 +2582,50 @@ where $\det(K(\lambda))$ is given in Corollary \ref{detKcorr}. The same holds fo
 \end{proof}
 \end{lemma}
 
+Before we continue, we recall that we need to make sure the roots of $\det A - \lambda^2 M I$ and $\det K(\lambda)$ do not get too close. We do that in the next lemma.
+
+% epsilon balls lemma
+
+\begin{lemma}\label{epsilonballslemma}
+For sufficiently large $r$, the nonzero roots of $\det A - \lambda^2 M I$ and the nonzero roots of $K(\lambda)$ within $\delta$ of the origin are separated by at least $\epsilon/X$, where
+\[
+\epsilon = \frac{r^{1/4}}{4}
+\]
+\begin{proof}
+The nonzero roots of $\det A - \lambda^2 M I$ are of the form $\pm r^{1/2} \sqrt{\tilde{\mu}_j/M}$, where $\tilde{\mu}_j$ is one of the nonzero eigenvalues of $\tilde{A}$. These roots come in pairs which are symmetric about the origin. Although we only have to consider the case when these roots are purely imaginary, we do not know in advance which ones these will be, so we consider the worst case scenario where all the roots are purely imaginary. Let $a = \max_j\{| \sqrt{\tilde{\mu}_j/M}|\}$. We will show that for sufficiently small $r$, 
+\[
+|\lambda^K(X,1)| - a r^{1/2} > \frac{\epsilon}{X}
+\]
+Since $X > 0$, this is equivalent to
+\[
+(|\lambda^K(X,1)| - a r^{1/2})X  > \frac{\epsilon}
+\]
+
+This implies that any purely imaginary interaction eigenvalues will be located between 0 and the first ``essential spectrum'' eigenvalue. Recall that 
+\[
+\lambda^K(X,1)
+&= -c_0 \frac{\pi i }{X} + \mathcal{O}(1/X)^3 
+\]
+Then we have
+\begin{align*}
+(|\lambda^K(X,1)| - a r^{1/2})X &= \left( |c_0| \frac{\pi}{X} + \mathcal{O}(1/X)^3 - a r^{1/2} \right)X \\
+&= c_0 \pi + \mathcal{O}(1/X)^2 - a r^{1/2} X \\
+&= |c_0| \pi \left(1 + \mathcal{O}(1/X)^2 - a_1 r^{1/2} X\right)  \\
+\end{align*}
+
+where $a_1 = a / |c_0| \pi$. From Lemma \ref{reparam}, $X$ is given in terms of $r$ by
+\[
+X = n |\log r| + C_b
+\]
+where $C_b$ is a constant which depends only on the length parameters $b^*_j(m_j, \theta)$ used in the construction of the periodic $n-$pulse and not on the scaling parameter $r$. Substituting this in, we have
+\begin{align*}
+(|\lambda^K(X,1)| - a r^{1/2})X 
+&= |c_0| \pi \left(1 - a_1 r^{1/2}(n |\log r| + C_b) + \mathcal{O}\left( \frac{1}{n |\log r| + C_b} \right) \right)  \\
+\end{align*}
+as $r \rightarrow 0$, the quantity in parentheses on the RHS approaches 1 and $\epsilon \rightarrow 0$. Thus there exists $r_\epsilon > 0$ such that for $r \in \mathcal{R}$ with $r < r_\epsilon$, $|\lambda^K(X,1)| - a r^{1/2} > \frac{\epsilon}{X} > \epsilon/X$. The result then follows.
+\end{proof}
+\end{lemma}
+
 Next, we obtain a bound for $\det K(\lambda)$. 
 
 % bounds for Det K
@@ -2589,9 +2637,9 @@ We have the following lower bounds for $\det K(\lambda)$.
 \begin{equation}\label{detKbound1}
 |\det K(\lambda)| \geq \sqrt{2} e^{|\text{Re }\nu(\lambda)X|}
 \end{equation}
-\item If $\text{Im }\lambda$ is at least $\epsilon/X$ away from all of the points $\lambda^K(X,n)$, where $0 < \epsilon < 1/2$, then
+\item Let $0 < \epsilon < 1/2$. If $|\lambda| \geq C r^{1/2}$ and $\text{Im }\lambda$ is at least $\epsilon/X$ away from all of points $\lambda^K(X,k)$ with $|\lambda^K(X,k)| < \delta$ and $k \neq 0$, then
 \begin{equation}\label{detKbound2}
-|\det K(\lambda)|\geq C \epsilon
+|\det K(\lambda)|\geq C \min\{ \epsilon, r^{1/2} X \}
 \end{equation}
 \end{enumerate}
 
@@ -2641,7 +2689,20 @@ from which it follows that for $|\text{Re } \nu(\lambda)| \geq 1/X$
 \geq \sqrt{2} e^{|\text{Re }\nu(\lambda)X|}
 \end{align*}
 
-Next, we consider the case (ii). Since the points $\lambda^K(X,n)$ are spaced apart on the imaginary axis by approximtely $n \pi/X$, if we take $\epsilon < 1/2$, there is enough room between the points for this to make sense. We want this bound to hold for when $|\text{Re } \nu(\lambda)| < 1/X$. Once again, let $\nu(\lambda) X = a + b i$. Then, using the same expansion for $|\sinh(a + b i)|^2$ as above, we have
+Next, we consider the case (ii). Let $0 < \epsilon < 1/2$, and assume that $\text{Im }\lambda$ is at least $\epsilon/X$ away from all of points $\lambda^K(X,k)$ with $|\lambda^K(X,k)| < \delta$ and $k \neq 0$. There are two cases to consider. First, suppose $|\lambda| \leq 1/2 \lambda^K(X,1)$. Note that the $\epsilon$ criterion is automatically satisfied. Expanding $\sinh( \nu(\lambda) X)$ in a Taylor series about $\lambda = 0$, and recalling that $\nu(0) = 0$, we get
+
+\begin{align*}
+\sinh(\nu(\lambda + \xi) X) &= -\frac{1}{c_0}X\xi + \mathcal{O}((X \xi)^3)
+\end{align*}
+
+Since $|\lambda| \geq C r^{1/2}$, we have $C_1 r^{1/2} < \xi < |c_0| \pi C_2/X$, thus for this case,
+
+\begin{align*}
+|\det K(\lambda)| &= 2 |\sinh(\nu(\lambda) X)| \\
+& \geq C r^{1/2}X
+\end{align*}
+
+For the second case suppose $|\lambda| \leq 1/2 \lambda^K(X,1)$. Since the points $\lambda^K(X,k)$ are spaced apart on the imaginary axis by approximtely $k \pi/X$, if we take $0 < \epsilon < 1/2$, there is enough room between the points for us to work. We want this bound to hold for when $|\text{Re } \nu(\lambda)| < 1/X$. Once again, let $\nu(\lambda) X = a + b i$. Then, using the same expansion for $|\sinh(a + b i)|^2$ as above, we have
 
 \begin{align*}
 |\sinh(\nu(\lambda) X)|^2 
@@ -2679,7 +2740,11 @@ If we take $\text{Im } \xi \geq \epsilon/X$ (and small enough so that we don't g
 |\text{Im } \nu\left( \lambda^K(X, n) + \xi \right)X - n \pi| \geq C \epsilon
 \end{align*}
 
-which gives us the determinant bound we want.
+Thus if the $\epsilon$ condition holds,
+
+\[
+|\det K(\lambda)| \geq C \min\{ X r^{1/2}, \epsilon \}
+\]
 
 \end{proof}
 \end{lemma}
@@ -3047,11 +3112,11 @@ In order proceed, we need to bound $(A - \lambda^2 MI)^{-1}$. As with the intera
 \begin{lemma}\label{detAboundlemma}
 We have the following lower bounds for $\det(A - \lambda^2 M I)$.
 \begin{enumerate}[(i)]
-\item If $\lambda$ is at least $\epsilon/X$ away from the points where $(A - \lambda^2 MI)$ is singular, then
+\item If $|\lambda| \geq C/X$ and $\lambda$ is at least $\epsilon/X$ away from the points where $(A - \lambda^2 MI)$ is singular, then
 
 \begin{equation}\label{detAbound1}
 |\det(A - \lambda^2 M I)|
-\geq C \left( \frac{\epsilon}{X} \right)^{n+1} \left( |\lambda|^2 + r \right)^{(n-1)/2}
+\geq C \frac{1}{X^2} \left( \frac{\epsilon}{X} \right)^{n-1} \left( |\lambda|^2 + r \right)^{(n-1)/2}
 \end{equation}
 
 \item If $|\lambda| \geq 2 r^{1/2} \tilde{\mu}_M$, where $\tilde{\mu}_M = \max\{\tilde{\mu}_1, \dots, \tilde{\mu}_{n-1} \}$, then
@@ -3072,7 +3137,7 @@ $\det(A - \lambda^2 MI)$ is the characteristic polynomial of $A$ with $t = \lamb
 \dots(\lambda - r^{1/2} \sqrt{\tilde{\mu}_{n-1}/M})(\lambda + r^{1/2} \sqrt{\tilde{\mu}_{n-1}/M} )
 \end{align*}
 
-For the first bound, suppose $\lambda$ is at least a distance $\epsilon/X$ from all of the roots (including 0) of $\det(A - \lambda^2 MI)$. For the $\lambda^2$ term, we have lower bound $|\lambda| \geq (\epsilon/X)^2$. Since the pairs $\pm \mu_j$ are symmetric across the origin, we have the lower bound for each pair
+For the first bound, suppose $|\lambda| \geq C/X$ (for $C$ close to 1) and $\lambda$ is at least a distance $\epsilon/X$ from all of the nonzero roots of $\det(A - \lambda^2 MI)$. (This is the same assumption we had in the interaction eigenvalues section). For the $\lambda^2$ term, we have lower bound $|\lambda| \geq C/X$. Since the pairs $\pm \mu_j$ are symmetric across the origin, we have the lower bound for each pair
 
 \begin{align*}
 (\lambda - r^{1/2} \sqrt{\tilde{\mu}/M} )(\lambda + r^{1/2} \sqrt{\tilde{\mu}_1/M} )
@@ -3084,7 +3149,7 @@ Combining these, we have the bound
 
 \[
 |\det(A - \lambda^2 M I)|
-\geq C \left( \frac{\epsilon}{X} \right)^{n+1} \left( |\lambda|^2 + r \right)^{(n-1)/2}
+\geq C \frac{1}{X^2} \left( \frac{\epsilon}{X} \right)^{n-1} \left( |\lambda|^2 + r \right)^{(n-1)/2}
 \]
 
 For the second bound, suppose $|\lambda| \geq 2 r^{1/2} \tilde{\mu}_M$. For the pairs $\pm \mu_j$ we have the lower bound
@@ -3143,7 +3208,9 @@ For the first case, using the lower bound \eqref{detAbound1} on $\det(A - \lambd
 &\leq C \left(\frac{X}{\epsilon}\right)^{n+1} r^{(n-1)/2}
 \end{align*}
 
-since $|\lambda| \leq C r^{1/2}$. For the second case, $|\lambda| \geq C r^{1/2}$, and we use the lower bound \eqref{detAbound2} on $\det(A - \lambda^2 M I)$ from Lemma \ref{detAboundlemma} to get
+since $|\lambda| \leq C r^{1/2}$.\\
+
+For the second case, $|\lambda| \geq C r^{1/2}$, and we use the lower bound \eqref{detAbound2} on $\det(A - \lambda^2 M I)$ from Lemma \ref{detAboundlemma} to get
 
 \begin{align*}
 ||(A - \lambda^2 M I)^{-1}|| &\leq C \frac{1}{|\lambda|^{n+1}} 
