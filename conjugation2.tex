@@ -3515,9 +3515,9 @@ The remainder terms cannot move these off of the imaginary axis.
 \end{proof}
 \end{lemma}
 
-\subsubsection{Count the Eigenvalues near 0}
+\subsubsection{Count the Eigenvalues}
 
-Finally, we will count the eigenvalues near 0 to conclude that we have accounted for all the small eigenvalues.  
+Finally, we will count the eigenvalues with $|\lambda| < \delta$ to conclude that we have accounted for all the small eigenvalues.  
 
 \begin{lemma}\label{eigcount}
 There are $2n + 2 k_M + 1$ eigenvalues inside the circle $|\lambda| = \delta$, where $k_M$ is the largest positive integer $k$ such that $|\lambda^K(k,X) < \delta$. A complete account of the eigenvalues inside $|\lambda| = \delta$ is as follows.
@@ -3539,15 +3539,15 @@ C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
 \end{pmatrix}
 \end{equation}
 
-Use the radius $\delta$ from Theorem \ref{blockmatrixtheorem}. If necessary, decrease $\delta$ a little so that the circle of radius $\delta$ about the origin in the complex plane is as far as possible from the points $\lambda^K(X, k)$ where $K(\lambda)$ is singular. Since $|k\pi/X| < \delta$, for sufficiently small $k$ these are, to leading order, equally spaced by $\pi /X$. Thus this amounts to ensuring that the $\delta-$circle cuts half way half way between two of these. \\
+Use the radius $\delta$ from Theorem \ref{blockmatrixtheorem}. If necessary, decrease $\delta$ a little so that the circle of radius $\delta$ about the origin in the complex plane cuts exactly half way between consecutive points $\lambda^K(X, k)$.\\
 
-Now take $\lambda$ with $|\lambda| = \delta$, i.e. $\lambda$ is on the $\delta-$circle. For all $k$ such that $|\lambda^K(X, k)| \leq \delta$, we have
+Take $\lambda$ with $|\lambda| = \delta$, i.e. $\lambda$ is on the $\delta-$circle. For all $k$ such that $|\lambda^K(X, k)| \leq \delta$, we have
 
 \[
 | \lambda - \lambda^K(X, k)|  \geq C \frac{1}{3X}
 \]
 
-Taking $\epsilon = 1/3$ in Lemma \ref{Kinvboundslemma}, we have
+Using \ref{Kinvboundslemma}, this implies
 
 \[
 ||K(\lambda)^{-1}|| \leq 3 C \\
@@ -3635,7 +3635,139 @@ There are no other eigenvalues which have not been accounted for.
 \end{proof}
 \end{lemma}
 
+We will
 
+\subsubsection{Count the Eigenvalues near 0}
+
+We will also count the eigenvalues in a small ball around 0.  
+
+\begin{lemma}\label{eigcount2}
+Let 
+\begin{equation}
+\xi = \min\left\{ \frac{\pi}{2X}, \frac{\tilde{\mu}_m r^{1/2}}{2} \right\} = 
+\min\left\{ \frac{\pi}{2 C( n |\log X| + C_b)}, \frac{\tilde{\mu}_m r^{1/2}}{2} \right\} 
+\end{equation}
+where $\tilde{\mu}_m = \min \{ |\sqrt{\tilde{\mu}_1/M}|, \dots, |\sqrt{\tilde{\mu}_{n-1}/M}| \}$ and the $\tilde{\mu}_j$ are the nonzero eigenvalues of $A$. Then for sufficiently small $r$, there are exactly 3 eigenvalues inside the circle of radius $\xi$ in the complex plane.
+
+\begin{proof}
+Let $E(\lambda)$ be the determinant of the block matrix equation \ref{blockeq}. Let $\tilde{\mu}_m = \min \{ |\sqrt{\tilde{\mu}_1/M}|, \dots, |\sqrt{\tilde{\mu}_{n-1}/M}| \}$,where the $\tilde{\mu}_j$ are nonzero eigenvalues of $A$. Choose the following radius
+
+\[
+\xi = \min\left\{ \frac{\pi}{2X}, \frac{\tilde{\mu}_m r^{1/2}}{2} \right\}
+\]
+
+For $|\lambda| = \xi$, $K(\lambda)$ is invertible. As in the previous lemma, write $E(\lambda)$ as
+
+\begin{equation*}
+E(\lambda) = \det 
+\begin{pmatrix}
+(I + C_1 + K_1(\lambda)K(\lambda)^{-1})K(\lambda) & D_1 \\
+C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
+\end{pmatrix}
+\end{equation*}
+
+To bound $K_1(\lambda)K(\lambda)^{-1}$, we use Lemma \ref{Kinvboundslemma}. By our choice of $\xi$, the $\epsilon$ criterion in that lemma is automatically satisfied. Replacing the condition that $|\lambda| \geq C r^{1/2}$ with $|\lambda| = \delta$, we have the bound
+\begin{align*}
+||K_1(\lambda)K(\lambda)^{-1}|| &\leq C( \xi + r^{1/2})\max\left\{ r^{-1/4}, \frac{1}{\xi X} \right\} \\
+&\leq C r^{1/2} \max\left\{ r^{-1/4}, \frac{1}{\xi X} \right\} \\
+&\leq C r^{1/2} \max\left\{ r^{-1/4}, 1, \frac{r^{-1/2}}{X} \right\} \\
+&\leq C \max\left\{ r^{1/4}, \frac{1}{X} \right\} \\
+&\leq C \max\left\{ r^{1/4}, \frac{1}{n|\log r| + C_b } \right\} \\
+\end{align*}
+
+where we used the expression for $X$ from Lemma \ref{reparam}. Since the bound for $C_1$ is stronger than this, for sufficiently small $r$, $I + C_1 + K_1(\lambda)K(\lambda)^{-1}$ is invertible. Let $C_3 = (I + C_1 + K_1(\lambda)K(\lambda)^{-1})$. Thus finding zeros of $E(\lambda)$ is equivalent to finding the zeros of
+
+\begin{equation}
+\tilde{E}(\lambda) = \det 
+\begin{pmatrix}
+K(\lambda) & C_3 D_1 \\
+C_2 K(\lambda) + K_2(\lambda) & A - \lambda^2 MI + D_2
+\end{pmatrix}
+\end{equation}
+
+As in the previous lemma, since $K(\lambda)$ and $A - \lambda^2 M I$ are invertible for $|\lambda| = \xi$, we use a standard determinant identity to write this as
+
+\begin{align*}
+\tilde{E}(\lambda)
+&= \det(K(\lambda))\det(A - \lambda^2 MI)\det(I + R(\lambda))
+\end{align*}
+
+where
+
+\[
+R(\lambda) = 
+(A - \lambda^2 MI)^{-1}(D_2 - (C_2 + K_2(\lambda)K(\lambda)^{-1})C_3 D_1)
+\]
+
+First, we bound $(D_2 - (C_2 + K_2(\lambda)K(\lambda)^{-1})C_3 D_1)$. Since $K_2(\lambda)$ is of the same form as $K_1(\lambda)$, we can use the bound for $K_1(\lambda)K(\lambda)^{-1}$ here.
+
+\begin{align*}
+||(D_2 &- (C_2 + K_2(\lambda)K(\lambda)^{-1})C_3 D_1)|| \\
+&\leq C \left( (\xi + r^{1/2})^3 + (\xi + r^{1/2})^2 \left( r^{\tilde{\gamma}/2}(\xi + r^{1/2})^2 + \max\left\{ r^{1/4}, \frac{1}{n|\log r| + C_b } \right\} \right) \right) \\
+&\leq C \left( r^{3/2} + r \left( r^{1 + \tilde{\gamma}/2} + \max\left\{ r^{1/4}, \frac{1}{n|\log r| + C_b } \right\} \right) \right) \\
+&\leq C r \max\left\{ r^{1/4}, \frac{1}{n|\log r| + C_b } \right\} 
+\end{align*}
+
+For a bound on $(A - \lambda^2 MI)^{-1}$, we use Lemma \ref{Ainvboundlemma}. The bound depends on $\xi$. If $\xi = \frac{\pi}{2X}$, we can go ahead and use the bound \eqref{Ainvbound1} from Lemma \ref{Ainvboundlemma}.
+
+\[
+||(A - \lambda^2 MI)^{-1}|| \leq C X^{n+1} r^{(n-1)/4}
+\]
+
+If $\xi = \frac{\tilde{\mu}_m r^{1/2}}{2}$, then we need to compute a new bound. For $\det(A - \lambda^2 MI)$, we can adapt Lemma \ref{detAboundlemma} to get
+
+\[
+|\det(A - \lambda^2 MI)| \leq C \xi^2 (\xi + r^{1/2})^{n-1} r^{(n-1)/2}
+\]
+
+Then we can follow the proof of Lemma \ref{Ainvboundlemma} to get
+
+\begin{align*}
+||(A - \lambda^2 MI)^{-1}|| &\leq C \frac{(r + \xi^2)^{n-1}}{\xi^2 (\xi + r^{1/2})^{n-1} r^{(n-1)/2}} \\
+&= C \frac{r^{n-1}}{r \: r^{(n-1)/2} r^{(n-1)/2}} \\
+&= \frac{C}{r} 
+\end{align*}
+
+Combining all of these, we can get a bound on $R(\lambda)$. If $\xi = \frac{\pi}{2X}$, then
+
+\begin{align*}
+||R(\lambda)|| &\leq C X^{n+1} r^{(n-1)/4} r \max\left\{ r^{1/4}, \frac{1}{n|\log r| + C_b } \right\} \\
+&\leq C r^{1/2} (r^{1/4} X)^{n+1} \max\left\{ r^{1/4}, \frac{1}{n|\log r| + C_b } \right\} \\
+&\leq C r^{1/2} \left(r^{1/4}(n|\log r| + C_b)\right)^{n+1} \max\left\{ r^{1/4}, \frac{1}{n|\log r| + C_b } \right\}
+\end{align*}
+
+This can be made arbitrarily small. If $\xi = \frac{\tilde{\mu}_m r^{1/2}}{2}$, then 
+
+\begin{align*}
+||R(\lambda)|| &\leq \frac{C}{r} r \max\left\{ r^{1/4}, \frac{1}{n|\log r| + C_b} \right\} \\
+&= C \max\left\{ r^{1/4}, \frac{1}{n|\log r| + C_b} \right\} 
+\end{align*}
+
+This can also be made arbitrarily small. Choose $r_3$ sufficiently small so that for $r < r_3$, $||R(\lambda)|| < 1/4n$. Then we have
+
+\[
+R(\lambda) = \frac{1}{3n}\tilde{R}(\lambda)
+\] 
+
+with $||\tilde{R}(\lambda)|| \leq 1$. From a standard expansion of the determinant, 
+
+\begin{align*}
+\det(I + R(\lambda)) &= 1 + \frac{1}{3n} \text{Tr}(\tilde{R}(\lambda)) + \mathcal{O}\left(\frac{1}{9n^2} \right) \\
+&= 1 + p
+\end{align*}
+
+where $0 < p < 1$. Thus we have
+
+\begin{align*}
+\tilde{E}(\lambda) &= \det(K(\lambda))\det(A - \lambda^2 MI)\det(I + R(\lambda)) \\
+&= \det(K(\lambda))\det(A - \lambda^2 MI)(1 + p) \\
+&= \det(K(\lambda))\det(A - \lambda^2 MI) + p \det(K(\lambda))\det(A - \lambda^2 MI)
+\end{align*}
+
+Since $p < 1$, by Rouche's Theorem, $\tilde{E}(\lambda)$ and $\det(K(\lambda))\det(A - \lambda^2 MI)$ have the same number of zeros (counting multiplicty) inside the circle $|\lambda| = \xi$. By our choice of $\xi$, $\det(K(\lambda))\det(A - \lambda^2 MI)$ has exactly 3 zeros inside $|\lambda| = \xi$, all of which occur at $\lambda = 0$. We conclude that $\tilde{E}(\lambda)$ (and thus $E(\lambda)$) has exactly 3 zeros inside $|\lambda| = \xi$.\\
+
+\end{proof}
+\end{lemma}
 
 
 \end{document}
