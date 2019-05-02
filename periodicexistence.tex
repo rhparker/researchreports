@@ -1718,12 +1718,10 @@ The remainder terms $V_i^\pm(x)$ have bounds
 \end{itemize}
 
 \begin{proof}
-Since we are in a periodic domain, we can WLOG take $b_{n-1}^0 \leq b_j^0$ (equivalently, $m_{n-1} \geq m_j$) for $j = 0, \dots, n-2$. By Lemma \ref{thetaparam}, for $j = 0, \dots, n-1$, we can fix 
+Since we are in a periodic domain, we can WLOG take $b_{n-1}^0 \leq b_j^0$ (equivalently, $m_{n-1} \geq m_j$) for $j = 0, \dots, n-2$. Choose length parameters $b_0^0, \dots, b_{n-1}^0$ and phase parameter $\theta \in [-\arctan \rho, \pi - \arctan \rho)$. By Lemma \ref{thetaparam}, for $j = 0, \dots, n-1$, we have a unique solution $F(b_0^*(m_0, \theta), b_{n-1}^*(m_{n-1}, \theta)) = 0$ (in the $r = 0$ case), where 
 \[
 b_{n-1}^*(m_{n-1}, \theta) = e^{-\frac{1}{\rho}(m_{n-1}\pi - \theta)}
 \]
-
-and obtain unique $b_0^*(m_0, \theta), \dots, b_{n-2}^*(m_{n-2}, \theta)$ which solve $F(b_0^*(m_0, \theta), b_{n-1}^*(m_{n-1}, \theta)) = 0$.\\
 
 Let $G: \mathcal{R}^{n-1} \rightarrow \R^{n-1}$ be defined by $G = (G_0, \dots, G_{n-2})^T$, where 
 \begin{equation*}
@@ -1754,9 +1752,95 @@ In order to use the implicit function theorem, we require that these $n-2$ parti
 
 As long as we avoid those parameter values, $D_b G(b_0^*(m_0, \theta), \dots, b_{n-2}^*(m_{n-2}, \theta), 0)$ is invertible. Thus, for sufficiently small $r$, we can use the IFT to solve for $(b_0,\dots,b_{n-2}$ in terms of $r$ near $(b_0^*(m_0, \theta), \dots, b_{n-2}^*(m_{n-2}, \theta)$. Specifically, for $j = 0, \dots, n-2$ there exists $r_0 > 0$ and smooth functions $b_j(r; m_j, \theta)$ with $b_j(0; m_j, \theta) = b_j^*(m_j, \theta)$ and for all $r < r_0$, 
 \[
-G(b_1(r; m_1, \theta), \dots, b_{n-2}(r; m_{n-2}, \theta), r) = 0
+G(b_0(r; m_0, \theta), \dots, b_{n-2}(r; m_{n-2}, \theta), r) = 0
 \]
-Thus for each of our parameterizations we have found our periodic $n-$pulse.
+Thus for any given set of parameters (other than the ones we have to avoid), we have found our periodic $n-$pulse.\\
+
+We can also obtain a uniform result. The idea is that for sufficiently small $b_{n-1}^0$ (i.e. sufficiently large $m_{n-1}$) we can uniformly bound the $\partial_{b_j} G_j$ away from 0. To do this, we use the parameterization and bounds from Lemma \ref{thetaparam}. For $j = 0, \dots, n-2$, choose $b_j^0$ (equivalently, choose $m_j$). Then we have 
+
+\begin{align*}
+b_j^*(m_j, \theta) &= e^{-\frac{1}{\rho}(m_j \pi + \theta_j^*(\theta)) }
+\end{align*}
+
+From Lemma \ref{thetaparam}, we have the decay rate for $\theta^*_j$
+\[
+|\theta_j^*(\theta)| \leq C e^{ -\frac{\pi}{\rho}(m_{n-1} - m_j)}
+\]
+
+which is independent of $\theta$. Choose $m_{m-1}$ sufficiently large so that for $j = 0, \dots, n-2$,
+\[
+|\sin \theta_j^*(\theta)| \leq y
+\]
+
+where $y$ will be chosen later. Then
+
+\begin{align*}
+|\sin \left( -\rho \log b_j^*(m_j, \theta) \right)| 
+&= |\sin \left( m_j \pi + \theta_j^*(\theta) \right)| \\
+&= |(-1)^{m_j} \sin \theta_j^*(\theta)| \\
+&\leq y
+\end{align*}
+
+and
+
+\begin{align*}
+\cos \left( -\rho \log b_j^*(m_j, \theta) \right) 
+&= \cos \left( m_j \pi + \theta_j^*(\theta) \right) \\
+&= (-1)^{m_j} \cos \theta_j^*(\theta) \\
+\end{align*}
+
+where $|\cos \theta_j^*(\theta)| \geq \sqrt{1 - y^2}|$. Thus we have for $r = 0$,
+
+\begin{align*}
+| \partial_{b_j} G_j | 
+&= \left| (-1)^{m_j} \sin \theta_j^*(\theta) - \rho (-1)^{m_j} \cos \theta_j^*(\theta) \right| \\
+&= \left| \sin \theta_j^*(\theta) - \rho \cos \theta_j^*(\theta) \right| \\
+&\geq \left| |\sin \theta_j^*(\theta)| - \rho |\cos \theta_j^*(\theta)| \right| \\
+&\geq \rho \left| |\cos \theta_j^*(\theta)| - \rho^{-1} |\sin \theta_j^*(\theta)| \right|
+\end{align*}
+
+For $\rho \geq 1$, choose $y = 1/4$. Then we have
+
+\begin{align*}
+| \partial_{b_j} G_j | 
+&\geq \rho \left( \sqrt{1 - (1/4)^2}  - \rho^{-1}(1/4) \right) \\
+&\geq \rho \left( \sqrt{1 - (1/4)^2}  - \rho^{-1}(1/4) \right) \\
+&\geq \rho \left( 3/4  - (1/4) \rho^{-1} \right) \\
+&\geq \rho/2
+\end{align*}
+
+For $\rho \geq 1$, choose $y = \rho^2 / 4$. Then we have
+
+\begin{align*}
+| \partial_{b_j} G_j | 
+&\geq \rho \left( \sqrt{1 - (\rho^2/4)^2} - \rho/4  \right) \\
+&\geq \rho/2
+\end{align*}
+
+Thus, there exists $M \in \N$ such that for $m_{n-1} \geq M$, we have the bound
+
+\begin{align*}
+| \partial_{b_j} G_j | &\geq \rho/2 && j = 0, \dots, n-2
+\end{align*}
+
+which is independent of $\theta$. We are now set up to find the uniform bound. For our choice of length parameters $b_0^0, \dots, b_1^0$, let $M$ be chosen as above. Define the space
+
+\begin{equation}
+\mathcal{B} = \left\{ \exp\left( -\frac{m \pi}{\rho} \right) : m \geq M\right\} \cup {0}
+\end{equation}
+
+which is a complete metric space. Let $I = [-\arctan \rho, \pi - \arctan \rho]$. Redefine the map $G$ as $G: \mathcal{R}^{n-2} \times \mathcal{B} \times I \rightarrow \R^{n-1}$ with $G = (G_0, \dots, G_{n-2})^T$, where 
+\begin{align*}
+G_j(b_0, &\dots, b_{n-2}, b_{n-1}, \theta, r) = b_j e^{-\frac{1}{\rho} \theta_j^*(\theta)} \sin \left( -\rho \log \left( b_j e^{-\frac{1}{\rho} \theta_j^*(\theta)} \right) \right) \\
+&- b_{n-1} e^{-\frac{1}{\rho} \theta} \sin \left( -\rho \log \left( b_{n-1} e^{-\frac{1}{\rho} \theta} \right) \right) + \mathcal{O}(r^{\gamma / 2 \alpha})
+\end{align*}
+
+All we did was make the parameterization from Lemma \ref{thetaparam} explicit. For all $b_{n-1} \in \mathcal{B}$ and $\theta \in I$, $G(b_0^0, \dots, b_{n-2}^0, b_{n-1}, \theta, 0) = 0$ and $||D_{b_0, \dots, b_{n-2}} G(b_0^0, \dots, b_{n-2}^0, b_{n-1}, \theta, 0)||$ is diagonal with all eigenvalues having magnitude greater than $\rho/2$, thus uniformly bounded away from 0. Thus we can use the uniform contraction mapping principle to find $\tilde{r}_0 > 0$ with the following property. For all $r \in \mathcal{R}$ with $r < \tilde{r}_0$, $b_{n-1} \in \mathcal{B}$, and $\theta \in I$, there are smooth functions $b_j(r; m_j, \theta)$ with $b_j(0; m_j, \theta) = b_j^*(m_j, \theta)$ such that
+\[
+G(b_1(r; m_1, \theta), \dots, b_{n-2}(r; m_{n-2}, \theta) ) = 0
+\]
+
+These solution are the same ones as found in the first section, and the bounds are exactly the same.
 \end{proof}
 \end{theorem}
 
