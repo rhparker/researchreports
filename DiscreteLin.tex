@@ -1,0 +1,1645 @@
+\documentclass[12pt]{article}
+\usepackage[pdfborder={0 0 0.5 [3 2]}]{hyperref}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[shortalphabetic]{amsrefs}%
+\usepackage{amsmath}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{amssymb}                
+\usepackage{amsmath}                
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{svg}
+\usepackage{mathtools}
+\usepackage{cool}
+\usepackage{url}
+\usepackage{graphicx,epsfig}
+\usepackage{makecell}
+\usepackage{array}
+
+\def\noi{\noindent}
+\def\T{{\mathbb T}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\C{{\mathbb C}}
+\def\Z{{\mathbb Z}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\Q{\mathbb{Q}}
+\def\ind{{\mathbb I}}
+
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\ran}{ran}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{hypothesis}{Hypothesis}
+
+\newtheorem{notation}{Notation}
+
+\graphicspath{ {discrete/} }
+
+\begin{document}
+
+We will extend Lin's method to prove existence and stability results for multi-pulse on lattices. The model equation here is discrete NLS, but we will do this in a general setting, for which dNLS is a special case. Most of the results for dNLS are already known, at least if we are near the anti-continuum limit (see, for example, Pelinovsky and Kevrekidis, 2005). The idea is that if we can find an appropriate generalization and setup for Lin's method, we can check it on dNLS. 
+
+\section{Setup and Main Theorems}
+
+\subsection{Background}
+Consider the lattice PDE on $\R$
+\begin{equation}\label{latticePDE}
+\dot{u}_n = f(u_n)
+\end{equation}
+where $f$ involves a finite number (greater than 1) of indices near $n$. An equilibrium solution satisfies the stationary equation $f(u_n) = 0$. We can rewrite the stationary equation as a system of the form
+\begin{equation}\label{diffeq}
+U(n+1) = F(U(n))
+\end{equation}
+where $U \in R^d$ for some $d > 1$ which depends on how many indices near $n$ are used by $f$. We take the following hypothesis regarding $F$.
+\begin{hypothesis}\label{initialhyp}
+We assume the following regarding \eqref{diffeq}.
+\begin{enumerate}[(i)]
+\item $F$ is a diffeomorphism (WE MIGHT JUST ASSUME F IS SMOOTH).
+\item 0 is a hyperbolic equilibrium for $F$, i.e. $F(0) = 0$ and $DF(0)$ has no eigenvalues on the unit circle. Thus we can find a radius $r > 1$ such that for all eigenvalues $\nu$ of $DF(0)$ we have $|\nu| \leq 1/r$ or $|\nu| > r$.
+\item $\dim E^s, \dim E^u \geq 1$, where $E^s$ and $E^u$ are the stable and unstable eigenspaces of $DF(0)$.
+\item There exists a symmetric homoclinic orbit (primary pulse) solution $Q(n)$ to \eqref{diffeq} which connects the equilibrium at 0 to itself.
+\item There exists a unitary group of symmetries $T(\theta)$ on $\R^d$, indexed by a parameter $\theta \in K \subset \R$, such that for all $\theta \in K$, $U(n)$ is a solution to \eqref{diffeq} if and only if $T(\theta)U(n)$ is also solution. 
+\end{enumerate}
+\end{hypothesis}
+
+Finally, we will also take one of the following hypotheses regarding the intersection of the stable manifold $W^s(0)$ and unstable manifold $W^u(0)$.
+\begin{hypothesis}\label{intersectionhyp}
+We assume one of the following is true.
+\begin{enumerate}[(i)]
+\item The stable and unstable manifolds $W^s(0)$ and $W^u(0)$ intersect transversely.
+\item The tangent spaces of the stable and unstable manifolds $W^s(0)$ and $W^u(0)$ have a one-dimensional intersection. 
+\end{enumerate}
+\end{hypothesis}
+
+\subsection{Existence Problem}
+First, we will prove the existence of multi-pulse solutions to \eqref{latticePDE}. These are solutions that resemble multiple, well-separated copies of the primary pulse $Q(n)$.
+
+Choose an integer $m > 1$ (the number of pulses), and let $N_i$ ($i = 1, \dots, m-1$) be the desired distances (in lattice points) between the $m$ copies of $Q(n)$. Let 
+\begin{equation}\label{Nipm}
+\begin{aligned}
+N_i^+ &= \lfloor \frac{N_i}{2} \rfloor \\
+N_i^- &= N_i - N_i^+
+\end{aligned}
+\end{equation}
+and note that either $N_i^+ = N_i^-$ (if $N_i$ is even) or $N_i^+ = N_i^- - 1$ (if $N_i$ is odd). Let $N = \min\{ N_i^\pm \}$. In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. We will look for a solution which is a piecewise perturbation of $n$ copies of $Q(n)$, i.e. a solution of the form
+\begin{align}\label{Upiecewise}
+U_i^-(n) &= T(\theta_i) Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
+U_i^+(n) &= T(\theta_i) Q(n) + W_i^+(n) && n \in [0, N_i^+]
+\end{align}
+where $\theta_i = \R$. Since we require that the pieces match at the interval endpoints, $U_i^\pm$ must satisfy the system of equations
+\begin{equation}\label{Usystem}
+\begin{aligned}
+(U_i^\pm)(n+1) &= F(U_i^\pm(n))  \\
+U_i^+(N_i^+) - U_{i+1}^-(-N_i^-) &= 0 \\
+U_i^+(0) - U_i^-(0) &= 0
+\end{aligned}
+\end{equation}
+for $i = 1, \dots, m$. Expand $F$ in a Taylor series about $Q(n)$ to get
+\begin{align*}
+F(U_i^\pm(n)) &= F(T(\theta_i) Q(n) + W_i^\pm(n)) \\
+&= F(c_i Q(n)) + DF_{U}(T(\theta_i) Q(n)) W_i^\pm + G(W_i^\pm(n)) \\
+&= A(n; \theta_i) W_i^\pm + G(W_i^\pm(n))
+\end{align*}
+where
+\begin{align*}
+A(n; \theta_i) &= DF_{U}(T(\theta_i) Q(n))\\
+G(W_i^\pm(n)) &= \mathcal{O}(|W_i^\pm|^2)
+\end{align*}
+with $G(0) = DG(0) = 0$. Finally, let 
+\begin{equation}\label{defdi}
+d_i = T(\theta_{i+1}) Q(-N_i^-) - T(\theta_i) Q(N_i^+)
+\end{equation}
+where $d_i \mathcal{O}(r^{-N_i/2})$. Substituting these into \eqref{Usystem}, we obtain the following system of equations for the piecewise function $W_i^\pm$.
+\begin{align}
+W_i^\pm(n+1) &= A(n; \theta_i) W_i^\pm + G(W_i^\pm(n)) \label{Wsystem1} \\
+W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= d_i \label{Wsystem2} \\
+W_i^+(0) - W_i^-(0) &= 0 \label{Wsystem3} \\
+\end{align}
+
+The variational and adjoint variational equations associated with \eqref{diffeq} are
+\begin{align}
+V(n+1) &= A(n; 0) V(n) \label{vareq} \\
+Z(n+1) &= [A(n; 0)^*]^{-1} Z(n) \label{adjvareq} 
+\end{align}
+If we take Hypothesis \ref{intersectionhyp}(i), the variational equation does not have a bounded solution, and we have the decomposition $\R^d = Y^+ \oplus Y^-$, where $Y^+ = T_{Q(0)} W^s(0)$ and $Y^- = T_{Q(0)} W^u(0)$.
+
+If we instead take Hypothesis \ref{intersectionhyp}(ii), the variational equation \eqref{vareq} has a unique bounded solution $S_1(n)$, and the adjoint variational equation \eqref{adjvareq} has a unique bounded solution $Z_1(n)$. In this case, we can decompose the tangent spaces to $W^s(0)$ and $W^u(0)$ at $Q(0)$ as
+\begin{align*}
+T_{Q(0)} W^u(0) &= Y^- \oplus \R S_1(0)
+T_{Q(0)} W^s(0) &= Y^+ \oplus \R S_1(0)
+\end{align*}
+By Lemma \ref{evolop} below, $Z_1(0) \perp S_1(0) \oplus Y^- \oplus Y^+$, thus we can decompose $\R^d$ as
+\begin{equation}\label{nontdecomp}
+\R^d = \R S_1(0) \oplus Y^+ \oplus Y^- \oplus \R Z_1(0)
+\end{equation}
+
+We have the following theorems regarding existence of multi-pulse solution to \eqref{diffeq}. Proofs will follow in a later section. First, if Hypothesis \ref{intersectionhyp}(i) holds, we have a unique $m-$pulse solution to \eqref{diffeq}.
+
+\begin{theorem}\label{transversemulti}
+Consider the difference equation
+\begin{equation}\label{diffeqm1}
+U(n+1) = F(u(n))
+\end{equation}
+where $U \in R^d$ for $d > 1$. Assume Hypothesis \ref{initialhyp} and Hypothesis \ref{intersectionhyp}(i). Let $Q(n)$ be the primary pulse solution to \eqref{diffeqm1}. Choose $m > 1$ and positive integers $N_1, \dots, N_{m-1}$, and define $N_i^\pm$ as in \eqref{Nipm}. Then, for sufficiently large $N$, where $N = \min\{ N_i^\pm : i = 1, \dots, m-1 \}$, there exists a unique $m-$pulse solution $Q_m$ to \eqref{diffeq}. This solution resembles $m$ well-separated copies of the primary pulse solution and can be written piecewise as 
+\begin{align}
+U_i^-(n) &= T(\theta_i) Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
+U_i^+(n) &= T(\theta_i) Q(n) + W_i^+(n) && n \in [0, N_i^+]
+\end{align}
+where $N_0 = N_m = \infty$. For the remainder terms $W_i^\pm(n)$ we have the following estimates
+\begin{align}
+||W_i^\pm|| &\leq C r^{-N} \\
+W_i^+(N_i^+) &= T(\theta_{i+1}) Q(-N_i^-) + \mathcal{O}(r^{-2N}) \\
+W_{i+1}^-(-N_i^-) &= T(\theta_i) Q(N_i^+) + \mathcal{O}(r^{-2N})
+\end{align}
+\end{theorem}
+
+If \ref{intersectionhyp}(ii) holds, the following theorem gives criteria for multi-pulse solutions to exist.\\
+
+INSERT THEOREM HERE
+
+\subsection{Stability Problem}
+Assume Hypothesis \ref{initialhyp} and Hypothesis \ref{intersectionhyp}(ii). Let $Q_m(n)$ be an $m-$pulse solution to \eqref{diffeq}, constructed as in the previous section. Write $Q_m(n)$ piecewise as
+\begin{align}\label{qmpiecewise}
+Q_m(n) =
+\begin{cases}
+T(\theta_i) Q_1(n) + \tilde{Q}_i^-(n) & n = [-N_{i-1}^-, 0] \\
+T(\theta_i) Q_1(n) + \tilde{Q}_i^+(n) & n = [0, N_i^+] \\
+\end{cases}
+\end{align}
+where the interval endpoints $N_i^\pm$ are defined in \eqref{Nipm}, with $N_0^- = -\infty$ and $N_m^+ = \infty$. 
+
+To obtain the eigenvalue problem associated with \eqref{latticePDE}, we substitute the standard linearization ansatz $U(n) = Q_m(n) + \epsilon V(n) e^{\lambda t}$ and keep terms up to order $\epsilon$. This gives us an eigenvalue problem of the form 
+\begin{align}\label{latticeEVP}
+V(n+1) = A(Q_m(n)) V(n) + \lambda B V(n)
+\end{align}
+where $B$ is a bounded, constant-coefficient matrix. This is a difference equation in $\R^d$, where the dimension $d$ is determined by the structure of the difference operator on the RHS of \eqref{latticePDE}. By the construction of $Q_m(n)$ from the previous section, $A(Q_m(n))$ is exponentially asymptotic to a constant coefficient matrix $A_\infty$.
+
+We will also assume one of the following Melnikov conditions.
+\begin{hypothesis}\label{melnikovhyp}
+One of the following holds Melnikov conditions holds.
+\begin{enumerate}[(i)]
+\item 
+\[
+M_1 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B S_1(n) \rangle \neq 0
+\]
+\item There exists a bounded function $T_1(n)$ such that 
+\[
+T_1(n+1) = A(Q_1(n)) T_1(n) + B S_1(n)
+\]
+and
+\[
+M_2 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B T_1(n) \rangle \neq 0 
+\]
+It follows from the Fredholm alternative that
+\[
+M_1 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B S_1(n) \rangle = 0 \\
+\]
+\end{enumerate}
+\end{hypothesis}
+
+We can now state the stability theorem, in which we locate the eigenvalues of \eqref{latticePDE}.
+
+\begin{theorem}\label{stabilitytheorem}
+Let $Q_m(n)$ be discrete $m-$pulse equilibrium solution to \eqref{latticePDE}, constructed according to Theorem \ref{transversemulti} OR THE OTHER ONE. Then there exists a bounded, nonzero solution $V(n)$ of the eigenvalue problem \eqref{latticeEVP} for $|\lambda| < \delta$ if and only if $\det E(\lambda) = 0$, where
+\begin{equation}\label{Elambda}
+E(\lambda) = \begin{cases}
+\det(A - M_1 \lambda \: \text{diag}(T(\theta_1), \dots, T(\theta_m)) + R(\lambda)
+& \text{Hypothesis \ref{melnikovhyp}(i) holds} \\
+\det(A - M_2 \lambda^2 \text{diag}(T(\theta_1), \dots, T(\theta_m)) + R(\lambda) 
+& \text{Hypothesis \ref{melnikovhyp}(ii) holds}
+\end{cases}
+\end{equation}
+$M_1$ and $M_2$ are defined in Hypothesis \eqref{melnikovhyp}. The matrix $A$ is tridiagonal and is given by
+\begin{align}\label{matrixA}
+A &= \begin{pmatrix}
+-T(\theta_2) a_1 & T(\theta_2) a_1 & & &  \\
+-T(\theta_1) \tilde{a}_1 & T(\theta_1) \tilde{a}_1 - T(\theta_3) a_2 & T(\theta_3) a_2 \\
+& -T(\theta_2) \tilde{a}_2 & T(\theta_2) \tilde{a}_2 - T(\theta_4) a_3 & T(\theta_4) a_3 \\
+& \ddots & & \ddots \\
+& & & -T(\theta_{m-1}) \tilde{a}_{m-1} & T(\theta_{m-1}) \tilde{a}_{m-1}  \\
+\end{pmatrix}
+\end{align}
+where
+\begin{align*}
+a_i &= \langle Z_1(N_i^+), S_1(-N_i^-) \rangle \\
+\tilde{a}_i &= \langle Z_1(-N_{i-1}^-), S_1(N_{i-1}^+) \rangle
+\end{align*}
+The remainder term has bound
+\begin{align}\label{Rbound2}
+|R(\lambda)| \leq C\left( (r^N + |\lambda|)^3 \right)
+\end{align}
+\end{theorem}
+
+\section{Discrete NLS}
+The normalized form of dNLS is
+\begin{equation}\label{dNLS}
+i\dot{u}_n + \epsilon(u_{n+1} - 2 u_n + u_{n-1}) + |u_n|^2 u_n = 0
+\end{equation}
+The parameter $\epsilon$ represents the coupling between nodes, and the anti-continuum limit is given by $\epsilon = 0$. We want to look for stationary solutions in a ``rotating'' frame, i.e. solutions of the form $\phi_n e^{i \omega t}$. To that end, we take $u_n \mapsto u_n e^{i \omega t}$ and simplify to get
+\begin{equation}\label{dNLSrot}
+i\dot{u}_n + \epsilon(u_{n+1} - 2 u_n + u_{n-1}) - \omega u_n + |u_n|^2 u_n = 0
+\end{equation}
+Equilibrium solutions satisfy
+\begin{equation}\label{dNLSequilib}
+\epsilon(u_{n+1} - 2 u_n + u_{n-1}) - \omega u_n + |u_n|^2 u_n = 0
+\end{equation}
+Next, we write dNLS as a two-dimensional system in real variables. Substituting $u = v + i w$ and equating real and imaginary parts, we obtain the system 
+\begin{equation}\label{dNLSreal}
+\begin{aligned}
+\dot{v}_n  &+ \epsilon (w_{n+1} - 2 w_n + w_{n-1}) - \omega w_n + v_n^2 w_n + w_n^3 = 0 \\
+-\dot{w}_n &+ \epsilon (v_{n+1} - 2 v_n + v_{n-1}) - \omega v_n + v_n w_n^2 + v_n^3 = 0
+\end{aligned}
+\end{equation}
+
+Let $\tilde{v}_n = v_{n-1}$ and $\tilde{w}_n = w_{n-1}$. Then stationary solutions to \eqref{dNLSreal} satisfy the difference equation in $\R^4$
+\begin{equation}\label{dnlsdiffR4}
+\begin{pmatrix}
+v \\ \tilde{v} \\ w \\ \tilde{w}
+\end{pmatrix}_{n+1} =
+\begin{pmatrix}
+\frac{\omega}{\epsilon} + 2 & -1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 0 & \frac{\omega}{\epsilon} + 2 & -1 \\
+0 & 0 & 1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+v \\ \tilde{v} \\ w \\ \tilde{w}
+\end{pmatrix}_n
+- \frac{1}{\epsilon} 
+\begin{pmatrix}
+v_n w_n^2 + v_n^3 \\ 0 \\ v_n^2 w_n + w_n^3 \\ 0
+\end{pmatrix}
+\end{equation}
+where we have separated the RHS into the linear and nonlinear part. This is of the form of equation \eqref{diffeq}, where $U = (v, \tilde{v}, w, \tilde{w})$ and $F(U) = A_\infty U + G(U)$. $F$ is smooth (BUT PROBABLY NOT A DIFFEOMORPHISM). The rest state $U(n) = 0$ is an equilibrium solution, and $DF(0)$ has eigenvalues
+\begin{align*}
+\nu_{1,2} &= 1 + \frac{\omega}{2 \epsilon} \left( 1 \pm \sqrt{1 + \frac{4 \epsilon}{\omega}} \right)
+\end{align*}
+each of which has multiplicity 2. For $\epsilon, \omega > 0$, these are real. It is straightforward to check that $\nu_1 \nu_2 = 1$. Let 
+\begin{align*}
+r &= 1 + \frac{\omega}{2 \epsilon} \left( 1 - \sqrt{1 + \frac{4 \epsilon}{\omega}} \right) < 1
+\end{align*}
+Thus 0 is a hyperbolic equilibrium point with 2-dimensional stable and unstable manifolds. Suppose $U(n)$ is a solution to \eqref{dnlsdiffR4}. Then $T(\theta)U(n)$ is also a solution to \eqref{dnlsdiffR4}, where
+\begin{align}\label{TdNLS}
+\begin{pmatrix}
+\cos\theta & 0 &-\sin\theta & 0 \\
+0 & \cos\theta & 0 &-\sin\theta \\
+\sin\theta & 0 & \cos\theta & 0 \\
+0 & \sin\theta & 0 & \cos\theta 
+\end{pmatrix}
+\end{align}
+and $\theta \in \R$. A primary pulse is a symmetric homoclinic orbit connecting the rest state at 0 to itself. For dNLS, a real, symmetric, localized solution to \eqref{dNLSequilib} is known to exist (REFERENCE). Thus Hypothesis \ref{initialhyp} is satisfied. Let $Q_1 = (q, \tilde{q}, 0, 0)$ be this solution. 
+
+The variational equation associated with \eqref{dnlsdiffR4} and $Q$ is 
+\begin{equation}\label{vareqdNLS}
+V(n+1) = A(Q_1(n)) V(n)
+\end{equation}
+where
+\begin{equation}\label{AQdNLS}
+A(Q(n)) = 
+\begin{pmatrix}
+\frac{\omega}{\epsilon} + 2 - \frac{3 q(n)^2}{\epsilon} & -1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 0 & \frac{\omega}{\epsilon} + 2 - \frac{q(n)^2}{\epsilon} & -1 \\
+0 & 0 & 1 & 0
+\end{pmatrix}
+\end{equation}
+and $A(Q_1(n))$ is exponentially asymptotic to $A_\infty$. The variational equation has a bounded solution $S_1 = (0, 0, q, \tilde{q})$. It is known (OR WE ASSUME) that there are no other bounded solutions. Thus the stable and unstable manifolds $W^s(0)$ and $W^u(0)$ have a one-dimensional intersection, and so Hypothesis \ref{intersectionhyp}(ii) is satisfied.
+
+Since the primary pulse solution to \eqref{dNLSequilib} is real, $Q(n) = (q_n, \tilde{q}_n)$ also solves the difference equation in $\R^2$
+\begin{equation}\label{dnlsdiffR2}
+\begin{pmatrix}
+v \\ \tilde{v}
+\end{pmatrix}_{n+1} =
+\begin{pmatrix}
+\frac{\omega}{\epsilon} + 2 & -1 \\
+1 & 0 
+\end{pmatrix}
+\begin{pmatrix}
+v \\ \tilde{v}
+\end{pmatrix}_n
+- \frac{1}{\epsilon} 
+\begin{pmatrix} v_n^3 \\ 0 
+\end{pmatrix}
+\end{equation}
+For this equation, we have the symmetry group $T(z)$, where $T(z) = z I$ for $z = \pm 1$. The stable and unstable manifolds $W^s(0)$ and $W^u(0)$ have a one-dimensional intersection, and so Hypothesis \ref{intersectionhyp}(i) is satisfied.
+
+Using Theorem \ref{transversemulti}, for $N$ sufficently large, there exist $m-$pulse solutions to \eqref{dnlsdiffR2} with lengths $N_1, \dots, N_{m-1}$ and symmetry parameters $z_1, \dots, z_m$, where $z_j = \pm 1$. Without loss of generality, we will always take $z_1 = 1$, since we can always flip the whole thing over.
+
+Fix such a solution. Then we also have a solution $Q_m(n)$ to \eqref{dnlsdiffR4}, with symmetry parameters $\theta_1, \dots, \theta_m$, where
+\[
+\theta_j = \begin{cases}
+0 & z_j = 1 \\
+\pi & z_j = -1
+\end{cases}
+\]
+and $\theta_1 = 0$. Thus we have solutions to \eqref{dnlsdiffR4} for $\theta_2, \dots, \theta_m \in {0, \pi}$. We should be able to show that we cannot obtain solutions for any other values of $\theta_j$. Once we have written down the jump condition theorem, it will be easy to show that the jump conditions cannot be satisfied for $\theta_j$ which is not close to $\{0, \pi\}$. Then we can probably use the IFT or something to show that there is a unique solution for $\theta_j$ close to $\{0, \pi\}$, which must be the solution we have already found.
+
+Let $Q_m(n) = (q_m(n), \tilde{q}_m(n), 0, 0)$ be a $m-$pulse solution to \eqref{dnlsdiffR4} with symmetry parameters $\theta_1, \dots, \theta_m$, with $\theta \{0, \pi\}$. Taking the standard linearization ansatz
+\[
+\begin{pmatrix}v \\ \tilde{v} \\ w \\ \tilde{w} \end{pmatrix}_n = 
+\begin{pmatrix}q_m \\ \tilde{q}_m \\ 0 \\ 0 \end{pmatrix}_n + 
+\eta \begin{pmatrix}a \\ \tilde{a} \\ b \\ \tilde{b} \end{pmatrix}_n e^{\lambda t}
+\]
+we obtain, upon substitution and simplification, the eigenvalue problem 
+\begin{equation}\label{dNLSEVP}
+V(n+1) = A(Q_m(n)) V_n + \lambda B V_n
+\end{equation}
+where $V = (a, \tilde{a}, b, \tilde{b})$, $A(Q_m(n)$ is defined in \eqref{AQdNLS}, and $B$ is the constant coefficient matrix 
+\[
+B = 
+\begin{pmatrix}
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 \\
+-1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix}
+\]
+
+Let $S_1 = (0, 0, q, \tilde{q})^T$ and $T_1 = (-\partial_\omega q, -\partial_\omega \tilde{q}, 0, 0)^T$. Then it is straightforward to verify that
+
+\begin{align*}
+S_1(n+1) &= A(Q_1(n)) S_1(n) \\
+T_1(n+1) &= A(Q_1(n)) T_1(n) + B S_1(n)
+\end{align*}
+
+For the Melnikov sums, we have
+\[
+M_1 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B S_1(n) \rangle = 0
+\]
+and
+\[
+M_2 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B T_1(n) \rangle =
+\sum_{n=-\infty}^\infty q(n) q_\omega(n)
+\]
+Either we assume $M_2$ is nonzero or we find a reference for that. Thus Hypothesis \ref{melnikovhyp}(ii) is satisfied. For $N$ sufficiently large, we can find the eigenvalues of \eqref{dNLSEVP} using Theorem \ref{stabilitytheorem}. 
+
+First, we look at the terms of the matrix $A$. For $a_i$ and $\tilde{a}_i$, we have
+
+\begin{align*}
+a_i &= \langle Z_1(N_i^+), S_1(-N_i^-) \rangle \\
+&= -\tilde{q}(N_i^+)q(-N_i^-) + q(N_i^+)\tilde{q}(-N_i^-) \\
+&= -q(N_i^+ - 1)q(-N_i^-) + q(N_i^+)(-N_i^- - 1) \\
+&= q(N_i^+)(N_i^- + 1) - q(N_i^+ - 1)q(N_i^-)\\
+\end{align*}
+
+and
+
+\begin{align*}
+\tilde{a}_i &= \langle Z(-N_i^-), S_1(N_i^+) \rangle \\
+&= -\tilde{q}(-N_i^-)q(N_i^+) + q(-N_i^-)\tilde{q}(N_i^+) \\
+&= -q(-N_i^- - 1)q(N_i^+) + q(-N_i^-)q(N_i^+ - 1) \\
+&= -q(N_i^- + 1)q(N_i^+) + q(N_i^-)q(N_i^+ - 1) \\
+&= -q(N_i^+)q(N_i^- + 1) + q(N_i^+ - 1)q(N_i^-) \\
+&= -a_i
+\end{align*}
+
+For $N_i$ even, we have $N_i^+ = N_i^-$, so $a_i$ becomes
+
+\[
+a_i = q(N_i^+)( q(N_i^+ + 1) - q(N_i^+ - 1) )
+\]
+
+For $N_i$ odd, we have $N_i^- = N_i^+ + 1$, so $a_i$ becomes
+
+\[
+a_i = q(N_i^+)q(N_i^+ + 2) - q(N_i^+ - 1)q(N_i^+ + 1)
+\]
+
+both of these are negative, since $q(n)$ is a decreasing function as $n$ moves away from 0.
+
+The matrix $A$ thus becomes
+
+\begin{align*}
+A &= \begin{pmatrix}
+-c_2 a_1 & c_2 a_1 & & &  \\
+c_1 a_1 & -c_1 a_1 - c_3 a_2 & c_3 a_2 \\
+& c_2 a_2 & -c_2 a_2 - c_4 a_3 & c_4 a_3 \\
+& \ddots & & \ddots \\
+& & & c_{m-1} a_{m-1} & -c_{m-1} a_{m-1}  \\
+\end{pmatrix}
+\end{align*}
+
+For the 2-pulse, this matrix is
+
+\begin{align*}
+A &= \begin{pmatrix}
+-c_2 a_1 & c_2 a_1 \\
+c_1 a_1 & -c_1 a_1  \\
+\end{pmatrix}
+\end{align*}
+
+
+
+
+\section{Proof of Existence Theorems}
+
+\subsection{Discrete Exponential Dichotomy}
+
+In this section, we state results about exponential dichotomies in the discrete setting. First, we define the discrete evolution operator for linear difference equations.
+
+% lemma : discrete evolution operator
+\begin{lemma}[Discrete Evolution Operator]\label{evolop}
+Consider the difference equation together with its adjoint
+\begin{align}
+V(n+1) &= A(n) V(n) \label{diffeqevol} \\
+Z(n+1) &= [A(n)^{-1}]^* Z(n) \label{adjeqevol}
+\end{align}
+where $n \in \Z$, $V(n) \in R^d$, and the $d \times d$ matrix $A(n)$ is invertible for all $n$. Define the discrete evolution operator by
+\begin{equation}\label{evol}
+\Phi(m, n) = 
+\begin{cases}
+I & m = n \\
+A(m-1) \dots A(n+1) A(n) & m > n \\
+A^{-1}(m) \dots A^{-1}(n-2) A^{-1}(n-1) & m < n
+\end{cases}
+\end{equation}
+The evolution operators of \eqref{diffeqevol} and \eqref{adjeqevol} are related by
+\begin{equation}\label{adjevol}
+\Psi(m, n) = \Phi(n, m)^*
+\end{equation}
+Finally, if $V(n)$ is a solution to \eqref{diffeqevol} and $Z(n)$ is a solution to \eqref{adjeqevol}, then the inner product $\langle V(n), Z(n) \rangle$ is constant in $n$.
+
+\begin{proof}
+Since to evolve a difference equation we iterate a map (or its inverse) a finite number of times, the definition makes sense. We can easily check that this defines a flow. Let $\Psi(m, n)$ be the evolution operator for the adjoint equation \eqref{adjeqevol}. Then since $Z(n) = A(n)^* Z(n+1)$, for $m < n$ we have
+\begin{align*}
+\Psi(m, n) &= A(m)^* \dots A(n-2)^* A(n-1)^* \\
+&= [A(n-1) A(n-2) \dots A(m)]^* \\
+&= \Phi(n, m)^*
+\end{align*}
+We can similarly show that this holds for $m > n$, and it holds trivially for $m = n$.
+
+For a solution $V(n)$ to \eqref{diffeqevol} and a solution $Z(n)$ to \eqref{adjeqevol},
+\begin{align*}
+\langle V(n+1), Z(n+1) \rangle &= 
+\langle A(n) V(n), [A(n)^{-1}]^* Z(n) \rangle \\
+&= \langle A(n)^{-1} A(n) V(n), Z(n) \rangle \\
+&= \langle V(n), Z(n) \rangle
+\end{align*}
+Similarly, we can show that $\langle V(n+1), Z(n+1) \rangle = \langle V(n), Z(n) \rangle$.
+\end{proof}
+\end{lemma}
+
+In the next lemma, we give a criterion for an exponential dichotomy in the discrete case.
+
+% lemma : exp dichotomy in discrete case
+\begin{lemma}[Exponential Dichotomy]\label{dichotomy}
+Consider the difference equation
+\begin{equation}\label{diffeqdichot}
+V(n+1) = A(n) V(n)
+\end{equation}
+with evolution operator $\Phi(m, n)$ as defined in Lemma \ref{evolop}. Suppose that $A(n) \rightarrow A^\pm$ exponentially as $n \rightarrow \pm \infty$, i.e. there exist constants $r_\pm < 1$ such that
+\begin{align*}
+|A(n) - A^\pm| \leq C r_\pm^{|n|}
+\end{align*}
+where $A^\pm$ are constant coefficient matrices. If $A^\pm$ are hyperbolic, then \eqref{diffeqdichot} has exponential dichotomies on $Z^\pm$. In other words, there exist projections $P_\pm^s$ and $P_\pm^u$ defined on $\Z^\pm$ such that
+\begin{equation}\label{projcommute}
+P_\pm^{s/u}(m) \Phi(m, n) =  \Phi(m, n) P_\pm^{s/u}(n)
+\end{equation}
+Letting $\Phi_\pm^{s/u}(m, n) = \Phi(m, n) P_\pm^{s/u}(n)$ for $m, n \geq 0$ and $m, n \leq 0$ (respectively), we have the estimates
+\begin{align*}
+|\Phi_+^s(m, n)| \leq C (r_+^s)^{m - n} && 0 \leq n \leq m \\
+|\Phi_+^u(m, n)| \leq C \left( \dfrac{1}{r_+^u} \right)^{n-m} && 0 \leq m \leq n \\
+|\Phi_-^s(m, n)| \leq C (r_-^s)^{m - n} && n \leq m \leq 0 \\
+|\Phi_-^u(m, n)| \leq C \left( \dfrac{1}{r_-^u} \right)^{n-m} && m \leq n \leq 0\\
+\end{align*}
+for constants $r_\pm^s < 1$, $r_\pm^u > 1$ which are chosen so that $|\lambda_\pm| \leq r_\pm^s < 1$ or $|\lambda_\pm| \geq r_\pm^u > 1$ for all eigenvalues $\lambda_\pm$ of $A^\pm$. 
+ 
+Finally, let $E_\pm^{s/u}$ be the stable and unstable eigenspaces of $A^\pm$ and $Q_\pm^{s/u}$ the corresponding eigenprojections. Then we have
+\begin{align*}
+\dim \text{range }P_\pm^s(n) &= \dim E_\pm^s \\
+\dim \text{range }P_\pm^u(n) &= \dim E_\pm^u
+\end{align*}
+and the decay rate
+\begin{align}\label{projbound}
+| P_\pm^{s/u}(n) - Q_\pm^{s/u} | \leq C r_\pm^{|n|}
+\end{align}
+
+\begin{proof}
+We will consider the problem on $\Z^+$. The problem on $\Z^-$ is similar. Since $A^+$ is constant coefficient and hyperbolic, the difference equation $W(n+1) = A^+ W(n)$ has an exponential dichotomy on $\R^+$. Specifically, since $A^+$ is hyperbolic, we can find radii $r_+^s < 1$ and $r_+^u > 1$ such that for all eigenvalues $\lambda$ of $A^+$ either $|\lambda| \leq r_+^s$ or $|\lambda| \geq r_+^u$. Let $E_+^{s/u}$ be the stable and unstable eigenspaces of $A^+$, and let $P_+^{s/u}$ be the corresponding eigenprojections, which commute with $A^+$. Let $\Phi_+(m, n)$ be the evolution operator for $W(n+1) = A^+ W(n)$. Then we have bounds for the evolution operator
+\begin{align*}
+\Phi_+(m, n) P_+^s W &= (A^+)^{m-n} P_+^s W \leq C (r_+^s)^{m-n} W  && m > n \\
+\Phi_+(m, n) P_+^u W &= [(A^+)^{-1}]^{n-m} P_+^u W \leq C \left( \dfrac{1}{r_+^s} \right)^{n-m} W && m < n
+\end{align*}
+where we used the fact that the stable eigenspace of $(A^+)^{-1}$ is equal to the unstable eigenspace of $A^-$ (and vice versa), and the eigenvalues of $(A^+)^{-1}$ and $A^-$ are reciprocals of each other.
+
+Since $A(n) \rightarrow A^+$ as $n \rightarrow \infty$, by Proposition 2.5 in Beyn97, \eqref{diffeqdichot} has an exponential dichotomy on $\Z^+$, as defined in Beyn97, with the same constants $r_+^s$, $r_+^s$, and $C$. Furthermore, the range of $P_+^s(n)$ has the same dimension as $E_+^s$, and the range of $P_+^u(n)$ has the same dimension as $E_+^u$.
+
+The estimate \eqref{projbound} should hold since we $A(n)$ is exponentially asymptotic to $A^+$. We are essentially replacing the ordinary decay in (17) and (18) of Beyn97 with exponential decay. There is probably another reference we can cite for this. By the same argument we have a corresponding exponential dichotomy on $\Z^-$.
+\end{proof}
+\end{lemma}
+
+The last thing we will need is a version of the variation of constants formula for the discrete setting.
+
+\begin{lemma}[Variation of Constants Formula]\label{VOC}
+Consider the initial value for the difference equation
+\begin{align*}
+V(n+1) &= A(n) V(n) + G(V(n), n) \\
+V(n_0) &= V_{n_0}
+\end{align*}
+The solution is given by
+\begin{equation}\label{VOCformula}
+V(n) = 
+\begin{cases}
+V_{n_0} & n = n_0 \\
+\Phi(n, n_0) V_{n_0} + \sum_{j = n_0}^{n-1} \Phi(n, j+1) G(V(j), j)) & n > n_0 \\
+\Phi(n, n_0) V_{n_0} - \sum_{j = n}^{n_0-1} \Phi(n, j+1) G(V(j), j)) & n < n_0 
+\end{cases}
+\end{equation}
+\begin{proof}
+For $n = n_0 + 1$,
+\[
+V(n_0 + 1) = A(n_0) V(n_0) + G(V(v_0), n_0) = \Phi(n_0+1, n_0) V_{n_0} + \Phi(n_0, n_0) G(V(v_0), n_0)
+\]
+Iterate this to get the result for $n > n_0$. The case for $n < n_0$ is similar.
+\end{proof}
+\end{lemma}
+
+\subsection{Fixed Point Formulation}
+
+Let $\Phi(m, n; \theta)$ be the evolution operator for 
+\begin{equation}\label{Vtheta}
+V(n+1; \theta) = A(n; \theta) V(n; \theta) 
+\end{equation}
+From the symmetry $T(\theta)$ we have
+\[
+A(n; \theta) = T(\theta)A(n; 0)T(\theta)^{-1} = T(\theta)A(n; 0)T(-\theta)
+\]
+Thus it follows that
+\[
+\Phi(m, n; \theta) = T(\theta)\Phi(m, n; 0)T(-\theta)
+\]
+Since $Q(n)$ decays exponentially to 0 at both ends, the matrix $A(n; \theta)$ in \eqref{Vtheta} is exponentially asymptotic to a constant coeffient, hyperbolic matrix $A_\infty$ which does not depend on $\theta$. Using Lemma \ref{dichotomy}, let $P_{s/u}^\pm(m; \theta)$ and $\Phi_{s/u}^\pm(m, n; \theta)$ be the projections and evolutions of the exponential dichotomy for the ODE \ref{Vtheta}. We note that the estimates from this lemma do not depend on $\theta$. Furthermore, $T(\theta)Q(n)$ is a solution to \eqref{Vtheta}.
+
+We write equation \eqref{Wsystem1} in fixed-point form using the discrete variation of constants formula from Lemma \ref{VOCformula}.
+\begin{equation}\label{FPeqs1}
+\begin{aligned}
+W_i^-(n) &= 
+\Phi_s^-(n, -N_{i-1}^-; \theta_i) a_{i-1}^- + \Phi_u^-(n, 0; \theta_i) b_i^-  \\
+&+ \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; \theta_i) G_i^-(W_i^-(j)) - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; \theta_i) G_i^-(W_i^-(j)) \\
+W_i^+(n) &= \Phi_u^+(n, N_i^+; \theta_i) a_i^+ + \Phi_s^+(n, 0; \theta_i) b_i^+ \\
+&+ \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; \theta_i) G_i^+(W_i^+(j)) 
+- \sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; \theta_i) G_i^+(W_i^+(j))
+\end{aligned}
+\end{equation}
+where 
+\begin{enumerate}
+\item $a_i^- \in E^s$, $a_i^+ \in E^u$, and $a_0^- = a_m^+ = 0$
+\item $b_i^+ \in \R T(\theta) S_1 \oplus T(\theta) Y^+$ and $b_i^- \in \R T(\theta) S_1 \oplus T(\theta) Y^-$
+\item $W_i^-(n) \in l^\infty([-N_{i-1}^-, 0])$ and $W_i^+(n) \in l^\infty([0, N_i^+])$
+\end{enumerate}
+
+\subsection{Inversion}
+
+As in San98, we will solve equations \eqref{Wsystem1}, \eqref{Wsystem2}, and \eqref{Wsystem3} in stages. The first two steps are the same regardless of whether we take Hypothesis \ref{intersectionhyp}(i) or \ref{intersectionhyp}(ii). In the first lemma of this section, we solve for $W_i^\pm$.
+
+% solve for W
+\begin{lemma}\label{inv1}
+There exist unique bounded functions $W_i^\pm(n)$ such that equation \eqref{Wsystem1} is satisfied. These solutions depend smoothly on the initial conditions $a_i^\pm$ and $b_i\pm$, and we have the estimates.
+\begin{equation}\label{Wipmest}
+\begin{aligned}
+||W_i^-|| &\leq C (|a_{i-1}^-| + |b_i^-|) \\
+||W_i^+|| &\leq C (|a_i^+| + |b_i^+| )
+\end{aligned}
+\end{equation}
+
+\begin{proof}
+First, we show that the RHS of the fixed point equations \eqref{FPeqs1} defines a smooth map from $l^\infty$ (on the appropriate interval) to itself. We will verify the ``minus'' pieces; the ``plus'' pieces will be similar.
+
+For the terms not involving sums, we have
+\begin{align*}
+|\Phi_s^-(n, &-N_{i-1}^-; \theta_i) a_{i-1}^-| + |\Phi_u^-(n, 0; \theta_i) b_i^-| \\
+&\leq C ( r^{-(n + N_{i-1}^-)} |a_{i-1}^-| +  r^{-n}|b_i^-|) \\
+&\leq C ( |a_{i-1}^-| + |b_i^-|) 
+\end{align*}
+which is independent of $n$. For the terms involving sums, we have
+\begin{align*}
+&\left| \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; \theta_i) G_i^-(W_i^-(j))\right| + \left|\sum_{j = n}^{-1} \Phi_u^-(n, j+1; \theta_i) G_i^-(W_i^-(j))\right| \\
+&\leq C ||W_i^-||_{l^\infty([-N_{i-1}, 0])} \left( \sum_{j = -N_{i-1}^-}^{n-1} r^{-(n - j - 1)} + \sum_{j = n}^{-1} r^{-(n - j - 1)} \right) \\
+&= C ||W_i^-||_{l^\infty([-N_{i-1}, 0])}^2 \sum_{j = -N_{i-1}^-}^{-1} r^{-(n - j - 1)} \\
+&= C ||W_i^-||_{l^\infty([-N_{i-1}, 0])}^2 r^{-n} \sum_{j = 0}^{N_{i-1} - 1} r^{-j} \\
+&\leq C ||W_i^-||_{l^\infty([-N_{i-1}, 0])}^2 
+\end{align*}
+which is finite and also independent of $n$. Define the map $H_i^-: l^\infty([-N_{i-1}, 0]) \times E^s \times Y^- \rightarrow l^\infty([-N_{i-1}, 0])$ by
+\begin{align*}
+H_i^-(W_i^-(n), &a_{i-1}^-, b_i^-) = W_i^-(n) - \Phi_s^-(n, -N_{i-1}^-; \theta_i) a_{i-1}^- - \Phi_u^-(n, 0; \theta_i) b_i^-  \\
+&- \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; \theta_i) G_i^-(W_i^-(j)) + \sum_{j = n}^{-1} \Phi_u^-(n, j+1; \theta_i) G_i^-(W_i^-(j)) 
+\end{align*}
+Since 0 is an equilibrium, $H(0, 0, 0) = 0$. We can check that the Fr\'echet derivative of $H_i^-$ with respect to $W_i^-$ at $(W_i^-(n), a_{i-1}^-, b_i^-) = (0, 0, 0)$ is a Banach space isomorphism on $l^\infty([-N_{i-1}, 0])$. Using the implicit function theorem, we can solve for $W_i^-(x)$ in terms of $(a_{i-1}^-, b_i^-)$. This dependence is smooth, since the map $H_i^-$ is smooth. The estimate \eqref{Wipmest} on $W_i^\pm$ comes from the terms in the fixed point equations which do not involve sums, since the terms involving sums are quadratic in $W_i^\pm$. 
+\end{proof}
+\end{lemma}
+
+Next, we use the center matching conditions at $N_i^\pm$ to solve for the initial conditions $a_i^\pm$.
+
+% match in middles
+\begin{lemma}\label{inv2}
+For $i = 1, \dots m-1$ there is a unique pair of initial conditions $(a_i^+, a_i^-) \in E^u \times E^s$ such that the matching conditions \eqref{Wsystem2} are satisfied. $(a_i^+, a_i^-)$ depends smoothly on $(b_i^+, b_{i+1}^-)$, and we have the following expressions for $a_i^-$ and $a_i^+$. 
+\begin{equation}\label{aipmest}
+\begin{aligned}
+a_i^+ &= P_0^u d_i + \tilde{a}_i^+ \\
+a_i^- &= -P_0^s d_i + \tilde{a}_i^-
+\end{aligned}
+\end{equation}
+where 
+\begin{equation}\label{tildeaest}
+\tilde{a}_i^\pm = \mathcal{O}(r^{-N}(|b_i^+|+|b_{i+1}^-|) + |b_i^+|^2+|b_{i+1}^-|^2) 
+\end{equation}
+In terms of $Q(\pm N_i^\pm)$, we can write \eqref{aipmest} as 
+\begin{equation}\label{aipmexp}
+\begin{aligned}
+a_i^- &= T(\theta_i) Q(N_i^+) + \tilde{a}_i^- + \mathcal{O}(r^{-2N}) \\
+a_i^+ &= T(\theta_{i+1}) Q(-N_i^-) + \tilde{a}_i^+ + \mathcal{O}(r^{-2N}) \\
+\end{aligned}
+\end{equation}
+
+\begin{proof}
+Evaluating the fixed point equations \eqref{FPeqs1} at $\pm N_i^\pm$ and subtracting, we need to solve
+\begin{align*}
+d_i &= W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) \\
+&= P_u^+(N_i^+; \theta_i) a_i^+ + \Phi_s^+(N_i^+, 0; \theta_i) b_i^+ + \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; \theta_i) G_i^+(W_i^+(j)) \\
+&-P_s^-(-N_i^-; \theta_{i+1}) a_i^- - \Phi_u^-(-N_i^-, 0; \theta_{i+1}) b_{i+1}^-
+- \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; \theta_{i+1}) G_i^-(W_i^-(j))
+\end{align*}
+Define $H_i: E^s \times E^u \times Y^+ \times Y^- \times \rightarrow \R^d$ by
+\begin{align*}
+H_i(a_i^+, &a_i^-, b_i^+, b_{i+1}^-) \\
+&= a_i^+ - a_i^- - d_i + (P_u^+(N_i^+; \theta_i) - P_0^u) a_i^+ - (P_s^-(-N_i^-; \theta_{i+1}) - P_0^s) a_i^- \\
+&+ \Phi_s^+(N_i^+, 0; \theta_i) b_i^+ - \Phi_u^-(-N_i^-, 0; \theta_{i+1}) b_{i+1}^- \\
+&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; \theta_i) G_i^+(W_i^+(j; a_i^+, b_i^+)) \\
+&+ \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; \theta_{i+1}) G_i^-(W_{i+1}^-(j; a_i^-, b_{i+1}^-))
+\end{align*}
+where we substituted $W_{i+1}^-(n; a_i^-, b_{i+1}^-)$ and $W_i^+(n; a_i^+, b_i^+)$ from the previous lemma. Since $(a_i^+, a_i^-) \in E^s \oplus E^u = \R^d$, we can use the IFT. First, we note that $H_i(0,0,0,0) = 0$. Next, we differentiate $H_i$ with respect to $a_i^\pm$. When we do this, the derivatives of the terms involving sums will be 0 since $G_i^\pm$ is quadratic in $W_i^\pm$, thus quadratic order in $a_i^\pm$ by Lemma \ref{inv1}. Thus the partial derivative with respect to $a_i^\pm$ at $(a_i^+, a_i^-, b_i^+, b_{i+1}^-) = (0, 0, 0, 0)$ is 
+\begin{align*}
+\frac{\partial}{\partial a_i^-} H_i(0, 0, 0, 0) &= \pm 1 + \mathcal{O}(r^{-N_i^-}) \\
+\frac{\partial}{\partial a_i^+} H_i(0, 0, 0, 0) &= \pm 1 + \mathcal{O}(r^{-N_i^+})
+\end{align*}
+For sufficiently large $N$, $D_{a_i^\pm} H(0, 0, 0, 0, 0)$ is invertible in a neighborhood of $(0, 0, 0, 0, 0)$, thus we can use the IFT to solve for $a_i^\pm$ in terms of $(b_i^+$, $b_{i+1}^-)$ for $(b_i^+, b_{i+1}^-)$ sufficiently small.
+
+To get the estimates on and expressions for $a_i^\pm$, we note that we solved the equation $H_i(a_i^+, a_i^-, b_i^+, b_{i+1}^-) = 0$, which is of the form
+\begin{align*}
+0 &= a_i^+ - a_i^- - d_i + \mathcal{O}(r^{-N}(|a_i^+|+|a_i^-|+|b_i^+|+|b_{i+1}^-|)\\
+&+ \mathcal{O}((|a_i^+|^2+|a_i^-|^2+|b_i^+|^2+|b_{i+1}^-|^2)
+\end{align*}
+Taking projections on $E^s$ and $E^u$, we have
+\begin{align*}
+a_i^+ &= P_0^u d_i + \mathcal{O}(r^{-N}(|b_i^+|+|b_{i+1}^-|) + |b_i^+|^2+|b_{i+1}^-|^2) \\
+a_i^- &= -P_0^s d_i + \mathcal{O}(r^{-N}(|b_i^+|+|b_{i+1}^-|) + |b_i^+|^2+|b_{i+1}^-|^2)
+\end{align*}
+We can write this as 
+\begin{align*}
+a_i^+ &= P_0^u d_i + \tilde{a}_i^+ \\
+a_i^- &= -P_0^s d_i + \tilde{a}_i^-
+\end{align*}
+where
+\[
+\tilde{a}_i^\pm = \mathcal{O}(r^{-N}(|b_i^+|+|b_{i+1}^-|) + |b_i^+|^2+|b_{i+1}^-|^2) 
+\]
+
+To obtain expressions in terms of $Q(\pm N_i^\pm)$, we note that
+\begin{align*}
+P_0^s T(\theta_i) Q(N_i^+) &= (P_0^s - P_s^+(N_i^+; \theta_i)) T(\theta_i) Q(N_i^+) + P_s^+(N_i^+; \theta_i) T(\theta_i) Q(N_i^+) \\
+&= P_s^+(N_i^+; \theta_i) T(\theta_i) Q(N_i^+) + \mathcal{O}(r^{-2N}) \\
+&= T(\theta_i) Q(N_i^+) + \mathcal{O}(r^{-2N}) 
+\end{align*}
+and 
+\begin{align*}
+P_0^s T(\theta_{i+1}) Q(-N_i^-) 
+&= P_0^s \Big( ( P_u^-(-N_i^-; \theta_{i+1}) - P_0^u) T(\theta_{i+1}) Q(-N_i^-) + P_0^u T(\theta_{i+1}) Q(-N_i^-) \Big) \\
+&= P_0^s ( P_u^-(-N_i^-; \theta_{i+1}) - P_0^u) T(\theta_{i+1}) Q(-N_i^-) + P_0^s P_0^u T(\theta_{i+1}) Q(-N_i^-) \\
+&= \mathcal{O}(r^{-2N})
+\end{align*}
+Using these, we obtain
+\begin{align*}
+a_i^- &= T(\theta_i) Q(N_i^+) + \tilde{a}_i^- + \mathcal{O}(r^{-2N})
+\end{align*}
+Similarly, we have
+\begin{align*}
+a_i^+ &= T(\theta_{i+1}) Q(-N_i^-) + \tilde{a}_i^+ + \mathcal{O}(r^{-2N}) \\
+\end{align*}
+\end{proof}
+\end{lemma}
+
+It only remains to solve \eqref{Wsystem3}. First, we consider the transverse intersection case, i.e. we assume Hypothesis \ref{intersectionhyp}(i). In this case, existence of the multi-pulse solution is a straightforward application of the implicit function theorem.
+
+% center match, transverse intersection
+\begin{lemma}\label{inv3t}
+Assume Hypothesis \ref{intersectionhyp}(i). Then for $i = 1, \dots m$ there is a unique pair of initial conditions $(b_i^-, b_i^+) \in T(\theta_i) Y^- \times T(\theta_i) Y^+$ such that the matching conditions \eqref{Wsystem3} are satisfied. We have the uniform bound
+\begin{equation}\label{bboundt}
+b = \mathcal{O}(r^{-2N})
+\end{equation}
+
+\begin{proof}
+Evaluating the fixed point equations \eqref{FPeqs1} at 0 and subtracting, we have
+\begin{align*}
+W_i^+(0) &- W_i^-(0) = b_i^+ - b_i^- 
++ \Phi_u^+(0, N_i^+; \theta_i) a_i^+ - \Phi_s^-(0, -N_{i-1}^-; \theta_i) a_{i-1}^- \\
+&- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; \theta_i) G_i^+(W_i^+(j)) 
+- \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; \theta_i) G_i^-(W_i^-(j)) \\
+\end{align*}
+Next, substitute $W_i^\pm$ from Lemma \ref{inv1} and $a_i^\pm$ from Lemma \ref{inv2}. Define the spaces
+\begin{align}\label{spaceYt}
+Y &= \bigoplus_{i=1}^m (T(\theta) Y^+ \oplus T(\theta) 2Y^-) = \bigoplus_{i=1}^m \R^d \\
+Z &= \bigoplus_{i=1}^{m-1} \R^d
+\end{align}
+Let $b = (b_1^+, b_1^-, \dots, b_m^+, b_m^-) \in Y$ and $d = (d_1, \dots, d_{m-1}) \in Z$. Define the function $H: Y \times Z \rightarrow Y$ component-wise by
+\begin{align*}
+H_i(b, d) &= 
+ b_i^+ - b_i^- + \Phi_u^+(0, N_i^+; \theta_i) P_0^u d_i + \Phi_s^-(0, -N_{i-1}^-; \theta_i) P_0^s d_{i-1} \\
+&+ \Phi_u^+(0, N_i^+; \theta_i) \tilde{a}_i^+(b_i^+, b_{i+1}^-) 
+- \Phi_s^-(0, -N_{i-1}^-; \theta_i) \tilde{a}_{i-1}^-(b_{i-1}^+, b_i^-) \\
+&- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; \theta_i) G_i^+(W_i^+(j; b_i^+, b_{i+1}^-)) \\
+&- \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; \theta_i) G_i^-(W_i^-(j; b_{i-1}^+, b_i^-))
+\end{align*}
+
+where $d_0 = d_m = 0$, and we have indicated the dependencies on the $b_i^\pm$. From \eqref{spaceYt}, we are set up to use the implicit function theorem. Using the estimates from Lemmas \ref{inv1} and \ref{inv2}, $H(0, 0) = 0$. For the partial derivatives with respect to $b_i^\pm$, we have
+\begin{align*}
+\frac{\partial}{\partial b_i^+}H_i(0) &= 1 + \mathcal{O}(r^{-N})  \\
+\frac{\partial}{\partial b_i^-}H_i(0) &= -1 + \mathcal{O}(r^{-N}) \\
+\frac{\partial}{\partial b_{i-1}^+}H_i(0),
+\frac{\partial}{\partial b_{i+1}^-}H_i(0) &= \mathcal{O}(r^{-N}) \\
+\end{align*}
+and 
+\[
+\frac{\partial}{\partial b_j^\pm}H_i(0) = 0
+\]
+for all other indices. Thus, for sufficiently large $N$, the matrix $D_b H(0,0)$ is invertible. Using the implicit function theorem, we can solve for $b$ in terms of $d$ for near $(b,d) = (0, 0)$, i.e. there is a function $b: Z \rightarrow Y$ with $b(0) = 0$ such that $H(b(d),d) = 0$ for $d$ sufficiently small. Since $d = \mathcal{O}(r^{-N}$, we can do this as long as $N$ is sufficiently large.
+
+To find a bound for $b$, recall that we use the IFT to solve $H(b(d),d) = 0$, which, componentwise, has the form
+\begin{align*}
+0 &= b_i^+ - b_i^- + \mathcal{O}(r^{-N_i^+} d_i + r^{-N_{i-1}^-} d_{i-1}) \\
+&+ \mathcal{O}( r^{-N}(|b_i^+| + |b_i^-| + |b_{i+1}^-| + |b_{i-1}^+|)
++ (|b_i^+|^2 + |b_i^-|^2 + |b_{i+1}^-|^2 + |b_{i-1}^+|^2)
+\end{align*}
+Since $b$ is small and $d = \mathcal{O}(r^{-N})$, we have the bound
+\[
+b = \mathcal{O}(r^{-2N})
+\]
+\end{proof}
+\end{lemma}
+
+For the non-transverse intersection case, we will not have such a straightforward result, i.e. we will not in general be able to solve equation \eqref{Wsystem3}. Instead, we will obtain a set of jump conditions in the direction of $T(\theta) Z_1(0)$ which will depend on the symmetry parameters $\theta_i$. First, we use the decomposition \eqref{nontdecomp} to write \eqref{Wsystem3} as the pair of equations
+\begin{align}
+P_{\R T(\theta)S_1(0) \oplus T(\theta)Y^+ \oplus T(\theta)Y^-}\left( W_i^+(0) - W_i^-(0) \right) &= 0 \label{jumpnonZ} \\
+P_{\R T(\theta)Z_1(0)} \left( W_i^+(0) - W_i^-(0) \right) &= 0 \label{jumpZ}
+\end{align}
+Since $b_i^+ \in \R S_1 \oplus Y^+$ and $b_i^- \in \R S_1 \oplus Y^-$, we will be able to satisfy \eqref{jumpnonZ} by solving for the $b_i^\pm$. In order to obtain a unique solution, we will impose the additional constraints
+\begin{equation}
+W_i^+(0), W_i^-(0) \in T(\theta)Y^+ \oplus T(\theta)Y^- \oplus \R T(\theta) Z_1(0)
+\end{equation}
+In other words, $W_i^+(0)$ and $W_{i+1}^-(0)$ have no component in $\R S_1(0)$. Combining this with \eqref{jumpnonZ}, we will solve the three equations
+\begin{equation}\label{nonadjjump1}
+\begin{aligned}
+P_{\R T(\theta) S_1(0) }W_i^+(0) &= 0 \\
+P_{\R T(\theta) S_1(0) }W_i^-(0) &= 0 \\
+P_{ T(\theta)Y^+ \oplus T(\theta)Y^-}\left( W_i^+(0) - W_i^-(0) \right) &= 0
+\end{aligned}
+\end{equation}
+We will solve these in the next lemma.
+
+% solve center nontransverse 
+\begin{lemma}\label{inv3nt}
+Assume Hypothesis \ref{intersectionhyp}(ii). Then for $i = 1, \dots m$ there is a unique pair of initial conditions $(b_i^-, b_i^+) \in T(\theta_i) Y^- \times T(\theta_i) Y^+$ such that set of equations \eqref{nonadjjump1} is satisfied. We have the uniform bound
+\begin{equation}\label{bboundnt}
+b = \mathcal{O}(r^{-2N})
+\end{equation}
+
+\begin{proof}
+We can decompose $b_i^\pm$ as
+\begin{align*}
+b_i^+ &= x_i^+ + y_i^+ \\
+b_i^- &= x_i^- + y_i^-
+\end{align*} 
+where $x_i^\pm \in \R T(\theta)S_1$, $y_i^+ \in T(\theta)Y^+$, and $y_i^- \in T(\theta)Y^-$. Evaluating the fixed point equations \eqref{FPeqs1} at 0, we have
+\begin{align*}
+W_i^+(0) &= x_i^+ + y_i^+ + \Phi_u^+(0, N_i^+; \theta_i) a_i^+ - \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; \theta_i) G_i^+(W_i^+(j)) \\
+W_i^-(0) &= x_i^- + y_i^- + \Phi_s^-(0, -N_{i-1}^-; \theta_i) a_{i-1}^- 
++ \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; \theta_i) G_i^-(W_i^-(j))
+\end{align*}
+which we subtract to get
+\begin{align*}
+W_i^+(0) &- W_i^-(0) = x_i^+ - x_i^- + y_i^+ - y_i^- \\
+&+ \Phi_u^+(0, N_i^+; \theta_i) a_i^+ - \Phi_s^-(0, -N_{i-1}^-; \theta_i) a_{i-1}^- \\
+&- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; \theta_i) G_i^+(W_i^+(j)) 
+- \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; \theta_i) G_i^-(W_i^-(j)) \\
+\end{align*}
+
+
+
+
+Next, substitute $W_i^\pm$ from Lemma \ref{inv1} and $a_i^\pm$ from Lemma \ref{inv2}. Define the spaces
+\begin{align}\label{spaceYt}
+Y &= \bigoplus_{i=1}^m (Y^+ \oplus Y^-) = \bigoplus_{i=1}^m \R^d \\
+Z &= \bigoplus_{i=1}^{m-1} \R^d
+\end{align}
+Let $b = (b_1^+, b_1^-, \dots, b_m^+, b_m^-) \in Y$ and $d = (d_1, \dots, d_{m-1}) \in Z$. Define the function $H: Y \times Z \rightarrow Y$ component-wise by
+\begin{align*}
+H_i(b, d) &= 
+ b_i^+ - b_i^- + \Phi_u^+(0, N_i^+; \theta_i) P_0^u d_i + \Phi_s^-(0, -N_{i-1}^-; \theta_i) P_0^s d_{i-1} \\
+&+ \Phi_u^+(0, N_i^+; \theta_i) \tilde{a}_i^+(b_i^+, b_{i+1}^-) 
+- \Phi_s^-(0, -N_{i-1}^-; \theta_i) \tilde{a}_{i-1}^-(b_{i-1}^+, b_i^-) \\
+&- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; \theta_i) G_i^+(W_i^+(j; b_i^+, b_{i+1}^-)) \\
+&- \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; \theta_i) G_i^-(W_i^-(j; b_{i-1}^+, b_i^-))
+\end{align*}
+
+where $d_0 = d_m = 0$, and we have indicated the dependencies on the $b_i^\pm$. From \eqref{spaceYt}, we are set up to use the implicit function theorem. Using the estimates from Lemmas \ref{inv1} and \ref{inv2}, $H(0, 0) = 0$. For the partial derivatives with respect to $b_i^\pm$, we have
+\begin{align*}
+\frac{\partial}{\partial b_i^+}H_i(0) &= 1 + \mathcal{O}(r^{-N})  \\
+\frac{\partial}{\partial b_i^-}H_i(0) &= -1 + \mathcal{O}(r^{-N}) \\
+\frac{\partial}{\partial b_{i-1}^+}H_i(0),
+\frac{\partial}{\partial b_{i+1}^-}H_i(0) &= \mathcal{O}(r^{-N}) \\
+\end{align*}
+and 
+\[
+\frac{\partial}{\partial b_j^\pm}H_i(0) = 0
+\]
+for all other indices. Thus, for sufficiently large $N$, the matrix $D_b H(0,0)$ is invertible. Using the implicit function theorem, we can solve for $b$ in terms of $d$ for near $(b,d) = (0, 0)$, i.e. there is a function $b: Z \rightarrow Y$ with $b(0) = 0$ such that $H(b(d),d) = 0$ for $d$ sufficiently small. Since $d = \mathcal{O}(r^{-N}$, we can do this as long as $N$ is sufficiently large.
+
+To find a bound for $b$, recall that we use the IFT to solve $H(b(d),d) = 0$, which, componentwise, has the form
+\begin{align*}
+0 &= b_i^+ - b_i^- + \mathcal{O}(r^{-N_i^+} d_i + r^{-N_{i-1}^-} d_{i-1}) \\
+&+ \mathcal{O}( r^{-N}(|b_i^+| + |b_i^-| + |b_{i+1}^-| + |b_{i-1}^+|)
++ (|b_i^+|^2 + |b_i^-|^2 + |b_{i+1}^-|^2 + |b_{i-1}^+|^2)
+\end{align*}
+Since $b$ is small and $d = \mathcal{O}(r^{-N})$, we have the bound
+\[
+b = \mathcal{O}(r^{-2N})
+\]
+
+\end{proof}
+\end{lemma}
+
+\section{Proof of Stability Theorem}
+To prove the stability theorem, we will also use Lin's method. Before we do that, we note the following. From the existence problem (STATE THEOREMS), we have the following bounds for \eqref{qmpiecewise}.
+\begin{enumerate}[(i)]
+\item $Q_1(n) = \mathcal{O}(r^n)$
+\item $||\tilde{Q}|| \leq C r^N$
+\item $|\tilde{Q}_{i+1}^-(-N_i^-) - T(\theta_i) Q_1(N_i^+)|| \leq C r^{2N}$ 
+\item $|\tilde{Q}_i^+(N_i^+) - T(\theta_{i+1}) Q_1(-N_i^-)|| \leq C r^{2N}$
+\end{enumerate}
+
+
+Similar to San98, we will take a piecewise ansatz for the eigenfunction $V(n)$. The form of the ansatz will depend on whether we take Hypothesis \ref{melnikovhyp}(i) or \ref{melnikovhyp}(ii).
+For Hypothesis \ref{melnikovhyp}(i), let
+\begin{align*}
+V_i^\pm(n) &= d_i ( T(\theta_i) S_1(n) + \tilde{S}_i^\pm(n) ) + W_i^\pm(n)
+&& i = 1, \dots, n-1
+\end{align*}
+
+Substituting this in, after simplification, we get
+
+\[
+W_i^\pm(n) = A(q_m) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda d_i c_i B S_1(n) + \lambda d_i B \tilde{S}_i^\pm(n)
+\]
+
+For case (ii), we make the piecewise ansatz
+
+\[
+V_i^\pm(n) = d_i [ c_i S_1(n) + \tilde{S}_i^\pm(n) + \lambda(c_i T_1(n) + \tilde{T}_i^\pm(n))] + W_i^\pm(n)
+\]
+
+Substituting this in, after simplification, we get
+
+\[
+W_i^\pm(n) = A(q_m) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda^2 d_i c_i B T_1(n) + \lambda^2 d_i B \tilde{T}_i^\pm(n)
+\]
+
+These are almost identical, except for the version from (ii) involves $\lambda^2$ instead of $\lambda$ in the terms involving $B$ . From this point on, we will only consider (ii), since that version shows up in dNLS. The results for (i) will be similar. We want to write this in terms of $A(q_m)$. Adding and subtracting $A(c_i q_1)$, we have
+
+\[
+W_i^\pm(n) = A(c_i q_1) W_i^\pm(n) + (A(q_m) - A(c_i q_1)) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda^2 d_i c_i B S_1(n) + \lambda^2 d_i B \tilde{S}_i^\pm(n)
+\]
+
+Let
+
+\begin{align*}
+G_i^\pm &= A(q_n) - A(c_i q_1) \\
+\tilde{H}_i^\pm &= B( c_i T_1 + \tilde{T}_i^\pm ) \\
+H_i &= B c_i T_1 \\
+\end{align*}
+
+Then then eigenvalue problem becomes
+
+\[
+W_i^\pm(n) = A(c_i q_1) W_i^\pm(n) + (G_i^\pm + \lambda B) W_i^\pm(n) + \lambda^2 d_i B \tilde{H}_i^\pm(n)
+\]
+
+To obtain the system we wish to study, we add appropriate matching conditions at $n = \pm N_i$ and $n = 0$
+
+\begin{align*}
+W_i^\pm(n) &= A(c_i q_1) W_i^\pm(n) + (G_i^\pm + \lambda B) W_i^\pm(n) + \lambda^2 d_i B \tilde{H}_i^\pm(n) \\
+W_i^\pm(0) &\in \C Z_1(0) \oplus Y^+ \oplus Y^- \\
+W_i^+(0) - W_i^-(0) &\in \C Z_1(0) \\
+W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= D_i d
+\end{align*}
+
+where
+
+\begin{align*}
+D_i d &= [ c_{i+1} S_1(-N_i^-) + \tilde{S}_{i+1}^-(-N_i^-)] d_{i+1}
+- [ c_i S_1(N_i^+) + \tilde{S}_i^+(N_i^+)] d_i \\
+&+ \lambda[ c_{i+1} T_1(-N_i^-) + \tilde{T}_{i+1}^-(-N_i^-)] d_{i+1}
+- \lambda[ c_i T_1(N_i^+) + \tilde{T}_i^+(N_i^+)] d_i 
+\end{align*}
+
+A solution to our system will generically have $n$ jumps at $n = 0$. Thus we have a solution if and only if the $n$ jump conditions are satisfied.
+
+\begin{equation}\label{jumpcond}
+\xi_i = \langle Z_1(0), W_i^+(0) - W_i^-(0) \rangle = 0
+\end{equation}
+
+Using the bounds from Hypothesis \ref{qbounds}, we have the estimates
+
+\begin{align*}
+|G_i^\pm| &\leq C r^N \\
+|\tilde{H}_i^\pm - H| &\leq C r^N \\
+D_i d &= [ c_{i+1} S_1(-N_i^-) + c_i S_1(N_i^+) ] d_{i+1}
+- [ c_i S_1(N_i^+) + c_{i+1} S_1(-N_i^-) ] d_i 
++\mathcal{O}(r^N( |\lambda| + r^N))
+\end{align*}
+
+\subsubsection{Fixed Point Equations}
+
+As in San98, we write this as a fixed point problem using the exponential dichotomy. Let $\delta > 0$ be small, and choose $N$ sufficiently large so that $r^N < \delta$. \\
+
+Let $\Phi(m, n; c_i)$ be the evolution operator for the variational equation
+
+\[
+V(n+1) = A(c_i q_1) V(n) 
+\]
+
+where $c_i = \pm 1$. Then by Lemma \ref{dichotomy}, we have exponential dichotomies on $\Z^\pm$ as follows.
+
+\begin{align*}
+|\Phi_+^s(m, n; c_i)| \leq C r^{m - n} && 0 \leq n \leq m \\
+|\Phi_+^u(m, n; c_i)| \leq C r^{n - m} && 0 \leq m \leq n \\
+|\Phi_-^s(m, n; c_i)| \leq C r^{m - n} && n \leq m \leq 0 \\
+|\Phi_-^u(m, n; c_i)| \leq C r^{n - m} && m \leq n \leq 0 \\
+|P_\pm^{s/u}(n; c_i) - P_0^{s/u}| \leq C r^{|n|}
+\end{align*}
+
+where $P_\pm^{s/u}(n; c_i)$ are the projections from the exponential dichotomy, and $P_0^{s/u}$ are the projections on the stable and unstable eigenspaces $E^{s/u}$ of the asymptotic matrix $A_\infty$.\\
+
+Define the spaces
+
+\begin{align*}
+V_W &= l^\infty([-N_{i-1}, 0]) \oplus l^\infty([0, N_i])  \\
+V_a &= \bigoplus_{i=0}^{n-1} E^u \oplus E^s \\
+V_b &= \bigoplus_{i=0}^{n-1} 
+\text{ range } P_-^u(0; c_i) \oplus \text{ range } P_+^s(0; c_i)\\
+V_\lambda &= B_\delta(0) \subset \C \\
+V_d &= \C^d
+\end{align*}
+
+The fixed point equations follow from the variation of constants formula in Lemma \ref{VOCformula} together with the projections from the exponential dichotomy.
+
+\begin{align*}
+W_i^-(n) &= 
+\Phi_s^-(n, -N_{i-1}^-; c_i) a_{i-1}^- + \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; c_i)
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)]
+ \\
+&+ \Phi_u^-(n, 0; c_i) b_i^- - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) 
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
+W_i^+(n) &= \Phi_s^+(n, 0; c_i) b_i^+ + \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)] \\
+&+ \Phi_u^+(n, N_i^+; c_i) a_i^+ - \sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+where the sums are defined to be $0$ if the upper index is smaller than the lower index. Since we are taking $a_0^- = a_m^+ = 0$, the corresponding equations are
+
+\begin{align*}
+W_1^-(n) &= \sum_{j = -\infty}^{n-1} \Phi_s^-(n, j+1; c_i)
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)]
+ \\
+&+ \Phi_u^-(n, 0; c_i) b_i^- - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) 
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
+W_m^+(n) &= \Phi_s^+(n, 0; c_i) b_i^+ + \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)] \\
+&- \sum_{j = n}^{\infty} \Phi_u^+(n, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+As in San98, we will now solve the system in a series of lemmas.
+
+\subsubsection{Solve for W}
+
+First, we solve for $W_i^\pm$. 
+
+% Lemma : solve for W
+
+\begin{lemma}\label{inv1}
+There exists an operator $W_1: V_\lambda \times V_a \times V_b \times V_d \rightarrow V_W$ such that
+\[
+W = W_1(\lambda)(a,b,d)
+\]
+is a solution for and $(a,b,d)$ and $\lambda$. The operator $W_1$ is analytic in $\lambda$, linear in $(a,b,d)$, and has bound
+
+\begin{equation}\label{W1bound}
+||W_1(\lambda)(a,b,d)|| \leq C \left( |a| + |b| + |\lambda|^2 |d| \right)
+\end{equation}
+
+\begin{proof}
+Rewrite the fixed point equations as
+\[
+(I - L_1(\lambda))W = L_2(\lambda)(a,b,d)
+\]
+
+where $L_1(\lambda): V_W \rightarrow V_W$ is the linear operator composed of terms in the fixed point equations involving $W$
+
+\begin{align*}
+(L_1(\lambda)W)_i^-(n) &= \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; c_i)
+(G_i^-(j) + \lambda B) W_i^-(j) \\&- \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) 
+(G_i^-(j) + \lambda B) W_i^-(j)\\
+(L_1(\lambda)W)_i^+(n) &= \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i) 
+(G_i^+(j) + \lambda B) W_i^+(j) \\
+&-\sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; c_i) 
+(G_i^+(j) + \lambda B) W_i^+(j)
+\end{align*}
+
+and $L_2(\lambda): V_\lambda \times V_a \times V_b $ is the linear operator composed of terms in the fixed point equations not involving $W$.
+
+\begin{align*}
+(L_2(\lambda)(a,b,d))_i^-(n) &= 
+\Phi_s^-(n, -N_{i-1}^-; c_i) a_{i-1}^- + \sum_{j = -N_{i-1}^-}^{n-1} \Phi_s^-(n, j+1; c_i)
+\lambda d_i B \tilde{H}_i^-(j)
+ \\
+&+ \Phi_u^-(n, 0; c_i) b_i^- - \sum_{j = n}^{-1} \Phi_u^-(n, j+1; c_i) 
+\lambda d_i B \tilde{H}_i^-(j) \\
+(L_2(\lambda)(a,b,d))_i^+(n) &= \Phi_s^+(n, 0; c_i) b_i^+ + \sum_{j = 0}^{n-1} \Phi_s^+(n, j+1; c_i)\lambda^2 d_i B \tilde{H}_i^+(j) \\
+&+ \Phi_u^+(n, N_i^+; c_i) a_i^+ - \sum_{j = n}^{N_i^+-1} \Phi_u^+(n, j+1; c_i)\lambda^2 d_i B \tilde{H}_i^+(j)
+\end{align*}
+
+To find a bound for $L_1$, we look at the ``minus'' piece. Note that $n \leq 0$ on this piece
+
+\begin{align*}
+|(L_1(\lambda)W)_i^-(n)| &\leq C (||G|| + |\lambda|)\left(
+\sum_{j = -N_{i-1}^-}^{n-1} |\Phi_s^-(n, j+1; c_i)| + \sum_{j = n}^{-1} |\Phi_u^-(n, j+1; c_i)| \right) ||W|| \\
+&\leq C (||G|| + |\lambda|) ||W||
+\left( \sum_{j = -N_{i-1}^-}^{n-1} r^{n - j - 1} + \sum_{j = n}^{-1} r^{j+1-n} \right) \\
+&\leq C (||G|| + |\lambda|) ||W||
+\left( \sum_{j = 0}^{N_{i-1}^- -|n| -1} r^j + \sum_{j = 1}^{|n|} r^j \right) \\
+&\leq C (||G|| + |\lambda|) ||W||\sum_{j = 0}^\infty r^j \\
+&\leq C (||G|| + |\lambda|)||W||
+\end{align*}
+
+The ``plus'' piece is similar. To find a bound for $L_2$, we again look at the ``minus'' piece. Since the sums involve the same evolution operators as those in $L_1$, they have the same bounds as in $L_1$.
+
+\begin{align*}
+|(L_2(\lambda)(a,b,d))_i^-(n)| \leq C\left( |a| + |b| + |\lambda|^2 |d| \right)
+\end{align*}
+
+Overall, we have uniform bounds
+
+\begin{align*}
+||L_1(\lambda)W)|| &\leq C \left(||G|| + |\lambda| \right)||W|| \leq C \delta ||W|| \\
+||L_2(\lambda)(a,b,d))|| &\leq C\left( |a| + |b| + |\lambda|^2 |d| \right)
+\end{align*}
+
+For sufficiently small $\delta$, we have $||(L_1(\lambda)W)|| < 1$, thus $I - L_1(\lambda)$ is invertible on $V_W$. $(I - L_1(\lambda))^{-1}$ is analytic in $\lambda$, and we obtain the solution 
+
+\[
+W = W_1(\lambda)(a,b,d) = (I - L_1(\lambda))^{-1} L_2(\lambda(a,b,d)
+\]
+
+which is analytic in $\lambda$, linear in $(a, b, d)$, and has estimate
+
+\[
+||W_1(\lambda)(a,b,d)|| \leq C \left( |a| + |b| + |\lambda|^2 |d| \right)
+\]
+
+\end{proof}
+\end{lemma}
+
+\subsubsection{Join at Ends}
+
+In the next lemma, we solve for the condition
+
+\[
+W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) = D_i d
+\]
+for $i = 1, \dots, m-1$. 
+
+% lemma : solve for a
+
+\begin{lemma}\label{inv2}
+There exist operators 
+
+\begin{align*}
+A_1 : V_\lambda \times V_b \times V_d \rightarrow V_a \\
+W_2 : V_\lambda \times V_b \times V_d \rightarrow V_W
+\end{align*}
+
+such that $(a, w) = (A_1(\lambda)(b,d), W_2(\lambda)(b,d)$ solves the system for any $(b, d)$ and $\lambda$. These operators are analytic in $\lambda$, linear in $(b,d)$, and have bounds 
+
+\begin{align}
+|A_1(\lambda)(b, d)| &\leq C \left( (r^N + ||G|| + |\lambda| ) |b| + (|\lambda|^2 + |D| ) |d| \right) \label{A1bound} \\
+||W_2(\lambda)(b,d)|| &\leq C \left( |b| + (|\lambda|^2 + |D|) |d| \right) \label{W2bound}
+\end{align}
+
+Furthermore, we can write
+
+\begin{align*}
+a_i^+ &= P_0^u D_i d + A_2(\lambda)_i(b,d) \\
+a_i^- &= -P_0^s D_i d + A_2(\lambda)_i(b,d)
+\end{align*}
+
+where $A_2$ is a bounded linear operator with estimate
+
+\begin{align}\label{A2bound}
+|A_2(\lambda)(b,d)| \leq 
+C\left( (r^N + ||G|| + |\lambda| )|b| + (r^N + ||G|| + |\lambda|)|D||d| + |\lambda|^2 |d|  \right)
+\end{align}
+
+\begin{proof}
+At $n = \pm \N_i^\pm$, the fixed point equations become
+
+\begin{align*}
+W_{i+1}^-(-N_i^-) &= 
+\Phi_s^-(-N_i^-, -N_i^-; c_{i+1}) a_i^- + \Phi_u^-(-N_i^-, 0; c_i) b_i^- \\
+&- \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; c_i) 
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
+W_i^+(N_i^+) &= \Phi_u^+(N_i^+, N_i^+; c_i) a_i^+ + \Phi_s^+(N_i^+, 0; c_i) b_i^+ \\
+&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+Note that $\Phi_s^-(-N_i^-, -N_i^-; c_{i+1}) = P_-^s(-N_i^-; c_{i_1}$ and $\Phi_u^+(N_i^+, N_i^+; c_i) = P_+^u(N_i^+; c_{i_1})$. Recalling that $a_i^- \in E^s$ and $a_i^+ \in E^u$, we add and subtract $P_0^{s/u}$ to get
+
+\begin{align*}
+W_{i+1}^-(-N_i^-) &= 
+a_i^- + (P_s^-(-N_i^-; c_{i+1}) - P_0^s) a_i^- + \Phi_u^-(-N_i^-, 0; c_i) b_i^- \\
+&- \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; c_i) 
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
+W_i^+(N_i^+) &= a_i^+ + (P_u^+(N_i^+; c_i) - P_0^u) a_i^+ + \Phi_s^+(N_i^+, 0; c_i) b_i^+ \\
+&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+Thus the condition $W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) = D_i d$ can be written
+
+\begin{align}
+D_i d &= a_i^+ - a_i^- + (P_u^+(N_i^+; c_i) - P_0^u) a_i^+ - (P_s^-(-N_i^-; c_{i+1}) - P_0^s) a_i^- \\
+&+ \Phi_s^+(N_i^+, 0; c_i) b_i^+ - \Phi_u^-(-N_i^-, 0; c_i) b_i^- \nonumber \\
+&+ \sum_{j = 0}^{N_i^+-1} \Phi_s^+(N_i^+, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)] \nonumber \\
+&- \sum_{j = -N_i^-}^{-1} \Phi_u^-(-N_i^-, j+1; c_i) 
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \nonumber \\
+\end{align}
+
+Substituting $W = W_1(\lambda)(a, b, d)$ from Lemma \ref{inv1}, we obtain an equation of the form 
+
+\begin{equation}\label{Dideq}
+D_i d = (a_i^+ - a_i^-) + L_3(\lambda)_i(a,b,d)
+\end{equation}
+
+Using Lemma \ref{dichotomy} and the bound for $W_1$ from Lemma \ref{inv1}, $L_3$ has uniform bound
+
+\begin{align*}
+L_3(\lambda)(a,b,d)| &\leq C\left( r^N (|a| + |b|) + \left(\sum_{j = -N_i^-}^{-1} r^{j+1+N_i^-} + \sum_{j = 0}^{N_i^+ - 1} r^{N_i^+ - j - 1} \right)((||G|| + |\lambda|)||W|| + |\lambda|^2 |d|) \right) \\
+&\leq C\left( r^N (|a| + |b|) + \left(\sum_{j = 1}^{N_i^-} r^j + \sum_{j = 1}^{N_i^+ - 1} r^j \right)((||G|| + |\lambda|)||W|| + |\lambda|^2 |d| ) \right) \\
+&\leq C\left( r^N (|a| + |b|) + (||G|| + |\lambda|)||W_1(\lambda)(a,b,d)|| + |\lambda|^2 |d| ) \sum_{j = 1}^\infty r^j \right) \\
+&\leq C\left( (r^N + ||G|| + |\lambda| ) (|a| + |b|) + |\lambda|^2 |d|  \right)
+\end{align*}
+
+Since $r^N, |\lambda| < \delta$, this becomes
+
+\begin{align*}
+L_3(\lambda)(a,b,d)| &\leq C \delta |a| + C\left( (r^N + ||G|| + |\lambda| ) |b| + |\lambda|^2 |d|  \right)
+\end{align*}
+
+Define the map
+
+\[
+J_1: V_a \rightarrow \bigoplus_{j=1}^{m-1} \C^d
+\]
+
+by $(J_1)_i(a_i^+, a_i^-) = a_i^+ - a_i^-$. Since $E^s \oplus E^u = \C^d$.  The map $J_1$ is a linear isomorphism. Consider the map
+
+\[
+S_1(a) = J_1 (a) + L_3(\lambda)(a, 0, 0) = J_1( I + J_1^{-1} L_3(\lambda)(a, 0 0) )
+\]
+
+For sufficiently small $\delta$, the operator norm $||J_1^{-1} L_3(\lambda)(a, 0, 0)|| < 1$, thus the operator $S_1(a)$ is invertible. We can solve for $a$ to get
+
+\[
+a = A_1(\lambda)(b, d) = S_i^{-1}(-D d - L_3(\lambda)(b, d))
+\]
+
+which has uniform bound
+
+\begin{equation*}
+|A_1(\lambda)(b, d)| \leq C \left( (r^N + ||G|| + |\lambda| ) |b| + (|\lambda|^2 + |D| ) |d|  \right)
+\end{equation*}
+
+We plug this estimate into $W_1$ to get $W_2(\lambda)(b,d)$ with bound
+
+\begin{equation}\label{W1bound}
+||W_2(\lambda)(b,d)|| \leq C \left( |b| + (|\lambda|^2 + |D|) |d| \right)
+\end{equation}
+
+Finally, we project \eqref{Dideq} onto $E^s$ and $E^u$ using $P_0^s$ and $P_0^u$.
+
+\begin{align*}
+a_i^+ &= P_0^u D_i d - P_0^u L_3(\lambda)_i(a,b,d) \\
+a_i^- &= -P_0^s D_i d + P_0^s L_3(\lambda)_i(a,b,d)
+\end{align*}
+
+Substituting $A_1(\lambda)(b,d)$ for $a$ we obtain the equations
+
+\begin{align*}
+a_i^+ &= P_0^u D_i d + A_2(\lambda)_i(b,d) \\
+a_i^- &= -P_0^s D_i d + A_2(\lambda)_i(b,d)
+\end{align*}
+
+Finally, we substitute the bound for $A_1$ into the bound for $L_3$ to obtain the uniform bound
+
+\begin{align*}
+|A_2(\lambda)(b,d)| \leq 
+C\left( (r^N + ||G|| + |\lambda| )|b| + (r^N + ||G|| + |\lambda|)|D||d| + |\lambda|^2 |d|  \right)
+\end{align*}
+
+\end{proof}
+\end{lemma}
+
+\subsubsection{Match at 0}
+
+Finally, we will satisfy the conditions
+
+\begin{align*}
+W_i^\pm(0) &\in \C Z_1(0) \oplus Y^+ \oplus Y^- \\
+W_i^+(0) - W_i^-(0) &\in \C Z_1(0)
+\end{align*}
+
+Since $C^d = \C Z_1(0) \oplus \C S_1(0) \oplus Y^+ \oplus Y^-$, these are equivalent to the projections
+
+\begin{align*}
+P(S_1(0)) W_i^- &= 0 \\
+P(S_1(0)) W_i^+ &= 0 \\
+P(Y^+ \oplus Y^-) (W_i^+ - W_i^-) &= 0
+\end{align*}
+
+where the kernel of each projection is the remaining elements of the direct sum decomposition of $\C^d$. Since we have eliminated any component in $S_1(0)$ in the first two projections, we do not need it in the third projection.\\
+
+We decompose $b_i^\pm$ uniquely as $b_i^\pm = x_i^\pm + y_i^\pm$, where $x_i^\pm \in \C S_1(0)$ and $y_i^\pm \in Y^\pm$.\\
+
+We can now solve for the conditions at $n = 0$, which we do in the following lemma.
+
+\begin{lemma}\label{inv3}
+
+There exist operators 
+
+\begin{align*}
+B_1 : V_\lambda \times V_d \rightarrow V_b \\
+A_3 : V_\lambda \times V_d \rightarrow V_a \\
+W_3 : V_\lambda \times V_d \rightarrow V_W
+\end{align*}
+
+such that $(a, b, w) = (A_3(\lambda)(d), B_1(\lambda)(d), W_2(\lambda)(d)$ solves the system for any $d$ and $\lambda$. These operators are analytic in $\lambda$, linear in $d$, and have bounds 
+
+\begin{align}
+|B_1(\lambda)(d)| &\leq C \left( (r^{N} + ||G|| + |\lambda|)|D| |d| + |\lambda|^2 |d| \right) \label{B1bound} \\
+|A_3(\lambda)(d)| &\leq C \left(|\lambda|^2 + |D|\right)|d| \label{A3bound} \\
+||W_3(\lambda)(d)|| &\leq C \left(|\lambda|^2 + |D|\right)|d| \label{W3bound} \\
+\end{align}
+
+Furthermore, we can write
+
+\begin{align*}
+a_i^+ &= P_0^u D_i d + A_4(\lambda)_i(d) \\
+a_i^- &= -P_0^s D_i d + A_4(\lambda)_i(d)
+\end{align*}
+
+where $A_4$ is a bounded linear operator with estimate
+
+\begin{align}\label{A4bound}
+|A_4(\lambda)(d)| &\leq 
+C\left( (r^N + ||G|| + |\lambda|)|D||d| + |\lambda|^2 |d|  \right)
+\end{align}
+
+\begin{proof}
+
+\end{proof}
+At $n = 0$, the fixed point equations become 
+
+\begin{align*}
+W_i^-(0) &= x_i^- + y_i^- +
+\Phi_s^-(0, -N_{i-1}^-; c_i) a_{i-1}^- \\
+&+ \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i)
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
+W_i^+(0) &= x_i^+ + y_i^+ + \Phi_u^+(0, N_i^+; c_i) a_i^+ \\
+&- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+The projection equations can thus be written as
+
+\begin{equation}\label{projeq}
+\begin{pmatrix}
+x_i^- \\ x_i^+ \\ y_i^+ - y_i^-
+\end{pmatrix}
+= (L_4(\lambda)(b,d))_i
+\end{equation}
+
+where use the exponential dichotomy from Lemma \ref{dichotomy} and plug in $(a, w) = (A_1(\lambda)(b,d), W_2(\lambda)(b,d))$ from Lemma \ref{inv2} to get the uniform bound on $L_4$.
+
+\begin{align*}
+|L_4(\lambda)(b,d)| 
+&\leq C \left( r^N |a| + \left(\sum_{j = -N_i^-}^{-1} r^{-j-1} + \sum_{j = 0}^{N_i^+ - 1} r^{j+1} \right)((||G|| + |\lambda|)||W|| + |\lambda|^2 |d|) \right) \\
+&\leq C \left( r^N |A_1(\lambda)(b,d)| + \left(\sum_{j = 0}^{N_i^- -1} r^j + \sum_{j = 1}^{N_i^+} r^j \right)((||G|| + |\lambda|)||W|| + |\lambda|^2 |d|) \right) \\
+&\leq C \left( r^N |A_1(\lambda)(b,d)| + (||G|| + |\lambda|)||W_2(\lambda(b,d)|| + |\lambda|^2 |d| \right) \\ \\
+&\leq C \left( (r^{2N} + ||G|| + |\lambda|)|b| + 
+(r^{N} + ||G|| + |\lambda|)|D| |d| + |\lambda|^2 |d| )
+\right)
+\end{align*}
+
+Since $r^N, |\lambda| < \delta$, we have
+
+\begin{align*}
+|L_4(\lambda)(b,d)| &\leq C \delta(|x| + |y|) + C \left( (r^{N} + ||G|| + |\lambda|)|D| |d| + |\lambda|^2 |d| )
+\right)
+\end{align*}
+
+Define the map
+
+\[
+J_2: \left( \bigoplus_{j=1}^n \C S_1(0) \oplus \C S_1(0) \right) \oplus
+\left( \bigoplus_{j=1}^n Y^- \oplus Y^+ \right) 
+\rightarrow \bigoplus_{j=1}^n \C S_1(0) \oplus \C S_1(0) \oplus (Y^- \oplus Y^+)
+\]
+
+by 
+
+\[
+J_2( (x_i^+, x_i^-),(y_i^+, y_i^-))_i = ( x_i^+, x_i^-, y_i^+ - y_i^- )
+\]
+
+Since $\C^d = \C Z_1(0) \oplus \C S_1(0) \oplus Y^- \oplus Y^+)$, $J_2$ is an isomorphism. Using this and the fact that $b_i = (x_i^- + y_i^-, x_i^+ + y_i^+)$, we can write \eqref{projeq} as
+
+\begin{equation}\label{projxy2}
+J_2( (x_i^+, x_i^-),(y_i^+, y_i^-))_i 
++ L_4(\lambda)_i(b_i, 0) + L_4(\lambda)_i(0, d) = 0
+\end{equation}
+
+Consider the map
+
+\begin{align*}
+S_2(b)_i &= J_2( (x_i^+, x_i^-),(y_i^+, y_i^-))_i 
++ L_4(\lambda)_i(b_i, 0) 
+\end{align*}
+
+Substituting this in \eqref{projxy2}, we have
+
+\begin{align*}
+S_2(b) &= -L_4(\lambda)(0, d)
+\end{align*}
+
+For sufficiently small $\delta$, the operator $S_2(b)$ is invertible. Thus we can solve for $b$ to get
+
+\begin{equation}
+b = B_1(\lambda)(d) = -S_2^{-1} L_4(\lambda)(0, d)
+\end{equation}
+
+where we have the uniform bound on $B_1$
+
+\begin{equation}
+|B_1(\lambda)(d)| \leq C \left( (r^{N} + ||G|| + |\lambda|)|D| |d| + |\lambda|^2 |d| \right) 
+\end{equation}
+
+We can plug this into $A_1$, $W_2$, and $A_2$ to get operators $A_3$, $W_3$, and $A_4$ with bounds
+
+\begin{align*}
+|A_3(\lambda)(d)| &\leq C \left(|\lambda|^2 + |D|\right)|d|\\
+||W_3(\lambda)(d)|| &\leq C \left(|\lambda|^2 + |D|\right)|d| \\
+|A_4(\lambda)(d)| &\leq 
+C\left( (r^N + ||G|| + |\lambda|)|D||d| + |\lambda|^2 |d|  \right)
+\end{align*}
+
+\end{lemma}
+
+\subsubsection{Jump Conditions}
+
+Up to this point, given $\lambda$ and $d$, we have found a unique solution to our system. which is given by
+\[
+(a, b, w) = (A_3(\lambda)(d), B_1(\lambda)(d), W_3(\lambda)(d))
+\]
+
+Such a solution will have $n-1$ jumps in the direction of $Z_1(0)$, which are given by
+
+\[
+\xi_i = \langle Z_1(0), W_i^+(0) - W_i^-(0) \rangle
+\]
+
+In the next lemma, we derive formulas for these jumps.
+
+% lemma : jump conditions
+
+\begin{lemma}\label{jumpcond}
+
+The matching condition at 0 $W_i^+(0) = W_i^-(0)$ for $i = 1, \dots, m$ holds if and only if the $m$ jump conditions
+
+\begin{equation}\label{xicond}
+\xi_i = \langle Z_1(0), W_i^+(0) - W_i^-(0) \rangle = 0
+\end{equation}
+
+are satisfied. The jumps $\xi_i$ can be written as 
+
+\begin{equation}\label{xieq}
+\xi_i = \langle Z_1(N_i^+), P_0^u D_i d \rangle 
++ \langle Z_1(-N_{i-1}^-), P_0^s D_{i-1} d \rangle 
+- c_i \sum_{j = -\infty}^{\infty} \langle Z_1(j+1), B T_1(j)\rangle + R(\lambda)_i(d) \\
+\end{equation}
+
+where the remainder term $R(\lambda)(d)$ has bound
+
+\begin{align}\label{xiRbound}
+|R(\lambda)(d)| \leq C\left( (r^N + ||G|| + |\lambda|)( (r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 \right)
+\end{align}
+
+\begin{proof}
+From the previous lemma, the fixed point equations at $n = 0$ are given by 
+
+\begin{align*}
+W_i^-(0) &= b_i^- +
+\Phi_s^-(0, -N_{i-1}^-; c_i) a_{i-1}^- \\
+&+ \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i)
+[(G_i^-(j) + \lambda B) W_i^-(j) + \lambda^2 d_i B \tilde{H}_i^-(j)] \\
+W_i^+(0) &= b_i^+ + \Phi_u^+(0, N_i^+; c_i) a_i^+ \\
+&- \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) 
+[(G_i^+(j) + \lambda B) W_i^+(j) + \lambda^2 d_i B \tilde{H}_i^+(j)]
+\end{align*}
+
+When we take the inner product with $Z_1(0)$, the $b_i^\pm$ terms will vanish since they lie in spaces orthogonal to $Z_1(0)$. For the terms involving $a$, we substitute $A_4$ from Lemma \ref{inv3} to get
+
+\begin{align*}
+\langle Z_1(0), &\Phi_s^-(0, -N_{i-1}^-; c_{i-1}) a_{i-1}^- \rangle =
+-\langle Z_1(0), \Phi_s^-(0, -N_{i-1}^-; c_{i-1}) P_0^s D_{i-1} d \rangle + \langle Z_1(0), \Phi_s^-(0, -N_{i-1}^-; c_{i-1}) A_4(\lambda)_i(d) \rangle \\
+&=-c_{i-1}\langle c_{i-1} Z_1(0), \Phi_s^-(0, -N_{i-1}^-; c_{i-1}) P_0^s D_{i-1} d \rangle + \langle Z_1(0), \Phi_s^-(0, -N_{i-1}^-; c_{i-1}) A_4(\lambda)_i(d) \rangle \\
+&=-c_{i-1}\langle c_{i-1} Z_1(-N_{i-1}^-), P_0^s D_{i-1} d \rangle + \mathcal{O}\left(r^N( (r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \right) \\
+&= \langle Z_1(-N_{i-1}^-), P_0^s D_{i-1} d \rangle + \mathcal{O}\left(r^N( (r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \right)
+\end{align*}
+
+Similarly,
+
+\begin{align*}
+\langle Z_1(0), \Phi_u^+(0, N_i^+; c_i) a_i^+ \rangle
+&= \langle Z_1(N_i^+), P_0^u D_i d \rangle + \mathcal{O}\left(r^N( (r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \right)
+\end{align*}
+
+The sums involving $\tilde{H}$ will give us the Melnikov sum.
+
+\begin{align*}
+&\langle Z_1(0), \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) B \tilde{H}_i^-(j) + \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) B \tilde{H}_i^+(j) \rangle \\
+&= \langle Z_1(0), \sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i) B c_i T_1(j) + \sum_{j = 0}^{N_i^+-1} \Phi_u^+(0, j+1; c_i) B c_i T_1(j) \rangle + \mathcal{O}(r^N) \\
+&= \sum_{j = -N_{i-1}^-}^{-1} c_i \langle c_i Z_1(0), \Phi_s^-(0, j+1; c_i) B c_i T_1(j)\rangle + \sum_{j = 0}^{N_i^+-1} c_i \langle c_i Z_1(0), \Phi_u^+(0, j+1; c_i) B c_i T_1(j) \rangle + \mathcal{O}(r^N)\\
+&= \sum_{j = -N_{i-1}^-}^{-1} c_i \langle c_i Z_1(j+1), B c_i T_1(j) \rangle + \sum_{j = 0}^{N_i^+-1} c_i \langle c_i Z_1(j+1), B c_i T_1(j) \rangle + \mathcal{O}(r^N)\\
+&= c_i \sum_{j = -N_{i-1}^-}^{N_i^+-1} \langle Z_1(j+1), B T_1(j) \rangle + \mathcal{O}(r^N)\\
+&= c_i \sum_{j = -\infty}^{\infty} \langle Z_1(j+1), B T_1(j)\rangle + \mathcal{O}(r^N)\\
+\end{align*}
+
+Finally, we need to bound the term with sum involving $W$. For the ``minus'' sum, we have
+
+\begin{align*}
+\langle Z_1(0), &\sum_{j = -N_{i-1}^-}^{-1} \Phi_s^-(0, j+1; c_i)
+(G_i^-(j) + \lambda B) W_i^-(j) \rangle = 
+\sum_{j = -N_{i-1}^-}^{-1} c_i \langle c_i Z_1(0), \Phi_s^-(0, j+1; c_i)
+(G_i^-(j) + \lambda B) W_i^-(j) \rangle \\
+&= \sum_{j = -N_{i-1}^-}^{-1} \langle Z_1(j+1), 
+(G_i^-(j) + \lambda B) W_i^-(j) \rangle 
+\end{align*}
+
+We will need an improved bound for $W$ (the problem is the $|D|$ term in the $W_3$ bound). From the fixed point equations, we have piecewise bounds
+
+\begin{align*}
+|W_i^-(n)| &\leq C( r^{N_{i-1}^- + n}|a_{i-1}| + |b_i^-| + 
+(||G|| + |\lambda|)||W|| + |\lambda|^2|d|) \\
+|W_i^-(n)| &\leq C( r^{N_i^+ - n}|a_i| + |b_i^+| + 
+(||G|| + |\lambda|)||W|| + |\lambda|^2|d|) \\
+\end{align*}
+
+Plugging in the bounds for $A_3$, $W_3$, and $B_1$, these become
+
+\begin{align*}
+|W_i^-(n)| &\leq C( r^{N_{i-1}^- + n}|D| +  
+(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \\
+|W_i^-(n)| &\leq C( r^{N_i^+ - n}|D| +  
+(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d|
+\end{align*}
+
+Recall that we have the bound $Z_1(n) \leq C r^{|n|}$. Since $A_\infty$ is hyperbolic, we can find a constant $\tilde{r} < r$ such that
+
+\[
+Z_1(n) \leq C \tilde{r}^n
+\]
+
+for this new $\tilde{r}$. The price to pay is that the constant $C$ will be larger, but that is okay. Thus we have
+
+\begin{align*}
+&\left| \sum_{j = -N_{i-1}^-}^{-1} \langle Z_1(j+1), 
+(G_i^-(j) + \lambda B) W_i^-(j) \rangle \right| \\
+&\leq C (||G|| + |\lambda|) \sum_{j = -N_{i-1}^-}^{-1} \tilde{r}^{|j+1|} r^{N_{i-1}^- + j}|D||d| + C (||G|| + |\lambda|)(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \\
+&\leq C |D| r^N (||G|| + |\lambda|)|d| \sum_{j = 1}^{N_{i-1}^-} \tilde{r}^{j+1} r^{-j} + C (||G|| + |\lambda|)(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \\
+&\leq C |D| r^N (||G|| + |\lambda|)|d| \sum_{j = 1}^\infty \left( \frac{\tilde{r}}{r}\right)^j + C (||G|| + |\lambda|)(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d| \\
+&\leq C (||G|| + |\lambda|)(r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 )|d|
+\end{align*}
+
+where the infinite sum is convergent by the choice of $\tilde{r}$. We have a similar bound for the ``plus'' sum involving $W$. Putting this all together, we have
+
+\begin{equation*}
+\xi_i = \langle Z_1(N_i^+), P_0^u D_i d \rangle 
++ \langle Z_1(-N_{i-1}^-), P_0^s D_{i-1} d \rangle 
+- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B T_1(j)\rangle + R(\lambda)_i(d) \\
+\end{equation*}
+
+where the remainder term $R(\lambda)(d)$ has bound
+
+\begin{align*}
+|R(\lambda)(d)| \leq C\left( (r^N + ||G|| + |\lambda|)( (r^N + ||G|| + |\lambda|)|D| + |\lambda|^2 \right)
+\end{align*}
+
+\end{proof}
+\end{lemma}
+
+\subsubsection{Substitution}
+
+Finally, we substitute our expression for $D_i d$ into the jump conditions. 
+
+\begin{lemma}\label{jumpcond2}
+
+The jumps $\xi_i$ in the jump conditions from Lemma \ref{jumpcond} can be written as
+
+\begin{align}\label{jumps}
+\xi_i = \langle Z_1(N_i^+), &S_1(-N_i^-) \rangle c_{i+1}( d_{i+1} - d_i) 
++ \langle Z_1(-N_{i-1}^-), S_1(N_{i-1}^+) \rangle c_{i-1}( d_i - d_{i-1}) \\
+&- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B T_1(j)\rangle + R(\lambda)_i(d) \\
+\end{align}
+
+for $i = 1, \dots, m$, where we have remainder bound
+
+\begin{align*}
+|R(\lambda)(d)| \leq C\left( (r^N + |\lambda|)^3 \right)
+\end{align*}
+
+\begin{proof}
+Recall that we have the expression for $D_i d$
+
+\[
+D_i d = [ c_{i+1} S_1(-N_i^-) + c_i S_1(N_i^+) ] d_{i+1}
+- [ c_i S_1(N_i^+) + c_{i+1} S_1(-N_i^-) ] d_i 
++\mathcal{O}(r^N( |\lambda| + r^N))
+\]
+
+To evaluate $\langle Z_1(N_i^+), P_0^u D_i d \rangle$ from the jump $\xi$ from Lemma \ref{jumpcond}, we need to compute $\langle Z_1(N_i^+) P_0^u S_1(-N_i^-) \rangle$, $\langle Z_1(N_i^+) P_0^u S_1(N_i^+) \rangle$. We will do these in turn. Using the exponential dichotomy from Lemma \ref{dichotomy}, we have
+
+\begin{align*}
+\langle Z_1(N_i^+) P_0^u S_1(-N_i^-) \rangle
+&= \langle Z_1(N_i^+), P_-^u(-N_i^-) S_1(-N_i^-) \rangle + \mathcal{O}(r^{3N}) \\
+&= \langle Z_1(N_i^+), S_1(-N_i^-) \rangle + \mathcal{O}(r^{3N}) \\
+\end{align*}
+
+and
+
+\begin{align*}
+\langle Z_1(N_i^+) P_0^u S_1(N_i^+) \rangle
+&= \langle Z_1(N_i^+), P_+^u(N_i^+) S_1(N_i^+) \rangle + \mathcal{O}(r^{3N}) \\
+&= \langle Z_1(N_i^+), S_1(N_i^+) \rangle + \mathcal{O}(r^{3N}) \\
+&= \mathcal{O}(r^{3N}) \\
+\end{align*}
+
+since $\langle Z_1(n), S_1(n) \rangle = 0$ for all $n$. Similarly, we have
+
+\begin{align*}
+\langle Z_1(-N_{i-1}^-), P_0^s Z_1(N_{i-1}^+) \rangle 
+&= \langle Z_1(-N_{i-1}^-), P_0^s Z_1(N_{i-1}^+) \rangle + \mathcal{O}(r^{3N})\\
+\langle Z_1(-N_{i-1}^-), P_0^s Z_1(-N_{i-1}^-) \rangle 
+&= \mathcal{O}(r^{3N})
+\end{align*}
+
+Substituting these into the jump expressions from Lemma \ref{jumpcond}, we have
+
+\begin{equation*}
+\xi_i = \langle Z_1(N_i^+), S_1(-N_i^-) \rangle c_{i+1}( d_{i+1} - d_i) 
++ \langle Z_1(-N_{i-1}^-), S_1(N_{i-1}^+) \rangle c_{i-1}( d_i - d_{i-1})
+- c_i \sum_{j = -\infty}^{\infty} \langle Z(j+1), B T_1(j)\rangle + R(\lambda)_i(d) \\
+\end{equation*}
+
+For the remainder term, we substitute $|D|, ||G|| = \mathcal{O}(r^N)$. The additional remainder terms from the substitution of $D_i$ are already included in the remainder term from Lemma \ref{jumpcond}. Thus we have remainder bound
+
+\begin{align*}
+|R(\lambda)(d)| \leq C\left( (r^N + |\lambda|)^3 \right)
+\end{align*}
+\end{proof}
+\end{lemma}
+
+
+\end{document}
