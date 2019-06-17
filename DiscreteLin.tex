@@ -362,7 +362,8 @@ For $\epsilon, \omega > 0$, these eigenvalues are real, and it straightforward t
 \begin{align*}
 r &= r(\epsilon, \omega) = 1 + \frac{\omega}{2 \epsilon} \left( 1 + \sqrt{1 + \frac{4 \epsilon}{\omega}} \right) > 1
 \end{align*}
-It is not hard to show that $r(\epsilon, \omega) \rightarrow 1$ as $\epsilon \rightarrow 0$ or $\omega \rightarrow 0$ (with the other variable held constant). Thus as long as $\epsilon, \omega > 0$, Hypothesis \ref{initialhyp}(i) and (ii) are satisfied. For Hypothesis \ref{initialhyp}(iii), the existence of a single-pulse homoclinic orbit $Q(n)$connecting the rest state a 0 to itself (bright soliton) has been shown to exist [CITATION NEEDED]. We should also know that the stable and unstable manifolds intersect transversely, or (equivalently) that the variational equation does not have a bounded solution, thus Hypothesis \ref{intersectionhyp} is satisied. 
+
+As long as $\epsilon, \omega > 0$, Hypothesis \ref{initialhyp}(i) and (ii) are satisfied. For Hypothesis \ref{initialhyp}(iii), the existence of a single-pulse homoclinic orbit $Q(n)$connecting the rest state a 0 to itself (bright soliton) has been shown to exist [CITATION NEEDED]. We should also know that the stable and unstable manifolds intersect transversely, or (equivalently) that the variational equation does not have a bounded solution, thus Hypothesis \ref{intersectionhyp} is satisied. 
 
 Using Theorem \ref{transversemulti}, for sufficiently large $N$ (which depends on $r$, thus $\omega$ and $\epsilon$) and any choice of $\theta_i = \pm 1$, there exist $m-$pulse solutions which can be written piecewise in the form  
 \begin{align*}
@@ -454,7 +455,7 @@ are satisfied, where
 \]
 and we note that the first inner product term is zero for $i = m$ and the second inner product term is 0 for $i = 1$.
 
-Using \eqref{TdNLS} and the fact that$T(\theta)$ is unitary, we can write the $m$ jump conditions as
+Using \eqref{TdNLS} and the fact that $T(\theta)$ is unitary, we can write the $m$ jump conditions as
 \begin{align*}
 \xi_i = \langle T(\theta_i - \theta_{i+1}) Z_1(N_i^+), Q(-N_i^-) \rangle
 - \langle T(\theta_i - \theta_{i-1}) Z_1(-N_{i-1}^-), Q(N_{i-1}^+) \rangle + R_i
@@ -513,8 +514,7 @@ Substituting these into \eqref{jumpDNLS} and writing the first and last jump con
 \end{equation}
 where $s_i = \sin{\theta_i}$. Since $a_i = \mathcal{O}(r^{-2N})$ and $R_i = \mathcal{O}(r^{-3N})$, the jump conditions can only be satisfied if $s_i = \mathcal{O}(r^{-N})$. Thus we only have to consider that case from now on. 
 
-
-jump conditions in matrix form as
+Write the jump conditions in matrix form as
 \[
 A s + R = 0
 \]
@@ -529,7 +529,7 @@ a_1 & -a_2 \\
 &&&& a_{m-1}
 \end{pmatrix}
 \]
-$s = (s_1, \dots, s_{m-1})$, and $R = \mathcal{O}(r^{-3N})$. Since we have a Hamiltonian system, if we solve $m-1$ jump conditions, then the final jump condition is automatically satisfied, thus we can eliminate one of the jump conditions. It does not matter which one we eliminate, but for simplicity we will eliminate the final one. Thus the matrix $A$ reduces to the $(m-1)\times(m-1)$ matrix
+$s = (s_1, \dots, s_{m-1})$, and $R = \mathcal{O}(r^{-3N})$. Since we have a Hamiltonian system, if we solve $m-1$ jump conditions, then the final jump condition is automatically satisfied, thus we can eliminate one of the jump conditions. It does not matter which one we eliminate, but for simplicity we will eliminate the final one. Thus we can redefine $A$ as the $(m-1)\times(m-1)$ matrix
 \[
 A = \begin{pmatrix}
 -a_1 \\
@@ -540,20 +540,21 @@ a_1 & -a_2 \\
 \end{pmatrix}
 \]
 
+We want to show that $A s + R = 0$ has a solution by using the IFT. To do that, we rescale $A$. Since $a_i = \mathcal{O}(r^{-2N})$, let $A = r^{-2N} \tilde{A}$. Then divide $A s + R = 0$ by $r^{-2N}$ to get the equation
+\[
+\tilde{A}s + \tilde{R} = 0
+\]
+where $\tilde{A} = \mathcal{O}(1)$ and $\tilde{R} = \mathcal{O}(r^{-N})$. Let 
+\[
+\mathcal{R} = \left\{ r^{-m} : m \in \N_0 \right\} \cup \{ 0 \}
+\]
+which is a complete metric space. Then we can write our equation as 
+\begin{equation}\label{Ftildeeq}
+F(s; \tilde{r}) = \tilde{A}s + \tilde{R} = 0
+\end{equation}
+where $|\tilde{R}| \leq C \tilde{r}$ and $\tilde{r} \in \mathcal{R}$. It is easy to see that $F(0; 0) = 0$ and $DF(0; 0) = \tilde{A}$, which is invertible since it is lower triangular and all the $\tilde{a}_i$ are nonzero. Thus, using the IFT, we can find $r_0 > 0$ such that for all $r \in \mathcal{R}$ with $r < r_0$, there is a smooth function $s(\tilde{r})$ such that $s(0) = 0$ and $F(s(\tilde{r}); \tilde{r}) = 0$ is the unique solution to \eqref{Ftildeeq}. In other words, there exists a positive integer $N_0$ such that whenever $N \geq N_0$, there is a unique solution $s(N)$ to \eqref{Ftildeeq}. 
 
-
-
-From the real-valued case, this has a solution if $\Delta \theta_i \in \{0, \pi\}$ for all $i$, i.e. adjacent peaks are either in phase or out of phase. We will show that no other values of $\Delta \theta_i$ are possible. 
-
-First, we evaluate the coefficients $a_i$. For $N_i$ even, $N_i^- = N_i^+$ and for $N_i$ odd, $N_i^- = N_i^+ + 1$, thus we have
-\begin{align*}
-a_i &= \begin{cases}
-q(N_i^+)( q(N_i^+ - 1) - q(N_i^- + 1) ) & N_i \text{ even} \\
-(q(N_i^+ - 1)q(N_i^+ + 1) - q(N_i^+)q(N_i^+ + 2)) & N_i \text{ odd}
-\end{cases}
-\end{align*}
-
-
+From above, we know that for sufficiently large $N$, $s = 0$ is a solution to \eqref{Ftildeeq}. Thus, increasing $N_0$ if necessary, for all $N \geq N_0$ we have $s(N) = 0$. We conclude that for sufficiently large $N$, the jump conditions can only be satisfied if $s = 0$, i.e. if all of the $\Delta \theta_i$ are either 0 or $\pi$. These are the only phase differences which are possible.
 
 \subsection{Eigenvalue problem}
 
