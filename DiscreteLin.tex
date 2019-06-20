@@ -49,16 +49,17 @@
 
 \begin{document}
 
-We will extend Lin's method to prove existence and stability results for multi-pulse on lattices. The model equation here is discrete NLS, but we will do this in a general setting, for which dNLS is a special case. Most of the results for dNLS are already known, at least if we are near the anti-continuum limit (see, for example, Pelinovsky and Kevrekidis, 2005). The idea is that if we can find an appropriate generalization and setup for Lin's method, we can check it on dNLS. 
+We will use Lin's method to prove existence and stability results for multi-pulse on lattices. The model equation here is discrete NLS, but we will do this in a general setting, for which dNLS is a special case. Most of the results for dNLS are already known, at least if we are near the anti-continuum limit (see, for example, Pelinovsky and Kevrekidis, 2005). The idea is that if we can find an appropriate generalization and setup for Lin's method, we can check it on dNLS. 
 
 \section{Setup and Main Theorems}
 
 \subsection{Background}
+
 Consider the lattice PDE on $\R^s$
 \begin{equation}\label{latticePDE}
 \dot{u}_n = f(u_n)
 \end{equation}
-where $f$ is a smooth nonlinear operator which involves involves a finite number (greater than 1) of indices near $n$. We will make one of the following two assumptions regarding symmetry of \eqref{latticePDE}.
+where $f$ is a smooth nonlinear operator which involves involves a finite number (greater than 1) of indices near $n$. We will make one of the following two assumptions regarding symmetry of equation \eqref{latticePDE}.
 
 \begin{hypothesis}\label{symmetryhyp}
 There exists a group $G$ for which the group action is unitary group of symmetries $t(\theta)$ on $\R^s$ such that $f(t(\theta)u) = t(\theta)f(u)$ for all $\theta \in G$ and all $u \in \R^s$. For the group $G$, we have one of the following:
@@ -76,7 +77,7 @@ We can rewrite the stationary equation as a system of first-order difference equ
 \begin{equation}\label{diffeq}
 U(n+1) = F(U(n))
 \end{equation}
-where $U \in \R^d$ for some $d > 1$ which depends on how many indices near $n$ are used by $f$. Since $f$ is smooth, $F$ is as well. The group $G$ also generates a group action on $\R^d$; this action is a unitary group of symmetries $T(\theta)$ on $\R^d$ such that $F(T(\theta)U) = T(\theta)F(U)$ for all $\theta \in G$ and all $U \in \R^d$. We take the following hypothesis regarding $F$.
+where $U \in \R^d$ and $F:\R^d \rightarrow \R^d$ for some $d > 1$ which depends on how many indices near $n$ are used by $f$. Since $f$ is smooth, $F$ is smooth as well. The group $G$ also induces  a group action on $\R^d$; this action is a unitary group of symmetries $T(\theta)$ on $\R^d$ such that $F(T(\theta)U) = T(\theta)F(U)$ for all $\theta \in G$ and all $U \in \R^d$. We take the following hypothesis regarding $F$.
 
 \begin{hypothesis}\label{initialhyp}
 We assume the following regarding \eqref{diffeq}.
@@ -87,7 +88,7 @@ We assume the following regarding \eqref{diffeq}.
 \end{enumerate}
 \end{hypothesis}
 
-Finally, we will take the following hypothesis regarding the intersection of the stable manifold $W^s(0)$ and unstable manifold $W^u(0)$. This hypothesis depends on which symmetry hypothesis we choose.
+Finally, we will take the following hypothesis regarding the intersection of the stable manifold $W^s(0)$ and unstable manifold $W^u(0)$. The form of this hypothesis depends on which symmetry hypothesis we choose.
 
 \begin{hypothesis}\label{intersectionhyp}
 If Hypothesis \ref{symmetryhyp}(i) holds, then the stable and unstable manifolds $W^s(0)$ and $W^u(0)$ intersect transversely.
@@ -107,14 +108,14 @@ N_i^+ &= \lfloor \frac{N_i}{2} \rfloor \\
 N_i^- &= N_i - N_i^+
 \end{aligned}
 \end{equation}
-and note that either $N_i^+ = N_i^-$ (if $N_i$ is even) or $N_i^+ = N_i^- - 1$ (if $N_i$ is odd). Let $N = \min\{ N_i^\pm \}$. In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. We will look for a solution which is a piecewise perturbation of $n$ consecutive copies of $Q(n)$, i.e. a solution of the form
+and note that either $N_i^+ = N_i^-$ (if $N_i$ is even) or $N_i^+ = N_i^- - 1$ (if $N_i$ is odd). Let $N = \min\{ N_i^\pm \}$. In addition, let $N_0^- = -\infty$ and $N_m^+ = \infty$. We will look for a solution which is a piecewise perturbation of $n$ consecutive copies of $Q(n)$. This is a solution of the form
 \begin{align}\label{Upiecewise}
 U_i^-(n) &= T(\theta_i) Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
 U_i^+(n) &= T(\theta_i) Q(n) + W_i^+(n) && n \in [0, N_i^+]
 \end{align}
-where $\theta_i = G$.
+where $\theta_i = G$ and the pieces are joined together end-to-end as in San98.
 
-Since we require that the pieces match at the interval endpoints, $U_i^\pm$ must satisfy the system of equations
+In addition to satisfying \eqref{diffeq}, we require that the pieces $U_i^\pm(n)$ match at the interval endpoints. Thus $U_i^\pm(n)$ must satisfy the system of equations
 \begin{equation}\label{Usystem}
 \begin{aligned}
 (U_i^\pm)(n+1) &= F(U_i^\pm(n))  \\
@@ -122,7 +123,7 @@ U_i^+(N_i^+) - U_{i+1}^-(-N_i^-) &= 0 \\
 U_i^+(0) - U_i^-(0) &= 0
 \end{aligned}
 \end{equation}
-for $i = 1, \dots, m$. Expand $F$ in a Taylor series about $T(\theta_i) Q(n)$ to get
+for $i = 1, \dots, m$. Expanding $F$ in a Taylor series about $T(\theta_i) Q(n)$, we get
 \begin{align*}
 F(U_i^\pm(n)) &= F(T(\theta_i) Q(n) + W_i^\pm(n)) \\
 &= F(T(\theta_i) Q(n)) + DF_{U}(T(\theta_i) Q(n)) W_i^\pm + G(W_i^\pm(n)) \\
@@ -137,42 +138,50 @@ with $G(0) = 0$ and $DG(0) = 0$. Finally, let
 \begin{equation}\label{defdi}
 d_i = T(\theta_{i+1}) Q(-N_i^-) - T(\theta_i) Q(N_i^+)
 \end{equation}
-where $d_i \mathcal{O}(r^{-N_i/2})$. Substituting these into \eqref{Usystem}, we obtain the following system of equations for the piecewise function $W_i^\pm$.
+
+Substituting these into \eqref{Usystem}, we obtain the following system of equations for the piecewise function $W_i^\pm$.
 \begin{align}
 W_i^\pm(n+1) &= A(n; \theta_i) W_i^\pm + G(W_i^\pm(n)) \label{Wsystem1} \\
 W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= d_i \label{Wsystem2} \\
 W_i^+(0) - W_i^-(0) &= 0 \label{Wsystem3}
 \end{align}
 
-The variational and adjoint variational equations associated with \eqref{diffeq} are
+The variational and adjoint variational equations associated with \eqref{diffeq} come from the linearization of \eqref{diffeq} about the primary pulse solution $Q(n)$.
 \begin{align}
 V(n+1) &= A(n; 0) V(n) \label{vareq} \\
 Z(n+1) &= [A(n; 0)^*]^{-1} Z(n) \label{adjvareq} 
 \end{align}
-If we take Hypothesis \ref{symmetryhyp}(i), the variational equation does not have a bounded solution, and we have the decomposition $\R^d = Y^+ \oplus Y^-$, where $Y^+ = T_{Q(0)} W^s(0)$ and $Y^- = T_{Q(0)} W^u(0)$.
+where $A(n; 0) = D_U F(Q(n))$. If we take Hypothesis \ref{symmetryhyp}(i), the variational equation does not have a bounded solution, and we have the decomposition $\R^d = Y^+ \oplus Y^-$, where $Y^+ = T_{Q(0)} W^s(0)$ and $Y^- = T_{Q(0)} W^u(0)$. Since $T(\theta)$ is unitary, we also have the decomposition $\R^d = T(\theta_i) Y^+ \oplus T(\theta_i) Y^-$.
 
-If we instead take Hypothesis \ref{symmetryhyp}(ii), the variational equation \eqref{vareq} has a bounded solution $S_1(n)$, which is unique up to scalar multiples. To see this, recall that $S_1(n) = S Q(n)$, where $S$ is the infinitesimal generator for the symmetry group $T(\theta)$, which is defined by
+If we instead take Hypothesis \ref{symmetryhyp}(ii), the variational equation \eqref{vareq} has a bounded solution $S_1(n)$. To see this, recall that $S_1(n) = S Q(n)$, where $S$ is the infinitesimal generator for the symmetry group $T(\theta)$. $S$ is defined by
 \begin{equation}
 S = \frac{d}{d \theta} T(\theta)\Big|_{\theta = 0}
 \end{equation}
-Differentiating $T(\theta) Q(n+1) = F( T(\theta)Q(n))$ with respect to $\theta$ gives us
+Differentiating $T(\theta) Q(n+1) = F(T(\theta)Q(n))$ with respect to $\theta$, we have
 \[
-\frac{d}{d \theta}T(\theta) Q(n+1) = F( T(\theta)Q(n)) \frac{d}{d \theta}T(\theta) Q(n)
+\frac{d}{d \theta}T(\theta) Q(n+1) = F(T(\theta)Q(n)) \frac{d}{d \theta}T(\theta) Q(n)
 \]
-Taking $\theta = 0$, since $F$ is smooth and $T(0) = I$, this becomes $S Q(n+1) = DF(Q(n) S Q(n)$, which is what we want. From Hypothesis \ref{intersectionhyp}(ii), the variational equation \eqref{vareq} has no other bounded solution. It follows that the adjoint variational equation \eqref{adjvareq} has a unique bounded solution $Z_1(n)$. Thus we can decompose the tangent spaces to $W^s(0)$ and $W^u(0)$ at $Q(0)$ as
+Taking $\theta = 0$, since $F$ is smooth and $T(0) = I$, this becomes $S Q(n+1) = DF(Q(n) S Q(n)$, from which we conclude that $S_1(n)$ is a solution to the variational equation. 
+
+From Hypothesis \ref{intersectionhyp}, the variational equation \eqref{vareq} has no other linearly independent bounded solution. Thus we can decompose the tangent spaces $W^s(0)$ and $W^u(0)$ at $Q(0)$ as
 \begin{align*}
 T_{Q(0)} W^u(0) &= Y^- \oplus \R S_1(0)
 T_{Q(0)} W^s(0) &= Y^+ \oplus \R S_1(0)
 \end{align*}
-By Lemma \ref{evolop} below, $Z_1(0) \perp S_1(0) \oplus Y^- \oplus Y^+$, thus we can decompose $\R^d$ as
+It also follows from Hypothesis \ref{intersectionhyp} that the adjoint variational equation \eqref{adjvareq} has a unique bounded solution $Z_1(n)$. By Lemma \ref{evolop} below, $Z_1(0) \perp S_1(0) \oplus Y^- \oplus Y^+$, thus we can decompose $\R^d$ as
 \begin{equation}\label{nontdecomp}
 \R^d = \R S_1(0) \oplus Y^+ \oplus Y^- \oplus \R Z_1(0)
 \end{equation}
+Since $T(\theta)$ is unitary, we also have the decomposition
+\begin{equation}\label{nontdecomp}
+\R^d = \R T(\theta_i) S_1(0) \oplus T(\theta_i) Y^+ \oplus T(\theta_i) Y^- \oplus \R T(\theta_i) Z_1(0)
+\end{equation}
+
 If Hypothesis \ref{symmetryhyp}(ii) holds, we may without loss of generality choose $W_i^\pm$ so that 
 \begin{equation}\label{W0loc}
 W_i^\pm(0) \in T(\theta_i) Y^+ \oplus T(\theta_i) Y^- \oplus \R T(\theta_i) Z_1(0)
 \end{equation}
-since we are using the parameter $\theta_i$ for the direction $T(\theta_i) S_1$ along the symmetry.
+since the parameter $\theta_i$ in \eqref{Upiecewise} takes care of the direction $T(\theta_i) S_1(0)$ along the symmetry.
 
 We have the following theorems regarding existence of multi-pulse solution to \eqref{diffeq}. Proofs will follow in a later section. First, if Hypothesis \ref{symmetryhyp}(i) holds, we have a unique $m-$pulse solution to \eqref{diffeq}.
 
@@ -181,7 +190,7 @@ Consider the difference equation
 \begin{equation}\label{diffeqm1}
 U(n+1) = F(u(n))
 \end{equation}
-where $U \in R^d$ for $d > 1$. Assume Hypotheses \ref{symmetryhyp}(i), \ref{initialhyp}, and \ref{intersectionhyp}. Let $Q(n)$ be the primary pulse solution to \eqref{diffeqm1}. Choose $m > 1$ and positive integers $N_1, \dots, N_{m-1}$, and define $N_i^\pm$ as in \eqref{Nipm}. Choose any $\theta_1, \dots, \theta_m \in G$. Then, for sufficiently large $N$, where $N = \min\{ N_i^\pm : i = 1, \dots, m-1 \}$, there exists a unique $m-$pulse solution $Q_m$ to \eqref{diffeq} which can be written piecewise as 
+where $U \in R^d$ for $d > 1$. Assume Hypotheses \ref{symmetryhyp}(i), \ref{initialhyp}, and \ref{intersectionhyp}. Let $Q(n)$ be the primary pulse solution to \eqref{diffeqm1}. Choose $m > 1$ and positive integers $N_1, \dots, N_{m-1}$, and define $N_i^\pm$ as in \eqref{Nipm}. Choose any $\theta_1, \dots, \theta_m \in G$. Then, for sufficiently large $N$, where $N = \min\{ N_i^\pm : i = 1, \dots, m-1 \}$, there exists a unique $m-$pulse solution $Q_m(n)$ to \eqref{diffeqm1} which can be written piecewise as 
 \begin{align}
 U_i^-(n) &= T(\theta_i) Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
 U_i^+(n) &= T(\theta_i) Q(n) + W_i^+(n) && n \in [0, N_i^+]
@@ -196,19 +205,23 @@ W_{i+1}^-(-N_i^-) &= T(\theta_i) Q(N_i^+) + \mathcal{O}(r^{-2N})
 \end{equation}
 \end{theorem}
 
-If \ref{symmetryhyp}(ii) holds, the following theorem gives a criterion for multi-pulse solutions to exist.
+If \ref{symmetryhyp}(ii) holds, we will not in general have solution to \eqref{diffeq}, since Lin's method generically yields a solution with $m$ jumps in the direction of $Z_1(0)$. We can, however, prove a criterion for such a solution to exist, which amounts to solving $m$ jump conditions.
 
 \begin{theorem}\label{ntmulti}
 Consider the difference equation
 \begin{equation}\label{diffeqm2}
 U(n+1) = F(u(n))
 \end{equation}
-where $U \in R^d$ for $d > 1$. Hypotheses \ref{symmetryhyp}(ii), \ref{initialhyp}, and \ref{intersectionhyp} Let $Q(n)$ be the primary pulse solution to \eqref{diffeqm2}. Choose $m > 1$ and positive integers $N_1, \dots, N_{m-1}$, and define $N_i^\pm$ as in \eqref{Nipm}. Then, for sufficiently large $N$, where $N = \min\{ N_i^\pm : i = 1, \dots, m-1 \}$, there exists a unique $m-$pulse solution $Q_m$ to \eqref{diffeqm2} of the form
+where $U \in R^d$ for $d > 1$. Assume Hypotheses \ref{symmetryhyp}(ii), \ref{initialhyp}, and \ref{intersectionhyp} Let $Q(n)$ be the primary pulse solution to \eqref{diffeqm2}. Choose $m > 1$ and positive integers $N_1, \dots, N_{m-1}$, and define $N_i^\pm$ as in \eqref{Nipm}. Let $\theta_1, \dots, \theta_m \in \R$. Then, for sufficiently large $N$, where $N = \min\{ N_i^\pm : i = 1, \dots, m-1 \}$, there exists a unique $m-$pulse solution $Q_m(n)$ to \eqref{diffeqm2} of the form
 \begin{align}
 U_i^-(n) &= T(\theta_i) Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
 U_i^+(n) &= T(\theta_i) Q(n) + W_i^+(n) && n \in [0, N_i^+]
 \end{align}
-if the following $m$ jump conditions are satisfied
+if and only if the following $m$ jump conditions 
+\begin{align*}
+\xi_i &= 0 && i = 1, \dots, m
+\end{align*}
+are satisfied, where
 \begin{equation}\label{jumpZ}
 \begin{aligned}
 \xi_1 &= \langle T(\theta_1) Z_1(N_1^+), T(\theta_2) Q(-N_1^-) \rangle + R_1  \\
@@ -218,15 +231,16 @@ i = 2, \dots, m-1 \\
 \xi_m &= -\langle T(\theta_m) Z_1(-N_{m-1}^-), T(\theta_{m-1}) Q(N_{m-1}^+) + R_m
 \end{aligned}
 \end{equation}
-where $\theta_i \in \R$ and
+and the remainder terms have uniform bound
 \[
 |R_i| \leq C r^{-3N}
 \]
-We have the same estimates on $W_i^\pm$ as in Theorem \ref{transversemulti}.
+The estimates \eqref{Westimates} on $W_i^\pm$ from Theorem \ref{transversemulti} hold in this case.
 \end{theorem}
 
 \subsection{Stability Problem}
-Assume Hypothesis \ref{initialhyp} and Hypothesis \ref{intersectionhyp}(ii). Let $Q_m(n)$ be an $m-$pulse solution to \eqref{diffeq}, constructed as in the previous section. Write $Q_m(n)$ piecewise as
+
+Now that we have proven existence of multi-pulse solutions to \eqref{diffeq}, we will look at their spectral stability. For this, we assume Hypotheses \ref{symmetryhyp}(ii), \ref{initialhyp}, \ref{intersectionhyp} from the previous section. Let $Q_m(n)$ be an $m-$pulse solution to \eqref{diffeq}, constructed as in the previous section, and write $Q_m(n)$ piecewise as
 \begin{align}\label{qmpiecewise}
 Q_m(n) =
 \begin{cases}
@@ -234,43 +248,41 @@ T(\theta_i) Q(n) + \tilde{Q}_i^-(n) & n = [-N_{i-1}^-, 0] \\
 T(\theta_i) Q(n) + \tilde{Q}_i^+(n) & n = [0, N_i^+] \\
 \end{cases}
 \end{align}
-where the interval endpoints $N_i^\pm$ are defined in \eqref{Nipm}, with $N_0^- = -\infty$ and $N_m^+ = \infty$. From $Q_m(n)$ we can obtain an equilibriunm solution $q_m(n) \in \R^s$ to \eqref{latticePDE}.
+where $\theta_i \in \R$ and the interval endpoints $N_i^\pm$ are defined in \eqref{Nipm}, with $N_0^- = -\infty$ and $N_m^+ = \infty$. From $Q_m(n)$, we can obtain an equilibrium solution $q_m(n) \in \R^s$ to \eqref{latticePDE}. 
 
-To obtain the eigenvalue problem associated with \eqref{latticePDE}, we substitute the standard linearization ansatz $u(n) = q_m(n) + \epsilon v(n) e^{\lambda t}$ and keep terms up to order $\epsilon$, which gives us the eigenvalue problem
+To obtain the eigenvalue problem associated with \eqref{latticePDE}, we substitute the standard linearization ansatz $u(n) = q_m(n) + \epsilon v(n) e^{\lambda t}$ and keep terms up to order $\epsilon$. This gives us the eigenvalue problem
 \begin{equation}\label{EVP}
 Df(q_m(n))v(n) = \lambda v(n)
 \end{equation}
-As we did above with the stationary equation \eqref{stationaryeq}, we write this as a system of first-order difference equations. This gives us the eigenvalue problem in $\R^d$
+As we did in the previous section with the stationary equation \eqref{stationaryeq}, we write \eqref\label{EVP} as a system of first-order difference equations. Using the same procedure to do this as in the previous section, we obtain the eigenvalue problem in $\R^d$
 \begin{align}\label{latticeEVP}
-V(n+1) = A(Q_m(n)) V(n) + \lambda B V(n)
+V(n+1) = DF(Q_m(n)) V(n) + \lambda B V(n)
 \end{align}
-where $A(Q_m) = DF(q_m)$ and $B$ is a bounded, $d\times d$ constant-coefficient matrix. The dimension $d$ is the same as in the existence problem. We make the following hypothesis regarding $B$ and $T(\theta)$, which holds in most applications.
-
+where $F: \R^d \rightarrow \R^d$ is the same as in equation \eqref{diffeq} and $B$ is a bounded, $d\times d$ constant-coefficient matrix. We make the following hypothesis regarding $B$ and $T(\theta)$, which holds in most applications.
 \begin{hypothesis}\label{BTcommutehyp}
 For all $\theta \in G$, $T(\theta) B = B T(\theta)$.
 \end{hypothesis}
+Since $Q_m(n)$ decays exponentially to 0, $DF(Q_m(n))$ is exponentially asymptotic to the constant coefficient matrix $DF(0)$, which is hyperbolic by Hypothesis \ref{initialhyp}. 
 
-By the construction of $Q_m(n)$ in the previous section, $A(Q_m(n))$ is exponentially asymptotic to a constant coefficient matrix $A_\infty = DF(0)$, which is hyperbolic by Hypothesis \ref{initialhyp}. 
-
-We will also assume one of the following Melnikov conditions.
+We will also assume one of the following Melnikov-like conditions.
 \begin{hypothesis}\label{melnikovhyp}
-One of the following holds Melnikov conditions holds.
+One of the following Melnikov conditions holds.
 \begin{enumerate}[(i)]
-\item 
+\item
 \[
 M_1 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B S_1(n) \rangle \neq 0
 \]
-\item There exists a bounded function $T_1(n)$ such that 
+\item 
+\[
+M_1 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B S_1(n) \rangle = 0
+\]
+By the Fredholm alternative, there exists $T_1(n)$ such that 
 \[
 T_1(n+1) = A(Q(n)) T_1(n) + B S_1(n)
 \]
-and
+We assume that the higher order Melnikov sum is nonzero.
 \[
 M_2 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B T_1(n) \rangle \neq 0 
-\]
-It follows from the Fredholm alternative that
-\[
-M_1 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B S_1(n) \rangle = 0 \\
 \]
 \end{enumerate}
 \end{hypothesis}
@@ -278,12 +290,12 @@ M_1 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B S_1(n) \rangle = 0 \\
 We can now state the stability theorem, in which we locate the eigenvalues of \eqref{latticePDE}.
 
 \begin{theorem}\label{stabilitytheorem}
-Let $Q_m(n)$ be discrete $m-$pulse equilibrium solution to \eqref{latticePDE}, constructed according to Theorem \ref{transversemulti} or Theorem \ref{ntmulti}. Then there exists a bounded, nonzero solution $V(n)$ of the eigenvalue problem \eqref{latticeEVP} for $|\lambda| < \delta$ if and only if $\det E(\lambda) = 0$, where
+Assume Hypotheses \ref{symmetryhyp}(ii), \ref{initialhyp}, \ref{intersectionhyp}, and \ref{BTcommutehyp}. Let $Q_m(n)$ be discrete $m-$pulse equilibrium solution to \eqref{latticePDE}, constructed according to Theorem \ref{ntmulti}. Then there exists a bounded, nonzero solution $V(n)$ of the eigenvalue problem \eqref{latticeEVP} for $|\lambda| < \delta$ if and only if $\det E(\lambda) = 0$, where
 \begin{equation}\label{Elambda}
 E(\lambda) = \begin{cases}
-\det(A - M_1 \lambda \: \text{diag}(T(\theta_1), \dots, T(\theta_m)) + R(\lambda)
+\det(A - M_1 \lambda I + R(\lambda)
 & \text{Hypothesis \ref{melnikovhyp}(i) holds} \\
-\det(A - M_2 \lambda^2 \text{diag}(T(\theta_1), \dots, T(\theta_m)) + R(\lambda) 
+\det(A - M_2 \lambda^2 I + R(\lambda) 
 & \text{Hypothesis \ref{melnikovhyp}(ii) holds}
 \end{cases}
 \end{equation}
@@ -300,10 +312,9 @@ A &= \begin{pmatrix}
 where
 \begin{align*}
 a_i &= \langle T(\theta_i) Z_1(N_i^+), T(\theta_{i+1}) S_1(-N_i^-) \rangle \\
-\tilde{a}_i &= \langle T(\theta_i) Z_1(-N_{i-1}^-), T(\theta_{i-1}) S_1(N_{i-1}^+) \rangle
+\tilde{a}_i &= \langle T(\theta_{i+1}) Z_1(-N_i^-), T(\theta_i) S_1(N_i^+) \rangle
 \end{align*}
-
-The remainder term has bound
+and the remainder term has bound
 \begin{align}\label{Rbound2}
 |R(\lambda)| \leq C\left( (r^N + |\lambda|)^3 \right)
 \end{align}
@@ -311,31 +322,46 @@ The remainder term has bound
 
 \section{Discrete NLS}
 
-The normalized form of dNLS is
+\subsection{Background}
+
+We will apply the results of the previous section to the discrete NLS equation (dNLS). The normalized form of dNLS is
 \begin{equation}\label{dNLS}
 i\dot{u}_n + \epsilon(u_{n+1} - 2 u_n + u_{n-1}) + |u_n|^2 u_n = 0
 \end{equation}
-The parameter $\epsilon$ represents the coupling between nodes, and the anti-continuum limit is given by $\epsilon = 0$. Equation \eqref{dNLS} is Hamiltonian (Kev09x)
+The parameter $\epsilon$ represents the coupling between nodes. Equation \eqref{dNLS} is Hamiltonian (Kev09x), with energy $H$ given by
 \[
 H = -\sum_{n=-\infty}^\infty\left( \epsilon|u_n - u_{n-1}|^2
 -\frac{1}{2}|u_n|^4 \right)
 \]
-We are interested in stationary solutions in a ``co-rotating'' frame, i.e. solutions of the form $\phi_n e^{i \omega t}$. To that end, we take $u_n \mapsto u_n e^{i \omega t}$ in \eqref{dNLS} and simplify to get
+
+We are interested in stationary solutions in a ``co-rotating'' frame, which are solutions of the form $\phi_n e^{i \omega t}$. To that end, we make the substitution $u_n \mapsto u_n e^{i \omega t}$ in \eqref{dNLS} and simplify to get
 \begin{equation}\label{dNLSrot}
 i\dot{u}_n + \epsilon(u_{n+1} - 2 u_n + u_{n-1}) - \omega u_n + |u_n|^2 u_n = 0
 \end{equation}
-
-\subsection{Existence of multi-pulses}
 
 Equilibrium solutions satisfy
 \begin{equation}\label{dNLSequilib}
 \epsilon(u_{n+1} - 2 u_n + u_{n-1}) - \omega u_n + |u_n|^2 u_n = 0
 \end{equation}
-In the anti-continuum limit, \eqref{dNLSequilib} is an algebraic equation. Any function $u(n)$ with $u(n) \in \{ 0, \pm \sqrt{\omega}\}$ is a solution. We are interested in what happens as we move away from this limit.
+The anti-continuum limit occurs at $\epsilon = 0$, at which point \eqref{dNLSequilib} becomes an algebraic equation. Any function $u(n)$ with $u(n) \in \{ 0, \pm \sqrt{\omega}\}$ is a solution to \eqref{dNLSequilib} when $\epsilon = 0$. We are interested in what happens as $\epsilon$ increases.
 
-First, we will look for real-valued solutions to \eqref{dNLSequilib}. In this case, we have a symmetry group $G = (\{1, -1\}, \cdot)$, and the group action on $l^\infty(\Z)$ is $g(\theta) = \theta$, i.e. multiplication by $\theta$. Let $\tilde{u}_n = u_{n-1}$. Thus Hypothesis \eqref{symmetryhyp}(i) is satisfied.
+The dNLS equation posesses two real-valued, symmetric, single pulse solutions (up to rotation): on-site solutions, which are centered on a single lattice point; and off-site solutions, which are centered between two adjacent lattice points (Kev09x). The on-site solution has a single eigenvalue at 0 from the rotational symmetry. The off-site solution has in addition a pair of real eigenvalues; since the off-site solution is spectrally unstable, we will only consider the on-site solution from here on. 
 
-Real-valued, stationary solutions to \eqref{dNLSreal} satisfy the difference equation in $\R^2$
+Let $q(n)$ be the on-site solution. I believe this exists for all $\epsilon$, as it exists in both the anti-continuum limit and the continuum limit; this should be somewhere in Chapter 2 of Kev09x.
+
+\subsection{Existence of multi-pulses}
+
+We will now show existence of multi-pulse solutions. These resemble multiple, well-separated copies of the on-site, primary pulse solution $q(n)$. An argument using the implicit function theorem shows that these solutions exist near the anti-continuum limit [Reference]. We will use Lin's method to give an existence proof which relies on the pulse separation instead of proximity to the anti-continuum limit.
+
+\subsubsection{Real-valued solutions}
+
+First, we will look for real-valued solutions to \eqref{dNLSequilib}. In this case, the stationary equation reduces to
+\begin{equation}\label{dNLSequilibreal}
+\epsilon(u_{n+1} - 2 u_n + u_{n-1}) - \omega u_n + u_n^3 = 0
+\end{equation}
+The symmetry group is $G = (\{1, -1\}, \cdot)$, and the group action on $l^\infty(\Z)$ is $g(\theta) = \theta$, i.e. multiplication by $\theta$. Thus Hypothesis \eqref{symmetryhyp}(i) is satisfied.
+
+To write this as a first order system, let $\tilde{u}_n = u_{n-1}$. Then for $\epsilon > 0$, \eqref{dNLSequilibreal} is equivalent to the difference equation in $\R^2$
 \begin{equation}\label{dnlsdiffR2}
 \begin{pmatrix}
 u \\ \tilde{u}
@@ -352,34 +378,36 @@ u \\ \tilde{u}
 u_n^3 \\ 0
 \end{pmatrix}
 \end{equation}
-where we have separated the RHS into linear and nonlinear parts. This is of the form of equation \eqref{diffeq}, where $U = (u, \tilde{u})$ and $F(U) = A_\infty U + G(U)$, where $F$ is smooth. The symmetry group $G$ acts on $\R^2$ by $T(\theta) = \theta I = \{ I, -I \}$.
+where we have separated the RHS into linear and nonlinear parts. This is of the form of equation \eqref{diffeq}, where $U = (u, \tilde{u})$ and we have written $F: \R^2 \rightarrow \R^2$ as $F(U) = DF(0) U + G(U)$. The symmetry group $G$ acts on $\R^2$ via $T(\theta) = \theta I$. The rest state $U(n) = 0$ is an equilibrium solution. For $\epsilon, \omega > 0$, $DF(0)$ has a pair of real eigenvalues $\{r, 1/r \}$, where $r$ depends on both $\epsilon$ and $\omega$, and is given by
+\begin{align}\label{defr}
+r = 1 + \frac{\omega}{2 \epsilon} \left( 1 + \sqrt{1 + \frac{4 \epsilon}{\omega}} \right) > 1
+\end{align}
+As $\epsilon \rightarrow \infty$, $r \rightarrow 1$, thus the spectral gap decreases with increasing $\epsilon$. As $\epsilon \rightarrow 0$, $r \rightarrow \infty$.
 
-The rest state $U(n) = 0$ is an equilibrium solution, and $DF(0) = A_\infty$ has eigenvalues
-\begin{align*}
-\nu_{1,2} &= 1 + \frac{\omega}{2 \epsilon} \left( 1 \pm \sqrt{1 + \frac{4 \epsilon}{\omega}} \right)
-\end{align*}
-For $\epsilon, \omega > 0$, these eigenvalues are real, and it straightforward to check that $\nu_1 \nu_2 = 1$. Thus 0 is a hyperbolic equilibrium point with 1-dimensional stable and unstable manifolds. Let
-\begin{align*}
-r &= r(\epsilon, \omega) = 1 + \frac{\omega}{2 \epsilon} \left( 1 + \sqrt{1 + \frac{4 \epsilon}{\omega}} \right) > 1
-\end{align*}
+It follows that 0 is a hyperbolic equilibrium point with 1-dimensional stable and unstable manifolds. Thus Hypothesis \ref{initialhyp} is satisfied, where the existence of a primary pulse solution was discussed above. Since the variational equation does not have a bounded solution, the stable and unstable manifolds intersect transversely, thus Hypothesis \ref{intersectionhyp} is satisied. 
 
-As long as $\epsilon, \omega > 0$, Hypothesis \ref{initialhyp}(i) and (ii) are satisfied. For Hypothesis \ref{initialhyp}(iii), the existence of a single-pulse homoclinic orbit $Q(n)$connecting the rest state a 0 to itself (bright soliton) has been shown to exist [CITATION NEEDED]. We should also know that the stable and unstable manifolds intersect transversely, or (equivalently) that the variational equation does not have a bounded solution, thus Hypothesis \ref{intersectionhyp} is satisied. 
-
-Using Theorem \ref{transversemulti}, for sufficiently large $N$ (which depends on $r$, thus $\omega$ and $\epsilon$) and any choice of $\theta_i = \pm 1$, there exist $m-$pulse solutions which can be written piecewise in the form  
+Using Theorem \ref{transversemulti}, for sufficiently large $N$ (which depends on $r$, thus $\omega$ and $\epsilon$) there exist $m-$pulse solutions of the form
 \begin{align*}
 Q_i^-(n) &= \theta_i Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
 Q_i^+(n) &= \theta_i Q(n) + W_i^+(n) && n \in [0, N_i^+]
 \end{align*}
+for any choices $\theta_i = \pm 1$ and lengths $N_i \geq N$. 
 
-We will now show that (up to rotation), there are no other multi-pulse soliton solutions to dNLS. This time, we will allow \eqref{dNLSequilib} to have complex-valued solutions. In this case, we have a symmetry group $G = (\R, +)$, and the group action on $l^\infty(\Z)$ is $g(\theta)u(n) = e^{i \theta}u(n)$, i.e. rotation by $\theta$. Thus Hypothesis \ref{symmetryhyp}(ii) is satisfied.
+\subsubsection{No other multi-pulses}
 
-Next, write dNLS as a two-dimensional system in real variables. Substituting $u = v + i w$ and equating real and imaginary parts, we obtain the equivalent system 
+We will now show that (up to rotation), there are no other multi-pulse soliton solutions to dNLS. In particular, there are no multi-pulse solutions with phase differences other than $0$ and $\pi$. For convenience, we will reuse much of the notation from the previous section. 
+
+Since we are now considering complex-valued solutions to \eqref{dNLSequilib}, the symmetry group is $G = (\R, +)$, and the group action on $l^\infty(\C)$ is $g(\theta)u(n) = e^{i \theta}u(n)$, i.e. rotation by $\theta$. Thus Hypothesis \ref{symmetryhyp}(ii) is satisfied.
+
+Next, we write dNLS as a two-dimensional system in real variables. Substituting $u = v + i w$ into equation \eqref{dNLSrot} and equating real and imaginary parts, we obtain the equivalent equation
 \begin{equation}\label{dNLSreal}
 \begin{aligned}
 \dot{v}_n  &+ \epsilon (w_{n+1} - 2 w_n + w_{n-1}) - \omega w_n + v_n^2 w_n + w_n^3 = 0 \\
 -\dot{w}_n &+ \epsilon (v_{n+1} - 2 v_n + v_{n-1}) - \omega v_n + v_n w_n^2 + v_n^3 = 0
 \end{aligned}
 \end{equation}
+where $v, w \in l^\infty(\R)$. 
+
 Let $\tilde{v}_n = v_{n-1}$ and $\tilde{w}_n = w_{n-1}$. Then stationary solutions to \eqref{dNLSreal} satisfy the difference equation in $\R^4$
 \begin{equation}\label{dnlsdiffR4}
 \begin{pmatrix}
@@ -399,7 +427,7 @@ v \\ \tilde{v} \\ w \\ \tilde{w}
 v_n w_n^2 + v_n^3 \\ 0 \\ v_n^2 w_n + w_n^3 \\ 0
 \end{pmatrix}
 \end{equation}
-This is of the form of equation \eqref{diffeq}, where $U = (v, \tilde{v}, w, \tilde{w})$ and $F(U) = A_\infty U + G(U)$, where $F$ is smooth. The rest state $U(n) = 0$ is an equilibrium solution. The symmetry group $G$ acts on $\R^4$ via $T(\theta)$, where
+where we have again separated the RHS into linear and nonlinear parts. This is of the form of equation \eqref{diffeq}, where $U = (v, \tilde{v}, w, \tilde{w})$ and we have written $F: \R^4 \rightarrow \R^4$ as $F(U) = DF(0) U + G(U)$. The rest state $U(n) = 0$ is an equilibrium solution. The symmetry group $G$ acts on $\R^4$ via $T(\theta)$, where
 \begin{align}\label{TdNLS}
 T(\theta) =
 \begin{pmatrix}
@@ -420,16 +448,16 @@ S =
 \end{pmatrix}
 \end{align}
 
-$DF(0) = A_\infty$ has eigenvalues $\nu_{1,2}$, which are the same as in the real-valued case. Each eigenvalue has multiplicity 2, since $A_\infty$ is block diagonal with two identical blocks. Choosing $r(\epsilon, \omega)$ as above, 0 is a hyperbolic equilibrium point with 2-dimensional stable and unstable manifolds. Let $Q(n)$ be the real-valued primary pulse solution to dNLS, which is of the form $Q(n) = (q(n), \tilde{q}(n), 0, 0)$ be this solution, where $q(n)$ is a real-valued solution to \eqref{dNLSequilib}. Thus Hypothesis \ref{initialhyp} is satisfied.
+For $\epsilon, \omega > 0$, $DF(0)$ has eigenvalues $\{r, 1/r\}$, each of which has multiplicity 2, since $DF(0)$ is block diagonal with two identical blocks; the constant $r$ is the same as in the previous section, and is defined in equation \eqref{defr}. Thus $DF(0)$ is hyperbolic with 2-dimensional stable and unstable manifolds. Let $q(n)$ be the real-valued on-site, primary pulse solution to \eqref{dNLSequilib}. Then the primary pulse solution to \eqref{dnlsdiffR4} is given by $Q(n) = (q(n), \tilde{q}(n), 0, 0)$.Thus Hypothesis \ref{initialhyp} is satisfied.
 
-The variational and adjoint variational equations associated with \eqref{dnlsdiffR4} and $Q$ are 
+The variational and adjoint variational equations associated with \eqref{dnlsdiffR4} and $Q(n)$ are
 \begin{align}
-V(n+1) &= A(Q(n)) V(n) \label{vareqdNLS} \\
-Z(n+1) &= [A(Q(n)^*]^{-1} Z(n) \label{adjvareqdNLS}
+V(n+1) &= A(n; 0) V(n) \label{vareqdNLS} \\
+Z(n+1) &= [A(n; 0)^*]^{-1} Z(n) \label{adjvareqdNLS}
 \end{align}
 where
 \begin{equation}\label{AQdNLS}
-A(Q(n)) = 
+A(Q(n)) = D_U F(Q(n)) = 
 \begin{pmatrix}
 \frac{\omega}{\epsilon} + 2 - \frac{3 q(n)^2}{\epsilon} & -1 & 0 & 0 \\
 1 & 0 & 0 & 0 \\
@@ -437,9 +465,16 @@ A(Q(n)) =
 0 & 0 & 1 & 0
 \end{pmatrix}
 \end{equation}
-and $A(Q_n)$ is exponentially asymptotic to $A_\infty$. Let $S_1(n) = S Q(n) = (0, 0, q(n), \tilde{q}(n))$. We can verify that (as expected), $S_1(n)$ is a solution to the variational equation \eqref{vareqdNLS}. Either we assume (OR KNOW FROM SOMEWHERE that there are no other bounded solutions to \eqref{vareqdNLS}, thus Hypothesis \ref{intersectionhyp} is satisfied. It follows the the adjoint variational equation \eqref{adjvareqdNLS} has a unique bounded solution $Z_1(n)$, and we can verify directly that $Z_1(n) = (0, 0, -\tilde{q}(n), q(n))$.
+Let 
+\begin{equation}\label{defS1}
+S_1(n) = S Q(n) = (0, 0, q(n), \tilde{q}(n))
+\end{equation}. 
+We can verify that (as expected), $S_1(n)$ is a solution to the variational equation \eqref{vareqdNLS}. We assume (or know from, say, Kev09x) that there are no other linearly independent, bounded solutions to \eqref{vareqdNLS}, thus Hypothesis \ref{intersectionhyp} is satisfied. It follows the the adjoint variational equation \eqref{adjvareqdNLS} has a unique bounded solution $Z_1(n)$, and we can verify directly that
+\begin{equation}\label{defZ1}
+Z_1(n) = (0, 0, -\tilde{q}(n), q(n))
+\end{equation}
 
-Using Theorem \ref{ntmulti}, for sufficiently large $N$ (which depends on $r$, thus $\omega$ and $\epsilon$) and any choice of $\theta_i = \R$, there exist $m-$pulse solutions which can be written piecewise in the form  
+Using Theorem \ref{ntmulti}, for sufficiently large $N$ (which depends on $r$, thus $\omega$ and $\epsilon$) there exist $m-$pulse solutions which can be written piecewise in the form  
 \begin{align*}
 Q_i^-(n) &= \theta_i Q(n) + W_i^-(n) && n \in [-N_{i-1}^-, 0] \\
 Q_i^+(n) &= \theta_i Q(n) + W_i^+(n) && n \in [0, N_i^+]
@@ -453,21 +488,23 @@ are satisfied, where
 \[
 |R_i| \leq C r^{-3N}
 \]
-and we note that the first inner product term is zero for $i = m$ and the second inner product term is 0 for $i = 1$.
+We note that the first inner product term is zero for $i = m$ and the second inner product term is 0 for $i = 1$.
 
-Using \eqref{TdNLS} and the fact that $T(\theta)$ is unitary, we can write the $m$ jump conditions as
+Using \eqref{TdNLS} and the fact that $T(\theta)$ is unitary, we can write the jump conditions as
 \begin{align*}
 \xi_i = \langle T(\theta_i - \theta_{i+1}) Z_1(N_i^+), Q(-N_i^-) \rangle
 - \langle T(\theta_i - \theta_{i-1}) Z_1(-N_{i-1}^-), Q(N_{i-1}^+) \rangle + R_i
 \end{align*}
-For $i = 1, \dots, m-1$, let $\Delta \theta_i = \theta_{i+1} - \theta_i$. Then the jump conditions can be written
+It is natural to write these in terms of the $m-1$ phase differences $\Delta \theta_i = \theta_{i+1} - \theta_i$, where $i = 1, \dots, m-1$. Thus the jump conditions can be written as
 \begin{align}\label{jumpDNLS}
 \xi_i = \langle T(-\Delta \theta_i) Z_1(N_i^+), Q(-N_i^-) \rangle
 - \langle T(\Delta \theta_{i-1}) Z_1(-N_{i-1}^-), Q(N_{i-1}^+) \rangle + R_i
 \end{align}
-For the first inner product term, we have
+Again, we note that the terms involving $\Delta \theta_0$ and $\Delta \theta_m$ are 0.
+
+Next, we evaluate the inner product terms in \eqref{jumpDNLS}. For the first inner product term, we have
 \begin{align*}
-\langle T(&-\Delta\theta_i) Z_1(N_i^+), Q(-N_i^-) \rangle \\
+\langle &T(-\Delta\theta_i) Z_1(N_i^+), Q(-N_i^-) \rangle \\
 &= \langle 
 \begin{pmatrix}
 \tilde{q}(N_i^+)\sin(-\Delta\theta_i) \\
@@ -484,7 +521,11 @@ q(-N_i^-) \\ \tilde{q}(-N_i^-) \\ 0 \\ 0
 &= -(q(N_i^+ - 1)q(N_i^-) - q(N_i^+)q(N_i^- + 1))\sin(\Delta\theta_i) \\
 &= -a_i \sin(\Delta\theta_i) 
 \end{align*}
-where $a_i = (q(N_i^+ - 1)q(N_i^-) - q(N_i^+)q(N_i^- + 1))$. For the second inner product term,
+where 
+\[
+a_i = (q(N_i^+ - 1)q(N_i^-) - q(N_i^+)q(N_i^- + 1))
+\]
+For the second inner product term,
 \begin{align*}
 \langle T(&\Delta\theta_{i-1}) Z_1(-N_{i-1}^-), Q(N_{i-1}^+) \rangle \\
 &= \langle 
@@ -503,7 +544,8 @@ q(Q(N_{i-1}^+) \\ \tilde{q}(Q(N_{i-1}^+) \\ 0 \\ 0
 &= (q(N_{i-1}^- + 1)q(N_{i-1}^+) - q(N_{i-1}^-)q(N_{i-1}^+ - 1))\sin(\Delta\theta_{i-1}) \\
 &= -a_{i-1} sin(\Delta\theta_{i-1})
 \end{align*}
-Substituting these into \eqref{jumpDNLS} and writing the first and last jump condition separately, we have
+
+Substituting these into \eqref{jumpDNLS} and writing the first and last jump conditions separately, we have
 \begin{equation}\label{jumpDNLS2}
 \begin{aligned}
 \xi_1 &= -a_1 s_1 + R_1 \\
@@ -512,13 +554,9 @@ Substituting these into \eqref{jumpDNLS} and writing the first and last jump con
 \xi_m &= a_{m-1} s_{m-1} + R_m
 \end{aligned}
 \end{equation}
-where $s_i = \sin{\theta_i}$. Since $a_i = \mathcal{O}(r^{-2N})$ and $R_i = \mathcal{O}(r^{-3N})$, the jump conditions can only be satisfied if $s_i = \mathcal{O}(r^{-N})$. Thus we only have to consider that case from now on. 
+where $s_i = \sin{\Delta\theta_i}$. Since $a_i = \mathcal{O}(r^{-2N})$ and $R_i = \mathcal{O}(r^{-3N})$, the jump conditions can only be satisfied if $s_i = \mathcal{O}(r^{-N})$. Thus we only have to consider that case from now on. 
 
-Write the jump conditions in matrix form as
-\[
-A s + R = 0
-\]
-where $A$ is the $m \times (m-1)$ matrix
+We can write the jump conditions in matrix form as $A s + R = 0$, where $A$ is the $m \times (m-1)$ matrix
 \[
 A = \begin{pmatrix}
 -a_1 \\
@@ -529,7 +567,7 @@ a_1 & -a_2 \\
 &&&& a_{m-1}
 \end{pmatrix}
 \]
-$s = (s_1, \dots, s_{m-1})$, and $R = \mathcal{O}(r^{-3N})$. Since we have a Hamiltonian system, if we solve $m-1$ jump conditions, then the final jump condition is automatically satisfied, thus we can eliminate one of the jump conditions. It does not matter which one we eliminate, but for simplicity we will eliminate the final one. Thus we can redefine $A$ as the $(m-1)\times(m-1)$ matrix
+$s = (s_1, \dots, s_{m-1})$, and $R = \mathcal{O}(r^{-3N})$. Since we have a Hamiltonian system, if we solve $m-1$ of the jump conditions, the final jump condition is automatically satisfied, thus we can eliminate one of the jump conditions. It does not matter which one we eliminate, but for simplicity we will eliminate the final one. Thus we can redefine $A$ as the $(m-1)\times(m-1)$ matrix
 \[
 A = \begin{pmatrix}
 -a_1 \\
@@ -540,25 +578,25 @@ a_1 & -a_2 \\
 \end{pmatrix}
 \]
 
-We want to show that $A s + R = 0$ has a solution by using the IFT. To do that, we rescale $A$. Since $a_i = \mathcal{O}(r^{-2N})$, let $A = r^{-2N} \tilde{A}$. Then divide $A s + R = 0$ by $r^{-2N}$ to get the equation
-\[
+We want to show that the matrix equation $A s + R = 0$ has a unique solution by using the IFT. As $N \rightarrow \infty$, $A, R \rightarrow 0$, but they do so at different rates. Thus we rescale the equation as follows. Since $a_i = \mathcal{O}(r^{-2N})$, let $A = r^{-2N} \tilde{A}$. Dividing by $r^{-2N}$, we obtain the equivalent equation
+\begin{equation}\label{Asrescaled}
 \tilde{A}s + \tilde{R} = 0
-\]
+\end{equation}
 where $\tilde{A} = \mathcal{O}(1)$ and $\tilde{R} = \mathcal{O}(r^{-N})$. Let 
 \[
-\mathcal{R} = \left\{ r^{-m} : m \in \N_0 \right\} \cup \{ 0 \}
+\mathcal{B} = \left\{ r^{-n} : n \in \N_0 \right\} \cup \{ 0 \}
 \]
-which is a complete metric space. Then we can write our equation as 
-\begin{equation}\label{Ftildeeq}
-F(s; \tilde{r}) = \tilde{A}s + \tilde{R} = 0
+which is a complete metric space. Then we can write equation \eqref{Asrescaled} as
+\begin{equation}\label{Htildeeq}
+H(s; b) = \tilde{A}s + \tilde{R} = 0
 \end{equation}
-where $|\tilde{R}| \leq C \tilde{r}$ and $\tilde{r} \in \mathcal{R}$. It is easy to see that $F(0; 0) = 0$ and $DF(0; 0) = \tilde{A}$, which is invertible since it is lower triangular and all the $\tilde{a}_i$ are nonzero. Thus, using the IFT, we can find $r_0 > 0$ such that for all $r \in \mathcal{R}$ with $r < r_0$, there is a smooth function $s(\tilde{r})$ such that $s(0) = 0$ and $F(s(\tilde{r}); \tilde{r}) = 0$ is the unique solution to \eqref{Ftildeeq}. In other words, there exists a positive integer $N_0$ such that whenever $N \geq N_0$, there is a unique solution $s(N)$ to \eqref{Ftildeeq}. 
+where $|\tilde{R}| \leq C b$ and $b \in \mathcal{B}$. It is easy to see that $H(0; 0) = 0$ and $DH(0; 0) = \tilde{A}$, which is invertible since it is lower triangular and all the $\tilde{a}_i$ are nonzero. Using the IFT, we can find $b_0 > 0$ and a smooth function $s(b)$ such that $s(0) = 0$ and $H(s(b); b) = 0$ for $b \in \mathcal{B}$ with $b < b_0$. Writing this in terms of $N$, there exists a positive integer $N_0$ such that whenever $N \geq N_0$, there is a unique solution $s(N)$ to \eqref{Asrescaled}. 
 
-From above, we know that for sufficiently large $N$, $s = 0$ is a solution to \eqref{Ftildeeq}. Thus, increasing $N_0$ if necessary, for all $N \geq N_0$ we have $s(N) = 0$. We conclude that for sufficiently large $N$, the jump conditions can only be satisfied if $s = 0$, i.e. if all of the $\Delta \theta_i$ are either 0 or $\pi$. These are the only phase differences which are possible.
+In the previous section, we showed that for sufficiently large $N$, real-valued multipulses exist with phase differences which are either 0 or $\pi$. For all of those cases $s = 0$. Thus by uniqueness from the IFT, $s(N) = 0$ for all $N \geq N_0$ (where we increased $N_0$ if necessary). We conclude that for sufficiently large $N$, the jump conditions can only be satisfied if $s = 0$, i.e. if all of the phase differences $\Delta \theta_i$ are either 0 or $\pi$. No other phase differences are possible.
 
 \subsection{Eigenvalue problem}
 
-Let $Q_m(n) = (q_m(n), \tilde{q}_m(n), 0, 0)$ be a $m-$pulse solution to \eqref{dnlsdiffR4} with symmetry parameters $\theta_1, \dots, \theta_m$, with $\theta \{0, \pi\}$. Taking the standard linearization ansatz
+Let $Q_m(n) = (q_m(n), \tilde{q}_m(n), 0, 0)$ be a real-valued $m-$pulse solution to \eqref{dnlsdiffR4} with phase differences $\Delta \theta_1, \dots, \theta_{m-1} \in \{0, \pi\}$. Taking the standard linearization ansatz
 \[
 \begin{pmatrix}v \\ \tilde{v} \\ w \\ \tilde{w} \end{pmatrix}_n = 
 \begin{pmatrix}q_m \\ \tilde{q}_m \\ 0 \\ 0 \end{pmatrix}_n + 
@@ -578,13 +616,11 @@ B =
 0 & 0 & 0 & 0
 \end{pmatrix}
 \]
-
-Let $S_1 = (0, 0, q, \tilde{q})^T$ and $T_1 = (-\partial_\omega q, -\partial_\omega \tilde{q}, 0, 0)^T$. Then it is straightforward to verify that
+We showed above that $S_1(n+1) = A(Q_1(n)) S_1(n)$, where $S_1(n) = S Q(n) = (0, 0, q(n), \tilde{q}(n))$. We also showed that $Z_1 = (0, 0, -\tilde{q}, q)$ is the unique bounded solution to the adjoint variational equation \eqref{adjvareqdNLS}. It is straightforward to verify that 
 \begin{align*}
-S_1(n+1) &= A(Q_1(n)) S_1(n) \\
 T_1(n+1) &= A(Q_1(n)) T_1(n) + B S_1(n)
 \end{align*}
-and that $Z_1 = (0, 0, -\tilde{q}, q)$ is the unique bounded solution to the adjoint variational equation \eqref{adjvareqdNLS}. For the Melnikov sums, we have
+where $T_1 = (-\partial_\omega q, -\partial_\omega \tilde{q}, 0, 0)^T$. For the Melnikov sums, we have
 \[
 M_1 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B S_1(n) \rangle = 0
 \]
@@ -593,177 +629,135 @@ and
 M_2 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B T_1(n) \rangle =
 \sum_{n=-\infty}^\infty q(n) q_\omega(n)
 \]
-Either we assume $M_2$ is nonzero or we find a reference for that. Thus Hypothesis \ref{melnikovhyp}(ii) is satisfied. For $N$ sufficiently large, we can find the eigenvalues of \eqref{dNLSEVP} using Theorem \ref{stabilitytheorem}. 
+Either we assume $M_2$ is nonzero or we find a reference for that. Numerics suggests that $M_2 > 0$. Thus Hypothesis \ref{melnikovhyp}(ii) is satisfied. For $N$ sufficiently large, we can find the eigenvalues of \eqref{dNLSEVP} using Theorem \ref{stabilitytheorem}. 
 
 First, we look at the terms of the matrix $A$. For $a_i$ and $\tilde{a}_i$, we have
 \begin{align*}
-a_i &= \langle Z_1(N_i^+), S_1(-N_i^-) \rangle \\
-&= -\tilde{q}(N_i^+)q(-N_i^-) + q(N_i^+)\tilde{q}(-N_i^-) \\
-&= -q(N_i^+ - 1)q(-N_i^-) + q(N_i^+)(-N_i^- - 1) \\
-&= q(N_i^+)(N_i^- + 1) - q(N_i^+ - 1)q(N_i^-)\\
+a_i &= \langle T(\theta_i) Z_1(N_i^+), T(\theta_{i+1}) S_1(-N_i^-) \rangle \\
+&= \langle T(\theta_i - \theta_{i+1}) Z_1(N_i^+), S_1(-N_i^-) \rangle \\
+&= \langle T(-\Delta\theta_i)Z_1(N_i^+), S_1(-N_i^-) \rangle
 \end{align*}
 and
 \begin{align*}
+\tilde{a}_i &= \langle T(\theta_{i+1}) Z_1(-N_i^-), T(\theta_i) S_1(N_i^+) \rangle \\
+&= \langle T(\Delta \theta_i) Z_1(-N_i^-), S_1(N_i^+) \rangle
+\end{align*}
+Since $\Delta\theta_i \in \{0, \pi\}$, 
+\[
+T(\Delta\theta_i) = T(-\Delta\theta_i) = \cos(\Delta\theta_i)I
+\]
+Thus these become
+\begin{align*}
+a_i &= \cos(\Delta\theta_i) \langle Z_1(N_i^+), S_1(-N_i^-) \rangle \\
+\tilde{a}_i &= \cos(\Delta\theta_i) \langle Z_1(-N_i^-), S_1(N_i^+) 
+\end{align*}
+Evaluating these, we have
+\begin{align*}
+a_i &= \cos(\Delta\theta_i)\langle Z_1(N_i^+), S_1(-N_i^-) \rangle \\
+&= \cos(\Delta\theta_i)(-\tilde{q}(N_i^+)q(-N_i^-) + q(N_i^+)\tilde{q}(-N_i^-)) \\
+&= \cos(\Delta\theta_i)(-q(N_i^+ - 1)q(-N_i^-) + q(N_i^+)q(-N_i^- - 1) )\\
+&= \cos(\Delta\theta_i)( q(N_i^+)(N_i^- + 1) - q(N_i^+ - 1)q(N_i^-) )\\
+&= \cos(\Delta\theta_i) b_i
+\end{align*}
+where $b_i = q(N_i^+)(N_i^- + 1) - q(N_i^+ - 1)q(N_i^-)$. Similarly,
+\begin{align*}
 \tilde{a}_i &= \langle Z(-N_i^-), S_1(N_i^+) \rangle \\
-&= -\tilde{q}(-N_i^-)q(N_i^+) + q(-N_i^-)\tilde{q}(N_i^+) \\
-&= -q(-N_i^- - 1)q(N_i^+) + q(-N_i^-)q(N_i^+ - 1) \\
-&= -q(N_i^- + 1)q(N_i^+) + q(N_i^-)q(N_i^+ - 1) \\
-&= -q(N_i^+)q(N_i^- + 1) + q(N_i^+ - 1)q(N_i^-) \\
+&= \cos(\Delta\theta_i)(-\tilde{q}(-N_i^-)q(N_i^+) + q(-N_i^-)\tilde{q}(N_i^+)) \\
+&= \cos(\Delta\theta_i)(-q(-N_i^- - 1)q(N_i^+) + q(-N_i^-)q(N_i^+ - 1)) \\
+&= \cos(\Delta\theta_i)(-q(N_i^- + 1)q(N_i^+) + q(N_i^-)q(N_i^+ - 1)) \\
+&= -\cos(\Delta\theta_i)(q(N_i^- + 1)q(N_i^+) - q(N_i^-)q(N_i^+ - 1)) \\
+&= -\cos(\Delta\theta_i) b_i \\
 &= -a_i
 \end{align*}
-For $N_i$ even, we have $N_i^+ = N_i^-$, so $a_i$ becomes
+For $N_i$ even, we have $N_i^+ = N_i^-$, so $b_i$ becomes
 \[
-a_i = q(N_i^+)( q(N_i^+ + 1) - q(N_i^+ - 1) )
+b_i = q(N_i^+)( q(N_i^+ + 1) - q(N_i^+ - 1) )
 \]
-For $N_i$ odd, we have $N_i^- = N_i^+ + 1$, so $a_i$ becomes
+For $N_i$ odd, we have $N_i^- = N_i^+ + 1$, so $b_i$ becomes
 \[
-a_i = q(N_i^+)q(N_i^+ + 2) - q(N_i^+ - 1)q(N_i^+ + 1)
+b_i = q(N_i^+)q(N_i^+ + 2) - q(N_i^+ - 1)q(N_i^+ + 1)
 \]
-Both of these are negative, since $q(n)$ is decreases as $n$ moves away from 0. (I THINK WE GET THIS FROM EXPONENTIAL DECAY AND THE FACT THAT THE EIGENVALUES OF REST STATE ARE REAL).
-
-The matrix $A$ becomes
+Both of these are negative, since $q(n)$ is decreases as $n$ moves away from 0. (WE SHOULD GET THIS FROM EXPONENTIAL DECAY AND THE FACT THAT THE EIGENVALUES OF REST STATE ARE REAL). Thus the matrix $A$ becomes
 \begin{align}\label{AdNLS}
 A &= \begin{pmatrix}
--c_2 a_1 & c_2 a_1 & & &  \\
-c_1 a_1 & -c_1 a_1 - c_3 a_2 & c_3 a_2 \\
-& c_2 a_2 & -c_2 a_2 - c_4 a_3 & c_4 a_3 \\
+-\cos(\Delta\theta_1) b_1 & \cos(\Delta\theta_1) b_1 & & &  \\
+\cos(\Delta\theta_1) b_1 & -\cos(\Delta\theta_1) b_1 - \cos(\Delta\theta_2) b_2 & \cos(\Delta\theta_2) b_2 \\
+& \cos(\Delta\theta_2) b_2 & -\cos(\Delta\theta_2) b_2 - \cos(\Delta\theta_3) b_3 & \cos(\Delta\theta_3) b_3 \\
 & \ddots & & \ddots \\
-& & & c_{m-1} a_{m-1} & -c_{m-1} a_{m-1}  \\
+& & & \cos(\Delta\theta_{m-1}) b_{m-1} & -\cos(\Delta\theta_{m-1}) b_{m-1}  \\
 \end{pmatrix}
 \end{align}
-By Theorem \ref{stabilitytheorem}, to leading order, we need to find $\mu$ such that equation 
-\begin{align}\label{Aeq1}
-\begin{pmatrix}
--c_2 a_1 - c_1 \mu & c_2 a_1 & & &  \\
-c_1 a_1 & -c_1 a_1 - c_3 a_2 - c_2 \mu & c_3 a_2 \\
-& c_2 a_2 & -c_2 a_2 - c_4 a_3 - c_3 \mu & c_4 a_3 \\
-& \ddots & & \ddots \\
-& & & c_{m-1} a_{m-1} & -c_{m-1} a_{m-1} - c_m \mu 
-\end{pmatrix}
-\begin{pmatrix}d_1 \\ d_2 \\ d_3 \\ \vdots \\ d_m \end{pmatrix} 
- = 0
-\end{align}
-We will take $\mu = M_2 \lambda^2$. For $\mu = 0$, $(1, 1, \dots, 1)^T$ is a nontrivial solution to \eqref{Aeq1}. The inner rows of \eqref{Aeq1} satisfy the difference equation
-\[
-c_{j-1} a_{j-1} d_{j-1} - (c_{j-1}a_{j-1} + c_{j+1}a_j + c_j \mu) d_j
-+ c_{j+1} a_j d_{j+1} = 0
-\]
-Multiplying this by $c_j$ and noting that $c_j^2 = 1$, this becomes
-\[
-c_{j-1} c_j a_{j-1} d_{j-1} - c_{j-1} c_j a_{j-1} d_j - c_j c_{j+1} a_j d_j
-+ c_j c_{j+1} a_j d_{j+1} = \mu d_j
-\]
-Let $p_j = c_j c_{j+1} a_j$. Then we can write this as
-\[
-p_{j-1} d_{j-1} - p_{j-1} d_j - p_j d_j
-+ p_j d_{j+1} = \mu d_j
-\]
-which is of the form
-\[
-\nabla( p_j \Delta d_j ) = \mu d_j
-\]
-where $\Delta$ is the forward difference operator $\Delta f(j) = f(j+1) - f(j)$ and $\nabla$ is the backward difference operator $\nabla f(j) = f(j) - f(j-1)$. This is in the form of a Sturm-Liouville difference equation $\nabla( p_j \Delta d_j ) + q_j d_j = \mu w_j d_j$ with $q_j = 0$ and $w_j = 0$. The boundary conditions are obatained from the first and last lines of the matrix equation \eqref{Aeq1}. To do this, we extend the S-L difference equation to $j = 1$ and $j = m$, which will give us terms involving $d_0$ and $d_{m+1}$. We then impose conditions so that these are equivalent to the first and last lines. For the first line, we have
+
+The matrix $A$ is symmetric tridiagonal and has the same form as the matrix $A_0$ in Lemma 5.4 of San98. $A$ has an eigenvalue at 0 with corresponding eigenvector $(1, 1, \dots, 1)^T$. Since the $b_i$ are all negative, the signs of the entries of $A$ are determined completely by the phase differences $\Delta\theta_i$. Thus we can use Lemma 5.4 of San98 to find the signs of the remaining $m-1$ eigenvalues of $A$. Noting that the matrix $A$ here is $-A_0$ there), we conclude that  
+\begin{enumerate}
+	\item $A_0$ has $k_\pi$ negative real eigenvalues (counting multiplicity), where $k_\pi$ is the number of $\Delta\theta_i$ which are $\pi$. 
+	\item $A_0$ has $k_0$ positive real eigenvalues (counting multiplicity), where $k_0$ is the number of $\Delta\theta_i$ which are $0$. 
+\end{enumerate}
+
+Next, we show that the eigenvalues of $A$ are distinct. To do this, we note that $\nu$ is an eigenvalue of $A$ if and only if $(A - \mu I)v = 0$ has a nontrivial solution. Let $p_i = \cos(\Delta\theta_i) b_i$. Then this is equivalent to the following system of equations
+\begin{equation}\label{SL1}
+\begin{aligned}
+-p_1 v_1 + p_1 v_2 &= \mu v_1 \\
+p_{j-1} v_{j-1} - (p_{j-1} + p_j)v_j + p_j v_{j+1} &= \mu v_j && j = 2, \dots, m-1 \\
+p_{m-1} v_{m-1} - p_{m-1}v_m &= \mu v_m
+\end{aligned}
+\end{equation}
+The second equation is of the form
+\begin{equation}\label{SLdiff}
+\nabla( p_j \Delta v_j ) = \mu v_j
+\end{equation}
+where $\Delta$ is the forward difference operator $\Delta f(j) = f(j+1) - f(j)$ and $\nabla$ is the backward difference operator $\nabla f(j) = f(j) - f(j-1)$. Equation \eqref{SLdiff} is a Sturm-Liouville difference equation $\nabla( p_j \Delta d_j ) + q_j d_j = \mu w_j d_j$ with $q_j = 0$ and $w_j = 0$. The boundary conditions are obatained from the first and last equations in \eqref{SL1}. To do this, we extend equation \eqref{SLdiff} to $j = 0$ and $j = m$, which will give us terms involving $d_0$ and $d_{m+1}$. We then impose conditions so that these are equivalent to the first and third equations in \eqref{SL1}. For the first equation, we have
 \[
 -p_1 d_1 + p_1 d_2 = \mu d_1
 \]
-Since the difference equation evaluated at $j = 1$ is
+Since the difference equation \eqref{SLdiff} evaluated at $j = 1$ is
 \[
 p_0 d_0 - p_0 d_1 - p_1 d_1 + p_1 d_2 = \mu d_1
 \]
-we take the Dirichlet boundary condition $d_0 = 0$. Similarly, we take $d_{m+1} = 0$. Thus we have the S-L difference equation
-\begin{equation}\label{SLdiff}
+we take the Dirichlet boundary condition $d_0 = 0$. Similarly, we take $d_{m+1} = 0$. Thus we have the S-L difference equation with Dirichlet boundary conditions
+\begin{equation}\label{SLdiff2}
 \begin{aligned}
 \nabla( p_j \Delta d_j ) &= \mu d_j && j = 1, \dots, m \\
 d_0 &= 0 \\
 d_{m+1} &= 0
 \end{aligned}
 \end{equation}
-where $p_j = c_j c_{j+1} a_j$. It follows from [REFERENCE] that the eigenvalues of \eqref{SLdiff} are real and distinct. To find the eigenvalues of \eqref{SLdiff}, we will write \eqref{Adzero} in the form of an eigenvalue problem. WE MIGHT BE ABLE TO DO THIS INSTEAD WITH DISCRETE S-L THEORY. Multiply row $j$ of \eqref{Aeq1} by $c_j$ to get
-\begin{align*}
-\begin{pmatrix}
--c_1 c_2 a_1 - \mu & c_1 c_2 a_1 & & &  \\
-c_1 c_2 a_1 & -c_1 c_2 a_1 - c_2 c_3 a_2 - \mu & c_2 c_3 a_2 \\
-& c_2 c_3 a_2 & -c_2 c_3 a_2 - c_3 c_4 a_3 - \mu & c_3 c_4 a_3 \\
-& \ddots & & \ddots \\
-& & & c_{m-1} c_m a_{m-1} & -c_{m-1} c_m a_{m-1} - \mu \\
-\end{pmatrix}
-\begin{pmatrix}d_1 \\ d_2 \\ d_3 \\ \vdots \\ d_m \end{pmatrix} 
- = 0
-\end{align*}
-Let $p_j = c_j c_{j+1} a_j$. Then \eqref{Aeq1} is equivalent to $(A_0 - \mu I)d = 0$, where
-\begin{align*}
-A_0 = 
-\begin{pmatrix}
--p_1 & p_1 & & &  \\
-p_1 & -p_1 - p_2 & p_2 \\
-& p_2 & -p_2 - p_3  & p_3 \\
-& \ddots & & \ddots \\
-& & & p_{m-1} & -p_{m-1} \\
-\end{pmatrix}
-\end{align*}
-This matrix is symmetric and is the same matrix as we find in San98. $A_0$ has an eigenvalue at 0 with corresponding eigenvector $(1, 1, \dots, 1)^T$. For the remaining $m-1$ eigenvalues, we use Lemma 5.4 in San98 (noting that the matrix $A_0$ there is $-A_0$ here) to conclude that  
-\begin{enumerate}
-	\item $A_0$ has $k_+$ negative real eigenvalues (counting multiplicity), where $k_+$ is the number of positive $p_j$.
-	\item $A_0$ has $k_-$ positive real eigenvalues (counting multiplicity), where $k_-$ is the number of negative $p_j$.
-\end{enumerate}
-We showed above that the $a_j$ are all negative. Thus we conclude that
-\begin{align*}
-p_j > 0 &\text{ if }c_j c_{j+1} = -1 \\
-p_j < 0 &\text{ if }c_j c_{j+1} = 1
-\end{align*}
-which implies that $c_j c_{j+1} = -1$ corresponds to a negative real eigenvalue of $A_0$ and $c_j c_{j+1} = 1$ corresponds to a positive real eigenvalue. We conclude that $A_0$ has one eigenvalue at 0; $k$ negative eigenvalues, where $k$ is the number of sign changes in the $m-$component vector $(c_1, c_2, \dots, c_m)$; and $m - k - 1$ negative eigenvalues. Let $0, \mu_1, \dots, \mu_{m-1}$ be the eigenvalues of $A_0$. Since these are the same eigenvalues as those of the discrete S-L problem \eqref{SLdiff}, these are distinct. 
+It follows from Corollary 2.2.7 in Jirari that the eigenvalues of \eqref{SLdiff} are real and distinct. Let $\{0, \mu_1, \dots, \mu_{m-1}\}$ be the distinct eigenvalues of $A$.
 
-Recall that we are taking $\mu = M_2 \lambda^2$. Thus $(A_0 - \lambda^2 M_2 I) = 0$ if and only if $\lambda = 0$ or $\lambda = \lambda_j^\pm$, where 
-\begin{align*}
-\lambda_j^\pm &= \pm \sqrt{\mu_j / M_2} && j = 1, \dots, m-1
-\end{align*}
-These are pairs of real or purely imaginary eigenvalues, depending on the sign on $\mu_j$.
-
-So far, we have found the eigenvalues $\lambda$ to leading order. Finally, we show that, when we include the remainder term, the nonzero eigenvalues are close to $\lambda_j^\pm$. We will always have an eigenvalue at 0 with algebraic multiplicity 2 and geometric multiplicity 1. The eigenfunction is $S_m(n)$ and the generalized eigenfunction is $T_m(n)$. For the nonzero eigenvalues, recall that by Theorem \ref{stabilitytheorem}, $\lambda$ is an eigenvalue if and only if 
+Finally, we will solve the eigenvalue problem \eqref{dNLSEVP}. We will always have an eigenvalue at 0 with algebraic multiplicity 2 and geometric multiplicity 1. The eigenfunction is $S_m(n)$ and the generalized eigenfunction is $T_m(n)$. For the nonzero eigenvalues, recall that by Theorem \ref{stabilitytheorem}, $\lambda$ is an eigenvalue if and only if 
 \[
-(A - M_2 \lambda^2 \text{diag}(c_1, \dots, c_m) + R(\lambda) )d = 0
+E(\lambda) = \det(A - M_2 \lambda^2 I + R(\lambda) ) = 0
 \]
-has a nontrivial solution, where the remainder term has bound
+The next step is to rescale our equation. Let
 \begin{align*}
-|R(\lambda)(d)| \leq C\left( (r^N + |\lambda|)^3 \right)
+A = r^{-2N} \tilde{A} \\
+\lambda = r^{-N} \tilde{\lambda} \\
+R(\lambda) = r^{-3N} \tilde{R}(\lambda)
 \end{align*}
-Multiply row $j$ by $c_j$ to get the equivalent problem
+Then the eigenvalues of $\tilde{A}$ are $\{0, \tilde{\mu}_1, \dots, \tilde{\mu}_{m-1}\}$, which are distinct, and $\mu_j = r^{-2N} \tilde{\mu_j}$. Dividing by $r^{-2N}$, we get the equivalent problem
 \[
-(A_0 - M_2 \lambda^2 I + R_0(\lambda))d = 0
-\]
-where $R_0(\lambda)$ has the same order as $R(\lambda)$. Thus it suffices to show $E_0(\lambda) = 0$, where
-\[
-E_0(\lambda) = \det (A_0 - M_2 \lambda^2 I + R_0(\lambda))
+\det(\tilde{A} - M_2 \tilde{\lambda}^2 I + r^{-N} \tilde{R}(\lambda)) = 0
 \]
 
-We showed above that $\det (A_0 - M_2 \lambda^2 I) = 0$ for $\lambda = \lambda_j^\pm$ and $\lambda = 0$. Next, we rescale our equation. Let
-\begin{align*}
-A_0 = r^{2N} \tilde{A} \\
-\lambda = r^{N} \tilde{\lambda} \\
-R_0(\lambda) = r^{3N} \tilde{R}(\lambda)
-\end{align*}
-Dividing by $r^{-2N}$, we get the equivalent problem
+Let $\epsilon = r^{-N}$. Then it suffices to show $\tilde{E}(\lambda; \epsilon) = 0$, where
 \[
-(\tilde{A} - M_2 \tilde{\lambda}^2 I + r^{N} \tilde{R}(\lambda))d = 0
-\]
-
-Let $\epsilon = r^{N}$. Then it suffices to show $\tilde{E}(\lambda; \epsilon) = 0$, where
-\[
-\tilde{E}(\lambda; \epsilon) = \det(\tilde{A} - M_2 \tilde{\lambda}^2 I + r^{-N} \tilde{R}(\lambda))
+\tilde{E}(\tilde{\lambda}; \epsilon) = \det(\tilde{A} - M_2 \tilde{\lambda}^2 I + \epsilon \tilde{R}(\lambda))
 \]
 For $j = 1, \dots, m-1$, let 
 \[
-\lambda_j^\pm = r^{-N} \tilde{\lambda}_j^\pm
+\tilde{\lambda}_j^\pm = \pm \sqrt{\tilde{\mu}_j / M_2 }
 \]
-Then $\tilde{E}(\tilde{\lambda}_j^\pm; 0) = 0$. Since the eigenvalues of $A_0$ (hence $\tilde{A}$) are distinct,
+Then $\tilde{E}(\tilde{\lambda}_j^\pm; 0) = 0$. Since the eigenvalues of $\tilde{A}$ are distinct,
 \[
 \frac{\partial}{\partial \tilde{\lambda}} \tilde{E}(\tilde{\lambda}_j^\pm; 0) \neq 0
 \]
-Thus, by the IFT, we can solve for $\tilde{\lambda}$ as a function of $\epsilon$ near $(\tilde{\lambda}, \epsilon) = (\tilde{\lambda}_j^\pm; 0)$. Expanding $\tilde{\lambda}(\epsilon)$ in a Taylor series about $\epsilon = 0$ and taking $\epsilon = r^{-N}$ gives us
+Using the IFT, we can solve for $\tilde{\lambda}$ as a function of $\epsilon$ near $(\tilde{\lambda}, \epsilon) = (\tilde{\lambda}_j^\pm; 0)$, i.e. we can find a smooth function $\tilde{\lambda}_j^\pm(\epsilon)$ with $\tilde{\lambda}_j^\pm(0) = \pm \sqrt{\tilde{\mu}_j / M_2 }$ such that $E(\tilde{\lambda}_j^\pm(\epsilon); \epsilon) = 0$.
+
+Expanding $\tilde{\lambda}(\epsilon)$ in a Taylor series about $\epsilon = 0$ and taking $\epsilon = r^{-N}$ gives us
 \begin{equation*}
 \tilde{\lambda}_j^\pm(N) = \tilde{\lambda}_j^\pm + \mathcal{O}(r^{-N})
 \end{equation*}
-Undoing the scaling, we have
+Undoing the scaling, this becomes
 \begin{align*}
 \lambda^\pm_j(N) &= \pm \sqrt{\frac{\mu_j}{M_2}} + \mathcal{O}(r^{-3N}) 
 \end{align*}
@@ -772,7 +766,15 @@ By Hamiltonian symmetry, eigenvalues must come in quartets $\pm a \pm i b$. Sinc
 \begin{align*}
 \lambda_j(N) &= \sqrt{\frac{\mu_j}{M_2}} + \mathcal{O}(r^{-3N}) 
 \end{align*}
-where $\mu_j$ is an eigenvalue of $A_0$. These are either real or purely imaginary, and remainder term cannot move these off of the real or imaginary axis. Let $k$ be the number of sign changes in the $m-$component vector $(c_1, c_2, \dots, c_m)$, with $c_j = \pm 1$. Then $k$ of these pairs are purely imaginary, and $m - k - 1$ of these pairs are real.
+These are either real or purely imaginary, and remainder term cannot move these off of the real or imaginary axis.
+
+If we assume $M_2 > 0$, which is suggested by numerics, then we have
+\begin{enumerate}
+	\item $k_\pi$ pairs of purely imaginary eigenvalues
+	\item $k_0$ pairs of real eigenvalues
+\end{enumerate}
+
+In the anti-continuum limit, the eigenvalue problem is
 
 \section{Proof of Existence Theorems}
 
@@ -1954,7 +1956,7 @@ Substituting these into the jump expressions from Lemma \ref{jumpcond}, we have 
 \begin{equation*}
 \xi_i = \langle T(\theta_i) Z_1(N_i^+), T(\theta_{i+1}) S_1(-N_i^-) \rangle (d_{i+1} - d_i)
 + \langle T(\theta_i) Z_1(-N_{i-1}^-), T(\theta_{i-1}) S_1(N_{i-1}^+) \rangle (d_i - d_{i-1})
-- \sum_{j = -\infty}^{\infty} \langle T(\theta_i) Z_1(j+1), B T(\theta_i) T_1(j)\rangle + R(\lambda)_i(d)
+- \sum_{j = -\infty}^{\infty} \langle Z_1(j+1), B T_1(j)\rangle + R(\lambda)_i(d)
 \end{equation*}
 
 For the remainder term, we substitute $|D|, ||G|| = \mathcal{O}(r^N)$. Since the remainder terms from the substitutions above are order $\mathcal{O}(r^{-3N})$, they are already included in the remainder term from Lemma \ref{jumpcond}. Thus we have remainder bound
