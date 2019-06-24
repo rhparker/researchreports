@@ -165,7 +165,7 @@ Taking $\theta = 0$, since $F$ is smooth and $T(0) = I$, this becomes $S Q(n+1) 
 
 From Hypothesis \ref{intersectionhyp}, the variational equation \eqref{vareq} has no other linearly independent bounded solution. Thus we can decompose the tangent spaces $W^s(0)$ and $W^u(0)$ at $Q(0)$ as
 \begin{align*}
-T_{Q(0)} W^u(0) &= Y^- \oplus \R S_1(0)
+T_{Q(0)} W^u(0) &= Y^- \oplus \R S_1(0) \\
 T_{Q(0)} W^s(0) &= Y^+ \oplus \R S_1(0)
 \end{align*}
 It also follows from Hypothesis \ref{intersectionhyp} that the adjoint variational equation \eqref{adjvareq} has a unique bounded solution $Z_1(n)$. By Lemma \ref{evolop} below, $Z_1(0) \perp S_1(0) \oplus Y^- \oplus Y^+$, thus we can decompose $\R^d$ as
@@ -173,7 +173,7 @@ It also follows from Hypothesis \ref{intersectionhyp} that the adjoint variation
 \R^d = \R S_1(0) \oplus Y^+ \oplus Y^- \oplus \R Z_1(0)
 \end{equation}
 Since $T(\theta)$ is unitary, we also have the decomposition
-\begin{equation}\label{nontdecomp}
+\begin{equation}\label{nontdecompT}
 \R^d = \R T(\theta_i) S_1(0) \oplus T(\theta_i) Y^+ \oplus T(\theta_i) Y^- \oplus \R T(\theta_i) Z_1(0)
 \end{equation}
 
@@ -278,7 +278,7 @@ M_1 = \sum_{n=-\infty}^\infty \langle Z_1(n+1), B S_1(n) \rangle = 0
 \]
 By the Fredholm alternative, there exists $T_1(n)$ such that 
 \[
-T_1(n+1) = A(Q(n)) T_1(n) + B S_1(n)
+T_1(n+1) = DF(Q(n)) T_1(n) + B S_1(n)
 \]
 We assume that the higher order Melnikov sum is nonzero.
 \[
@@ -294,9 +294,9 @@ We can now state the stability theorem, in which we locate the eigenvalues of \e
 Assume Hypotheses \ref{symmetryhyp}(ii), \ref{initialhyp}, \ref{intersectionhyp}, and \ref{BTcommutehyp}. Let $Q_m(n)$ be discrete $m-$pulse equilibrium solution to \eqref{latticePDE}, constructed according to Theorem \ref{ntmulti}. Then there exists a bounded, nonzero solution $V(n)$ of the eigenvalue problem \eqref{latticeEVP} for $|\lambda| < \delta$ if and only if $\det E(\lambda) = 0$, where
 \begin{equation}\label{Elambda}
 E(\lambda) = \begin{cases}
-\det(A - M_1 \lambda I + R(\lambda)
+\det(A - M_1 \lambda I + R(\lambda))
 & \text{Hypothesis \ref{melnikovhyp}(i) holds} \\
-\det(A - M_2 \lambda^2 I + R(\lambda) 
+\det(A - M_2 \lambda^2 I + R(\lambda))
 & \text{Hypothesis \ref{melnikovhyp}(ii) holds}
 \end{cases}
 \end{equation}
@@ -1345,7 +1345,10 @@ W_{i+1}^-(-N_i^-) = T(\theta_i) Q(N_i^+) + \mathcal{O}(r^{-2N})
 \section{Proof of Stability Theorem}
 
 \subsection{Setup}
-To prove the stability theorem, we will also use Lin's method. Assume Hypothesis \ref{initialhyp} and Hypothesis \ref{intersectionhyp}(ii). Using Theorem \ref{ntmulti}, let $Q_m(n)$ be an $m-$pulse solution to \eqref{diffeq} which resembles $m$ copies of the primary pulse solution $Q_1(n)$. We write $Q_m(n)$ piecewise as in \eqref{qmpiecewise}, and we have the following bounds.
+
+To prove the stability theorem, we will also use Lin's method. As in San98, we will write the eigenfunction as a piecewise perturbation of the symmetry eigenfunction $S_1(n)$. 
+
+Assume Hypothesis \ref{initialhyp} and Hypothesis \ref{intersectionhyp}(ii). Using Theorem \ref{ntmulti}, let $Q_m(n)$ be an $m-$pulse solution to \eqref{diffeq} which resembles $m$ copies of the primary pulse solution $Q_1(n)$. We write $Q_m(n)$ piecewise as in \eqref{qmpiecewise}, and we have the following bounds from Theorem \ref{ntmulti}.
 \begin{enumerate}[(i)]
 \item $Q_1(n) = \mathcal{O}(r^n)$
 \item $||\tilde{Q}|| \leq C r^N$
@@ -1353,54 +1356,107 @@ To prove the stability theorem, we will also use Lin's method. Assume Hypothesis
 \item $|\tilde{Q}_i^+(N_i^+) - T(\theta_{i+1}) Q_1(-N_i^-)|| \leq C r^{2N}$
 \end{enumerate}
 
-Linearizing about $Q_m(n)$, we have the difference equation
-\[
-V(n+1) = A(Q_m(n))V(n)
-\]
-This has a solution $S_m(n)$ which we can write piecewise as $S_m(n) = T(\theta_i) S_1(n) + \tilde{S}_i^\pm(n)$, and the bounds above apply. Similarly, if Hypothesis \ref{melnikovhyp} holds, there exists a solution $T_m(n)$ with $T_m(n+1) = A(Q_m(n))T_m(n) + BS(n)$; we can again write $T_m(n)$ piecewise as $T_m(n) = T(\theta_i) T_1(n) + \tilde{T}_i^\pm(n)$, and the bounds above apply. I ASSUME WE CAN DO THIS USING THE METHODS IN THE PREVIOUS SECTION.
-
-Similar to San98, we will take a piecewise ansatz for the eigenfunction $V(n)$. The form of the ansatz will depend on whether we take Hypothesis \ref{melnikovhyp}(i) or \ref{melnikovhyp}(ii). For Hypothesis \ref{melnikovhyp}(i), let
+Recall that the eigenvalue problem is given by 
 \begin{align*}
-V_i^\pm(n) &= d_i ( T(\theta_i) S_1(n) + \tilde{S}_i^\pm(n) ) + W_i^\pm(n)
+V(n+1) = DF(Q_m(n)) V(n) + \lambda B V(n)
+\end{align*}
+Let $S_m(n) = S Q_m(n)$, where $S$ is the infinitesimal generator of the symmetry $T(\theta)$. Then $S_m(n)$ solves the equation
+\begin{equation}\label{Smsolves}
+S_m(n+1) = A(Q_m(n))S_m(n)
+\end{equation}
+Using the piecewise form of $Q_m(n)$ from \eqref{qmpiecewise}, we can write $S_m(n)$ piecewise as 
+\begin{equation}\label{Smdef}
+S_m(n) = S T(\theta_i) Q(n) + S \tilde{Q}_i^\pm(n)
+= T(\theta_i) S_1(n) + \tilde{S}_i^\pm(n)
+\end{equation}
+where we use the fact that $S$ commutes with $T(\theta)$. Since $S$ is a bounded matrix, bounds from Theorem \ref{ntmulti} apply to $S_m(n)$ as well.
+
+As in San98, we will take a piecewise ansatz for the eigenfunction $V(n)$. The form of the ansatz will depend on whether we take Hypothesis \ref{melnikovhyp}(i) or \ref{melnikovhyp}(ii). For Hypothesis \ref{melnikovhyp}(i), we use the piecewise ansatz
+\begin{align*}
+V_i^\pm(n) &= d_i S_m(n) + W_i^\pm(n) = d_i ( T(\theta_i) S_1(n) + \tilde{S}_i^\pm(n) ) + W_i^\pm(n)
 && i = 1, \dots, n-1
 \end{align*}
-where $d_i \in \C$. Substituting this into \eqref{latticeEVP} and simplifying, we get
-\[
-W_i^\pm(n) = A(Q_m(n)) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda d_i B T(\theta_i) S_1(n) + \lambda d_i B \tilde{S}_i^\pm(n)
-\]
-
-For case (ii), we make the piecewise ansatz
-\[
-V_i^\pm(n) = d_i [ c_i S_1(n) + \tilde{S}_i^\pm(n) + \lambda(c_i T_1(n) + \tilde{T}_i^\pm(n))] + W_i^\pm(n)
-\]
-Substituting this into \eqref{latticeEVP} and simplifying, we get
-\[
-W_i^\pm(n) = A(q_m) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda^2 d_i B T(\theta_i) T_1(n) + \lambda^2 d_i B \tilde{T}_i^\pm(n)
-\]
-
-Since these are almost identical, we will only consider (ii), since that version shows up in dNLS. The results for (i) will be similar. We want to write this in terms of $A(T(\theta_i) Q_1(n))$. Adding and subtracting $A(T(\theta_i) Q_1(n))$, we have
-\begin{equation}\label{Weq1}
-W_i^\pm(n) = A(T(\theta_i) Q_1(n)) W_i^\pm(n) + \left(A(Q_m(n)) - A(T(\theta_i) Q_1(n))\right) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda^2 d_i c_i B S_1(n) + \lambda^2 d_i B \tilde{S}_i^\pm(n)
+where $d_i \in \C$. Substituting this into \eqref{latticeEVP} and simplifying, the eigenvalue problem becomes
+\begin{equation}\label{EVPhypi}
+W_i^\pm(n) = DF(Q_m(n)) W_i^\pm(n) + \lambda B W_i^\pm(n) + \lambda d_i B T(\theta_i) S_1(n) + \lambda d_i B \tilde{S}_i^\pm(n)
 \end{equation}
-Let
-\begin{align*}
-G_i^\pm(n) &= A(Q_m(n)) - A(T(\theta_i) Q_1(n)) \\
-\tilde{H}_i^\pm(n) &= BT_m(n) = B( T(\theta_i) T_1(n) + \tilde{T}_i^\pm(n) ) \\
-H_i(n) &= B T(\theta_i) T_1(n) \\
-\end{align*}
-Then equation \eqref{Weq1} becomes
-\begin{equation*}
-W_i^\pm(n) = A(T(\theta_i) Q_1(n)) W_i^\pm(n) + (G_i^\pm(n) + \lambda B) W_i^\pm(n) + \lambda^2 d_i B \tilde{H}_i^\pm(n)
-\end{equation*}
 
-To constuct an eigenfunction, we add appropriate matching conditions at $n = \pm N_i$ and $n = 0$ to get the following system
-\begin{align}
-W_i^\pm(n) &= A(T(\theta_i) Q_1(n)) W_i^\pm(n) + (G_i^\pm(n) + \lambda B) W_i^\pm(n) + \lambda^2 d_i B \tilde{H}_i^\pm(n) \label{eigsystem1} \\
-W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= D_i d \label{eigsystem2} \\
-W_i^\pm(0) &\in \C T(\theta_i) Z_1(0) \oplus T(\theta_i) Y^+ \oplus T(\theta_i) Y^- \label{eigsystem3a}  \\
-W_i^+(0) - W_i^-(0) &\in \C T(\theta_i) Z_1(0) \label{eigsystem3b} 
+If instead Hypothesis \ref{melnikovhyp}(ii) holds, recall that there exists a localized function $T_1(n)$ such that 
+\begin{equation}\label{T1vareq}
+T_1(n+1) = DF(Q(n)) T_1(n) + B S_1(n)
+\end{equation}
+Using the symmetry relation $F(T(\theta)U) = T(\theta)F(U)$ and the commuting relation $B T(\theta) = T(\theta)B$ from Hypothesis \ref{melnikovhyp}(ii), this we also have
+\begin{equation}\label{TthetaT1vareq}
+T(\theta)T_1(n+1) = DF(T(\theta)Q(n)) T(\theta)T_1(n) + B T(\theta) S_1(n)
+\end{equation}
+Similarly, by the Fredholm alternative, there exists a function $T_m(n)$ such that 
+\begin{equation}\label{Tmsolves}
+T_m(n+1) = DF(Q_m(n)) T_m(n) + B S_m(n)
+\end{equation}
+In this case, we use the piecewise ansatz
+\begin{equation}\label{Viansatz2}
+V_i^\pm(n) = 
+d_i [ S_m(n) + \lambda T_m(n) ] + W_i^\pm(n)
+\end{equation}
+Substituting this into \eqref{latticeEVP}, we get
+\begin{align*}
+d_i &S_m(n+1) + d_i \lambda T_m(n+1) + W_i^\pm(n+1) \\
+&= d_i DF(Q_m(n)) S_m(n) + d_i \lambda DF(Q_m(n)) T_m(n) + DF(Q_m(n)) W_i^\pm(n) \\
+&+ d_i \lambda B S_m + d_i \lambda^2 B T_m(n) + \lambda B W_i^\pm(n)
+\end{align*}
+Using equations \eqref{Smsolves} and \eqref{Tmsolves}, this simplifies to
+\begin{align*}
+W_i^\pm(n+1)
+&= DF(Q_m(n)) W_i^\pm(n) + \lambda B W_i^\pm(n) + d_i \lambda^2 B T_m(n)
+\end{align*}
+Let
+\begin{equation}
+G_i^\pm(n) = DF(Q_m(n)) - DF(T(\theta_i) Q(n) )
+\end{equation}
+From the bounds above, $|G_i^\pm| \leq C r^N$. Adding and subtracting $DF(T(\theta_i) Q(n) )$, the eigenvalue problem becomes
+\begin{align}\label{Weq1}
+W_i^\pm(n+1)
+&= DF(T(\theta_i) Q(n) ) W_i^\pm(n) + G_i^\pm(n)W_i^\pm(n) + \lambda B W_i^\pm(n) + d_i \lambda^2 B T_m(n)
 \end{align}
 
+Since the cases for Hypotheses \ref{melnikovhyp}(i) and \ref{melnikovhyp}(ii) are similar, we will only prove one of them. Since Hypothesis \ref{melnikovhyp}(ii) holds for dNLS, we will choose to prove that case. For convenience, let
+\begin{align*}
+\tilde{H}_i^\pm(n) &= B T_m(n) \\
+H_i(n) &= B T(\theta_i) T_1(n)
+\end{align*}
+Making this substitution, \eqref{Weq1} becomes
+\begin{equation}\label{Weq2}
+W_i^\pm(n) = DF(T(\theta_i) Q(n) ) W_i^\pm(n) + (G_i^\pm(n) + \lambda B) W_i^\pm(n) + \lambda^2 d_i B \tilde{H}_i^\pm(n)
+\end{equation}
+
+Before we continue, we would like to write $T_m(n)$ as a piecewise perturbation of $T_1(n)$ in a similar fashion to \eqref{qmpiecewise}. To do this, we take the piecewise ansatz 
+\begin{equation}\label{Tmansatz}
+T_m(n) = T(\theta)T_1(n) + \tilde{T}_i^\pm(n)
+\end{equation}
+using the same intervals as \eqref{qmpiecewise}. Substituting \eqref{Tmansatz} and \eqref{Smdef} into \eqref{Tmsolves}, we have
+\begin{align*}
+T(\theta)&T_1(n+1) + \tilde{T}_i^\pm(n+1) = DF(Q_m(n)) (T(\theta)T_1(n) + \tilde{T}_i^\pm(n)) + B (T(\theta)S_1(n) + \tilde{S}_i^\pm(n)) \\
+&= DF(T(\theta)Q(n)) T(\theta)T_1(n) + DF(T(\theta)Q(n)) \tilde{T}_i^\pm(n) \\
+&+ G_i^\pm(n)(T(\theta)T_1(n) + \tilde{T}_i^\pm(n)) + B T(\theta)S_1(n) + B \tilde{S}_i^\pm(n)
+\end{align*}
+Using equation \eqref{TthetaT1vareq}, this simplifies to
+\begin{align*}
+\tilde{T}_i^\pm(n+1) 
+&= DF(T(\theta)Q(n)) \tilde{T}_i^\pm(n)
++ G_i^\pm(n) \tilde{T}_i^\pm(n) + G_i^\pm(n) T(\theta)T_1(n) + B \tilde{S}_i^\pm(n)
+\end{align*}
+We can use Lin's method to solve for $\tilde{T}_i^\pm(n+1)$. Since this is similar to what we did in the existence problem, the details will be omitted. Using Lin's method, we conclude that
+\begin{equation}\label{Tipmbound}
+|| \tilde{T}_i^\pm || \leq C r^{-N}
+\end{equation}
+
+Since solving the $2m$ equations \eqref{Weq2} gives us a piecewise solution, in order to have an eigenfunction we need to satisfy matching conditions at $n = \pm N_i$ and $n = 0$. Adding these conditions and using the expression \eqref{Tmansatz} for $T_m(n)$, we obtain the system of equations
+\begin{align*}
+W_i^\pm(n) &= DF(T(\theta_i) Q(n) ) W_i^\pm(n) + (G_i^\pm(n) + \lambda B) W_i^\pm(n) + \lambda^2 d_i B \tilde{H}_i^\pm(n) \\
+W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= D_i d \\
+W_i^\pm(0) &\in \C T(\theta_i)Y^+ \oplus T(\theta_i)Y^- \oplus T(\theta_i) Z_1(0) \\ 
+W_i^+(0) - W_i^-(0) &= 0 
+\end{align*}
 where
 \begin{align*}
 D_i d &= [ T(\theta_{i+1}) S_1(-N_i^-) + \tilde{S}_{i+1}^-(-N_i^-)] d_{i+1}
@@ -1408,18 +1464,26 @@ D_i d &= [ T(\theta_{i+1}) S_1(-N_i^-) + \tilde{S}_{i+1}^-(-N_i^-)] d_{i+1}
 &+ \lambda[ T(\theta_{i+1}) T_1(-N_i^-) + \tilde{T}_{i+1}^-(-N_i^-)] d_{i+1}
 - \lambda[ T(\theta_i) T_1(N_i^+) + \tilde{T}_i^+(N_i^+)] d_i 
 \end{align*}
+and the third expression comes from the decomposition \eqref{nontdecompT} and the fact that perturbations in the direction of $T(\theta_i)S_1(0)$ and handled by the $d_i S_m(n) = d_i S_1(n) + d_i \tilde{S}_i^\pm(n)$ term in \eqref{Viansatz2}.
 
-A solution to our system above will generically have $n$ jumps at $n = 0$. Thus we have an eigenfunction if and only if the $n$ jump conditions are satisfied.
+Instead of solving this system, we will solve the system
+\begin{align}
+W_i^\pm(n) &= DF(T(\theta_i) Q(n) ) W_i^\pm(n) + (G_i^\pm(n) + \lambda B) W_i^\pm(n) + \lambda^2 d_i B \tilde{H}_i^\pm(n) \label{eigsystem1} \\
+W_i^+(N_i^+) - W_{i+1}^-(-N_i^-) &= D_i d \label{eigsystem2} \\
+W_i^\pm(0) &\in T(\theta_i) Y^+ \oplus T(\theta_i) Y^- \oplus \C T(\theta_i) Z_1(0) \label{eigsystem3a} \\
+W_i^+(0) - W_i^-(0) &\in \C T(\theta_i) Z_1(0) \label{eigsystem3b} 
+\end{align}
+A solution to this system will generically have $n$ jumps at $n = 0$. Thus we have an eigenfunction if and only if the following $n$ jump conditions are satisfied.
 \begin{equation}\label{jumpcond}
 \xi_i = \langle T(\theta_i) Z_1(0), W_i^+(0) - W_i^-(0) \rangle = 0
 \end{equation}
 
 Using the bounds above, we have the estimates
 \begin{align*}
-|G_i^\pm| &\leq C r^N \\
-|\tilde{H}_i^\pm - H| &\leq C r^N \\
-D_i d &= [ c_{i+1} S_1(-N_i^-) + c_i S_1(N_i^+) ] d_{i+1}
-- [ c_i S_1(N_i^+) + c_{i+1} S_1(-N_i^-) ] d_i 
+||G_i^\pm|| &\leq C r^N \\
+||\tilde{H}_i^\pm - H|| &\leq C r^N \\
+D_i d &= [ T(\theta_{i+1}) S_1(-N_i^-) + T(\theta_i) S_1(N_i^+) ] d_{i+1}
+- [ T(\theta_i) S_1(N_i^+) + T(\theta_{i+1}) S_1(-N_i^-) ] d_i 
 +\mathcal{O}(r^N( |\lambda| + r^N))
 \end{align*}
 
